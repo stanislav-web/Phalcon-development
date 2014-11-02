@@ -1,5 +1,7 @@
 <?php
-error_reporting(E_ALL);
+
+defined('APPLICATION_ENV') ||
+define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production'));
 
 try {
 
