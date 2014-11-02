@@ -1,2 +1,11 @@
-/cache/
-/config/development/
+# Created by .gitignore support plugin (hsz.mobi)
+.phalcon
+*.phar
+.htaccess
+composer.lock
+api
+logs
+vendor
+app/cache
+app/config/config.php
+.idea/*
