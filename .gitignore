@@ -8,6 +8,6 @@ logs
 vendor
 app/cache
 .idea/*
-app/config/config.ini
 app/config/application.php
 app/config/development.php
+app/config/config.ini
