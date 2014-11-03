@@ -7,5 +7,7 @@ api
 logs
 vendor
 app/cache
-app/config/config.php
 .idea/*
+app/config/config.ini
+app/config/application.php
+app/config/development.php

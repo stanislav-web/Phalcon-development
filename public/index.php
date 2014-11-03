@@ -1,12 +1,17 @@
 <?php
-error_reporting(E_ALL);
+
+/**
+ * Define stage of application
+ */
+defined('APPLICATION_ENV') ||
+define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production'));
 
 try {
 
     /**
      * Read the configuration
      */
-    $config = include __DIR__ . "/../app/config/config.php";
+    $config = include __DIR__ . "/../app/config/application.php";
 
     /**
      * Read auto-loader
