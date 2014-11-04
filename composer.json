@@ -1,6 +1,13 @@
 {
 	"require-dev": {
 		"squizlabs/php_codesniffer": "1.*",
-		"phpmd/phpmd" : "@stable"
+		"phpmd/phpmd" : "@stable",
+        "phpunit/phpunit": "3.7.*"
+	},
+	"require": {
+        "crada/phalcon-user-plugin": "@dev",
+		"ftugit/phalcon-extension": "dev-master",
+		"goors/phalcon-oauth2": "dev-develop",
+		"phalcon-ext/widget-pagination": "v0.1.0"
 	}
 }

@@ -9,16 +9,15 @@ use Phalcon\Mvc\View\Engine\Volt as VoltEngine;
 use Phalcon\Mvc\Model\Metadata\Memory as MetaDataAdapter;
 use Phalcon\Session\Adapter\Files as SessionAdapter;
 
+/**
+ * The FactoryDefault Dependency Injector automatically register the right services providing a full stack framework
+ */
+$di = new FactoryDefault();
 
 /**
  * Register the global configuration as config
  */
 $di->set('config', $config);
-
-/**
- * The FactoryDefault Dependency Injector automatically register the right services providing a full stack framework
- */
-$di = new FactoryDefault();
 
 /**
  * The URL component is used to generate all kind of urls in the application
@@ -35,27 +34,11 @@ $di->set('url', function () use ($config) {
  */
 $di->set('view', function () use ($config) {
 
-    $view = new View();
-
-    $view->setViewsDir($config->application->viewsDir);
-
-    $view->registerEngines(array(
-        '.volt' => function ($view, $di) use ($config) {
-
-            $volt = new VoltEngine($view, $di);
-
-            $volt->setOptions(array(
-                'compiledPath' => $config->application->cacheDir,
-                'compiledSeparator' => '_'
-            ));
-
-            return $volt;
-        },
-        '.phtml' => 'Phalcon\Mvc\View\Engine\Php'
-    ));
+    $view = new \Phalcon\Mvc\View();
+    $view->setViewsDir($config['application']['viewsDir']);
 
     return $view;
-}, true);
+});
 
 /**
  * Database connection.

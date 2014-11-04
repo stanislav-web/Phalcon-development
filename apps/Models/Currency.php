@@ -118,10 +118,6 @@ class Currency extends \Phalcon\Mvc\Model
     {
         return $this->symbol;
     }
-
-    /**
-     * Initialize method for model.
-     */
     public function initialize()
     {
         $this->hasMany('id', 'Engines', 'currency_id', NULL);

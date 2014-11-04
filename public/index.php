@@ -5,23 +5,25 @@
  */
 defined('APPLICATION_ENV') ||
 define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production'));
+defined('PUBLIC_PATH') || define('PUBLIC_PATH', dirname(__FILE__));
+defined('APP_PATH') || define('APP_PATH', realpath(dirname(__FILE__) . '/../apps'));
 
 try {
 
     /**
      * Read the configuration
      */
-    $config = include __DIR__ . "/../app/config/application.php";
+    $config = require_once APP_PATH."/config/application.php";
 
     /**
      * Read auto-loader
      */
-    include __DIR__ . "/../app/config/loader.php";
+    require_once APP_PATH."/config/loader.php";
 
     /**
      * Read services
      */
-    include __DIR__ . "/../app/config/services.php";
+    require_once APP_PATH."/config/services.php";
 
     /**
      * Handle the request
