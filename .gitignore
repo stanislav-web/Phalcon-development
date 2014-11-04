@@ -3,14 +3,7 @@
 *.phar
 .htaccess
 composer.lock
-api
 logs
 vendor
-app/cache
-app/config/config.php
 .idea/*
-apigen.phar
-phpunit.phar
-app/config/application.php
-app/config/development.php
-app/config/config.ini
+apps/config

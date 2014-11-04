@@ -98,5 +98,3 @@ function array_merge_recursive_replace()
 $config = file_exists(dirname(__FILE__). DIRECTORY_SEPARATOR . APPLICATION_ENV .'.php')
     ? array_merge_recursive_replace($config, require(APPLICATION_ENV .'.php'))
     : $config;
-
-return new \Phalcon\Config($config);

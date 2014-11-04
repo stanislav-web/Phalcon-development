@@ -1,8 +1,7 @@
 <?php
+namespace Modules\Frontend\Controllers;
 
-use Phalcon\Mvc\Controller;
-
-class ControllerBase extends Controller
+class ControllerBase extends \Phalcon\Mvc\Controller
 {
 
 }

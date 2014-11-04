@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Define stage of application
  */
@@ -7,30 +6,50 @@ defined('APPLICATION_ENV') ||
 define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production'));
 defined('APP_PATH') || define('APP_PATH', realpath(dirname(__FILE__) . '/../apps'));
 
+// Require configurations
+require_once APP_PATH.'/config/application.php';
+
+// Create factory container
+$di = new Phalcon\DI\FactoryDefault();
+
+// Set default routes
+$di->set('router', function() {
+
+    $router = (new Phalcon\Mvc\Router)->setDefaultModule('Frontend');
+    require APP_PATH.'/Modules/Frontend/config/routes.php';
+    return $router;
+
+});
+
+// Set global configuration
+$di->set('config', function() use ($config) {
+
+    return (new \Phalcon\Config($config));
+
+});
+
 try {
 
-    /**
-     * Read the configuration
-     */
-    $config = require_once APP_PATH."/config/application.php";
+    $application = new Phalcon\Mvc\Application($di);
 
-    /**
-     * Read auto-loader
-     */
-    require_once APP_PATH."/config/loader.php";
+    // Register modules
+    $application->registerModules([
+        'Frontend'	=>	[
+            'className' => 'Modules\Frontend',
+            'path'      => APP_PATH.'/Modules/Frontend/Module.php',
+        ],
+        'Backend'	=>	[
+            'className' => 'Modules\Backend',
+            'path'      => APP_PATH.'/Modules/Backend/Module.php',
+        ],
+    ])->setDefaultModule('Frontend');
 
-    /**
-     * Read services
-     */
-    require_once APP_PATH."/config/services.php";
-
-    /**
-     * Handle the request
-     */
-    $application = new \Phalcon\Mvc\Application($di);
-
+    // Handle the request
     echo $application->handle()->getContent();
 
-} catch (\Exception $e) {
+}
+catch (\Exception $e)
+{
     echo $e->getMessage();
+    var_dump($e->getTrace());
 }
