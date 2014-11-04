@@ -5,7 +5,6 @@
  */
 defined('APPLICATION_ENV') ||
 define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production'));
-defined('PUBLIC_PATH') || define('PUBLIC_PATH', dirname(__FILE__));
 defined('APP_PATH') || define('APP_PATH', realpath(dirname(__FILE__) . '/../apps'));
 
 try {
