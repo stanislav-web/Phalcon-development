@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- Get meta -->
+		<?=$this->tag->tagHtml('meta', ['charset' => 'UTF-8']);?>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<meta name="generator" content="Phalcon">
+		<meta name="author" content="Stanislav WEB">
+		<meta http-equiv="Cache-Control" content="public">
+		<meta http-equiv="Cache-Control" content="max-age=99090600, must-revalidate">
+		<link rel="shortcut icon" type ="image/vnd.microsoft.icon"  href="/favicon.ico" />
+		<?=$this->tag->getTitle();?>
+		<!-- /Get meta -->
+		<!-- Append Stylesheet -->
+		<?=$this->tag->stylesheetLink("https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css", false); ?>
+		<?=$this->tag->stylesheetLink("http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css", false); ?>
+		<?=$this->tag->stylesheetLink("http://fonts.googleapis.com/css?family=Righteous", false); ?>
+		<?=$this->tag->stylesheetLink("http://fonts.googleapis.com/css?family=Rosario", false); ?>
+		<?=$this->tag->stylesheetLink("http://fonts.googleapis.com/css?family=Rosario", false); ?>
+		<?=$this->tag->stylesheetLink("http://fonts.googleapis.com/css?family=Rosario", false); ?>
+		<?=$this->tag->stylesheetLink('assets/plugins/jquery-ui/jquery-ui.css'); ?>
+		<?=$this->tag->stylesheetLink('assets/css/admin/style.css');?>
+		<!-- /Append Stylesheet -->
+
+		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+		<?=$this->tag->javascriptInclude("https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js", false); ?>
+		<?=$this->tag->javascriptInclude("https://oss.maxcdn.com/respond/1.4.2/respond.min.js", false); ?>
+		<![endif]-->
+	</head>
+	<body>
+		<!-- Overlay locker -->
+		<div id="screensaver">
+			<canvas id="canvas"></canvas>
+			<i class="fa fa-lock" id="screen_unlock"></i>
+		</div>
+		<!-- /Overlay locker -->
+
+		<!-- Modal Box -->
+		<div id="modalbox">
+			<div class="devoops-modal">
+				<div class="devoops-modal-header">
+					<div class="modal-header-name">
+						<span>Basic table</span>
+					</div>
+					<div class="box-icons">
+						<a class="close-link">
+							<i class="fa fa-times"></i>
+						</a>
+					</div>
+				</div>
+				<div class="devoops-modal-inner">
+				</div>
+				<div class="devoops-modal-bottom">
+				</div>
+			</div>
+		</div>
+		<!-- /Modal Box -->
+
+		<!--Start Header-->
+		<header class="navbar">
+			<div class="container-fluid expanded-panel">
+				<div class="row">
+					<div id="logo" class="col-xs-12 col-sm-2">
+						<a href="index_v1.html">DevOOPS v2</a>
+					</div>
+					<div id="top-panel" class="col-xs-12 col-sm-10">
+						<div class="row">
+							<div class="col-xs-8 col-sm-4">
+								<div id="search">
+									<input type="text" placeholder="search"/>
+									<i class="fa fa-search"></i>
+								</div>
+							</div>
+							<div class="col-xs-4 col-sm-8 top-panel-right">
+								<a href="#" class="about">about</a>
+								<a href="index.html" class="style2"></a>
+								<ul class="nav navbar-nav pull-right panel-menu">
+									<li class="hidden-xs">
+										<a href="index.html" class="modal-link">
+											<i class="fa fa-bell"></i>
+											<span class="badge">7</span>
+										</a>
+									</li>
+									<li class="hidden-xs">
+										<a class="ajax-link" href="ajax/calendar.html">
+											<i class="fa fa-calendar"></i>
+											<span class="badge">7</span>
+										</a>
+									</li>
+									<li class="hidden-xs">
+										<a href="ajax/page_messages.html" class="ajax-link">
+											<i class="fa fa-envelope"></i>
+											<span class="badge">7</span>
+										</a>
+									</li>
+									<li class="dropdown">
+										<a href="#" class="dropdown-toggle account" data-toggle="dropdown">
+											<div class="avatar">
+												<img src="img/avatar.jpg" class="img-circle" alt="avatar" />
+											</div>
+											<i class="fa fa-angle-down pull-right"></i>
+											<div class="user-mini pull-right">
+												<span class="welcome">Welcome,</span>
+												<span>{$USER NAME}</span>
+											</div>
+										</a>
+										<ul class="dropdown-menu">
+											<li>
+												<a href="#">
+													<i class="fa fa-user"></i>
+													<span>{$PROFILE}</span>
+												</a>
+											</li>
+											<li>
+												<a href="ajax/page_messages.html" class="ajax-link">
+													<i class="fa fa-envelope"></i>
+													<span>{$MESSAGES}</span>
+												</a>
+											</li>
+											<li>
+												<a href="ajax/gallery_simple.html" class="ajax-link">
+													<i class="fa fa-picture-o"></i>
+													<span>{$ALBUMS}</span>
+												</a>
+											</li>
+											<li>
+												<a href="ajax/calendar.html" class="ajax-link">
+													<i class="fa fa-tasks"></i>
+													<span>{$TASKS}</span>
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													<i class="fa fa-cog"></i>
+													<span>{$SETTINGS}</span>
+												</a>
+											</li>
+											<li>
+												<a href="<?php echo $this->url('logout');?>">
+													<i class="fa fa-power-off"></i>
+													<span>{$LOGOUT}</span>
+												</a>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+		<!--/End Header-->
+
+		<!-- Content -->
+		<?php echo $this->getContent() ?>
+		<!-- /Content -->
+
+		<!-- Javascript area content -->
+		<?=$this->tag->javascriptInclude("//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js", false); ?>
+		<?=$this->tag->javascriptInclude("//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js", false); ?>
+
+		<?=$this->tag->javascriptInclude("https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js", false); ?>
+		<?=$this->tag->javascriptInclude("/assets/plugins/justified-gallery/jquery.justifiedGallery.min.js", false); ?>
+		<?=$this->tag->javascriptInclude("/assets/plugins/tinymce/tinymce.min.js", false); ?>
+		<?=$this->tag->javascriptInclude("/assets/js/devoops.js", false); ?>
+		<!-- /Javascript area content -->
+	</body>
+</html>

@@ -15,7 +15,7 @@ $di = new Phalcon\DI\FactoryDefault();
 // Set default routes
 $di->set('router', function() {
 
-    $router = new \Phalcon\Mvc\Router(false);
+    $router = new \Phalcon\Mvc\Router();
     require APP_PATH . '/config/routes.php';
     return $router;
 

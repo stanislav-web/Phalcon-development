@@ -95,8 +95,8 @@ class Frontend implements ModuleDefinitionInterface
             $dispatcher = new \Phalcon\Mvc\Dispatcher();
             $dispatcher->setEventsManager($eventsManager);
             $dispatcher->setDefaultNamespace('Modules\Frontend\Controllers');
-            $dispatcher->setDefaultController('Index');
-            $dispatcher->setDefaultAction('index');
+            // $dispatcher->setDefaultController('Index');
+            // $dispatcher->setDefaultAction('index');
 
             return $dispatcher;
         }, true);
@@ -105,7 +105,7 @@ class Frontend implements ModuleDefinitionInterface
 
         $di->set('view', function() {
             $view = new View();
-            $view->setViewsDir(APP_PATH.'/Modules/Frontend/views/');
+            $view->setViewsDir(APP_PATH.'/Modules/Frontend/views/')->setMainView('layout');
             return $view;
         });
 

@@ -50,8 +50,8 @@ class Backend implements ModuleDefinitionInterface
 
             $dispatcher = new Dispatcher();
             $dispatcher->setDefaultNamespace('Modules\Backend\Controllers');
-            $dispatcher->setDefaultController('Admin');
-            $dispatcher->setDefaultAction('index');
+            //$dispatcher->setDefaultController('Admin');
+            //$dispatcher->setDefaultAction('index');
             return $dispatcher;
         });
 
@@ -59,7 +59,7 @@ class Backend implements ModuleDefinitionInterface
 
         $di->set('view', function() {
             $view = new View();
-            $view->setViewsDir(APP_PATH.'/Modules/Backend/views/');
+            $view->setViewsDir(APP_PATH.'/Modules/Backend/views/')->setMainView('layout');
             return $view;
         });
 
