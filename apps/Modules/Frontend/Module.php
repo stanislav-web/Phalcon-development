@@ -45,17 +45,13 @@ class Frontend implements ModuleDefinitionInterface
         $loader->registerNamespaces([
             'Modules\Frontend\Controllers'  => APP_PATH.'/Modules/Frontend/Controllers/',
             'Modules\Frontend\Plugins'      => APP_PATH.'/Modules/Frontend/Plugins/',
+			'Phalcon\Utils' 				=> APP_PATH.'/Libraries/PrettyExceptions/Library/Phalcon/Utils'
         ])
         ->registerDirs([
             $this->_config->application->libraryDir,
             $this->_config->application->modelsDir
         ]);
-
         $loader->register();
-
-        // Stand up profiler
-        //if(isset($this->_config->database->profiler))
-        //    (new \DebugWidget(\Phalcon\Di::getDefault()));
     }
 
     /**

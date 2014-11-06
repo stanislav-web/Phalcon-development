@@ -34,6 +34,8 @@ class Backend implements ModuleDefinitionInterface
             'Modules\Backend\Plugins'       =>  APP_PATH.'/Modules/Backend/Plugins/',
         ]);
 
+
+
         $loader->register();
     }
 

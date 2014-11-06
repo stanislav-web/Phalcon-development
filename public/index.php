@@ -44,7 +44,6 @@ try {
 
     // Handle the request
     echo $application->handle()->getContent();
-
 }
 catch (\Exception $e)
 {
