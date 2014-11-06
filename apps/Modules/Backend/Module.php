@@ -7,7 +7,7 @@ use Phalcon\Loader,
     Phalcon\Mvc\ModuleDefinitionInterface;
 
 /**
- * Frontend module
+ * Backend module
  * @package Phalcon
  * @subpackage Frontend
  * @since PHP >=5.4
@@ -30,7 +30,8 @@ class Backend implements ModuleDefinitionInterface
         $loader = new Loader();
 
         $loader->registerNamespaces([
-            'Modules\Backend\Controllers' => APP_PATH.'/Modules/Backend/Controllers/',
+            'Modules\Backend\Controllers'   =>  APP_PATH.'/Modules/Backend/Controllers/',
+            'Modules\Backend\Plugins'       =>  APP_PATH.'/Modules/Backend/Plugins/',
         ]);
 
         $loader->register();
@@ -44,20 +45,25 @@ class Backend implements ModuleDefinitionInterface
      */
     public function registerServices($di)
     {
-
         // Dispatch register
-        $di->set('dispatcher', function() {
+        $di->set('dispatcher', function() use ($di) {
+
             $dispatcher = new Dispatcher();
             $dispatcher->setDefaultNamespace('Modules\Backend\Controllers');
+            $dispatcher->setDefaultController('Admin');
+            $dispatcher->setDefaultAction('index');
             return $dispatcher;
         });
 
-        // Registration of component representations
+        // Registration of component representations (Views)
+
         $di->set('view', function() {
             $view = new View();
             $view->setViewsDir(APP_PATH.'/Modules/Backend/views/');
             return $view;
         });
+
+        return require_once APP_PATH.'/Modules/Backend/config/services.php';
     }
 
 }

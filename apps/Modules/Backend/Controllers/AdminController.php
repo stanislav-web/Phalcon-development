@@ -1,10 +1,16 @@
 <?php
+namespace Modules\Backend\Controllers;
 
-class IndexController extends \Phalcon\Mvc\Controller
+/**
+ * Class IndexController
+ * @package Modules\Backend\Controllers
+ */
+class AdminController extends ControllerBase
 {
 
     public function indexAction()
     {
+
     }
 
 }

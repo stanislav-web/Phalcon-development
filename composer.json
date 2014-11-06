@@ -1,8 +1,7 @@
 {
 	"require-dev": {
 		"squizlabs/php_codesniffer": "1.*",
-		"phpmd/phpmd" : "@stable",
-        "phpunit/phpunit": "3.7.*"
+		"phpmd/phpmd" : "@stable"
 	},
 	"require": {
         "crada/phalcon-user-plugin": "@dev",

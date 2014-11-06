@@ -15,17 +15,15 @@ $di = new Phalcon\DI\FactoryDefault();
 // Set default routes
 $di->set('router', function() {
 
-    $router = (new Phalcon\Mvc\Router)->setDefaultModule('Frontend');
-    require APP_PATH.'/Modules/Frontend/config/routes.php';
+    $router = new \Phalcon\Mvc\Router(false);
+    require APP_PATH . '/config/routes.php';
     return $router;
 
 });
 
 // Set global configuration
 $di->set('config', function() use ($config) {
-
     return (new \Phalcon\Config($config));
-
 });
 
 try {

@@ -2,50 +2,6 @@
 
     // Tuning components for the module dependencies FrontEnd
 
-    // Dispatch register
-    $di->set('dispatcher', function() use ($di) {
-
-        $eventsManager = $di->getShared('eventsManager');
-        $eventsManager->attach('dispatch:beforeException', function ($event, $dispatcher, $exception) {
-
-            switch ($exception->getCode()) {
-                case \Phalcon\Mvc\Dispatcher::EXCEPTION_HANDLER_NOT_FOUND:
-                case \Phalcon\Mvc\Dispatcher::EXCEPTION_ACTION_NOT_FOUND:
-                    $dispatcher->forward([
-                        'module'        => 'Frontend',
-                        'namespace' 	=> 'Modules\Frontend\Controllers\\',
-                        'controller'    => 'error',
-                        'action'        => 'notFound',
-                    ]);
-                    return false;
-
-                    break;
-                default:
-
-                    $dispatcher->forward([
-                        'module'        => 'Frontend',
-                        'namespace' 	=> 'Modules\Frontend\Controllers\\',
-                        'controller'    => 'error',
-                        'action'        => 'uncaughtException',
-                    ]);
-                    return false;
-                    break;
-            }
-        });
-        $dispatcher = new \Phalcon\Mvc\Dispatcher();
-        $dispatcher->setEventsManager($eventsManager);
-        $dispatcher->setDefaultNamespace('Modules\Frontend\Controllers');
-        return $dispatcher;
-    }, true);
-
-    // Registration of component representations (Views)
-
-    $di->set('view', function() {
-        $view = new \Phalcon\Mvc\View();
-        $view->setViewsDir(APP_PATH.'/Modules/Frontend/views/');
-        return $view;
-    });
-
     // Component URL is used to generate all kinds of addresses in the annex
 
     $di->set('url', function() {
@@ -56,7 +12,7 @@
 
     });
 
-    // Компонент DB. Регистрирую коннект к MySQL
+    // Database connection is created based in the parameters defined in the configuration file
 
     $di->setShared('db', function() {
 
