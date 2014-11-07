@@ -43,15 +43,34 @@ class Frontend implements ModuleDefinitionInterface
         $loader = new Loader();
 
         $loader->registerNamespaces([
-            'Modules\Frontend\Controllers'  => APP_PATH.'/Modules/Frontend/Controllers/',
-            'Modules\Frontend\Plugins'      => APP_PATH.'/Modules/Frontend/Plugins/',
-			'Phalcon\Utils' 				=> APP_PATH.'/Libraries/PrettyExceptions/Library/Phalcon/Utils'
-        ])
-        ->registerDirs([
-            $this->_config->application->libraryDir,
-            $this->_config->application->modelsDir
+            'Modules\Frontend\Controllers'  => 	$this->_config['application']['controllersFront'],
+			'Models'       					=> 	$this->_config['application']['modelsDir'],
+			'Libraries'       				=>  $this->_config['application']['libraryDir'],
+            'Modules\Frontend\Plugins'      => 	APP_PATH.'/Modules/Frontend/Plugins/',
         ]);
+
         $loader->register();
+
+		if(isset($this->_config->database->profiler))
+		{
+			$namespaces = array_merge(
+				$loader->getNamespaces(), [
+					'Libraries\Debugger'	=>	APP_PATH.'/Libraries/Debugger',
+					'Phalcon\Utils' 		=> 	APP_PATH.'/Libraries/PrettyExceptions/Library/Phalcon/Utils'
+
+				]
+			);
+			$loader->registerNamespaces($namespaces);
+
+			// call profiler
+			(new \Libraries\Debugger\DebugWidget(\Phalcon\DI::getDefault()));
+
+			// call pretty loader
+			set_error_handler(function($errorCode, $errorMessage, $errorFile, $errorLine) {
+				$p = new \Phalcon\Utils\PrettyExceptions();
+				$p->handleError($errorCode, $errorMessage, $errorFile, $errorLine);
+			});
+		}
     }
 
     /**
@@ -91,8 +110,6 @@ class Frontend implements ModuleDefinitionInterface
             $dispatcher = new \Phalcon\Mvc\Dispatcher();
             $dispatcher->setEventsManager($eventsManager);
             $dispatcher->setDefaultNamespace('Modules\Frontend\Controllers');
-            // $dispatcher->setDefaultController('Index');
-            // $dispatcher->setDefaultAction('index');
 
             return $dispatcher;
         }, true);
@@ -101,7 +118,7 @@ class Frontend implements ModuleDefinitionInterface
 
         $di->set('view', function() {
             $view = new View();
-            $view->setViewsDir(APP_PATH.'/Modules/Frontend/views/')->setMainView('layout');
+            $view->setViewsDir($this->_config['application']['viewsFront'])->setMainView('layout');
             return $view;
         });
 

@@ -31,13 +31,17 @@
         ]);
     });
 
-    // Component Session. Starting a Session
-    $di->setShared('session', function() {
+	// Component Session. Starting a Session
 
-        $session = new Phalcon\Session\Adapter\Files();
-        $session->start();
-        return $session;
-
-    });
-
+	$di->setShared('session', function() {
+		$session = new Phalcon\Session\Adapter\Memcache([
+			'host'          => $this->_config->cache->memcached->host,     	// mandatory
+			'port'          => $this->_config->cache->memcached->port,		// optional (standard: 11211)
+			'lifetime'      => $this->_config->cache->lifetime,            	// optional (standard: 8600)
+			'prefix'        => $this->_config->cache->prefix,         		// optional (standard: [empty_string]), means memcache key is my-app_31231jkfsdfdsfds3
+			'persistent'    => false            							// optional (standard: false)
+		]);
+		$session->start();
+		return $session;
+	});
 

@@ -18,6 +18,19 @@ use Phalcon\Loader,
  */
 class Backend implements ModuleDefinitionInterface
 {
+	/**
+	 * Global config
+	 * @var bool | array
+	 */
+	protected $_config = false;
+
+	/**
+	 * Configuration init
+	 */
+	public function __construct() {
+
+		$this->_config = \Phalcon\DI::getDefault()->get('config');
+	}
 
     /**
      * Register the autoloader specific to the current module
@@ -30,13 +43,33 @@ class Backend implements ModuleDefinitionInterface
         $loader = new Loader();
 
         $loader->registerNamespaces([
-            'Modules\Backend\Controllers'   =>  APP_PATH.'/Modules/Backend/Controllers/',
-            'Modules\Backend\Plugins'       =>  APP_PATH.'/Modules/Backend/Plugins/',
-        ]);
-
-
+            'Modules\Backend\Controllers'   =>  $this->_config['application']['controllersBack'],
+			'Models'       					=> 	$this->_config['application']['modelsDir'],
+			'Libraries'       				=>  $this->_config['application']['libraryDir'],
+		]);
 
         $loader->register();
+
+		if(isset($this->_config->database->profiler))
+		{
+			$namespaces = array_merge(
+				$loader->getNamespaces(), [
+					'Libraries\Debugger'	=>	APP_PATH.'/Libraries/Debugger',
+					'Phalcon\Utils' 		=> 	APP_PATH.'/Libraries/PrettyExceptions/Library/Phalcon/Utils'
+
+				]
+			);
+			$loader->registerNamespaces($namespaces);
+
+			// call profiler
+			(new \Libraries\Debugger\DebugWidget(\Phalcon\DI::getDefault()));
+
+			// call pretty loader
+			set_error_handler(function($errorCode, $errorMessage, $errorFile, $errorLine) {
+				$p = new \Phalcon\Utils\PrettyExceptions();
+				$p->handleError($errorCode, $errorMessage, $errorFile, $errorLine);
+			});
+		}
     }
 
     /**
@@ -52,18 +85,16 @@ class Backend implements ModuleDefinitionInterface
 
             $dispatcher = new Dispatcher();
             $dispatcher->setDefaultNamespace('Modules\Backend\Controllers');
-            //$dispatcher->setDefaultController('Admin');
-            //$dispatcher->setDefaultAction('index');
             return $dispatcher;
         });
 
         // Registration of component representations (Views)
 
-        $di->set('view', function() {
-            $view = new View();
-            $view->setViewsDir(APP_PATH.'/Modules/Backend/views/')->setMainView('layout');
-            return $view;
-        });
+		$di->set('view', function() {
+			$view = new View();
+			$view->setViewsDir($this->_config['application']['viewsBack'])->setMainView('auth-layout');
+			return $view;
+		});
 
         return require_once APP_PATH.'/Modules/Backend/config/services.php';
     }

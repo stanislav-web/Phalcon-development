@@ -6,7 +6,13 @@ $config = [
     // Global application config
 
     'application' => [
-        'modelsDir'         => APP_PATH.'/Models/',
+		'controllersFront'  => APP_PATH.'/Modules/Frontend/Controllers/',
+		'controllersBack'  	=> APP_PATH.'/Modules/Backend/Controllers/',
+
+		'viewsFront'  		=> APP_PATH.'/Modules/Frontend/views/',
+		'viewsBack'  		=> APP_PATH.'/Modules/Backend/views/',
+
+		'modelsDir'         => APP_PATH.'/Models/',
         'libraryDir'        => APP_PATH.'/Libraries/',
         'logDir'            => APP_PATH.'../logs/',
         'baseUri'           => '/',
