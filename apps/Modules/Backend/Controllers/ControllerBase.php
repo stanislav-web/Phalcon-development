@@ -18,7 +18,7 @@ class ControllerBase extends Controller
 	 * From `users` table auth data
 	 * @var bool
 	 */
-	protected $_user = false;
+	protected $_user = [];
 
 	/**
 	 * beforeExecuteRoute($dispatcher) Pre init application

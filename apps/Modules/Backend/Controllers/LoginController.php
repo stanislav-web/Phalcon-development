@@ -13,6 +13,12 @@ use Phalcon\Mvc\Controller;
  */
 class LoginController extends Controller
 {
+	/**
+	 * From `users` table auth data
+	 * @var bool
+	 */
+	protected $_user = [];
+	
 	public function indexAction()
 	{
 		$login = $this->request->getPost('login');

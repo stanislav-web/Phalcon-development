@@ -34,7 +34,8 @@ return [
     // Log configuration
 
     'logger'    =>  [
-        'enable'    =>  true,
+		'enable'    =>  true,
+		'file'    	=>  APP_PATH.'/logs',
         'format'    => '[%date%][%type%] %message%',
     ],
 
