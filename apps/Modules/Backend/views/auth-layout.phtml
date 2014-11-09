@@ -56,7 +56,32 @@
 <!-- /Modal Box -->
 
 <!-- Content -->
-<?php echo $this->getContent() ?>
+
+<!-- Start Top -->
+<?php $this->partial("dashboard/top", ['user' => $user]) ?>
+<!-- /End Top -->
+
+<!--Start Container-->
+<div id="main" class="container-fluid">
+	<div class="row">
+
+		<!-- Start Sidebar -->
+		<?php $this->partial("dashboard/sidebar") ?>
+		<!-- /End Sidebar -->
+
+		<!--Start Ajax Content-->
+		<div id="content" class="col-xs-12 col-sm-10">
+			<!--<div id="ajax-content">
+				<?php echo $this->getContent() ?>
+			</div>-->
+			<div class="preloader">
+				<?=$this->tag->image(['assets/backend/images/loader.gif', "alt" => 'loader']); ?>
+			</div>
+		</div>
+		<!--End Ajax Content-->
+
+	</div>
+</div>
 <!-- /Content -->
 
 <!-- Javascript area content -->

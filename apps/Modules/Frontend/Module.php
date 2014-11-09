@@ -55,7 +55,7 @@ class Frontend implements ModuleDefinitionInterface
 		{
 			$namespaces = array_merge(
 				$loader->getNamespaces(), [
-					'Libraries\Debugger'	=>	APP_PATH.'/Libraries/Debugger',
+					'Phalcon\Debugger'	=>	APP_PATH.'/Libraries/Debugger',
 					'Phalcon\Utils' 		=> 	APP_PATH.'/Libraries/PrettyExceptions/Library/Phalcon/Utils'
 
 				]
@@ -63,7 +63,7 @@ class Frontend implements ModuleDefinitionInterface
 			$loader->registerNamespaces($namespaces);
 
 			// call profiler
-			(new \Libraries\Debugger\DebugWidget(\Phalcon\DI::getDefault()));
+			(new \Phalcon\Debugger\DebugWidget(\Phalcon\DI::getDefault()));
 
 			// call pretty loader
 			set_error_handler(function($errorCode, $errorMessage, $errorFile, $errorLine) {

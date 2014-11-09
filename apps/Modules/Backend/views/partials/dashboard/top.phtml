@@ -15,7 +15,10 @@
 							<i class="fa fa-search"></i>
 						</div>
 					</div>
-					<div class="col-xs-4 col-sm-8 top-panel-right">
+					<!-- Clock -->
+					<?php $this->partial("dashboard/clock") ?>
+					<!-- /Clock -->
+					<div class="col-xs-4 col-sm-5 top-panel-right">
 						<a href="index.html" class="style2"></a>
 						<ul class="nav navbar-nav pull-right panel-menu">
 							<li class="hidden-xs">
@@ -39,7 +42,7 @@
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle account" data-toggle="dropdown">
 									<div class="avatar">
-										<img src="/assets/backend/images/admin/avatar.jpg" class="img-circle" alt="avatar" />
+										<img src="/assets/backend/images/admin/avatar.jpg" class="img-rounded" alt="avatar" />
 									</div>
 									<i class="fa fa-angle-down pull-right"></i>
 									<div class="user-mini pull-right">

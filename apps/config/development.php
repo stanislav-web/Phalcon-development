@@ -35,8 +35,8 @@ return [
 
     'logger'    =>  [
 		'enable'    =>  true,
-		'file'    	=>  APP_PATH.'/logs',
-        'format'    => '[%date%][%type%] %message%',
+		'file'    	=>   DOCUMENT_ROOT.'/../logs/phalcon.log',
+        'format'    => 	'[%date%][%type%] %message%',
     ],
 
     // Mailing and subscribe configuration

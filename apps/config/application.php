@@ -22,16 +22,16 @@ $config = [
     // Configure database driver
 
     'database' =>   [
-        'adapter'       => 'Mysql',              // Mysql, Postgres, Sqlite
-        'host'          => 'localhost',
-        'username'      => 'root',
-        'password'      => 'root',
-        'dbname'        => 'phalcon.local',
-        'port'          => 3306,
-        'charset'       => 'utf8',
-        'persistent'    => true,
-        'profiler'	    => false,
-        'debug'	        => PDO::ERRMODE_SILENT,
+        'adapter'       => 	'Mysql',              // Mysql, Postgres, Sqlite
+        'host'          => 	'localhost',
+        'username'      => 	'root',
+        'password'      => 	'root',
+        'dbname'        => 	'phalcon.local',
+        'port'          => 	3306,
+        'charset'       => 	'utf8',
+        'persistent'    => 	true,
+        'profiler'	    => 	false,
+        'debug'	        => 	PDO::ERRMODE_SILENT,
     ],
 
     // Configure backend and frontend data caching
@@ -54,7 +54,9 @@ $config = [
     // Log configuration
 
     'logger'    =>  [
-        'enable'    =>  false,
+        'enable'    =>  true,
+		'file'    	=>   DOCUMENT_ROOT.'/../logs/phalcon.log',
+		'format'    => 	'[%date%][%type%] %message%',
     ],
 
     // Mailing and subscribe configuration
@@ -75,7 +77,11 @@ $config = [
 
     'oAuth'  => [
 
-    ]
+    ],
+
+	// Remember state
+	'rememberKeep'		=>	86400 * 30,
+	'cookieCryptKey'	=>	'#1dj8$=dp?.ak//j1V$'
 ];
 
 /**

@@ -1,5 +1,6 @@
 <?php
 namespace Modules\Backend\Controllers;
+use \Phalcon\Mvc\View;
 
 /**
  * Class DashboardController
@@ -21,11 +22,16 @@ class DashboardController extends ControllerBase
 	{
 		parent::initialize();
 		$this->tag->setTitle('Dashboard');
+
 	}
 
     public function indexAction()
     {
 
+		// Проверка что request создан через Ajax
+		if ($this->request->isAjax() == true) {
+			echo "Request создан используя POST и AJAX";
+		}
     }
 }
 
