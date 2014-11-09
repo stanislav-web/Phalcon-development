@@ -1,4 +1,5 @@
 <?php
+namespace Models;
 
 class Engines extends \Phalcon\Mvc\Model
 {

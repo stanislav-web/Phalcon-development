@@ -1,10 +1,13 @@
 <?php
 /**
- * Define stage of application
+ * @define Document root
+ * @define Application path
+ * @define Staging development
  */
+defined('DOCUMENT_ROOT') || define('DOCUMENT_ROOT', $_SERVER["DOCUMENT_ROOT"]);
+defined('APP_PATH') || define('APP_PATH', DOCUMENT_ROOT. '/../apps');
 defined('APPLICATION_ENV') ||
 define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production'));
-defined('APP_PATH') || define('APP_PATH', realpath(dirname(__FILE__) . '/../apps'));
 
 // Require configurations
 require_once APP_PATH.'/config/application.php';
@@ -44,8 +47,9 @@ try {
 
     // Handle the request
     echo $application->handle()->getContent();
+
 }
-catch (\Exception $e)
+catch(\Exception $e)
 {
     echo $e->getMessage();
     var_dump($e->getTrace());

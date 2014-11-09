@@ -1,4 +1,5 @@
 <?php
+namespace Models;
 
 class Users extends \Phalcon\Mvc\Model
 {
@@ -15,11 +16,30 @@ class Users extends \Phalcon\Mvc\Model
      */
     protected $login;
 
+
+	/**
+	 *
+	 * @var string
+	 */
+	protected $name;
+
+	/**
+	 *
+	 * @var string
+	 */
+	protected $surname;
+
     /**
      *
      * @var string
      */
     protected $password;
+
+	/**
+	 *
+	 * @var string
+	 */
+	protected $salt;
 
     /**
      *
@@ -83,6 +103,32 @@ class Users extends \Phalcon\Mvc\Model
         return $this;
     }
 
+	/**
+	 * Method to set the value of field name
+	 *
+	 * @param string $login
+	 * @return $this
+	 */
+	public function setName($name)
+	{
+		$this->name = $name;
+
+		return $this;
+	}
+
+	/**
+	 * Method to set the value of field surname
+	 *
+	 * @param string $login
+	 * @return $this
+	 */
+	public function setSurname($surname)
+	{
+		$this->name = $surname;
+
+		return $this;
+	}
+
     /**
      * Method to set the value of field password
      *
@@ -95,6 +141,19 @@ class Users extends \Phalcon\Mvc\Model
 
         return $this;
     }
+
+	/**
+	 * Method to set the value of field salt
+	 *
+	 * @param string $password
+	 * @return $this
+	 */
+	public function setSalt($salt)
+	{
+		$this->salt = $salt;
+
+		return $this;
+	}
 
     /**
      * Method to set the value of field state
@@ -156,7 +215,7 @@ class Users extends \Phalcon\Mvc\Model
      */
     public function setIp($ip)
     {
-        $this->ip = $ip;
+        $this->ip = ip2long($ip);
 
         return $this;
     }
@@ -194,6 +253,26 @@ class Users extends \Phalcon\Mvc\Model
         return $this->login;
     }
 
+	/**
+	 * Returns the value of field name
+	 *
+	 * @return string
+	 */
+	public function getName()
+	{
+		return $this->name;
+	}
+
+	/**
+	 * Returns the value of field name
+	 *
+	 * @return string
+	 */
+	public function getSurname()
+	{
+		return $this->surname;
+	}
+
     /**
      * Returns the value of field password
      *
@@ -203,6 +282,16 @@ class Users extends \Phalcon\Mvc\Model
     {
         return $this->password;
     }
+
+	/**
+	 * Returns the value of field salt
+	 *
+	 * @return string
+	 */
+	public function getSalt()
+	{
+		return $this->salt;
+	}
 
     /**
      * Returns the value of field state

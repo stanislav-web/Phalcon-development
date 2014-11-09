@@ -1,4 +1,5 @@
 <?php
+namespace Models;
 
 class Currency extends \Phalcon\Mvc\Model
 {

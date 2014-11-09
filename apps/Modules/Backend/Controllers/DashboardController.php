@@ -12,27 +12,20 @@ namespace Modules\Backend\Controllers;
  */
 class DashboardController extends ControllerBase
 {
+	/**
+	 * initialize() Initialize constructor
+	 * @access public
+	 * @return null
+	 */
+	public function initialize()
+	{
+		parent::initialize();
+		$this->tag->setTitle('Dashboard');
+	}
 
     public function indexAction()
     {
-		exit('sdsd');
+
     }
-
-	public function loginAction()
-	{
-
-		$login = $this->request->getPost('login');
-		$password = $this->request->getPost('password');
-
-		$user = Users::findFirstByLogin($login);
-		if ($user) {
-			if ($this->security->checkHash($password, $user->password)) {
-				//The password is valid
-			}
-		}
-
-		//The validation has failed
-	}
-
 }
 

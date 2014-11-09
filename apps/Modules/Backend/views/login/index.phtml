@@ -4,19 +4,32 @@
 			<div class="box">
 				<div class="box-content">
 					<div class="text-center">
-						<h3 class="page-header">DevOOPS Login Page</h3>
+						<h3 class="page-header">Control Panel</h3>
+						<p><?php $this->flash->output() ?></p>
 					</div>
-					<div class="form-group">
-						<label class="control-label">Username</label>
-						<input type="text" class="form-control" name="username" />
-					</div>
-					<div class="form-group">
-						<label class="control-label">Password</label>
-						<input type="password" class="form-control" name="password" />
-					</div>
-					<div class="text-center">
-						<a href="../index.html" class="btn btn-primary">Sign in</a>
-					</div>
+					<form action="" method="POST">
+						<input type="hidden" name="<?php echo $this->security->getTokenKey() ?>"
+							   value="<?php echo $this->security->getToken() ?>"/>
+						<div class="form-group">
+							<label class="control-label">Username</label>
+							<input type="text" class="form-control" name="username" />
+						</div>
+						<div class="form-group">
+							<label class="control-label">Password</label>
+							<input type="password" class="form-control" name="password" />
+						</div>
+						<div class="form-group">
+							<div class="checkbox-inline">
+								<label>
+									<input type="checkbox" name="remember"> Remember me
+									<i class="fa fa-square-o"></i>
+								</label>
+							</div>
+						</div>
+						<div class="text-center">
+							<input type="submit" class="btn btn-primary" value="Sign in">
+						</div>
+					</form>
 				</div>
 			</div>
 		</div>

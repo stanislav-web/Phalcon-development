@@ -54,15 +54,12 @@ class Backend implements ModuleDefinitionInterface
 		{
 			$namespaces = array_merge(
 				$loader->getNamespaces(), [
-					'Libraries\Debugger'	=>	APP_PATH.'/Libraries/Debugger',
-					'Phalcon\Utils' 		=> 	APP_PATH.'/Libraries/PrettyExceptions/Library/Phalcon/Utils'
+					'Phalcon\Debugger'	=>	APP_PATH.'/Libraries/Debugger',
+					'Phalcon\Utils' 	=> 	APP_PATH.'/Libraries/PrettyExceptions/Library/Phalcon/Utils'
 
 				]
 			);
 			$loader->registerNamespaces($namespaces);
-
-			// call profiler
-			(new \Libraries\Debugger\DebugWidget(\Phalcon\DI::getDefault()));
 
 			// call pretty loader
 			set_error_handler(function($errorCode, $errorMessage, $errorFile, $errorLine) {
@@ -92,7 +89,9 @@ class Backend implements ModuleDefinitionInterface
 
 		$di->set('view', function() {
 			$view = new View();
-			$view->setViewsDir($this->_config['application']['viewsBack'])->setMainView('auth-layout');
+			$view->setViewsDir($this->_config['application']['viewsBack'])
+				->setMainView('auth-layout')
+				->setPartialsDir('partials');
 			return $view;
 		});
 

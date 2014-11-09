@@ -47,13 +47,44 @@
 
 	// Component Logger. $this->di->get('logger;)->log('.....',Logger::ERROR);
 
-	$di->setShared('logger', function() {
-		if($this->_config->logger->enable === true)
+	$di->set('logger', function() {
+
+		if($this->_config->logger->enable == true)
 		{
-			$formatter = new Phalcon\Logger\Formatter\Line($this->_config->logger->format);
-			$logger = new Phalcon\Logger\Adapter\File($this->_config->logger->file);
+			$formatter = new \Phalcon\Logger\Formatter\Line($this->_config->logger->format);
+			$logger = new \Phalcon\Logger\Adapter\File($this->_config->logger->file);
 			$logger->setFormatter($formatter);
 			return $logger;
 		}
 		return false;
+	});
+
+	/**
+	 * Component flashSession (Session keep flash messages).
+	 */
+	$di->setShared('flash', function() {
+
+		$flash = new Phalcon\Flash\Session([
+			'error'     => 'alert alert-danger',
+			'success'   => 'alert alert-success',
+			'notice'    => 'alert alert-info',
+		]);
+		return $flash;
+
+	});
+
+	$di->set('cookies', function() {
+
+		$cookies = new \Phalcon\Http\Response\Cookies();
+		$cookies->useEncryption(true);
+		return $cookies;
+
+	});
+
+	$di->set('crypt', function() {
+
+		$crypt = new \Phalcon\Crypt();
+		$crypt->setKey($this->_config->cookieCryptKey);
+		return $crypt;
+
 	});
