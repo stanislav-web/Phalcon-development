@@ -15,8 +15,8 @@
 	<?=$this->tag->stylesheetLink("https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css", false); ?>
 	<?=$this->tag->stylesheetLink("http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css", false); ?>
 	<?=$this->tag->stylesheetLink("http://fonts.googleapis.com/css?family=Righteous", false); ?>
-	<?=$this->tag->stylesheetLink('assets/plugins/jquery-ui/jquery-ui.css'); ?>
-	<?=$this->tag->stylesheetLink('assets/backend/css/style.css');?>
+	<?=$this->tag->stylesheetLink('assets/plugins/jquery-ui/jquery-ui.css', true); ?>
+	<?=$this->tag->stylesheetLink('assets/backend/css/style.css', true);?>
 	<!-- /Append Stylesheet -->
 
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -71,9 +71,9 @@
 
 		<!--Start Ajax Content-->
 		<div id="content" class="col-xs-12 col-sm-10">
-			<!--<div id="ajax-content">
+			<div id="ajax-content">
 				<?php echo $this->getContent() ?>
-			</div>-->
+			</div>
 			<div class="preloader">
 				<?=$this->tag->image(['assets/backend/images/loader.gif', "alt" => 'loader']); ?>
 			</div>
@@ -85,13 +85,15 @@
 <!-- /Content -->
 
 <!-- Javascript area content -->
-<?=$this->tag->javascriptInclude("//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js", false); ?>
-<?=$this->tag->javascriptInclude("//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js", false); ?>
-
-<?=$this->tag->javascriptInclude("https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js", false); ?>
-<?=$this->tag->javascriptInclude("/assets/plugins/justified-gallery/jquery.justifiedGallery.min.js", false); ?>
-<?=$this->tag->javascriptInclude("/assets/plugins/tinymce/tinymce.min.js", false); ?>
-<?=$this->tag->javascriptInclude("/assets/backend/js/devoops.js", false); ?>
+<!--<?//=$this->tag->javascriptInclude("//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js", false); ?>-->
+<?=$this->tag->javascriptInclude("assets/plugins/jquery/jquery.min.js", true);  // local?>
+<!--<?//=$this->tag->javascriptInclude("//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js", false); ?>-->
+<?=$this->tag->javascriptInclude("assets/plugins/jquery-ui/jquery-ui.min.js", true); ?>
+<!--<?//=$this->tag->javascriptInclude("https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js", false); ?>-->
+<?=$this->tag->javascriptInclude("assets/plugins/bootstrap/bootstrap.min.js", true);  // local?>
+<?=$this->tag->javascriptInclude("assets/plugins/justified-gallery/jquery.justifiedGallery.min.js", true); ?>
+<?=$this->tag->javascriptInclude("assets/plugins/tinymce/tinymce.min.js", true); // local ?>
+<?=$this->tag->javascriptInclude("assets/backend/js/devoops.js", true);  // local ?>
 <!-- /Javascript area content -->
 </body>
 </html>

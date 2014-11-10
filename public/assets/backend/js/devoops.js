@@ -1140,13 +1140,15 @@ function LoadAjaxContent(url){
 		url: url,
 		type: 'GET',
 		success: function(data) {
+			console.log('Data', data);
 			$('#ajax-content').html(data);
 			$('.preloader').hide();
 		},
 		error: function (jqXHR, textStatus, errorThrown) {
-			alert(errorThrown);
+			console.log(jqXHR);
+			console.log(errorThrown);
 		},
-		dataType: "html",
+		dataType: "html",	// html
 		async: false
 	});
 }
@@ -3356,7 +3358,7 @@ $(document).ready(function () {
 	});
 	var ajax_url = location.hash.replace(/^#/, '');
 	if (ajax_url.length < 1) {
-		ajax_url = '/admin';
+		ajax_url = '/dashboard';
 	}
 	LoadAjaxContent(ajax_url);
 	$('.main-menu').on('click', 'a', function (e) {

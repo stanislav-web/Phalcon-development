@@ -13,6 +13,9 @@ use \Phalcon\Mvc\View;
  */
 class DashboardController extends ControllerBase
 {
+
+
+
 	/**
 	 * initialize() Initialize constructor
 	 * @access public
@@ -22,16 +25,11 @@ class DashboardController extends ControllerBase
 	{
 		parent::initialize();
 		$this->tag->setTitle('Dashboard');
-
 	}
 
     public function indexAction()
     {
-
-		// Проверка что request создан через Ajax
-		if ($this->request->isAjax() == true) {
-			echo "Request создан используя POST и AJAX";
-		}
-    }
+		$this->view->setVar('key', 'TEST');
+	}
 }
 

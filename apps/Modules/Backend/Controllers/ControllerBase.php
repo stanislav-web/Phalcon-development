@@ -2,6 +2,7 @@
 namespace Modules\Backend\Controllers;
 
 use Phalcon\Mvc\Controller,
+	Phalcon\Mvc\View,
 	Models\Users;
 
 
@@ -39,7 +40,7 @@ class ControllerBase extends Controller
 		$_user		=	[];
 
 	/**
-	 * beforeExecuteRoute($dispatcher) Pre init application
+	 * beforeExecuteRoute($dispatcher) before init route
 	 *
 	 * @param $dispatcher
 	 * @return bool
@@ -84,6 +85,42 @@ class ControllerBase extends Controller
 		}
 
 		$this->_user	=	$auth;
+	}
+
+	/**
+	 * After route executed event
+	 * Setup actions json responsibility
+	 *
+	 * @param \Phalcon\Mvc\Dispatcher $dispatcher
+	 * @access public
+	 * @return null
+	 */
+	public function afterExecuteRoute(\Phalcon\Mvc\Dispatcher $dispatcher)
+	{
+		// setup only layout to show before load ajax
+		// disable action view as default
+		$this->view->disableLevel([
+			View::LEVEL_ACTION_VIEW	=>	true,
+		]);
+		if($this->request->isAjax() == true)
+		{
+			// if is Ajax ? start render action view
+			$this->view->setRenderLevel(\Phalcon\Mvc\View::LEVEL_ACTION_VIEW);
+
+			// disable layout
+			$this->view->disableLevel([
+				View::LEVEL_MAIN_LAYOUT	=>	true,
+			]);
+
+			// get data params assigned to view from controller
+			$data = $this->view->getParamsToView();
+
+			// return clean current template width variable
+			return $this->view->getRender(
+				$dispatcher->getControllerName(), 	//	render Controoler
+				$dispatcher->getActionName(),		//	render Action
+				$data);								// 	render Data
+		}
 	}
 
 	/**

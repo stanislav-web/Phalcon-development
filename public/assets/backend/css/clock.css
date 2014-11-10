@@ -1,8 +1,7 @@
-<style>
 @font-face {
 	src: url('/assets/backend/fonts/BebasNeue-webfont.eot');
 	src: url('/assets/backend/fonts/BebasNeue-webfont.eot?#iefix') format('embedded-opentype'),
-	url('/assets/backend/fonts/BebasNeue-webfont.woff') format('woff'),
+	url('assets/backend/fonts/BebasNeue-webfont.woff') format('woff'),
 	url('/assets/backend/fonts/BebasNeue-webfont.ttf') format('truetype'),
 	url('/assets/backend/fonts/BebasNeue-webfont.svg#BebasNeueRegular') format('svg');
 	font-weight: normal;
@@ -49,4 +48,3 @@
 	50% {opacity:0; text-shadow:none; }
 	100% {opacity:1.0; text-shadow:0 0 20px #00c6ff; }
 }
-</style>

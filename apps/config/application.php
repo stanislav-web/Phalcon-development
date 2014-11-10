@@ -13,6 +13,7 @@ $config = [
 		'viewsBack'  		=> APP_PATH.'/Modules/Backend/views/',
 
 		'modelsDir'         => APP_PATH.'/Models/',
+		'helpersDir'        => APP_PATH.'/Helpers/',
         'libraryDir'        => APP_PATH.'/Libraries/',
         'logDir'            => APP_PATH.'../logs/',
         'baseUri'           => '/',
