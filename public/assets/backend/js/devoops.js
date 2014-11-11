@@ -1208,7 +1208,7 @@ jQuery.fn.swap = function(b){
 //  Screensaver function
 //  used on locked screen, and write content to element with id - canvas
 //
-function ScreenSaver(){
+function ScreenSaver() {
 	var canvas = document.getElementById("canvas");
 	var ctx = canvas.getContext("2d");
 	// Size of canvas set to fullscreen of browser

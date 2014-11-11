@@ -66,7 +66,7 @@
 	<div class="row">
 
 		<!-- Start Sidebar -->
-		<?php $this->partial("dashboard/sidebar") ?>
+		<?php $this->partial("dashboard/sidebar", ['navigation' => $navigation]) ?>
 		<!-- /End Sidebar -->
 
 		<div id="content" class="col-xs-12 col-sm-10">
@@ -100,6 +100,7 @@
 <?=$this->tag->javascriptInclude("assets/plugins/justified-gallery/jquery.justifiedGallery.min.js", true); ?>
 <?=$this->tag->javascriptInclude("assets/plugins/tinymce/tinymce.min.js", true); // local ?>
 <?=$this->tag->javascriptInclude("assets/backend/js/devoops.js", true);  // local ?>
+<?=$this->tag->javascriptInclude("assets/backend/js/common.js", true);  // local ?>
 <!-- /Javascript area content -->
 </body>
 </html>

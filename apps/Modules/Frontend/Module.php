@@ -18,6 +18,12 @@ use Phalcon\Loader,
  */
 class Frontend implements ModuleDefinitionInterface
 {
+	/**
+	 * Current module name
+	 * @var const
+	 */
+	const MODULE	=	'Backend';
+
     /**
      * Global config
      * @var bool | array

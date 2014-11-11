@@ -1,0 +1,10 @@
+.DS_Store
+Thumbs.db
+*.php.lock
+
+/config/parameters.yml
+/config/parameters.yml~*
+/composer.lock
+/composer.phar
+/vendor
+/nbproject/*

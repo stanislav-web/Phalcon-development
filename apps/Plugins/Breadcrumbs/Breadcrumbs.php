@@ -1,17 +1,17 @@
 <?php
-namespace Libraries\Breadcrumbs;
+namespace Plugins\Breadcrumbs;
 use Phalcon\Mvc\View,
 	Phalcon\Http\Request;
 
 /**
  * Breadcrumbs chain class
  * @package Phalcon
- * @subpackage Libraries
+ * @subpackage Plugins
  * @since PHP >=5.4
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @copyright Stanilav WEB
- * @filesource /apps/Libraries/Breadcrumbs.php
+ * @filesource /apps/Plugins/Breadcrumbs.php
  */
 class Breadcrumbs {
 

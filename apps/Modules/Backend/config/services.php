@@ -89,9 +89,19 @@
 
 	});
 
-	/**
- 	 * Setup Hanzel & Grettel breadcrumbs ))
- 	 */
+ 	// Setup Hansel & Gretel breadcrumbs ))
+
 	$di->set('breadcrumbs', function() {
-		return new \Libraries\Breadcrumbs\Breadcrumbs();
+		return new \Plugins\Breadcrumbs\Breadcrumbs();
+	});
+
+	// Component Navigation. Manage site navigation
+
+	$di->setShared('navigation', function() {
+
+		require_once APP_PATH.'/config/navigation.php';
+
+		if(isset($navigation[self::MODULE]))
+			return new \Libraries\Navigation\Navigation(new \Phalcon\Config($navigation[self::MODULE]));
+
 	});

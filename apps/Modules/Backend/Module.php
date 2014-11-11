@@ -18,6 +18,13 @@ use Phalcon\Loader,
  */
 class Backend implements ModuleDefinitionInterface
 {
+
+	/**
+	 * Current module name
+	 * @var const
+	 */
+	const MODULE	=	'Backend';
+
 	/**
 	 * Global config
 	 * @var bool | array
@@ -47,6 +54,7 @@ class Backend implements ModuleDefinitionInterface
 			'Models'       					=> 	$this->_config['application']['modelsDir'],
 			'Helpers'       				=> 	$this->_config['application']['helpersDir'],
 			'Libraries'       				=>  $this->_config['application']['libraryDir'],
+			'Plugins'       				=>  $this->_config['application']['pluginsDir'],
 		]);
 
         $loader->register();
@@ -57,7 +65,7 @@ class Backend implements ModuleDefinitionInterface
 				$loader->getNamespaces(), [
 					'Phalcon\Debugger'		=>	APP_PATH.'/Libraries/Debugger',
 					'Phalcon\Utils' 		=> 	APP_PATH.'/Libraries/PrettyExceptions/Library/Phalcon/Utils',
-					'Libraries\Breadcrumbs' => 	APP_PATH.'/Libraries/Breadcrumbs'
+					'Libraries\Pinboard' 	=> 	APP_PATH.'/Libraries/Pinboard/',
 				]
 			);
 			$loader->registerNamespaces($namespaces);

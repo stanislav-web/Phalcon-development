@@ -1,143 +1,122 @@
 <?php
 namespace Libraries\Navigation\View;
-use Helpers\CatalogueTags;
 
+/**
+ * Navigation viewer class
+ * @package Phalcon
+ * @subpackage Libraries\Navigation\View
+ * @since PHP >=5.4
+ * @version 1.0
+ * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
+ * @copyright Stanilav WEB
+ * @filesource /apps/Libraries/Navigation/View/Navigate.php
+ */
 class Navigate {
-	/**
-	 * Вывод Html
-	 * @var string
-	 */
-	protected $html = '';
-	/**
-	 * Объект переводчика Translate
-	 * @var type
-	 */
-	protected $t;
-	/**
-	 * Контейнер с зависимостями
-	 * @var type
-	 */
-	protected $di;
-	protected $wrapper = false;
-	protected $request = false;
-	/**
-	 * @todo add acl veryfication
-	 * @todo add schedule veryfication
-	 *
-	 */
-	public function __construct()
-	{
-		if(is_null($this->t))
-		{
-			$this->di	=	\Phalcon\DI::getDefault();
-			$messages = [];
-			require $this->di->get('config')->application->messagesDir."/".$this->di->get('session')->get('language')."/layout.php";
-			$this->t = new \Phalcon\Translate\Adapter\NativeArray([
-				"content" => $messages
-			]);
-		}
-	}
 
-	/**
-	 * Translate proxy
-	 *
-	 * @param type $word
-	 * @return string
-	 */
-	private function _translate($word)
-	{
-		if(is_null($this->t))
-			return $word;
+	protected
+				/**
+		 		 * Html output
+		 		 * @var string
+		 		 */
+				$_string = '',
+				/**
+		 		 * Active link class
+		 		 * @var string
+		 		 */
+				$_activeClass	=	'active-parent active',
 
-		return $this->t->_($word);
-	}
+				/**
+				 * Drop down child list ul class
+		 		 * @var string
+		 		 */
+				$_dropChildClass	=	'dropdown-menu';
 
 	/**
 	 * Create ul elements
 	 *
-	 * @param type $node
+	 * @param \Libraries\Navigation\Node $node
+	 * @access private
+	 * @return null
 	 */
-	private function _generate($node) {
-		$class = !is_null($node->getClass()) ? " class='" . $node->getClass() . "' " : '';
-		$id = !is_null($node->getId()) ? " id='" . $node->getId() . "'" : '';
-		// определяю обертку
-		$this->wrapper = !is_null($node->getWrapper()) ? $node->getWrapper() : '';
-		$this->html .= "\t<$this->wrapper $class$id>" . PHP_EOL;
-		if ($node->hasChilds())
+	private function _generate(\Libraries\Navigation\Node $node)
+	{
+		$class 	= 	!is_null($node->getClass()) ? " class='" . $node->getClass() . "' " : '';
+		$id 	= 	!is_null($node->getId()) ? " id='" . $node->getId() . "'" : '';
+
+		$this->_string .= "\t<ul$class$id>" . PHP_EOL;
+
+		if($node->hasChilds())
 			$this->_generateChilds($node->getChilds());
-		$this->html .= "\t</$this->wrapper>" . PHP_EOL;
+
+		$this->_string .= "\t</ul>" . PHP_EOL;
 	}
+
 	/**
 	 * Create childs element
 	 *
-	 * @param type $childs
+	 * @param object $node
+	 * @access private
+	 * @return null
 	 */
-	private function _generateChilds($childs) {
-		foreach ($childs as $node) {
+	private function _generateChilds($childs)
+	{
+		foreach($childs as $node)
 			$this->_generateElement($node);
-		}
 	}
+
 	/**
 	 * Create one element
 	 *
-	 * @param type $node
+	 * @param object $node
+	 * @access private
+	 * @return null
 	 */
-	private function _generateElement($node) {
-		$cssClasses = array();
-		if ($node->isActive())
-			$cssClasses[] = '';
-		if (!is_null($node->getClass()))
-			$cssClasses[] = $node->getClass();
-		$openSubBlock = $node->getOpen();
-		$closeSubBlock = $node->getClose();
-		$cssClasses = array_filter($cssClasses);
+	private function _generateElement($node)
+	{
+		$cssClasses = [];
+		if($node->isActive()) $cssClasses[] = $this->_activeClass;
+
+		if($node->getClass()) $cssClasses[] = $node->getClass();
+
 		$class = count($cssClasses) > 0 ? " class='" . implode(',', $cssClasses) . "'" : '';
+
+		$classLink = ($node->getClassLink()) ? " class='" . $node->getClassLink() . "'" : '';
+
 		$id = !is_null($node->getId()) ? " id='" . $node->getId() . "'" : '';
 		$target = !is_null($node->getTarget()) ? " target='" . $node->getTarget() . "'" : '';
-		if(!empty($openSubBlock)) $this->html .= $openSubBlock;
-		if((new \Phalcon\Http\Request())->getURI() == $node->getUrl())
-		{
-			$selected = " selected";
-			$class	.=	" class='selected'";
-		}
-		else $selected = '';
-		$this->html .= ($this->wrapper == 'div') ? "\t\t<$this->wrapper $class $id>" . PHP_EOL : false;
-		// onclick defined
-		$onclick = $node->getClick();
-		$onclick = ($onclick != null) ? "onclick=\"".$onclick."\"" : "";
-		$this->html .= ($this->wrapper != 'div') ? '<li>' : false;
-		$this->html .= "\t\t\t<a title='". $this->_translate($node->getName()) . "' class='".$node->getClassLink().$selected."' ".$onclick." href='" . $node->getUrl() . "' $target>". $this->_translate($node->getName())."</a>" . PHP_EOL;
+		$click = !is_null($node->getClick()) ? " onclick='" . $node->getClick() . "'" : '';
+
+		// generate link and wrapper <li>
+		$this->_string .= "\t\t<li$class $id>" . PHP_EOL;
+		$this->_string .= "\t\t\t<a ".$classLink." title='". $node->getName() . "' ".$click." href='" . $node->getUrl() . "' $target>";
+
+		$this->_string .= ($node->getIcon()) ? '<i class="'.$node->getIcon().'"></i>' : '';
+
+		$this->_string .= '<span class="hidden-xs"> '.$node->getName().'</span>';
+
+		$this->_string .= "</a>" . PHP_EOL;
+
+		//generate childs
+
 		if($node->hasChilds())
 		{
-			if($this->wrapper == 'ul')
-			{
-				$this->html .= "\t\t<ul class>" . PHP_EOL;
-				$this->_generateChilds($node->getChilds());
-				$this->html .= "\t\t</ul>" . PHP_EOL;
-			}
+			$ulClass = (!empty($this->_dropChildClass)) ? 'class="'.$this->_dropChildClass.'"' : '';
+			$this->_string .= "\t\t<ul $ulClass>" . PHP_EOL;
+			$this->_generateChilds($node->getChilds());
+			$this->_string .= "\t\t</ul>" . PHP_EOL;
 		}
-		$this->html .= ($this->wrapper != 'div') ? '</li>' : false;
-		if(!empty($closeSubBlock)) $this->html .= $closeSubBlock;
-		// Генерирование дочерних категорий
-		if($node->hasChilds())
-		{
-			if($this->wrapper == 'div')
-			{
-				$this->html .= "\t\t<div class='submenu'>" . PHP_EOL;
-				$this->_generateChilds($node->getChilds());
-				$this->html .= "\t\t</div>" . PHP_EOL;
-			}
-		}
-		$this->html .= ($this->wrapper == 'div') ? "\t\t</$this->wrapper>" : false;
+		$this->_string .= "\t\t</li>" . PHP_EOL;
 	}
+
 	/**
-	 * Generate all HTML
+	 * Output HTML to view
 	 *
-	 * @param type $node
-	 * @return string
+	 * @param string $node
+	 * @access public
+	 * @return string HTML
 	 */
 	public function toHtml($node) {
 		$this->_generate($node);
-		return $this->html;
+		return $this->_string;
 	}
 }

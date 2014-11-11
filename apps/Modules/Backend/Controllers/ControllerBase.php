@@ -140,11 +140,22 @@ class ControllerBase extends Controller
 		// setup breadcrumbs
 		$this->_breadcrumbs	=	$this->di->get('breadcrumbs');
 
+		// setup navigation
+
+		$navigation = $this->di->get('navigation');
+
+		$navigation->setActiveNode(
+			$this->router->getActionName(),
+			$this->router->getControllerName(),
+			$this->router->getModuleName()
+		);
+
 		// global view variables
 
 		$this->view->setVars([
 			'user'			=>	$this->_user,
-			'breadcrumbs'	=>	$this->_breadcrumbs
+			'breadcrumbs'	=>	$this->_breadcrumbs,
+			'navigation'	=>	$navigation
 		]);
 	}
 }
