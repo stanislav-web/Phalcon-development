@@ -1135,22 +1135,23 @@ function LoadSparkLineScript(callback){
 //
 function LoadAjaxContent(url){
 	$('.preloader').show();
-	$.ajax({
-		mimeType: 'text/html; charset=utf-8', // ! Need set mimeType only when run from local file
-		url: url,
-		type: 'GET',
-		success: function(data) {
-			console.log('Data', data);
-			$('#ajax-content').html(data);
-			$('.preloader').hide();
-		},
-		error: function (jqXHR, textStatus, errorThrown) {
-			console.log(jqXHR);
-			console.log(errorThrown);
-		},
-		dataType: "html",	// html
-		async: false
-	});
+
+	setTimeout(function() {
+		$.ajax({
+			mimeType: 'text/html; charset=utf-8', // ! Need set mimeType only when run from local file
+			url: url,
+			type: 'GET',
+			success: function(data) {
+				$('#ajax-content').html(data);
+				$('.preloader').hide();
+			},
+			error: function (jqXHR, textStatus, errorThrown) {
+				alert(errorThrown);
+			},
+			dataType: "html",	// html
+			async: false
+		});
+	} , 1000);
 }
 //
 //  Function maked all .box selector is draggable, to disable for concrete element add class .no-drop

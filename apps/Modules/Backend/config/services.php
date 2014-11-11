@@ -88,3 +88,10 @@
 		return $crypt;
 
 	});
+
+	/**
+ 	 * Setup Hanzel & Grettel breadcrumbs ))
+ 	 */
+	$di->set('breadcrumbs', function() {
+		return new \Libraries\Breadcrumbs\Breadcrumbs();
+	});

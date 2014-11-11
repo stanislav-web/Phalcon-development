@@ -69,16 +69,22 @@
 		<?php $this->partial("dashboard/sidebar") ?>
 		<!-- /End Sidebar -->
 
-		<!--Start Ajax Content-->
 		<div id="content" class="col-xs-12 col-sm-10">
+			<!-- Breadcrumbs -->
+			<?php $breadcrumbs->generate(); ?>
+			<!-- /Breadcrumbs -->
+
+			<!--Start Ajax Content-->
 			<div id="ajax-content">
 				<?php echo $this->getContent() ?>
 			</div>
+			<!--End Ajax Content-->
+
 			<div class="preloader">
 				<?=$this->tag->image(['assets/backend/images/loader.gif', "alt" => 'loader']); ?>
 			</div>
 		</div>
-		<!--End Ajax Content-->
+
 
 	</div>
 </div>

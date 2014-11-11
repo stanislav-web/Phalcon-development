@@ -13,9 +13,6 @@ use \Phalcon\Mvc\View;
  */
 class DashboardController extends ControllerBase
 {
-
-
-
 	/**
 	 * initialize() Initialize constructor
 	 * @access public
@@ -29,7 +26,8 @@ class DashboardController extends ControllerBase
 
     public function indexAction()
     {
-		$this->view->setVar('key', 'TEST');
+		// add crumb to chain
+		$this->_breadcrumbs->add('Dashboard', $this->request->getURI());
 	}
 }
 

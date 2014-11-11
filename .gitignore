@@ -7,4 +7,6 @@ logs
 vendor
 .idea/*
 apps/config
-public/adminer.phpgg
+public/adminer.php
+apps/config/application.php
+apps/config/development.php

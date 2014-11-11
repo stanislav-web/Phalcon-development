@@ -3,6 +3,7 @@ namespace Modules\Backend\Controllers;
 
 use Phalcon\Mvc\Controller,
 	Phalcon\Mvc\View,
+	Phalcon\Breadcrumbs,
 	Models\Users;
 
 
@@ -33,9 +34,14 @@ class ControllerBase extends Controller
 		$_logger	=	false,
 
 		/**
+		 * Logger service
+		 * @var object Libraries\Breadcrumbs
+		 */
+		$_breadcrumbs	=	false,
+
+		/**
 		 * From `users` table auth data
-		 * @var bool
-		 *
+		 * @var array
 		 */
 		$_user		=	[];
 
@@ -104,22 +110,17 @@ class ControllerBase extends Controller
 		]);
 		if($this->request->isAjax() == true)
 		{
-			// if is Ajax ? start render action view
-			$this->view->setRenderLevel(\Phalcon\Mvc\View::LEVEL_ACTION_VIEW);
-
-			// disable layout
+			// disable layouts
 			$this->view->disableLevel([
+				View::LEVEL_LAYOUT		=>	true,
 				View::LEVEL_MAIN_LAYOUT	=>	true,
 			]);
 
-			// get data params assigned to view from controller
-			$data = $this->view->getParamsToView();
-
 			// return clean current template width variable
 			return $this->view->getRender(
-				$dispatcher->getControllerName(), 	//	render Controoler
-				$dispatcher->getActionName(),		//	render Action
-				$data);								// 	render Data
+				$dispatcher->getControllerName(), 	//	render Controller
+				$dispatcher->getActionName()		//	render Action
+			);
 		}
 	}
 
@@ -136,10 +137,14 @@ class ControllerBase extends Controller
 		if($this->_config->logger->enable)
 			$this->_logger	=	$this->di->get('logger');
 
-		// view variables
+		// setup breadcrumbs
+		$this->_breadcrumbs	=	$this->di->get('breadcrumbs');
+
+		// global view variables
 
 		$this->view->setVars([
-			'user'	=>	$this->_user,
+			'user'			=>	$this->_user,
+			'breadcrumbs'	=>	$this->_breadcrumbs
 		]);
 	}
 }
