@@ -33,7 +33,7 @@ class Breadcrumbs {
 	 * @access public
 	 * @return this
 	 */
-	public function add($caption, $link)
+	public function add($caption, $link = false)
 	{
 		if($link == (new Request)->getURI()) $el = ['active' => true, 'link'   => $link, 'text'   => $caption];
 		else $el = ['active' => false, 'link'   => $link, 'text'   => $caption];

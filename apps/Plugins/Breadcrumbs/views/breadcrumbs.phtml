@@ -3,9 +3,9 @@
 		<ol class="breadcrumb">
 			<?php foreach($elements as $element): ?>
 				<li>
-					<?=($element['active']) ? $element['text'] : $this->tag->linkTo($element['link'], $element['text']).' / '; ?>
+					<?=($element['active']) ? $element['text'] : $this->tag->linkTo($element['link'], $element['text'], false); ?>
 				</li>
-				<?=(isset($separator)) ? $separator : '' ?>
+				<?//=(isset($separator)) ? $separator : '' ?>
 			<?php endforeach; ?>
 		</ol>
 	</div>

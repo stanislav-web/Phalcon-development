@@ -19,6 +19,13 @@ $di = new Phalcon\DI\FactoryDefault();
 $di->set('router', function() {
 
     $router = new \Phalcon\Mvc\Router();
+	$router->removeExtraSlashes(true)
+			->setDefaults([
+				'module'		=>	'Frontend',
+				'controller'	=>	'index',
+				'action'		=>	'index'
+			]);
+
     require APP_PATH . '/config/routes.php';
     return $router;
 

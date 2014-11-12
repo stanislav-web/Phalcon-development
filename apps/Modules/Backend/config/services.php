@@ -7,7 +7,8 @@
 	$di->set('url', function() {
 
     	$url = new \Phalcon\Mvc\Url();
-    	$url->setBaseUri($this->_config->application->baseUri);
+    	$url->setBaseUri($this->_config->application->baseUri)
+			->setBasePath(DOCUMENT_ROOT);
     	return $url;
 
 	});
@@ -105,3 +106,16 @@
 			return new \Libraries\Navigation\Navigation(new \Phalcon\Config($navigation[self::MODULE]));
 
 	});
+
+	// If the configuration specify the use of metadata adapter use it or use memory otherwise
+
+	if($this->_confog->cache->metadata)
+	{
+		$di->set('modelsMetadata', function() {
+			return new Phalcon\Mvc\Model\Metadata\Apc([
+				'prefix' 	=> $this->_confog->cache->prefix,
+				'lifetime' 	=> $this->_confog->cache->lifetime
+			]);
+		});
+	}
+

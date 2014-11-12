@@ -4,6 +4,7 @@ namespace Modules\Backend\Controllers;
 use Phalcon\Mvc\Controller,
 	Phalcon\Mvc\View,
 	Phalcon\Breadcrumbs,
+	Phalcon\Mvc\Url,
 	Models\Users;
 
 

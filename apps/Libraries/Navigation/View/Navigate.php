@@ -29,7 +29,13 @@ class Navigate {
 				 * Drop down child list ul class
 		 		 * @var string
 		 		 */
-				$_dropChildClass	=	'dropdown-menu';
+				$_dropChildClass	=	'dropdown-menu',
+
+				/**
+		 		 * Drop down child list ul show class
+		 		 * @var string
+		 		 */
+				$_dropChildShowClass	=	'show';
 
 	/**
 	 * Create ul elements
@@ -73,14 +79,27 @@ class Navigate {
 	 */
 	private function _generateElement($node)
 	{
-		$cssClasses = [];
-		if($node->isActive()) $cssClasses[] = $this->_activeClass;
+		$cssClasses 	= 	[];
+		$classLink		=	[];
+		$dropDownShow	=	'';
+
+		if($node->isActive())
+		{
+			// set active parent wrapper
+			$cssClasses[] 	= 	$this->_activeClass;
+			// set active link
+			$classLink[]	=	$this->_activeClass;
+			// set active dropdown list
+			$dropDownShow	=	$this->_dropChildShowClass;
+		}
+		if($node->getClassLink()) $classLink[]	=	$node->getClassLink();
+
 
 		if($node->getClass()) $cssClasses[] = $node->getClass();
 
-		$class = count($cssClasses) > 0 ? " class='" . implode(',', $cssClasses) . "'" : '';
+		$class = count($cssClasses) > 0 ? " class='" . implode(' ', $cssClasses) . "'" : '';
 
-		$classLink = ($node->getClassLink()) ? " class='" . $node->getClassLink() . "'" : '';
+		$classLink = ($node->getClassLink()) ? " class='" . implode(' ', $classLink) . "'" : '';
 
 		$id = !is_null($node->getId()) ? " id='" . $node->getId() . "'" : '';
 		$target = !is_null($node->getTarget()) ? " target='" . $node->getTarget() . "'" : '';
@@ -100,7 +119,7 @@ class Navigate {
 
 		if($node->hasChilds())
 		{
-			$ulClass = (!empty($this->_dropChildClass)) ? 'class="'.$this->_dropChildClass.'"' : '';
+			$ulClass = (!empty($this->_dropChildClass)) ? 'class="'.$this->_dropChildClass.' '.$dropDownShow.'"' : '';
 			$this->_string .= "\t\t<ul $ulClass>" . PHP_EOL;
 			$this->_generateChilds($node->getChilds());
 			$this->_string .= "\t\t</ul>" . PHP_EOL;

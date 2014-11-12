@@ -4,15 +4,15 @@ use Phalcon\Mvc\Controller,
 	Models\Users;
 
 /**
- * Class LoginController
+ * Class AuthController
  * @package 	Backend
  * @subpackage 	Modules\Backend\Controllers
  * @since PHP >=5.4
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
- * @filesource /apps/Modules/Backend/Controllers/LoginController.php
+ * @filesource /apps/Modules/Backend/Controllers/AuthController.php
  */
-class LoginController extends Controller
+class AuthController extends Controller
 {
 	protected
 
