@@ -48,7 +48,7 @@ return [
             'port'     => 587,
             'security' => 'tls',
             'username' => 'stanisov@gmail.com',
-            'password' => 'QWERTY!@#$%^&*()',
+            'password' => 'AAAAAAA',
         ],
     ],
 ];
