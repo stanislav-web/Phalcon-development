@@ -109,7 +109,7 @@
 
 	// If the configuration specify the use of metadata adapter use it or use memory otherwise
 
-	if($this->_confog->cache->metadata)
+	if($this->_config->cache->metadata)
 	{
 		$di->set('modelsMetadata', function() {
 			return new Phalcon\Mvc\Model\Metadata\Apc([
@@ -119,3 +119,18 @@
 		});
 	}
 
+	//Set the views cache service
+	$di->set('viewCache', function() {
+
+		$frontCache = new \Phalcon\Cache\Frontend\Output([
+			"lifetime" => $this->_config->cache->lifetime
+		]);
+		//Memcached connection settings
+
+		$cache = new \Phalcon\Cache\Backend\Memcache($frontCache, [
+			"host" 			=> 	$this->_config->cache->memcached->host,
+			"port" 			=> 	$this->_config->cache->memcached->port,
+			"persistent"	=>	$this->_config->cache->memcached->persistent
+		]);
+		return $cache;
+	});

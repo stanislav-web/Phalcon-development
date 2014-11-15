@@ -3357,7 +3357,8 @@ $(document).ready(function () {
 		$('div#main').toggleClass('sidebar-show');
 		setTimeout(MessagesMenuWidth, 250);
 	});
-	var ajax_url = location.hash.replace(/^#/, '');
+	//var ajax_url = location.hash.replace(/^#/, '');
+	var ajax_url = location.pathname;
 	if (ajax_url.length < 1) {
 		ajax_url = '/dashboard';
 	}

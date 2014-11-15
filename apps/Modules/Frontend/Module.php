@@ -68,9 +68,6 @@ class Frontend implements ModuleDefinitionInterface
 			);
 			$loader->registerNamespaces($namespaces);
 
-			// call profiler
-			(new \Phalcon\Debugger\DebugWidget(\Phalcon\DI::getDefault()));
-
 			// call pretty loader
 			set_error_handler(function($errorCode, $errorMessage, $errorFile, $errorLine) {
 				$p = new \Phalcon\Utils\PrettyExceptions();

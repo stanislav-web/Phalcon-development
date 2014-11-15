@@ -59,11 +59,10 @@ class Backend implements ModuleDefinitionInterface
 
         $loader->register();
 
-		if(isset($this->_config->database->profiler))
+		if(APPLICATION_ENV == 'development')
 		{
 			$namespaces = array_merge(
 				$loader->getNamespaces(), [
-					'Phalcon\Debugger'		=>	APP_PATH.'/Libraries/Debugger',
 					'Phalcon\Utils' 		=> 	APP_PATH.'/Libraries/PrettyExceptions/Library/Phalcon/Utils',
 					'Libraries\Pinboard' 	=> 	APP_PATH.'/Libraries/Pinboard/',
 				]
@@ -104,7 +103,11 @@ class Backend implements ModuleDefinitionInterface
 			return $view;
 		});
 
-        return require_once APP_PATH.'/Modules/Backend/config/services.php';
-    }
+        require_once APP_PATH.'/Modules/Backend/config/services.php';
 
+		// call profiler
+		if($this->_config->database->profiler === true)
+			(new \Plugins\Debugger\Develop($di));
+		return;
+    }
 }

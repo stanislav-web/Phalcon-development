@@ -5,6 +5,4 @@
 	var Backend = {
 
 	};
-	ScreenSaver();
-
 })();

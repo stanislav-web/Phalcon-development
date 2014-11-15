@@ -109,6 +109,8 @@ class ControllerBase extends Controller
 		$this->view->disableLevel([
 			View::LEVEL_ACTION_VIEW	=>	true,
 		]);
+
+
 		if($this->request->isAjax() == true)
 		{
 			// disable layouts
@@ -122,6 +124,7 @@ class ControllerBase extends Controller
 				$dispatcher->getControllerName(), 	//	render Controller
 				$dispatcher->getActionName()		//	render Action
 			);
+
 		}
 	}
 
@@ -133,7 +136,6 @@ class ControllerBase extends Controller
 	public function initialize()
 	{
 		// load configurations
-
 		$this->_config	=	$this->di->get('config');
 		if($this->_config->logger->enable)
 			$this->_logger	=	$this->di->get('logger');
@@ -152,11 +154,10 @@ class ControllerBase extends Controller
 		);
 
 		// global view variables
-
 		$this->view->setVars([
 			'user'			=>	$this->_user,
 			'breadcrumbs'	=>	$this->_breadcrumbs,
-			'navigation'	=>	$navigation
+			'navigation'	=>	$navigation,
 		]);
 	}
 }

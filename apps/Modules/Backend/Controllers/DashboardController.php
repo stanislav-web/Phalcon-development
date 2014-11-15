@@ -21,6 +21,13 @@ class DashboardController extends ControllerBase
 	const NAME	=	'Dashboard';
 
 	/**
+	 * Cache key
+	 * @use for every action
+	 * @access public
+	 */
+	public $cacheKey	=	false;
+
+	/**
 	 * initialize() Initialize constructor
 	 * @access public
 	 * @return null
@@ -29,12 +36,19 @@ class DashboardController extends ControllerBase
 	{
 		parent::initialize();
 		$this->tag->setTitle(self::NAME);
+
+		// create cache key
+		$this->cacheKey	=	md5($this->request->getURI());
 	}
 
     public function indexAction()
     {
-		// add crumb to chain
-		$this->_breadcrumbs->add(self::NAME);
+		//if($this->view->getCache()->exists($this->cacheKey))
+		//{
+			// add crumb to chain
+			$this->_breadcrumbs->add(self::NAME);
+		//}
+		//$this->view->cache(['key' => $this->cacheKey]);
 	}
 }
 

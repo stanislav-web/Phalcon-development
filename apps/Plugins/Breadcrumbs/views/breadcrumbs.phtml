@@ -5,7 +5,6 @@
 				<li>
 					<?=($element['active']) ? $element['text'] : $this->tag->linkTo($element['link'], $element['text'], false); ?>
 				</li>
-				<?//=(isset($separator)) ? $separator : '' ?>
 			<?php endforeach; ?>
 		</ol>
 	</div>
