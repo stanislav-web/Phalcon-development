@@ -86,7 +86,7 @@ class ControllerBase extends Controller
 			$this->flashSession->error("You don't have access");
 			// dispatch to login page
 			return $dispatcher->forward([
-				'controller' 	=> 'login',
+				'controller' 	=> 'auth',
 				'action' 		=> 'index',
 			]);
 		}

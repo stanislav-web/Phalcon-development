@@ -82,6 +82,9 @@
 
 	});
 
+	// Default component to crypt cookies values
+
+
 	$di->set('crypt', function() {
 
 		$crypt = new \Phalcon\Crypt();
@@ -109,7 +112,7 @@
 
 	// If the configuration specify the use of metadata adapter use it or use memory otherwise
 
-	if($this->_config->cache->metadata)
+	if($this->_config->cache->metadata == true)
 	{
 		$di->set('modelsMetadata', function() {
 			return new Phalcon\Mvc\Model\Metadata\Apc([

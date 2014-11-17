@@ -9,7 +9,7 @@ namespace Libraries\Navigation;
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @copyright Stanilav WEB
- * @filesource /apps/Libraries/Navigation.php
+ * @filesource /apps/Libraries/Navigation/Navigation.php
  */
 class Navigation {
 

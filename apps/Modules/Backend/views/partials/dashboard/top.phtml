@@ -42,7 +42,7 @@
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle account" data-toggle="dropdown">
 									<div class="avatar">
-										<img src="/assets/backend/images/admin/avatar.jpg" class="img-rounded" alt="avatar" />
+										<img src="/assets/backend/img/avatar.jpg" class="img-rounded" alt="avatar" />
 									</div>
 									<i class="fa fa-angle-down pull-right"></i>
 									<div class="user-mini pull-right">
@@ -76,16 +76,10 @@
 										</a>
 									</li>
 									<li>
-										<a href="#">
-											<i class="fa fa-cog"></i>
-											<span>{$SETTINGS}</span>
-										</a>
+										<?=$this->tag->linkTo(['dashboard/settings', '<i class="fa fa-cog"></i> <span>Settings</span>']);?>
 									</li>
 									<li>
-										<a href="{$LOGOUT}">
-											<i class="fa fa-power-off"></i>
-											<span>{$LOGOUT}</span>
-										</a>
+										<?=$this->tag->linkTo(['dashboard/auth/logout', '<i class="fa fa-power-off"></i> <span>Logout</span>']);?>
 									</li>
 								</ul>
 							</li>

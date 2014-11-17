@@ -45,6 +45,9 @@ class AuthController extends Controller
 		$this->tag->setTitle('Authenticate');
 	}
 
+	/**
+	 * LogIn action
+	 */
 	public function indexAction()
 	{
 		if($this->request->isPost())
@@ -134,6 +137,32 @@ class AuthController extends Controller
 			}
 		}
 		$this->view->setMainView('non-auth-layout');
+	}
+
+	/**
+	 * LogOut action
+	 */
+	public function logoutAction()
+	{
+		// get auth user
+		$user = $this->session->get('auth');
+
+		if(!empty($user))
+		{
+			$this->cookies->set('remember', $user->getId(), time() - $this->_config->rememberKeep);
+			$this->cookies->set('rememberToken',
+				md5($user->getPassword() . $user->getSalt()),
+				time() - $this->_config->rememberKeep);
+
+			// destroy session auth
+			$this->session->destroy();
+		}
+
+		// redirect auth form
+		return $this->dispatcher->forward([
+			'controller' 	=> 'auth',
+			'action' 		=> 'index',
+		]);
 	}
 }
 

@@ -1,6 +1,6 @@
 body {
 	color: #525252;
-	background: #6AA6D6 url(/assets/backend/images/bg.png) 0 0 repeat;
+	background: #6AA6D6 url(/assets/backend/img/bg.png) 0 0 repeat;
 }
 .body-expanded, .modal-open {
 	overflow-y:hidden;
@@ -18,7 +18,7 @@ h1, .h1, h2, .h2, h3, .h3 {
 }
 #logo {
 	position:relative;
-	background: #525252 url(/assets/backend/images/bg.png) 0 0 repeat;
+	background: #525252 url(/assets/backend/img/bg.png) 0 0 repeat;
 }
 #logo a {
 	color: #fff;
@@ -26,7 +26,7 @@ h1, .h1, h2, .h2, h3, .h3 {
 	display: block;
 	font-size: 20px;
 	line-height: 50px;
-	background: url(/assets/backend/images/logo.png) right 42px no-repeat;
+	background: url(/assets/backend/img/logo.png) right 42px no-repeat;
 	-webkit-transition: 0.5s;
 	-moz-transition: 0.5s;
 	-o-transition: 0.5s;
@@ -69,7 +69,7 @@ a.show-sidebar:hover {
 	z-index: inherit;
 	padding-bottom: 3000px !important;
 	margin-bottom: -3000px !important;
-	background: #6AA6D6 url(/assets/backend/images/bg.png) 0 0 repeat;
+	background: #6AA6D6 url(/assets/backend/img/bg.png) 0 0 repeat;
 	-webkit-transition: 0.2s;
 	-moz-transition: 0.2s;
 	-o-transition: 0.2s;
@@ -144,7 +144,7 @@ a.show-sidebar:hover {
 	-moz-border-radius: 0 4px 4px 0;
 	border-radius: 0 4px 4px 0;
 	padding: 0;
-	background: #6AA6D6 url(/assets/backend/images/bg.png) 0 0 repeat;
+	background: #6AA6D6 url(/assets/backend/img/bg.png) 0 0 repeat;
 	box-shadow: none;
 	visibility:hidden;
 }
@@ -602,7 +602,7 @@ ul.DTTT_dropdown.dropdown-menu > li:hover > a {
 	padding: 0;
 	line-height: 40px;
 	background: #525252;
-	background: #5a8db6 url(/assets/backend/images/bg.png) 0 0 repeat;
+	background: #5a8db6 url(/assets/backend/img/bg.png) 0 0 repeat;
 	margin-bottom: 20px;
 }
 .breadcrumb {
@@ -1680,7 +1680,7 @@ td.beauty-hover {
 	padding: 0;
 }
 #dashboard_links .nav {
-	background:#3575A0 url(/assets/backend/images/bg.png) 0 0 repeat;
+	background:#3575A0 url(/assets/backend/img/bg.png) 0 0 repeat;
 	-webkit-border-radius: 0 4px 4px 0;
 	-moz-border-radius: 0 4px 4px 0;
 	border-radius: 0 4px 4px 0;
