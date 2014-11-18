@@ -84,7 +84,6 @@
 
 	// Default component to crypt cookies values
 
-
 	$di->set('crypt', function() {
 
 		$crypt = new \Phalcon\Crypt();

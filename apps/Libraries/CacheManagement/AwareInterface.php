@@ -18,4 +18,19 @@ interface AwareInterface {
 	 * @access public
 	 */
 	public function __construct(\Phalcon\Config $configuration);
+
+	/**
+	 * Get server information
+	 * @access public
+	 * @return array
+	 */
+	public function getServerStatus();
+
+	/**
+	 * Get storage information
+	 * @access public
+	 * @return array
+	 */
+	public function getStorageStatus();
+
 }

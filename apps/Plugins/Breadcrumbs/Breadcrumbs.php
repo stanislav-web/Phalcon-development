@@ -63,9 +63,6 @@ class Breadcrumbs {
 	{
 		$this->_viewDir = (string)$value;
 
-		// setup render level (disable all views and layouts)
-		//$view->setRenderLevel(View::LEVEL_NO_RENDER);
-
 		$view->setPartialsDir($this->_viewDir);
 		$view->partial($this->_partialName, [
 				'elements'	=>	$this->_elements,

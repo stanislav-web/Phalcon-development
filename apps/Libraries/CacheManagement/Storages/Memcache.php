@@ -17,6 +17,13 @@ class Memcache  implements  CacheManagement\AwareInterface {
 	private
 
 		/**
+		 * Config memcache
+		 * @access private
+		 * @var object
+		 */
+		$_config 	= 	false,
+
+		/**
 		 * Resource #ID of connection
 		 * @access private
 		 * @var bool
@@ -34,30 +41,51 @@ class Memcache  implements  CacheManagement\AwareInterface {
 	/**
 	 * Init connection to Memcache Server
 	 * @param Config $config
+	 * @throws CacheManagement\CacheExceptions
 	 */
 	final public function __construct(Config $config)
 	{
+		$this->_config	=	$config->cache->memcache;
 
 		if(isset($config->cache->memcached))
 		{
-			$this->_connection = (new \Memcache())->addServer(
-				$config->cache->memcached->host,
-				$config->cache->memcached->port,
-				$config->cache->memcached->persistent
-			)
-			->connect(
-				$config->cache->memcached->host,
-				$config->cache->memcached->port,
-				$config->cache->memcached->persistent
-			);
+			$this->_connection = (new \Memcache());
+			$this->_connection->addServer($this->_config->host, $this->_config->memcached->port);
 		}
 
 		// if connection lost
 		if($this->_connection === false)
 			throw new CacheManagement\CacheExceptions(
 				printf($this->_status[101],
-						$config->cache->memcached->host,
-						$config->cache->memcached->port), 101);
+					$this->_config->host,
+					$this->_config->port), 101);
+	}
+
+	/**
+	 * Get server information
+	 * @access public
+	 * @return array
+	 */
+	public function getServerStatus()
+	{
+		return [
+			'host'	=>	$this->_config->host,
+			'port'	=>	$this->_config->port
+		];
+	}
+
+	/**
+	 * Get storage information
+	 * @access public
+	 * @return array
+	 */
+	public function getStorageStatus()
+	{
+		return [
+			'stats' => 	$this->_connection->getStats(),
+			'slabs'	=> 	$this->_connection->getExtendedStats('slabs'),
+			'items'	=>	$this->_connection->getExtendedStats('items')
+		];
 	}
 
 	function setup() {

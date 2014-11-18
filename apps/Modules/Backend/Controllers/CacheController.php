@@ -1,7 +1,6 @@
 <?php
 namespace Modules\Backend\Controllers;
-use \Phalcon\Mvc\View,
-	\Libraries\CacheManagement\Storages;
+use \Phalcon\Mvc\View;
 
 /**
  * Class CacheController
@@ -60,19 +59,13 @@ class CacheController extends ControllerBase
 				->add(ucfirst($param));
 
 			// call selected storage
+			$class = "\\Libraries\\CacheManagement\\Storages\\".ucfirst($param);
 
-			$class =	ucfirst($param).($this->_config);
+			$storage = new $class($this->_config);
 
-			$storage = new $class;
-			var_dump($storage); exit;
-
+			$this->view->setVars([
+				'status'	=>	$storage->getStorageStatus()
+			]);
 		}
-		else
-		{
-			exit('sdsd');
-		}
-
-
-
 	}
 }
