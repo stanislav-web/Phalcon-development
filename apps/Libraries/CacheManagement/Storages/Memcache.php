@@ -45,12 +45,12 @@ class Memcache  implements  CacheManagement\AwareInterface {
 	 */
 	final public function __construct(Config $config)
 	{
-		$this->_config	=	$config->cache->memcache;
+		$this->_config	=	$config->cache->memcached;
 
-		if(isset($config->cache->memcached))
+		if(isset($this->_config))
 		{
 			$this->_connection = (new \Memcache());
-			$this->_connection->addServer($this->_config->host, $this->_config->memcached->port);
+			$this->_connection->connect($this->_config->host, $this->_config->port);
 		}
 
 		// if connection lost
@@ -62,15 +62,17 @@ class Memcache  implements  CacheManagement\AwareInterface {
 	}
 
 	/**
-	 * Get server information
+	 * Get server status information
 	 * @access public
 	 * @return array
 	 */
 	public function getServerStatus()
 	{
 		return [
-			'host'	=>	$this->_config->host,
-			'port'	=>	$this->_config->port
+			'host'		=>	$this->_config->host,
+			'port'		=>	$this->_config->port,
+			'version'	=>	$this->_connection->getVersion(),
+			'status'=>	$this->_connection->getServerStatus($this->_config->host, $this->_config->port)
 		];
 	}
 

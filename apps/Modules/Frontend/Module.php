@@ -22,7 +22,7 @@ class Frontend implements ModuleDefinitionInterface
 	 * Current module name
 	 * @var const
 	 */
-	const MODULE	=	'Backend';
+	const MODULE	=	'Frontend';
 
     /**
      * Global config
@@ -52,7 +52,7 @@ class Frontend implements ModuleDefinitionInterface
             'Modules\Frontend\Controllers'  => 	$this->_config['application']['controllersFront'],
 			'Models'       					=> 	$this->_config['application']['modelsDir'],
 			'Libraries'       				=>  $this->_config['application']['libraryDir'],
-            'Modules\Frontend\Plugins'      => 	APP_PATH.'/Modules/Frontend/Plugins/',
+            'Modules\Frontend\Plugins'      => 	APP_PATH.'/Modules/'.self::MODULE.'/Plugins/',
         ]);
 
         $loader->register();
@@ -62,7 +62,7 @@ class Frontend implements ModuleDefinitionInterface
 			$namespaces = array_merge(
 				$loader->getNamespaces(), [
 					'Phalcon\Debugger'	=>	APP_PATH.'/Libraries/Debugger',
-					'Phalcon\Utils' 		=> 	APP_PATH.'/Libraries/PrettyExceptions/Library/Phalcon/Utils'
+					'Phalcon\Utils' 	=> 	APP_PATH.'/Libraries/PrettyExceptions/Library/Phalcon/Utils'
 
 				]
 			);
@@ -92,8 +92,8 @@ class Frontend implements ModuleDefinitionInterface
                     case \Phalcon\Mvc\Dispatcher::EXCEPTION_HANDLER_NOT_FOUND:
                     case \Phalcon\Mvc\Dispatcher::EXCEPTION_ACTION_NOT_FOUND:
                         $dispatcher->forward([
-                            'module'        => 'Frontend',
-                            'namespace' 	=> 'Modules\Frontend\Controllers\\',
+                            'module'        => self::MODULE,
+                            'namespace' 	=> 'Modules\\'.self::MODULE.'\Controllers\\',
                             'controller'    => 'error',
                             'action'        => 'notFound',
                         ]);
@@ -101,8 +101,8 @@ class Frontend implements ModuleDefinitionInterface
                         break;
                     default:
                         $dispatcher->forward([
-                            'module'        => 'Frontend',
-                            'namespace' 	=> 'Modules\Frontend\Controllers\\',
+                            'module'        => self::MODULE,
+                            'namespace' 	=> 'Modules\\'.self::MODULE.'\Controllers\\',
                             'controller'    => 'error',
                             'action'        => 'uncaughtException',
                         ]);
@@ -112,7 +112,7 @@ class Frontend implements ModuleDefinitionInterface
             });
             $dispatcher = new \Phalcon\Mvc\Dispatcher();
             $dispatcher->setEventsManager($eventsManager);
-            $dispatcher->setDefaultNamespace('Modules\Frontend\Controllers');
+            $dispatcher->setDefaultNamespace('Modules\\'.self::MODULE.'\Controllers');
 
             return $dispatcher;
         }, true);
@@ -125,7 +125,7 @@ class Frontend implements ModuleDefinitionInterface
             return $view;
         });
 
-        return require_once APP_PATH.'/Modules/Frontend/config/services.php';
+        return require_once APP_PATH.'/Modules/'.self::MODULE.'/config/services.php';
     }
 
 }

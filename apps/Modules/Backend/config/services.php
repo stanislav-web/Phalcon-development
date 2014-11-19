@@ -46,9 +46,9 @@
 		return $session;
 	});
 
-	// Component Logger. $this->di->get('logger;)->log('.....',Logger::ERROR);
+	// Component Logger. $this->di->get('logger')->log('.....',Logger::ERROR);
 
-	$di->set('logger', function() {
+	$di->setShared('logger', function() {
 
 		if($this->_config->logger->enable == true)
 		{
@@ -74,7 +74,7 @@
 
 	});
 
-	$di->set('cookies', function() {
+	$di->setShared('cookies', function() {
 
 		$cookies = new \Phalcon\Http\Response\Cookies();
 		$cookies->useEncryption(true);
@@ -113,7 +113,7 @@
 
 	if($this->_config->cache->metadata == true)
 	{
-		$di->set('modelsMetadata', function() {
+		$di->setShared('modelsMetadata', function() {
 			return new Phalcon\Mvc\Model\Metadata\Apc([
 				'prefix' 	=> $this->_confog->cache->prefix,
 				'lifetime' 	=> $this->_confog->cache->lifetime
@@ -122,7 +122,7 @@
 	}
 
 	//Set the views cache service
-	$di->set('viewCache', function() {
+	$di->setShared('viewCache', function() {
 
 		$frontCache = new \Phalcon\Cache\Frontend\Output([
 			"lifetime" => $this->_config->cache->lifetime

@@ -1,0 +1,78 @@
+<!-- Dashboard header -->
+<div id="dashboard-header" class="row">
+	<div class="col-xs-10 col-sm-3">
+		<h3 class="" disabled><b><?=$title;?> storage</b></h3>
+	</div>
+
+</div>
+<!-- /Dashboard header -->
+
+<!-- Dashboard content -->
+<div class="row-fluid">
+	<div id="dashboard_links" class="col-xs-12 col-sm-2 pull-right">
+		<ul class="nav nav-pills nav-stacked">
+			<li class="active"><a href="#" class="tab-link" id="server">Server</a></li>
+			<li><a href="#" class="tab-link" id="pool">Pool</a></li>
+			<li><a href="#" class="tab-link" id="statistics">Statistics</a></li>
+		</ul>
+	</div>
+	<div id="dashboard_tabs" class="col-xs-12 col-sm-10">
+
+		<div id="dashboard-server" class="row padding-15" style="visibility: visible; position: relative;">
+			<div class="col-xs-12 col-md-6">
+				<table class="table m-table table-bordered table-hover table-heading">
+					<thead>
+					<tr>
+						<th colspan="2"><b><?=$title;?> storage</b></th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="m-ticker">Server status</td>
+							<td class="m-price">
+								<?php if($server['status'] == 1): ?>
+									<button class="btn-sm btn btn-success" disabled>enabled</button>
+								<?php else: ?>
+									<button class="btn-sm btn btn-danger" disabled>disabled</button>
+								<?php endif;?>
+							</td>
+						</tr>
+						<tr>
+							<td class="m-ticker">Version</td>
+							<td class="m-price"><?=$server['version'];?></td>
+						</tr>
+							<td class="m-ticker">Current host</td>
+							<td class="m-price">
+								<?=(isset($server['host'])) ? $server['host'] : 'unknown' ;?>
+							</td>
+						</tr>
+							<td class="m-ticker">Current port</td>
+							<td class="m-price">
+								<?=(isset($server['port'])) ? $server['port'] : 'unknown' ;?>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<div id="dashboard-pool" class="row" style="visibility: hidden; position: absolute;">
+		<div class="col-xs-12 col-md-6">
+			POOOL
+		</div>
+	</div>
+
+		<div id="dashboard-statistics" class="row" style="visibility: hidden; position: absolute;">
+		<div class="col-xs-12 col-md-6">
+			STATISTICA
+		</div>
+	</div>
+	</div>
+	<div class="clearfix"></div>
+</div>
+<script type="text/javascript">
+	$(document).ready(function() {
+		// Make all JS-activity for dashboard
+		DashboardTabChecker();
+	});
+</script>

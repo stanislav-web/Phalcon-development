@@ -86,12 +86,37 @@ class Backend implements ModuleDefinitionInterface
     public function registerServices($di)
     {
         // Dispatch register
-        $di->set('dispatcher', function() use ($di) {
+		$di->set('dispatcher', function() use ($di) {
+			$eventsManager = $di->getShared('eventsManager');
+			$eventsManager->attach('dispatch:beforeException', function ($event, $dispatcher, $exception) {
+				switch ($exception->getCode()) {
+					case \Phalcon\Mvc\Dispatcher::EXCEPTION_HANDLER_NOT_FOUND:
+					case \Phalcon\Mvc\Dispatcher::EXCEPTION_ACTION_NOT_FOUND:
+						$dispatcher->forward([
+							'module'        => self::MODULE,
+							'namespace' 	=> 'Modules\\'.self::MODULE.'\Controllers\\',
+							'controller'    => 'error',
+							'action'        => 'notFound',
+						]);
+						return false;
+						break;
+					default:
+						$dispatcher->forward([
+							'module'        =>  self::MODULE,
+							'namespace' 	=> 'Modules\\'.self::MODULE.'\Controllers\\',
+							'controller'    => 'error',
+							'action'        => 'uncaughtException',
+						]);
+						return false;
+						break;
+				}
+			});
+			$dispatcher = new \Phalcon\Mvc\Dispatcher();
+			$dispatcher->setEventsManager($eventsManager);
+			$dispatcher->setDefaultNamespace('Modules\\'.self::MODULE.'\Controllers');
 
-            $dispatcher = new Dispatcher();
-            $dispatcher->setDefaultNamespace('Modules\Backend\Controllers');
-            return $dispatcher;
-        });
+			return $dispatcher;
+		}, true);
 
         // Registration of component representations (Views)
 
@@ -103,7 +128,7 @@ class Backend implements ModuleDefinitionInterface
 			return $view;
 		});
 
-        require_once APP_PATH.'/Modules/Backend/config/services.php';
+        require_once APP_PATH.'/Modules/'.self::MODULE.'/config/services.php';
 
 		// call profiler
 		if($this->_config->database->profiler === true)

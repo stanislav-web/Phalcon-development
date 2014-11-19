@@ -51,21 +51,34 @@ class CacheController extends ControllerBase
 	{
 		if(isset($this->_engines[$param]))
 		{
-			$this->tag->prependTitle(ucfirst($param));
+			$title = ucfirst($param);
+			$this->tag->prependTitle($title);
 
 			// add crumb to chain (name, link)
 			$this->_breadcrumbs->add(DashboardController::NAME, $this->url->get(['for' => 'dashboard']))
 				->add(self::NAME, $this->url->get('dashboard/cache'))
-				->add(ucfirst($param));
+				->add($title);
 
-			// call selected storage
-			$class = "\\Libraries\\CacheManagement\\Storages\\".ucfirst($param);
+			try {
+				// call selected storage
+				$class = "\\Libraries\\CacheManagement\\Storages\\".$title;
 
-			$storage = new $class($this->_config);
+				$storage = new $class($this->_config);
 
-			$this->view->setVars([
-				'status'	=>	$storage->getStorageStatus()
-			]);
+				// setup view to selected class
+
+				$this->view->setVars([
+					'title'		=>	$title,
+					'server'	=>	$storage->getServerStatus()
+				]);
+				$this->view->pick("cache/".strtolower($title));
+
+
+			}
+			catch(CacheExceptions $e)
+			{
+				echo $e->getMessage();
+			}
 		}
 	}
 }
