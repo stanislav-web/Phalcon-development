@@ -1151,7 +1151,7 @@ function LoadAjaxContent(url){
 			dataType: "html",	// html
 			async: false
 		});
-	} , 1000);
+	} , 500);
 }
 //
 //  Function maked all .box selector is draggable, to disable for concrete element add class .no-drop

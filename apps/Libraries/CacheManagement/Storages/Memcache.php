@@ -35,6 +35,7 @@ class Memcache  implements  CacheManagement\AwareInterface {
 		 * @var array
 		 */
 		$_status		=	[
+			100	=>	"Extension %s does not installed",
 			101	=>	"Could not Connect to the server %s : %s",
 		];
 
@@ -45,6 +46,9 @@ class Memcache  implements  CacheManagement\AwareInterface {
 	 */
 	final public function __construct(Config $config)
 	{
+		if(!extension_loaded('memcached'))
+			throw new CacheManagement\CacheExceptions(printf($this->_status[100], 'memcached'), 101);
+
 		$this->_config	=	$config->cache->memcached;
 
 		if(isset($this->_config))
@@ -71,8 +75,8 @@ class Memcache  implements  CacheManagement\AwareInterface {
 		return [
 			'host'		=>	$this->_config->host,
 			'port'		=>	$this->_config->port,
-			'version'	=>	$this->_connection->getVersion(),
-			'status'=>	$this->_connection->getServerStatus($this->_config->host, $this->_config->port)
+			'stats'		=>	$this->_connection->getStats(),
+			'status'	=>	$this->_connection->getServerStatus($this->_config->host, $this->_config->port)
 		];
 	}
 
@@ -84,7 +88,6 @@ class Memcache  implements  CacheManagement\AwareInterface {
 	public function getStorageStatus()
 	{
 		return [
-			'stats' => 	$this->_connection->getStats(),
 			'slabs'	=> 	$this->_connection->getExtendedStats('slabs'),
 			'items'	=>	$this->_connection->getExtendedStats('items')
 		];
@@ -305,8 +308,6 @@ class Memcache  implements  CacheManagement\AwareInterface {
 			$this->memcache->set($_GET['set'], $_GET['value']);
 			header("Location: " . $_SERVER['PHP_SELF']);
 		}
-		//header
-		$this->header();
 		//server info
 		$this->print_server_info();
 		//charts
@@ -414,69 +415,7 @@ class Memcache  implements  CacheManagement\AwareInterface {
 		</div>
 	<?php
 	}
-	function header(){
-		?><!DOCTYPE html>
-		<html lang="">
-		<head>
-			<meta charset="utf-8">
-			<meta http-equiv="X-UA-Compatible" content="IE=edge">
-			<meta name="viewport" content="width=device-width, initial-scale=1">
-			<link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
-			<link rel="stylesheet" href="http://cdn.oesmith.co.uk/morris-0.5.1.css">
-			<link rel="stylesheet" href="//cdn.datatables.net/plug-ins/a5734b29083/integration/bootstrap/3/dataTables.bootstrap.css">
-			<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/alertify.js/0.3.11/alertify.core.min.css">
-			<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/alertify.js/0.3.11/alertify.default.min.css">
-			<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/alertify.js/0.3.11/alertify.bootstrap.min.css">
-			<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-			<style type="text/css">
-				pre {overflow: auto;width: 100%;}
-				.key_scroll{overflow: auto;width: 50%;word-wrap: break-word;margin: 0;float: left;}
-				.one_t{width: 30%;}
-				.one_h{width: 50%;}
-				.top20{margin-top: 30px;}
-			</style>
-		</head>
-		<body>
-		<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-			<div class="container">
-				<!-- Brand and toggle get grouped for better mobile display -->
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-						<span class="sr-only">Toggle navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
-					<a class="navbar-brand" href="<?= $_SERVER['PHP_SELF'] ?>">Memcached Dashboard</a>
-				</div>
-				<?php
-				if ($this->server != ''){
-					?><p class="navbar-text">Server IP: <?= $this->server ?> Port: <?= $this->port ?></p><?php
-				}
-				if ($this->is_logged_in()){
-					?>
-					<!-- Collect the nav links, forms, and other content for toggling -->
-					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-						<ul class="nav navbar-nav navbar-right">
-							<li class="dropdown">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Menu <span class="caret"></span></a>
-								<ul class="dropdown-menu" role="menu">
-									<li><a href="#">Server Info</a></li>
-									<li><a href="#charts">Charts</a></li>
-									<li><a href="#stored_data">Stored Data</a></li>
-									<li class="divider"></li>
-									<li><a href="<?= $_SERVER['PHP_SELF']; ?>?action=logout">logout</a></li>
-								</ul>
-							</li>
-						</ul>
-					</div><!-- /.navbar-collapse -->
-				<?php
-				}?>
-			</div><!-- /.container-fluid -->
-		</nav>
-		<div class="container top20">
-	<?php
-	}
+
 	function footer(){
 		?>
 		<script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
