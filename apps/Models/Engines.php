@@ -206,6 +206,7 @@ class Engines extends \Phalcon\Mvc\Model
     {
         return $this->status;
     }
+
     public function initialize()
     {
         $this->belongsTo('currency_id', 'Currency', 'id', array('foreignKey' => true));

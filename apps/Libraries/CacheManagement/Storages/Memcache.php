@@ -146,7 +146,6 @@ class Memcache  implements  CacheManagement\AwareInterface {
 		return  $list;
 	}
 
-
 	/**
 	 * Invalidate all existing items
 	 * @access public
@@ -175,7 +174,7 @@ class Memcache  implements  CacheManagement\AwareInterface {
 	 * @access public
 	 * @return boolean | null
 	 */
-	public function removeData($key)
+	public function deleteItem($key)
 	{
 		$result = $this->_connection->delete($key);
 		return ($result) ? true : false;
