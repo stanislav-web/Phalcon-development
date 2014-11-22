@@ -53,10 +53,6 @@
 								<?=(isset($server['host'])) ? $server['host'] : 'unknown' ;?> : <?=(isset($server['port'])) ? $server['port'] : 'unknown' ;?>
 							</td>
 						</tr>
-						<!--</tr>
-							<td class="m-ticker">Process id for this server</td>
-							<td class="m-price"><?=$server['stats']['pid'];?></td>
-						</tr>-->
 						</tr>
 							<td class="m-ticker">Server Uptime</td>
 							<td class="m-price"><?=date("H:i", $server['stats']['uptime']);?></td>
@@ -87,10 +83,6 @@
 							<td class="m-ticker">Total number of connections opened since the server started running</td>
 							<td class="m-price"><?=$server['stats']['total_connections'];?></td>
 						</tr>
-						<!--</tr>
-							<td class="m-ticker">Number of connection structures allocated by the server</td>
-							<td class="m-price"><?=$server['stats']['connection_structures'];?></td>
-						</tr>-->
 						</tr>
 							<td class="m-ticker">Cumulative number of retrieval requests</td>
 							<td class="m-price"><?=$server['stats']['cmd_get'];?></td>
@@ -128,10 +120,10 @@
 						<a class="btn btn-info" href="#" onclick="Common.filter(); return false;">Refresh</a>
 					</div>
 					<div class="btn-group">
-						<a class="btn btn-primary" href="#" onclick="Common.doublePrompt('Set key', 'Set value'); return false;">SET</a>
+						<a class="btn btn-primary" href="#" onclick="Common.doublePrompt('Set key', 'Set value', '/set'); return false;">SET</a>
 					</div>
 					<div class="btn-group">
-						<a class="btn btn-danger" href="#" onclick="Common.confirm('Are you sure?', '?flush'); return false;">FLUSH</a>
+						<a class="btn btn-danger" href="#" onclick="Common.confirm('Are you sure?', '/flush'); return false;">FLUSH</a>
 					</div>
 				</div>
 			</div>
@@ -152,10 +144,10 @@
 					<?php foreach($pool as $i => $values): ?>
 						<tr>
 							<td><?=$values['key']; ?></td>
-							<td class="word-wrap"><?=$values['value'];?></td>
+							<td class="word-wrap"><code><?=$values['value'];?></code></td>
 							<td><?=Helpers\Format::formatBytes($values['size'],2);?></td>
 							<td><?=$values['type']; ?></td>
-							<td><a class="btn btn-danger" onclick="Common.confirm('Are you sure?', '?del=<?=$values['key']; ?>'); return false;" href="#">X</a>
+							<td><a class="btn btn-danger" onclick="Common.confirm('Are you sure?', '/delete?key=<?=$values['key']; ?>'); return false;" href="#">X</a>
 						</tr>
 					<?php endforeach; ?>
 					</tbody>
@@ -179,11 +171,20 @@
 
 		LoadDataTablesScripts(
 			function() {
+
 				$("#stored_keys").dataTable({
+					"aaSorting": [[ 0, "asc" ]],
 					"bFilter":true,
 					"bSort":true,
-					"dom": '<"top"ilf>rt<"bottom"p><"clear">'
+					"sPaginationType": "bootstrap",
+					"sDom": "<'box-content'<'col-sm-6'f><'col-sm-6 text-right'l><'clearfix'>>rt<'box-content'<'col-sm-6'i><'col-sm-6 text-right'p><'clearfix'>>",
+					"oLanguage": {
+						"sSearch": "",
+						"sLengthMenu": '_MENU_',
+						"searchPlaceholder": 'Search...'
+					}
 				});
+				$('.dataTables_filter input').attr("placeholder", "Search...");
 			}
 		);
 	});

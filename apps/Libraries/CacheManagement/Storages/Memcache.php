@@ -159,26 +159,34 @@ class Memcache  implements  CacheManagement\AwareInterface {
 
 	/**
 	 * Insert new item
+	 * @param array $data maybe key => value
 	 * @access public
 	 * @return boolean | null
 	 */
-	public function setItem($key, $value)
+	public function setData(array $data)
 	{
-		$result = $this->_connection->set($key, $value, MEMCACHE_COMPRESSED);
-		return ($result) ? true : false;
+		if(isset($data['key']) && isset($data['value']))
+			$result = $this->_connection->set($data['key'], $data['value'], MEMCACHE_COMPRESSED);
+		return (isset($result)) ? true : false;
 	}
 
 	/**
 	 * Remove selected item key
-	 * @param string $key
+	 * @param array $data
 	 * @access public
 	 * @return boolean | null
 	 */
-	public function deleteItem($key)
+	public function deleteData(array $data)
 	{
-		$result = $this->_connection->delete($key);
-		return ($result) ? true : false;
+		if(isset($data['key']))
+			$result = $this->_connection->delete($data['key']);
+		return (isset($result)) ? true : false;
 	}
+
+
+
+
+
 
 
 	function print_hit_miss_widget(){

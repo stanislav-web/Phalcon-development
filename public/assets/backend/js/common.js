@@ -4,33 +4,34 @@
  */
 var Common = {
 
-
-	uri	:	false,
-
-    /**
-     * filter : function(param) Filter redirect to date
-     * @param param string
-     * @return null
+	/**
+	 * Use for URI builder
+	 * @var request uri
 	 */
-	filter : function(param) {
-		if(!param )
-		{
-			if(location.hash)
+	uri: false,
+
+	/**
+	 * filter : function(param) Filter redirect to date
+	 * @param param string
+	 * @return null
+	 */
+	filter: function (param) {
+		if (!param) {
+			if (location.hash)
 				var url = location.pathname + location.hash;
 			else
 				var url = location.pathname;
 
 			window.location.reload(url);
 		}
-		else
-		{
+		else {
 			// filter by status
 			var recursiveDecoded = decodeURIComponent($.param(param)),
-				hash	=	'';
-			if(window.location.hash)
-				hash	=	window.location.hash;
+				hash = '';
+			if (window.location.hash)
+				hash = window.location.hash;
 
-			window.location.assign(location.pathname +'?' +recursiveDecoded+hash);
+			window.location.assign(location.pathname + '?' + recursiveDecoded + hash);
 
 		}
 		return;
@@ -42,19 +43,20 @@ var Common = {
 	 * @param string go location accept link
 	 * @return void
 	 */
-	confirm : function(question, go)
-	{
-		var then 	= 	this;
-			then.uri =	go;
+	confirm: function (question, go) {
+		var then = this;
+		then.uri = go;
 
 		alertify.confirm(question, function (e, go) {
-			if(e) {
+			if (e) {
 
-				if(then.uri)
-				{
-					if(location.hash)
-						var go = then.uri + location.hash;
-					window.location.href = go;
+				if (then.uri) {
+					if (location.hash)
+						var url = location.pathname + then.uri + location.hash;
+					else
+						var url = then.uri;
+
+					window.location.assign(url);
 				}
 				else
 					return then.filter();
@@ -69,15 +71,17 @@ var Common = {
 	 * @param string go
 	 * @return void
 	 */
-	prompt : function(label, go) {
+	prompt: function (label, go) {
 
-		var then 		= 	this;
-			then.uri 	=	go;
+		var then = this;
+		then.uri = go;
 
 		alertify.prompt(label, function (e) {
-			if(e) {
-				if(then.uri)
-					window.location.href = then.uri;
+			if (e) {
+				if (then.uri) {
+					var url = location.pathname + then.uri;
+					window.location.assign(url);
+				}
 				else
 					return then.filter();
 			}
@@ -91,25 +95,27 @@ var Common = {
 	 * @param string go
 	 * @return void
 	 */
-	doublePrompt : function(label1, label2, go) {
+	doublePrompt: function (label1, label2, go) {
 
-		var then 		= 	this;
-			then.uri 	=	go;
+		var then = this;
+		then.uri = go;
 
 		alertify.prompt(label1, function (e, key) {
-			if(e) {
+			if (e) {
 				alertify.prompt(label2, function (e, value) {
 					// value is the input text
-					if(e) {
-						if(then.uri)
-						{
-							var url = then.uri+"?key="+ key +"&value=" + value;
+					if (e) {
+						if (then.uri) {
+							if (location.hash)
+								var url = location.pathname + then.uri + "?key=" + key + "&value=" + value + location.hash;
+							else
+								var url = location.pathname + then.uri + "?key=" + key + "&value=" + value;
 							window.location.assign(url);
 						}
 						else
 							return then.filter({
-								'key'	:	key,
-								'value'	:	value
+								'key': key,
+								'value': value
 							});
 					}
 				});
@@ -122,8 +128,7 @@ var Common = {
 	 * @param string uri
 	 * @returns {*}
 	 */
-	clearUri : function(uri)
-	{
+	clearUri: function (uri) {
 		return url.origin + url.pathname;
 	}
 };

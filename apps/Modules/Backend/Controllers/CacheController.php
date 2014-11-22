@@ -48,7 +48,7 @@ class CacheController extends ControllerBase
 			->add(self::NAME);
 	}
 
-	public function storageAction($param)
+	public function storageAction($param, $action = false)
 	{
 		if(isset($this->_engines[$param]))
 		{
@@ -65,6 +65,10 @@ class CacheController extends ControllerBase
 				$class = "\\Libraries\\CacheManagement\\Storages\\".$title;
 
 				$storage = new $class($this->_config);
+
+				if(isset($action) && !empty($action))	// do the action
+					if($storage->{strtolower($action) . 'Data'}($this->request->getQuery()))
+						return $this->response->redirect($this->request->getHTTPReferer());
 
 				// setup view to selected class
 

@@ -10,3 +10,5 @@ apps/config
 public/adminer.php
 apps/config/application.php
 apps/config/development.php
+apps/Libraries/PrettyExceptions
+apps/Plugins/Debugger

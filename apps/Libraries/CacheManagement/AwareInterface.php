@@ -45,17 +45,16 @@ interface AwareInterface {
 
 	/**
 	 * Set item to storage
-	 * @param string $key
-	 * @param mixed $value
+	 * @param array $data
 	 * @return boolean | null
 	 */
-	public function setItem($key, $value);
+	public function setData(array $data);
 
 	/**
-	 * Delet item from storage
-	 * @param string $key
+	 * Delete item from storage
+	 * @param array $data
 	 * @return boolean | null
 	 */
-	public function deleteItem($key);
+	public function deleteData(array $data);
 
 }
