@@ -128,21 +128,22 @@
 						<a class="btn btn-info" href="#" onclick="Common.filter(); return false;">Refresh</a>
 					</div>
 					<div class="btn-group">
-						<a class="btn btn-primary" href="#" onclick="memcachedSet()">SET</a>
+						<a class="btn btn-primary" href="#" onclick="Common.doublePrompt('Set key', 'Set value'); return false;">SET</a>
 					</div>
 					<div class="btn-group">
-						<a class="btn btn-danger" href="#" onclick="Common.confirm('Are you sure?'); return false;">FLUSH</a>
+						<a class="btn btn-danger" href="#" onclick="Common.confirm('Are you sure?', '?flush'); return false;">FLUSH</a>
 					</div>
 				</div>
 			</div>
+			<div class="clearfix"></div>
 
 			<div class="table-responsive">
 				<table id="stored_keys" class="table table-bordered table-hover table-striped" style="table-layout: fixed;">
 					<thead>
 					<tr>
 						<th class="col-md-4">Key</th>
-						<th class="col-md-5">Value</th>
-						<th class="col-md-1">Data size</th>
+						<th class="col-md-4">Value</th>
+						<th class="col-md-2">Data size</th>
 						<th class="col-md-1">Type</th>
 						<th class="col-md-1">Action</th>
 					</tr>
@@ -154,7 +155,7 @@
 							<td class="word-wrap"><?=$values['value'];?></td>
 							<td><?=Helpers\Format::formatBytes($values['size'],2);?></td>
 							<td><?=$values['type']; ?></td>
-							<td><a class="btn btn-danger" onclick="deleteKey('<?=$values['key'];?>')" href="#">X</a>
+							<td><a class="btn btn-danger" onclick="Common.confirm('Are you sure?', '?del=<?=$values['key']; ?>'); return false;" href="#">X</a>
 						</tr>
 					<?php endforeach; ?>
 					</tbody>
@@ -175,6 +176,16 @@
 	$(document).ready(function() {
 		// Make all JS-activity for dashboard
 		DashboardTabChecker();
+
+		LoadDataTablesScripts(
+			function() {
+				$("#stored_keys").dataTable({
+					"bFilter":true,
+					"bSort":true,
+					"dom": '<"top"ilf>rt<"bottom"p><"clear">'
+				});
+			}
+		);
 	});
 </script>
 <!-- Append Stylesheet -->

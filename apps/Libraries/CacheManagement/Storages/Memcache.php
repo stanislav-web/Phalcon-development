@@ -96,10 +96,11 @@ class Memcache  implements  CacheManagement\AwareInterface {
 
 	/**
 	 * Get storage content
+	 * @param int $limit limit of records
 	 * @access public
 	 * @return array|mixed
 	 */
-	public function getPool()
+	public function getPool($limit = 100)
 	{
 		$list = [];
 		$storage = $this->getStorageStatus();
@@ -109,7 +110,7 @@ class Memcache  implements  CacheManagement\AwareInterface {
 			{
 				if('active_slabs' == $slabId || "total_malloced" == $slabId) continue;
 				try {
-					$cdump = $this->_connection->getExtendedStats('cachedump', (int)$slabId, 1000);
+					$cdump = $this->_connection->getExtendedStats('cachedump', (int)$slabId, $limit);
 				}
 				catch (Exception $e) {
 					continue;
@@ -145,6 +146,40 @@ class Memcache  implements  CacheManagement\AwareInterface {
 		return  $list;
 	}
 
+
+	/**
+	 * Invalidate all existing items
+	 * @access public
+	 * @return boolean | null
+	 */
+	public function flushData()
+	{
+		$result = $this->_connection->flush();
+		return ($result) ? true : false;
+	}
+
+	/**
+	 * Insert new item
+	 * @access public
+	 * @return boolean | null
+	 */
+	public function setItem($key, $value)
+	{
+		$result = $this->_connection->set($key, $value, MEMCACHE_COMPRESSED);
+		return ($result) ? true : false;
+	}
+
+	/**
+	 * Remove selected item key
+	 * @param string $key
+	 * @access public
+	 * @return boolean | null
+	 */
+	public function removeData($key)
+	{
+		$result = $this->_connection->delete($key);
+		return ($result) ? true : false;
+	}
 
 
 	function print_hit_miss_widget(){
@@ -226,51 +261,13 @@ class Memcache  implements  CacheManagement\AwareInterface {
 		echo '<pre>'.print_r($status,true).'</pre>';
 	}
 	function dashboard(){
-		//delete
-		if (isset($_GET['del'])) {
-			$this->memcache->delete($_GET['del']);
-			header("Location: " . $_SERVER['PHP_SELF']);
-		}
-		//flush
-		if (isset($_GET['flush'])) {
-			$this->memcache->flush();
-			header("Location: " . $_SERVER['PHP_SELF']);
-		}
-		//set
-		if (isset($_GET['set'])) {
-			$this->memcache->set($_GET['set'], $_GET['value']);
-			header("Location: " . $_SERVER['PHP_SELF']);
-		}
+
 		//charts
 		$this->print_charts();
-		//stored data
-		$this->stored_data_table();
 		//footer
 		$this->footer();
 	}
-	function stored_data_table(){
-		?>
-		<a name="stored_data">&nbsp;</a>
-		<div class="panel panel-default top20">
-			<div class="panel-heading">
-				<h3 class="panel-title">Stored Keys</h3>
-			</div>
-			<div class="panel-body">
-				<div class="btn-group btn-group-justified">
-					<div class="btn-group">
-						<a class="btn btn-info" href="<?= $_SERVER['PHP_SELF'] ?>" onclick="">Refresh</a>
-					</div>
-					<div class="btn-group">
-						<a class="btn btn-primary" href="#" onclick="memcachedSet()">SET</a>
-					</div>
-					<div class="btn-group">
-						<a class="btn btn-danger" href="#" onclick="flush()">FLUSH</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	<?php
-	}
+
 	function print_charts(){
 		?>
 		<a name="charts">&nbsp;</a>
@@ -299,41 +296,6 @@ class Memcache  implements  CacheManagement\AwareInterface {
 					"dom": '<"top"ilf>rt<"bottom"p><"clear">'
 				});
 			});
-			function memcachedSet() {
-				alertify.prompt("Set Key", function (e, key) {
-					// key is the input text
-					if (e) {
-						alertify.prompt("Set Value", function (e, value) {
-							// value is the input text
-							if (e) {
-								window.location.href = "<?= $_SERVER['PHP_SELF'] ?>?set="+ key +"&value=" + value;
-							} else {
-								// user clicked "cancel"
-							}
-						}, "Some Value");
-					} else {
-						// user clicked "cancel"
-					}
-				}, "SomeKey");
-			}
-			function deleteKey(key){
-				alertify.confirm("Are you sure?", function (e) {
-					if (e) {
-						window.location.href = "<?= $_SERVER['PHP_SELF'] ?>?del="+key;
-					} else {
-						// user clicked "cancel"
-					}
-				});
-			}
-			function flush(){
-				alertify.confirm("Are you sure?", function (e) {
-					if (e) {
-						window.location.href = "<?= $_SERVER['PHP_SELF'] ?>?flush=1";
-					} else {
-						// user clicked "cancel"
-					}
-				});
-			}
 		</script>
 		</body>
 		</html>

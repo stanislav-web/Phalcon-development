@@ -71,7 +71,7 @@ class CacheController extends ControllerBase
 				$this->view->setVars([
 					'title'		=>	$title,
 					'server'	=>	$storage->getServerStatus(),
-					'pool'		=>	$storage->getPool(),
+					'pool'		=>	$storage->getPool(200),
 				]);
 				$this->view->pick("cache/".strtolower($title));
 

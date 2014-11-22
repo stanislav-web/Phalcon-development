@@ -37,4 +37,25 @@ interface AwareInterface {
 	 */
 	public function getPool();
 
+	/**
+	 * Invalidate all existing items
+	 * @return boolean | null
+	 */
+	public function flushData();
+
+	/**
+	 * Set item to storage
+	 * @param string $key
+	 * @param mixed $value
+	 * @return boolean | null
+	 */
+	public function setItem($key, $value);
+
+	/**
+	 * Delet item from storage
+	 * @param string $key
+	 * @return boolean | null
+	 */
+	public function deleteItem($key);
+
 }
