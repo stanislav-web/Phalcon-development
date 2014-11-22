@@ -1,6 +1,7 @@
 <?php
 namespace Modules\Backend\Controllers;
-use \Phalcon\Mvc\View;
+use \Phalcon\Mvc\View,
+	\Helpers;
 
 /**
  * Class CacheController
@@ -70,6 +71,7 @@ class CacheController extends ControllerBase
 				$this->view->setVars([
 					'title'		=>	$title,
 					'server'	=>	$storage->getServerStatus(),
+					'pool'		=>	$storage->getPool(),
 				]);
 				$this->view->pick("cache/".strtolower($title));
 

@@ -1,6 +1,7 @@
 <?php
 namespace Libraries\CacheManagement\Storages;
 	use Libraries\CacheManagement,
+		\Helpers\Node,
 		Phalcon\Config;
 
 /**
@@ -89,131 +90,63 @@ class Memcache  implements  CacheManagement\AwareInterface {
 	{
 		return [
 			'slabs'	=> 	$this->_connection->getExtendedStats('slabs'),
-			'items'	=>	$this->_connection->getExtendedStats('items')
+			'items'	=>	$this->_connection->getExtendedStats('items'),
 		];
 	}
 
-	function setup() {
-		$this->memcache->addServer("$this->server:$this->port");
-		$list = array();
-		$allSlabs = $this->memcache->getExtendedStats('slabs');
-		$items = $this->memcache->getExtendedStats('items');
-		foreach($allSlabs as $server => $slabs) {
-			foreach($slabs AS $slabId => $slabMeta) {
-				if ('active_slabs' == $slabId || "total_malloced" == $slabId) continue;
-				$cdump = $this->memcache->getExtendedStats('cachedump',(int)$slabId);
-				foreach($cdump AS $server => $entries) {
-					if($entries) {
-						foreach($entries AS $eName => $eData) {
-							$value = $this->memcache->get($eName);
+	/**
+	 * Get storage content
+	 * @access public
+	 * @return array|mixed
+	 */
+	public function getPool()
+	{
+		$list = [];
+		$storage = $this->getStorageStatus();
+		foreach($storage['slabs'] as $server => $slabs)
+		{
+			foreach($slabs AS $slabId => $slabMeta)
+			{
+				if('active_slabs' == $slabId || "total_malloced" == $slabId) continue;
+				try {
+					$cdump = $this->_connection->getExtendedStats('cachedump', (int)$slabId, 1000);
+				}
+				catch (Exception $e) {
+					continue;
+				}
+				foreach($cdump AS $server => $entries)
+				{
+					if($entries)
+					{
+						foreach($entries AS $eName => $eData)
+						{
+
+							$value = $this->_connection->get($eName);
 							$type = gettype($value);
-							$value = $this->maybe_unserialize($value);
-							if (is_object($value)|| is_array($value)){
+							$value = Node::dataUnserialize($value);
+							if(is_object($value) || is_array($value))
+							{
 								$value = is_object($value)? json_decode(json_encode($value), true): $value;
-								$value = '<pre class="alert alert-warning">'.print_r($this->array_map_deep( $value,array($this,'maybe_unserialize')),true).'</pre>';
+								$value = Node::arrayMapDeep($value,['\Helpers\Node','dataUnserialize']);
 							}
-							$list[$eName] = array(
-								'key'   => $eName,
-								'value' => $value,
-								'type'  => $type
-							);
+							if($eName != '_PHCM')
+								$list[] = [
+									'key'   => 	$eName,
+									'value' => 	$value,
+									'size'	=>	mb_strlen(serialize($value), '8bit'),
+									'type'  => 	$type,
+								];
 						}
 					}
 				}
 			}
 		}
 		ksort($list);
-		$this->list = $list;
-		$this->status = $this->memcache->getStats();
-
-		$this->dashboard();
+		return  $list;
 	}
 
 
-	function array_map_deep($array, $callback) {
-		$new = array();
-		foreach ((array)$array as $key => $val) {
-			if (is_array($val)) {
-				$new[$key] = $this->array_map_deep($val, $callback);
-			} else {
-				$new[$key] = call_user_func($callback, $val);
-			}
-		}
-		return $new;
-	}
-	function maybe_unserialize( $original ) {
-		if ( $this->is_serialized( $original ) ) // don't attempt to unserialize data that wasn't serialized going in
-			return @unserialize( $original );
-		return $original;
-	}
-	function is_serialized($value, &$result = null){
-		// Bit of a give away this one
-		if (!is_string($value)){
-			return false;
-		}
 
-		// Serialized false, return true. unserialize() returns false on an
-		// invalid string or it could return false if the string is serialized
-		// false, eliminate that possibility.
-		if ($value === 'b:0;'){
-			$result = false;
-			return true;
-		}
-
-		$length	= strlen($value);
-		$end	= '';
-
-		if (!isset($value[0])) return false;
-		switch ($value[0]){
-			case 's':
-				if ($value[$length - 2] !== '"'){
-					return false;
-				}
-			case 'b':
-			case 'i':
-			case 'd':
-				// This looks odd but it is quicker than isset()ing
-				$end .= ';';
-			case 'a':
-			case 'O':
-				$end .= '}';
-				if ($value[1] !== ':'){
-					return false;
-				}
-
-				switch ($value[2]){
-					case 0:
-					case 1:
-					case 2:
-					case 3:
-					case 4:
-					case 5:
-					case 6:
-					case 7:
-					case 8:
-					case 9:
-						break;
-
-					default:
-						return false;
-				}
-			case 'N':
-				$end .= ';';
-				if ($value[$length - 1] !== $end[0]){
-					return false;
-				}
-				break;
-
-			default:
-				return false;
-		}
-
-		if (($result = @unserialize($value)) === false){
-			$result = null;
-			return false;
-		}
-		return true;
-	}
 	function print_hit_miss_widget(){
 		$status = $this->status;
 		?>
@@ -308,8 +241,6 @@ class Memcache  implements  CacheManagement\AwareInterface {
 			$this->memcache->set($_GET['set'], $_GET['value']);
 			header("Location: " . $_SERVER['PHP_SELF']);
 		}
-		//server info
-		$this->print_server_info();
 		//charts
 		$this->print_charts();
 		//stored data
@@ -336,28 +267,6 @@ class Memcache  implements  CacheManagement\AwareInterface {
 						<a class="btn btn-danger" href="#" onclick="flush()">FLUSH</a>
 					</div>
 				</div>
-				<div class="table-responsive">
-					<table id="stored_keys" class="table table-bordered table-hover table-striped" style="table-layout: fixed;">
-						<thead>
-						<tr>
-							<th class="one_t">key</th>
-							<th class="one_h">value</th>
-							<th>type</th>
-							<th>delete</th>
-						</tr>
-						</thead>
-						<tbody>
-						<?php foreach($this->list as $i): ?>
-							<tr>
-								<td class="one_t"><span class="key_scroll"><?= $i['key'] ?></span></td>
-								<td class="one_h"><?= $i['value'] ?></td>
-								<td><?= $i['type'] ?></td>
-								<td><a class="btn btn-danger" onclick="deleteKey('<?= $i['key'] ?>')" href="#">X</a>
-							</tr>
-						<?php endforeach; ?>
-						</tbody>
-					</table>
-				</div>
 			</div>
 		</div>
 	<?php
@@ -370,48 +279,6 @@ class Memcache  implements  CacheManagement\AwareInterface {
 			$this->print_hit_miss_widget();
 			$this->print_memory_widget();
 			?>
-		</div>
-	<?php
-	}
-	function print_server_info(){
-		$status = $this->status;
-		?>
-		<a name="info"></a>
-		<div class="panel panel-default top20">
-			<div class="panel-heading">
-				<h3 class="panel-title">Server Info</h3>
-			</div>
-			<div class="panel-body">
-				<?php
-				echo "<table class='table'>";
-				echo "<tr><td>Memcache Server version:</td><td> ".$status ["version"]."</td></tr>";
-				echo "<tr><td>Process id of this server process </td><td>".$status ["pid"]."</td></tr>";
-				echo "<tr><td>Server Uptime </td><td>".gmdate("H:i:s", $status["uptime"])."</td></tr>";
-				echo "<tr><td>Total number of items stored by this server ever since it started </td><td>".$status ["total_items"]."</td></tr>";
-				echo "<tr><td>Number of open connections </td><td>".$status ["curr_connections"]."</td></tr>";
-				echo "<tr><td>Total number of connections opened since the server started running </td><td>".$status ["total_connections"]."</td></tr>";
-				echo "<tr><td>Number of connection structures allocated by the server </td><td>".$status ["connection_structures"]."</td></tr>";
-				echo "<tr><td>Cumulative number of retrieval requests </td><td>".$status ["cmd_get"]."</td></tr>";
-				echo "<tr><td> Cumulative number of storage requests </td><td>".$status ["cmd_set"]."</td></tr>";
-				if ((real)$status ["cmd_get"] != 0)
-					$percCacheHit=((real)$status ["get_hits"]/ (real)$status ["cmd_get"] *100);
-				else
-					$percCacheHit=0;
-				$percCacheHit=round($percCacheHit,3);
-				$percCacheMiss=100-$percCacheHit;
-				echo "<tr><td>Number of keys that have been requested and found present </td><td>".$status ["get_hits"]." ($percCacheHit%)</td></tr>";
-				echo "<tr><td>Number of items that have been requested and not found </td><td>".$status ["get_misses"]."($percCacheMiss%)</td></tr>";
-				$MBRead= (real)$status["bytes_read"]/(1024*1024);
-				echo "<tr><td>Total number of bytes read by this server from network </td><td>".$MBRead." Mega Bytes</td></tr>";
-				$MBWrite=(real) $status["bytes_written"]/(1024*1024) ;
-				echo "<tr><td>Total number of bytes sent by this server to network </td><td>".$MBWrite." Mega Bytes</td></tr>";
-				$MBSize=(real) $status["limit_maxbytes"]/(1024*1024) ;
-				echo "<tr><td>Current number of bytes used.</td><td>".$status['bytes']."</td></tr>";
-				echo "<tr><td>Number of bytes this server is allowed to use for storage.</td><td>".$MBSize." Mega Bytes</td></tr>";
-				echo "<tr><td>Number of valid items removed from cache to free memory for new items.</td><td>".$status ["evictions"]."</td></tr>";
-				echo "</table>";
-				?>
-			</div>
 		</div>
 	<?php
 	}

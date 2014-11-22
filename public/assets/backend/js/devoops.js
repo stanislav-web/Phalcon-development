@@ -1463,13 +1463,36 @@ function MessagesMenuWidth(){
 //
 // Function for change panels of Dashboard
 //
-function DashboardTabChecker(){
-	$('#content').on('click', 'a.tab-link', function(e){
-		e.preventDefault();
+function DashboardTabChecker() {
+
+	//@modify Stanislav WEB
+	var hash = window.location.hash,
+		activeLink	=	$('ul.nav a[href="' + hash + '"]');
+
+	if(hash && activeLink)
+	{
+		var attr =activeLink.attr('id');
+
 		$('div#dashboard_tabs').find('div[id^=dashboard]').each(function(){
 			$(this).css('visibility', 'hidden').css('position', 'absolute');
 		});
-		var attr = $(this).attr('id');
+		$('#'+'dashboard-'+attr).css('visibility', 'visible').css('position', 'relative');
+
+		activeLink.closest('.nav').find('li').removeClass('active');
+		activeLink.closest('li').addClass('active');
+	}
+
+	$('#content').on('click', 'a.tab-link', function(e){
+		e.preventDefault();
+
+		$('div#dashboard_tabs').find('div[id^=dashboard]').each(function(){
+			$(this).css('visibility', 'hidden').css('position', 'absolute');
+		});
+		var attr 	=	$(this).attr('id'),
+			hash	=	$(this).attr('href');
+
+		history.pushState('', '', hash);
+
 		$('#'+'dashboard-'+attr).css('visibility', 'visible').css('position', 'relative');
 		$(this).closest('.nav').find('li').removeClass('active');
 		$(this).closest('li').addClass('active');

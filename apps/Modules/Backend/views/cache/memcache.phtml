@@ -3,7 +3,6 @@
 	<div class="col-xs-10 col-sm-3">
 		<h3 class="" disabled><b><?=$title;?> storage</b></h3>
 	</div>
-
 </div>
 <!-- /Dashboard header -->
 
@@ -19,14 +18,14 @@
 <div class="row-fluid">
 	<div id="dashboard_links" class="col-xs-12 col-sm-2 pull-right">
 		<ul class="nav nav-pills nav-stacked">
-			<li class="active"><a href="#" class="tab-link" id="server">Server info</a></li>
-			<li><a href="#" class="tab-link" id="pool">Charts</a></li>
-			<li><a href="#" class="tab-link" id="statistics">Stored data</a></li>
+			<li class="active"><a href="#server" class="tab-link" id="server">Server info</a></li>
+			<li><a href="#pool" class="tab-link" id="pool">Pool data</a></li>
+			<li><a href="#statistics" class="tab-link" id="statistics">Charts</a></li>
 		</ul>
 	</div>
 	<div id="dashboard_tabs" class="col-xs-12 col-sm-10">
-		<div id="dashboard-server" class="row padding-15" style="visibility: visible; position: relative;">
-			<div class="col-xs-12 col-md-9">
+		<div id="dashboard-server" name="server" class="row padding-15" style="visibility: visible; position: relative;">
+			<div class="col-xs-12 col-md-12">
 				<table class="table m-table table-bordered table-hover table-heading">
 					<thead>
 					<tr>
@@ -35,12 +34,12 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td class="m-ticker">Server status</td>
+							<td class="m-ticker">State</td>
 							<td class="m-price col-md-3">
 								<?php if($server['status'] == 1): ?>
-									<button class="btn-sm btn btn-success" disabled>enabled</button>
+									<button class="btn-sm btn btn-success" disabled>UP</button>
 								<?php else: ?>
-									<button class="btn-sm btn btn-danger" disabled>disabled</button>
+									<button class="btn-sm btn btn-danger" disabled>DOWN</button>
 								<?php endif;?>
 							</td>
 						</tr>
@@ -49,18 +48,32 @@
 							<td class="m-price"><?=$server['stats']['version'];?></td>
 						</tr>
 						<tr>
-							<td class="m-ticker">Listened server</td>
+							<td class="m-ticker">IP : Port</td>
 							<td class="m-price">
 								<?=(isset($server['host'])) ? $server['host'] : 'unknown' ;?> : <?=(isset($server['port'])) ? $server['port'] : 'unknown' ;?>
 							</td>
 						</tr>
-						</tr>
+						<!--</tr>
 							<td class="m-ticker">Process id for this server</td>
 							<td class="m-price"><?=$server['stats']['pid'];?></td>
-						</tr>
+						</tr>-->
 						</tr>
 							<td class="m-ticker">Server Uptime</td>
-							<td class="m-price"><?=date("H:i", $server['stats']['pid']);?></td>
+							<td class="m-price"><?=date("H:i", $server['stats']['uptime']);?></td>
+						</tr>
+						</tr>
+							<td class="m-ticker">Max cache size</td>
+							<td class="m-price"><?=Helpers\Format::formatBytes($server['stats']['limit_maxbytes'],2);?></td>
+						</tr>
+						</tr>
+							<td class="m-ticker">Used cache size</td>
+							<td class="m-price"><?=Helpers\Format::formatBytes($server['stats']['bytes'],2);?></td>
+						</tr>
+						</tr>
+							<td class="m-ticker">Available cache size</td>
+							<td class="m-price">
+								<?=Helpers\Format::formatBytes($server['stats']['limit_maxbytes']-$server['stats']['bytes'],2);?>
+							</td>
 						</tr>
 						</tr>
 							<td class="m-ticker">Number of open connections</td>
@@ -74,10 +87,10 @@
 							<td class="m-ticker">Total number of connections opened since the server started running</td>
 							<td class="m-price"><?=$server['stats']['total_connections'];?></td>
 						</tr>
-						</tr>
+						<!--</tr>
 							<td class="m-ticker">Number of connection structures allocated by the server</td>
 							<td class="m-price"><?=$server['stats']['connection_structures'];?></td>
-						</tr>
+						</tr>-->
 						</tr>
 							<td class="m-ticker">Cumulative number of retrieval requests</td>
 							<td class="m-price"><?=$server['stats']['cmd_get'];?></td>
@@ -95,24 +108,9 @@
 							<td class="m-ticker">Number of items that have been requested and not found</td>
 							<td class="m-price"><?=$server['stats']['get_misses'];?> (<?=number_format($percentMiss);?>%)</td>
 						</tr>
-
 						</tr>
 							<td class="m-ticker">Total number of bytes read by this server from network</td>
-							<td class="m-price"><?=(round($server['stats']['bytes_read']/(1024*1024), 2));?> mb</td>
-						</tr>
-						</tr>
-							<td class="m-ticker">Total number of bytes sent by this server to network</td>
-							<td class="m-price"><?=(round($server['stats']['bytes_written']/(1024*1024), 2));?> mb</td>
-						</tr>
-
-						</tr>
-							<td class="m-ticker">Current number of bytes used</td>
-							<td class="m-price"><?=(round($server['stats']['bytes']/(1024*1024), 2));?> mb</td>
-						</tr>
-
-						</tr>
-							<td class="m-ticker">Number of bytes this server is allowed to use for storage</td>
-							<td class="m-price"><?=(round($server['stats']['limit_maxbytes']/(1024*1024), 2));?> mb</td>
+							<td class="m-price"><?=Helpers\Format::formatBytes($server['stats']['bytes_read'],2);?></td>
 						</tr>
 						</tr>
 							<td class="m-ticker">Number of valid items removed from cache to free memory for new items</td>
@@ -123,13 +121,49 @@
 			</div>
 		</div>
 
-		<div id="dashboard-pool" class="row" style="visibility: hidden; position: absolute;">
-		<div class="col-xs-12 col-md-6">
-			POOOL
-		</div>
-	</div>
+		<div id="dashboard-pool" name="pool" class="row padding-15" style="visibility: hidden; position: absolute;">
+			<div class="col-xs-12 col-md-6">
+				<div class="btn-group btn-group-justified">
+					<div class="btn-group">
+						<a class="btn btn-info" href="#" onclick="Common.filter(); return false;">Refresh</a>
+					</div>
+					<div class="btn-group">
+						<a class="btn btn-primary" href="#" onclick="memcachedSet()">SET</a>
+					</div>
+					<div class="btn-group">
+						<a class="btn btn-danger" href="#" onclick="Common.confirm('Are you sure?'); return false;">FLUSH</a>
+					</div>
+				</div>
+			</div>
 
-		<div id="dashboard-statistics" class="row" style="visibility: hidden; position: absolute;">
+			<div class="table-responsive">
+				<table id="stored_keys" class="table table-bordered table-hover table-striped" style="table-layout: fixed;">
+					<thead>
+					<tr>
+						<th class="col-md-4">Key</th>
+						<th class="col-md-5">Value</th>
+						<th class="col-md-1">Data size</th>
+						<th class="col-md-1">Type</th>
+						<th class="col-md-1">Action</th>
+					</tr>
+					</thead>
+					<tbody>
+					<?php foreach($pool as $i => $values): ?>
+						<tr>
+							<td><?=$values['key']; ?></td>
+							<td class="word-wrap"><?=$values['value'];?></td>
+							<td><?=Helpers\Format::formatBytes($values['size'],2);?></td>
+							<td><?=$values['type']; ?></td>
+							<td><a class="btn btn-danger" onclick="deleteKey('<?=$values['key'];?>')" href="#">X</a>
+						</tr>
+					<?php endforeach; ?>
+					</tbody>
+				</table>
+			</div>
+
+		</div>
+
+		<div id="dashboard-statistics" name="charts" class="row padding-15" style="visibility: hidden; position: absolute;">
 		<div class="col-xs-12 col-md-6">
 			STATISTICA
 		</div>
@@ -143,3 +177,21 @@
 		DashboardTabChecker();
 	});
 </script>
+<!-- Append Stylesheet -->
+<?php if(APPLICATION_ENV == 'production'): ?>
+	<?=$this->tag->stylesheetLink("//cdnjs.cloudflare.com/ajax/libs/alertify.js/0.3.11/alertify.core.min.css", false); ?>
+	<?=$this->tag->stylesheetLink("//cdnjs.cloudflare.com/ajax/libs/alertify.js/0.3.11/alertify.default.min.css", false); ?>
+	<?=$this->tag->stylesheetLink("//cdnjs.cloudflare.com/ajax/libs/alertify.js/0.3.11/alertify.bootstrap.min.css", false); ?>
+<?php else: ?>
+	<?=$this->tag->stylesheetLink("assets/plugins/alertify/css/alertify.core.min.css", true); // local ?>
+	<?=$this->tag->stylesheetLink("assets/plugins/alertify/css/alertify.default.min.css", true); // local ?>
+	<?=$this->tag->stylesheetLink("assets/plugins/alertify/css/alertify.bootstrap.min.css", true); // local ?>
+<?php endif;?>
+<!-- /Append Stylesheet -->
+<!-- Javascript area content -->
+<?php if(APPLICATION_ENV == 'production'): ?>
+	<?=$this->tag->javascriptInclude("//cdnjs.cloudflare.com/ajax/libs/alertify.js/0.3.11/alertify.min.js", false); ?>
+<?php else: ?>
+	<?=$this->tag->javascriptInclude("assets/plugins/alertify/js/alertify.min.js", true);  // local?>
+<?php endif;?>
+<!-- /Javascript area content -->

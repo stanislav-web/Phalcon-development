@@ -21,16 +21,20 @@ interface AwareInterface {
 
 	/**
 	 * Get server information
-	 * @access public
 	 * @return array
 	 */
 	public function getServerStatus();
 
 	/**
 	 * Get storage information
-	 * @access public
 	 * @return array
 	 */
 	public function getStorageStatus();
+
+	/**
+	 * Get storage content
+	 * @return array | mixed
+	 */
+	public function getPool();
 
 }
