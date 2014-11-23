@@ -11,7 +11,7 @@ namespace Helpers;
  * @copyright Stanilav WEB
  * @filesource /apps/Helpers/Node.php
  */
-class Node extends \Phalcon\Tag
+class Node
 {
 	/**
 	 * Convert object to array
@@ -61,8 +61,7 @@ class Node extends \Phalcon\Tag
 	public static function dataUnserialize($original)
 	{
 		// don't attempt to unserialize data that wasn't serialized going in
-
-		if(self::isSerialized($original))
+		if(self::isSerialized($original) === true)
 			return unserialize($original);
 		return $original;
 	}
@@ -74,74 +73,36 @@ class Node extends \Phalcon\Tag
 	 * @access static
 	 * @return boolean
 	 */
-	public function isSerialized($value, &$result = null)
+	public static function isSerialized($data)
 	{
-		// Bit of a give away this one
-		if(!is_string($value))
+		// if it isn't a string, it isn't serialized
+		if(!is_string($data))
 			return false;
 
-		// Serialized false, return true. unserialize() returns false on an
-		// invalid string or it could return false if the string is serialized
-		// false, eliminate that possibility.
-		if($value === 'b:0;')
-		{
-			$result = false;
+		$data = trim($data);
+		if('N;' == $data)
 			return true;
-		}
-
-		$length	= strlen($value);
-		$end	= '';
-
-		if(!isset($value[0])) return false;
-		switch ($value[0])
-		{
-			case 's':
-				if($value[$length - 2] !== '"')
-					return false;
-
-			case 'b':
-			case 'i':
-			case 'd':
-				// This looks odd but it is quicker than isset()ing
-				$end .= ';';
-			case 'a':
-			case 'O':
-				$end .= '}';
-				if($value[1] !== ':')
-					return false;
-
-				switch ($value[2])
-				{
-					case 0:
-					case 1:
-					case 2:
-					case 3:
-					case 4:
-					case 5:
-					case 6:
-					case 7:
-					case 8:
-					case 9:
-						break;
-
-					default:
-						return false;
-				}
-			case 'N':
-				$end .= ';';
-				if($value[$length - 1] !== $end[0])
-					return false;
-				break;
-
-			default:
-				return false;
-		}
-
-		if(($result = @unserialize($value)) === false)
-		{
-			$result = null;
+		if(!preg_match('/^([adObis]):/', $data, $badions))
 			return false;
+
+		if(isset($badions[1]))
+		{
+			switch($badions[1])
+			{
+				case 'a' :
+				case 'O' :
+				case 's' :
+					if(preg_match( "/^{$badions[1]}:[0-9]+:.*[;}]\$/s", $data))
+						return true;
+					break;
+				case 'b' :
+				case 'i' :
+				case 'd' :
+					if(preg_match("/^{$badions[1]}:[0-9.E-]+;\$/", $data))
+						return true;
+					break;
+			}
 		}
-		return true;
+		return false;
 	}
 }

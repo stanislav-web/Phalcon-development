@@ -16,10 +16,16 @@
 		<?=$this->tag->stylesheetLink("https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css", false); ?>
 		<?=$this->tag->stylesheetLink("http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css", false); ?>
 		<?=$this->tag->stylesheetLink("http://fonts.googleapis.com/css?family=Righteous", false); ?>
+		<?=$this->tag->stylesheetLink("//cdnjs.cloudflare.com/ajax/libs/alertify.js/0.3.11/alertify.core.min.css", false); ?>
+		<?=$this->tag->stylesheetLink("//cdnjs.cloudflare.com/ajax/libs/alertify.js/0.3.11/alertify.default.min.css", false); ?>
+		<?=$this->tag->stylesheetLink("//cdnjs.cloudflare.com/ajax/libs/alertify.js/0.3.11/alertify.bootstrap.min.css", false); ?>
 	<?php else: ?>
 		<?=$this->tag->stylesheetLink("assets/backend/css/bootstrap/font-awesome.min.css", true); // local ?>
 		<?=$this->tag->stylesheetLink("assets/backend/css/font-righteous.css", true); // local ?>
 		<?=$this->tag->stylesheetLink("assets/backend/css/bootstrap/bootstrap.min.css", true); // local ?>
+		<?=$this->tag->stylesheetLink("assets/plugins/alertify/css/alertify.core.min.css", true); // local ?>
+		<?=$this->tag->stylesheetLink("assets/plugins/alertify/css/alertify.default.min.css", true); // local ?>
+		<?=$this->tag->stylesheetLink("assets/plugins/alertify/css/alertify.bootstrap.min.css", true); // local ?>
 	<?php endif;?>
 	<?=$this->tag->stylesheetLink('assets/plugins/jquery-ui/jquery-ui.css', true); ?>
 	<?=$this->tag->stylesheetLink('assets/backend/css/style.css', true);?>
@@ -98,12 +104,14 @@
 		<?=$this->tag->javascriptInclude("//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js", false); ?>
 		<?=$this->tag->javascriptInclude("https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js", false); ?>
 		<?=$this->tag->javascriptInclude("//tinymce.cachefly.net/4.1/tinymce.min.js", false); ?>
+		<?=$this->tag->javascriptInclude("//cdnjs.cloudflare.com/ajax/libs/alertify.js/0.3.11/alertify.min.js", false); ?>
 	<?php else: ?>
 		<?=$this->tag->javascriptInclude("assets/plugins/jquery/jquery.min.js", true);  // local?>
 		<?=$this->tag->javascriptInclude("assets/plugins/jquery-ui/jquery-ui.min.js", true); ?>
 		<?=$this->tag->javascriptInclude("assets/plugins/bootstrap/bootstrap.min.js", true);  // local?>
 		<?=$this->tag->javascriptInclude("assets/plugins/justified-gallery/jquery.justifiedGallery.min.js", true); ?>
 		<?=$this->tag->javascriptInclude("assets/plugins/tinymce/tinymce.min.js", true); // local ?>
+		<?=$this->tag->javascriptInclude("assets/plugins/alertify/js/alertify.min.js", true);  // local?>
 	<?php endif;?>
 		<?=$this->tag->javascriptInclude("assets/backend/js/common.js", true);  // local ?>
 		<?=$this->tag->javascriptInclude("assets/backend/js/devoops.js", true);  // local ?>

@@ -153,57 +153,104 @@
 					</tbody>
 				</table>
 			</div>
-
 		</div>
 
-		<div id="dashboard-statistics" name="charts" class="row padding-15" style="visibility: hidden; position: absolute;">
-		<div class="col-xs-12 col-md-6">
-			STATISTICA
+		<div id="dashboard-statistics" name="statistics" class="row padding-15" style="visibility: hidden; position: absolute;">
+			<div class="col-xs-12 col-md-6">
+				<div class="row top20">
+
+					<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h3 class="panel-title">Hit/Miss</h3>
+							</div>
+							<div class="panel-body">
+								<div id="hit_miss_cart" style="height: 250px;"></div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h3 class="panel-title">Memory</h3>
+							</div>
+							<div class="panel-body">
+								<div id="memory_cart" style="height: 250px;"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
-	</div>
+
 	</div>
 	<div class="clearfix"></div>
 </div>
+<!-- Javascript area content -->
+<?php if(APPLICATION_ENV == 'production'): ?>
+	<?=$this->tag->javascriptInclude("//cdn.oesmith.co.uk/morris-0.5.1.min.js", false); ?>
+	<?=$this->tag->javascriptInclude("//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.2/raphael-min.js", false); ?>
+<?php else: ?>
+	<?=$this->tag->javascriptInclude("assets/plugins/morris/morris.min.js", true);  // local?>
+	<?=$this->tag->javascriptInclude("assets/plugins/raphael/raphael.min.js", true);  // local?>
+<?php endif;?>
+<!-- /Javascript area content -->
 <script type="text/javascript">
-	$(document).ready(function() {
+	jQuery(document).ready(function() {
+
 		// Make all JS-activity for dashboard
 		DashboardTabChecker();
 
-		LoadDataTablesScripts(
-			function() {
+		LoadDataTablesScripts(function() {
 
-				$("#stored_keys").dataTable({
-					"aaSorting": [[ 0, "asc" ]],
-					"bFilter":true,
-					"bSort":true,
-					"sPaginationType": "bootstrap",
-					"sDom": "<'box-content'<'col-sm-6'f><'col-sm-6 text-right'l><'clearfix'>>rt<'box-content'<'col-sm-6'i><'col-sm-6 text-right'p><'clearfix'>>",
-					"oLanguage": {
-						"sSearch": "",
-						"sLengthMenu": '_MENU_',
-						"searchPlaceholder": 'Search...'
-					}
-				});
-				$('.dataTables_filter input').attr("placeholder", "Search...");
-			}
-		);
+			$("#stored_keys").dataTable({
+				"aaSorting": [[ 0, "asc" ]],
+				"bFilter":true,
+				"bSort":true,
+				"sPaginationType": "bootstrap",
+				"sDom": "<'box-content'<'col-sm-6'f><'col-sm-6 text-right'l><'clearfix'>>rt<'box-content'<'col-sm-6'i><'col-sm-6 text-right'p><'clearfix'>>",
+				"oLanguage": {
+					"sSearch": "",
+					"sLengthMenu": '_MENU_',
+					"searchPlaceholder": 'Search...'
+				}
+			});
+			$('.dataTables_filter input').attr("placeholder", "Search...");
+		});
+
+		Morris.Donut({
+			element: 'hit_miss_cart',
+			data: [
+				{label: "Hit", value: <?=$server['stats']['get_hits'] ?>},
+				{label: "Miss", value: <?=$server['stats']['get_misses'] ?>},
+			],
+			colors: ['#5cb85c','#d9534f']
+		});
+
+		Morris.Bar({
+			element: 'memory_cart',
+			data: [
+				{type: 'total',v: '<?=number_format((real) $server['stats']['limit_maxbytes']/(1024*1024),3);?>'},
+				{type: 'used', v: '<?=number_format((real) $server['stats']['bytes']/(1024*1024),3);?>'},
+				{type: 'read', v: '<?=number_format((real) $server['stats']['bytes_read']/(1024*1024),3);?>'},
+				{type: 'sent', v: '<?=number_format((real) $server['stats']['bytes_written']/(1024*1024),3);?>'}
+			],
+			xkey: 'type',
+			ykeys: ['v'],
+			labels: ['MB'],
+			barColors: function (row, series, type) {
+				if (type === 'bar') {
+					var colors = ['#f0ad4e', '#5cb85c', '#5bc0de', '#d9534f', '#17BDB8'];
+					return colors[row.x];
+				}else {
+					return '#000';
+				}
+			},
+			barRatio: 0.4,
+			xLabelAngle: 35,
+			hideHover: 'auto'
+		});
 	});
 </script>
-<!-- Append Stylesheet -->
-<?php if(APPLICATION_ENV == 'production'): ?>
-	<?=$this->tag->stylesheetLink("//cdnjs.cloudflare.com/ajax/libs/alertify.js/0.3.11/alertify.core.min.css", false); ?>
-	<?=$this->tag->stylesheetLink("//cdnjs.cloudflare.com/ajax/libs/alertify.js/0.3.11/alertify.default.min.css", false); ?>
-	<?=$this->tag->stylesheetLink("//cdnjs.cloudflare.com/ajax/libs/alertify.js/0.3.11/alertify.bootstrap.min.css", false); ?>
-<?php else: ?>
-	<?=$this->tag->stylesheetLink("assets/plugins/alertify/css/alertify.core.min.css", true); // local ?>
-	<?=$this->tag->stylesheetLink("assets/plugins/alertify/css/alertify.default.min.css", true); // local ?>
-	<?=$this->tag->stylesheetLink("assets/plugins/alertify/css/alertify.bootstrap.min.css", true); // local ?>
-<?php endif;?>
-<!-- /Append Stylesheet -->
-<!-- Javascript area content -->
-<?php if(APPLICATION_ENV == 'production'): ?>
-	<?=$this->tag->javascriptInclude("//cdnjs.cloudflare.com/ajax/libs/alertify.js/0.3.11/alertify.min.js", false); ?>
-<?php else: ?>
-	<?=$this->tag->javascriptInclude("assets/plugins/alertify/js/alertify.min.js", true);  // local?>
-<?php endif;?>
-<!-- /Javascript area content -->
+

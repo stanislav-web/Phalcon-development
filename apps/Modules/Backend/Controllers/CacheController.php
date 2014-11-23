@@ -78,8 +78,6 @@ class CacheController extends ControllerBase
 					'pool'		=>	$storage->getPool(200),
 				]);
 				$this->view->pick("cache/".strtolower($title));
-
-
 			}
 			catch(CacheExceptions $e)
 			{

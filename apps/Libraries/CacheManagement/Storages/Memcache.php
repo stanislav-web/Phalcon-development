@@ -121,7 +121,6 @@ class Memcache  implements  CacheManagement\AwareInterface {
 					{
 						foreach($entries AS $eName => $eData)
 						{
-
 							$value = $this->_connection->get($eName);
 							$type = gettype($value);
 							$value = Node::dataUnserialize($value);
@@ -188,35 +187,6 @@ class Memcache  implements  CacheManagement\AwareInterface {
 
 
 
-
-	function print_hit_miss_widget(){
-		$status = $this->status;
-		?>
-		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h3 class="panel-title">Hit/Miss</h3>
-				</div>
-				<div class="panel-body">
-					<div id="hit_miss_cart" style="height: 250px;"></div>
-				</div>
-			</div>
-
-			<script type="text/javascript">
-				jQuery(document).ready(function(){
-					Morris.Donut({
-						element: 'hit_miss_cart',
-						data: [
-							{label: "Hit", value: <?= $status["get_hits"] ?>},
-							{label: "Miss", value: <?= $status["get_misses"] ?>},
-						],
-						colors: ['#5cb85c','#d9534f']
-					});
-				});
-			</script>
-		</div>
-	<?php
-	}
 	function print_memory_widget(){
 		$status  = $this->status;
 		$MBSize  = number_format((real) $status["limit_maxbytes"]/(1024*1024),3);
@@ -272,7 +242,6 @@ class Memcache  implements  CacheManagement\AwareInterface {
 		//charts
 		$this->print_charts();
 		//footer
-		$this->footer();
 	}
 
 	function print_charts(){
@@ -287,25 +256,4 @@ class Memcache  implements  CacheManagement\AwareInterface {
 	<?php
 	}
 
-	function footer(){
-		?>
-		<script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-		<script src="http://cdn.oesmith.co.uk/morris-0.5.1.min.js"></script>
-		<script type="text/javascript" src="//cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
-		<script type="text/javascript" src="//cdn.datatables.net/plug-ins/a5734b29083/integration/bootstrap/3/dataTables.bootstrap.js"></script>
-		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.min.js"></script>
-		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/alertify.js/0.3.11/alertify.min.js"></script>
-		<script type="text/javascript">
-			jQuery(document).ready(function(){
-				$("#stored_keys").dataTable({
-					"bFilter":true,
-					"bSort":true,
-					"dom": '<"top"ilf>rt<"bottom"p><"clear">'
-				});
-			});
-		</script>
-		</body>
-		</html>
-	<?php
-	}
 }//end class
