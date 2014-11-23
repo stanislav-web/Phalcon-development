@@ -5,7 +5,7 @@ namespace Libraries\CacheManagement\Storages;
 		Phalcon\Config;
 
 /**
- * Memcached statisticls pool
+ * Memcached statistics pool
  * @package Phalcon
  * @subpackage Libraries\CacheManagement
  * @since PHP >=5.4
@@ -48,7 +48,7 @@ class Memcache  implements  CacheManagement\AwareInterface {
 	final public function __construct(Config $config)
 	{
 		if(!extension_loaded('memcached'))
-			throw new CacheManagement\CacheExceptions(printf($this->_status[100], 'memcached'), 101);
+			throw new CacheManagement\CacheExceptions(printf($this->_status[100], 'memcached'), 100);
 
 		$this->_config	=	$config->cache->memcached;
 
@@ -64,6 +64,15 @@ class Memcache  implements  CacheManagement\AwareInterface {
 				printf($this->_status[101],
 					$this->_config->host,
 					$this->_config->port), 101);
+	}
+
+	/**
+	 * Get adapter configuration
+	 * @return array
+	 */
+	public function getAdapterConfig()
+	{
+		return  ini_get_all('memcache');
 	}
 
 	/**
@@ -147,10 +156,11 @@ class Memcache  implements  CacheManagement\AwareInterface {
 
 	/**
 	 * Invalidate all existing items
+	 * @param mixed $params
 	 * @access public
 	 * @return boolean | null
 	 */
-	public function flushData()
+	public function flushData($params = null)
 	{
 		$result = $this->_connection->flush();
 		return ($result) ? true : false;
@@ -181,79 +191,4 @@ class Memcache  implements  CacheManagement\AwareInterface {
 			$result = $this->_connection->delete($data['key']);
 		return (isset($result)) ? true : false;
 	}
-
-
-
-
-
-
-	function print_memory_widget(){
-		$status  = $this->status;
-		$MBSize  = number_format((real) $status["limit_maxbytes"]/(1024*1024),3);
-		$MBSizeU = number_format((real) $status["bytes"]/(1024*1024),3);
-		$MBRead  = number_format((real)$status["bytes_read"]/(1024*1024),3);
-		$MBWrite = number_format((real) $status["bytes_written"]/(1024*1024),3);
-		?>
-		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h3 class="panel-title">Memory</h3>
-				</div>
-				<div class="panel-body">
-					<div id="memory_cart" style="height: 250px;"></div>
-				</div>
-			</div>
-			<script type="text/javascript">
-				jQuery(document).ready(function(){
-					Morris.Bar({
-						element: 'memory_cart',
-						data: [
-							{type: 'total',v: '<?= $MBSize ?>'},
-							{type: 'used', v: '<?= $MBSizeU ?>'},
-							{type: 'read', v: '<?= $MBRead ?>'},
-							{type: 'Sent', v: '<?= $MBWrite ?>'}
-						],
-						xkey: 'type',
-						ykeys: ['v'],
-						labels: ['MB'],
-						barColors: function (row, series, type) {
-							if (type === 'bar') {
-								var colors = ['#f0ad4e', '#5cb85c', '#5bc0de', '#d9534f', '#17BDB8'];
-								return colors[row.x];
-							}else {
-								return '#000';
-							}
-						},
-						barRatio: 0.4,
-						xLabelAngle: 35,
-						hideHover: 'auto'
-					});
-				});
-			</script>
-		</div>
-	<?php
-	}
-	function print_status_dump_widget(){
-		$status = $this->status;
-		echo '<pre>'.print_r($status,true).'</pre>';
-	}
-	function dashboard(){
-
-		//charts
-		$this->print_charts();
-		//footer
-	}
-
-	function print_charts(){
-		?>
-		<a name="charts">&nbsp;</a>
-		<div class="row top20">
-			<?php
-			$this->print_hit_miss_widget();
-			$this->print_memory_widget();
-			?>
-		</div>
-	<?php
-	}
-
-}//end class
+}

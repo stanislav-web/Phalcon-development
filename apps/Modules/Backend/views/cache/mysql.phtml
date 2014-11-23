@@ -1,0 +1,273 @@
+<!-- Dashboard header -->
+<div id="dashboard-header" class="row">
+	<div class="col-xs-10 col-sm-4">
+		<h3><i class="fa fa-database fa-md"></i> <b><?=$title;?> storage</b></h3>
+	</div>
+</div>
+<!-- /Dashboard header -->
+
+<!-- Dashboard content -->
+<div class="row-fluid">
+	<div id="dashboard_links" class="col-xs-12 col-sm-2 pull-right">
+		<ul class="nav nav-pills nav-stacked">
+			<li class="active"><a href="#server" class="tab-link" id="server">Server info</a></li>
+			<li><a href="#pool" class="tab-link" id="pool">Pool data</a></li>
+			<li><a href="#statistics" class="tab-link" id="statistics">Charts</a></li>
+			<li><a href="#adapter" class="tab-link" id="adapter">Adapter config</a></li>
+		</ul>
+	</div>
+	<div id="dashboard_tabs" class="col-xs-12 col-sm-10">
+		<div id="dashboard-server" name="server" class="row padding-15" style="visibility: visible; position: relative;">
+			<div class="col-xs-12 col-md-12">
+				<table class="table m-table table-bordered table-hover table-heading">
+					<thead>
+					<tr>
+						<th colspan="2"><b><?=$title;?> storage</b></th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="m-ticker">State</td>
+							<td class="m-price col-md-3">
+								<?php if($server['query_cache_type'] == 'ON'): ?>
+									<button class="btn-sm btn btn-success" disabled>Cache enabled</button>
+								<?php elseif($server['query_cache_type'] == 'OFF'): ?>
+									<button class="btn-sm btn btn-danger" disabled>Cache disabled</button>
+								<?php else: ?>
+									<button class="btn-sm btn btn-warning" disabled>Cache demand</button>
+								<?php endif;?>
+							</td>
+						</tr>
+						<tr>
+							<td class="m-ticker">MySQL Server version</td>
+							<td class="m-price"><?=$server['version'];?></td>
+						</tr>
+						<tr>
+							<td class="m-ticker">Connected to</td>
+							<td class="m-price">
+								<?=$server['username'];?>@<?=$server['host'];?> : <?=$server['port'];?>
+							</td>
+						</tr>
+						<tr>
+							<td class="m-ticker">Server Uptime</td>
+							<td class="m-price"><?=date("H:i", $server['Uptime']);?></td>
+						</tr>
+						<tr>
+							<td class="m-ticker">Max cache size</td>
+							<td class="m-price"><?=Helpers\Format::formatBytes($server['query_cache_size'],2);?></td>
+						</tr>
+						<tr>
+							<td class="m-ticker">Used cache size</td>
+							<td class="m-price">
+								<?php if($server['Qcache_queries_in_cache'] > 0): ?>
+									<?=Helpers\Format::formatBytes($server['query_cache_size']-$server['Qcache_free_memory'],2);?> cached
+								<?php else: ?>
+									0 bytes cached
+								<?php endif;?>
+							</td>
+						</tr>
+						<tr>
+							<td class="m-ticker">Maximum size of the sample stored in the cache</td>
+							<td class="m-price">
+								<?=Helpers\Format::formatBytes($server['query_cache_limit'], 2);?>
+							</td>
+						</tr>
+						<tr>
+							<td class="m-ticker">Available cache size</td>
+
+							<td class="m-price">
+								<?php if($server['Qcache_queries_in_cache'] > 0): ?>
+									<?=Helpers\Format::formatBytes($server['Qcache_free_memory'],2);?>
+								<?php else: ?>
+									<?=Helpers\Format::formatBytes($server['query_cache_size'],2);?>
+								<?php endif;?>
+							</td>
+						</tr>
+						<tr>
+							<td class="m-ticker">Cache efficiency</td>
+							<td class="m-price">
+								<?=number_format($server['Qcache_hits']/($server['Qcache_hits']+$server['Com_select']));?>%
+							</td>
+						</tr>
+						<tr>
+							<td class="m-ticker">Not cached queries</td>
+							<td class="m-price">
+								<?=$server['Qcache_not_cached'];?>
+							</td>
+						</tr
+						<tr>
+							<td class="m-ticker">Queries in cache</td>
+							<td class="m-price">
+								<?=$server['Qcache_queries_in_cache'];?> selects
+							</td>
+						</tr>
+						<tr>
+							<td class="m-ticker">Queries have been add to cache</td>
+							<td class="m-price">
+								<?=$server['Qcache_inserts'];?>
+							</td>
+						</tr>
+						<tr>
+							<td class="m-ticker">Queries have been deleted from cache</td>
+							<td class="m-price">
+								<?=$server['Qcache_lowmem_prunes'];?>
+							</td>
+						</tr>
+						<tr>
+							<td class="m-ticker">Free blocks in cache</td>
+							<td class="m-price">
+								<?=$server['Qcache_free_blocks'];?>
+							</td>
+						</tr>
+						<tr>
+							<td class="m-ticker">Number of occupied blocks</td>
+							<td class="m-price">
+								<?=$server['Qcache_total_blocks'];?>
+							</td>
+						</tr>
+						<tr>
+							<td class="m-ticker">Queries got from cache &lt;&lt;</td>
+							<td class="m-price">
+								<?=$server['Qcache_hits'];?>
+							</td>
+						</tr>
+						<tr>
+							<td class="m-ticker">Queries add to cache &gt;&gt</td>
+							<td class="m-price">
+								<?=$server['Qcache_inserts'];?>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<div id="dashboard-pool" class="row padding-15" style="visibility: hidden; position: absolute;">
+			<div class="col-xs-12 col-md-6">
+				<div class="btn-group btn-group-justified">
+
+					<div class="btn-group">
+						<a class="btn btn-danger" href="#" onclick="Common.confirm('Are you sure to Flush SQL cache?', '/flush'); return false;">FLUSH</a>
+					</div>
+					<div class="btn-group">
+						<a class="btn btn-danger" href="#" onclick="Common.confirm('Are you sure to Reset all cache queries?', '/delete'); return false;">RESET</a>
+					</div>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+			<div class="box-content">
+				MySQl doesn't support query cache viewer
+			</div>
+		</div>
+
+		<div id="dashboard-statistics" name="statistics" class="row padding-15" style="visibility: hidden; position: absolute;">
+			<div class="col-xs-12 col-md-12">
+				<div class="row top20">
+
+					<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h3 class="panel-title">Cache occurrences</h3>
+							</div>
+							<div class="panel-body">
+								<div id="occurrences" style="height: 250px;"></div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h3 class="panel-title">Memory</h3>
+							</div>
+							<div class="panel-body">
+								<div id="memory_cart" style="height: 250px;"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="dashboard-adapter" name="adapter" class="row padding-15" style="visibility: hidden; position: absolute;">
+			<div class="table-responsive">
+				<div class="panel-heading">
+					<h4 class="panel-title">PHP <?=$title;?> config</h4>
+				</div>
+				<table class="table table-bordered table-hover table-striped" style="table-layout: fixed;">
+					<tbody>
+					<?php $i = 0; foreach ($adapter as $k => $v): ?>
+					<?php if($i%2==0):?>
+					<tr>
+						<?php endif;?>
+						<?php $i++; ?>
+						<?="<td>",$k,"</td><td>",str_replace(',',',<br />',$v['local_value']),"</td>"; ?>
+						<?php if($i%2==0):?>
+					<tr>
+						<?php endif;?>
+						<?php endforeach;?>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class="clearfix"></div>
+</div>
+<!-- Javascript area content -->
+<?php if(APPLICATION_ENV == 'production'): ?>
+	<?=$this->tag->javascriptInclude("//cdn.oesmith.co.uk/morris-0.5.1.min.js", false); ?>
+	<?=$this->tag->javascriptInclude("//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.2/raphael-min.js", false); ?>
+<?php else: ?>
+	<?=$this->tag->javascriptInclude("assets/plugins/morris/morris.min.js", true);  // local?>
+	<?=$this->tag->javascriptInclude("assets/plugins/raphael/raphael.min.js", true);  // local?>
+<?php endif;?>
+<!-- /Javascript area content -->
+<script type="text/javascript">
+	jQuery(document).ready(function() {
+
+		// Make all JS-activity for dashboard
+		DashboardTabChecker();
+
+		Morris.Donut({
+			element: 'occurrences',
+			data: [
+				{label: "queries", value: <?=($server['Qcache_not_cached']+$server['Qcache_queries_in_cache']) ?>},
+				{label: "IN", value: <?=$server['Qcache_queries_in_cache'] ?>},
+				{label: "OUT", value: <?=$server['Qcache_not_cached'] ?>},
+			],
+			colors: ['#5cb85c','#d9534f', '#5bc0de']
+		});
+
+		Morris.Bar({
+			element: 'memory_cart',
+			data: [
+				{type: 'total',v: <?=number_format((real) $server['query_cache_size']/(1024*1024),3);?>},
+				<?php if($server['Qcache_queries_in_cache'] > 0): ?>
+				{type: 'available', v: <?=number_format((real) $server['Qcache_free_memory']/(1024*1024),3);?>},
+				<?=Helpers\Format::formatBytes($server['Qcache_free_memory'],2);?>
+				<?php else: ?>
+				{type: 'available', v: <?=number_format((real) $server['query_cache_size']/(1024*1024),3);?>},
+				<?php endif;?>
+				<?php if($server['Qcache_queries_in_cache'] > 0): ?>
+				{type: 'used', v: <?=number_format((real) ($server['query_cache_size']-$server['Qcache_free_memory'])/(1024*1024),3);?>},
+				<?php else: ?>
+				{type: 'used', v: 0},
+				<?php endif;?>
+			],
+			xkey: 'type',
+			ykeys: ['v'],
+			labels: ['MB'],
+			barColors: function (row, series, type) {
+				if (type === 'bar') {
+					var colors = ['#f0ad4e', '#5cb85c', '#5bc0de'];
+					return colors[row.x];
+				}else {
+					return '#000';
+				}
+			},
+			barRatio: 0.4,
+			xLabelAngle: 35,
+			hideHover: 'auto'
+		});
+	});
+</script>

@@ -26,7 +26,7 @@ class CacheController extends ControllerBase
 		 * Available cache engines to review
 		 * @var array
 		 */
-		$_engines	=	['apc' => true, 'memcache' => true, 'filesystem' => true];
+		$_engines	=	['apc' => true, 'memcache' => true, 'filesystem' => true, 'mysql' => true];
 
 	/**
 	 * initialize() Initialize constructor
@@ -64,7 +64,10 @@ class CacheController extends ControllerBase
 				// call selected storage
 				$class = "\\Libraries\\CacheManagement\\Storages\\".$title;
 
-				$storage = new $class($this->_config);
+				if(Helpers\Node::isHasConstructor($class) == true)
+					$storage = new $class($this->_config);
+				else
+					$storage = new $class();
 
 				if(isset($action) && !empty($action))	// do the action
 					if($storage->{strtolower($action) . 'Data'}($this->request->getQuery()))
@@ -76,6 +79,7 @@ class CacheController extends ControllerBase
 					'title'		=>	$title,
 					'server'	=>	$storage->getServerStatus(),
 					'pool'		=>	$storage->getPool(200),
+					'adapter'	=>	$storage->getAdapterConfig(),
 				]);
 				$this->view->pick("cache/".strtolower($title));
 			}

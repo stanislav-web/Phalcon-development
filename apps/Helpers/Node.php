@@ -34,6 +34,29 @@ class Node
 	}
 
 	/**
+	 * Convert multidimensional array to key => pair array
+	 * @param $obj
+	 * @access static
+	 * @return array
+	 */
+	public static function arrayToPair(array $array)
+	{
+		$result = [];
+		if(!empty($array))
+		{
+			foreach($array as $n => $values)
+			{
+				if(sizeof($values)  == 2)
+				{
+					$values = array_values($values);
+					$result[$values[0]]	=	$values[1];
+				}
+			}
+		}
+		return $result;
+	}
+
+	/**
 	 * Add handler to even array values
 	 * @param $obj
 	 * @access static
@@ -104,5 +127,24 @@ class Node
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * Check if callable class has constructor
+	 * @param mixed $class Class, object , namespace
+	 * @return bool
+	 */
+	public static function isHasConstructor($class)
+	{
+		$array = get_class_methods($class);
+		if($parent_class = get_parent_class($class))
+		{
+			$array2 = get_class_methods($parent_class);
+			$result = array_diff($array, $array2);
+		}
+		else
+			$result = $array;
+
+		return (is_numeric(array_search('__construct', $result))) ? true : false;
 	}
 }

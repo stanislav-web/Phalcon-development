@@ -13,11 +13,10 @@ namespace Libraries\CacheManagement;
 interface AwareInterface {
 
 	/**
-	 *  __construct(\Phalcon\Config $configuration) Init connection
-	 * @param \Phalcon\Config $configuration Phalcon config
-	 * @access public
+	 * Get adapter configuration
+	 * @return array
 	 */
-	public function __construct(\Phalcon\Config $configuration);
+	public function getAdapterConfig();
 
 	/**
 	 * Get server information
@@ -33,15 +32,17 @@ interface AwareInterface {
 
 	/**
 	 * Get storage content
+	 * @param int $limit limit of records
 	 * @return array | mixed
 	 */
-	public function getPool();
+	public function getPool($limit = 100);
 
 	/**
 	 * Invalidate all existing items
+	 * @param mixed $params
 	 * @return boolean | null
 	 */
-	public function flushData();
+	public function flushData($params);
 
 	/**
 	 * Set item to storage

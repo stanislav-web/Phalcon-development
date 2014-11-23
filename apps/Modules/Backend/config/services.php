@@ -27,7 +27,7 @@
             	PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES '{$this->_config->database->charset}'",
             	PDO::ATTR_CASE 		=> PDO::CASE_LOWER,
             	PDO::ATTR_ERRMODE	=> PDO::ERRMODE_EXCEPTION,
-            	PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ
+            	PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
         	)
     	]);
 	});
@@ -122,6 +122,7 @@
 	}
 
 	//Set the views cache service
+
 	$di->setShared('viewCache', function() {
 
 		$frontCache = new \Phalcon\Cache\Frontend\Output([
@@ -136,3 +137,48 @@
 		]);
 		return $cache;
 	});
+
+
+	// Set the backend data cache service
+
+	if($this->_config->cache->enable == true)
+	{
+		$di->set('dbCache', function() {
+
+			// Data caching (queries data, json data etc)
+
+			$dbCache = new Phalcon\Cache\Frontend\Data([
+				"lifetime" => $this->_config->cache->lifetime
+			]);
+
+			// Choose data storage
+			switch($this->_config->cache->adapter)
+			{
+				case 'memcache':
+
+					$cache = new Phalcon\Cache\Backend\Memcache($dbCache, [
+						"prefix"    =>  $this->_config->cache->prefix,
+						"host" 		=>  $this->_config->cache->memcached->host,
+						"port" 		=>  $this->_config->cache->memcached->port,
+						"persistent"=>	$this->_config->cache->memcached->persistent,
+					]);
+
+				break;
+
+				case 'apc':
+
+					$cache = new Phalcon\Cache\Backend\Apc($dbCache, [
+						"prefix" => $this->_config->cache->prefix
+					]);
+
+				break;
+
+				case 'xcache':
+					$cache = new Phalcon\Cache\Backend\Xcache($dbCache, [
+						"prefix"    =>  $this->_config->cache->prefix,
+					]);
+				break;
+			}
+			return $cache;
+		});
+	}

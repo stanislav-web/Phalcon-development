@@ -5,6 +5,7 @@ use Phalcon\Loader,
     Phalcon\Mvc\Dispatcher,
     Phalcon\Mvc\View,
     Phalcon\Mvc\ModuleDefinitionInterface;
+use Plugins\Dispatcher\NotFoundPlugin;
 
 /**
  * Backend module
@@ -88,33 +89,10 @@ class Backend implements ModuleDefinitionInterface
         // Dispatch register
 		$di->set('dispatcher', function() use ($di) {
 			$eventsManager = $di->getShared('eventsManager');
-			$eventsManager->attach('dispatch:beforeException', function ($event, $dispatcher, $exception) {
-				switch ($exception->getCode()) {
-					case \Phalcon\Mvc\Dispatcher::EXCEPTION_HANDLER_NOT_FOUND:
-					case \Phalcon\Mvc\Dispatcher::EXCEPTION_ACTION_NOT_FOUND:
-						$dispatcher->forward([
-							'module'        => self::MODULE,
-							'namespace' 	=> 'Modules\\'.self::MODULE.'\Controllers\\',
-							'controller'    => 'error',
-							'action'        => 'notFound',
-						]);
-						return false;
-						break;
-					default:
-						$dispatcher->forward([
-							'module'        =>  self::MODULE,
-							'namespace' 	=> 'Modules\\'.self::MODULE.'\Controllers\\',
-							'controller'    => 'error',
-							'action'        => 'uncaughtException',
-						]);
-						return false;
-						break;
-				}
-			});
+			$eventsManager->attach('dispatch:beforeException', new \Plugins\Dispatcher\NotFoundPlugin());
 			$dispatcher = new \Phalcon\Mvc\Dispatcher();
 			$dispatcher->setEventsManager($eventsManager);
 			$dispatcher->setDefaultNamespace('Modules\\'.self::MODULE.'\Controllers');
-
 			return $dispatcher;
 		}, true);
 
