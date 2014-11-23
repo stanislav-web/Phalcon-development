@@ -14,28 +14,28 @@ namespace Libraries\Navigation\View;
 class Navigate {
 
 	protected
-				/**
-		 		 * Html output
-		 		 * @var string
-		 		 */
-				$_string = '',
-				/**
-		 		 * Active link class
-		 		 * @var string
-		 		 */
-				$_activeClass	=	'active-parent active',
+		/**
+		 * Html output
+		 * @var string
+		 */
+		$_string = '',
+		/**
+		 * Active link class
+		 * @var string
+		 */
+		$_activeClass	=	'active-parent active',
 
-				/**
-				 * Drop down child list ul class
-		 		 * @var string
-		 		 */
-				$_dropChildClass	=	'dropdown-menu',
+		/**
+		 * Drop down child list ul class
+		 * @var string
+		 */
+		$_dropChildClass	=	'dropdown-menu',
 
-				/**
-		 		 * Drop down child list ul show class
-		 		 * @var string
-		 		 */
-				$_dropChildShowClass	=	'show';
+		/**
+		 * Drop down child list ul show class
+		 * @var string
+		 */
+		$_dropChildShowClass	=	'show';
 
 	/**
 	 * Create ul elements

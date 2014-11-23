@@ -39,82 +39,82 @@
 	<![endif]-->
 </head>
 <body>
-	<!-- Overlay locker -->
-	<div id="screensaver">
-		<canvas id="canvas"></canvas>
-		<i class="fa fa-lock" id="screen_unlock"></i>
-	</div>
-	<!-- /Overlay locker -->
+<!-- Overlay locker -->
+<div id="screensaver">
+	<canvas id="canvas"></canvas>
+	<i class="fa fa-lock" id="screen_unlock"></i>
+</div>
+<!-- /Overlay locker -->
 
-	<!-- Modal Box -->
-	<div id="modalbox">
-		<div class="devoops-modal">
-			<div class="devoops-modal-header">
-				<div class="modal-header-name">
-					<span>Basic table</span>
-				</div>
-				<div class="box-icons">
-					<a class="close-link">
-						<i class="fa fa-times"></i>
-					</a>
-				</div>
+<!-- Modal Box -->
+<div id="modalbox">
+	<div class="devoops-modal">
+		<div class="devoops-modal-header">
+			<div class="modal-header-name">
+				<span>Basic table</span>
 			</div>
-			<div class="devoops-modal-inner"></div>
-			<div class="devoops-modal-bottom"></div>
-		</div>
-	</div>
-	<!-- /Modal Box -->
-
-	<!-- Content -->
-
-	<!-- Start Top -->
-	<?php $this->partial("dashboard/top", ['user' => $user]) ?>
-	<!-- /End Top -->
-
-	<!--Start Container-->
-	<div id="main" class="container-fluid">
-		<div class="row">
-
-			<!-- Start Sidebar -->
-			<?php $this->partial("dashboard/sidebar", ['navigation' => $navigation]) ?>
-			<!-- /End Sidebar -->
-
-			<div id="content" class="col-xs-12 col-sm-10">
-				<!-- Breadcrumbs -->
-				<?php $breadcrumbs->generate(); ?>
-				<!-- /Breadcrumbs -->
-
-				<!--Start Ajax Content-->
-				<div id="ajax-content">
-					<?php echo $this->getContent() ?>
-				</div>
-				<!--End Ajax Content-->
-
-				<div class="preloader">
-					<?=$this->tag->image(['assets/backend/img/devoops_getdata.gif', "alt" => 'loader']); ?>
-				</div>
+			<div class="box-icons">
+				<a class="close-link">
+					<i class="fa fa-times"></i>
+				</a>
 			</div>
 		</div>
+		<div class="devoops-modal-inner"></div>
+		<div class="devoops-modal-bottom"></div>
 	</div>
-	<!-- /Content -->
+</div>
+<!-- /Modal Box -->
 
-	<!-- Javascript area content -->
-	<?php if(APPLICATION_ENV == 'production'): ?>
-		<?=$this->tag->javascriptInclude("//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js", false); ?>
-		<?=$this->tag->javascriptInclude("//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js", false); ?>
-		<?=$this->tag->javascriptInclude("https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js", false); ?>
-		<?=$this->tag->javascriptInclude("//tinymce.cachefly.net/4.1/tinymce.min.js", false); ?>
-		<?=$this->tag->javascriptInclude("//cdnjs.cloudflare.com/ajax/libs/alertify.js/0.3.11/alertify.min.js", false); ?>
-	<?php else: ?>
-		<?=$this->tag->javascriptInclude("assets/plugins/jquery/jquery.min.js", true);  // local?>
-		<?=$this->tag->javascriptInclude("assets/plugins/jquery-ui/jquery-ui.min.js", true); ?>
-		<?=$this->tag->javascriptInclude("assets/plugins/bootstrap/bootstrap.min.js", true);  // local?>
-		<?=$this->tag->javascriptInclude("assets/plugins/justified-gallery/jquery.justifiedGallery.min.js", true); ?>
-		<?=$this->tag->javascriptInclude("assets/plugins/tinymce/tinymce.min.js", true); // local ?>
-		<?=$this->tag->javascriptInclude("assets/plugins/alertify/js/alertify.min.js", true);  // local?>
-	<?php endif;?>
-		<?=$this->tag->javascriptInclude("assets/backend/js/common.js", true);  // local ?>
-		<?=$this->tag->javascriptInclude("assets/backend/js/devoops.js", true);  // local ?>
-	<!-- /Javascript area content -->
+<!-- Content -->
+
+<!-- Start Top -->
+<?php $this->partial("dashboard/top", ['user' => $user]) ?>
+<!-- /End Top -->
+
+<!--Start Container-->
+<div id="main" class="container-fluid">
+	<div class="row">
+
+		<!-- Start Sidebar -->
+		<?php $this->partial("dashboard/sidebar", ['navigation' => $navigation]) ?>
+		<!-- /End Sidebar -->
+
+		<div id="content" class="col-xs-12 col-sm-10">
+			<!-- Breadcrumbs -->
+			<?php $breadcrumbs->generate(); ?>
+			<!-- /Breadcrumbs -->
+
+			<!--Start Ajax Content-->
+			<div id="ajax-content">
+				<?php echo $this->getContent() ?>
+			</div>
+			<!--End Ajax Content-->
+
+			<div class="preloader">
+				<?=$this->tag->image(['assets/backend/img/devoops_getdata.gif', "alt" => 'loader']); ?>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- /Content -->
+
+<!-- Javascript area content -->
+<?php if(APPLICATION_ENV == 'production'): ?>
+	<?=$this->tag->javascriptInclude("//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js", false); ?>
+	<?=$this->tag->javascriptInclude("//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js", false); ?>
+	<?=$this->tag->javascriptInclude("https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js", false); ?>
+	<?=$this->tag->javascriptInclude("//tinymce.cachefly.net/4.1/tinymce.min.js", false); ?>
+	<?=$this->tag->javascriptInclude("//cdnjs.cloudflare.com/ajax/libs/alertify.js/0.3.11/alertify.min.js", false); ?>
+<?php else: ?>
+	<?=$this->tag->javascriptInclude("assets/plugins/jquery/jquery.min.js", true);  // local?>
+	<?=$this->tag->javascriptInclude("assets/plugins/jquery-ui/jquery-ui.min.js", true); ?>
+	<?=$this->tag->javascriptInclude("assets/plugins/bootstrap/bootstrap.min.js", true);  // local?>
+	<?=$this->tag->javascriptInclude("assets/plugins/justified-gallery/jquery.justifiedGallery.min.js", true); ?>
+	<?=$this->tag->javascriptInclude("assets/plugins/tinymce/tinymce.min.js", true); // local ?>
+	<?=$this->tag->javascriptInclude("assets/plugins/alertify/js/alertify.min.js", true);  // local?>
+<?php endif;?>
+<?=$this->tag->javascriptInclude("assets/backend/js/common.js", true);  // local ?>
+<?=$this->tag->javascriptInclude("assets/backend/js/devoops.js", true);  // local ?>
+<!-- /Javascript area content -->
 </body>
 </html>

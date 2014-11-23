@@ -2,9 +2,9 @@
 namespace Modules;
 
 use Phalcon\Loader,
-    Phalcon\Mvc\Dispatcher,
-    Phalcon\Mvc\View,
-    Phalcon\Mvc\ModuleDefinitionInterface;;
+	Phalcon\Mvc\Dispatcher,
+	Phalcon\Mvc\View,
+	Phalcon\Mvc\ModuleDefinitionInterface;;
 
 /**
  * Frontend module
@@ -24,38 +24,38 @@ class Frontend implements ModuleDefinitionInterface
 	 */
 	const MODULE	=	'Frontend';
 
-    /**
-     * Global config
-     * @var bool | array
-     */
-    protected $_config = false;
+	/**
+	 * Global config
+	 * @var bool | array
+	 */
+	protected $_config = false;
 
-    /**
-     * Configuration init
-     */
-    public function __construct() {
+	/**
+	 * Configuration init
+	 */
+	public function __construct() {
 
-        $this->_config = \Phalcon\DI::getDefault()->get('config');
-    }
+		$this->_config = \Phalcon\DI::getDefault()->get('config');
+	}
 
-    /**
-     * Register the autoloader specific to the current module
-     * @access public
-     * @return \Phalcon\Loader\Loader()
-     */
-    public function registerAutoloaders()
-    {
+	/**
+	 * Register the autoloader specific to the current module
+	 * @access public
+	 * @return \Phalcon\Loader\Loader()
+	 */
+	public function registerAutoloaders()
+	{
 
-        $loader = new Loader();
+		$loader = new Loader();
 
-        $loader->registerNamespaces([
-            'Modules\Frontend\Controllers'  => 	$this->_config['application']['controllersFront'],
+		$loader->registerNamespaces([
+			'Modules\Frontend\Controllers'  => 	$this->_config['application']['controllersFront'],
 			'Models'       					=> 	$this->_config['application']['modelsDir'],
 			'Libraries'       				=>  $this->_config['application']['libraryDir'],
-            'Modules\Frontend\Plugins'      => 	APP_PATH.'/Modules/'.self::MODULE.'/Plugins/',
-        ]);
+			'Modules\Frontend\Plugins'      => 	APP_PATH.'/Modules/'.self::MODULE.'/Plugins/',
+		]);
 
-        $loader->register();
+		$loader->register();
 
 		if(isset($this->_config->database->profiler))
 		{
@@ -74,58 +74,58 @@ class Frontend implements ModuleDefinitionInterface
 				$p->handleError($errorCode, $errorMessage, $errorFile, $errorLine);
 			});
 		}
-    }
+	}
 
-    /**
-     * Registration services for specific module
-     * @param \Phalcon\DI $di
-     * @access public
-     * @return mixed
-     */
-    public function registerServices($di)
-    {
-        // Dispatch register
-        $di->set('dispatcher', function() use ($di) {
-            $eventsManager = $di->getShared('eventsManager');
-            $eventsManager->attach('dispatch:beforeException', function ($event, $dispatcher, $exception) {
-                switch ($exception->getCode()) {
-                    case \Phalcon\Mvc\Dispatcher::EXCEPTION_HANDLER_NOT_FOUND:
-                    case \Phalcon\Mvc\Dispatcher::EXCEPTION_ACTION_NOT_FOUND:
-                        $dispatcher->forward([
-                            'module'        => self::MODULE,
-                            'namespace' 	=> 'Modules\\'.self::MODULE.'\Controllers\\',
-                            'controller'    => 'error',
-                            'action'        => 'notFound',
-                        ]);
-                        return false;
-                        break;
-                    default:
-                        $dispatcher->forward([
-                            'module'        => self::MODULE,
-                            'namespace' 	=> 'Modules\\'.self::MODULE.'\Controllers\\',
-                            'controller'    => 'error',
-                            'action'        => 'uncaughtException',
-                        ]);
-                        return false;
-                        break;
-                }
-            });
-            $dispatcher = new \Phalcon\Mvc\Dispatcher();
-            $dispatcher->setEventsManager($eventsManager);
-            $dispatcher->setDefaultNamespace('Modules\\'.self::MODULE.'\Controllers');
+	/**
+	 * Registration services for specific module
+	 * @param \Phalcon\DI $di
+	 * @access public
+	 * @return mixed
+	 */
+	public function registerServices($di)
+	{
+		// Dispatch register
+		$di->set('dispatcher', function() use ($di) {
+			$eventsManager = $di->getShared('eventsManager');
+			$eventsManager->attach('dispatch:beforeException', function ($event, $dispatcher, $exception) {
+				switch ($exception->getCode()) {
+					case \Phalcon\Mvc\Dispatcher::EXCEPTION_HANDLER_NOT_FOUND:
+					case \Phalcon\Mvc\Dispatcher::EXCEPTION_ACTION_NOT_FOUND:
+						$dispatcher->forward([
+							'module'        => self::MODULE,
+							'namespace' 	=> 'Modules\\'.self::MODULE.'\Controllers\\',
+							'controller'    => 'error',
+							'action'        => 'notFound',
+						]);
+						return false;
+						break;
+					default:
+						$dispatcher->forward([
+							'module'        => self::MODULE,
+							'namespace' 	=> 'Modules\\'.self::MODULE.'\Controllers\\',
+							'controller'    => 'error',
+							'action'        => 'uncaughtException',
+						]);
+						return false;
+						break;
+				}
+			});
+			$dispatcher = new \Phalcon\Mvc\Dispatcher();
+			$dispatcher->setEventsManager($eventsManager);
+			$dispatcher->setDefaultNamespace('Modules\\'.self::MODULE.'\Controllers');
 
-            return $dispatcher;
-        }, true);
+			return $dispatcher;
+		}, true);
 
-        // Registration of component representations (Views)
+		// Registration of component representations (Views)
 
-        $di->set('view', function() {
-            $view = new View();
-            $view->setViewsDir($this->_config['application']['viewsFront'])->setMainView('layout');
-            return $view;
-        });
+		$di->set('view', function() {
+			$view = new View();
+			$view->setViewsDir($this->_config['application']['viewsFront'])->setMainView('layout');
+			return $view;
+		});
 
-        return require_once APP_PATH.'/Modules/'.self::MODULE.'/config/services.php';
-    }
+		return require_once APP_PATH.'/Modules/'.self::MODULE.'/config/services.php';
+	}
 
 }

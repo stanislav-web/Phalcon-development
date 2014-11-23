@@ -6,8 +6,14 @@ $config = [
     // Global application config
 
     'application' => [
-        'modelsDir'         => APP_PATH.'/Models/',
-        'libraryDir'        => APP_PATH.'/Libraries/',
+		'controllersFront'  => APP_PATH.'/Modules/Frontend/Controllers/',
+		'controllersBack'  	=> APP_PATH.'/Modules/Backend/Controllers/',
+		'viewsFront'  		=> APP_PATH.'/Modules/Frontend/views/',
+		'viewsBack'  		=> APP_PATH.'/Modules/Backend/views/',
+		'modelsDir'         => APP_PATH.'/Models/',
+		'helpersDir'        => APP_PATH.'/Helpers/',
+		'libraryDir'        => APP_PATH.'/Libraries/',
+		'pluginsDir'        => APP_PATH.'/Plugins/',
         'logDir'            => APP_PATH.'../logs/',
         'baseUri'           => '/',
         'cryptSalt'         => '$9diko$.f#11',
@@ -16,25 +22,25 @@ $config = [
     // Configure database driver
 
     'database' =>   [
-        'adapter'       => 'Mysql',              // Mysql, Postgres, Sqlite
-        'host'          => 'localhost',
-        'username'      => 'root',
-        'password'      => 'root',
-        'dbname'        => 'phalcon.local',
-        'port'          => 3306,
-        'charset'       => 'utf8',
-        'persistent'    => true,
-        'profiler'	    => false,
-        'debug'	        => PDO::ERRMODE_SILENT,
+        'adapter'       => 	'Mysql',              // Mysql, Postgres, Sqlite
+        'host'          => 	'localhost',
+        'username'      => 	'root',
+        'password'      => 	'root',
+        'dbname'        => 	'phalcon.local',
+        'port'          => 	3306,
+        'charset'       => 	'utf8',
+        'persistent'    => 	true,
+        'profiler'	    => 	false,
+        'debug'	        => 	PDO::ERRMODE_SILENT,
     ],
 
     // Configure backend and frontend data caching
 
     'cache'     =>  [
         'enable'        =>  true,
-        'lifetime'      => '86400',
-        'prefix'        => 'files_',
-        'adapter'       => 'Apc',
+        'lifetime'      => 	86400,
+        'prefix'        => 	'cache_',
+        'adapter'       => 	'apc',		//	Memcache, xCache, Apc
         'metadata'      =>  true,
         'annotations'   =>  true,
 
@@ -48,8 +54,15 @@ $config = [
     // Log configuration
 
     'logger'    =>  [
-        'enable'    =>  false,
+        'enable'    =>  true,
+		'file'    	=>   DOCUMENT_ROOT.'/../logs/phalcon.log',
+		'format'    => 	'[%date%][%type%] %message%',
     ],
+
+	'newrelic'	=>	[
+		'license_key'	=>	'a10496400654ef1d8aae145e088cb716540f4a85',
+		'application'	=>	'Phalcon',
+	],
 
     // Mailing and subscribe configuration
 
@@ -61,7 +74,7 @@ $config = [
             'port'     => 587,
             'security' => 'tls',
             'username' => 'stanisov@gmail.com',
-            'password' => 'AAAAAAA',
+            'password' => 'wewewewewewe',
         ],
     ],
 
@@ -69,7 +82,11 @@ $config = [
 
     'oAuth'  => [
 
-    ]
+    ],
+
+	// Remember state
+	'rememberKeep'		=>	86400 * 30,
+	'cookieCryptKey'	=>	'#1dj8$=dp?.ak//j1V$'
 ];
 
 /**

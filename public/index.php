@@ -39,7 +39,6 @@ $di->set('config', function() use ($config) {
 try {
 
     $application = new Phalcon\Mvc\Application($di);
-
     // Register modules
     $application->registerModules([
         'Frontend'	=>	[

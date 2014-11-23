@@ -65,7 +65,6 @@ class Backend implements ModuleDefinitionInterface
 			$namespaces = array_merge(
 				$loader->getNamespaces(), [
 					'Phalcon\Utils' 		=> 	APP_PATH.'/Libraries/PrettyExceptions/Library/Phalcon/Utils',
-					'Libraries\Pinboard' 	=> 	APP_PATH.'/Libraries/Pinboard/',
 				]
 			);
 			$loader->registerNamespaces($namespaces);
