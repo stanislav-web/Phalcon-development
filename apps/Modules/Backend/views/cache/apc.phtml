@@ -1,22 +1,146 @@
-APC
-<table class="table table-striped table-bordered">
-	<tbody>
-	<?php
-	$i = 0;
-	$configs = ini_get_all('apc');
-	if(count($configs)==0){
-		$configs = ini_get_all('apcu');
-	}
-	foreach ($configs as $k => $v) {
-		if($i%2==0){
-			echo '<tr>';
-		}
-		$i++;
-		echo "<td>",$k,"</td><td>",str_replace(',',',<br />',$v['local_value']),"</td>";
-		if($i%2==0){
-			echo '</tr>';
-		}
-	}
-	?>
-	</tbody>
-</table>
+<!-- Dashboard header -->
+<div id="dashboard-header" class="row">
+	<div class="col-xs-10 col-sm-4">
+		<h3><i class="fa fa-database fa-md"></i> <b><?=$title;?> storage</b></h3>
+	</div>
+</div>
+<!-- /Dashboard header -->
+
+<!-- Dashboard content -->
+<div class="row-fluid">
+<div id="dashboard_links" class="col-xs-12 col-sm-2 pull-right">
+	<ul class="nav nav-pills nav-stacked">
+		<li class="active"><a href="#server" class="tab-link" id="server">Server info</a></li>
+		<li><a href="#pool" class="tab-link" id="pool">Pool data</a></li>
+		<li><a href="#statistics" class="tab-link" id="statistics">Charts</a></li>
+		<li><a href="#adapter" class="tab-link" id="adapter">Adapter config</a></li>
+	</ul>
+</div>
+<div id="dashboard_tabs" class="col-xs-12 col-sm-10">
+	<div id="dashboard-server" name="server" class="row padding-15" style="visibility: visible; position: relative;">
+		<div class="col-xs-12 col-md-12">
+			<table class="table m-table table-bordered table-hover table-heading">
+				<thead>
+				<tr>
+					<th colspan="2"><b><?=$title;?> (Alternative PHP Cache Statistics)</b></th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td class="m-ticker"></td>
+					<td class="m-price col-md-4"></td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<div id="dashboard-pool" class="row padding-15" style="visibility: hidden; position: absolute;">
+		<div class="col-xs-12 col-md-6">
+			<div class="btn-group btn-group-justified">
+
+				<div class="btn-group">
+					<a class="btn btn-danger" href="#" onclick="Common.confirm('Are you sure to Flush APC cache?', '/flush'); return false;">FLUSH</a>
+				</div>
+				<div class="btn-group">
+					<a class="btn btn-danger" href="#" onclick="Common.confirm('Are you sure to Reset all cache data?', '/delete'); return false;">RESET</a>
+				</div>
+			</div>
+		</div>
+		<div class="clearfix"></div>
+		<div class="box-content">
+			APC Cache viewer
+		</div>
+	</div>
+
+	<div id="dashboard-statistics" name="statistics" class="row padding-15" style="visibility: hidden; position: absolute;">
+		<div class="col-xs-12 col-md-12">
+			<div class="row top20">
+
+				<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">Cache occurrences</h3>
+						</div>
+						<div class="panel-body">
+							<div id="occurrences" style="height: 250px; width: 350px"></div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">Memory</h3>
+						</div>
+						<div class="panel-body">
+							<div id="memory_cart" style="height: 250px; width: 350px"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="dashboard-adapter" name="adapter" class="row padding-15" style="visibility: hidden; position: absolute;">
+		<div class="table-responsive">
+			<div class="panel-heading">
+				<h4 class="panel-title">PHP <?=$title;?> config</h4>
+			</div>
+			<table class="table table-bordered table-hover table-striped" style="table-layout: fixed;">
+				<tbody>
+				<?php $i = 0; foreach ($adapter as $k => $v): ?>
+				<?php if($i%2==0):?>
+				<tr>
+					<?php endif;?>
+					<?php $i++; ?>
+					<?="<td>",$k,"</td><td>",str_replace(',',',<br />',$v['local_value']),"</td>"; ?>
+					<?php if($i%2==0):?>
+				<tr>
+					<?php endif;?>
+					<?php endforeach;?>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+<div class="clearfix"></div>
+</div>
+<script type="text/javascript">
+	jQuery(document).ready(function() {
+
+		// Make all JS-activity for dashboard
+		DashboardTabChecker();
+
+		LoadMorrisScripts(function() {
+			Morris.Donut({
+				element: 'occurrences',
+				data: [
+
+				],
+				colors: ['#5cb85c','#d9534f', '#5bc0de']
+			});
+
+			Morris.Bar({
+				element: 'memory_cart',
+				data: [
+
+				],
+				xkey: 'type',
+				ykeys: ['v'],
+				labels: ['MB'],
+				barColors: function (row, series, type) {
+					if (type === 'bar') {
+						var colors = ['#f0ad4e', '#5cb85c', '#5bc0de'];
+						return colors[row.x];
+					}else {
+						return '#000';
+					}
+				},
+				barRatio: 0.4,
+				xLabelAngle: 35,
+				hideHover: 'auto'
+			});
+		});
+	});
+</script>

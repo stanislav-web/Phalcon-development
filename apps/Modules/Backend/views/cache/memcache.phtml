@@ -36,7 +36,7 @@
 					<tbody>
 						<tr>
 							<td class="m-ticker">State</td>
-							<td class="m-price col-md-3">
+							<td class="m-price col-md-4">
 								<?php if($server['status'] == 1): ?>
 									<button class="btn-sm btn btn-success" disabled>UP</button>
 								<?php else: ?>
@@ -56,7 +56,7 @@
 						</tr>
 						<tr>
 							<td class="m-ticker">Server Uptime</td>
-							<td class="m-price"><?=date("H:i", $server['stats']['uptime']);?></td>
+							<td class="m-price"><?=Helpers\Format::timestampToDate($server['stats']['uptime']);?></td>
 						</tr>
 						<tr>
 							<td class="m-ticker">Max cache size</td>
@@ -165,7 +165,7 @@
 								<h3 class="panel-title">Hit/Miss</h3>
 							</div>
 							<div class="panel-body">
-								<div id="hit_miss_cart" style="height: 250px;"></div>
+								<div id="hit_miss_cart" style="height: 250px; width: 350px"></div>
 							</div>
 						</div>
 					</div>
@@ -176,7 +176,7 @@
 								<h3 class="panel-title">Memory</h3>
 							</div>
 							<div class="panel-body">
-								<div id="memory_cart" style="height: 250px;"></div>
+								<div id="memory_cart" style="height: 250px; width: 350px"></div>
 							</div>
 						</div>
 					</div>
@@ -208,20 +208,45 @@
 	</div>
 	<div class="clearfix"></div>
 </div>
-<!-- Javascript area content -->
-<?php if(APPLICATION_ENV == 'production'): ?>
-	<?=$this->tag->javascriptInclude("http://cdn.oesmith.co.uk/morris-0.5.1.min.js", false); ?>
-	<?=$this->tag->javascriptInclude("http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.2/raphael-min.js", false); ?>
-<?php else: ?>
-	<?=$this->tag->javascriptInclude("assets/plugins/morris/morris.min.js", true);  // local?>
-	<?=$this->tag->javascriptInclude("assets/plugins/raphael/raphael.min.js", true);  // local?>
-<?php endif;?>
-<!-- /Javascript area content -->
 <script type="text/javascript">
-	jQuery(document).ready(function() {
 
 		// Make all JS-activity for dashboard
 		DashboardTabChecker();
+
+		LoadMorrisScripts(function() {
+			Morris.Donut({
+				element: 'hit_miss_cart',
+				data: [
+					{label: "Hit", value: <?=$server['stats']['get_hits'] ?>},
+					{label: "Miss", value: <?=$server['stats']['get_misses'] ?>},
+				],
+				colors: ['#5cb85c','#d9534f']
+			});
+
+			Morris.Bar({
+				element: 'memory_cart',
+				data: [
+					{type: 'total',v: <?=number_format((real) $server['stats']['limit_maxbytes']/(1024*1024),3);?>},
+					{type: 'used', v: <?=number_format((real) $server['stats']['bytes']/(1024*1024),3);?>},
+					{type: 'read', v: <?=number_format((real) $server['stats']['bytes_read']/(1024*1024),3);?>},
+					{type: 'sent', v: <?=number_format((real) $server['stats']['bytes_written']/(1024*1024),3);?>}
+				],
+				xkey: 'type',
+				ykeys: ['v'],
+				labels: ['MB'],
+				barColors: function (row, series, type) {
+					if (type === 'bar') {
+						var colors = ['#f0ad4e', '#5cb85c', '#5bc0de', '#d9534f'];
+						return colors[row.x];
+					}
+					else
+						return '#000';
+				},
+				barRatio: 0.4,
+				xLabelAngle: 35,
+				hideHover: 'auto'
+			});
+		});
 
 		LoadDataTablesScripts(function() {
 
@@ -238,39 +263,6 @@
 				}
 			});
 			$('.dataTables_filter input').attr("placeholder", "Search...");
-		});
 
-		Morris.Donut({
-			element: 'hit_miss_cart',
-			data: [
-				{label: "Hit", value: <?=$server['stats']['get_hits'] ?>},
-				{label: "Miss", value: <?=$server['stats']['get_misses'] ?>},
-			],
-			colors: ['#5cb85c','#d9534f']
 		});
-
-		Morris.Bar({
-			element: 'memory_cart',
-			data: [
-				{type: 'total',v: <?=number_format((real) $server['stats']['limit_maxbytes']/(1024*1024),3);?>},
-				{type: 'used', v: <?=number_format((real) $server['stats']['bytes']/(1024*1024),3);?>},
-				{type: 'read', v: <?=number_format((real) $server['stats']['bytes_read']/(1024*1024),3);?>},
-				{type: 'sent', v: <?=number_format((real) $server['stats']['bytes_written']/(1024*1024),3);?>}
-			],
-			xkey: 'type',
-			ykeys: ['v'],
-			labels: ['MB'],
-			barColors: function (row, series, type) {
-				if (type === 'bar') {
-					var colors = ['#f0ad4e', '#5cb85c', '#5bc0de', '#d9534f'];
-					return colors[row.x];
-				}else {
-					return '#000';
-				}
-			},
-			barRatio: 0.4,
-			xLabelAngle: 35,
-			hideHover: 'auto'
-		});
-	});
 </script>

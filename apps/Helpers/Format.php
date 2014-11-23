@@ -11,7 +11,7 @@ namespace Helpers;
  * @copyright Stanilav WEB
  * @filesource /apps/Helpers/Format.php
  */
-class Format extends \Phalcon\Tag
+class Format
 {
 	/**
 	 * Format byte code to human understand
@@ -39,5 +39,37 @@ class Format extends \Phalcon\Tag
 		else
 			$output = $orig;
 		return $output;
+	}
+
+	/**
+	 * Convert seconds to human readable text.
+	 * @param timestamp $secs
+	 * @return string
+	 */
+	public static function timestampToDate($secs = 0)
+	{
+		$units = array(
+			"week"   => 7*24*3600,
+			"day"    =>   24*3600,
+			"hour"   =>      3600,
+			"minute" =>        60,
+			"second" =>         1,
+		);
+
+		// specifically handle zero
+		if($secs == 0) return "0 seconds";
+
+		$s = "";
+
+		foreach($units as $name => $divisor)
+		{
+			if($quot = intval($secs / $divisor))
+			{
+				$s .= "$quot $name";
+				$s .= (abs($quot) > 1 ? "s" : "") . " ";
+				$secs -= $quot * $divisor;
+			}
+		}
+		return substr($s, 0, -2);
 	}
 }

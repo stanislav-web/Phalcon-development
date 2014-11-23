@@ -201,7 +201,7 @@ function LoadMorrisScripts(callback){
 		}
 	}
 	if (!$.fn.raphael){
-		$.getScript('/assets/plugins/raphael/raphael-min.js', LoadMorrisScript);
+		$.getScript('/assets/plugins/raphael/raphael.min.js', LoadMorrisScript);
 	}
 	else {
 		LoadMorrisScript();

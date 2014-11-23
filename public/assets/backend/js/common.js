@@ -130,5 +130,14 @@ var Common = {
 	 */
 	clearUri: function (uri) {
 		return url.origin + url.pathname;
+	},
+
+	loadScripts : function(sources)
+	{
+		if(sources)
+		{
+
+		}
+
 	}
 };

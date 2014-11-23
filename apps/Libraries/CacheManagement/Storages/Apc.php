@@ -59,7 +59,13 @@ class Apc  implements  CacheManagement\AwareInterface {
 	 */
 	public function getServerStatus()
 	{
+		return [
 
+			'status'	=>	ini_get('apc.enabled'),
+			apc_sma_info(),
+			apc_cache_info('user'),
+			apc_cache_info('filehits')
+		];
 	}
 
 	/**
