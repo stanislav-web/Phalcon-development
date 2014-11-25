@@ -2,10 +2,5 @@
 	"require-dev": {
 		"squizlabs/php_codesniffer": "1.*",
 		"phpmd/phpmd" : "@stable"
-	},
-	"require": {
-		"ftugit/phalcon-extension": "dev-master",
-		"phalcon-ext/widget-pagination": "v0.1.0",
-		"phalcon-ext/widgets": "v0.2.0"
 	}
 }
