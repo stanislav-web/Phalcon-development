@@ -3,10 +3,4 @@
 		"squizlabs/php_codesniffer": "1.*",
 		"phpmd/phpmd" : "@stable"
 	},
-	"require": {
-        "crada/phalcon-user-plugin": "@dev",
-		"ftugit/phalcon-extension": "dev-master",
-		"goors/phalcon-oauth2": "dev-develop",
-		"phalcon-ext/widget-pagination": "v0.1.0"
-	}
 }
