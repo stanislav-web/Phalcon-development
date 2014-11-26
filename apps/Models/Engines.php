@@ -1,8 +1,23 @@
 <?php
 namespace Models;
+use Phalcon\Mvc\Model\Behavior\Timestampable;
 
+/**
+ * Class Engines
+ * @package 	Backend
+ * @subpackage 	Models
+ * @since PHP >=5.4
+ * @version 1.0
+ * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
+ * @filesource /apps/Models/Engines.php
+ */
 class Engines extends \Phalcon\Mvc\Model
 {
+	/**
+	 * Absolute model name
+	 * @const
+	 */
+	const TABLE	=	'\Models\Engines';
 
     /**
      *
@@ -45,6 +60,46 @@ class Engines extends \Phalcon\Mvc\Model
      * @var integer
      */
     protected $status;
+
+	/**
+	 * Datetime create
+	 * @var datetime
+	 */
+	protected $date_create;
+
+	/**
+	 * Timestamp add
+	 * @var timestamp
+	 */
+	protected $date_update;
+
+	/**
+	 * Initialize Model
+	 */
+	public function initialize()
+	{
+		$this->addBehavior(new Timestampable([
+				'beforeCreate' => [
+					'field' => 'date_create',
+					'format' => 'Y-m-d:H:i:s'
+				]
+			]
+		));
+
+		$this->belongsTo('currency_id', 'Models\Currency', 'id', [
+			'alias' 		=> 'currencyRel',
+		]);
+	}
+
+	/**
+	 * Вернуться соответствующий "robots parts"
+	 * @return \RobotsParts[]
+	 */
+	public function getStatuses()
+	{
+		return $this->getRelated('currencyRel');
+	}
+
 
     /**
      * Method to set the value of field id
@@ -207,9 +262,40 @@ class Engines extends \Phalcon\Mvc\Model
         return $this->status;
     }
 
-    public function initialize()
-    {
-        $this->belongsTo('currency_id', 'Currency', 'id', array('foreignKey' => true));
-    }
+	/**
+	 * Returns the value of field date_create
+	 *
+	 * @return integer
+	 */
+	public function getDateCreate()
+	{
+		return $this->date_create;
+	}
 
+	/**
+	 * Returns the value of field date_create
+	 *
+	 * @return integer
+	 */
+	public function getDateUpdate()
+	{
+		return $this->date_update;
+	}
+
+	/**
+	 * Get all related records from Engines joined to Currency
+	 * @param array $params
+	 * @return
+	 */
+	public function get(array $params = [])
+	{
+		$builder = $this->_modelsManager->createBuilder();
+		$builder
+			->addFrom(self::TABLE, 'e')
+			->leftJoin(Currency::TABLE, 'c.id = e.currency_id', 'c');
+
+		$result = $builder->getQuery()->execute();
+
+		return $result;
+	}
 }

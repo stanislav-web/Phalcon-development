@@ -152,7 +152,7 @@ class ControllerBase extends Controller
 			$this->router->getControllerName(),
 			$this->router->getModuleName()
 		);
-
+		
 		// global view variables
 		$this->view->setVars([
 			'user'			=>	$this->_user,

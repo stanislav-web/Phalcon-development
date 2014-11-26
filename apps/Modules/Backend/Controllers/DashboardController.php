@@ -38,7 +38,11 @@ class DashboardController extends ControllerBase
 		$this->tag->setTitle(self::NAME);
 
 		// create cache key
-		$this->cacheKey	=	md5($this->request->getURI());
+		$this->cacheKey	=	md5(
+			$this->router->getModuleName()
+			.$this->router->getControllerName()
+			.$this->router->getActionName()
+		);
 	}
 
     public function indexAction()

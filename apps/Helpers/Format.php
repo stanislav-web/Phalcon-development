@@ -42,12 +42,43 @@ class Format
 	}
 
 	/**
+	 * getFormatTime($timestamp, $tz) Formatted datetime to human readable
+	 * @param datetime  $datetime MySQL datetime
+	 * @param string $tz time zone like 'Europe/Moscow'
+	 * @param boolean $asArray
+	 * @return mixed
+	 */
+	public static function getFormatTime($datetime, $tz = false, $asArray = false)
+	{
+		$dt     = new \DateTime($datetime);
+
+		// setup timezone
+		if(!$tz)    $_tz = $dt->getTimezone();
+		else        $_tz = new \DateTimeZone($tz);
+		$dt = $dt->setTimezone($_tz);
+
+		$result = array(
+			'y' => $dt->format('Y'),
+			'm' => ' of '.$dt->format('F'),
+			'd' => $dt->format('j'),
+			'h' => $dt->format('H'),
+			'i' => $dt->format('i'),
+		);
+
+		if($asArray)
+			return $result;
+		else
+			return $result['d'].$result['m'].' '.$result['y'];
+	}
+
+	/**
 	 * Convert seconds to human readable text.
 	 * @param timestamp $secs
 	 * @return string
 	 */
 	public static function timestampToDate($secs = 0)
 	{
+
 		$units = array(
 			"week"   => 7*24*3600,
 			"day"    =>   24*3600,

@@ -1,8 +1,22 @@
 <?php
 namespace Models;
 
+/**
+ * Class Currency
+ * @package 	Backend
+ * @subpackage 	Models
+ * @since PHP >=5.4
+ * @version 1.0
+ * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
+ * @filesource /apps/Models/Currency.php
+ */
 class Currency extends \Phalcon\Mvc\Model
 {
+	/**
+	 * Absolute model name
+	 * @const
+	 */
+	const TABLE	=	'\Models\Currency';
 
     /**
      *
@@ -40,6 +54,15 @@ class Currency extends \Phalcon\Mvc\Model
 
         return $this;
     }
+
+	/**
+	 * Initialize Model
+	 */
+	public function initialize()
+	{
+		// local_filed, reference Model, referenced_field
+		$this->hasMany('id', 'Engines', 'currency_id');
+	}
 
     /**
      * Method to set the value of field code
@@ -119,9 +142,4 @@ class Currency extends \Phalcon\Mvc\Model
     {
         return $this->symbol;
     }
-    public function initialize()
-    {
-        $this->hasMany('id', 'Engines', 'currency_id', NULL);
-    }
-
 }
