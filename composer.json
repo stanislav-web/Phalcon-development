@@ -1,6 +1,18 @@
 {
-	"require-dev": {
-		"squizlabs/php_codesniffer": "1.*",
-		"phpmd/phpmd" : "@stable"
-	},
+    "name": "Phalcon-development",
+    "description": "Phalcon PHP Framework development",
+    "type": "project",
+    "keywords": ["framework", "phalcon", "Phalcon development"],
+    "homepage": "http://reds.com",
+    "license": "GPL",
+    "authors": [
+        {
+            "name": "Stanislav WEB",
+            "email": "stanisov@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.35"
+    }
 }
