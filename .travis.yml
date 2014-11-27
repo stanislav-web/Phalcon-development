@@ -1,1 +1,6 @@
-ddd
+notifications:
+  email:
+    recipients:
+      - stanisov@gmail.com
+    on_success: always
+    on_failure: always
