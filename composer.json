@@ -1,13 +1,15 @@
 {
     "name": "Phalcon-development",
     "description": "Phalcon PHP Framework development",
+    "type": "project",
     "keywords": ["framework", "phalcon", "Phalcon development"],
-    "homepage": "http://reds.com/",
+    "homepage": "http://reds.com",
     "license": "GPL",
     "authors": [
         {
             "name": "Stanislav WEB",
-            "email": "stanisov@gmail.com"
+            "email": "stanisov@gmail.com",
+            "role": "Developer"
         }
     ],
     "require": {
