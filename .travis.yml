@@ -5,6 +5,7 @@ php:
 
 services:
   - memcached
+  - phalcon
 
 notifications:
   email:
