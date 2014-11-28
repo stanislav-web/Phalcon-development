@@ -55,7 +55,7 @@ class Navigation {
 	 */
 	public function getNavigation($name)
 	{
-		if(!key_exists($name, $this->_elements))
+		if(!array_key_exists($name, $this->_elements))
 			return null;
 		return $this->_elements[$name];
 	}
@@ -69,7 +69,7 @@ class Navigation {
 	 */
 	public function toHtml($name)
 	{
-		return (new View\Navigate())->toHtml($this->getNavigation($name));
+		return (new Render())->toHtml($this->getNavigation($name));
 	}
 
 	/**
@@ -142,7 +142,7 @@ class Navigation {
 	 * Activate node collection.
 	 *
 	 * @param mixed $collection
-	 * @param mixed $action
+f	 * @param mixed $action
 	 * @param mixed $controller
 	 * @param mixed $module
 	 * @access public

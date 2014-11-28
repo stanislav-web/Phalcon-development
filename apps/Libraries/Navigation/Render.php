@@ -1,5 +1,5 @@
 <?php
-namespace Libraries\Navigation\View;
+namespace Libraries\Navigation;
 
 /**
  * Navigation viewer class
@@ -9,9 +9,9 @@ namespace Libraries\Navigation\View;
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @copyright Stanilav WEB
- * @filesource /apps/Libraries/Navigation/View/Navigate.php
+ * @filesource /apps/Libraries/Navigation/Render.php
  */
-class Navigate {
+class Render {
 
 	protected
 		/**
