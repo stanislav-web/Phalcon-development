@@ -2,9 +2,16 @@
     "name": "stanislav-web/phalcon-development",
     "description": "Phalcon PHP Framework development",
     "type": "project",
-    "keywords": ["framework", "phalcon", "Phalcon development"],
+    "keywords": [
+        "framework", 
+        "phalcon", 
+        "Phalcon development",
+        "Phalcon board",
+        "Phalcon admin tools",
+        "Phalcon administrator"
+        ],
     "homepage": "http://reds.com",
-    "license": "GPL",
+    "license": "BSD-3",
     "authors": [
         {
             "name": "Stanislav WEB",
