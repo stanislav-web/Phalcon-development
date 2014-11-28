@@ -10,7 +10,7 @@ use Plugins\Dispatcher\NotFoundPlugin;
 /**
  * Backend module
  * @package Phalcon
- * @subpackage Frontend
+ * @subpackage Backend
  * @since PHP >=5.4
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
