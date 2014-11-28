@@ -1,13 +1,8 @@
 # Created by .gitignore support plugin (hsz.mobi)
 .phalcon
 *.phar
-.htaccess
 composer.lock
 logs
 vendor
 .idea/*
-apps/config/application.php
-apps/config/development.php
-apps/Libraries/PrettyExceptions
-apps/Plugins/Debugger
 DEVELOPER

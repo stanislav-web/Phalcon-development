@@ -2,6 +2,8 @@
 namespace Modules\Backend\Controllers;
 use Models\Engines,
 	\Phalcon\Mvc\View;
+use Modules\Backend;
+use Phalcon\Exception;
 
 /**
  * Class EnginesController
@@ -39,15 +41,14 @@ class EnginesController extends ControllerBase
 		$this->tag->setTitle(' - '.DashboardController::NAME);
 
 		// create cache key
-		$this->cacheKey	=	md5(
-				$this->router->getModuleName()
-				.$this->router->getControllerName()
-				.$this->router->getActionName()
-		);
+		$this->cacheKey	=	md5(Backend::MODULE.self::NAME.$this->router->getControllerName().$this->router->getActionName());
+
+		$this->_breadcrumbs->add(DashboardController::NAME, $this->url->get(['for' => 'dashboard']));
 	}
 
 	/**
 	 * Get list of all engines
+	 * @return null
 	 */
     public function indexAction()
     {
@@ -55,8 +56,8 @@ class EnginesController extends ControllerBase
 		$this->tag->prependTitle($title);
 
 		// add crumb to chain (name, link)
-		$this->_breadcrumbs->add(DashboardController::NAME, $this->url->get(['for' => 'dashboard']))
-			->add($title);
+
+		$this->_breadcrumbs->add($title);
 
 		// get all records
 
@@ -77,11 +78,36 @@ class EnginesController extends ControllerBase
 	}
 
 	/**
-	 * Shows the view to "edit" an existing engine
+	 * Edit engine action
+	 * @return null
 	 */
 	public function editAction()
 	{
-		//...
+		try {
+			$id = $this->dispatcher->getParams()[0];
+
+			$engine = Engines::findFirst($id);
+
+			if($engine)
+			{
+				// build meta data
+				$title = $engine->getName();
+				$this->tag->prependTitle($title);
+
+				// add crumb to chain (name, link)
+				$this->_breadcrumbs->add(self::NAME, $this->url->get(['for' => 'dashboard-controller', 'controller' => 'engines']))
+									->add($title);
+
+				$this->view->setVars([
+					'item'	=>	$engine,
+					'title'	=>	$title,
+				]);
+			}
+
+		}
+		catch(Exception $e) {
+			echo $e->getMessage();
+		}
 	}
 }
 

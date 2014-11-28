@@ -37,6 +37,7 @@ class CacheController extends ControllerBase
 	{
 		parent::initialize();
 		$this->tag->setTitle(' - '.DashboardController::NAME);
+		$this->_breadcrumbs->add(DashboardController::NAME, $this->url->get(['for' => 'dashboard']));
 	}
 
 	public function indexAction()
@@ -44,8 +45,7 @@ class CacheController extends ControllerBase
 		$this->tag->prependTitle(self::NAME);
 
 		// add crumb to chain (name, link)
-		$this->_breadcrumbs->add(DashboardController::NAME, $this->url->get(['for' => 'dashboard']))
-			->add(self::NAME);
+		$this->_breadcrumbs->add(self::NAME);
 	}
 
 	public function storageAction($param, $action = false)
@@ -56,9 +56,8 @@ class CacheController extends ControllerBase
 			$this->tag->prependTitle($title);
 
 			// add crumb to chain (name, link)
-			$this->_breadcrumbs->add(DashboardController::NAME, $this->url->get(['for' => 'dashboard']))
-				->add(self::NAME, $this->url->get('dashboard/cache'))
-				->add($title);
+			$this->_breadcrumbs->add(self::NAME, $this->url->get('dashboard/cache'))
+								->add($title);
 
 			try {
 				// call selected storage

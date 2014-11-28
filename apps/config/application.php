@@ -59,30 +59,19 @@ $config = [
 		'format'    => 	'[%date%][%type%] %message%',
     ],
 
-	'newrelic'	=>	[
-		'license_key'	=>	'a10496400654ef1d8aae145e088cb716540f4a85',
-		'application'	=>	'Phalcon',
-	],
-
     // Mailing and subscribe configuration
 
-    'mail' => [
-        'fromName'  => 'Stanislav WEB',
-        'fromEmail' => 'stanisov@gmail.com',
-        'smtp' => [
-            'server'   => 'smtp.gmail.com',
-            'port'     => 587,
-            'security' => 'tls',
-            'username' => 'stanisov@gmail.com',
-            'password' => 'wewewewewewe',
-        ],
-    ],
-
-    // oAuth service's config
-
-    'oAuth'  => [
-
-    ],
+	'mail' => [
+		'fromName'  => 'Admin',
+		'fromEmail' => 'email@gmail.com',
+		'smtp' => [
+			'server'   => 'smtp.gmail.com',
+			'port'     => 587,
+			'security' => 'tls',
+			'username' => 'Admin',
+			'password' => '',
+		],
+	],
 
 	// Remember state
 	'rememberKeep'		=>	86400 * 30,

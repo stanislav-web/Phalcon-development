@@ -29,6 +29,8 @@ class UsersController extends ControllerBase
 	{
 		parent::initialize();
 		$this->tag->setTitle(' - '.DashboardController::NAME);
+		$this->_breadcrumbs->add(DashboardController::NAME, $this->url->get(['for' => 'dashboard']));
+
 	}
 
 	public function indexAction()
@@ -36,8 +38,7 @@ class UsersController extends ControllerBase
 		$this->tag->prependTitle(self::NAME);
 
 		// add crumb to chain (name, link)
-		$this->_breadcrumbs->add(DashboardController::NAME, $this->url->get(['for' => 'dashboard']))
-			->add(self::NAME);
+		$this->_breadcrumbs->add(self::NAME);
 	}
 
 	public function rolesAction()
@@ -45,7 +46,6 @@ class UsersController extends ControllerBase
 		$this->tag->prependTitle(self::NAME);
 
 		// add crumb to chain (name, link)
-		$this->_breadcrumbs->add(DashboardController::NAME, $this->url->get(['for' => 'dashboard']))
-			->add(self::NAME);
+		$this->_breadcrumbs->add(self::NAME);
 	}
 }

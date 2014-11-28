@@ -42,14 +42,14 @@ return [
     // Mailing and subscribe configuration
 
     'mail' => [
-        'fromName'  => 'Stanislav WEB',
-        'fromEmail' => 'stanisov@gmail.com',
+        'fromName'  => 'Admin',
+        'fromEmail' => 'email@gmail.com',
         'smtp' => [
             'server'   => 'smtp.gmail.com',
             'port'     => 587,
             'security' => 'tls',
-            'username' => 'stanisov@gmail.com',
-            'password' => 'AAAAAAA',
+            'username' => 'Admin',
+            'password' => '',
         ],
     ],
 ];
