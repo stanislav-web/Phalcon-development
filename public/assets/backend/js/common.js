@@ -4,6 +4,7 @@
  */
 var Common = {
 
+	language	:	(!this.language) ? 'en' : this.language,
 	/**
 	 * Use for URI builder
 	 * @var request uri

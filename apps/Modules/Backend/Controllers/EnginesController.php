@@ -1,9 +1,9 @@
 <?php
 namespace Modules\Backend\Controllers;
 use Models\Engines,
-	\Phalcon\Mvc\View;
-use Modules\Backend;
-use Phalcon\Exception;
+	Models\Currency,
+	Phalcon\Mvc\View,
+	Modules\Backend\Forms;
 
 /**
  * Class EnginesController
@@ -41,7 +41,7 @@ class EnginesController extends ControllerBase
 		$this->tag->setTitle(' - '.DashboardController::NAME);
 
 		// create cache key
-		$this->cacheKey	=	md5(Backend::MODULE.self::NAME.$this->router->getControllerName().$this->router->getActionName());
+		$this->cacheKey	=	md5(\Modules\Backend::MODULE.self::NAME.$this->router->getControllerName().$this->router->getActionName());
 
 		$this->_breadcrumbs->add(DashboardController::NAME, $this->url->get(['for' => 'dashboard']));
 	}
@@ -72,9 +72,31 @@ class EnginesController extends ControllerBase
 	/**
 	 * Shows the view to create a "new" engine
 	 */
-	public function newAction()
+	public function addAction()
 	{
-		//...
+		try {
+
+			if($this->request->isPost())
+			{
+
+			}
+
+			// build meta data
+			$title = 'Add';
+			$this->tag->prependTitle($title.' - '.self::NAME);
+
+			// add crumb to chain (name, link)
+			$this->_breadcrumbs->add(self::NAME, $this->url->get(['for' => 'dashboard-controller', 'controller' => 'engines']))
+				->add($title);
+
+			$this->view->setVars([
+				'title'	=>	$title,
+				'form'	=>	(new Forms\AddEngineForm(null, Currency::find()))
+			]);
+		}
+		catch(\Phalcon\Exception $e) {
+			echo $e->getMessage();
+		}
 	}
 
 	/**
@@ -105,7 +127,7 @@ class EnginesController extends ControllerBase
 			}
 
 		}
-		catch(Exception $e) {
+		catch(\Phalcon\Exception $e) {
 			echo $e->getMessage();
 		}
 	}

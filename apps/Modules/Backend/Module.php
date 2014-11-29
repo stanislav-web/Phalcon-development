@@ -51,7 +51,8 @@ class Backend implements ModuleDefinitionInterface
         $loader = new Loader();
 
         $loader->registerNamespaces([
-            'Modules\Backend\Controllers'   =>  $this->_config['application']['controllersBack'],
+			'Modules\Backend\Controllers'   =>  $this->_config['application']['controllersBack'],
+			'Modules\Backend\Forms'   		=>  $this->_config['application']['formsBack'],
 			'Models'       					=> 	$this->_config['application']['modelsDir'],
 			'Helpers'       				=> 	$this->_config['application']['helpersDir'],
 			'Libraries'       				=>  $this->_config['application']['libraryDir'],

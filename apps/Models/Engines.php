@@ -19,65 +19,75 @@ class Engines extends \Phalcon\Mvc\Model
 	 */
 	const TABLE	=	'\Models\Engines';
 
-    /**
-     *
-     * @var integer
-     */
-    protected $id;
+	public static
 
-    /**
-     *
-     * @var string
-     */
-    protected $host;
+		/**
+		 * Engine statuses
+		 * @var array
+		 */
+		$statuses	=	[
+				0	=>	'Off',
+				1	=>	'On',
+				2	=>	'Pending'
+			];
 
-    /**
-     *
-     * @var string
-     */
-    protected $name;
 
-    /**
-     *
-     * @var string
-     */
-    protected $description;
+    protected
 
-    /**
-     *
-     * @var string
-     */
-    protected $code;
+		/**
+		 *
+		 * @var integer
+		 */
+		$id,
 
-    /**
-     *
-     * @var integer
-     */
-    protected $currency_id;
+    	/**
+     	 * @var string
+     	 */
+   	 	$host,
 
-    /**
-     *
-     * @var integer
-     */
-    protected $status;
+		/**
+		 * @var string
+		 */
+		$name,
 
-	/**
-	 * Datetime create
-	 * @var datetime
-	 */
-	protected $date_create;
+    	/**
+     	 * @var string
+     	 */
+     	$description,
 
-	/**
-	 * Timestamp add
-	 * @var timestamp
-	 */
-	protected $date_update;
+    	/**
+    	 * @var string
+   	 	 */
+     	$code,
+
+    	/**
+    	 * @var integer
+    	 */
+    	 $currency_id,
+
+    	/**
+    	 * @var integer
+    	 */
+    	 $status,
+
+		/**
+		 * Datetime create
+		 * @var datetime
+		 */
+		 $date_create,
+
+		/**
+	 	* Timestamp add
+		 * @var timestamp
+	 	*/
+		 $date_update;
 
 	/**
 	 * Initialize Model
 	 */
 	public function initialize()
 	{
+		// before insert event
 		$this->addBehavior(new Timestampable([
 				'beforeCreate' => [
 					'field' => 'date_create',
@@ -161,7 +171,7 @@ class Engines extends \Phalcon\Mvc\Model
      */
     public function setCode($code)
     {
-        $this->code = $code;
+        $this->code = strtoupper($code);
 
         return $this;
     }

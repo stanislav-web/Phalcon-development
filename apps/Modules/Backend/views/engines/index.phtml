@@ -20,36 +20,33 @@
 			<span>Engines Board</span>
 		</div>
 		<div class="box-conten no-padding">
-			<table id="table" class="table table-datatable table-striped table-bordered table-hover table-heading no-border-bottom">
+			<table id="table" class="table table-datatable table-striped table-bordered table-hover table-heading ">
 				<thead>
 				<tr>
 					<th class="col-md-1">ID</th>
-					<th class="col-md-1">Host</th>
-					<th class="col-md-1">Name</th>
+					<th class="col-md-2">Name</th>
+					<th class="col-md-2">Host</th>
 					<th class="col-md-1">Code</th>
 					<th class="col-md-1">Currency</th>
 					<th class="col-md-1">Status</th>
 					<th class="col-md-2">Added</th>
-					<th class="col-md-2">Action</th>
+					<th class="no-sort col-md-1">Action</th>
 				</tr>
 				</thead>
 				<tbody>
 				<?php  foreach($items as $item): ?>
-					<tr>
+					<tr data-toggle="tooltip" data-placement="bottom" data-original-title="<?=$item->getDescription();?>">
 						<td><?=$item->getId();?></td>
-						<td><?=$item->getHost();?></td>
 						<td><?=$item->getName();?></td>
+						<td><?=$item->getHost();?></td>
 						<td><?=$item->getCode();?></td>
 						<td><?=$item->currencyRel->getSymbol();?></td>
-						<td><?=$item->getStatus();?></td>
+						<td><?=\Models\Engines::$statuses[$item->getStatus()];?></td>
 						<td><?=\Helpers\Format::getFormatTime($item->getDateCreate());?></td>
 						<td>
 							<div class="btn-group">
-								<a class="btn btn-primary" href="<?=$this->url->get(['for' => 'dashboard-full','controller' => $this->router->getControllerName(),'action' => 'view','params' => $item->getId()]); ?>">
-									<i class="fa fa-paper-plane-o"></i> view
-								</a>
 								<a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
-									<span class="fa fa-caret-down"></span></a>
+									<span class="fa fa-caret-down fa-mf"></span></a>
 								<ul class="dropdown-menu">
 									<li>
 										<a href="<?=$this->url->get(['for' => 'dashboard-full','controller' => $this->router->getControllerName(),'action' => 'edit','params' => $item->getId()]); ?>">
@@ -78,14 +75,21 @@
 </div>
 <!-- Block content -->
 <script type="text/javascript">
-
+	$(function() {
+		$('[data-toggle="tooltip"]').tooltip({
+			'html'		:	true,
+			'animation'	:	false,
+			'template'	:	'<div class="tooltip role="tooltip"><div class="fa fa-question fa-md"></div><div class="tooltip-inner"></div></div>'
+		});
+	})
 	LoadDataTablesScripts(function() {
 
 		$("#table").dataTable({
-			"bSort"				:	true,
+			"bSort"		:	true,
+			"columnDefs":	[{"targets": 7, "orderable" : false}],
 			"paginate"	: 	false,
-			"info"	: 	false,
-			"filter"		: false
+			"info"		: 	false,
+			"filter"	: 	false
 		});
 	});
 </script>
