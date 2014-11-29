@@ -87,6 +87,10 @@
 			<?php $breadcrumbs->generate(); ?>
 			<!-- /Breadcrumbs -->
 
+			<!-- Flash messenger -->
+			<?php $this->flash->output() ?>
+			<!-- /Flash messenger -->
+
 			<!--Start Ajax Content-->
 			<div id="ajax-content">
 				<?php echo $this->getContent() ?>

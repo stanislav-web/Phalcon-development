@@ -1,6 +1,7 @@
 <?php
 namespace Models;
-use Phalcon\Mvc\Model\Behavior\Timestampable;
+use Phalcon\Mvc\Model\Behavior\Timestampable,
+	Phalcon\Db\RawValue;
 
 /**
  * Class Engines
@@ -87,6 +88,18 @@ class Engines extends \Phalcon\Mvc\Model
 	 */
 	public function initialize()
 	{
+		// its allow to keep empty data to my db
+		$this->setup([
+			'notNullValidations'	=>	false
+		]);
+
+		// init fields by default
+		$this->setDateCreate(new \DateTime());
+
+		// skip attributes before every IN >
+		$this->skipAttributesOnCreate(['date_update']);
+		$this->skipAttributesOnUpdate(['date_update']);
+
 		// before insert event
 		$this->addBehavior(new Timestampable([
 				'beforeCreate' => [
@@ -99,6 +112,15 @@ class Engines extends \Phalcon\Mvc\Model
 		$this->belongsTo('currency_id', 'Models\Currency', 'id', [
 			'alias' 		=> 'currencyRel',
 		]);
+	}
+
+	/**
+	 * Before create fields default values
+	 */
+	public function beforeCreate()
+	{
+		if(!$this->description)
+			$this->setDescription(new RawValue('default'));
 	}
 
 	/**
@@ -201,6 +223,19 @@ class Engines extends \Phalcon\Mvc\Model
 
         return $this;
     }
+
+	/**
+	 * Method to set the value of field date_create
+	 *
+	 * @param integer $status
+	 * @return $this
+	 */
+	public function setDateCreate($date_create)
+	{
+		$this->date_create = $date_create;
+
+		return $this;
+	}
 
     /**
      * Returns the value of field id

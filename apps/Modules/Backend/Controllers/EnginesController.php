@@ -75,10 +75,47 @@ class EnginesController extends ControllerBase
 	public function addAction()
 	{
 		try {
-
+			// handling POST data
 			if($this->request->isPost())
 			{
 
+				$engines	=
+						(new Engines())
+							->setName($this->request->getPost('name'))
+							->setDescription($this->request->getPost('description'), null, '')
+							->setHost($this->request->getPost('host'))
+							->setCode($this->request->getPost('code'))
+							->setCurrencyId($this->request->getPost('currency_id', null, 1))
+							->setStatus($this->request->getPost('status', null, 0));
+
+				if(!$engines->create())
+				{
+					// the store failed, the following message were produced
+					foreach($engines->getMessages() as $message)
+						$this->flashSession->error((string) $message);
+
+					// forward does not working correctly with this  action type
+					// by the way this handle need to remove in another action (
+					return
+						$this->response->redirect([
+							'for' 			=>	'dashboard-full',
+							'controller'	=>	$this->router->getControllerName(),
+							'action'		=>	$this->router->getActionName()
+						]);
+				}
+				else
+				{
+					// saved successfully
+					$this->flashSession->success('The engine was successfully added!');
+
+					// forward does not working correctly with this  action type
+					// by the way this handle need to remove in another action (
+					return
+						$this->response->redirect([
+							'for' 			=>	'dashboard-full',
+							'controller'	=>	$this->router->getControllerName(),
+						]);
+				}
 			}
 
 			// build meta data
@@ -88,7 +125,6 @@ class EnginesController extends ControllerBase
 			// add crumb to chain (name, link)
 			$this->_breadcrumbs->add(self::NAME, $this->url->get(['for' => 'dashboard-controller', 'controller' => 'engines']))
 				->add($title);
-
 			$this->view->setVars([
 				'title'	=>	$title,
 				'form'	=>	(new Forms\AddEngineForm(null, Currency::find()))

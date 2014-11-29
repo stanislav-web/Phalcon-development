@@ -7,6 +7,10 @@
 <div class="clearfix"></div>
 <!-- /Block header -->
 
+<!-- Flash messenger -->
+<p><?php $this->flash->output() ?></p>
+<!-- /Flash messenger -->
+
 <!-- Block content -->
 <div class="row">
 	<div class="col-xs-12">
@@ -116,8 +120,8 @@
 								message: 'The name must be more than 3 and less than 40 characters long'
 							},
 							regexp: {
-								regexp: /^[a-zA-Z0-9_\.]+$/,
-								message: 'The name can only consist of alphabetical, number, dot and underscore'
+								regexp: /^[a-zA-Z0-9_\. ]+$/,
+								message: 'The name can only consist of alphabetical, number, dot, underscore and space'
 							}
 						}
 					},
