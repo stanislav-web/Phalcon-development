@@ -2360,7 +2360,9 @@ td.beauty-hover {
 		display: none;
 	}
 }
-
+.cursor-quest {
+	cursor: help;
+}
 .word-wrap {
 	word-wrap: break-word;
 	white-space: pre;

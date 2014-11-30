@@ -12,7 +12,6 @@
 <div class="clearfix"></div>
 <!-- /Block header -->
 
-
 <!-- Block content -->
 <div class="row">
 	<div class="col-xs-12">
@@ -38,7 +37,7 @@
 				<?php  foreach($items as $item): ?>
 					<tr>
 						<td><?=$item->getId();?></td>
-						<td><?=$item->getName();?></td>
+						<td class="fa-question cursor-quest tooltipstered"><?=$item->getName();?></td>
 						<td><?=$item->getHost();?></td>
 						<td><?=$item->getCode();?></td>
 						<td><?=$item->currencyRel->getSymbol();?></td>
@@ -55,7 +54,7 @@
 										</a>
 									</li>
 									<li>
-										<a onclick="Common.confirm('Are you sure want to delete this engine?<br> The procedure provided a not predictable consequences', this.href); return false;" href="<?=$this->url->get(['for' => 'dashboard-full','controller' => $this->router->getControllerName(),'action' => 'delete','params' => $item->getId()]); ?>">
+										<a onclick="Common.confirm('Are you sure want to delete this category?<br> The procedure provided a not predictable consequences', this.href); return false;" href="<?=$this->url->get(['for' => 'dashboard-full','controller' => $this->router->getControllerName(),'action' => 'delete','params' => $item->getId()]); ?>">
 											<i class="fa fa-trash-o fa-fw"></i> Delete
 										</a>
 									</li>
@@ -72,11 +71,6 @@
 <!-- Block content -->
 <script type="text/javascript">
 	$(function() {
-		$('[data-toggle="tooltip"]').tooltip({
-			'html'		:	true,
-			'animation'	:	false,
-			'template'	:	'<div class="tooltip role="tooltip"><div class="fa fa-question fa-md"></div><div class="tooltip-inner"></div></div>'
-		});
 
 		LoadDataTablesScripts(function() {
 

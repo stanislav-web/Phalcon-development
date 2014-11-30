@@ -2,7 +2,7 @@
 namespace Models;
 
 /**
- * Class Currency
+ * Class Currency `currency`
  * @package 	Backend
  * @subpackage 	Models
  * @since PHP >=5.4

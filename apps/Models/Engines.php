@@ -1,10 +1,9 @@
 <?php
 namespace Models;
-use Phalcon\Mvc\Model\Behavior\Timestampable,
-	Phalcon\Db\RawValue;
+use Phalcon\Mvc\Model\Behavior\Timestampable;
 
 /**
- * Class Engines
+ * Class Engines `engines`
  * @package 	Backend
  * @subpackage 	Models
  * @since PHP >=5.4
@@ -78,9 +77,9 @@ class Engines extends \Phalcon\Mvc\Model
 		 $date_create,
 
 		/**
-	 	* Timestamp add
+	 	 * Timestamp add
 		 * @var timestamp
-	 	*/
+	 	 */
 		 $date_update;
 
 	/**

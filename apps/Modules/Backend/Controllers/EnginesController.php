@@ -116,6 +116,13 @@ class EnginesController extends ControllerBase
 		// check "edit" or "new" action in use
 		$engine = ($id === null) ? new Engines() : Engines::findFirst($id);
 
+		if(!$engine instanceof Engines)
+				return $this->response->redirect([
+					'for' 			=>	'dashboard-full',
+					'controller'	=>	$this->router->getControllerName(),
+					'action'		=>	$this->router->getActionName()
+				]);
+
 		try {
 			// handling POST data
 			if($this->request->isPost())
@@ -169,6 +176,8 @@ class EnginesController extends ControllerBase
 			// add crumb to chain (name, link)
 			$this->_breadcrumbs->add(self::NAME, $this->url->get(['for' => 'dashboard-controller', 'controller' => 'engines']))
 				->add($title);
+
+			// set variables output to view
 			$this->view->setVars([
 				'title'	=>	$title,
 				'form'	=>	(new Forms\EngineForm(null, [

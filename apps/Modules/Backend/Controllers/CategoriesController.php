@@ -50,8 +50,8 @@ class CategoriesController extends ControllerBase
 	 * Get list of all engines
 	 * @return null
 	 */
-    public function indexAction()
-    {
+	public function indexAction()
+	{
 		$title = ucfirst(self::NAME);
 		$this->tag->prependTitle($title);
 
@@ -116,18 +116,25 @@ class CategoriesController extends ControllerBase
 		// check "edit" or "new" action in use
 		$engine = ($id === null) ? new Engines() : Engines::findFirst($id);
 
+		if(!$engine instanceof Engines)
+			return $this->response->redirect([
+				'for' 			=>	'dashboard-full',
+				'controller'	=>	$this->router->getControllerName(),
+				'action'		=>	$this->router->getActionName()
+			]);
+
 		try {
 			// handling POST data
 			if($this->request->isPost())
 			{
 				$engines	=
-						$engine
-							->setName($this->request->getPost('name'))
-							->setDescription($this->request->getPost('description'), null, '')
-							->setHost($this->request->getPost('host'))
-							->setCode($this->request->getPost('code'))
-							->setCurrencyId($this->request->getPost('currency_id', null, 1))
-							->setStatus($this->request->getPost('status', null, 0));
+					$engine
+						->setName($this->request->getPost('name'))
+						->setDescription($this->request->getPost('description'), null, '')
+						->setHost($this->request->getPost('host'))
+						->setCode($this->request->getPost('code'))
+						->setCurrencyId($this->request->getPost('currency_id', null, 1))
+						->setStatus($this->request->getPost('status', null, 0));
 
 				if(!$engines->save())
 				{
@@ -169,6 +176,8 @@ class CategoriesController extends ControllerBase
 			// add crumb to chain (name, link)
 			$this->_breadcrumbs->add(self::NAME, $this->url->get(['for' => 'dashboard-controller', 'controller' => 'engines']))
 				->add($title);
+
+			// set variables output to view
 			$this->view->setVars([
 				'title'	=>	$title,
 				'form'	=>	(new Forms\EngineForm(null, [

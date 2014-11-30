@@ -1,0 +1,15 @@
+language: php
+
+php:
+  - 5.4
+
+services:
+  - memcached
+  - phalcon
+
+notifications:
+  email:
+    recipients:
+      - stanisov@gmail.com
+    on_success: always
+    on_failure: always
