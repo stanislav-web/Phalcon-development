@@ -11,3 +11,6 @@ Phalcon Development Board
 * Memcache
 * APC (APCu)
 * PHP mcrypt library
+------------------------
+![Alt text](http://joxi.ru/KAgJMzjig0vZ2l.jpg "Screen")
+

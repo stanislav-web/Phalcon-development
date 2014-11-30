@@ -145,7 +145,7 @@
 							[
 								'name'       	=> 	'Categories',
 								'url'        	=> 	'/dashboard/categories',
-								'icon'			=>	'fa fa-tree',
+								'icon'			=>	'fa fa-bars',
 								'action'     	=> 	'index',
 								'controller' 	=> 	'categories',
 								'module' 	 	=> 	'Backend'

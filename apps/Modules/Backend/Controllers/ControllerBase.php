@@ -151,7 +151,14 @@ class ControllerBase extends Controller
 			$this->router->getControllerName(),
 			$this->router->getModuleName()
 		);
-		
+
+		if(APPLICATION_ENV == 'development')
+		{	// add toolbar to the layout
+			$toolbar = new \Fabfuel\Prophiler\Toolbar($this->di->get('profiler'));
+			$toolbar->addDataCollector(new \Fabfuel\Prophiler\DataCollector\Request());
+			$this->view->setVar('toolbar', $toolbar);
+		}
+
 		// global view variables
 		$this->view->setVars([
 			'user'			=>	$this->_user,

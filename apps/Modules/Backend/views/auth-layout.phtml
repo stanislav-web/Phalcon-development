@@ -124,5 +124,6 @@
 <?=$this->tag->javascriptInclude("assets/backend/js/common.js", true);  // local ?>
 <?=$this->tag->javascriptInclude("assets/backend/js/devoops.js", true);  // local ?>
 <!-- /Javascript area content -->
+<?=(isset($toolbar)) ? $toolbar->render() :''; ?>
 </body>
 </html>

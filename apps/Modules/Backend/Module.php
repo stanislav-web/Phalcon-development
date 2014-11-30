@@ -47,7 +47,6 @@ class Backend implements ModuleDefinitionInterface
      */
     public function registerAutoloaders()
     {
-
         $loader = new Loader();
 
         $loader->registerNamespaces([
@@ -66,6 +65,7 @@ class Backend implements ModuleDefinitionInterface
 			$namespaces = array_merge(
 				$loader->getNamespaces(), [
 					'Phalcon\Utils' 		=> 	APP_PATH.'/Libraries/PrettyExceptions/Library/Phalcon/Utils',
+					'Fabfuel\Prophiler' 	=> 	DOCUMENT_ROOT.'/../vendor/fabfuel/prophiler/src/Fabfuel/Prophiler/',
 				]
 			);
 			$loader->registerNamespaces($namespaces);
@@ -109,8 +109,20 @@ class Backend implements ModuleDefinitionInterface
         require_once APP_PATH.'/Modules/'.self::MODULE.'/config/services.php';
 
 		// call profiler
-		if($this->_config->database->profiler === true)
+		if($this->_config->database->profiler === true) // share develop sidebar
 			(new \Plugins\Debugger\Develop($di));
+
+		if(APPLICATION_ENV == 'development')
+		{
+			// share Fabfuel topbar
+			$profiler = new \Fabfuel\Prophiler\Profiler();
+			$di->setShared('profiler', $profiler);
+
+			$pluginManager = new \Fabfuel\Prophiler\Plugin\Manager\Phalcon($profiler);
+			$pluginManager->register();
+
+			// add toolbar in your basic BaseController
+		}
 		return;
     }
 }
