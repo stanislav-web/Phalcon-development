@@ -35,12 +35,27 @@ class Categories extends \Phalcon\Mvc\Model
 		/**
 		 * @var string
 		 */
+		$description,
+
+		/**
+		 * @var string
+		 */
 		$alias,
 
     	/**
      	 * @var integer
      	 */
      	$parent_id,
+
+		/**
+		 * @var integer
+		 */
+		$engine_id,
+
+		/**
+		 * @var integer
+		 */
+		$sort,
 
 		/**
 		 * Datetime create
@@ -114,6 +129,19 @@ class Categories extends \Phalcon\Mvc\Model
         return $this;
     }
 
+	/**
+	 * Method to set the value of field description
+	 *
+	 * @param string $host
+	 * @return $this
+	 */
+	public function setDescription($description)
+	{
+		$this->description = $description;
+
+		return $this;
+	}
+
     /**
      * Method to set the value of field alias
      *
@@ -128,17 +156,43 @@ class Categories extends \Phalcon\Mvc\Model
     }
 
     /**
-     * Method to set the value of field engine_id
+     * Method to set the value of field parent_id
      *
      * @param string $description
      * @return $this
      */
-    public function setEngineId($engine_id)
+    public function setParentId($parent_id)
     {
-        $this->engine_id = $engine_id;
+        $this->parent_id = $parent_id;
 
         return $this;
     }
+
+	/**
+	 * Method to set the value of field engine_id
+	 *
+	 * @param string $description
+	 * @return $this
+	 */
+	public function setEngineId($engine_id)
+	{
+		$this->engine_id = $engine_id;
+
+		return $this;
+	}
+
+	/**
+	 * Method to set the value of field sort
+	 *
+	 * @param string $description
+	 * @return $this
+	 */
+	public function setSort($sort)
+	{
+		$this->sort = $sort;
+
+		return $this;
+	}
 
 	/**
 	 * Method to set the value of field date_create
@@ -173,6 +227,16 @@ class Categories extends \Phalcon\Mvc\Model
         return $this->title;
     }
 
+	/**
+	 * Returns the value of field description
+	 *
+	 * @return string
+	 */
+	public function getDescription()
+	{
+		return $this->description;
+	}
+
     /**
      * Returns the value of field alias
      *
@@ -192,6 +256,26 @@ class Categories extends \Phalcon\Mvc\Model
     {
         return $this->parent_id;
     }
+
+	/**
+	 * Returns the value of field engine_id
+	 *
+	 * @return string
+	 */
+	public function getEngineId()
+	{
+		return $this->engine_id;
+	}
+
+	/**
+	 * Returns the value of field sort
+	 *
+	 * @return string
+	 */
+	public function getSort()
+	{
+		return $this->sort;
+	}
 
 	/**
 	 * Returns the value of field date_create

@@ -19,7 +19,7 @@
 			<i class="fa fa-table"></i>
 			<span>Engines Board</span>
 		</div>
-		<div class="box-conten no-padding">
+		<div class="box-content no-padding">
 			<table id="table" class="table table-datatable table-striped table-bordered table-hover table-heading ">
 				<thead>
 				<tr>
@@ -37,7 +37,7 @@
 				<?php  foreach($items as $item): ?>
 					<tr>
 						<td><?=$item->getId();?></td>
-						<td class="fa-question cursor-quest tooltipstered"><?=$item->getName();?></td>
+						<td class="fa-question cursor-quest" onclick="Common.alert('<?=$item->getDescription(); ?>');"><?=$item->getName();?></td>
 						<td><?=$item->getHost();?></td>
 						<td><?=$item->getCode();?></td>
 						<td><?=$item->currencyRel->getSymbol();?></td>

@@ -39,6 +39,15 @@ var Common = {
 	},
 
 	/**
+	 * alert : function(string) Alert dialog
+	 * @param string string Message
+	 * @return void
+	 */
+	alert: function (string) {
+		alertify.alert('<div class="box-content">' +string+ '<div>');
+	},
+
+	/**
 	 * confirm : function(question, go) Confirm dialog
 	 * @param string question Message
 	 * @param string go location accept link
@@ -132,13 +141,4 @@ var Common = {
 	clearUri: function (uri) {
 		return url.origin + url.pathname;
 	},
-
-	loadScripts : function(sources)
-	{
-		if(sources)
-		{
-
-		}
-
-	}
 };
