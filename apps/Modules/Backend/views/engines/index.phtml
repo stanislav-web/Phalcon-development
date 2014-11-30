@@ -5,7 +5,7 @@
 	</div>
 	<div class="col-xs-10 col-sm-4">
 		<div class="btn-group">
-			<?=$this->tag->linkTo(['dashboard/engines/add', 'Add engine', 'class' => 'btn btn-primary']); ?>
+			<?=$this->tag->linkTo(['dashboard/engines/assign', 'Add engine', 'class' => 'btn btn-primary']); ?>
 		</div>
 	</div>
 </div>
@@ -36,7 +36,7 @@
 				</thead>
 				<tbody>
 				<?php  foreach($items as $item): ?>
-					<tr data-toggle="tooltip" data-placement="bottom" data-original-title="<?=$item->getDescription();?>">
+					<tr>
 						<td><?=$item->getId();?></td>
 						<td><?=$item->getName();?></td>
 						<td><?=$item->getHost();?></td>
@@ -50,18 +50,13 @@
 									<span class="fa fa-caret-down fa-mf"></span></a>
 								<ul class="dropdown-menu">
 									<li>
-										<a href="<?=$this->url->get(['for' => 'dashboard-full','controller' => $this->router->getControllerName(),'action' => 'edit','params' => $item->getId()]); ?>">
+										<a href="<?=$this->url->get(['for' => 'dashboard-full','controller' => $this->router->getControllerName(),'action' => 'assign','params' => $item->getId()]); ?>">
 											<i class="fa fa-pencil-square-o fa-fw"></i> Edit
 										</a>
 									</li>
 									<li>
-										<a href="<?=$this->url->get(['for' => 'dashboard-full','controller' => $this->router->getControllerName(),'action' => 'delete','params' => $item->getId()]); ?>">
+										<a onclick="Common.confirm('Are you sure want to delete this engine?<br> The procedure provided a not predictable consequences', this.href); return false;" href="<?=$this->url->get(['for' => 'dashboard-full','controller' => $this->router->getControllerName(),'action' => 'delete','params' => $item->getId()]); ?>">
 											<i class="fa fa-trash-o fa-fw"></i> Delete
-										</a>
-									</li>
-									<li>
-										<a href="<?=$this->url->get(['for' => 'dashboard-full','controller' => $this->router->getControllerName(),'action' => 'status','params' => $item->getId()]); ?>">
-											<i class="fa fa-flag-0 fa-fw"></i> Status
 										</a>
 									</li>
 								</ul>
@@ -82,15 +77,17 @@
 			'animation'	:	false,
 			'template'	:	'<div class="tooltip role="tooltip"><div class="fa fa-question fa-md"></div><div class="tooltip-inner"></div></div>'
 		});
-	})
-	LoadDataTablesScripts(function() {
 
-		$("#table").dataTable({
-			"bSort"		:	true,
-			"columnDefs":	[{"targets": 7, "orderable" : false}],
-			"paginate"	: 	false,
-			"info"		: 	false,
-			"filter"	: 	false
+		LoadDataTablesScripts(function() {
+
+			$("#table").dataTable({
+				"bSort"		:	true,
+				"columnDefs":	[{"targets": 7, "orderable" : false}],
+				"paginate"	: 	false,
+				"info"		: 	false,
+				"filter"	: 	false
+			});
 		});
-	});
+	})
+
 </script>

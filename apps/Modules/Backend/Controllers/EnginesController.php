@@ -70,17 +70,58 @@ class EnginesController extends ControllerBase
 	}
 
 	/**
-	 * Shows the view to create a "new" engine
+	 * Delete action
 	 */
-	public function addAction()
+	public function deleteAction()
 	{
+		try {
+			// handling POST data
+			if($this->request->isGet())
+			{
+
+				$id	=	$this->dispatcher->getParams()[0];
+
+				$engines	= (new Engines())->setId($id);
+
+				if(!$engines->delete())
+				{
+					// the store failed, the following message were produced
+					foreach($engines->getMessages() as $message)
+						$this->flashSession->error((string) $message);
+				}
+				else // saved successfully
+					$this->flashSession->success('The engine was successfully deleted!');
+
+				// forward does not working correctly with this  action type
+				// by the way this handle need to remove in another action (
+				return
+					$this->response->redirect([
+						'for' 			=>	'dashboard-full',
+						'controller'	=>	$this->router->getControllerName(),
+					]);
+			}
+		}
+		catch(\Phalcon\Exception $e) {
+			echo $e->getMessage();
+		}
+	}
+
+	/**
+	 * Shows the view to create (edit) engine
+	 */
+	public function assignAction()
+	{
+		$id	=	$this->dispatcher->getParams()[0];
+
+		// check "edit" or "new" action in use
+		$engine = ($id === null) ? new Engines() : Engines::findFirst($id);
+
 		try {
 			// handling POST data
 			if($this->request->isPost())
 			{
-
 				$engines	=
-						(new Engines())
+						$engine
 							->setName($this->request->getPost('name'))
 							->setDescription($this->request->getPost('description'), null, '')
 							->setHost($this->request->getPost('host'))
@@ -88,7 +129,7 @@ class EnginesController extends ControllerBase
 							->setCurrencyId($this->request->getPost('currency_id', null, 1))
 							->setStatus($this->request->getPost('status', null, 0));
 
-				if(!$engines->create())
+				if(!$engines->save())
 				{
 					// the store failed, the following message were produced
 					foreach($engines->getMessages() as $message)
@@ -106,7 +147,10 @@ class EnginesController extends ControllerBase
 				else
 				{
 					// saved successfully
-					$this->flashSession->success('The engine was successfully added!');
+					if(!isset($id))
+						$this->flashSession->success('The engine was successfully added!');
+					else
+						$this->flashSession->success('The engine was successfully updated!');
 
 					// forward does not working correctly with this  action type
 					// by the way this handle need to remove in another action (
@@ -119,7 +163,7 @@ class EnginesController extends ControllerBase
 			}
 
 			// build meta data
-			$title = 'Add';
+			$title = (!isset($id)) ? 'Add' : 'Edit';
 			$this->tag->prependTitle($title.' - '.self::NAME);
 
 			// add crumb to chain (name, link)
@@ -127,41 +171,11 @@ class EnginesController extends ControllerBase
 				->add($title);
 			$this->view->setVars([
 				'title'	=>	$title,
-				'form'	=>	(new Forms\AddEngineForm(null, Currency::find()))
+				'form'	=>	(new Forms\EngineForm(null, [
+					'currency' 	=> 	Currency::find(),
+					'default'	=>	(isset($id)) ? $engine : null
+				]))
 			]);
-		}
-		catch(\Phalcon\Exception $e) {
-			echo $e->getMessage();
-		}
-	}
-
-	/**
-	 * Edit engine action
-	 * @return null
-	 */
-	public function editAction()
-	{
-		try {
-			$id = $this->dispatcher->getParams()[0];
-
-			$engine = Engines::findFirst($id);
-
-			if($engine)
-			{
-				// build meta data
-				$title = $engine->getName();
-				$this->tag->prependTitle($title);
-
-				// add crumb to chain (name, link)
-				$this->_breadcrumbs->add(self::NAME, $this->url->get(['for' => 'dashboard-controller', 'controller' => 'engines']))
-									->add($title);
-
-				$this->view->setVars([
-					'item'	=>	$engine,
-					'title'	=>	$title,
-				]);
-			}
-
 		}
 		catch(\Phalcon\Exception $e) {
 			echo $e->getMessage();

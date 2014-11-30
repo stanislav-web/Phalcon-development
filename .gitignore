@@ -3,6 +3,14 @@
 *.phar
 composer.lock
 logs
-vendor
 .idea/*
 DEVELOPER
+vendor/bin
+vendor/composer
+vendor/ftugit
+vendor/pdepend
+vendor/phalcon-ext
+vendor/phpmd
+vendor/squizlabs
+vendor/symfony
+vendor/autoload.php

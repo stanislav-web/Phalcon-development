@@ -90,11 +90,9 @@ class Engines extends \Phalcon\Mvc\Model
 	{
 		// its allow to keep empty data to my db
 		$this->setup([
-			'notNullValidations'	=>	false
+			'notNullValidations'	=>	false,
+			'exceptionOnFailedSave'	=>	true
 		]);
-
-		// init fields by default
-		$this->setDateCreate(new \DateTime());
 
 		// skip attributes before every IN >
 		$this->skipAttributesOnCreate(['date_update']);
@@ -119,19 +117,9 @@ class Engines extends \Phalcon\Mvc\Model
 	 */
 	public function beforeCreate()
 	{
-		if(!$this->description)
-			$this->setDescription(new RawValue('default'));
+		// init fields by default
+		$this->setDateCreate(new \DateTime());
 	}
-
-	/**
-	 * Вернуться соответствующий "robots parts"
-	 * @return \RobotsParts[]
-	 */
-	public function getStatuses()
-	{
-		return $this->getRelated('currencyRel');
-	}
-
 
     /**
      * Method to set the value of field id
