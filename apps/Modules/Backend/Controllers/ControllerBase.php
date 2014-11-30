@@ -110,7 +110,6 @@ class ControllerBase extends Controller
 			View::LEVEL_ACTION_VIEW	=>	true,
 		]);
 
-
 		if($this->request->isAjax() == true)
 		{
 			// disable layouts

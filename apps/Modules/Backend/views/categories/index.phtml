@@ -1,0 +1,93 @@
+<!-- Block header -->
+<div id="dashboard-header" class="row">
+	<div class="col-xs-10 col-sm-4">
+		<h3><i class="fa fa-tachometer fa-md"></i> <b><?=$title;?></b></h3>
+	</div>
+	<div class="col-xs-10 col-sm-4">
+		<div class="btn-group">
+			<?=$this->tag->linkTo(['dashboard/engines/assign', 'Add engine', 'class' => 'btn btn-primary']); ?>
+		</div>
+	</div>
+</div>
+<div class="clearfix"></div>
+<!-- /Block header -->
+
+
+<!-- Block content -->
+<div class="row">
+	<div class="col-xs-12">
+		<div class="box-name">
+			<i class="fa fa-table"></i>
+			<span>Engines Board</span>
+		</div>
+		<div class="box-conten no-padding">
+			<table id="table" class="table table-datatable table-striped table-bordered table-hover table-heading ">
+				<thead>
+				<tr>
+					<th class="col-md-1">ID</th>
+					<th class="col-md-2">Name</th>
+					<th class="col-md-2">Host</th>
+					<th class="col-md-1">Code</th>
+					<th class="col-md-1">Currency</th>
+					<th class="col-md-1">Status</th>
+					<th class="col-md-2">Added</th>
+					<th class="no-sort col-md-1">Action</th>
+				</tr>
+				</thead>
+				<tbody>
+				<?php  foreach($items as $item): ?>
+					<tr>
+						<td><?=$item->getId();?></td>
+						<td><?=$item->getName();?></td>
+						<td><?=$item->getHost();?></td>
+						<td><?=$item->getCode();?></td>
+						<td><?=$item->currencyRel->getSymbol();?></td>
+						<td><?=\Models\Engines::$statuses[$item->getStatus()];?></td>
+						<td><?=\Helpers\Format::getFormatTime($item->getDateCreate());?></td>
+						<td>
+							<div class="btn-group">
+								<a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
+									<span class="fa fa-caret-down fa-mf"></span></a>
+								<ul class="dropdown-menu">
+									<li>
+										<a href="<?=$this->url->get(['for' => 'dashboard-full','controller' => $this->router->getControllerName(),'action' => 'assign','params' => $item->getId()]); ?>">
+											<i class="fa fa-pencil-square-o fa-fw"></i> Edit
+										</a>
+									</li>
+									<li>
+										<a onclick="Common.confirm('Are you sure want to delete this engine?<br> The procedure provided a not predictable consequences', this.href); return false;" href="<?=$this->url->get(['for' => 'dashboard-full','controller' => $this->router->getControllerName(),'action' => 'delete','params' => $item->getId()]); ?>">
+											<i class="fa fa-trash-o fa-fw"></i> Delete
+										</a>
+									</li>
+								</ul>
+							</div>
+						</td>
+					</tr>
+				<?php endforeach;?>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+<!-- Block content -->
+<script type="text/javascript">
+	$(function() {
+		$('[data-toggle="tooltip"]').tooltip({
+			'html'		:	true,
+			'animation'	:	false,
+			'template'	:	'<div class="tooltip role="tooltip"><div class="fa fa-question fa-md"></div><div class="tooltip-inner"></div></div>'
+		});
+
+		LoadDataTablesScripts(function() {
+
+			$("#table").dataTable({
+				"bSort"		:	true,
+				"columnDefs":	[{"targets": 7, "orderable" : false}],
+				"paginate"	: 	false,
+				"info"		: 	false,
+				"filter"	: 	false
+			});
+		});
+	})
+
+</script>

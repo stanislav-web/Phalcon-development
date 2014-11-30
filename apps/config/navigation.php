@@ -141,6 +141,15 @@
 								'controller' 	=> 	'engines',
 								'module' 	 	=> 	'Backend'
 							],
+
+							[
+								'name'       	=> 	'Categories',
+								'url'        	=> 	'/dashboard/categories',
+								'icon'			=>	'fa fa-tree',
+								'action'     	=> 	'index',
+								'controller' 	=> 	'categories',
+								'module' 	 	=> 	'Backend'
+							],
 						],
 					],
 
