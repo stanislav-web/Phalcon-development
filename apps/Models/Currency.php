@@ -3,7 +3,7 @@ namespace Models;
 
 /**
  * Class Currency `currency`
- * @package 	Backend
+ * @package 	Application
  * @subpackage 	Models
  * @since PHP >=5.4
  * @version 1.0
@@ -42,26 +42,26 @@ class Currency extends \Phalcon\Mvc\Model
      */
     protected $symbol;
 
-    /**
-     * Method to set the value of field id
-     *
-     * @param integer $id
-     * @return $this
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-
-        return $this;
-    }
-
 	/**
 	 * Initialize Model
 	 */
 	public function initialize()
 	{
 		// local_filed, reference Model, referenced_field
-		$this->hasMany('id', 'Engines', 'currency_id');
+		$this->hasMany('id', Engines::TABLE, 'currency_id');
+	}
+
+	/**
+	 * Method to set the value of field id
+	 *
+	 * @param integer $id
+	 * @return $this
+	 */
+	public function setId($id)
+	{
+		$this->id = $id;
+
+		return $this;
 	}
 
     /**

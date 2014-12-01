@@ -41,6 +41,12 @@ class ControllerBase extends Controller
 		$_breadcrumbs	=	false,
 
 		/**
+		 * Global records limit per page
+		 * @var int
+		 */
+		$_limitRecords	=	10,
+
+		/**
 		 * From `users` table auth data
 		 * @var array
 		 */

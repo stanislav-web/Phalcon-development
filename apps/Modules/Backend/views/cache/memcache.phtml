@@ -130,11 +130,11 @@
 			<div class="clearfix"></div>
 
 			<div class="table-responsive">
-				<table id="stored_keys" class="table-striped table-bordered table-hover  table-heading">
+				<table id="stored_keys" cellspacing="0" class="table table-datatable display table-striped table-bordered table-hover table-heading ">
 					<thead>
 						<tr>
-							<th class="col-md-4">Key</th>
-							<th class="col-md-4">Value</th>
+							<th class="col-md-3">Key</th>
+							<th class="col-md-3">Value</th>
 							<th class="col-md-2">Data size</th>
 							<th class="col-md-1">Type</th>
 							<th class="col-md-1">Action</th>
@@ -144,7 +144,7 @@
 					<?php foreach($pool as $i => $values): ?>
 						<tr>
 							<td><?=$values['key']; ?></td>
-							<td class="word-wrap"><code><?=$values['value'];?></code></td>
+							<td class="word-wrap"><?=Helpers\Format::limitString($values['value'], 50);?></td>
 							<td><?=Helpers\Format::formatBytes($values['size'],2);?></td>
 							<td><?=$values['type']; ?></td>
 							<td><a class="btn btn-danger" onclick="Common.confirm('Are you sure?', '/delete?key=<?=$values['key']; ?>'); return false;" href="#">X</a>
@@ -254,7 +254,7 @@
 				"aaSorting": [[ 0, "asc" ]],
 				"bFilter":true,
 				"bSort":true,
-				"sPaginationType": "bootstrap",
+				"columnDefs":	[{"targets": 4, "orderable" : false}],
 				"sDom": "<'box-content'<'col-sm-6'f><'col-sm-6 text-right'l><'clearfix'>>rt<'box-content'<'col-sm-6'i><'col-sm-6 text-right'p><'clearfix'>>",
 				"oLanguage": {
 					"sSearch": "",
@@ -263,6 +263,5 @@
 				}
 			});
 			$('.dataTables_filter input').attr("placeholder", "Search...");
-
 		});
 </script>

@@ -92,6 +92,9 @@ class EnginesController extends ControllerBase
 				else // saved successfully
 					$this->flashSession->success('The engine was successfully deleted!');
 
+				if($this->_logger)
+					$this->_logger->log('Delete engine #'.$id.' by '.$this->request->getClientAddress());
+
 				// forward does not working correctly with this  action type
 				// by the way this handle need to remove in another action (
 				return
@@ -158,6 +161,9 @@ class EnginesController extends ControllerBase
 						$this->flashSession->success('The engine was successfully added!');
 					else
 						$this->flashSession->success('The engine was successfully updated!');
+
+					if($this->_logger)
+						$this->_logger->log('Engine assigned by '.$this->request->getClientAddress());
 
 					// forward does not working correctly with this  action type
 					// by the way this handle need to remove in another action (

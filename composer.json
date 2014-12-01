@@ -1,14 +1,15 @@
 {
     "name": "stanislav-web/phalcon-development",
-    "description": "Phalcon PHP Framework development",
+    "description": "Phalcon Development Board",
     "type": "project",
     "keywords": [
-        "framework", 
-        "phalcon", 
-        "Phalcon development",
-        "Phalcon board",
-        "Phalcon admin tools",
-        "Phalcon administrator"
+        "framework",
+        "phalcon",
+        "phalcon development",
+        "phalcon board",
+        "phalcon admin tools",
+        "phalcon administrator",
+        "phalcon dashboard"
         ],
     "homepage": "http://reds.com",
     "license": "BSD-3",
@@ -22,10 +23,10 @@
     "require": {
         "php": ">=5.4.35"
     },
-	"require-dev": {
-		"fabfuel/prophiler": "~1.1.0",
-		"swiftmailer/swiftmailer": "5.3.0",
-		"satooshi/php-coveralls": "dev-master",
-		"phpunit/phpunit": "3.7.*"
-	}
+   "require-dev": {
+        "fabfuel/prophiler": "~1.1.0",
+        "swiftmailer/swiftmailer": "5.3.0",
+        "satooshi/php-coveralls": "dev-master",
+        "phpunit/phpunit": "3.7.*"
+   }
 }

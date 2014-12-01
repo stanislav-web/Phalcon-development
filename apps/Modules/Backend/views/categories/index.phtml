@@ -17,55 +17,27 @@
 <!-- Block content -->
 <div class="row">
 	<div class="col-xs-12">
-		<div class="box-name">
-			<i class="fa fa-table"></i>
-			<span>Categories Board</span>
+		<div class="box-header">
+			<div class="box-name">
+				<i class="fa fa-table"></i>
+				<span>Categories Board</span>
+			</div>
 		</div>
 		<div class="box-content no-padding">
-			<table id="table" class="table table-datatable table-striped table-bordered table-hover table-heading ">
+			<table id="table" cellspacing="0" class="table table-datatable display table-striped table-bordered table-hover table-heading ">
 				<thead>
 				<tr>
 					<th class="col-md-1">ID</th>
-					<th class="col-md-2">Name</th>
-					<th class="col-md-2">Host</th>
-					<th class="col-md-1">Code</th>
-					<th class="col-md-1">Currency</th>
-					<th class="col-md-1">Status</th>
-					<th class="col-md-2">Added</th>
+					<th class="col-md-2">Title</th>
+					<th class="col-md-2">Description</th>
+					<th class="col-md-2">Alias</th>
+					<th class="col-md-1">Sort</th>
 					<th class="no-sort col-md-1">Action</th>
 				</tr>
 				</thead>
-				<tbody>
-				<?php  foreach($items as $item): ?>
-					<tr>
-						<td><?=$item->getId();?></td>
-						<td class="fa-question cursor-quest" onclick="Common.alert('<?=$item->getDescription(); ?>');"><?=$item->getName();?></td>
-						<td><?=$item->getHost();?></td>
-						<td><?=$item->getCode();?></td>
-						<td><?=$item->currencyRel->getSymbol();?></td>
-						<td><?=\Models\Engines::$statuses[$item->getStatus()];?></td>
-						<td><?=\Helpers\Format::getFormatTime($item->getDateCreate());?></td>
-						<td>
-							<div class="btn-group">
-								<a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
-									<span class="fa fa-caret-down fa-mf"></span></a>
-								<ul class="dropdown-menu">
-									<li>
-										<a href="<?=$this->url->get(['for' => 'dashboard-full','controller' => $this->router->getControllerName(),'action' => 'assign','params' => $item->getId()]); ?>">
-											<i class="fa fa-pencil-square-o fa-fw"></i> Edit
-										</a>
-									</li>
-									<li>
-										<a onclick="Common.confirm('Are you sure want to delete this engine?<br> The procedure provided a not predictable consequences', this.href); return false;" href="<?=$this->url->get(['for' => 'dashboard-full','controller' => $this->router->getControllerName(),'action' => 'delete','params' => $item->getId()]); ?>">
-											<i class="fa fa-trash-o fa-fw"></i> Delete
-										</a>
-									</li>
-								</ul>
-							</div>
-						</td>
-					</tr>
-				<?php endforeach;?>
-				</tbody>
+
+				<tfoot>
+				</tfoot>
 			</table>
 		</div>
 	</div>
@@ -76,14 +48,39 @@
 
 		LoadDataTablesScripts(function() {
 
-			$("#table").dataTable({
-				"bSort"		:	true,
-				"columnDefs":	[{"targets": 7, "orderable" : false}],
-				"paginate"	: 	false,
-				"info"		: 	false,
-				"filter"	: 	false
-			});
-		});
-	})
+			$('#table').dataTable({
+				"bProcessing": true,
+				"bServerSide": true,
+				"sDom": '<"top"i>rt<"bottom"flp><"clear">',
+				"sDom": "<'box-content'<'col-sm-6'f><'col-sm-6 text-right'l><'clearfix'>>rt<'box-content'<'col-sm-6'i><'col-sm-6 text-right'p><'clearfix'>>",
+				"sServerMethod": "POST",
+				"sAjaxSource": "/dashboard/categories",
+				"language": {
+					"sSearch": "",
+					"infoFiltered": '',
+					"info": "Showing _START_ to _END_ of _TOTAL_ entries",
+					"sLengthMenu": '_MENU_'
+				},
+				"bPaginate":	true, // Pagination True
 
+				"sPaginationType": "full_numbers",
+				"aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+				"aoColumns": [
+					{ "bVisible": true, "bSearchable": true, "bSortable": true },
+					{ "bVisible": true, "bSearchable": true, "bSortable": true },
+					{ "bVisible": true, "bSearchable": true, "bSortable": true },
+					{ "bVisible": true, "bSearchable": true, "bSortable": true },
+					{ "bVisible": true, "bSearchable": true, "bSortable": true },
+					{ "bVisible": true, "bSearchable": false, "bSortable": false }
+				],
+				"columnDefs": [ {
+					"targets": -1,
+					"data": null,
+					"defaultContent": "<button>Click!</button>"
+				} ]
+			});
+
+			$('label input[type=search]').attr('placeholder', 'Search...');
+		});
+	});
 </script>

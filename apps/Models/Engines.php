@@ -4,7 +4,7 @@ use Phalcon\Mvc\Model\Behavior\Timestampable;
 
 /**
  * Class Engines `engines`
- * @package 	Backend
+ * @package 	Application
  * @subpackage 	Models
  * @since PHP >=5.4
  * @version 1.0
@@ -106,9 +106,20 @@ class Engines extends \Phalcon\Mvc\Model
 			]
 		));
 
-		$this->belongsTo('currency_id', 'Models\Currency', 'id', [
+		$this->belongsTo('currency_id', Currency::TABLE, 'id', [
 			'alias' 		=> 'currencyRel',
 		]);
+
+		// create relations between Engines => EnginesCategoriesRel
+
+		$this->hasManyToMany("id",
+			EnginesCategoriesRel::TABLE,
+			"engine_id",
+			"category_id",
+			Categories::TABLE,
+			"id",
+			['alias' => 'enginesRel']
+		);
 	}
 
 	/**

@@ -105,11 +105,11 @@ function LoadSelect2Script(callback){
 function LoadDataTablesScripts(callback){
 	function LoadDatatables(){
 		$.getScript('/assets/plugins/datatables/jquery.dataTables.js', function(){
-			$.getScript('/assets/plugins/datatables/ZeroClipboard.js', function(){
+			//$.getScript('/assets/plugins/datatables/ZeroClipboard.js', function(){
 				$.getScript('/assets/plugins/datatables/TableTools.js', function(){
 					$.getScript('/assets/plugins/datatables/dataTables.bootstrap.js', callback);
 				});
-			});
+			//});
 		});
 	}
 	if (!$.fn.dataTables){

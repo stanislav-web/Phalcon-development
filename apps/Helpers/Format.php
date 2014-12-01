@@ -103,4 +103,30 @@ class Format
 		}
 		return substr($s, 0, -2);
 	}
+
+	/**
+	 * Format content for DataTable plugin
+	 * @param \Phalcon\Mvc\Model\Resultset\Simple $query
+	 * @param array $params
+	 * @return array
+	 */
+	public static function toDataTable(\Phalcon\Mvc\Model\Resultset\Simple $query, array $params	=	array())
+	{
+		$result = [
+			'draw' 				=> $params['sEcho'],
+			'recordsFiltered' 	=> $params['iTotal'],
+			'recordsTotal' 		=> $query->count(),
+			'data' => []
+		];
+
+		foreach($query->toArray() as $aRow)
+		{
+			$row = [];
+			foreach($params['aColumns'] as $col) {
+				$row[] = $aRow[substr($col, 2)];
+			}
+			$result['data'][] = $row;
+		}
+		return $result;
+	}
 }

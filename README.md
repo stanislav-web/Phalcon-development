@@ -1,6 +1,6 @@
 Phalcon Development Board
 -----------------------
-###### An example development of the administrative part of the application for Phalcon Framework
+###### An example development of the administrative part of the application by Phalcon Framework
 
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/stanislav-web/Phalcon-development/badges/quality-score.png?b=Backend)](https://scrutinizer-ci.com/g/stanislav-web/Phalcon-development/?branch=Backend) [![Code Coverage](https://scrutinizer-ci.com/g/stanislav-web/Phalcon-development/badges/coverage.png?b=Backend)](https://scrutinizer-ci.com/g/stanislav-web/Phalcon-development/?branch=Backend) [![Build Status](https://travis-ci.org/stanislav-web/Phalcon-development.svg)](https://travis-ci.org/stanislav-web/Phalcon-development) [![Total Downloads](https://poser.pugx.org/stanislav-web/phalcon-development/downloads.svg)](https://packagist.org/packages/stanislav-web/phalcon-development)
 -----------------------

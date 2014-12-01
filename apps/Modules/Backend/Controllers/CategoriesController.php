@@ -1,7 +1,7 @@
 <?php
 namespace Modules\Backend\Controllers;
-use Models\Engines,
-	Models\Currency,
+use Models\Categories,
+	Models\Engines,
 	Phalcon\Mvc\View,
 	Modules\Backend\Forms;
 
@@ -30,6 +30,13 @@ class CategoriesController extends ControllerBase
 	 */
 	public $cacheKey	=	false;
 
+
+	/**
+	 * is Json ?
+	 * @var bool
+	 */
+	private $_isJsonResponse	=	false;
+
 	/**
 	 * initialize() Initialize constructor
 	 * @access public
@@ -38,12 +45,51 @@ class CategoriesController extends ControllerBase
 	public function initialize()
 	{
 		parent::initialize();
-		$this->tag->setTitle(' - '.DashboardController::NAME);
 
-		// create cache key
-		$this->cacheKey	=	md5(\Modules\Backend::MODULE.self::NAME.$this->router->getControllerName().$this->router->getActionName());
+		// set json content here
+		if($this->request->getPost('sEcho') != null)
+			$this->_isJsonResponse = true;
+		else
+		{
+			$this->tag->setTitle(' - '.DashboardController::NAME);
 
-		$this->_breadcrumbs->add(DashboardController::NAME, $this->url->get(['for' => 'dashboard']));
+			// create cache key
+			$this->cacheKey	=	md5(\Modules\Backend::MODULE.self::NAME.$this->router->getControllerName().$this->router->getActionName());
+
+			$this->_breadcrumbs->add(DashboardController::NAME, $this->url->get(['for' => 'dashboard']));
+		}
+	}
+
+	/**
+	 * Action for rebuild nested tree
+	 */
+	public function rebuildAction()
+	{
+		try {
+
+			// call rebuild mysql function
+			$categories	= (new Categories())->rebuildTree();
+
+			if(!$categories instanceof \Phalcon\Mvc\Model\Resultset\Simple)
+			{
+					// the store failed, the following message were produced
+					foreach($categories->getMessages() as $message)
+						$this->flashSession->error((string) $message);
+			}
+			else
+				$this->flashSession->success('Categories rebuild success!');
+
+			// forward does not working correctly with this  action type
+			// by the way this handle need to remove in another action (
+			return
+				$this->response->redirect([
+					'for' 			=>	'dashboard-full',
+					'controller'	=>	$this->router->getControllerName(),
+			]);
+		}
+		catch(\Phalcon\Exception $e) {
+			echo $e->getMessage();
+		}
 	}
 
 	/**
@@ -52,21 +98,63 @@ class CategoriesController extends ControllerBase
 	 */
 	public function indexAction()
 	{
-		$title = ucfirst(self::NAME);
-		$this->tag->prependTitle($title);
+		if(!$this->_isJsonResponse)
+		{
+			$title = ucfirst(self::NAME);
+			$this->tag->prependTitle($title);
 
-		// add crumb to chain (name, link)
+			// add crumb to chain (name, link)
 
-		$this->_breadcrumbs->add($title);
+			$this->_breadcrumbs->add($title);
 
-		// get all records
+			$this->view->setVars([
+				'title'	=>	$title,
+			]);
+		}
+		else
+		{
+			// load data to table
 
-		$engines = (new Engines())->get();
+			// what kind of content type will be represented ?
+			$this->setJsonResponse();
 
-		$this->view->setVars([
-			'items'	=>	$engines,
-			'title'	=>	$title,
-		]);
+			$categories = (new Categories())->get([
+				'iDisplayStart'		=>	$this->request->getPost('iDisplayStart', "int", 0),
+				'iDisplayLength'	=>	$this->request->getPost('iDisplayLength', "int", $this->_limitRecords),
+				'iSortCol_0'		=>	$this->request->getPost('iSortCol_0', "int", 0),
+				'iSortCol_1'		=>	$this->request->getPost('iSortCol_1', "int", 0),
+				'iSortCol_2'		=>	$this->request->getPost('iSortCol_2', "int", 0),
+				'iSortCol_3'		=>	$this->request->getPost('iSortCol_3', "int", 0),
+				'iSortCol_4'		=>	$this->request->getPost('iSortCol_4', "int", 0),
+				'iSortingCols'		=>	$this->request->getPost('iSortingCols', "int", 0),
+				'bSortable_0'		=>	$this->request->getPost('bSortable_0', null, 0),
+				'bSortable_1'		=>	$this->request->getPost('bSortable_1', null, 0),
+				'bSortable_2'		=>	$this->request->getPost('bSortable_2', null, 0),
+				'bSortable_3'		=>	$this->request->getPost('bSortable_3', null, 0),
+				'bSortable_4'		=>	$this->request->getPost('bSortable_4', null, 0),
+				'sSortDir_0'		=>	$this->request->getPost('sSortDir_0', null, 'asc'),
+				'sSortDir_1'		=>	$this->request->getPost('sSortDir_1', null, 'asc'),
+				'sSortDir_2'		=>	$this->request->getPost('sSortDir_2', null, 'asc'),
+				'sSortDir_3'		=>	$this->request->getPost('sSortDir_3', null, 'asc'),
+				'sSortDir_4'		=>	$this->request->getPost('sSortDir_4', null, 'asc'),
+				'sSearch'			=>	$this->request->getPost('sSearch', null, null),
+				'sSearch_0'			=>	$this->request->getPost('sSearch_0', "int", 0),
+				'sSearch_1'			=>	$this->request->getPost('sSearch_0', "int", 0),
+				'sSearch_2'			=>	$this->request->getPost('sSearch_0', "int", 0),
+				'sSearch_3'			=>	$this->request->getPost('sSearch_0', "int", 0),
+				'sSearch_4'			=>	$this->request->getPost('sSearch_0', "int", 0),
+				'bSearchable_0'		=>	$this->request->getPost('bSearchable_0', null, null),
+				'bSearchable_1'		=>	$this->request->getPost('bSearchable_1', null, null),
+				'bSearchable_2'		=>	$this->request->getPost('bSearchable_2', null, null),
+				'bSearchable_3'		=>	$this->request->getPost('bSearchable_3', null, null),
+				'bSearchable_4'		>	$this->request->getPost('bSearchable_4', null, null),
+
+				'sEcho'				=>	$this->request->getPost('sEcho', "int", 1),	//	number of page
+			]);
+
+			$this->response->setJsonContent($categories);
+			return $this->response->send();
+		}
 	}
 
 	/**
@@ -189,6 +277,18 @@ class CategoriesController extends ControllerBase
 		catch(\Phalcon\Exception $e) {
 			echo $e->getMessage();
 		}
+	}
+
+
+	/**
+	 * setJsonResponse() set json mode
+	 * @access protected
+	 * @return null
+	 */
+	private  function setJsonResponse()
+	{
+		$this->view->disable();
+		$this->response->setContentType('application/json', 'UTF-8');
 	}
 }
 
