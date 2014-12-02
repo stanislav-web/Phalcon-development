@@ -12,6 +12,13 @@
 
     });
 
+    $di->set('WWW', function() {
+
+	$url = new StdClass();
+	return $url;
+
+	});
+
     // Database connection is created based in the parameters defined in the configuration file
 
     $di->setShared('db', function() {

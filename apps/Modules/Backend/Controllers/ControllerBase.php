@@ -6,6 +6,7 @@ use Phalcon\Mvc\Controller,
 	Phalcon\Breadcrumbs,
 	Phalcon\Mvc\Url,
 	Models\Users;
+	//\ElasticSearch\Client;
 
 
 /**
@@ -129,7 +130,6 @@ class ControllerBase extends Controller
 				$dispatcher->getControllerName(), 	//	render Controller
 				$dispatcher->getActionName()		//	render Action
 			);
-
 		}
 	}
 
@@ -140,6 +140,18 @@ class ControllerBase extends Controller
 	 */
 	public function initialize()
 	{
+
+		/**
+		 * @TODO Global Search library
+		 * $s = (new \Libraries\GlobalSearch\Searcher())->setSearchList([
+			'\Models\Categories'	=>	['title', 'description', 'alias'],
+			'\Models\Currency'		=>	['code', 'name'],
+			'\Models\Engines'		=>	['host', 'name', 'description'],
+			'\Models\Users'			=>	['login', 'name', 'surname'],
+		])->setQuery('qqqq')->getResult();
+		**/
+
+
 		// load configurations
 		$this->_config	=	$this->di->get('config');
 		if($this->_config->logger->enable)

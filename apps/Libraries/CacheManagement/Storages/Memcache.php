@@ -163,8 +163,16 @@ class Memcache  implements  CacheManagement\AwareInterface {
 	public function flushData($params = null)
 	{
 		$result = $this->_connection->flush();
-		return ($result) ? true : false;
-	}
+		if($result)
+		{
+			$this->getDI()->get('flashSession')->success('Cache data flushed!');
+			return true;
+		}
+		else
+		{
+			$this->getDI()->get('flashSession')->success('Flush the cache data failed!');
+			return false;
+		}	}
 
 	/**
 	 * Insert new item
@@ -189,6 +197,16 @@ class Memcache  implements  CacheManagement\AwareInterface {
 	{
 		if(isset($data['key']))
 			$result = $this->_connection->delete($data['key']);
-		return (isset($result)) ? true : false;
+
+		if($result)
+		{
+			$this->getDI()->get('flashSession')->success('Cache data #'.$data['key'].' deleted!');
+			return true;
+		}
+		else
+		{
+			$this->getDI()->get('flashSession')->success('Delete the cache data #'.$data['key'].' failed!');
+			return false;
+		}
 	}
 }

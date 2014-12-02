@@ -12,6 +12,9 @@ define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV')
 // Require configurations
 require_once APP_PATH.'/config/application.php';
 
+// Require composite libraries
+require_once DOCUMENT_ROOT.' /../vendor/autoload.php';
+
 // Create factory container
 $di = new Phalcon\DI\FactoryDefault();
 

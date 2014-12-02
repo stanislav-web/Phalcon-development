@@ -125,7 +125,8 @@ class Format
 			foreach($params['aColumns'] as $col) {
 				$row[] = $aRow[substr($col, 2)];
 			}
-			$result['data'][] = $row;
+			// pre define first row as empty for checkboxes
+			$result['data'][] = array_merge([null], $row);
 		}
 		return $result;
 	}

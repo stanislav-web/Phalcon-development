@@ -308,7 +308,7 @@ class Categories extends \Phalcon\Mvc\Model
 		$builder 			= 	$this->_modelsManager->createBuilder();
 
 		// setup selected columns
-		$params['aColumns'] 	= 	['c.id', 'c.title', 'c.description', 'c.alias', 'c.sort'];
+		$params['aColumns'] 	= 	['c.lft', 'c.title', 'c.description', 'c.alias', 'c.sort'];
 		$builder->addFrom(self::TABLE, 'c')->columns($params['aColumns']);
 
 		// setup paging

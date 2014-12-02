@@ -159,7 +159,17 @@ class Mysql extends \Phalcon\Mvc\Model
 
 		$query =  $this->_connection->query($phql);
 		$result = $query->execute();
-		return ($result) ? true : false;
+
+		if($result)
+		{
+			$this->getDI()->get('flashSession')->success('Cache data flushed!');
+			return true;
+		}
+		else
+		{
+			$this->getDI()->get('flashSession')->success('Flush the cache data failed!');
+			return false;
+		}
 	}
 
 	/**
@@ -174,7 +184,16 @@ class Mysql extends \Phalcon\Mvc\Model
 
 		$query =  $this->_connection->query($phql);
 		$result = $query->execute();
-		return ($result) ? true : false;
+		if($result)
+		{
+			$this->getDI()->get('flashSession')->success('Cache data deleted!');
+			return true;
+		}
+		else
+		{
+			$this->getDI()->get('flashSession')->success('Delete the cache data failed!');
+			return false;
+		};
 	}
 
 	/**

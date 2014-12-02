@@ -65,7 +65,6 @@ class Backend implements ModuleDefinitionInterface
 			$namespaces = array_merge(
 				$loader->getNamespaces(), [
 					'Phalcon\Utils' 		=> 	APP_PATH.'/Libraries/PrettyExceptions/Library/Phalcon/Utils',
-					'Fabfuel\Prophiler' 	=> 	DOCUMENT_ROOT.'/../vendor/fabfuel/prophiler/src/Fabfuel/Prophiler/',
 				]
 			);
 			$loader->registerNamespaces($namespaces);

@@ -7,7 +7,6 @@
 		<div class="btn-group">
 			<?=$this->tag->linkTo(['dashboard/categories/assign', 'Add category', 'class' => 'btn btn-primary']); ?>
 			<?=$this->tag->linkTo(['dashboard/categories/rebuild', 'Rebuild tree', 'class' => 'btn btn-success']); ?>
-
 		</div>
 	</div>
 </div>
@@ -17,42 +16,56 @@
 <!-- Block content -->
 <div class="row">
 	<div class="col-xs-12">
-		<div class="box-header">
-			<div class="box-name">
-				<i class="fa fa-table"></i>
-				<span>Categories Board</span>
+		<div class="box">
+			<div class="box-header">
+				<div class="box-name">
+					<i class="fa fa-table"></i>
+					<span>Categories Board</span>
+				</div>
+				<div class="box-icons">
+					<a class="collapse-link">
+						<i class="fa fa-chevron-up"></i>
+					</a>
+				</div>
+				<div class="no-move"></div>
 			</div>
-		</div>
-		<div class="box-content no-padding">
-			<table id="table" cellspacing="0" class="table table-datatable display table-striped table-bordered table-hover table-heading ">
+			<div class="box-content no-padding">
+				<table id="table" cellspacing="0" class="table table-bordered table-striped table-hover table-heading table-datatable">
 				<thead>
-				<tr>
-					<th class="col-md-1">ID</th>
-					<th class="col-md-2">Title</th>
-					<th class="col-md-2">Description</th>
-					<th class="col-md-2">Alias</th>
-					<th class="col-md-1">Sort</th>
-					<th class="no-sort col-md-1">Action</th>
-				</tr>
+					<tr>
+						<th class="no-sort col-md-1"></th>
+						<th class="col-md-1">Pos</th>
+						<th class="col-md-2">Title</th>
+						<th class="col-md-2">Description</th>
+						<th class="col-md-2">Alias</th>
+						<th class="col-md-1">Sort</th>
+					</tr>
 				</thead>
-
 				<tfoot>
 				</tfoot>
 			</table>
+			</div>
 		</div>
 	</div>
 </div>
 <!-- Block content -->
 <script type="text/javascript">
+
 	$(function() {
 
 		LoadDataTablesScripts(function() {
+			var editor;
+
+			// Activate an inline edit on click of a table cell
+			$('#table').on( 'click', 'tbody td:not(:first-child)', function (e) {
+				editor.inline( this );
+			} );
 
 			$('#table').dataTable({
 				"bProcessing": true,
 				"bServerSide": true,
-				"sDom": '<"top"i>rt<"bottom"flp><"clear">',
-				"sDom": "<'box-content'<'col-sm-6'f><'col-sm-6 text-right'l><'clearfix'>>rt<'box-content'<'col-sm-6'i><'col-sm-6 text-right'p><'clearfix'>>",
+				"aaSorting": [[ 0, "asc" ]],
+				"sDom": "T<'box-content'<'col-sm-6'f><'col-sm-6 text-right'l><'clearfix'>>rt<'box-content'<'col-sm-6'i><'col-sm-6 text-right'p><'clearfix'>>",
 				"sServerMethod": "POST",
 				"sAjaxSource": "/dashboard/categories",
 				"language": {
@@ -66,20 +79,28 @@
 				"sPaginationType": "full_numbers",
 				"aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
 				"aoColumns": [
+					{ "bVisible": true, "bSearchable": false, "bSortable": false },
 					{ "bVisible": true, "bSearchable": true, "bSortable": true },
 					{ "bVisible": true, "bSearchable": true, "bSortable": true },
 					{ "bVisible": true, "bSearchable": true, "bSortable": true },
 					{ "bVisible": true, "bSearchable": true, "bSortable": true },
-					{ "bVisible": true, "bSearchable": true, "bSortable": true },
-					{ "bVisible": true, "bSearchable": false, "bSortable": false }
+					{ "bVisible": true, "bSearchable": true, "bSortable": true }
 				],
 				"columnDefs": [ {
-					"targets": -1,
+					"targets": 0,
 					"data": null,
 					"defaultContent": "<button>Click!</button>"
-				} ]
+				} ],
+				tableTools: {
+					sRowSelect: "os",
+					sRowSelector: 'td:first-child',
+					aButtons: [
+						{ sExtends: "editor_create", editor: editor },
+						{ sExtends: "editor_edit",   editor: editor },
+						{ sExtends: "editor_remove", editor: editor }
+					]
+				}
 			});
-
 			$('label input[type=search]').attr('placeholder', 'Search...');
 		});
 	});
