@@ -144,13 +144,8 @@ class ControllerBase extends Controller
 		/**
 		 * @TODO Global Search library
 		 */
-		/**$s = (new \Phalcon\Searcher\Searcher())->setSearchList([
-			'\Models\Categories'	=>	['title', 'description', 'alias'],
-			'\Models\Currency'		=>	['code', 'name'],
-			'\Models\Engines'		=>	['host', 'name', 'description'],
-			'\Models\Users'			=>	['login', 'name', 'surname'],
-		])->useStrict(false)->setQuery('qqqq')->getResult();
-		*/
+		//$s = (new \Phalcon\Searcher\Searcher())->setSearchList([])->useStrict(false)->setQuery('qqqq')->run();
+
 
 		// load configurations
 		$this->_config	=	$this->di->get('config');
@@ -171,7 +166,8 @@ class ControllerBase extends Controller
 		);
 
 		if(APPLICATION_ENV == 'development')
-		{	// add toolbar to the layout
+		{
+			// add toolbar to the layout
 			$toolbar = new \Fabfuel\Prophiler\Toolbar($this->di->get('profiler'));
 			$toolbar->addDataCollector(new \Fabfuel\Prophiler\DataCollector\Request());
 			$this->view->setVar('toolbar', $toolbar);
