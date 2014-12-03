@@ -17,19 +17,25 @@ $di->set('url', function() {
 
 $di->setShared('db', function() {
 
-	return new \Phalcon\Db\Adapter\Pdo\Mysql([
-		"host"          => 	$this->_config->database->host,
-		"username"      => 	$this->_config->database->username,
-		"password"      => 	$this->_config->database->password,
-		"dbname"        => 	$this->_config->database->dbname,
-		"persistent"    => 	$this->_config->database->persistent,
-		"options" => array(
-			PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES '{$this->_config->database->charset}'",
-			PDO::ATTR_CASE 		=> PDO::CASE_LOWER,
-			PDO::ATTR_ERRMODE	=> PDO::ERRMODE_EXCEPTION,
-			PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
-		)
-	]);
+	try {
+		$connect	=	 new \Phalcon\Db\Adapter\Pdo\Mysql([
+			"host"          => 	$this->_config->database->host,
+			"username"      => 	$this->_config->database->username,
+			"password"      => 	$this->_config->database->password,
+			"dbname"        => 	$this->_config->database->dbname,
+			"persistent"    => 	$this->_config->database->persistent,
+			"options" => [
+				PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES '{$this->_config->database->charset}'",
+				PDO::ATTR_CASE 		=> PDO::CASE_LOWER,
+				PDO::ATTR_ERRMODE	=> PDO::ERRMODE_EXCEPTION,
+				PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+			]
+		]);
+		return $connect;
+	}
+	catch (PDOException $e) {
+		throw new Exception('Could not connect to database');
+	}
 });
 
 // Component Session. Starting a Session

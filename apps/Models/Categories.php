@@ -86,7 +86,10 @@ class Categories extends \Phalcon\Mvc\Model
 		$this->addBehavior(new Timestampable([
 				'beforeCreate' => [
 					'field' => 'date_create',
-					'format' => 'Y-m-d:H:i:s'
+					'format' => function() {
+						$datetime = new Datetime(new DateTimeZone(date_default_timezone_get()));
+						return $datetime->format('Y-m-d H:i:s');
+					}
 				]
 			]
 		));
@@ -168,7 +171,7 @@ class Categories extends \Phalcon\Mvc\Model
      */
     public function setAlias($alias)
     {
-        $this->alias = $alias;
+        $this->alias = \Phalcon\Tag::friendlyTitle($alias);
 
         return $this;
     }
