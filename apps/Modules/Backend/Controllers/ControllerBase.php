@@ -143,13 +143,13 @@ class ControllerBase extends Controller
 
 		/**
 		 * @TODO Global Search library
-		 * $s = (new \Libraries\GlobalSearch\Searcher())->setSearchList([
+		 */
+		$s = (new \Phalcon\Searcher\Searcher())->setSearchList([
 			'\Models\Categories'	=>	['title', 'description', 'alias'],
 			'\Models\Currency'		=>	['code', 'name'],
 			'\Models\Engines'		=>	['host', 'name', 'description'],
 			'\Models\Users'			=>	['login', 'name', 'surname'],
 		])->setQuery('qqqq')->getResult();
-		**/
 
 
 		// load configurations
