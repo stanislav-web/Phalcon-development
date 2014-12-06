@@ -1,6 +1,7 @@
 <?php
 namespace Modules\Backend\Controllers;
 
+use Phalcon\Exception;
 use Phalcon\Mvc\Controller,
 	Phalcon\Mvc\View,
 	Phalcon\Breadcrumbs,
@@ -144,9 +145,27 @@ class ControllerBase extends Controller
 		/**
 		 * @TODO Global Search library
 		 */
-		//$s = (new \Phalcon\Searcher\Searcher())->setSearchList([])->useStrict(false)->setQuery('qqqq')->run();
+		try {
+			$s = new \Phalcon\Searcher\Searcher();
 
+			$s->setList([
+				'\Models\Categories'	=>	[
+					'title',
+					'description'
+				],
+				'\Models\Engines'	=>	[
+					'name',
+					'description'
+				]
+			])->useStrict(false)->setQuery('qqqq')->run();
+			var_dump('Result', $s);
+		}
+		catch(Exception $e)
+		{
+			echo $e->getMessage();
+		}
 
+		exit();
 		// load configurations
 		$this->_config	=	$this->di->get('config');
 		if($this->_config->logger->enable)
