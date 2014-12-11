@@ -148,17 +148,45 @@ class ControllerBase extends Controller
 		try {
 			$s = new \Phalcon\Searcher\Searcher();
 
-			$s->setList([
-				'\Models\Categories'	=>	[
-					'title',
-					'description'
-				],
-				'\Models\Engines'	=>	[
-					'name',
-					'description'
-				]
-			])->useStrict(false)->setQuery('qqqq')->run();
-			var_dump('Result', $s);
+			$s
+				// set min value
+				->setMin(3)
+
+				// set max value
+				->setMax(128)
+
+				// set array list
+				->setFields([
+					'\Models\Categories'	=>	[
+						'title',
+						'description'
+					],
+					'\Models\Engines'	=>	[
+						'name',
+						'description'
+					]
+				])
+
+				// set strict mode
+				->setExact(false)
+
+				// set group
+				->setOrder(['\Models\Categories'	=>	[
+					'title' => 'ASC',
+					'id' 	=> 'DESC',
+					]
+				])
+
+				// set group
+				->setGroup(['\Models\Engines'	=>	[
+						'id', 'name'
+					]
+				])
+				->setThreshold(['0', '100'])
+
+				->setQuery('ssddrrrwwwww')
+
+				->run();
 		}
 		catch(Exception $e)
 		{
