@@ -3,7 +3,7 @@ namespace Modules\Backend\Controllers;
 
 use Models\Users;
 use Phalcon\Breadcrumbs;
-use Phalcon\Exception;
+use Modules\Backend\Forms;
 use Phalcon\Mvc\Controller;
 use Phalcon\Mvc\Url;
 use Phalcon\Mvc\View;
@@ -170,6 +170,7 @@ class ControllerBase extends Controller
             'user' => $this->_user,
             'breadcrumbs' => $this->_breadcrumbs,
             'navigation' => $navigation,
+            'search' => new Forms\SearcherForm()
         ]);
     }
 }

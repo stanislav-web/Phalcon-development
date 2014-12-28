@@ -11,10 +11,10 @@
                             <i class="fa fa-bars"></i>
                         </a>
 
-                        <div id="search">
-                            <input type="text" placeholder="search"/>
-                            <i class="fa fa-search"></i>
-                        </div>
+                        <!-- Search -->
+                        <?php $this->partial("dashboard/search", ['form' => $search]) ?>
+                        <!-- /Search -->
+
                     </div>
                     <!-- Clock -->
                     <?php $this->partial("dashboard/clock") ?>

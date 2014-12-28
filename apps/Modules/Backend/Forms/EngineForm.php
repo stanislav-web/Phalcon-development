@@ -7,7 +7,7 @@ use Phalcon\Forms\Form;
 
 
 /**
- * Class AddEngineForm
+ * Class EngineForm
  * @package    Backend
  * @subpackage    Modules\Backend\Forms
  * @since PHP >=5.4

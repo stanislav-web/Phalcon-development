@@ -33,7 +33,7 @@ $di->setShared('db', function () {
         ]);
         return $connect;
     } catch (PDOException $e) {
-        throw new Exception('Could not connect to database');
+        throw new Exception('Could not connect to database: '.$e->getMessage());
     }
 });
 
@@ -98,9 +98,11 @@ $di->set('crypt', function () {
 
 // Setup Hansel & Gretel breadcrumbs ))
 
-$di->set('breadcrumbs', function () {
-    return new \Plugins\Breadcrumbs\Breadcrumbs();
-});
+$di->set('breadcrumbs', '\Plugins\Breadcrumbs\Breadcrumbs');
+
+// Setup Searcher component
+
+$di->set('searcher', 'Searcher\Searcher');
 
 // Component Navigation. Manage site navigation
 
@@ -145,6 +147,7 @@ $di->setShared('viewCache', function () {
 // Set the backend data cache service
 
 if ($this->_config->cache->enable == true) {
+
     $di->set('dbCache', function () {
 
         // Data caching (queries data, json data etc)
