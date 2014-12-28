@@ -5,14 +5,14 @@
  * @since Browsers support *
  */
 
-$(document).on('mobileinit', function() { /* Инициализирую preload jQuery Mobile */
-	$.mobile.page.prototype.options.theme = "a"; // тема для загрузчика
-  	$.mobile.loader.prototype.options.text = lang.loadingMessage; // текст ajax загрузчика
-  	$.mobile.loader.prototype.options.textVisible = false; // показывать текст загрузчика
-	$.mobile.pageLoadErrorMessage = lang.pageLoadErrorMessage; // сообщение об ошибке загрузке страницы
-	$.mobile.defaultPageTransition = "slide"; // вариант загрузки страниц по умолчанию
-	$.mobile.ajaxEnabled = false; // выключаю ajax навигацию по ссылкам
-        $.mobile.selectmenu.prototype.options.nativeMenu = false; // нативное меню в select элементах
+$(document).on('mobileinit', function () { /* Инициализирую preload jQuery Mobile */
+    $.mobile.page.prototype.options.theme = "a"; // тема для загрузчика
+    $.mobile.loader.prototype.options.text = lang.loadingMessage; // текст ajax загрузчика
+    $.mobile.loader.prototype.options.textVisible = false; // показывать текст загрузчика
+    $.mobile.pageLoadErrorMessage = lang.pageLoadErrorMessage; // сообщение об ошибке загрузке страницы
+    $.mobile.defaultPageTransition = "slide"; // вариант загрузки страниц по умолчанию
+    $.mobile.ajaxEnabled = false; // выключаю ajax навигацию по ссылкам
+    $.mobile.selectmenu.prototype.options.nativeMenu = false; // нативное меню в select элементах
 });
 
 /**
@@ -25,14 +25,14 @@ $(document).delegate('.ui-navbar ul li > a', 'click', function () {
 });
 
 
-$('section').on('pageinit', function(event) {
-    $('.ui-dialog button').on("click", function() {
+$('section').on('pageinit', function (event) {
+    $('.ui-dialog button').on("click", function () {
         // действия при клике на диалоговое окно
         $("[data-role='dialog']").dialog("close");
     });
 });
 
-$(document).on('pagechange', function(event){
+$(document).on('pagechange', function (event) {
     // События
     $('nav ul li:eq(1) a.ui-tab').attr('data-active-tab', 'true');
     //$('#auth').show().siblings('.inner-tabs').hide();

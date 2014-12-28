@@ -1,7 +1,8 @@
 <?php
 namespace Modules\Frontend\Controllers;
 
-class ErrorController extends \Phalcon\Mvc\Controller {
+class ErrorController extends \Phalcon\Mvc\Controller
+{
 
     public function notFoundAction()
     {

@@ -3,8 +3,8 @@ namespace Models;
 
 /**
  * Class Currency `currency`
- * @package 	Application
- * @subpackage 	Models
+ * @package    Application
+ * @subpackage    Models
  * @since PHP >=5.4
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
@@ -12,11 +12,11 @@ namespace Models;
  */
 class Currency extends \Phalcon\Mvc\Model
 {
-	/**
-	 * Absolute model name
-	 * @const
-	 */
-	const TABLE	=	'\Models\Currency';
+    /**
+     * Absolute model name
+     * @const
+     */
+    const TABLE = '\Models\Currency';
 
     /**
      *
@@ -42,27 +42,47 @@ class Currency extends \Phalcon\Mvc\Model
      */
     protected $symbol;
 
-	/**
-	 * Initialize Model
-	 */
-	public function initialize()
-	{
-		// local_filed, reference Model, referenced_field
-		$this->hasMany('id', Engines::TABLE, 'currency_id');
-	}
+    /**
+     * Initialize Model
+     */
+    public function initialize()
+    {
+        // local_filed, reference Model, referenced_field
+        $this->hasMany('id', Engines::TABLE, 'currency_id');
+    }
 
-	/**
-	 * Method to set the value of field id
-	 *
-	 * @param integer $id
-	 * @return $this
-	 */
-	public function setId($id)
-	{
-		$this->id = $id;
+    /**
+     * Returns the value of field id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
-		return $this;
-	}
+    /**
+     * Method to set the value of field id
+     *
+     * @param integer $id
+     * @return $this
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * Returns the value of field code
+     *
+     * @return string
+     */
+    public function getCode()
+    {
+        return $this->code;
+    }
 
     /**
      * Method to set the value of field code
@@ -75,6 +95,16 @@ class Currency extends \Phalcon\Mvc\Model
         $this->code = $code;
 
         return $this;
+    }
+
+    /**
+     * Returns the value of field name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 
     /**
@@ -91,6 +121,16 @@ class Currency extends \Phalcon\Mvc\Model
     }
 
     /**
+     * Returns the value of field symbol
+     *
+     * @return string
+     */
+    public function getSymbol()
+    {
+        return $this->symbol;
+    }
+
+    /**
      * Method to set the value of field symbol
      *
      * @param string $symbol
@@ -101,45 +141,5 @@ class Currency extends \Phalcon\Mvc\Model
         $this->symbol = $symbol;
 
         return $this;
-    }
-
-    /**
-     * Returns the value of field id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Returns the value of field code
-     *
-     * @return string
-     */
-    public function getCode()
-    {
-        return $this->code;
-    }
-
-    /**
-     * Returns the value of field name
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * Returns the value of field symbol
-     *
-     * @return string
-     */
-    public function getSymbol()
-    {
-        return $this->symbol;
     }
 }

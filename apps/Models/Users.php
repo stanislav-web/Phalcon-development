@@ -17,17 +17,17 @@ class Users extends \Phalcon\Mvc\Model
     protected $login;
 
 
-	/**
-	 *
-	 * @var string
-	 */
-	protected $name;
+    /**
+     *
+     * @var string
+     */
+    protected $name;
 
-	/**
-	 *
-	 * @var string
-	 */
-	protected $surname;
+    /**
+     *
+     * @var string
+     */
+    protected $surname;
 
     /**
      *
@@ -35,11 +35,11 @@ class Users extends \Phalcon\Mvc\Model
      */
     protected $password;
 
-	/**
-	 *
-	 * @var string
-	 */
-	protected $salt;
+    /**
+     *
+     * @var string
+     */
+    protected $salt;
 
     /**
      *
@@ -78,6 +78,16 @@ class Users extends \Phalcon\Mvc\Model
     protected $ua;
 
     /**
+     * Returns the value of field id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
      * Method to set the value of field id
      *
      * @param integer $id
@@ -88,6 +98,16 @@ class Users extends \Phalcon\Mvc\Model
         $this->id = $id;
 
         return $this;
+    }
+
+    /**
+     * Returns the value of field login
+     *
+     * @return string
+     */
+    public function getLogin()
+    {
+        return $this->login;
     }
 
     /**
@@ -103,31 +123,61 @@ class Users extends \Phalcon\Mvc\Model
         return $this;
     }
 
-	/**
-	 * Method to set the value of field name
-	 *
-	 * @param string $login
-	 * @return $this
-	 */
-	public function setName($name)
-	{
-		$this->name = $name;
+    /**
+     * Returns the value of field name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
 
-		return $this;
-	}
+    /**
+     * Method to set the value of field name
+     *
+     * @param string $login
+     * @return $this
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
 
-	/**
-	 * Method to set the value of field surname
-	 *
-	 * @param string $login
-	 * @return $this
-	 */
-	public function setSurname($surname)
-	{
-		$this->name = $surname;
+        return $this;
+    }
 
-		return $this;
-	}
+    /**
+     * Returns the value of field name
+     *
+     * @return string
+     */
+    public function getSurname()
+    {
+        return $this->surname;
+    }
+
+    /**
+     * Method to set the value of field surname
+     *
+     * @param string $login
+     * @return $this
+     */
+    public function setSurname($surname)
+    {
+        $this->name = $surname;
+
+        return $this;
+    }
+
+    /**
+     * Returns the value of field password
+     *
+     * @return string
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
 
     /**
      * Method to set the value of field password
@@ -142,18 +192,38 @@ class Users extends \Phalcon\Mvc\Model
         return $this;
     }
 
-	/**
-	 * Method to set the value of field salt
-	 *
-	 * @param string $password
-	 * @return $this
-	 */
-	public function setSalt($salt)
-	{
-		$this->salt = $salt;
+    /**
+     * Returns the value of field salt
+     *
+     * @return string
+     */
+    public function getSalt()
+    {
+        return $this->salt;
+    }
 
-		return $this;
-	}
+    /**
+     * Method to set the value of field salt
+     *
+     * @param string $password
+     * @return $this
+     */
+    public function setSalt($salt)
+    {
+        $this->salt = $salt;
+
+        return $this;
+    }
+
+    /**
+     * Returns the value of field state
+     *
+     * @return string
+     */
+    public function getState()
+    {
+        return $this->state;
+    }
 
     /**
      * Method to set the value of field state
@@ -166,6 +236,16 @@ class Users extends \Phalcon\Mvc\Model
         $this->state = $state;
 
         return $this;
+    }
+
+    /**
+     * Returns the value of field rating
+     *
+     * @return double
+     */
+    public function getRating()
+    {
+        return $this->rating;
     }
 
     /**
@@ -182,6 +262,16 @@ class Users extends \Phalcon\Mvc\Model
     }
 
     /**
+     * Returns the value of field date_registration
+     *
+     * @return string
+     */
+    public function getDateRegistration()
+    {
+        return $this->date_registration;
+    }
+
+    /**
      * Method to set the value of field date_registration
      *
      * @param string $date_registration
@@ -192,6 +282,16 @@ class Users extends \Phalcon\Mvc\Model
         $this->date_registration = $date_registration;
 
         return $this;
+    }
+
+    /**
+     * Returns the value of field date_lastvisit
+     *
+     * @return string
+     */
+    public function getDateLastvisit()
+    {
+        return $this->date_lastvisit;
     }
 
     /**
@@ -208,6 +308,16 @@ class Users extends \Phalcon\Mvc\Model
     }
 
     /**
+     * Returns the value of field ip
+     *
+     * @return integer
+     */
+    public function getIp()
+    {
+        return $this->ip;
+    }
+
+    /**
      * Method to set the value of field ip
      *
      * @param integer $ip
@@ -218,6 +328,16 @@ class Users extends \Phalcon\Mvc\Model
         $this->ip = ip2long($ip);
 
         return $this;
+    }
+
+    /**
+     * Returns the value of field ua
+     *
+     * @return string
+     */
+    public function getUa()
+    {
+        return $this->ua;
     }
 
     /**
@@ -233,129 +353,9 @@ class Users extends \Phalcon\Mvc\Model
         return $this;
     }
 
-    /**
-     * Returns the value of field id
-     *
-     * @return integer
-     */
-    public function getId()
+    public function initialize()
     {
-        return $this->id;
+        $this->hasMany('id', 'UsersObserver', 'user_id', NULL);
     }
-
-    /**
-     * Returns the value of field login
-     *
-     * @return string
-     */
-    public function getLogin()
-    {
-        return $this->login;
-    }
-
-	/**
-	 * Returns the value of field name
-	 *
-	 * @return string
-	 */
-	public function getName()
-	{
-		return $this->name;
-	}
-
-	/**
-	 * Returns the value of field name
-	 *
-	 * @return string
-	 */
-	public function getSurname()
-	{
-		return $this->surname;
-	}
-
-    /**
-     * Returns the value of field password
-     *
-     * @return string
-     */
-    public function getPassword()
-    {
-        return $this->password;
-    }
-
-	/**
-	 * Returns the value of field salt
-	 *
-	 * @return string
-	 */
-	public function getSalt()
-	{
-		return $this->salt;
-	}
-
-    /**
-     * Returns the value of field state
-     *
-     * @return string
-     */
-    public function getState()
-    {
-        return $this->state;
-    }
-
-    /**
-     * Returns the value of field rating
-     *
-     * @return double
-     */
-    public function getRating()
-    {
-        return $this->rating;
-    }
-
-    /**
-     * Returns the value of field date_registration
-     *
-     * @return string
-     */
-    public function getDateRegistration()
-    {
-        return $this->date_registration;
-    }
-
-    /**
-     * Returns the value of field date_lastvisit
-     *
-     * @return string
-     */
-    public function getDateLastvisit()
-    {
-        return $this->date_lastvisit;
-    }
-
-    /**
-     * Returns the value of field ip
-     *
-     * @return integer
-     */
-    public function getIp()
-    {
-        return $this->ip;
-    }
-
-    /**
-     * Returns the value of field ua
-     *
-     * @return string
-     */
-    public function getUa()
-    {
-        return $this->ua;
-    }
-
-	public function initialize()
-	{
-		$this->hasMany('id', 'UsersObserver', 'user_id', NULL);
-	}
 
 }

@@ -6,7 +6,7 @@ var app = {
             $('#searchBox').on('keyup', function () {
                 var $searchBox = $(this);
                 var searchFor = $.trim($searchBox.val() + "");
-                if(instance.timer) {
+                if (instance.timer) {
                     clearTimeout(instance.timer);
                 }
                 var fn = function () {
@@ -18,11 +18,11 @@ var app = {
         $(document).on("pagebeforechange", function (e, data) {
             // We only want to handle changePage() calls where the caller is
             // asking us to load a page by URL
-            if(typeof data.toPage === "string") {
+            if (typeof data.toPage === "string") {
                 // We are being asked to load a page by URL
                 var u = $.mobile.path.parseUrl(data.toPage),
                     _re = "#contact";
-                if(u.hash.search(_re) !== -1) {
+                if (u.hash.search(_re) !== -1) {
                     var name = 'id';
                     var results = new RegExp('[\\?&]id=([^&#]*)').exec(data.toPage);
                     var id = results !== null ? results[1] || '' : '';
@@ -56,9 +56,9 @@ var app = {
     renderUL: function (result) {
         var tmpl = [],
             len = result.contacts.length;
-        if(len > 0) {
+        if (len > 0) {
             tmpl.push('<ul data-role="listview">');
-            for(var i = 0; i < len; i++) {
+            for (var i = 0; i < len; i++) {
                 tmpl.push('<li><a href="#contact?id=' + result.contacts[i].id + '">' + result.contacts[i].name + '</a></li>');
             }
             tmpl.push('</ul>');

@@ -10,52 +10,53 @@ namespace Libraries\CacheManagement;
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @filesource apps/Libraries/CacheManagement/AwareInterface.php
  */
-interface AwareInterface {
+interface AwareInterface
+{
 
-	/**
-	 * Get adapter configuration
-	 * @return array
-	 */
-	public function getAdapterConfig();
+    /**
+     * Get adapter configuration
+     * @return array
+     */
+    public function getAdapterConfig();
 
-	/**
-	 * Get server information
-	 * @return array
-	 */
-	public function getServerStatus();
+    /**
+     * Get server information
+     * @return array
+     */
+    public function getServerStatus();
 
-	/**
-	 * Get storage information
-	 * @return array
-	 */
-	public function getStorageStatus();
+    /**
+     * Get storage information
+     * @return array
+     */
+    public function getStorageStatus();
 
-	/**
-	 * Get storage content
-	 * @param int $limit limit of records
-	 * @return array | mixed
-	 */
-	public function getPool($limit = 100);
+    /**
+     * Get storage content
+     * @param int $limit limit of records
+     * @return array | mixed
+     */
+    public function getPool($limit = 100);
 
-	/**
-	 * Invalidate all existing items
-	 * @param mixed $params
-	 * @return boolean | null
-	 */
-	public function flushData($params);
+    /**
+     * Invalidate all existing items
+     * @param mixed $params
+     * @return boolean | null
+     */
+    public function flushData($params);
 
-	/**
-	 * Set item to storage
-	 * @param array $data
-	 * @return boolean | null
-	 */
-	public function setData(array $data);
+    /**
+     * Set item to storage
+     * @param array $data
+     * @return boolean | null
+     */
+    public function setData(array $data);
 
-	/**
-	 * Delete item from storage
-	 * @param array $data
-	 * @return boolean | null
-	 */
-	public function deleteData(array $data);
+    /**
+     * Delete item from storage
+     * @param array $data
+     * @return boolean | null
+     */
+    public function deleteData(array $data);
 
 }
