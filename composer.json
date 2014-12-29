@@ -21,12 +21,11 @@
         }
     ],
     "require": {
-        "php": ">=5.4.35",
+        "php": ">=5.3.12",
         "stanislav-web/phalcon-searcher": "dev-master"
     },
     "require-dev": {
-        "fabfuel/prophiler": "~1.1.0",
-        "swiftmailer/swiftmailer": "5.3.0",
-        "nervetattoo/elasticsearch": ">=2.0"
+        "fabfuel/prophiler": "~1.0",
+        "swiftmailer/swiftmailer": "5.3.0"
     }
 }
