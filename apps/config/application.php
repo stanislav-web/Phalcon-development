@@ -32,7 +32,6 @@ $config = [
         'port' => 3306,
         'charset' => 'utf8',
         'persistent' => true,
-        'profiler' => false,
         'debug' => PDO::ERRMODE_SILENT,
     ],
 

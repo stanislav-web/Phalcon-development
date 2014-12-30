@@ -6,7 +6,8 @@
         <table class='pdw-data-table'>
             <thead>
             <tr>
-                <th>Value</th>
+                <th>Extension</th>
+                <th>Version</th>
             </tr>
             </thead>
             <tbody>
@@ -14,6 +15,7 @@
             foreach (get_loaded_extensions() as $k => $v):
                 echo "<tr>";
                 echo "<td>{$v}</td>";
+                echo "<td>".(new ReflectionExtension($v))->getVersion()."</td>";
                 echo "</tr>";
             endforeach;
             ?>

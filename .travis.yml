@@ -16,6 +16,7 @@ services:
 before_script:
   - composer self-update
   - phpenv rehash
-  - composer install --dev
+  - composer install
+  - composer show -i
   - sh ./build/phalcon.sh
   - php -m | grep -i Phalcon

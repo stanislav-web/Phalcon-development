@@ -13,7 +13,6 @@ return [
         'charset' => 'utf8',
         'port' => 3306,
         'persistent' => true,
-        'profiler' => true,
         'debug' => PDO::ERRMODE_EXCEPTION,
     ],
 

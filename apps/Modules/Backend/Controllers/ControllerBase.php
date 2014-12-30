@@ -2,14 +2,9 @@
 namespace Modules\Backend\Controllers;
 
 use Models\Users;
-use Phalcon\Breadcrumbs;
 use Modules\Backend\Forms;
 use Phalcon\Mvc\Controller;
-use Phalcon\Mvc\Url;
 use Phalcon\Mvc\View;
-
-//\ElasticSearch\Client;
-
 
 /**
  * Class ControllerBase
@@ -87,15 +82,19 @@ class ControllerBase extends Controller
 
         $auth = $this->session->get('auth');
 
+
+
         // if the user is logged in
 
-        if (!$auth) {
+        if ($auth === null) {
+
             $this->flashSession->error("You don't have access");
             // dispatch to login page
             return $dispatcher->forward([
                 'controller' => 'auth',
                 'action' => 'index',
             ]);
+
         }
 
         $this->_user = $auth;
@@ -158,7 +157,7 @@ class ControllerBase extends Controller
             $this->router->getModuleName()
         );
 
-        if (APPLICATION_ENV == 'development') {
+        if (APPLICATION_ENV === 'development') {
             // add toolbar to the layout
             $toolbar = new \Fabfuel\Prophiler\Toolbar($this->di->get('profiler'));
             $toolbar->addDataCollector(new \Fabfuel\Prophiler\DataCollector\Request());

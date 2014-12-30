@@ -20,7 +20,6 @@ require_once DOCUMENT_ROOT . ' /../vendor/autoload.php';
 // Create factory container
 $di = new Phalcon\DI\FactoryDefault();
 
-
 // Set default routes
 $di->set('router', function () {
 

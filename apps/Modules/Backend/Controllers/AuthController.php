@@ -51,20 +51,25 @@ class AuthController extends Controller
      */
     public function indexAction()
     {
-        if ($this->request->isPost()) {
+        if($this->request->isPost() === true) {
+
             if ($this->security->checkToken()) {
+
                 // The token is ok, check authorization
 
                 $login = $this->request->getPost('username');
                 $password = $this->request->getPost('password');
                 $remember = $this->request->getPost('remember');
-                $users = new Users();
-                $user = $users->findFirst([
+
+                $user = (new Users())->findFirst([
                     "login = ?0",
                     "bind" => [$login]
                 ]);
-                if ($user) {
-                    if ($this->security->checkHash($password, $user->getPassword())) {
+
+                if ($user === true) {
+
+                    if ($this->security->checkHash($password, $user->getPassword()))
+                    {
                         // Check if the "remember me" was selected
                         if (isset($remember)) {
                             $this->cookies->set('remember', $user->getId(), time() + $this->_config->rememberKeep);
@@ -92,7 +97,9 @@ class AuthController extends Controller
                             return $this->response->redirect($referrer);
                         else
                             return $this->response->redirect('dashboard');
-                    } else {
+                    }
+                    else
+                    {
                         // Wrong authenticate data (password or login)
                         $this->flashSession->error("Wrong authenticate data");
 
@@ -114,7 +121,9 @@ class AuthController extends Controller
                     $this->response->redirect('dashboard/auth');
                     $this->view->disable();
                 }
-            } else {
+            }
+            else
+            {
                 // CSRF protection
 
                 if ($this->_logger)

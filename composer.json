@@ -26,7 +26,7 @@
         "filp/whoops": "~1.0"
     },
     "require-dev": {
-        "fabfuel/prophiler": "~1.0",
+        "fabfuel/prophiler": "1.*",
         "swiftmailer/swiftmailer": "5.*"
     }
 }

@@ -54,8 +54,10 @@ class Frontend implements ModuleDefinitionInterface
         $loader->registerNamespaces([
             'Modules\Frontend\Controllers' => $this->_config['application']['controllersFront'],
             'Models' => $this->_config['application']['modelsDir'],
+            'Helpers' => $this->_config['application']['helpersDir'],
             'Libraries' => $this->_config['application']['libraryDir'],
             'Modules\Frontend\Plugins' => APP_PATH . '/Modules/' . self::MODULE . '/Plugins/',
+            'Plugins' => $this->_config['application']['pluginsDir'],
         ]);
 
         $loader->register();
@@ -72,45 +74,67 @@ class Frontend implements ModuleDefinitionInterface
         // Dispatch register
         $di->set('dispatcher', function () use ($di) {
             $eventsManager = $di->getShared('eventsManager');
-            $eventsManager->attach('dispatch:beforeException', function ($event, $dispatcher, $exception) {
-                switch ($exception->getCode()) {
-                    case \Phalcon\Mvc\Dispatcher::EXCEPTION_HANDLER_NOT_FOUND:
-                    case \Phalcon\Mvc\Dispatcher::EXCEPTION_ACTION_NOT_FOUND:
-                        $dispatcher->forward([
-                            'module' => self::MODULE,
-                            'namespace' => 'Modules\\' . self::MODULE . '\Controllers\\',
-                            'controller' => 'error',
-                            'action' => 'notFound',
-                        ]);
-                        return false;
-                        break;
-                    default:
-                        $dispatcher->forward([
-                            'module' => self::MODULE,
-                            'namespace' => 'Modules\\' . self::MODULE . '\Controllers\\',
-                            'controller' => 'error',
-                            'action' => 'uncaughtException',
-                        ]);
-                        return false;
-                        break;
-                }
-            });
+            $eventsManager->attach('dispatch:beforeException', new \Plugins\Dispatcher\NotFoundPlugin());
             $dispatcher = new \Phalcon\Mvc\Dispatcher();
             $dispatcher->setEventsManager($eventsManager);
             $dispatcher->setDefaultNamespace('Modules\\' . self::MODULE . '\Controllers');
-
             return $dispatcher;
+        }, true);
+
+        // Database connection is created based in the parameters defined in the configuration file
+
+        $di->set('db', function () {
+
+            try {
+                $connect = new \Phalcon\Db\Adapter\Pdo\Mysql([
+                    "host" => $this->_config->database->host,
+                    "username" => $this->_config->database->username,
+                    "password" => $this->_config->database->password,
+                    "dbname" => $this->_config->database->dbname,
+                    "persistent" => $this->_config->database->persistent,
+                    "options" => [
+                        \PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES '{$this->_config->database->charset}'",
+                        \PDO::ATTR_CASE => \PDO::CASE_LOWER,
+                        \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
+                        \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC
+                    ]
+                ]);
+                return $connect;
+            }
+            catch (PDOException $e) {
+                throw new Exception('Could not connect to database: '.$e->getMessage());
+            }
+
         }, true);
 
         // Registration of component representations (Views)
 
         $di->set('view', function () {
             $view = new View();
-            $view->setViewsDir($this->_config['application']['viewsFront'])->setMainView('layout');
+            $view->setViewsDir($this->_config['application']['viewsFront'])
+                ->setMainView('layout')
+                ->setPartialsDir('partials');
             return $view;
         });
 
-        return require_once APP_PATH . '/Modules/' . self::MODULE . '/config/services.php';
+        require_once APP_PATH . '/Modules/' . self::MODULE . '/config/services.php';
+
+        if (APPLICATION_ENV === 'development') {
+
+            // share develop sidebar
+            (new \Plugins\Debugger\Develop($di));
+
+            // share Fabfuel topbar
+            $profiler = new \Fabfuel\Prophiler\Profiler();
+
+            $di->setShared('profiler', $profiler);
+
+            $pluginManager = new \Fabfuel\Prophiler\Plugin\Manager\Phalcon($profiler);
+            $pluginManager->register();
+
+        }
+
+        return;
     }
 
 }
