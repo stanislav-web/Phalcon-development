@@ -1,0 +1,23 @@
+<div id='pdw-panel-extensions' class='pdw-panel extensions'>
+    <div class='title'>
+        <h2>PHP Loaded extensions <a class='pdw-panel-close'>&times;</a></h2>
+    </div>
+    <div class='panel-content'>
+        <table class='pdw-data-table'>
+            <thead>
+            <tr>
+                <th>Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php
+            foreach (get_loaded_extensions() as $k => $v):
+                echo "<tr>";
+                echo "<td>{$v}</td>";
+                echo "</tr>";
+            endforeach;
+            ?>
+            </tbody>
+        </table>
+    </div>
+</div>
