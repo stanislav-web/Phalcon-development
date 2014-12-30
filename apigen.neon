@@ -23,9 +23,6 @@ title: Phalcon Dashboard API
 # base url used for sitemap (useful for public doc)
 baseUrl: http://phalcon.local
 
-# choose ApiGen template theme
-templateTheme: bootstrap # or: bootstrap
-
 # the way elements are grouped in menu
 groups: auto # also: namespace, packages, none; auto will detect namespace first, than packages
 
@@ -55,4 +52,4 @@ source:
     - apps
 
 # The ultimate directory (you can see the result, the relative path from the directory run apigen)
-destination: ../api
+destination: ./api

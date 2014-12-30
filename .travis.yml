@@ -17,5 +17,6 @@ before_script:
   - phpenv rehash
   - composer install
   - composer show -i
+  - php vendor/bin/apigen generate
   - sh ./build/phalcon.sh
   - php -m | grep -i Phalcon

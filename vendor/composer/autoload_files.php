@@ -6,5 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    $vendorDir . '/texy/texy/src/texy.php',
+    $vendorDir . '/nette/nette/Nette/common/shortcuts.php',
     $vendorDir . '/swiftmailer/swiftmailer/lib/swift_required.php',
 );

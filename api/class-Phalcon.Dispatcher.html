@@ -1,0 +1,1569 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="generator" content="ApiGen 2.8.0">
+
+	<title>Class Phalcon\Dispatcher | Phalcon Dashboard API</title>
+
+	<link rel="stylesheet" href="resources/style.css?3901564645">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+			<h3>Namespaces</h3>
+			<ul>
+				<li><a href="namespace-Helpers.html">Helpers</a>
+						</li>
+				<li><a href="namespace-Libraries.html">Libraries<span></span></a>
+						<ul>
+				<li><a href="namespace-Libraries.CacheManagement.html">CacheManagement<span></span></a>
+						<ul>
+				<li><a href="namespace-Libraries.CacheManagement.Storages.html">Storages</a>
+						</li>
+							</ul></li>
+				<li><a href="namespace-Libraries.Navigation.html">Navigation</a>
+						</li>
+							</ul></li>
+				<li><a href="namespace-Models.html">Models</a>
+						</li>
+				<li><a href="namespace-Modules.html">Modules<span></span></a>
+						<ul>
+				<li><a href="namespace-Modules.Backend.html">Backend<span></span></a>
+						<ul>
+				<li><a href="namespace-Modules.Backend.Controllers.html">Controllers</a>
+						</li>
+				<li><a href="namespace-Modules.Backend.Forms.html">Forms</a>
+						</li>
+							</ul></li>
+				<li><a href="namespace-Modules.Frontend.html">Frontend<span></span></a>
+						<ul>
+				<li><a href="namespace-Modules.Frontend.Controllers.html">Controllers</a>
+						</li>
+							</ul></li></ul></li>
+				<li><a href="namespace-None.html">None</a>
+						</li>
+				<li class="active"><a href="namespace-PHP.html">PHP</a>
+						</li>
+				<li><a href="namespace-Plugins.html">Plugins<span></span></a>
+						<ul>
+				<li><a href="namespace-Plugins.Breadcrumbs.html">Breadcrumbs</a>
+						</li>
+				<li><a href="namespace-Plugins.Debugger.html">Debugger</a>
+						</li>
+				<li><a href="namespace-Plugins.Dispatcher.html">Dispatcher</a>
+						</li>
+							</ul></li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-Phalcon.Config.html">Config</a></li>
+				<li><a href="class-Phalcon.Db.Profiler.html">Profiler</a></li>
+				<li><a href="class-Phalcon.DI.html">DI</a></li>
+				<li><a href="class-Phalcon.DI.FactoryDefault.html">FactoryDefault</a></li>
+				<li><a href="class-Phalcon.DI.Injectable.html">Injectable</a></li>
+				<li><a href="class-Phalcon.Mvc.Dispatcher.html">Dispatcher</a></li>
+				<li><a href="class-Phalcon.Events.Event.html">Event</a></li>
+				<li><a href="class-Phalcon.Forms.Form.html">Form</a></li>
+				<li><a href="class-Phalcon.Mvc.Controller.html">Controller</a></li>
+				<li><a href="class-Phalcon.Mvc.Model.html">Model</a></li>
+				<li><a href="class-Phalcon.Mvc.Model.Resultset.html">Resultset</a></li>
+				<li><a href="class-Phalcon.Mvc.Model.Resultset.Simple.html">Simple</a></li>
+				<li><a href="class-Phalcon.Mvc.View.html">View</a></li>
+				<li><a href="class-Phalcon.Paginator.Adapter.QueryBuilder.html">QueryBuilder</a></li>
+			</ul>
+
+			<h3>Interfaces</h3>
+			<ul>
+				<li><a href="class-ArrayAccess.html">ArrayAccess</a></li>
+				<li><a href="class-Countable.html">Countable</a></li>
+				<li><a href="class-Iterator.html">Iterator</a></li>
+				<li><a href="class-Phalcon.DI.InjectionAwareInterface.html">InjectionAwareInterface</a></li>
+				<li><a href="class-Phalcon.DiInterface.html">DiInterface</a></li>
+				<li><a href="class-Phalcon.Mvc.DispatcherInterface.html">DispatcherInterface</a></li>
+				<li><a href="class-Phalcon.Events.EventsAwareInterface.html">EventsAwareInterface</a></li>
+				<li><a href="class-Phalcon.Mvc.ControllerInterface.html">ControllerInterface</a></li>
+				<li><a href="class-Phalcon.Mvc.Model.ResultInterface.html">ResultInterface</a></li>
+				<li><a href="class-Phalcon.Mvc.Model.ResultsetInterface.html">ResultsetInterface</a></li>
+				<li><a href="class-Phalcon.Mvc.ModelInterface.html">ModelInterface</a></li>
+				<li><a href="class-Phalcon.Mvc.ModuleDefinitionInterface.html">ModuleDefinitionInterface</a></li>
+				<li><a href="class-Phalcon.Mvc.ViewInterface.html">ViewInterface</a></li>
+				<li><a href="class-Phalcon.Paginator.AdapterInterface.html">AdapterInterface</a></li>
+				<li><a href="class-SeekableIterator.html">SeekableIterator</a></li>
+				<li><a href="class-Serializable.html">Serializable</a></li>
+				<li><a href="class-Traversable.html">Traversable</a></li>
+			</ul>
+
+
+			<h3>Exceptions</h3>
+			<ul>
+				<li><a href="class-Phalcon.Mvc.Model.Exception.html">Exception</a></li>
+			</ul>
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text">
+		<input type="submit" value="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-PHP.html" title="Summary of PHP"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+			<li>
+				<a href="deprecated.html" title="List of deprecated elements"><span>Deprecated</span></a>
+			</li>
+			<li>
+				<a href="todo.html" title="Todo list"><span>Todo</span></a>
+			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="phalcon-dashboard-api-api-documentation.zip" title="Download documentation as ZIP archive"><span>Download</span></a>
+			</li>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class Dispatcher</h1>
+
+
+
+	<dl class="tree">
+		<dd style="padding-left:0px">
+<b><span>Phalcon\Dispatcher</span></b>			
+			 implements 
+				<a href="class-Phalcon.DispatcherInterface.html"><span>Phalcon\DispatcherInterface</span></a>, 
+			
+				<a href="class-Phalcon.DI.InjectionAwareInterface.html"><span>Phalcon\DI\InjectionAwareInterface</span></a>, 
+			
+				<a href="class-Phalcon.Events.EventsAwareInterface.html"><span>Phalcon\Events\EventsAwareInterface</span></a>
+			
+			
+		</dd>
+	</dl>
+
+
+	<div>
+		<h4>Direct known subclasses</h4>
+			<a href="class-Phalcon.Mvc.Dispatcher.html">Phalcon\Mvc\Dispatcher</a>
+	</div>
+
+
+
+
+
+
+	<div class="info">
+		<b>Abstract</b><br>
+		<b>PHP Extension:</b> <a href="http://php.net/manual/book.phalcon.php" title="Go to PHP documentation">Phalcon</a><br>
+		<b>Namespace:</b> <a href="namespace-Phalcon.html">Phalcon</a><br>
+		
+
+		<b>Documented at</b> <a href="http://php.net/manual/class.phalcon\dispatcher.php" title="Go to PHP documentation">php.net</a><br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="__construct" id="___construct">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___construct">#</a>
+		<code><a href="http://php.net/manual/phalcon\dispatcher.construct.php" title="Go to PHP documentation">__construct</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setDI" id="_setDI">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setDI">#</a>
+		<code><a href="http://php.net/manual/phalcon\dispatcher.setdi.php" title="Go to PHP documentation">setDI</a>( <span>mixed <var>$dependencyInjector</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Phalcon.DI.InjectionAwareInterface.html#_setDI">Phalcon\DI\InjectionAwareInterface::setDI()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getDI" id="_getDI">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getDI">#</a>
+		<code><a href="http://php.net/manual/phalcon\dispatcher.getdi.php" title="Go to PHP documentation">getDI</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Phalcon.DI.InjectionAwareInterface.html#_getDI">Phalcon\DI\InjectionAwareInterface::getDI()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setEventsManager" id="_setEventsManager">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setEventsManager">#</a>
+		<code><a href="http://php.net/manual/phalcon\dispatcher.seteventsmanager.php" title="Go to PHP documentation">setEventsManager</a>( <span>mixed <var>$eventsManager</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Phalcon.Events.EventsAwareInterface.html#_setEventsManager">Phalcon\Events\EventsAwareInterface::setEventsManager()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getEventsManager" id="_getEventsManager">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getEventsManager">#</a>
+		<code><a href="http://php.net/manual/phalcon\dispatcher.geteventsmanager.php" title="Go to PHP documentation">getEventsManager</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Phalcon.Events.EventsAwareInterface.html#_getEventsManager">Phalcon\Events\EventsAwareInterface::getEventsManager()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setActionSuffix" id="_setActionSuffix">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setActionSuffix">#</a>
+		<code><a href="http://php.net/manual/phalcon\dispatcher.setactionsuffix.php" title="Go to PHP documentation">setActionSuffix</a>( <span>mixed <var>$actionSuffix</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Phalcon.DispatcherInterface.html#_setActionSuffix">Phalcon\DispatcherInterface::setActionSuffix()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setModuleName" id="_setModuleName">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setModuleName">#</a>
+		<code><a href="http://php.net/manual/phalcon\dispatcher.setmodulename.php" title="Go to PHP documentation">setModuleName</a>( <span>mixed <var>$moduleName</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getModuleName" id="_getModuleName">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getModuleName">#</a>
+		<code><a href="http://php.net/manual/phalcon\dispatcher.getmodulename.php" title="Go to PHP documentation">getModuleName</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setNamespaceName" id="_setNamespaceName">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setNamespaceName">#</a>
+		<code><a href="http://php.net/manual/phalcon\dispatcher.setnamespacename.php" title="Go to PHP documentation">setNamespaceName</a>( <span>mixed <var>$namespaceName</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getNamespaceName" id="_getNamespaceName">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getNamespaceName">#</a>
+		<code><a href="http://php.net/manual/phalcon\dispatcher.getnamespacename.php" title="Go to PHP documentation">getNamespaceName</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setDefaultNamespace" id="_setDefaultNamespace">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setDefaultNamespace">#</a>
+		<code><a href="http://php.net/manual/phalcon\dispatcher.setdefaultnamespace.php" title="Go to PHP documentation">setDefaultNamespace</a>( <span>mixed <var>$namespace</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Phalcon.DispatcherInterface.html#_setDefaultNamespace">Phalcon\DispatcherInterface::setDefaultNamespace()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getDefaultNamespace" id="_getDefaultNamespace">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getDefaultNamespace">#</a>
+		<code><a href="http://php.net/manual/phalcon\dispatcher.getdefaultnamespace.php" title="Go to PHP documentation">getDefaultNamespace</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setDefaultAction" id="_setDefaultAction">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setDefaultAction">#</a>
+		<code><a href="http://php.net/manual/phalcon\dispatcher.setdefaultaction.php" title="Go to PHP documentation">setDefaultAction</a>( <span>mixed <var>$actionName</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Phalcon.DispatcherInterface.html#_setDefaultAction">Phalcon\DispatcherInterface::setDefaultAction()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setActionName" id="_setActionName">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setActionName">#</a>
+		<code><a href="http://php.net/manual/phalcon\dispatcher.setactionname.php" title="Go to PHP documentation">setActionName</a>( <span>mixed <var>$actionName</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Phalcon.DispatcherInterface.html#_setActionName">Phalcon\DispatcherInterface::setActionName()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getActionName" id="_getActionName">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getActionName">#</a>
+		<code><a href="http://php.net/manual/phalcon\dispatcher.getactionname.php" title="Go to PHP documentation">getActionName</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Phalcon.DispatcherInterface.html#_getActionName">Phalcon\DispatcherInterface::getActionName()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setParams" id="_setParams">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setParams">#</a>
+		<code><a href="http://php.net/manual/phalcon\dispatcher.setparams.php" title="Go to PHP documentation">setParams</a>( <span>mixed <var>$params</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Phalcon.DispatcherInterface.html#_setParams">Phalcon\DispatcherInterface::setParams()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getParams" id="_getParams">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getParams">#</a>
+		<code><a href="http://php.net/manual/phalcon\dispatcher.getparams.php" title="Go to PHP documentation">getParams</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Phalcon.DispatcherInterface.html#_getParams">Phalcon\DispatcherInterface::getParams()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setParam" id="_setParam">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setParam">#</a>
+		<code><a href="http://php.net/manual/phalcon\dispatcher.setparam.php" title="Go to PHP documentation">setParam</a>( <span>mixed <var>$param</var></span>, <span>mixed <var>$value</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Phalcon.DispatcherInterface.html#_setParam">Phalcon\DispatcherInterface::setParam()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getParam" id="_getParam">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getParam">#</a>
+		<code><a href="http://php.net/manual/phalcon\dispatcher.getparam.php" title="Go to PHP documentation">getParam</a>( <span>mixed <var>$param</var></span>, <span>mixed <var>$filters</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Phalcon.DispatcherInterface.html#_getParam">Phalcon\DispatcherInterface::getParam()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getActiveMethod" id="_getActiveMethod">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getActiveMethod">#</a>
+		<code><a href="http://php.net/manual/phalcon\dispatcher.getactivemethod.php" title="Go to PHP documentation">getActiveMethod</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="isFinished" id="_isFinished">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_isFinished">#</a>
+		<code><a href="http://php.net/manual/phalcon\dispatcher.isfinished.php" title="Go to PHP documentation">isFinished</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Phalcon.DispatcherInterface.html#_isFinished">Phalcon\DispatcherInterface::isFinished()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setReturnedValue" id="_setReturnedValue">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setReturnedValue">#</a>
+		<code><a href="http://php.net/manual/phalcon\dispatcher.setreturnedvalue.php" title="Go to PHP documentation">setReturnedValue</a>( <span>mixed <var>$value</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getReturnedValue" id="_getReturnedValue">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getReturnedValue">#</a>
+		<code><a href="http://php.net/manual/phalcon\dispatcher.getreturnedvalue.php" title="Go to PHP documentation">getReturnedValue</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Phalcon.DispatcherInterface.html#_getReturnedValue">Phalcon\DispatcherInterface::getReturnedValue()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="dispatch" id="_dispatch">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_dispatch">#</a>
+		<code><a href="http://php.net/manual/phalcon\dispatcher.dispatch.php" title="Go to PHP documentation">dispatch</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Phalcon.DispatcherInterface.html#_dispatch">Phalcon\DispatcherInterface::dispatch()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="forward" id="_forward">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_forward">#</a>
+		<code><a href="http://php.net/manual/phalcon\dispatcher.forward.php" title="Go to PHP documentation">forward</a>( <span>mixed <var>$forward</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Phalcon.DispatcherInterface.html#_forward">Phalcon\DispatcherInterface::forward()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="wasForwarded" id="_wasForwarded">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_wasForwarded">#</a>
+		<code><a href="http://php.net/manual/phalcon\dispatcher.wasforwarded.php" title="Go to PHP documentation">wasForwarded</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getHandlerClass" id="_getHandlerClass">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getHandlerClass">#</a>
+		<code><a href="http://php.net/manual/phalcon\dispatcher.gethandlerclass.php" title="Go to PHP documentation">getHandlerClass</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+	<table class="summary constants" id="constants">
+	<caption>Constants summary</caption>
+	<tr data-order="EXCEPTION_NO_DI" id="EXCEPTION_NO_DI">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="http://php.net/manual/class.phalcon\dispatcher.php#phalcon\dispatcher.constants.exception-no-di" title="Go to PHP documentation"><b>EXCEPTION_NO_DI</b></a>
+			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value"><div><a href="#EXCEPTION_NO_DI" class="anchor">#</a><code><span class="php-num">0</span></code></div></td>
+	</tr>
+	<tr data-order="EXCEPTION_CYCLIC_ROUTING" id="EXCEPTION_CYCLIC_ROUTING">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="http://php.net/manual/class.phalcon\dispatcher.php#phalcon\dispatcher.constants.exception-cyclic-routing" title="Go to PHP documentation"><b>EXCEPTION_CYCLIC_ROUTING</b></a>
+			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value"><div><a href="#EXCEPTION_CYCLIC_ROUTING" class="anchor">#</a><code><span class="php-num">1</span></code></div></td>
+	</tr>
+	<tr data-order="EXCEPTION_HANDLER_NOT_FOUND" id="EXCEPTION_HANDLER_NOT_FOUND">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="http://php.net/manual/class.phalcon\dispatcher.php#phalcon\dispatcher.constants.exception-handler-not-found" title="Go to PHP documentation"><b>EXCEPTION_HANDLER_NOT_FOUND</b></a>
+			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value"><div><a href="#EXCEPTION_HANDLER_NOT_FOUND" class="anchor">#</a><code><span class="php-num">2</span></code></div></td>
+	</tr>
+	<tr data-order="EXCEPTION_INVALID_HANDLER" id="EXCEPTION_INVALID_HANDLER">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="http://php.net/manual/class.phalcon\dispatcher.php#phalcon\dispatcher.constants.exception-invalid-handler" title="Go to PHP documentation"><b>EXCEPTION_INVALID_HANDLER</b></a>
+			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value"><div><a href="#EXCEPTION_INVALID_HANDLER" class="anchor">#</a><code><span class="php-num">3</span></code></div></td>
+	</tr>
+	<tr data-order="EXCEPTION_INVALID_PARAMS" id="EXCEPTION_INVALID_PARAMS">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="http://php.net/manual/class.phalcon\dispatcher.php#phalcon\dispatcher.constants.exception-invalid-params" title="Go to PHP documentation"><b>EXCEPTION_INVALID_PARAMS</b></a>
+			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value"><div><a href="#EXCEPTION_INVALID_PARAMS" class="anchor">#</a><code><span class="php-num">4</span></code></div></td>
+	</tr>
+	<tr data-order="EXCEPTION_ACTION_NOT_FOUND" id="EXCEPTION_ACTION_NOT_FOUND">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="http://php.net/manual/class.phalcon\dispatcher.php#phalcon\dispatcher.constants.exception-action-not-found" title="Go to PHP documentation"><b>EXCEPTION_ACTION_NOT_FOUND</b></a>
+			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value"><div><a href="#EXCEPTION_ACTION_NOT_FOUND" class="anchor">#</a><code><span class="php-num">5</span></code></div></td>
+	</tr>
+	</table>
+
+
+
+
+	<table class="summary properties" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="_dependencyInjector" id="$_dependencyInjector">
+		<td class="attributes"><code>
+			protected  
+			mixed
+		</code></td>
+
+		<td class="name">
+				<a href="http://php.net/manual/class.phalcon\dispatcher.php#phalcon\dispatcher.props.dependencyinjector" title="Go to PHP documentation"><var>$_dependencyInjector</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value"><div><a href="#$_dependencyInjector" class="anchor">#</a><code></code></div></td>
+	</tr>
+	<tr data-order="_eventsManager" id="$_eventsManager">
+		<td class="attributes"><code>
+			protected  
+			mixed
+		</code></td>
+
+		<td class="name">
+				<a href="http://php.net/manual/class.phalcon\dispatcher.php#phalcon\dispatcher.props.eventsmanager" title="Go to PHP documentation"><var>$_eventsManager</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value"><div><a href="#$_eventsManager" class="anchor">#</a><code></code></div></td>
+	</tr>
+	<tr data-order="_activeHandler" id="$_activeHandler">
+		<td class="attributes"><code>
+			protected  
+			mixed
+		</code></td>
+
+		<td class="name">
+				<a href="http://php.net/manual/class.phalcon\dispatcher.php#phalcon\dispatcher.props.activehandler" title="Go to PHP documentation"><var>$_activeHandler</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value"><div><a href="#$_activeHandler" class="anchor">#</a><code></code></div></td>
+	</tr>
+	<tr data-order="_finished" id="$_finished">
+		<td class="attributes"><code>
+			protected  
+			mixed
+		</code></td>
+
+		<td class="name">
+				<a href="http://php.net/manual/class.phalcon\dispatcher.php#phalcon\dispatcher.props.finished" title="Go to PHP documentation"><var>$_finished</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value"><div><a href="#$_finished" class="anchor">#</a><code></code></div></td>
+	</tr>
+	<tr data-order="_forwarded" id="$_forwarded">
+		<td class="attributes"><code>
+			protected  
+			boolean
+		</code></td>
+
+		<td class="name">
+				<a href="http://php.net/manual/class.phalcon\dispatcher.php#phalcon\dispatcher.props.forwarded" title="Go to PHP documentation"><var>$_forwarded</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value"><div><a href="#$_forwarded" class="anchor">#</a><code><span class="php-keyword1">false</span></code></div></td>
+	</tr>
+	<tr data-order="_moduleName" id="$_moduleName">
+		<td class="attributes"><code>
+			protected  
+			mixed
+		</code></td>
+
+		<td class="name">
+				<a href="http://php.net/manual/class.phalcon\dispatcher.php#phalcon\dispatcher.props.modulename" title="Go to PHP documentation"><var>$_moduleName</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value"><div><a href="#$_moduleName" class="anchor">#</a><code></code></div></td>
+	</tr>
+	<tr data-order="_namespaceName" id="$_namespaceName">
+		<td class="attributes"><code>
+			protected  
+			mixed
+		</code></td>
+
+		<td class="name">
+				<a href="http://php.net/manual/class.phalcon\dispatcher.php#phalcon\dispatcher.props.namespacename" title="Go to PHP documentation"><var>$_namespaceName</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value"><div><a href="#$_namespaceName" class="anchor">#</a><code></code></div></td>
+	</tr>
+	<tr data-order="_handlerName" id="$_handlerName">
+		<td class="attributes"><code>
+			protected  
+			mixed
+		</code></td>
+
+		<td class="name">
+				<a href="http://php.net/manual/class.phalcon\dispatcher.php#phalcon\dispatcher.props.handlername" title="Go to PHP documentation"><var>$_handlerName</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value"><div><a href="#$_handlerName" class="anchor">#</a><code></code></div></td>
+	</tr>
+	<tr data-order="_actionName" id="$_actionName">
+		<td class="attributes"><code>
+			protected  
+			mixed
+		</code></td>
+
+		<td class="name">
+				<a href="http://php.net/manual/class.phalcon\dispatcher.php#phalcon\dispatcher.props.actionname" title="Go to PHP documentation"><var>$_actionName</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value"><div><a href="#$_actionName" class="anchor">#</a><code></code></div></td>
+	</tr>
+	<tr data-order="_params" id="$_params">
+		<td class="attributes"><code>
+			protected  
+			mixed
+		</code></td>
+
+		<td class="name">
+				<a href="http://php.net/manual/class.phalcon\dispatcher.php#phalcon\dispatcher.props.params" title="Go to PHP documentation"><var>$_params</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value"><div><a href="#$_params" class="anchor">#</a><code></code></div></td>
+	</tr>
+	<tr data-order="_returnedValue" id="$_returnedValue">
+		<td class="attributes"><code>
+			protected  
+			mixed
+		</code></td>
+
+		<td class="name">
+				<a href="http://php.net/manual/class.phalcon\dispatcher.php#phalcon\dispatcher.props.returnedvalue" title="Go to PHP documentation"><var>$_returnedValue</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value"><div><a href="#$_returnedValue" class="anchor">#</a><code></code></div></td>
+	</tr>
+	<tr data-order="_lastHandler" id="$_lastHandler">
+		<td class="attributes"><code>
+			protected  
+			mixed
+		</code></td>
+
+		<td class="name">
+				<a href="http://php.net/manual/class.phalcon\dispatcher.php#phalcon\dispatcher.props.lasthandler" title="Go to PHP documentation"><var>$_lastHandler</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value"><div><a href="#$_lastHandler" class="anchor">#</a><code></code></div></td>
+	</tr>
+	<tr data-order="_defaultNamespace" id="$_defaultNamespace">
+		<td class="attributes"><code>
+			protected  
+			mixed
+		</code></td>
+
+		<td class="name">
+				<a href="http://php.net/manual/class.phalcon\dispatcher.php#phalcon\dispatcher.props.defaultnamespace" title="Go to PHP documentation"><var>$_defaultNamespace</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value"><div><a href="#$_defaultNamespace" class="anchor">#</a><code></code></div></td>
+	</tr>
+	<tr data-order="_defaultHandler" id="$_defaultHandler">
+		<td class="attributes"><code>
+			protected  
+			mixed
+		</code></td>
+
+		<td class="name">
+				<a href="http://php.net/manual/class.phalcon\dispatcher.php#phalcon\dispatcher.props.defaulthandler" title="Go to PHP documentation"><var>$_defaultHandler</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value"><div><a href="#$_defaultHandler" class="anchor">#</a><code></code></div></td>
+	</tr>
+	<tr data-order="_defaultAction" id="$_defaultAction">
+		<td class="attributes"><code>
+			protected  
+			string
+		</code></td>
+
+		<td class="name">
+				<a href="http://php.net/manual/class.phalcon\dispatcher.php#phalcon\dispatcher.props.defaultaction" title="Go to PHP documentation"><var>$_defaultAction</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value"><div><a href="#$_defaultAction" class="anchor">#</a><code><span class="php-quote">''</span></code></div></td>
+	</tr>
+	<tr data-order="_handlerSuffix" id="$_handlerSuffix">
+		<td class="attributes"><code>
+			protected  
+			string
+		</code></td>
+
+		<td class="name">
+				<a href="http://php.net/manual/class.phalcon\dispatcher.php#phalcon\dispatcher.props.handlersuffix" title="Go to PHP documentation"><var>$_handlerSuffix</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value"><div><a href="#$_handlerSuffix" class="anchor">#</a><code><span class="php-quote">''</span></code></div></td>
+	</tr>
+	<tr data-order="_actionSuffix" id="$_actionSuffix">
+		<td class="attributes"><code>
+			protected  
+			string
+		</code></td>
+
+		<td class="name">
+				<a href="http://php.net/manual/class.phalcon\dispatcher.php#phalcon\dispatcher.props.actionsuffix" title="Go to PHP documentation"><var>$_actionSuffix</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value"><div><a href="#$_actionSuffix" class="anchor">#</a><code><span class="php-quote">'Action'</span></code></div></td>
+	</tr>
+	<tr data-order="_isExactHandler" id="$_isExactHandler">
+		<td class="attributes"><code>
+			protected  
+			boolean
+		</code></td>
+
+		<td class="name">
+				<a href="http://php.net/manual/class.phalcon\dispatcher.php#phalcon\dispatcher.props.isexacthandler" title="Go to PHP documentation"><var>$_isExactHandler</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value"><div><a href="#$_isExactHandler" class="anchor">#</a><code><span class="php-keyword1">false</span></code></div></td>
+	</tr>
+	<tr data-order="_previousHandlerName" id="$_previousHandlerName">
+		<td class="attributes"><code>
+			protected  
+			mixed
+		</code></td>
+
+		<td class="name">
+				<a href="http://php.net/manual/class.phalcon\dispatcher.php#phalcon\dispatcher.props.previoushandlername" title="Go to PHP documentation"><var>$_previousHandlerName</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value"><div><a href="#$_previousHandlerName" class="anchor">#</a><code></code></div></td>
+	</tr>
+	<tr data-order="_previousActionName" id="$_previousActionName">
+		<td class="attributes"><code>
+			protected  
+			mixed
+		</code></td>
+
+		<td class="name">
+				<a href="http://php.net/manual/class.phalcon\dispatcher.php#phalcon\dispatcher.props.previousactionname" title="Go to PHP documentation"><var>$_previousActionName</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value"><div><a href="#$_previousActionName" class="anchor">#</a><code></code></div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		Phalcon Dashboard API API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js?2299887241"></script>
+<script src="elementlist.js?2460461412"></script>
+</body>
+</html>

@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="generator" content="ApiGen 2.8.0">
+
+	<title>Class Libraries\CacheManagement\Storages\Mysql | Phalcon Dashboard API</title>
+
+	<link rel="stylesheet" href="resources/style.css?3901564645">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+			<h3>Namespaces</h3>
+			<ul>
+				<li><a href="namespace-Helpers.html">Helpers</a>
+						</li>
+				<li class="active"><a href="namespace-Libraries.html">Libraries<span></span></a>
+						<ul>
+				<li class="active"><a href="namespace-Libraries.CacheManagement.html">CacheManagement<span></span></a>
+						<ul>
+				<li class="active"><a href="namespace-Libraries.CacheManagement.Storages.html">Storages</a>
+						</li>
+							</ul></li>
+				<li><a href="namespace-Libraries.Navigation.html">Navigation</a>
+						</li>
+							</ul></li>
+				<li><a href="namespace-Models.html">Models</a>
+						</li>
+				<li><a href="namespace-Modules.html">Modules<span></span></a>
+						<ul>
+				<li><a href="namespace-Modules.Backend.html">Backend<span></span></a>
+						<ul>
+				<li><a href="namespace-Modules.Backend.Controllers.html">Controllers</a>
+						</li>
+				<li><a href="namespace-Modules.Backend.Forms.html">Forms</a>
+						</li>
+							</ul></li>
+				<li><a href="namespace-Modules.Frontend.html">Frontend<span></span></a>
+						<ul>
+				<li><a href="namespace-Modules.Frontend.Controllers.html">Controllers</a>
+						</li>
+							</ul></li></ul></li>
+				<li><a href="namespace-None.html">None</a>
+						</li>
+				<li><a href="namespace-PHP.html">PHP</a>
+						</li>
+				<li><a href="namespace-Plugins.html">Plugins<span></span></a>
+						<ul>
+				<li><a href="namespace-Plugins.Breadcrumbs.html">Breadcrumbs</a>
+						</li>
+				<li><a href="namespace-Plugins.Debugger.html">Debugger</a>
+						</li>
+				<li><a href="namespace-Plugins.Dispatcher.html">Dispatcher</a>
+						</li>
+							</ul></li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-Libraries.CacheManagement.Storages.Apc.html">Apc</a></li>
+				<li><a href="class-Libraries.CacheManagement.Storages.Memcache.html">Memcache</a></li>
+				<li class="active"><a href="class-Libraries.CacheManagement.Storages.Mysql.html">Mysql</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text">
+		<input type="submit" value="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-Libraries.CacheManagement.Storages.html" title="Summary of Libraries\CacheManagement\Storages"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+			<li>
+				<a href="deprecated.html" title="List of deprecated elements"><span>Deprecated</span></a>
+			</li>
+			<li>
+				<a href="todo.html" title="Todo list"><span>Todo</span></a>
+			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="phalcon-dashboard-api-api-documentation.zip" title="Download documentation as ZIP archive"><span>Download</span></a>
+			</li>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class Mysql</h1>
+
+
+	<div class="description">
+	
+<p>MySQL statistics pool</p>
+
+	</div>
+
+	<dl class="tree">
+		<dd style="padding-left:0px">
+			<a href="class-Phalcon.Mvc.Model.html"><span>Phalcon\Mvc\Model</span></a>
+			
+			 implements 
+				<a href="class-Phalcon.Mvc.ModelInterface.html"><span>Phalcon\Mvc\ModelInterface</span></a>, 
+			
+				<a href="class-Phalcon.Mvc.Model.ResultInterface.html"><span>Phalcon\Mvc\Model\ResultInterface</span></a>, 
+			
+				<a href="class-Phalcon.DI.InjectionAwareInterface.html"><span>Phalcon\DI\InjectionAwareInterface</span></a>, 
+			
+				<a href="class-Serializable.html"><span>Serializable</span></a>
+			
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by">
+<b><span>Libraries\CacheManagement\Storages\Mysql</span></b>			
+			 implements 
+				<a href="class-Libraries.CacheManagement.AwareInterface.html"><span>Libraries\CacheManagement\AwareInterface</span></a>
+			
+			
+		</dd>
+	</dl>
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-Libraries.html">Libraries</a>\<a href="namespace-Libraries.CacheManagement.html">CacheManagement</a>\<a href="namespace-Libraries.CacheManagement.Storages.html">Storages</a><br>
+		<b>Package:</b> Phalcon\Libraries\CacheManagement<br>
+
+				<b>Author:</b>
+				Stanislav WEB | Lugansk &lt;<a
+href="mailto:stanisov&#64;gmail.com">stanisov&#64;<!-- -->gmail.com</a>&gt;<br>
+				<b>Version:</b>
+				1.0<br>
+				<b>Since:</b>
+				PHP &gt;=5.4<br>
+		<b>Located at</b> <a href="source-class-Libraries.CacheManagement.Storages.Mysql.html#8-204" title="Go to source code">Libraries/CacheManagement/Storages/Mysql.php</a><br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="initialize" id="_initialize">
+
+		<td class="attributes"><code>
+			 public 
+			Phalcon\Db\Adapter\PDO
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_initialize">#</a>
+		<code><a href="source-class-Libraries.CacheManagement.Storages.Mysql.html#53-75" title="Go to source code">initialize</a>( )</code>
+
+		<div class="description short">
+			
+<p>Get connection to MySQL Server</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Get connection to MySQL Server</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>Phalcon\Db\Adapter\PDO</code><br>\Phalcon\Db\Adapter\PDO<br>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getAdapterConfig" id="_getAdapterConfig">
+
+		<td class="attributes"><code>
+			 public 
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getAdapterConfig">#</a>
+		<code><a href="source-class-Libraries.CacheManagement.Storages.Mysql.html#77-84" title="Go to source code">getAdapterConfig</a>( )</code>
+
+		<div class="description short">
+			
+<p>Get adapter configuration</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Get adapter configuration</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code><br>array<br>
+				</div>
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Libraries.CacheManagement.AwareInterface.html#_getAdapterConfig">Libraries\CacheManagement\AwareInterface::getAdapterConfig()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getServerStatus" id="_getServerStatus">
+
+		<td class="attributes"><code>
+			 public 
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getServerStatus">#</a>
+		<code><a href="source-class-Libraries.CacheManagement.Storages.Mysql.html#86-111" title="Go to source code">getServerStatus</a>( )</code>
+
+		<div class="description short">
+			
+<p>Get server status information</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Get server status information</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code><br>array<br>
+				</div>
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Libraries.CacheManagement.AwareInterface.html#_getServerStatus">Libraries\CacheManagement\AwareInterface::getServerStatus()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getStorageStatus" id="_getStorageStatus">
+
+		<td class="attributes"><code>
+			 public 
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getStorageStatus">#</a>
+		<code><a href="source-class-Libraries.CacheManagement.Storages.Mysql.html#113-136" title="Go to source code">getStorageStatus</a>( )</code>
+
+		<div class="description short">
+			
+<p>Get storage information</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Get storage information</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code><br>array<br>
+				</div>
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Libraries.CacheManagement.AwareInterface.html#_getStorageStatus">Libraries\CacheManagement\AwareInterface::getStorageStatus()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getPool" id="_getPool">
+
+		<td class="attributes"><code>
+			 public 
+			array|mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getPool">#</a>
+		<code><a href="source-class-Libraries.CacheManagement.Storages.Mysql.html#138-148" title="Go to source code">getPool</a>( <span>integer <var>$limit</var> = <span class="php-num">100</span></span> )</code>
+
+		<div class="description short">
+			
+<p>Get storage content</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Get storage content</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$limit</var></dt>
+					<dd>limit of records</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array|mixed</code><br>array|mixed<br>
+				</div>
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Libraries.CacheManagement.AwareInterface.html#_getPool">Libraries\CacheManagement\AwareInterface::getPool()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="flushData" id="_flushData">
+
+		<td class="attributes"><code>
+			 public 
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_flushData">#</a>
+		<code><a href="source-class-Libraries.CacheManagement.Storages.Mysql.html#150-170" title="Go to source code">flushData</a>( <span>mixed <var>$params</var> = <span class="php-keyword1">null</span></span> )</code>
+
+		<div class="description short">
+			
+<p>Defragmentation of sql cache</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Defragmentation of sql cache</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$params</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br>| null<br>
+				</div>
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Libraries.CacheManagement.AwareInterface.html#_flushData">Libraries\CacheManagement\AwareInterface::flushData()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="deleteData" id="_deleteData">
+
+		<td class="attributes"><code>
+			 public 
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_deleteData">#</a>
+		<code><a href="source-class-Libraries.CacheManagement.Storages.Mysql.html#172-191" title="Go to source code">deleteData</a>( <span>array <var>$data</var> = []</span> )</code>
+
+		<div class="description short">
+			
+<p>Reset MySQL cache</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Reset MySQL cache</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$data</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br>| null<br>
+				</div>
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Libraries.CacheManagement.AwareInterface.html#_deleteData">Libraries\CacheManagement\AwareInterface::deleteData()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setData" id="_setData">
+
+		<td class="attributes"><code>
+			 public 
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setData">#</a>
+		<code><a href="source-class-Libraries.CacheManagement.Storages.Mysql.html#193-202" title="Go to source code">setData</a>( <span>array <var>$data</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Insert Items</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Insert Items</p>
+
+
+				<h4>Deprecated</h4>
+				<div class="list">
+						but don't need to remove<br>
+				</div>
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$data</var></dt>
+					<dd>maybe key =&amp;gt; value</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br>| null<br>
+				</div>
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Libraries.CacheManagement.AwareInterface.html#_setData">Libraries\CacheManagement\AwareInterface::setData()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-Phalcon.Mvc.Model.html#methods">Phalcon\Mvc\Model</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-Phalcon.Mvc.Model.html#___call">__call()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#___callStatic">__callStatic()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#___construct">__construct()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#___get">__get()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#___isset">__isset()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#___set">__set()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#__cancelOperation">_cancelOperation()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#__checkForeignKeysRestrict">_checkForeignKeysRestrict()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#__checkForeignKeysReverseCascade">_checkForeignKeysReverseCascade()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#__checkForeignKeysReverseRestrict">_checkForeignKeysReverseRestrict()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#__doLowInsert">_doLowInsert()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#__doLowUpdate">_doLowUpdate()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#__exists">_exists()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#__getRelatedRecords">_getRelatedRecords()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#__groupResult">_groupResult()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#__postSave">_postSave()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#__postSaveRelatedRecords">_postSaveRelatedRecords()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#__preSave">_preSave()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#__preSaveRelatedRecords">_preSaveRelatedRecords()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#_addBehavior">addBehavior()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#_appendMessage">appendMessage()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#_assign">assign()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#_average">average()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#_belongsTo">belongsTo()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#_cloneResult">cloneResult()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#_cloneResultMap">cloneResultMap()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#_cloneResultMapHydrate">cloneResultMapHydrate()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#_count">count()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#_create">create()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#_delete">delete()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#_dump">dump()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#_find">find()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#_findFirst">findFirst()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#_fireEvent">fireEvent()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#_fireEventCancel">fireEventCancel()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#_getChangedFields">getChangedFields()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#_getDI">getDI()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#_getDirtyState">getDirtyState()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#_getEventsManager">getEventsManager()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#_getMessages">getMessages()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#_getModelsManager">getModelsManager()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#_getModelsMetaData">getModelsMetaData()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#_getOperationMade">getOperationMade()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#_getReadConnection">getReadConnection()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#_getReadConnectionService">getReadConnectionService()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#_getRelated">getRelated()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#_getSchema">getSchema()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#_getSnapshotData">getSnapshotData()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#_getSource">getSource()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#_getWriteConnection">getWriteConnection()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#_getWriteConnectionService">getWriteConnectionService()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#_hasChanged">hasChanged()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#_hasMany">hasMany()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#_hasManyToMany">hasManyToMany()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#_hasOne">hasOne()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#_hasSnapshotData">hasSnapshotData()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#_keepSnapshots">keepSnapshots()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#_maximum">maximum()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#_minimum">minimum()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#_query">query()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#_readAttribute">readAttribute()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#_refresh">refresh()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#_reset">reset()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#_save">save()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#_serialize">serialize()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#_setConnectionService">setConnectionService()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#_setDI">setDI()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#_setDirtyState">setDirtyState()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#_setEventsManager">setEventsManager()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#_setReadConnectionService">setReadConnectionService()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#_setSchema">setSchema()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#_setSnapshotData">setSnapshotData()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#_setSource">setSource()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#_setTransaction">setTransaction()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#_setWriteConnectionService">setWriteConnectionService()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#_setup">setup()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#_skipAttributes">skipAttributes()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#_skipAttributesOnCreate">skipAttributesOnCreate()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#_skipAttributesOnUpdate">skipAttributesOnUpdate()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#_skipOperation">skipOperation()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#_sum">sum()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#_toArray">toArray()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#_unserialize">unserialize()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#_update">update()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#_useDynamicUpdate">useDynamicUpdate()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#_validate">validate()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#_validationHasFailed">validationHasFailed()</a>, 
+			<a href="class-Phalcon.Mvc.Model.html#_writeAttribute">writeAttribute()</a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+	<table class="summary inherited">
+	<caption>Constants inherited from <a href="class-Phalcon.Mvc.Model.html#constants">Phalcon\Mvc\Model</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-Phalcon.Mvc.Model.html#DIRTY_STATE_DETACHED"><b>DIRTY_STATE_DETACHED</b></a>, 
+			<a href="class-Phalcon.Mvc.Model.html#DIRTY_STATE_PERSISTENT"><b>DIRTY_STATE_PERSISTENT</b></a>, 
+			<a href="class-Phalcon.Mvc.Model.html#DIRTY_STATE_TRANSIENT"><b>DIRTY_STATE_TRANSIENT</b></a>, 
+			<a href="class-Phalcon.Mvc.Model.html#OP_CREATE"><b>OP_CREATE</b></a>, 
+			<a href="class-Phalcon.Mvc.Model.html#OP_DELETE"><b>OP_DELETE</b></a>, 
+			<a href="class-Phalcon.Mvc.Model.html#OP_NONE"><b>OP_NONE</b></a>, 
+			<a href="class-Phalcon.Mvc.Model.html#OP_UPDATE"><b>OP_UPDATE</b></a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+	<table class="summary inherited">
+	<caption>Properties inherited from <a href="class-Phalcon.Mvc.Model.html#properties">Phalcon\Mvc\Model</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-Phalcon.Mvc.Model.html#$_dependencyInjector"><var>$_dependencyInjector</var></a>, 
+			<a href="class-Phalcon.Mvc.Model.html#$_dirtyState"><var>$_dirtyState</var></a>, 
+			<a href="class-Phalcon.Mvc.Model.html#$_errorMessages"><var>$_errorMessages</var></a>, 
+			<a href="class-Phalcon.Mvc.Model.html#$_modelsManager"><var>$_modelsManager</var></a>, 
+			<a href="class-Phalcon.Mvc.Model.html#$_modelsMetaData"><var>$_modelsMetaData</var></a>, 
+			<a href="class-Phalcon.Mvc.Model.html#$_operationMade"><var>$_operationMade</var></a>, 
+			<a href="class-Phalcon.Mvc.Model.html#$_related"><var>$_related</var></a>, 
+			<a href="class-Phalcon.Mvc.Model.html#$_skipped"><var>$_skipped</var></a>, 
+			<a href="class-Phalcon.Mvc.Model.html#$_snapshot"><var>$_snapshot</var></a>, 
+			<a href="class-Phalcon.Mvc.Model.html#$_transaction"><var>$_transaction</var></a>, 
+			<a href="class-Phalcon.Mvc.Model.html#$_uniqueKey"><var>$_uniqueKey</var></a>, 
+			<a href="class-Phalcon.Mvc.Model.html#$_uniqueParams"><var>$_uniqueParams</var></a>, 
+			<a href="class-Phalcon.Mvc.Model.html#$_uniqueTypes"><var>$_uniqueTypes</var></a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		Phalcon Dashboard API API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js?2299887241"></script>
+<script src="elementlist.js?2460461412"></script>
+</body>
+</html>

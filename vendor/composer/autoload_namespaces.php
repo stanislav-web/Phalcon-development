@@ -7,5 +7,8 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Whoops' => array($vendorDir . '/filp/whoops/src'),
+    'TokenReflection' => array($vendorDir . '/andrewsville/php-token-reflection'),
     'Fabfuel\\Prophiler\\' => array($vendorDir . '/fabfuel/prophiler/src'),
+    'FSHL' => array($vendorDir . '/kukulich/fshl'),
+    'ApiGen' => array($vendorDir . '/apigen/apigen'),
 );

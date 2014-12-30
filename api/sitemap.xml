@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url>
+	<loc>http://phalcon.local/index.html</loc>
+</url>
+<url>
+	<loc>http://phalcon.local/namespace-Helpers.html</loc>
+</url>
+<url>
+	<loc>http://phalcon.local/namespace-Libraries.html</loc>
+</url>
+<url>
+	<loc>http://phalcon.local/namespace-Libraries.CacheManagement.html</loc>
+</url>
+<url>
+	<loc>http://phalcon.local/namespace-Libraries.CacheManagement.Storages.html</loc>
+</url>
+<url>
+	<loc>http://phalcon.local/namespace-Libraries.Navigation.html</loc>
+</url>
+<url>
+	<loc>http://phalcon.local/namespace-Models.html</loc>
+</url>
+<url>
+	<loc>http://phalcon.local/namespace-Modules.html</loc>
+</url>
+<url>
+	<loc>http://phalcon.local/namespace-Modules.Backend.html</loc>
+</url>
+<url>
+	<loc>http://phalcon.local/namespace-Modules.Backend.Controllers.html</loc>
+</url>
+<url>
+	<loc>http://phalcon.local/namespace-Modules.Backend.Forms.html</loc>
+</url>
+<url>
+	<loc>http://phalcon.local/namespace-Modules.Frontend.html</loc>
+</url>
+<url>
+	<loc>http://phalcon.local/namespace-Modules.Frontend.Controllers.html</loc>
+</url>
+<url>
+	<loc>http://phalcon.local/namespace-None.html</loc>
+</url>
+<url>
+	<loc>http://phalcon.local/namespace-PHP.html</loc>
+</url>
+<url>
+	<loc>http://phalcon.local/namespace-Plugins.html</loc>
+</url>
+<url>
+	<loc>http://phalcon.local/namespace-Plugins.Breadcrumbs.html</loc>
+</url>
+<url>
+	<loc>http://phalcon.local/namespace-Plugins.Debugger.html</loc>
+</url>
+<url>
+	<loc>http://phalcon.local/namespace-Plugins.Dispatcher.html</loc>
+</url>
+
+
+</urlset>

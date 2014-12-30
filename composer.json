@@ -21,12 +21,12 @@
         }
     ],
     "require": {
-        "php": ">=5.3.12",
         "stanislav-web/phalcon-searcher": "dev-master",
-        "filp/whoops": "~1.0"
+        "swiftmailer/swiftmailer": "5.*",
+        "filp/whoops": "~1.0",
+        "fabfuel/prophiler": "1.*"
     },
     "require-dev": {
-        "fabfuel/prophiler": "1.*",
-        "swiftmailer/swiftmailer": "5.*"
+        "apigen/apigen": "~2.8"
     }
 }
