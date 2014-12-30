@@ -22,7 +22,8 @@
     ],
     "require": {
         "php": ">=5.3.12",
-        "stanislav-web/phalcon-searcher": "dev-master"
+        "stanislav-web/phalcon-searcher": "dev-master",
+        "filp/whoops": "~1.0"
     },
     "require-dev": {
         "fabfuel/prophiler": "~1.0",

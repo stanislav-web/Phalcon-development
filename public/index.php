@@ -7,6 +7,7 @@
  */
 defined('DOCUMENT_ROOT') || define('DOCUMENT_ROOT', $_SERVER["DOCUMENT_ROOT"]);
 defined('APP_PATH') || define('APP_PATH', DOCUMENT_ROOT . '/../apps');
+
 defined('APPLICATION_ENV') ||
 define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production'));
 
@@ -18,6 +19,7 @@ require_once DOCUMENT_ROOT . ' /../vendor/autoload.php';
 
 // Create factory container
 $di = new Phalcon\DI\FactoryDefault();
+
 
 // Set default routes
 $di->set('router', function () {
@@ -54,6 +56,11 @@ try {
             'path' => APP_PATH . '/Modules/Backend/Module.php',
         ],
     ])->setDefaultModule('Frontend');
+
+    if (APPLICATION_ENV === 'development') {
+        // require whoops
+        new Whoops\Provider\Phalcon\WhoopsServiceProvider($di);
+    }
 
     // Handle the request
     echo $application->handle()->getContent();

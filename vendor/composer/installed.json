@@ -1,0 +1,228 @@
+[
+    {
+        "name": "stanislav-web/phalcon-searcher",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/stanislav-web/Searcher.git",
+            "reference": "153a74f7a34ee7107217fdc230c2bc78880a51e7"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/stanislav-web/Searcher/zipball/153a74f7a34ee7107217fdc230c2bc78880a51e7",
+            "reference": "153a74f7a34ee7107217fdc230c2bc78880a51e7",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3"
+        },
+        "time": "2014-12-29 12:52:08",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.x-dev"
+            }
+        },
+        "installation-source": "source",
+        "autoload": {
+            "psr-4": {
+                "Searcher\\": "src/Searcher",
+                "Searcher\\Searcher\\Aware\\": "src/Searcher/Aware",
+                "Searcher\\Searcher\\Exceptions\\": "src/Searcher/Exceptions",
+                "Searcher\\Searcher\\Factories\\": "src/Searcher/Factories",
+                "Searcher\\Searcher\\Hydrators\\": "src/Searcher/Hydrators"
+            },
+            "classmap": [
+                "phpunit/src/Searcher"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Stanislav WEB",
+                "email": "stanisov@gmail.com",
+                "homepage": "http://reds.com",
+                "role": "Developer"
+            }
+        ],
+        "description": "Phalcon Database Searcher. This is the search service is designed to search multiple SQL tables. Convenient to use autocomplete, search documents, search the whole site.",
+        "homepage": "https://github.com/stanislav-web/Searcher",
+        "keywords": [
+            "phalcon",
+            "phalcon search",
+            "phalcon searcher"
+        ]
+    },
+    {
+        "name": "swiftmailer/swiftmailer",
+        "version": "v5.3.0",
+        "version_normalized": "5.3.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/swiftmailer/swiftmailer.git",
+            "reference": "b86b927dfefdb56ab0b22d1350033d9a38e9f205"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/b86b927dfefdb56ab0b22d1350033d9a38e9f205",
+            "reference": "b86b927dfefdb56ab0b22d1350033d9a38e9f205",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.3"
+        },
+        "require-dev": {
+            "mockery/mockery": "~0.9.1"
+        },
+        "time": "2014-10-04 05:53:18",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "5.3-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "files": [
+                "lib/swift_required.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Chris Corbyn"
+            },
+            {
+                "name": "Fabien Potencier",
+                "email": "fabien@symfony.com"
+            }
+        ],
+        "description": "Swiftmailer, free feature-rich PHP mailer",
+        "homepage": "http://swiftmailer.org",
+        "keywords": [
+            "mail",
+            "mailer"
+        ]
+    },
+    {
+        "name": "fabfuel/prophiler",
+        "version": "1.2.0",
+        "version_normalized": "1.2.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/fabfuel/prophiler.git",
+            "reference": "67c4082d47a5c8662c761de4bc71b77c6da2da65"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/fabfuel/prophiler/zipball/67c4082d47a5c8662c761de4bc71b77c6da2da65",
+            "reference": "67c4082d47a5c8662c761de4bc71b77c6da2da65",
+            "shasum": ""
+        },
+        "require": {
+            "php": "~5.4"
+        },
+        "require-dev": {
+            "doctrine/orm": "~2.4",
+            "erusev/parsedown": "~1.1",
+            "fabfuel/mongo": "~0.4",
+            "phpmd/phpmd": "~1.0",
+            "phpunit/phpunit": "~4.0",
+            "psr/log": "~1.0",
+            "squizlabs/php_codesniffer": "~1.0"
+        },
+        "suggest": {
+            "fabfuel/mongo": "ORM for Mongo, supports lazy loading, object references, subdocument classes and their collections.",
+            "phalcon/devtools": "This tools provide you useful scripts, helping to develop applications that use with Phalcon."
+        },
+        "time": "2014-12-18 11:19:37",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Fabfuel\\Prophiler\\": "src/"
+            },
+            "classmap": [
+                "tests/"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "authors": [
+            {
+                "name": "Fabian Fuelling",
+                "email": "fabian@fabfuel.de"
+            }
+        ],
+        "description": "PHP Profiler & Developer Toolbar built for Phalcon"
+    },
+    {
+        "name": "filp/whoops",
+        "version": "1.1.3",
+        "version_normalized": "1.1.3.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/filp/whoops.git",
+            "reference": "a85fab9a98f1f9b8ebcdbe71733f0d910e5b9adf"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/filp/whoops/zipball/a85fab9a98f1f9b8ebcdbe71733f0d910e5b9adf",
+            "reference": "a85fab9a98f1f9b8ebcdbe71733f0d910e5b9adf",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.0"
+        },
+        "require-dev": {
+            "mockery/mockery": "0.9.*"
+        },
+        "time": "2014-10-26 09:05:09",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.2-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Whoops": "src/"
+            },
+            "classmap": [
+                "src/deprecated"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Filipe Dobreira",
+                "homepage": "https://github.com/filp",
+                "role": "Developer"
+            }
+        ],
+        "description": "php error handling for cool kids",
+        "homepage": "https://github.com/filp/whoops",
+        "keywords": [
+            "error",
+            "exception",
+            "handling",
+            "library",
+            "silex-provider",
+            "whoops",
+            "zf2"
+        ]
+    }
+]

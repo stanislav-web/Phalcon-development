@@ -59,23 +59,6 @@ class Frontend implements ModuleDefinitionInterface
         ]);
 
         $loader->register();
-
-        if (isset($this->_config->database->profiler)) {
-            $namespaces = array_merge(
-                $loader->getNamespaces(), [
-                    'Phalcon\Debugger' => APP_PATH . '/Libraries/Debugger',
-                    'Phalcon\Utils' => APP_PATH . '/Libraries/PrettyExceptions/Library/Phalcon/Utils'
-
-                ]
-            );
-            $loader->registerNamespaces($namespaces);
-
-            // call pretty loader
-            set_error_handler(function ($errorCode, $errorMessage, $errorFile, $errorLine) {
-                $p = new \Phalcon\Utils\PrettyExceptions();
-                $p->handleError($errorCode, $errorMessage, $errorFile, $errorLine);
-            });
-        }
     }
 
     /**

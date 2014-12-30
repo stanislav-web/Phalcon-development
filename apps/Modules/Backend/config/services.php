@@ -1,7 +1,5 @@
 <?php
 
-// Tuning up components for the module dependencies BackEnd
-
 // Component URL is used to generate all kinds of addresses in the annex
 
 $di->set('url', function () {
@@ -40,7 +38,7 @@ $di->setShared('db', function () {
 // Component Session. Starting a Session
 
 $di->setShared('session', function () {
-    $session = new Phalcon\Session\Adapter\Memcache([
+    $session = new \Phalcon\Session\Adapter\Files([
         'host' => $this->_config->cache->memcached->host,        // mandatory
         'port' => $this->_config->cache->memcached->port,        // optional (standard: 11211)
         'lifetime' => $this->_config->cache->lifetime,                // optional (standard: 8600)
