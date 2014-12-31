@@ -1,5 +1,0 @@
-<?php
-
-function tokenReflectionParameterNoReference($one)
-{
-}

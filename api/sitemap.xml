@@ -43,9 +43,6 @@
 	<loc>http://phalcon.local/namespace-None.html</loc>
 </url>
 <url>
-	<loc>http://phalcon.local/namespace-PHP.html</loc>
-</url>
-<url>
 	<loc>http://phalcon.local/namespace-Plugins.html</loc>
 </url>
 <url>
@@ -59,4 +56,7 @@
 </url>
 
 
+<url>
+	<loc>http://phalcon.local/class-Plugins.Dispatcher.NotFoundPlugin.html</loc>
+</url>
 </urlset>

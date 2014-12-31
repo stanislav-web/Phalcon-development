@@ -1,5 +1,5 @@
 <?php
-namespace Modules\Frontend\Controllers;
+namespace Modules\Backend\Controllers;
 
 class ErrorController extends \Phalcon\Mvc\Controller
 {

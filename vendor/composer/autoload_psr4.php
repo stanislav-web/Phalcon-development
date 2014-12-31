@@ -6,9 +6,15 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Test\\Searcher\\Models\\' => array($vendorDir . '/stanislav-web/phalcon-searcher/phpunit/src/Searcher/Models'),
+    'Test\\Searcher\\Hydrators\\' => array($vendorDir . '/stanislav-web/phalcon-searcher/phpunit/src/Searcher/Hydrators'),
+    'Test\\Searcher\\Factories\\' => array($vendorDir . '/stanislav-web/phalcon-searcher/phpunit/src/Searcher/Factories'),
+    'Test\\Searcher\\' => array($vendorDir . '/stanislav-web/phalcon-searcher/phpunit/src/Searcher'),
+    'Seld\\JsonLint\\' => array($vendorDir . '/seld/jsonlint/src/Seld/JsonLint'),
     'Searcher\\Searcher\\Hydrators\\' => array($vendorDir . '/stanislav-web/phalcon-searcher/src/Searcher/Hydrators'),
     'Searcher\\Searcher\\Factories\\' => array($vendorDir . '/stanislav-web/phalcon-searcher/src/Searcher/Factories'),
     'Searcher\\Searcher\\Exceptions\\' => array($vendorDir . '/stanislav-web/phalcon-searcher/src/Searcher/Exceptions'),
     'Searcher\\Searcher\\Aware\\' => array($vendorDir . '/stanislav-web/phalcon-searcher/src/Searcher/Aware'),
     'Searcher\\' => array($vendorDir . '/stanislav-web/phalcon-searcher/src/Searcher'),
+    'ApiGen\\' => array($vendorDir . '/apigen/apigen/src/ApiGen'),
 );

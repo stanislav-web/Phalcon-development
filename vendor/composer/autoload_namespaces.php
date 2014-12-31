@@ -8,7 +8,14 @@ $baseDir = dirname($vendorDir);
 return array(
     'Whoops' => array($vendorDir . '/filp/whoops/src'),
     'TokenReflection' => array($vendorDir . '/andrewsville/php-token-reflection'),
+    'Symfony\\Component\\OptionsResolver\\' => array($vendorDir . '/symfony/options-resolver'),
+    'Symfony\\Component\\Console\\' => array($vendorDir . '/symfony/console'),
+    'Michelf' => array($vendorDir . '/michelf/php-markdown'),
+    'Kdyby\\Events\\' => array($vendorDir . '/kdyby/events/src'),
+    'JsonSchema' => array($vendorDir . '/justinrainbow/json-schema/src'),
+    'Herrera\\Version' => array($vendorDir . '/herrera-io/version/src/lib'),
+    'Herrera\\Phar\\Update' => array($vendorDir . '/herrera-io/phar-update/src/lib'),
+    'Herrera\\Json' => array($vendorDir . '/herrera-io/json/src/lib'),
     'Fabfuel\\Prophiler\\' => array($vendorDir . '/fabfuel/prophiler/src'),
     'FSHL' => array($vendorDir . '/kukulich/fshl'),
-    'ApiGen' => array($vendorDir . '/apigen/apigen'),
 );

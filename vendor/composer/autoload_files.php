@@ -6,7 +6,9 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    $vendorDir . '/texy/texy/src/texy.php',
-    $vendorDir . '/nette/nette/Nette/common/shortcuts.php',
+    $vendorDir . '/tracy/tracy/src/shortcuts.php',
+    $vendorDir . '/herrera-io/json/src/lib/json_version.php',
+    $vendorDir . '/herrera-io/phar-update/src/lib/constants.php',
+    $vendorDir . '/kdyby/events/src/Doctrine/compatibility.php',
     $vendorDir . '/swiftmailer/swiftmailer/lib/swift_required.php',
 );
