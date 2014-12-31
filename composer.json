@@ -12,7 +12,7 @@
         "phalcon dashboard"
     ],
     "homepage": "http://reds.com",
-    "license": "BSD-3",
+    "license": "MIT",
     "authors": [
         {
             "name": "Stanislav WEB",
