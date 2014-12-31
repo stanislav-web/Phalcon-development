@@ -19,4 +19,3 @@ before_script:
   - composer show -i
   - sh ./build/phalcon.sh
   - php -m | grep -i Phalcon
-  - php ./vendor/bin/apigen generate
