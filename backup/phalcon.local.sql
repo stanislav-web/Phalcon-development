@@ -3,8 +3,8 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Дек 29 2014 г., 10:49
--- Версия сервера: 5.6.19-0ubuntu0.14.04.1
+-- Время создания: Янв 02 2015 г., 20:08
+-- Версия сервера: 5.7.5-m15
 -- Версия PHP: 5.5.9-1ubuntu4.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -30,7 +30,7 @@ CREATE DEFINER=`root`@`localhost` FUNCTION `REBUILD_TREE`() RETURNS int(11)
 BEGIN
     -- Изначально сбрасываем все границы в NULL
     UPDATE categories t SET lft = NULL, rgt = NULL;
-    
+
     -- Устанавливаем границы корневым элементам
     SET @i := 0;
     UPDATE categories t SET lft = (@i := @i + 1), rgt = (@i := @i + 1)
@@ -91,7 +91,7 @@ CREATE TABLE IF NOT EXISTS `categories` (
   `lft` smallint(5) unsigned DEFAULT NULL COMMENT 'Left padding',
   `rgt` smallint(5) unsigned DEFAULT NULL COMMENT 'Right padding',
   `sort` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT 'Sort index',
-  `date_create` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'Create date',
+  `date_create` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Create date',
   `date_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Update date'
 ) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
 
@@ -150,8 +150,8 @@ CREATE TABLE IF NOT EXISTS `engines` (
   `host` varchar(45) DEFAULT NULL COMMENT 'identity host name',
   `code` char(3) NOT NULL COMMENT 'Engine short code',
   `currency_id` tinyint(3) unsigned DEFAULT NULL COMMENT 'Relation to `currency` table',
-  `status` bit(1) NOT NULL COMMENT 'enabled/disabled',
-  `date_create` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `status` tinyint(1) NOT NULL COMMENT 'enabled/disabled',
+  `date_create` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `date_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8 MAX_ROWS=10;
 
@@ -160,7 +160,7 @@ CREATE TABLE IF NOT EXISTS `engines` (
 --
 
 INSERT INTO `engines` (`id`, `name`, `description`, `host`, `code`, `currency_id`, `status`, `date_create`, `date_update`) VALUES
-(31, 'Phalcon Shop', '<p><span style="color: #575757; font-family: ProximaNovaLight, ''Helvetica Neue'', Helvetica, Arial, sans-serif; font-size: 15px; line-height: 24px;">While meta descriptions won''t directly help move your online store up in the search results, they are an important factor that will affect whether people click on it in the search results. When composing your descriptions, aim to create great ad copy that will draw the user into your site.</span></p>', 'phalcon.local', 'PHL', 4, b'1', '2014-11-30 17:28:53', '2014-11-30 15:28:53');
+(31, 'Phalcon Shop', '<p><span style="color: #575757; font-family: ProximaNovaLight, ''Helvetica Neue'', Helvetica, Arial, sans-serif; font-size: 15px; line-height: 24px;">While meta descriptions won''t directly help move your online store up in the search results, they are an important factor that will affect whether people click on it in the search results. When composing your descriptions, aim to create great ad copy that will draw the user into your site.</span></p>', 'phalcon.local', 'PHL', 4, 1, '2014-11-30 17:28:53', '2014-11-30 15:28:53');
 
 -- --------------------------------------------------------
 
@@ -199,8 +199,8 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `login`, `name`, `surname`, `password`, `salt`, `state`, `rating`, `date_registration`, `date_lastvisit`, `ip`, `ua`) VALUES
-(1, 'stanisov@gmail.com', 'Stanislav', 'WEB', '$2a$08$Sfv19bymtI2T0zehGFFvcukropITsLTrwCUIoqACCwbariVetrhOm', '0123456789', '2', '0', '2007-12-31 23:59:59', '2014-12-23 23:51:48', 2130706433, 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'),
-(2, 'moderator@gmail.com', 'Moder', 'Site', '$2a$08$i8eF./itFwHjirh2A5Qq.OPfa3I1T/mut.Q3uHBXbw9BCMWQoVcda', '0123456789', '2', '1', '2007-12-31 23:59:59', '2007-12-31 23:59:59', 3232235521, 'USER AGENT');
+(1, 'stanisov@gmail.com', 'Stanislav', 'WEB', '$2a$08$Sfv19bymtI2T0zehGFFvcukropITsLTrwCUIoqACCwbariVetrhOm', '0123456789', '2', 0, '2007-12-31 23:59:59', '2014-12-23 23:51:48', 2130706433, 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'),
+(2, 'moderator@gmail.com', 'Moder', 'Site', '$2a$08$i8eF./itFwHjirh2A5Qq.OPfa3I1T/mut.Q3uHBXbw9BCMWQoVcda', '0123456789', '2', 1, '2007-12-31 23:59:59', '2007-12-31 23:59:59', 3232235521, 'USER AGENT');
 
 -- --------------------------------------------------------
 

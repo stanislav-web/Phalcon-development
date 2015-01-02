@@ -94,8 +94,8 @@ $di->setShared('navigation', function () {
 if ($this->_config->cache->metadata == true) {
     $di->setShared('modelsMetadata', function () {
         return new Phalcon\Mvc\Model\Metadata\Apc([
-            'prefix' => $this->_confog->cache->prefix,
-            'lifetime' => $this->_confog->cache->lifetime
+            'prefix' => $this->_config->cache->prefix,
+            'lifetime' => $this->_config->cache->lifetime
         ]);
     });
 }
