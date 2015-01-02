@@ -1,0 +1,83 @@
+#!/bin/sh
+at /etc/nginx/sites-enabled/default
+proxy_cache_path /var/cache/nginx-imagecache levels=2 keys_zone=imagecache:128m inactive=30d;
+proxy_cache_path /var/cache/nginx-page levels=2 keys_zone=page:128m inactive=1h;
+
+server {
+
+ listen 80;
+ server_name beta.z95.kz;
+
+ index index.php index.html index.htm;
+ set $root_path '/var/www/public';
+ root $root_path;
+
+ location / {
+ try_files $uri $uri/ /index.php;
+
+ # if file exists return it right away
+ if (-f $request_filename) {
+ break;
+ }
+
+ # otherwise rewrite it
+ if (!-e $request_filename) {
+ rewrite ^(.+)$ /index.php?_url=$1 last;
+ break;
+ }
+
+ proxy_set_header X-Contry $geoip_country_code;
+ proxy_set_header GEOIP_COUNTRY_CODE $country;
+ proxy_set_header GEOIP_REGION $region;
+ proxy_set_header GEOIP_CITY $city;
+
+
+ }
+
+ location ~ \.php$ {
+ try_files $uri =404;
+ fastcgi_split_path_info ^(.+\.php)(/.+)$;
+ fastcgi_pass 127.0.0.1:9000;
+ fastcgi_index index.php;
+ fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+ fastcgi_param HTTP_X_REAL_IP $remote_addr;
+ include fastcgi_params;
+ }
+
+ location ^~ /f/ {
+ proxy_pass http://back95.ru:80;
+ proxy_cache_valid 200 2M;
+ proxy_cache_key "$uri";
+ proxy_cache imagecache;
+ expires 30d;
+ }
+
+# location ~* ^/(css|img|js|flv|swf|download)/(.+)$ {
+# root $root_path;
+# }
+
+ location ~* ^.+\.(html|jpg|jpeg|gif|png|svg|mp3|ogg|mpe?g|avi|zip|gz|bz2?|rar|swf|ico|js|css)$ {
+ root /var/www/public/;
+# access_log /var/log/nginx/front_direct.access.log ;
+ }
+
+ location ~ /\.ht {
+ deny all;
+ }
+}
+
+server {
+ listen 80;
+ server_name ~^\img\d+\.(.*)$;
+
+ location /f/ {
+ proxy_pass http://back95.ru:80;
+ proxy_cache_valid 200 2M;
+ proxy_cache_key "$uri";
+ proxy_cache imagecache;
+ expires 30d;
+ }
+}
+
+в /etc/php5/fpm/pool.d/www.conf
+listen = 127.0.0.1:9000

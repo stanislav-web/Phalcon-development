@@ -1,5 +1,0 @@
-<?php
-
-function tokenReflectionParameterNoArray($one)
-{
-}
