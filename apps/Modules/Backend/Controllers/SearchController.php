@@ -1,7 +1,6 @@
 <?php
 namespace Modules\Backend\Controllers;
 
-use Libraries\GlobalSearch\Searcher;
 use Phalcon\Mvc\View;
 
 /**
@@ -47,6 +46,7 @@ class SearchController extends ControllerBase
 
     /**
      * Get list of all engines
+     * @use \Searcher
      * @return null
      */
     public function indexAction()
@@ -57,11 +57,55 @@ class SearchController extends ControllerBase
         // add crumb to chain (name, link)
 
         $this->_breadcrumbs->add($title);
+        $query = $this->request->get('query', null, null);
 
+        if(isset($query) && $query !== null) {
+
+            // call searcher instance
+            $searcher = $this->di->get('searcher');
+
+            try {
+                // Prepare models and fields to participate in search
+                $searcher->setFields([
+                    '\Models\Engines'    =>    [
+                        'name',
+                        'description',
+                        'host',
+                    ],
+                    '\Models\Categories'    =>    [
+                        'title',
+                        'description'
+                    ],
+                    '\Models\Users'    =>    [
+                        'login',
+                        'name',
+                        'surname'
+                    ],
+                    '\Models\Currency'    =>    [
+                        'name'
+                    ]
+                ])->setQuery($query);
+
+                $result = $searcher->run();
+
+                var_dump($result);
+                exit('dsdsdsd');
+            }
+            catch(\Searcher\ExceptionFactory $e) {
+                echo $e->getMessage();
+            }
+
+            $this->view->setVar('title', $title. ' "'. $query.'"');
+
+        }
+        else {
+            $this->view->setVar('title', $title);
+        }
 
         $this->view->setVars([
-            'title' => $title,
+            'result'=> '',
         ]);
+
     }
 }
 

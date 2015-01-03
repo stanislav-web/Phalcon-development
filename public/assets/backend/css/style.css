@@ -569,7 +569,7 @@ table.no-border-bottom tr:last-child td {
 }
 
 .dataTables_wrapper {
-    overflow: hidden;
+    /**overflow: hidden;*/
 }
 
 .dataTables_wrapper table.table {

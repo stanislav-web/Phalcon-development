@@ -4,6 +4,7 @@ namespace Libraries\CacheManagement\Storages;
 use Helpers\Node;
 use Libraries\CacheManagement;
 use Phalcon\Config;
+use Phalcon\Di;
 
 /**
  * Memcached statistics pool
@@ -158,10 +159,10 @@ class Memcache implements CacheManagement\AwareInterface
     {
         $result = $this->_connection->flush();
         if ($result) {
-            $this->getDI()->get('flashSession')->success('Cache data flushed!');
+            Di::getDefault()->get('flashSession')->success('Cache data flushed!');
             return true;
         } else {
-            $this->getDI()->get('flashSession')->success('Flush the cache data failed!');
+            Di::getDefault()->get('flashSession')->error('Flush the cache data failed!');
             return false;
         }
     }
@@ -191,10 +192,10 @@ class Memcache implements CacheManagement\AwareInterface
             $result = $this->_connection->delete($data['key']);
 
         if ($result) {
-            $this->getDI()->get('flashSession')->success('Cache data #' . $data['key'] . ' deleted!');
+            Di::getDefault()->get('flashSession')->success('Cache data #' . $data['key'] . ' deleted!');
             return true;
         } else {
-            $this->getDI()->get('flashSession')->success('Delete the cache data #' . $data['key'] . ' failed!');
+            Di::getDefault()->get('flashSession')->error('Delete the cache data #' . $data['key'] . ' failed!');
             return false;
         }
     }

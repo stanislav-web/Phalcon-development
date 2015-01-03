@@ -90,29 +90,24 @@ class Engines extends \Phalcon\Mvc\Model
     {
         // its allow to keep empty data to my db
         $this->setup([
-            'notNullValidations' => false,
-            'exceptionOnFailedSave' => true
+            'notNullValidations' => true,
+            'exceptionOnFailedSave' => false
         ]);
 
         // skip attributes before every IN >
         $this->skipAttributesOnCreate(['date_update']);
         $this->skipAttributesOnUpdate(['date_update']);
 
-        // before insert event
-        $this->addBehavior(new Timestampable([
-                'beforeCreate' => [
-                    'field' => 'date_create',
-                    'format' => function () {
-                        $datetime = new Datetime(new DateTimeZone(date_default_timezone_get()));
-                        return $datetime->format('Y-m-d H:i:s');
-                    }
-                ]
-            ]
-        ));
-
         $this->belongsTo('currency_id', Currency::TABLE, 'id', [
             'alias' => 'currencyRel',
         ]);
+
+        $this->addBehavior(new Timestampable(array(
+            'beforeValidationOnCreate' => array(
+                'field' => 'date_create',
+                'format' => 'Y-m-d H:i:s'
+            )
+        )));
 
         // create relations between Engines => EnginesCategoriesRel
 
@@ -127,23 +122,23 @@ class Engines extends \Phalcon\Mvc\Model
     }
 
     /**
-     * Before create fields default values
-     */
-    public function beforeCreate()
-    {
-        // init fields by default
-        $this->setDateCreate(new \DateTime());
-    }
-
-    /**
      * Method to set the value of field date_create
      *
      * @param integer $status
      * @return $this
      */
-    public function setDateCreate($date_create)
+    public function setDateCreate($date_create = null)
     {
-        $this->date_create = $date_create;
+        if($date_create === null) {
+
+            $datetime = new Datetime(new DateTimeZone(date_default_timezone_get()));
+
+            $this->date_create = $datetime->format('Y-m-d H:i:s');
+
+        }
+        else {
+            $this->date_create  =   $date_create;
+        }
 
         return $this;
     }

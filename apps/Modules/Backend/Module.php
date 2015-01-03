@@ -99,8 +99,8 @@ class Backend implements ModuleDefinitionInterface
                 ]);
                 return $connect;
             }
-            catch (PDOException $e) {
-                throw new Exception('Could not connect to database: '.$e->getMessage());
+            catch (\PDOException $e) {
+                echo $e->getMessage();
             }
 
         }, true);

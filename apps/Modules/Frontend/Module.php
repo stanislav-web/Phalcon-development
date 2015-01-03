@@ -6,8 +6,6 @@ use Phalcon\Mvc\Dispatcher;
 use Phalcon\Mvc\ModuleDefinitionInterface;
 use Phalcon\Mvc\View;
 
-;
-
 /**
  * Frontend module
  * @package Phalcon
@@ -56,7 +54,6 @@ class Frontend implements ModuleDefinitionInterface
             'Models' => $this->_config['application']['modelsDir'],
             'Helpers' => $this->_config['application']['helpersDir'],
             'Libraries' => $this->_config['application']['libraryDir'],
-            'Modules\Frontend\Plugins' => APP_PATH . '/Modules/' . self::MODULE . '/Plugins/',
             'Plugins' => $this->_config['application']['pluginsDir'],
         ]);
 
@@ -101,8 +98,8 @@ class Frontend implements ModuleDefinitionInterface
                 ]);
                 return $connect;
             }
-            catch (PDOException $e) {
-                throw new Exception('Could not connect to database: '.$e->getMessage());
+            catch (\PDOException $e) {
+                echo $e->getMessage();
             }
 
         }, true);

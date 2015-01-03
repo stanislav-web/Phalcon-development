@@ -12,7 +12,7 @@
     <div class="col-xs-12">
         <div class="box-conten no-padding">
             <!-- Add Engine form -->
-            <?= $this->tag->form(['id' => 'add', 'class' => 'form-horizontal', 'method' => 'post']); ?>
+            <?= $this->tag->form(['id' => 'add-engine', 'class' => 'form-horizontal', 'method' => 'post']); ?>
             <div class="form-group">
                 <label for="name" class="control-label col-sm-3">Name</label>
 
@@ -20,7 +20,7 @@
                     <?= $form->render('name', [
                         'placeholder' => 'Input engine name',
                         'class' => 'form-control',
-                        'maxlength' => '40',
+                        'maxlength'     => '40',
                     ]); ?>
                 </div>
             </div>
@@ -91,10 +91,46 @@
         </div>
     </div>
 </div>
-
+<?= $this->tag->javascriptInclude("assets/plugins/store/store.min.js", true);  // local ?>
 <!-- Block content -->
 <script type="text/javascript">
     $(document).ready(function () {
+
+        if(!store.enabled) {
+            Common.alert('Local storage is not supported by your browser. Please disable "Private Mode", or upgrade to a modern browser.')
+            return;
+        }
+        else
+        {
+
+            var add = store.get('add-engine');
+
+            var fields = $('form#add-engine input[type=text], form#add-engine textarea');
+
+            if(typeof add !== typeof undefined)
+            {
+                $.each(fields, function(i) {
+
+                   var input = $(this);
+                   var	attr = input.attr('name');
+
+                    $.each(add, function(i, v) {
+
+                        if(typeof attr !== typeof undefined && attr !== false) {
+                            if(attr === v.name)
+                                input.val(v.value);
+                        }
+                    });
+                });
+            }
+
+            // serialize to storage
+
+            $('#save').on('click', function(e) {
+                store.remove('add-engine');
+                store.set('add-engine', $('form#add-engine').serializeArray());
+            });
+        }
 
         // Create Wysiwig editor for textare
         TinyMCEStart('#description', null);
@@ -106,7 +142,7 @@
 
         // Load  form validation
         LoadBootstrapValidatorScript(
-            $('#add').bootstrapValidator({
+            $('#add-engine').bootstrapValidator({
                 feedbackIcons: {
                     valid: 'fa fa-check',
                     invalid: 'fa fa-times',

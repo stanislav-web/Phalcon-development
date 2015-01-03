@@ -111,10 +111,12 @@ class EnginesController extends ControllerBase
      */
     public function assignAction()
     {
-        $id = $this->dispatcher->getParams()[0];
+
+        $id = $this->dispatcher->getParams();
+
 
         // check "edit" or "new" action in use
-        $engine = ($id === null) ? new Engines() : Engines::findFirst($id);
+        $engine = (empty($id) === true) ? new Engines() : Engines::findFirst($id[0]);
 
         if (!$engine instanceof Engines)
             return $this->response->redirect([
@@ -126,6 +128,7 @@ class EnginesController extends ControllerBase
         try {
             // handling POST data
             if ($this->request->isPost()) {
+
                 $engines =
                     $engine
                         ->setName($this->request->getPost('name'))
@@ -136,6 +139,7 @@ class EnginesController extends ControllerBase
                         ->setStatus($this->request->getPost('status', null, 0));
 
                 if (!$engines->save()) {
+
                     // the store failed, the following message were produced
                     foreach ($engines->getMessages() as $message)
                         $this->flashSession->error((string)$message);
@@ -149,8 +153,9 @@ class EnginesController extends ControllerBase
                             'action' => $this->router->getActionName()
                         ]);
                 } else {
+
                     // saved successfully
-                    if (!isset($id))
+                    if (empty($id) === true)
                         $this->flashSession->success('The engine was successfully added!');
                     else
                         $this->flashSession->success('The engine was successfully updated!');
@@ -169,7 +174,7 @@ class EnginesController extends ControllerBase
             }
 
             // build meta data
-            $title = (!isset($id)) ? 'Add' : 'Edit';
+            $title = (empty($id) === true) ? 'Add' : 'Edit';
             $this->tag->prependTitle($title . ' - ' . self::NAME);
 
             // add crumb to chain (name, link)
@@ -181,7 +186,7 @@ class EnginesController extends ControllerBase
                 'title' => $title,
                 'form' => (new Forms\EngineForm(null, [
                     'currency' => Currency::find(),
-                    'default' => (isset($id)) ? $engine : null
+                    'default' => (empty($id) === true) ? null : $engine
                 ]))
             ]);
         } catch (\Phalcon\Exception $e) {

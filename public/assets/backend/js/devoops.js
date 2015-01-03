@@ -3716,10 +3716,16 @@ $(document).ready(function () {
     $('#search').on('keydown', function (e) {
         if (e.keyCode == 13) {
             e.preventDefault();
-            $('#content').removeClass('full-content');
-            ajax_url = 'ajax/page_search.html';
-            window.location.hash = ajax_url;
-            LoadAjaxContent(ajax_url);
+
+            var url = $(this).attr('action');
+
+            // checking query
+            var query = $('#query').val();
+
+            if(query !== '') {
+                window.location.href = url+'?query='+query;
+            }
+            return;
         }
     });
     $('#screen_unlock').on('mouseover', function () {

@@ -58,7 +58,7 @@ try {
 
     if (APPLICATION_ENV === 'development') {
         // require whoops
-        new Whoops\Provider\Phalcon\WhoopsServiceProvider($di);
+        //new Whoops\Provider\Phalcon\WhoopsServiceProvider($di);
     }
 
     // Handle the request

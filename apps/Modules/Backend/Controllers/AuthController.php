@@ -58,7 +58,7 @@ class AuthController extends Controller
                 // The token is ok, check authorization
 
                 $login = $this->request->getPost('username');
-                $password = $this->request->getPost('password');
+                $password = $this->request->getPost('password', 'trim');
                 $remember = $this->request->getPost('remember');
 
                 $user = (new Users())->findFirst([
@@ -66,7 +66,7 @@ class AuthController extends Controller
                     "bind" => [$login]
                 ]);
 
-                if ($user === true) {
+                if (empty($user) === false) {
 
                     if ($this->security->checkHash($password, $user->getPassword()))
                     {

@@ -26,7 +26,7 @@ class SearcherForm extends Form
         $this->setEntity($this);
 
         $this->add(new Element\Text("query", [
-                'id' => 'query',
+                'id'            => 'query',
                 'placeholder'   =>  'search...',
             ])
         );
