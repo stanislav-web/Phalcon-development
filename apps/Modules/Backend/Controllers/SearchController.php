@@ -1,6 +1,7 @@
 <?php
 namespace Modules\Backend\Controllers;
 
+use Phalcon\Exception;
 use Phalcon\Mvc\View;
 
 /**
@@ -27,6 +28,18 @@ class SearchController extends ControllerBase
      * @access public
      */
     public $cacheKey = false;
+
+    /**
+     * Query string
+     * @access public
+     */
+    public $query = '';
+
+    /**
+     * Message string
+     * @access public
+     */
+    public $message = '';
 
     /**
      * initialize() Initialize constructor
@@ -57,55 +70,45 @@ class SearchController extends ControllerBase
         // add crumb to chain (name, link)
 
         $this->_breadcrumbs->add($title);
-        $query = $this->request->get('query', null, null);
 
-        if(isset($query) && $query !== null) {
+        $this->query = $this->request->get('query', null, null);
 
-            // call searcher instance
-            $searcher = $this->di->get('searcher');
+        if ($this->request->isAjax() === true) {
 
-            try {
-                // Prepare models and fields to participate in search
-                $searcher->setFields([
-                    '\Models\Engines'    =>    [
-                        'name',
-                        'description',
-                        'host',
-                    ],
-                    '\Models\Categories'    =>    [
-                        'title',
-                        'description'
-                    ],
-                    '\Models\Users'    =>    [
-                        'login',
-                        'name',
-                        'surname'
-                    ],
-                    '\Models\Currency'    =>    [
-                        'name'
-                    ]
-                ])->setQuery($query);
+            if(isset($this->query) && $this->query !== null) {
 
-                $result = $searcher->run();
+                try {
+                    // call searcher instance
+                    $searcher = $this->di->get('searcher');
 
-                var_dump($result);
-                exit('dsdsdsd');
+                    // prepare models and fields to participate in search
+                    $searcher->setFields([
+                        '\Models\Engines'    =>    [
+                            'name',
+                            'description',
+                            'host',
+                        ],
+                        '\Models\Users'    =>    [
+                            'loan',
+                            'name',
+                        ]
+                    ])->setQuery($this->query);
+
+                    $result = $searcher->run();
+                }
+                catch(\Searcher\Searcher\Factories\ExceptionFactory $e) {
+
+                    echo $this->message = (string)$e->getMessage();
+
+                }
+                $this->view->setVar('title', $title. ' "'. $this->query.'"');
+                $this->view->setVar('message', $this->message);
+
             }
-            catch(\Searcher\ExceptionFactory $e) {
-                echo $e->getMessage();
+            else {
+                $this->view->setVar('title', $title);
             }
-
-            $this->view->setVar('title', $title. ' "'. $query.'"');
-
-        }
-        else {
-            $this->view->setVar('title', $title);
-        }
-
-        $this->view->setVars([
-            'result'=> '',
-        ]);
-
+         }
     }
 }
 

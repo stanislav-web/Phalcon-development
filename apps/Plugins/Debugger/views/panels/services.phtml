@@ -3,29 +3,30 @@
 ?>
 <div id='pdw-panel-services' class='pdw-panel services'>
     <div class='title'>
-        <h2>Load services<a class='pdw-panel-close'>&times;</a></h2>
+        <h2>Loaded services<a class='pdw-panel-close'>&times;</a></h2>
     </div>
     <div class='panel-content'>
         <?php if(!empty($services)): ?>
             <?php  foreach ($services as $type => $services): ?>
-                <h3 class='collapser'><?=ucfirst(substr($type, 1));?></h3>
-                <table>
-                    <thead>
+                <?php if($type === '_services'): ?>
+                    <h3 class='collapser'><?=ucfirst(substr($type, 1));?></h3>
+                    <table class='pdw-data-table'>
+                        <thead>
                         <tr>
                             <th>Alias</th>
                             <th>Class</th>
                         </tr>
-                    </thead>
-                    <tbody>
-                    <?php //var_dump($services);?>
-                        <?php //foreach($services as $name => $variables): ?>
-                            <tr>
-                                <td><?//=//$name?></td>
-                                <td><?//=//(class_exists($name))?></td>
-                            </tr>
-                        <?php //endforeach; ?>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            <?php foreach($services as $name => $variables): ?>
+                                <tr>
+                                    <td><?=$name?></td>
+                                    <td><?=var_dump($variables);?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                <?php endif; ?>
             <?php endforeach; ?>
         <?php endif; ?>
 

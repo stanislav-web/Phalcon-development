@@ -19,13 +19,14 @@ class NotFoundPlugin
      * @param Event $event
      * @param Dispatcher $dispatcher
      */
-    public function beforeException(Event $event, MvcDispatcher $dispatcher, Exception $exception)
+    public function beforeException(Event $event, MvcDispatcher $dispatcher, $exception)
     {
         if ($exception instanceof DispatcherException) {
             switch ($exception->getCode()) {
                 case Dispatcher::EXCEPTION_HANDLER_NOT_FOUND:
                 case Dispatcher::EXCEPTION_ACTION_NOT_FOUND:
                     $dispatcher->forward(array(
+                        'module' => 'Frontend',
                         'controller' => 'errors',
                         'action' => 'notFound'
                     ));
@@ -33,6 +34,7 @@ class NotFoundPlugin
             }
         }
         $dispatcher->forward(array(
+            'module' => 'Frontend',
             'controller' => 'errors',
             'action' => 'uncaughtException'
         ));
