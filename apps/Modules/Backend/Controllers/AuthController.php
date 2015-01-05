@@ -89,8 +89,9 @@ class AuthController extends Controller
 
                         $referrer = parse_url($this->request->getHTTPReferer(), PHP_URL_PATH);
 
-                        if ($this->_logger)
+                        if ($this->_logger->enable === true) {
                             $this->_logger->log('Authenticate success from ' . $this->request->getClientAddress());
+                        }
 
                         // full http redirect to the referrer page
                         if ($referrer != $this->request->getURI())

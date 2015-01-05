@@ -141,8 +141,9 @@ class ControllerBase extends Controller
 
         // load configurations
         $this->_config = $this->di->get('config');
-        if ($this->_config->logger->enable)
+        if ($this->_config->logger->enable === true) {
             $this->_logger = $this->di->get('logger');
+        }
 
         // setup breadcrumbs
         $this->_breadcrumbs = $this->di->get('breadcrumbs');

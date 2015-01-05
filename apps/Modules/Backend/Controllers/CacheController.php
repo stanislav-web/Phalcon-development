@@ -11,7 +11,7 @@ use Phalcon\Mvc\View;
  * @since PHP >=5.4
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
- * @filesource /apps/Modules/Backend/Controllers/system/CacheController.php
+ * @filesource /apps/Modules/Backend/Controllers/CacheController.php
  */
 class CacheController extends ControllerBase
 {

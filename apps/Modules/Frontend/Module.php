@@ -35,7 +35,6 @@ class Frontend implements ModuleDefinitionInterface
      */
     public function __construct()
     {
-
         $this->_config = \Phalcon\DI::getDefault()->get('config');
     }
 
@@ -81,7 +80,6 @@ class Frontend implements ModuleDefinitionInterface
             $dispatcher->setDefaultNamespace('Modules\\' . self::MODULE . '\Controllers');
 
             return $dispatcher;
-
         }, true);
 
         // Database connection is created based in the parameters defined in the configuration file
