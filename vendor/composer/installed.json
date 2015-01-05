@@ -1793,18 +1793,61 @@
         ]
     },
     {
+        "name": "stanislav-web/phalcon-datatables",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/stanislav-web/phalcon-datatables.git",
+            "reference": "f5a13d4f0b4f2cd2005b142ec200cbf424c0f987"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/stanislav-web/phalcon-datatables/zipball/f5a13d4f0b4f2cd2005b142ec200cbf424c0f987",
+            "reference": "f5a13d4f0b4f2cd2005b142ec200cbf424c0f987",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.4.0"
+        },
+        "time": "2015-01-05 15:30:06",
+        "type": "library",
+        "installation-source": "source",
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Stanislav WEB",
+                "email": "stanisov@gmail.com",
+                "homepage": "http://reds.com",
+                "role": "Developer"
+            }
+        ],
+        "description": "Full management data with assistance plugin jQuery DataTables ( http://datatables.net ). For applications based on the Phalcon Framwork",
+        "homepage": "https://github.com/stanislav-web/phalcon-datatables",
+        "keywords": [
+            "datatables",
+            "datatables backend",
+            "phalcon",
+            "phalcon datatables",
+            "phalcon datatables plugin"
+        ]
+    },
+    {
         "name": "apigen/apigen",
         "version": "dev-master",
         "version_normalized": "9999999-dev",
         "source": {
             "type": "git",
             "url": "https://github.com/apigen/apigen.git",
-            "reference": "97706b4defdfc8d4b5ff99fa0daa04cb22003cf6"
+            "reference": "a216e5b3e3f0c83eb1bc9fac7c3592e8777d0940"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/apigen/apigen/zipball/97706b4defdfc8d4b5ff99fa0daa04cb22003cf6",
-            "reference": "97706b4defdfc8d4b5ff99fa0daa04cb22003cf6",
+            "url": "https://api.github.com/repos/apigen/apigen/zipball/a216e5b3e3f0c83eb1bc9fac7c3592e8777d0940",
+            "reference": "a216e5b3e3f0c83eb1bc9fac7c3592e8777d0940",
             "shasum": ""
         },
         "require": {
@@ -1832,14 +1875,14 @@
             "phpunit/phpunit": "~4.4",
             "zenify/coding-standard": "~3.0"
         },
-        "time": "2014-12-30 06:07:38",
+        "time": "2015-01-03 22:11:40",
         "bin": [
             "bin/apigen"
         ],
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "4.0.0-dev"
+                "dev-master": "4.1.0-dev"
             }
         },
         "installation-source": "source",

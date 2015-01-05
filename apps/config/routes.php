@@ -51,5 +51,14 @@ $router->add('/dashboard/:controller/:action/:params', [
     'namespace' => 'Modules\Backend\Controllers',
 ])->setName('dashboard-full');
 
+// Error routes
+
+$router->add('/:controller/:action', [
+    'module'        => "Frontend",
+    'controller'    => 'error',
+    'action'        => 'notFound',
+    'namespace'     => 'Modules\Frontend\Controllers',
+])->setName('not-found');
+
 
 

@@ -7,6 +7,7 @@ class ErrorController extends \Phalcon\Mvc\Controller
     public function notFoundAction()
     {
         // The response is already populated with a 404 Not Found header.
+        $this->response->setStatusCode(404, "Not Found");
     }
 
     public function uncaughtExceptionAction()

@@ -89,7 +89,7 @@ class SearchController extends ControllerBase
                             'host',
                         ],
                         '\Models\Users'    =>    [
-                            'loan',
+                            'login',
                             'name',
                         ]
                     ])->setQuery($this->query);

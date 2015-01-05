@@ -11,7 +11,7 @@ use Phalcon\Mvc\View;
  * @since PHP >=5.4
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
- * @copyright Stanilav WEB
+ * @copyright Stanislav WEB
  * @filesource /apps/Plugins/Breadcrumbs.php
  */
 class Breadcrumbs
@@ -77,7 +77,7 @@ class Breadcrumbs
         $this->_elements[$lastKey]['active'] = true;
 
         // set views dir
-        $view = $this->setBreadrumbsView(new View(), dirname(__FILE__) . '/views/');
+        $view = $this->setBreadcrumbsView(new View(), dirname(__FILE__) . '/views/');
 
         return $view;
     }
@@ -88,7 +88,7 @@ class Breadcrumbs
      * @access public
      * @return this
      */
-    public function setBreadrumbsView(View $view, $value)
+    public function setBreadcrumbsView(View $view, $value)
     {
         $this->_viewDir = (string)$value;
 

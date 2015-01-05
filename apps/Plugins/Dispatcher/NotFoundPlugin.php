@@ -5,6 +5,7 @@ use Phalcon\Dispatcher;
 use Phalcon\Events\Event;
 use Phalcon\Mvc\Dispatcher as MvcDispatcher;
 use Phalcon\Mvc\Dispatcher\Exception as DispatcherException;
+use Phalcon\Http\Response;
 
 /**
  * NotFoundPlugin
@@ -21,23 +22,30 @@ class NotFoundPlugin
      */
     public function beforeException(Event $event, MvcDispatcher $dispatcher, $exception)
     {
+
         if ($exception instanceof DispatcherException) {
+
+
             switch ($exception->getCode()) {
                 case Dispatcher::EXCEPTION_HANDLER_NOT_FOUND:
                 case Dispatcher::EXCEPTION_ACTION_NOT_FOUND:
-                    $dispatcher->forward(array(
-                        'module' => 'Frontend',
+
+                return (new Response())->redirect(array(
+                        "for"       => "not-found",
+                        'module'     => 'Frontend',
                         'controller' => 'errors',
-                        'action' => 'notFound'
+                        'action'     => 'notFound'
                     ));
-                    return false;
             }
         }
-        $dispatcher->forward(array(
-            'module' => 'Frontend',
-            'controller' => 'errors',
-            'action' => 'uncaughtException'
+
+        return (new Response())->redirect(array(
+            "for"           => "error",
+            'module'        => 'Frontend',
+            'controller'    => 'errors',
+            'action'        => 'uncaughtException'
         ));
+
         return false;
     }
 }

@@ -71,12 +71,15 @@ class Backend implements ModuleDefinitionInterface
     {
         // Dispatch register
         $di->set('dispatcher', function () use ($di) {
+
+            // Creating an event manager
             $eventsManager = $di->getShared('eventsManager');
-            $eventsManager->attach('dispatch:beforeException', new \Plugins\Dispatcher\NotFoundPlugin());
+
             $dispatcher = new \Phalcon\Mvc\Dispatcher();
             $dispatcher->setEventsManager($eventsManager);
             $dispatcher->setDefaultNamespace('Modules\\' . self::MODULE . '\Controllers');
             return $dispatcher;
+
         }, true);
 
         // Database connection is created based in the parameters defined in the configuration file
