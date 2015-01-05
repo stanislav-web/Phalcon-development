@@ -23,26 +23,9 @@ class ErrorController extends \Phalcon\Mvc\Controller
 
         $config = $this->di->get('config');
 
-
-        //var_dump($this->di->getServices()); exit;
         if ($config->logger->enable === true) {
             $this->di->get('logger')->error('404 Page detected: ' .$this->request->getServer('REQUEST_URI').' from IP: '.$this->request->getClientAddress());
         }
-    }
-
-    /**
-     * Get Logger instance
-     * @return object|null
-     */
-    public function getLogger() {
-
-        $this->_config = $this->di->get('config');
-
-        if ($this->_config->logger->enable === true) {
-            return $this->di->get('logger');
-        }
-
-        return null;
     }
 
     /**

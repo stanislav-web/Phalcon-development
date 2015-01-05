@@ -35,6 +35,7 @@
 <?php if (APPLICATION_ENV == 'production'): ?>
 <?php else: ?>
 <?php endif; ?>
-
+<!-- /Javascript area content -->
+<?= (isset($toolbar) === true) ? $toolbar->render() : ''; ?>
 </body>
 </html>

@@ -40,7 +40,7 @@ class NotFoundPlugin
         }
 
         return (new Response())->redirect(array(
-            "for"           => "error",
+            "for"           => "uncaught-error",
             'module'        => 'Frontend',
             'controller'    => 'errors',
             'action'        => 'uncaughtException'

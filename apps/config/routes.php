@@ -59,6 +59,3 @@ $router->add('/:controller/:action', [
     'action'        => 'notFound',
     'namespace'     => 'Modules\Frontend\Controllers',
 ])->setName('not-found');
-
-
-

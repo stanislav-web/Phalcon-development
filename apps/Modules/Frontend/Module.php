@@ -122,9 +122,6 @@ class Frontend implements ModuleDefinitionInterface
 
         if (APPLICATION_ENV === 'development') {
 
-            // share develop sidebar
-            (new \Plugins\Debugger\Develop($di));
-
             // share Fabfuel topbar
             $profiler = new \Fabfuel\Prophiler\Profiler();
 
