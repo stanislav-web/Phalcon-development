@@ -1,6 +1,11 @@
-<h1>Congratulations!</h1>
+<div ng-controller="IndexController">
+    <div ng-view>
+        Hello, I am IndexController
+    </div>
+</div>
 
-<p>You're now flying with Phalcon. Great things are about to happen!</p>
-<input type="text" ng-model="user"> Hello {{user}}<br>
-<input type="checkbox" ng-model="check">
-<div ng-show="check">I am checked</div>
+<div ng-controller="UserController">
+    <div ng-view>
+        Hello, I am UserController
+    </div>
+</div>
