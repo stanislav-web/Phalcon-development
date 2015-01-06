@@ -112,9 +112,6 @@ class Frontend implements ModuleDefinitionInterface
 
         $di->set('view', function () {
             $view = new View();
-            $view->setViewsDir($this->_config['application']['viewsFront'])
-                ->setMainView('layout')
-                ->setPartialsDir('partials');
             return $view;
         });
 

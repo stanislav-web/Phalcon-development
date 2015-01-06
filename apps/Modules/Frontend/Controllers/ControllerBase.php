@@ -4,6 +4,11 @@ namespace Modules\Frontend\Controllers;
 class ControllerBase extends \Phalcon\Mvc\Controller
 {
     /**
+     * @var \Phalcon\Di > Config
+     */
+    protected $config;
+
+    /**
      * @var \Models\Engines
      */
     protected $engine;
@@ -19,13 +24,29 @@ class ControllerBase extends \Phalcon\Mvc\Controller
     {
 
         // find current engine
-
-        $this->engine   =   \Models\Engines::findFirst("host = '".$this->request->getHttpHost()."'");
+        if($this->session->has('engine') === false) {
+            $this->engine   =   \Models\Engines::findFirst("host = '".$this->request->getHttpHost()."'");
+        }
 
         if($this->engine !== false) {
 
+            // get config
+            $this->config = $this->di->get('config');
+
             // setup app title
             $this->tag->setTitle($this->engine->getName());
+
+            // setup special view directory for this engine
+            $this->view->setViewsDir($this->config['application']['viewsFront'].strtolower($this->engine->getCode()))
+                ->setMainView('layout')
+                ->setPartialsDir('partials');
+
+            // setup to all templates
+            $this->view->setVar('engine', $this->engine->toArray());
+
+            // collect to the session
+            $this->session->set('engine', $this->engine);
+
         }
     }
 
@@ -36,10 +57,6 @@ class ControllerBase extends \Phalcon\Mvc\Controller
      */
     public function initialize()
     {
-
-        // load configurations
-        $this->_config = $this->di->get('config');
-
         if (APPLICATION_ENV === 'development') {
 
             // add toolbar to the layout
@@ -48,5 +65,10 @@ class ControllerBase extends \Phalcon\Mvc\Controller
             $toolbar->addDataCollector(new \Fabfuel\Prophiler\DataCollector\Request());
             $this->view->setVar('toolbar', $toolbar);
         }
+
+        // load configurations
+        $this->config = $this->di->get('config');
+
+        $this->engine   =   $this->session->get('engine');
     }
 }

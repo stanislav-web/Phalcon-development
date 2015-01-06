@@ -23,7 +23,7 @@ $di = new Phalcon\DI\FactoryDefault();
 // Set default routes
 $di->set('router', function () {
 
-    $router = new \Phalcon\Mvc\Router();
+    $router = new \Phalcon\Mvc\Router(false);
     $router->removeExtraSlashes(true)
         ->setDefaults([
             'module' => 'Frontend',

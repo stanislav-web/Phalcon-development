@@ -12,10 +12,19 @@ namespace Modules\Frontend\Controllers;
  */
 class IndexController extends ControllerBase
 {
+    /**
+     * initialize() Initialize constructor
+     * @access public
+     * @return null
+     */
+    public function initialize()
+    {
+        parent::initialize();
+    }
 
     public function indexAction()
     {
-
+        //var_dump($this->engine); exit;
     }
 }
 

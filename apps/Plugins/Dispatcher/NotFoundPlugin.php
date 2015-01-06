@@ -15,37 +15,41 @@ use Phalcon\Http\Response;
 class NotFoundPlugin
 {
     /**
-     * This action is executed before execute any action in the application
+     * This action is executed before execute any action in the application.
      *
-     * @param Event $event
-     * @param Dispatcher $dispatcher
+     * @param Event            $event      Event object.
+     * @param MvcDispatcher    $dispatcher Dispatcher object.
+     * @param DispatcherException $exception  Exception object.
+     *
+     * @return bool
      */
     public function beforeException(Event $event, MvcDispatcher $dispatcher, $exception)
     {
 
         if ($exception instanceof DispatcherException) {
 
+            // Handle 404 exceptions
 
-            switch ($exception->getCode()) {
-                case Dispatcher::EXCEPTION_HANDLER_NOT_FOUND:
-                case Dispatcher::EXCEPTION_ACTION_NOT_FOUND:
+            $dispatcher->forward([
+                    'module'        => 'Frontend',
+                    'namespace'     => 'Modules\Frontend\Controllers',
+                    'controller'    => 'Error',
+                    'action'        => 'notFound'
+                ]
+            );
 
-                return (new Response())->redirect(array(
-                        "for"       => "not-found",
-                        'module'     => 'Frontend',
-                        'controller' => 'errors',
-                        'action'     => 'notFound'
-                    ));
-            }
+            return $event->isStopped();
         }
 
-        return (new Response())->redirect(array(
-            "for"           => "uncaught-error",
-            'module'        => 'Frontend',
-            'controller'    => 'errors',
-            'action'        => 'uncaughtException'
-        ));
+        // Handle other exceptions.
+        $dispatcher->forward([
+                'module'        => 'Frontend',
+                'namespace'     => 'Modules\Frontend\Controllers',
+                'controller'    => 'Error',
+                'action'        => 'uncaughtException'
+            ]
+        );
 
-        return false;
+        return $event->isStopped();
     }
 }
