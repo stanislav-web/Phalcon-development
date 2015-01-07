@@ -24,7 +24,10 @@ class IndexController extends ControllerBase
 
     public function indexAction()
     {
-        //var_dump($this->engine); exit;
+        // add java scripts minified
+
+        $this->assets->collection('footer-js')
+            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/controllers/'.$this->router->getControllerName().'.js');
     }
 }
 

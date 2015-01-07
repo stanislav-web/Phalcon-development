@@ -1,25 +1,23 @@
-// create application && configure
-var phl = angular.module('phl',['ngRoute'])
+var phl = angular.module('phl', ["ngRoute"]);
 
-    .config(function($routeProvider, $locationProvider) {
 
-        "use strict";
+/**function($httpProvider) {
 
-        // configure router
+    $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+    $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 
-        $routeProvider
-            .when("/", {
-                controller : "IndexController",
-                templateUrl: "views/index.html"
-            })
-            .when("/user/:name", {
-                controller : "UserController",
-                templateUrl: "views/user.html"
-            })
-            .otherwise({
-                redirectTo: "/"
-            });
+    $httpProvider.defaults.transformRequest = [function (data) {
+        if (data === undefined) {
+            data = {};
+        }
+        // get token from meta
+        var token = $('meta[name=token]');
 
-        $locationProvider
-            .html5Mode(false);
-});
+        // token to view
+        $scope.token_id = token.attr('title');
+        $scope.token_val = token.attr('content');
+
+        data[token.attr('title')] = token.attr('content');
+        return angular.isObject(data) && String(data) !== '[object File]' ? param(data) : data;
+    }];
+});*/

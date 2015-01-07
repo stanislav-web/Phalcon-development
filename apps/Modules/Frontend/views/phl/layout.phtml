@@ -1,31 +1,23 @@
 <!DOCTYPE html>
 <html ng-app="<?=strtolower($engine['code']);?>">
     <head>
+        <base href="/">
         <!-- Get meta -->
         <?= $this->tag->tagHtml('meta', ['charset' => 'UTF-8']) . PHP_EOL; ?>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <meta http-equiv="Cache-Control" content="public">
         <meta http-equiv="Cache-Control" content="max-age=99090600, must-revalidate">
         <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="/assets/favicon.ico"/>
+        <meta name="token" title="<?= $this->security->getTokenKey() ?>" content="<?= $this->security->getToken() ?>"/>
         <?= $this->tag->getTitle(); ?>
         <!-- /Get meta -->
 
         <!-- Append Stylesheet -->
-        <?php if (APPLICATION_ENV == 'production'): ?>
-        <?php else: ?>
-        <?php endif; ?>
+            <?php $this->assets->outputCss('header-css'); ?>
         <!-- /Append Stylesheet -->
 
         <!-- Javascript area content -->
-        <?php if (APPLICATION_ENV == 'production'): ?>
-            <?=$this->tag->javascriptInclude("https://ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular.min.js", false); ?>
-            <?=$this->tag->javascriptInclude("https://ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular-route.min.js", false); ?>
-        <?php else: ?>
-            <?= $this->tag->javascriptInclude("assets/plugins/angular/angular.min.js", true);  // local ?>
-            <?= $this->tag->javascriptInclude("assets/plugins/angular/angular-route.min.js", true);  // local ?>
-        <?php endif; ?>
-        <?= $this->tag->javascriptInclude("assets/frontend/".strtolower($engine['code'])."/app.js", true);  // local ?>
-        <?= $this->tag->javascriptInclude("assets/frontend/".strtolower($engine['code'])."/controllers.js", true);  // local ?>
+            <?php $this->assets->outputJs('header-js'); ?>
         <!-- /Javascript area content -->
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -39,6 +31,6 @@
         <!-- Content -->
         <?php echo $this->getContent() ?>
         <!-- /Content -->
-        <?= (isset($toolbar) === true) ? $toolbar->render() : ''; ?>
+        <?php $this->assets->outputJs('footer-js'); ?>
     </body>
 </html>

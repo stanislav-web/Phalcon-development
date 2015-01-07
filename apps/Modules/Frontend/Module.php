@@ -117,18 +117,6 @@ class Frontend implements ModuleDefinitionInterface
 
         require_once APP_PATH . '/Modules/' . self::MODULE . '/config/services.php';
 
-        if (APPLICATION_ENV === 'development') {
-
-            // share Fabfuel topbar
-            $profiler = new \Fabfuel\Prophiler\Profiler();
-
-            $di->setShared('profiler', $profiler);
-
-            $pluginManager = new \Fabfuel\Prophiler\Plugin\Manager\Phalcon($profiler);
-            $pluginManager->register();
-
-        }
-
         return;
     }
 

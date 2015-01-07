@@ -1,6 +1,15 @@
 <?php
 namespace Modules\Frontend\Controllers;
 
+/**
+ * Class ControllerBase
+ * @package    Frontend
+ * @subpackage    Modules\Frontend\Controllers
+ * @since PHP >=5.4
+ * @version 1.0
+ * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
+ * @filesource /apps/Modules/Frontend/Controllers/ControllerBase.php
+ */
 class ControllerBase extends \Phalcon\Mvc\Controller
 {
     /**
@@ -57,18 +66,36 @@ class ControllerBase extends \Phalcon\Mvc\Controller
      */
     public function initialize()
     {
-        if (APPLICATION_ENV === 'development') {
+        // get current engine
 
-            // add toolbar to the layout
+        $this->engine   =   $this->session->get('engine');
 
-            $toolbar = new \Fabfuel\Prophiler\Toolbar($this->di->get('profiler'));
-            $toolbar->addDataCollector(new \Fabfuel\Prophiler\DataCollector\Request());
-            $this->view->setVar('toolbar', $toolbar);
-        }
+        // add styles minified
+
+        $css = $this->assets->collection('header-css')
+            ->addCss('assets/plugins/bootstrap/bootstrap.min.css')
+            ->addCss('assets/frontend/'.strtolower($this->engine->getCode()).'/style.css')
+            ->join(true);
+
+        $css->addFilter(new \Phalcon\Assets\Filters\Cssmin());
+        $css->setTargetPath('assets/frontend/'.strtolower($this->engine->getCode()).'/style.min.css');
+        $css->setTargetUri('assets/frontend/'.strtolower($this->engine->getCode()).'/style.min.css');
+
+        // add java scripts minified
+
+        $js = $this->assets->collection('header-js')
+            ->addJs('assets/plugins/angular/angular.min.js')
+            ->addJs('assets/plugins/angular/angular-route.min.js')
+            ->addJs('assets/plugins/jquery/jquery.min.js')
+            //->addJs('assets/plugins/bootstrap/bootstrap.min.js')
+            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app.js')
+            ->join(true);
+
+        $js->addFilter(new \Phalcon\Assets\Filters\Jsmin());
+        $js->setTargetPath('assets/frontend/'.strtolower($this->engine->getCode()).'/js.min.js');
+        $js->setTargetUri('assets/frontend/'.strtolower($this->engine->getCode()).'/js.min.js');
 
         // load configurations
         $this->config = $this->di->get('config');
-
-        $this->engine   =   $this->session->get('engine');
     }
 }
