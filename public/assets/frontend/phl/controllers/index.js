@@ -1,5 +1,5 @@
 /**
- * Create controller "IndexController"
+ * Controller "IndexController"
  *
  * @dependencies $scope global variables
  *

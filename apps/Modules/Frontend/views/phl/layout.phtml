@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="<?=strtolower($engine['code']);?>">
+<html data-ng-app="<?=strtolower($engine['code']);?>">
     <head>
         <base href="/">
         <!-- Get meta -->
@@ -28,9 +28,26 @@
         <![endif]-->
     </head>
     <body>
+
+        <!-- Top Navigate menu -->
+        <nav>
+            <ul>
+                <li><a href="#/home">Home</a></li>
+                <li><a href="#/about">About</a></li>
+                <li><a href="#/blog">Blog</a></li>
+                <li><a href="#/contact">Contact</a></li>
+            </ul>
+        </nav>
+        <!-- /Top Navigate menu -->
+
         <!-- Content -->
-        <?php echo $this->getContent() ?>
+        <div class="container">
+            <div ng-view>
+                <?php echo $this->getContent() ?>
+            </div>
+        </div>
         <!-- /Content -->
+
         <?php $this->assets->outputJs('footer-js'); ?>
     </body>
 </html>

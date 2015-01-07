@@ -91,7 +91,7 @@ class ControllerBase extends \Phalcon\Mvc\Controller
             ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app.js')
             ->join(true);
 
-        $js->addFilter(new \Phalcon\Assets\Filters\Jsmin());
+        //$js->addFilter(new \Phalcon\Assets\Filters\Jsmin());
         $js->setTargetPath('assets/frontend/'.strtolower($this->engine->getCode()).'/js.min.js');
         $js->setTargetUri('assets/frontend/'.strtolower($this->engine->getCode()).'/js.min.js');
 

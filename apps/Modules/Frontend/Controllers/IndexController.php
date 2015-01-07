@@ -27,7 +27,11 @@ class IndexController extends ControllerBase
         // add java scripts minified
 
         $this->assets->collection('footer-js')
-            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/controllers/'.$this->router->getControllerName().'.js');
+            //->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/controllers/'.$this->router->getControllerName().'.js');
+            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/controllers/index.js')
+            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/controllers/about.js')
+            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/controllers/blog.js')
+            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/controllers/contact.js');
     }
 }
 
