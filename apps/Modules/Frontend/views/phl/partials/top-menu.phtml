@@ -1,0 +1,19 @@
+<nav ng-controller="TopMenuController" class="cssmenu">
+    <ul>
+        <li ng-class="{ active:isActive('/')}">
+            <a href="/">Home</a>
+        </li>
+        <li ng-class="{ active:isActive('/agreement')}">
+            <a href="/agreement">Agreement</a>
+        </li>
+        <li ng-class="{ active:isActive('/help')}">
+            <a href="/help">Help</a>
+        </li>
+        <li ng-class="{ active:isActive('/contacts')}">
+            <a href="/contacts">Contacts</a>
+        </li>
+        <li ng-class="{ active:isActive('/about')}">
+            <a href="/about">about</a>
+        </li>
+    </ul>
+</nav>

@@ -5,21 +5,25 @@
         <!-- Get meta -->
         <?= $this->tag->tagHtml('meta', ['charset' => 'UTF-8']) . PHP_EOL; ?>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge; chrome=1">
+        <meta name="fragment" content="!">
+        <meta name="description" content="{{ Meta.metaDescription() }}">
+        <meta name="keywords" content="{{ Meta.metaKeywords() }}">
         <meta http-equiv="Cache-Control" content="public">
         <meta http-equiv="Cache-Control" content="max-age=99090600, must-revalidate">
         <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="/assets/favicon.ico"/>
         <meta name="token" title="<?= $this->security->getTokenKey() ?>" content="<?= $this->security->getToken() ?>"/>
-        <?= $this->tag->getTitle(); ?>
         <!-- /Get meta -->
 
         <!-- Append Stylesheet -->
-            <?php $this->assets->outputCss('header-css'); ?>
+        <?php $this->assets->outputCss('header-css'); ?>
+        <?= $this->tag->stylesheetLink("http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800", false); ?>
         <!-- /Append Stylesheet -->
 
         <!-- Javascript area content -->
             <?php $this->assets->outputJs('header-js'); ?>
         <!-- /Javascript area content -->
-
+        <title>{{title || "<?php echo $this->filter->sanitize($this->tag->getTitle(), "striptags"); ?>"}}</title>
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -28,26 +32,42 @@
         <![endif]-->
     </head>
     <body>
+        <!-- Checkout bar -->
+        <div class="header-top">
+            <div class="wrap">
+                <div class="logo">
+                    <a href="/">
+                        <?=$this->tag->image(["assets/frontend/".strtolower($engine['code'])."/images/logo.png", "alt" => "Logo"]); ?>
+                    </a>
+                </div>
+                <!-- Top menu -->
+                <?php $this->partial('top-menu'); ?>
+                <!-- /Top menu -->
 
-        <!-- Top Navigate menu -->
-        <nav>
-            <ul>
-                <li><a href="#/home">Home</a></li>
-                <li><a href="#/about">About</a></li>
-                <li><a href="#/blog">Blog</a></li>
-                <li><a href="#/contact">Contact</a></li>
-            </ul>
-        </nav>
-        <!-- /Top Navigate menu -->
+                <!-- Mini cart -->
+                <?php $this->partial('mini-cart'); ?>
+                <!-- /Mini cart -->
+
+                <div class="clear"></div>
+            </div>
+        </div>
+        <!-- /Checkout bar -->
+
+        <!-- Mega Menu bar -->
+        <?php //$this->partial('mega-menu'); ?>
+        <!-- /Mega Menu bar -->
 
         <!-- Content -->
-        <div class="container">
-            <div ng-view>
-                <?php echo $this->getContent() ?>
+        <div class="main view-animate-container">
+            <div class="wrap view-animate">
+                <div ng-view></div>
             </div>
         </div>
         <!-- /Content -->
 
         <?php $this->assets->outputJs('footer-js'); ?>
+        <a href="#" id="toTop" style="display: block;"><span id="toTopHover" style="opacity: 1;"></span></a>
+        <?= (isset($toolbar) === true) ? $toolbar->render() : ''; ?>
+        <span us-spinner="{radius:30, width:8, length: 16}"></span>
     </body>
 </html>

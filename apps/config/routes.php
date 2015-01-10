@@ -7,17 +7,42 @@
 
 $router->add('/', [
     'module' => "Frontend",
-    'controller' => "index",
+    'controller' => 'index',
     'action' => "index",
     'namespace' => 'Modules\Frontend\Controllers',
-])->setName('front-index');
+])->setName('front');
 
-$router->add('/:controller', [
-    'module' => "Frontend",
-    'controller' => 1,
-    'action' => "index",
+$router->add("/contacts", [
+    'module'        => "Frontend",
+    'controller'    => 'index',
+    'action'        => 'static',
+    'page'         => 'contacts',
     'namespace' => 'Modules\Frontend\Controllers',
-])->setName('front-controller');
+])->setName("front-contacts");
+
+$router->add("/help", [
+    'module'        => "Frontend",
+    'controller'    => 'index',
+    'action'        => 'static',
+    'page'         => 'help',
+    'namespace' => 'Modules\Frontend\Controllers',
+])->setName("front-help");
+
+$router->add("/agreement", [
+    'module'        => "Frontend",
+    'controller'    => 'index',
+    'action'        => 'static',
+    'page'         => 'agreement',
+    'namespace' => 'Modules\Frontend\Controllers',
+])->setName("front-agreement");
+
+$router->add("/about", [
+    'module'        => "Frontend",
+    'controller'    => 'index',
+    'action'        => 'static',
+    'page'         => 'about',
+    'namespace' => 'Modules\Frontend\Controllers',
+])->setName("front-about");
 
 $router->add('/:controller/:action/:params', [
     'module' => "Frontend",
@@ -50,17 +75,3 @@ $router->add('/dashboard/:controller/:action/:params', [
     'params' => 3,
     'namespace' => 'Modules\Backend\Controllers',
 ])->setName('dashboard-full');
-
-// Error routes
-
-$router->add('/:controller/:action', [
-    'module'        => "Frontend",
-    'controller'    => 'error',
-    'action'        => 'notFound',
-    'namespace'     => 'Modules\Frontend\Controllers',
-])->setName('not-found');
-
-
-
-
-

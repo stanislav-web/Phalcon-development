@@ -1,5 +1,6 @@
 <?php
 namespace Modules\Frontend\Controllers;
+use Phalcon\Mvc\View;
 
 /**
  * Class IndexController
@@ -12,6 +13,7 @@ namespace Modules\Frontend\Controllers;
  */
 class IndexController extends ControllerBase
 {
+
     /**
      * initialize() Initialize constructor
      * @access public
@@ -20,18 +22,69 @@ class IndexController extends ControllerBase
     public function initialize()
     {
         parent::initialize();
-    }
 
-    public function indexAction()
-    {
         // add java scripts minified
 
         $this->assets->collection('footer-js')
-            //->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/controllers/'.$this->router->getControllerName().'.js');
-            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/controllers/index.js')
-            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/controllers/about.js')
-            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/controllers/blog.js')
-            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/controllers/contact.js');
+            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/controllers/'.$this->router->getControllerName().'.js');
+
+    }
+
+    /**
+     * Home action
+     */
+    public function indexAction()
+    {
+        if($this->request->isAjax() === true) {
+
+            $this->view->disableLevel([
+                View::LEVEL_LAYOUT => true,
+                View::LEVEL_MAIN_LAYOUT => true,
+            ]);
+
+            $this->response->setJsonContent([
+                'title'     => $this->engine->getName(),
+                'content'   => $this->view->getRender('', 'index/index', []),
+            ]);
+
+            $this->response->setStatusCode(200, "OK");
+            $this->response->setContentType('application/json', 'UTF-8');
+
+            return $this->response->send();
+        }
+    }
+
+    /**
+     * Contacts,About,Agreement,Help action
+     * Static pages
+     */
+    public function staticAction()
+    {
+
+        // get page to display - param
+        $param = $this->dispatcher->getParam('page');
+
+        $this->tag->prependTitle(ucfirst($param).' - ');
+        $this->view->setVars(['page', strtolower($param)]);
+
+        if($this->request->isAjax() === true) {
+
+            $this->view->disableLevel([
+                View::LEVEL_LAYOUT => true,
+                View::LEVEL_MAIN_LAYOUT => true,
+            ]);
+
+            $this->response->setJsonContent([
+
+                'title'     => ucfirst($param).' - '.$this->engine->getName(),
+                'content'   => $this->view->getRender('', 'index/static', ['page' => strtolower($param)]),
+            ]);
+
+            $this->response->setStatusCode(200, "OK");
+            $this->response->setContentType('application/json', 'UTF-8');
+
+            return $this->response->send();
+        }
     }
 }
 

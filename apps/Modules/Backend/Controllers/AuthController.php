@@ -89,7 +89,7 @@ class AuthController extends Controller
 
                         $referrer = parse_url($this->request->getHTTPReferer(), PHP_URL_PATH);
 
-                        if ($this->_logger->enable === true) {
+                        if ($this->_config->logger->enable) {
                             $this->_logger->log('Authenticate success from ' . $this->request->getClientAddress());
                         }
 
@@ -104,7 +104,7 @@ class AuthController extends Controller
                         // Wrong authenticate data (password or login)
                         $this->flashSession->error("Wrong authenticate data");
 
-                        if ($this->_logger) {
+                        if ($this->_config->logger->enable) {
                             $this->_logger->error('Authenticate failed from ' . $this->request->getClientAddress() . '. Wrong authenticate data');
                         }
 
@@ -116,7 +116,7 @@ class AuthController extends Controller
                     $this->flashSession->error("The user not found");
 
 
-                    if ($this->_logger)
+                    if ($this->_config->logger->enable)
                         $this->_logger->error('Authenticate failed from ' . $this->request->getClientAddress() . '. The user ' . $login . ' not found');
 
                     $this->response->redirect('dashboard/auth');
@@ -127,7 +127,7 @@ class AuthController extends Controller
             {
                 // CSRF protection
 
-                if ($this->_logger)
+                if ($this->_config->logger->enable)
                     $this->_logger->error('Authenticate failed from ' . $this->request->getClientAddress() . '. CSRF attack');
 
                 $this->flashSession->error("Invalid access token");
