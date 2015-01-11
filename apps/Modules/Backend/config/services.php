@@ -1,7 +1,6 @@
 <?php
 
 // Component URL is used to generate all kinds of addresses in the annex
-
 $di->set('url', function () {
 
     $url = new \Phalcon\Mvc\Url();
@@ -12,7 +11,6 @@ $di->set('url', function () {
 });
 
 // Component Session. Starting a Session
-
 $di->setShared('session', function () {
     $session = new \Phalcon\Session\Adapter\Files([
         'host' => $this->_config->cache->memcached->host,        // mandatory
@@ -26,7 +24,6 @@ $di->setShared('session', function () {
 });
 
 // Component Logger. $this->di->get('logger')->log('.....',Logger::ERROR);
-
 $di->setShared('logger', function () {
 
     if ($this->_config->logger->enable == true) {
@@ -38,9 +35,7 @@ $di->setShared('logger', function () {
     return false;
 });
 
-/**
- * Component flashSession (Session keep flash messages).
- */
+// Component flashSession (Session keep flash messages).
 $di->setShared('flash', function () {
 
     $flash = new Phalcon\Flash\Session([
@@ -52,6 +47,7 @@ $di->setShared('flash', function () {
 
 });
 
+// Component cookies
 $di->setShared('cookies', function () {
 
     $cookies = new \Phalcon\Http\Response\Cookies();
@@ -61,7 +57,6 @@ $di->setShared('cookies', function () {
 });
 
 // Default component to crypt cookies values
-
 $di->set('crypt', function () {
 
     $crypt = new \Phalcon\Crypt();
@@ -70,16 +65,16 @@ $di->set('crypt', function () {
 
 });
 
-// Setup Hansel & Gretel breadcrumbs ))
+// Setup upload files service
+$di->set('uploader', '\Uploader\Uploader');
 
+// Setup Hansel & Gretel breadcrumbs ))
 $di->set('breadcrumbs', '\Plugins\Breadcrumbs\Breadcrumbs');
 
 // Setup Searcher component
-
 $di->set('searcher', 'Searcher\Searcher');
 
 // Component Navigation. Manage site navigation
-
 $di->setShared('navigation', function () {
 
     require_once APP_PATH . '/config/navigation.php';
@@ -90,7 +85,6 @@ $di->setShared('navigation', function () {
 });
 
 // If the configuration specify the use of metadata adapter use it or use memory otherwise
-
 if ($this->_config->cache->metadata == true) {
     $di->setShared('modelsMetadata', function () {
         return new Phalcon\Mvc\Model\Metadata\Apc([
@@ -101,7 +95,6 @@ if ($this->_config->cache->metadata == true) {
 }
 
 //Set the views cache service
-
 $di->setShared('viewCache', function () {
 
     $frontCache = new \Phalcon\Cache\Frontend\Output([
@@ -115,11 +108,11 @@ $di->setShared('viewCache', function () {
         "persistent" => $this->_config->cache->memcached->persistent
     ]);
     return $cache;
+
 });
 
 
 // Set the backend data cache service
-
 if ($this->_config->cache->enable == true) {
 
     $di->set('dbCache', function () {
@@ -158,5 +151,6 @@ if ($this->_config->cache->enable == true) {
                 break;
         }
         return $cache;
+
     });
 }

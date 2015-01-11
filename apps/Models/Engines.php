@@ -62,6 +62,11 @@ class Engines extends \Phalcon\Mvc\Model
         $code,
 
         /**
+         * @var string
+         */
+        $logo,
+
+        /**
          * @var integer
          */
         $currency_id,
@@ -196,6 +201,19 @@ class Engines extends \Phalcon\Mvc\Model
     }
 
     /**
+     * Method to set the value of field logo
+     *
+     * @param string $logo
+     * @return $this
+     */
+    public function setLogo($logo)
+    {
+        $this->logo = $logo;
+
+        return $this;
+    }
+
+    /**
      * Method to set the value of field currency_id
      *
      * @param integer $currency_id
@@ -282,6 +300,16 @@ class Engines extends \Phalcon\Mvc\Model
     public function getCode()
     {
         return $this->code;
+    }
+
+    /**
+     * Returns the value of field logo
+     *
+     * @return string
+     */
+    public function getLogo()
+    {
+        return $this->logo;
     }
 
     /**

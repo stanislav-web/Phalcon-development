@@ -22,7 +22,7 @@
     ],
     "require": {
         "stanislav-web/phalcon-searcher": "dev-master",
-        "stanislav-web/phalcon-datatables": "dev-master",
+        "stanislav-web/phalcon-uploader": "dev-master",
         "swiftmailer/swiftmailer": "5.*",
         "filp/whoops": "~1.0",
         "fabfuel/prophiler": "1.*"

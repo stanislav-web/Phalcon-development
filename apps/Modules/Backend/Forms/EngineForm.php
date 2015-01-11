@@ -58,6 +58,14 @@ class EngineForm extends Form
             ])
         );
 
+        $this->add(new Element\File("logo", [
+                'id' => 'logo-upload',
+                'class' => 'file',
+                'data-show-upload' => 'false',
+                'data-show-caption' => 'true'
+            ])
+        );
+
         $this->add(new Element\Text("host", [
                 'id' => 'host',
                 'required' => 'true',

@@ -15,6 +15,7 @@ class Format
 {
     /**
      * Format byte code to human understand
+     *
      * @param int $bytes number of bytes
      * @param int $precision after comma numbers
      * @return string
@@ -28,6 +29,7 @@ class Format
 
     /**
      * Output part of string
+     *
      * @param string $orig original string
      * @param int $chars output chars count
      * @return string

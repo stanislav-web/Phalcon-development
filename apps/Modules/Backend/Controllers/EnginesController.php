@@ -5,6 +5,7 @@ use Models\Currency;
 use Models\Engines;
 use Modules\Backend\Forms;
 use Phalcon\Mvc\View;
+use Uploader\Uploader;
 
 /**
  * Class EnginesController
@@ -114,7 +115,6 @@ class EnginesController extends ControllerBase
 
         $id = $this->dispatcher->getParams();
 
-
         // check "edit" or "new" action in use
         $engine = (empty($id) === true) ? new Engines() : Engines::findFirst($id[0]);
 
@@ -125,7 +125,9 @@ class EnginesController extends ControllerBase
                 'action' => $this->router->getActionName()
             ]);
 
+
         try {
+
             // handling POST data
             if ($this->request->isPost()) {
 
@@ -137,6 +139,78 @@ class EnginesController extends ControllerBase
                         ->setCode($this->request->getPost('code'))
                         ->setCurrencyId($this->request->getPost('currency_id', null, 1))
                         ->setStatus($this->request->getPost('status', null, 0));
+
+                // check uploaded logo (if exist)
+
+                if($this->request->hasFiles() !== false) {
+
+                    echo 'Files exist<br><br>';
+                    // call uploader
+
+                    $uploader = $this->di->get('uploader');
+
+                    $uploader->setRules([
+                        'directory' =>  DOCUMENT_ROOT.'/files',
+                        'minsize'   =>  [10],
+                        'maxsize'   =>  1000000,
+                        'hash'      =>  'crc32',
+                        'sanitize'  =>  true,
+                        'mimes'     =>  [
+                            'image/gif',
+                            'image/jpeg',
+                            'image/png',
+                        ],
+                        'extensions'     =>  [
+                            'gif',
+                            'jpeg',
+                            'jpg',
+                            'png',
+                        ],
+                    ]);
+
+                    $uploader->addFilters([
+                        new \Uploader\Filters\Basic([
+                            'extensions'     =>  [
+                                'gif',
+                                'jpeg',
+                                'jpg',
+                                'png',
+                            ],
+                            'mimes'     =>  [
+                                'image/gif',
+                                'image/jpeg',
+                                'image/png',
+                            ],
+                        ]),
+                        new \Uploader\Filters\Basic([
+                            'extensions'     =>  [
+                                'gif',
+                                'jpeg',
+                                'jpg',
+                                'png',
+                            ],
+                            'mimes'     =>  [
+                                'image/gif',
+                                'image/jpeg',
+                                'image/png',
+                            ],
+                        ])
+                    ]);
+
+                    if($uploader->isValid() === true) {
+
+                        echo 'Uploader valid<br>';
+
+                        //var_dump($uploader->move());
+
+                    }
+                    else {
+                        //var_dump('Errors', $uploader->getErrors());
+                    }
+                }
+
+
+                exit('Close');
 
                 if (!$engines->save()) {
 

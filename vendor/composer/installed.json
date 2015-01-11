@@ -1793,49 +1793,6 @@
         ]
     },
     {
-        "name": "stanislav-web/phalcon-datatables",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/stanislav-web/phalcon-datatables.git",
-            "reference": "f5a13d4f0b4f2cd2005b142ec200cbf424c0f987"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/stanislav-web/phalcon-datatables/zipball/f5a13d4f0b4f2cd2005b142ec200cbf424c0f987",
-            "reference": "f5a13d4f0b4f2cd2005b142ec200cbf424c0f987",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.4.0"
-        },
-        "time": "2015-01-05 15:30:06",
-        "type": "library",
-        "installation-source": "source",
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Stanislav WEB",
-                "email": "stanisov@gmail.com",
-                "homepage": "http://reds.com",
-                "role": "Developer"
-            }
-        ],
-        "description": "Full management data with assistance plugin jQuery DataTables ( http://datatables.net ). For applications based on the Phalcon Framwork",
-        "homepage": "https://github.com/stanislav-web/phalcon-datatables",
-        "keywords": [
-            "datatables",
-            "datatables backend",
-            "phalcon",
-            "phalcon datatables",
-            "phalcon datatables plugin"
-        ]
-    },
-    {
         "name": "apigen/apigen",
         "version": "dev-master",
         "version_normalized": "9999999-dev",
@@ -1924,6 +1881,54 @@
             "documentation",
             "generator",
             "phpdoc"
+        ]
+    },
+    {
+        "name": "stanislav-web/phalcon-uploader",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/stanislav-web/phalcon-uploader.git",
+            "reference": "cf5a940bf41457358e42d0f55f8894d04af62926"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/stanislav-web/phalcon-uploader/zipball/cf5a940bf41457358e42d0f55f8894d04af62926",
+            "reference": "cf5a940bf41457358e42d0f55f8894d04af62926",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.4.0"
+        },
+        "time": "2015-01-11 11:10:04",
+        "type": "library",
+        "installation-source": "source",
+        "autoload": {
+            "psr-4": {
+                "Uploader\\": "src/Uploader"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Stanislav WEB",
+                "email": "stanisov@gmail.com",
+                "homepage": "http://reds.com",
+                "role": "Developer"
+            }
+        ],
+        "description": "Phalcon files uploader. Handling and downloading files for Phalcon projects. Allowed multiple files download, filters etc...",
+        "homepage": "https://github.com/stanislav-web/phalcon-uploader",
+        "keywords": [
+            "phalcon",
+            "phalcon upload",
+            "phalcon upload files",
+            "phalcon uploader",
+            "uploader"
         ]
     }
 ]
