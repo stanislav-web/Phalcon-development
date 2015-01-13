@@ -5,7 +5,7 @@ var phl;
 
     // application module
 
-    phl = angular.module('phl', ['ngRoute', 'ngAnimate', 'ngSanitize', 'ngLoadingSpinner'], function($httpProvider) {
+    phl = angular.module('phl', ['ngRoute', 'ngAnimate', 'ngSanitize', 'ngLoadingSpinner', function($httpProvider) {
 
         $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
         $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
@@ -22,7 +22,7 @@ var phl;
             data[token.attr('title')] = token.attr('content');
             return angular.isObject(data) && String(data) !== '[object File]' ? $.param(data) : data;
         }];
-    });
+    }]);
 
     // create meta services
 

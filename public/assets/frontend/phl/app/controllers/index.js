@@ -25,6 +25,9 @@ phl.controller('IndexController', function($scope, $rootScope, $http, $location,
 
         })
         .error(function(data, status, headers, config){
-            window.alert("We have been unable to access the feed :-(");
+
+            // redirect to not found page
+            $location.url('/error/notFound');
+
         })
 });

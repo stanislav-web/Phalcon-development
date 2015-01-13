@@ -1,5 +1,6 @@
 <?php
 namespace Modules\Frontend\Controllers;
+use Phalcon\Mvc\View;
 
 /**
  * Class ErrorController
@@ -26,6 +27,7 @@ class ErrorController extends \Phalcon\Mvc\Controller
     public function initialize() {
 
         $this->config = $this->di->get('config');
+
         $this->view->setViewsDir($this->config['application']['viewsFront']);
 
     }
@@ -34,6 +36,7 @@ class ErrorController extends \Phalcon\Mvc\Controller
      */
     public function notFoundAction()
     {
+
         // The response is already populated with a 404 Not Found header.
         $this->response->setStatusCode(404, "Not Found");
 
@@ -43,8 +46,30 @@ class ErrorController extends \Phalcon\Mvc\Controller
             $this->di->get('logger')->error('404 Page detected: ' .$this->request->getServer('REQUEST_URI').' from IP: '.$this->request->getClientAddress());
         }
 
-        // render the view
-        $this->view->pick('error/notFound');
+        // return error as 404
+
+        if($this->request->isAjax() === true) {
+
+            $this->view->disableLevel([
+                View::LEVEL_LAYOUT => true,
+                View::LEVEL_MAIN_LAYOUT => true,
+            ]);
+
+            $this->response->setJsonContent([
+                'content'   => $this->view->getRender('', 'error/notFound', ['page' => strtolower($param)]),
+            ]);
+            $this->response->setStatusCode(200, "OK");
+
+            $this->response->setContentType('application/json', 'UTF-8');
+
+            return $this->response->send();
+        }
+        else {
+
+            // render the view
+            $this->view->pick('error/notFound');
+
+        }
     }
 
     /**

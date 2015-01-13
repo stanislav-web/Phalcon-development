@@ -1,3 +1,38 @@
-<h3 class="m_3">{{title}}</h3>
-    <p class="m_desc" ng-bind-html="trusty(content)"></p>
-</ul>
+<section class="row">
+    <header class="col-lg-8">
+        <hr>
+            <h3 class="m_3"><span class="glyphicon glyphicon-book"></span> {{title}}</h3>
+        <hr>
+        <img ng-src="http://placehold.it/900x300" class="img-responsive" alt="">
+        <hr>
+        <article class="m_desc justify" ng-bind-html="trusty(content)"></article>
+    </header>
+    <div class="col-md-4">
+        <nav ng-controller="TopMenuController" class="ng-scope well">
+            <ul class="list-unstyled">
+                <li ng-class="{ active:isActive('/')}">
+                    <a href="/">Home</a>
+                </li>
+                <li ng-class="{ active:isActive('/agreement')}">
+                    <a href="/agreement">Agreement</a>
+                </li>
+                <li ng-class="{ active:isActive('/help')}">
+                    <a href="/help">Help</a>
+                </li>
+                <li ng-class="{ active:isActive('/contacts')}">
+                    <a href="/contacts">Contacts</a>
+                </li>
+                <li ng-class="{ active:isActive('/about')}">
+                    <a href="/about">About</a>
+                </li>
+                <li ng-class="{ active:isActive('/wrong')}">
+                    <a href="/wrong">Wrong</a>
+                </li>
+                <li ng-class="{ active:isActive('/error/notfound')}">
+                    <a href="/error/notfound">Not Found</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</section>
+

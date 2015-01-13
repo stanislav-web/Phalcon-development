@@ -56,14 +56,17 @@ body{
 .cssmenu ul li {
     display: inline-block;
 }
-.cssmenu ul li a {
+.well ul li a {
+    line-height: 2;
+}
+.cssmenu ul li a, .well ul li a {
     color: #000;
     display: block;
     margin: 0px 10px;
     text-transform: uppercase;
     font-size: 0.8125em;
 }
-.cssmenu ul li a:hover{
+.cssmenu ul li .well ul li a:hover{
     color:#555;
 }
 .header-bottom{
@@ -1035,14 +1038,14 @@ ul.sub_list2 li a:hover{
     vertical-align: middle;
 }
 .c2 {
-    background: url(../images/img-sprite.png) no-repeat -350px -175px;
-    width: 42px;
-    height: 42px;
+    background: url(../images/cart.png) no-repeat;
+    width: 32px;
+    height: 32px;
     display: inline-block;
     vertical-align: middle;
 }
 .icon2 .profile_img {
-    margin-top: 3px;
+    margin-top: 322px;
 }
 .sub-icon2 ul li h3{
     text-align: center;
@@ -3156,4 +3159,12 @@ p.cart a:hover {
 
 ul li.active {
     text-decoration: underline;
+}
+
+.mini-cart {
+    margin-top: 14px;
+}
+
+.justify {
+    text-align: justify;
 }
