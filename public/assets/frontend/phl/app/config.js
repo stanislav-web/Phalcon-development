@@ -58,4 +58,30 @@
         .otherwise({ redirectTo: ROUTES.HOME });
 
     }]);
+
+    // configure preload transliteration
+
+    phl.config(['$translateProvider', '$translatePartialLoaderProvider', function ($translateProvider, $translatePartialLoader) {
+
+
+        // try to find out preferred language by yourself
+
+        $translateProvider.fallbackLanguage(['en', 'ru', 'de'])
+            .determinePreferredLanguage()
+            .registerAvailableLanguageKeys(['en', 'de', 'ru'], {
+                'en_US': 'en',
+                'en_GB': 'en',
+                'de_DE': 'de',
+                'ru_RU': 'ru'
+            });
+
+        // get all partitions of language {part} - controller
+
+        $translateProvider.useLoader('$translatePartialLoader', {
+            urlTemplate: 'assets/frontend/phl/app/languages/{lang}/{part}.json'
+        });
+
+        //$translateProvider.useStorage('customStorage');
+    }]);
+
 })(angular);

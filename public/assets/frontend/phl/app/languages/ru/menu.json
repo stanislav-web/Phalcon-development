@@ -1,11 +1,7 @@
-// locale-ru.json
-
 {
-    "TOPMENU":  {
         "HOME"      : "Главная",
         "AGREEMENT" : "Соглашение",
         "HELP"      : "Помощь",
         "CONTACTS"  : "Контакты",
         "ABOUT"     : "О нас"
-    }
 }

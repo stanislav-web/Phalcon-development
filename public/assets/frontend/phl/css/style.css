@@ -3168,3 +3168,28 @@ ul li.active {
 .justify {
     text-align: justify;
 }
+
+#footer_language_list{
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+#footer_language_list ul{
+    list-style: none;
+    margin:0;
+    padding:0;
+}
+
+#footer_language_list ul li img{
+    margin-right:5px;
+}
+
+#footer_language_list ul li{
+    display:inline;
+    margin:0 5px 0 5px;
+    padding:0;
+}
+
+#footer_language_list ul li span {
+    cursor: pointer;
+}

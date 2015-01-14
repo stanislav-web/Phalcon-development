@@ -11,25 +11,19 @@
         <nav ng-controller="TopMenuController" class="ng-scope well">
             <ul class="list-unstyled">
                 <li ng-class="{ active:isActive('/')}">
-                    <a href="/">Home</a>
+                    <a href="/" translate="HOME">HOME</a>
                 </li>
                 <li ng-class="{ active:isActive('/agreement')}">
-                    <a href="/agreement">Agreement</a>
+                    <a href="/agreement" translate="AGREEMENT">AGREEMENT</a>
                 </li>
                 <li ng-class="{ active:isActive('/help')}">
-                    <a href="/help">Help</a>
+                    <a href="/help" translate="HELP">HELP</a>
                 </li>
                 <li ng-class="{ active:isActive('/contacts')}">
-                    <a href="/contacts">Contacts</a>
+                    <a href="/contacts" translate="CONTACTS">CONTACTS</a>
                 </li>
                 <li ng-class="{ active:isActive('/about')}">
-                    <a href="/about">About</a>
-                </li>
-                <li ng-class="{ active:isActive('/wrong')}">
-                    <a href="/wrong">Wrong</a>
-                </li>
-                <li ng-class="{ active:isActive('/error/notfound')}">
-                    <a href="/error/notfound">Not Found</a>
+                    <a href="/about" translate="ABOUT">ABOUT</a>
                 </li>
             </ul>
         </nav>

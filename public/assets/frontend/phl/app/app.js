@@ -5,7 +5,7 @@ var phl;
 
     // application module
 
-    phl = angular.module('phl', ['ngRoute', 'ngAnimate', 'ngSanitize', 'ngLoadingSpinner', function($httpProvider) {
+    phl = angular.module('phl', ['ngRoute', 'ngAnimate', 'ngSanitize', 'ngLoadingSpinner', 'pascalprecht.translate', function($httpProvider) {
 
         $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
         $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
@@ -63,10 +63,46 @@ var phl;
         };
     });
 
+    // init custom storage interface. Marcus Westin thanks a lot!
+
+   /* phl.factory('customStorage', function () {
+
+        if (store.enabled) {
+
+            // use store.min.js to save to localStorage
+
+            return {
+
+                set: function (name, value) {
+                    // store `value` under `name` somehow
+                    store.set(name, value);
+
+                },
+                get: function (name) {
+                    // request value of `name` somehow
+                    store.get(name);
+                }
+            };
+        }
+        else {
+
+            // use cookies
+
+        }
+    });*/
+
     // setup global scope variables
 
-    phl.run(['$rootScope', 'ROUTES', function ($rootScope, ROUTES) {
+    phl.run(['$rootScope', 'ROUTES', '$translate', function ($rootScope, ROUTES, $translate) {
+
+        // set global scope for routes & template
         $rootScope.ROUTES = ROUTES;
+
+        // update languages global
+        $rootScope.$on('$translatePartialLoaderStructureChanged', function () {
+            $translate.refresh();
+        });
+
     }]);
 
 })(angular);

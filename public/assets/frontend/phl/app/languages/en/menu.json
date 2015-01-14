@@ -1,11 +1,7 @@
-// locale-en.json
-
 {
-    "TOPMENU":  {
         "HOME"      : "Home",
         "AGREEMENT" : "Agreement",
         "HELP"      : "Help",
         "CONTACTS"  : "Contacts",
         "ABOUT"     : "About"
-    }
 }
