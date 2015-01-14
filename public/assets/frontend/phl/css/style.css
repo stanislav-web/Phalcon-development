@@ -3190,6 +3190,10 @@ ul li.active {
     padding:0;
 }
 
+#footer_language_list ul li.active {
+    text-decoration: none;
+    font-weight: 600;
+}
 #footer_language_list ul li span {
     cursor: pointer;
 }

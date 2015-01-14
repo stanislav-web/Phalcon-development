@@ -80,8 +80,6 @@
         $translateProvider.useLoader('$translatePartialLoader', {
             urlTemplate: 'assets/frontend/phl/app/languages/{lang}/{part}.json'
         });
-
-        //$translateProvider.useStorage('customStorage');
     }]);
 
 })(angular);

@@ -5,7 +5,7 @@ var phl;
 
     // application module
 
-    phl = angular.module('phl', ['ngRoute', 'ngAnimate', 'ngSanitize', 'ngLoadingSpinner', 'pascalprecht.translate', function($httpProvider) {
+    phl = angular.module('phl', ['ngRoute', 'ngAnimate', 'ngSanitize', 'ngLoadingSpinner', 'pascalprecht.translate', 'ngCookies', function($httpProvider) {
 
         $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
         $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
@@ -63,40 +63,23 @@ var phl;
         };
     });
 
-    // init custom storage interface. Marcus Westin thanks a lot!
-
-   /* phl.factory('customStorage', function () {
-
-        if (store.enabled) {
-
-            // use store.min.js to save to localStorage
-
-            return {
-
-                set: function (name, value) {
-                    // store `value` under `name` somehow
-                    store.set(name, value);
-
-                },
-                get: function (name) {
-                    // request value of `name` somehow
-                    store.get(name);
-                }
-            };
-        }
-        else {
-
-            // use cookies
-
-        }
-    });*/
-
     // setup global scope variables
 
-    phl.run(['$rootScope', 'ROUTES', '$translate', function ($rootScope, ROUTES, $translate) {
+    phl.run(['$rootScope', 'ROUTES', '$translate', '$cookies', function ($rootScope, ROUTES, $translate, $cookies) {
 
         // set global scope for routes & template
         $rootScope.ROUTES = ROUTES;
+
+        if(store.enable) {
+
+            // getting from storage
+            $rootScope.currentLanguage = store.get('NG_TRANSLATE_LANG_KEY') || 'ru';
+        }
+        else {
+
+            // getting from cookies
+            $rootScope.currentLanguage = $cookies.NG_TRANSLATE_LANG_KEY || 'ru';
+        }
 
         // update languages global
         $rootScope.$on('$translatePartialLoaderStructureChanged', function () {
