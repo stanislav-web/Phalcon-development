@@ -72,7 +72,7 @@ showtables;
 # Prompt dialog to confirm dump
 
 while true; do
-    read -p "Do you wish to create dump of this tables?" yn
+    read -p "Do you wish to create dump of this tables? " yn
     case $yn in
         [Yy]* ) dump; break;;
         [Nn]* ) exit;;
