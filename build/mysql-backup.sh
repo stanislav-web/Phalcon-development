@@ -1,14 +1,19 @@
-#!/bin/bash
+#!/bin/sh
 
-#Define variables
+# Error control
+set -u;
+set -e;
 
-DATE=$(date +"%m-%d-%Y")
-FILE=/var/www/phalcon-devtools/phalcon.local/backup/phalcon.local-$DATE.sql.gz
-DIR=`dirname "$FILE"`
-SUBJECT="MySQL Backup report"
-EMAIL="stanisov@gmail.com"
-SP="/-\|"
-SC=0
+# Define variables
+
+export SET DATE=$(date +"%m-%d-%Y")
+export SET DATABASE='phalcon.local';
+export SET USER='root';
+export SET PASSWORD='root';
+export SET FILE=/Users/stanislavmenshykh/phalcon.local/backup/$DATABASE-$DATE.sql.gz
+export SET DIR=`dirname "$FILE"`
+export SET SP="/-\|"
+export SET SC=0
 
 # Create backup directory
 
@@ -19,25 +24,58 @@ elif [[ ! -d $DIR ]]; then
     echo "$DIR already exists but is not a directory" 1>&2
 fi
 
-# Create executable functions
+
+showtables() {
+
+    # Show MySQL tables of choised database
+
+    echo "\033[1;35m SHOW TABLES FROM $DATABASE \033[0m";
+    mysql -u$USER -p$PASSWORD $DATABASE -e "USE $DATABASE; SHOW TABLE STATUS";
+
+}
 
 mysqlbackup() {
-    mysqldump -u root -proot phalcon.local | gzip > $FILE;
+
+    # Dump tables
+
+    mysqldump -u$USER -p$PASSWORD $DATABASE | gzip > $FILE;
 }
 
 spin() {
+
+   # Process spinner
+
    printf "\b${SP:SC++:1}"
    ((SC == ${#SP})) && SC=0
 }
 
 endspin() {
-      echo "MySQL backup created."
+
+    # End script
+    echo "\033[0;32m MySQL backup created. \033[0m"
 }
 
-# Create spinner
+dump() {
 
-until mysqlbackup; do
-   spin
-   echo "Backing up data to $FILE file, please wait..."
+    # Do backup process
+
+    until mysqlbackup; do
+        spin
+        echo "\033[0;37m Backing up data to $FILE file, please wait... \033[0m"
+            done
+        endspin
+}
+
+# Show dump tables
+showtables;
+
+# Prompt dialog to confirm dump
+
+while true; do
+    read -p "Do you wish to create dump of this tables?" yn
+    case $yn in
+        [Yy]* ) dump; break;;
+        [Nn]* ) exit;;
+        * ) echo "Please answer \033[4m [y] \033[0mor \033[4m [n] \033[0m.";;
+    esac
 done
-endspin
