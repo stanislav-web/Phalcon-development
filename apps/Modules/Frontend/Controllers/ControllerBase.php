@@ -117,28 +117,39 @@ class ControllerBase extends Controller
             ->addJs('assets/plugins/angular/angular-animate.min.js')
             ->addJs('assets/plugins/angular/angular-sanitize.min.js')
             ->addJs('assets/plugins/angular/angular-spinner.min.js')
+            ->addJs('assets/plugins/angular/angular-translate.min.js')
+            ->addJs('assets/plugins/angular/angular-translate-loader-static-files.min.js')
             ->addJs('assets/plugins/jquery/jquery.min.js')
             ->addJs('assets/plugins/bootstrap/bootstrap.min.js')
             ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/spinner.js')
             ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/app.js')
             ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/config.js')
-            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/controllers/menu.js')
-            ->join(true);
+            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/controllers/menu.js');
 
-        $jsh->addFilter(new \Phalcon\Assets\Filters\Jsmin());
-        $jsh->setTargetPath('assets/frontend/'.strtolower($this->engine->getCode()).'/js-hover.min.js');
-        $jsh->setTargetUri('assets/frontend/'.strtolower($this->engine->getCode()).'/js-hover.min.js');
+        if (APPLICATION_ENV === 'production') {
+
+            $jsh->join(true);
+            $jsh->addFilter(new \Phalcon\Assets\Filters\Jsmin());
+            $jsh->setTargetPath('assets/frontend/'.strtolower($this->engine->getCode()).'/js-hover.min.js');
+            $jsh->setTargetUri('assets/frontend/'.strtolower($this->engine->getCode()).'/js-hover.min.js');
+
+        }
 
         $jsf = $this->assets->collection('footer-js')
             ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/js/menu.js')
             ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/js/move-top.js')
             ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/js/easing.js')
             ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/js/rules.js')
-            ->addJs('assets/plugins/spinner/spin.min.js')
-            ->join(true);
-        $jsf->addFilter(new \Phalcon\Assets\Filters\Jsmin());
-        $jsf->setTargetPath('assets/frontend/'.strtolower($this->engine->getCode()).'/js-footer.min.js');
-        $jsf->setTargetUri('assets/frontend/'.strtolower($this->engine->getCode()).'/js-footer.min.js');
+            ->addJs('assets/plugins/spinner/spin.min.js');
+
+        if (APPLICATION_ENV === 'production') {
+
+            $jsf->join(true);
+            $jsf->addFilter(new \Phalcon\Assets\Filters\Jsmin());
+            $jsf->setTargetPath('assets/frontend/'.strtolower($this->engine->getCode()).'/js-footer.min.js');
+            $jsf->setTargetUri('assets/frontend/'.strtolower($this->engine->getCode()).'/js-footer.min.js');
+
+        }
 
         return;
     }

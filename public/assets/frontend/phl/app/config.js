@@ -58,4 +58,16 @@
         .otherwise({ redirectTo: ROUTES.HOME });
 
     }]);
+
+    // configure localization service
+
+    phl.config(['$translateProvider', function ($translateProvider) {
+
+        $translateProvider.useLoader('customLoader', {});
+
+        // which language to use?
+        $translateProvider.preferredLanguage('en');
+
+    }]);
+
 })(angular);

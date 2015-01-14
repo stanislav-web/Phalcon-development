@@ -56,7 +56,7 @@ class ErrorController extends \Phalcon\Mvc\Controller
             ]);
 
             $this->response->setJsonContent([
-                'content'   => $this->view->getRender('', 'error/notFound', ['page' => strtolower($param)]),
+                'content'   => $this->view->getRender('', 'error/notFound', []),
             ]);
             $this->response->setStatusCode(200, "OK");
 
@@ -85,8 +85,30 @@ class ErrorController extends \Phalcon\Mvc\Controller
             $this->di->get('logger')->error('500 Internal Server Error detected: ' .$this->request->getServer('REQUEST_URI').' from IP: '.$this->request->getClientAddress());
         }
 
-        // render the view
-        $this->view->pick('error/uncaughtException');
+        // return error as 500
+
+        if($this->request->isAjax() === true) {
+
+            $this->view->disableLevel([
+                View::LEVEL_LAYOUT => true,
+                View::LEVEL_MAIN_LAYOUT => true,
+            ]);
+
+            $this->response->setJsonContent([
+                'content'   => $this->view->getRender('', 'error/uncaughtException', []),
+            ]);
+            $this->response->setStatusCode(200, "OK");
+
+            $this->response->setContentType('application/json', 'UTF-8');
+
+            return $this->response->send();
+        }
+        else {
+
+            // render the view
+            $this->view->pick('error/uncaughtException');
+
+        }
     }
 }
 

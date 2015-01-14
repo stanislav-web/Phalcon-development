@@ -5,7 +5,7 @@ var phl;
 
     // application module
 
-    phl = angular.module('phl', ['ngRoute', 'ngAnimate', 'ngSanitize', 'ngLoadingSpinner', function($httpProvider) {
+    phl = angular.module('phl', ['ngRoute', 'ngAnimate', 'ngSanitize', 'ngLoadingSpinner', 'pascalprecht.translate', function($httpProvider) {
 
         $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
         $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
@@ -63,9 +63,27 @@ var phl;
         };
     });
 
+    phl.factory('customLoader', function ($http, $q) {
+        return function (options) {
+            var deferred = $q.defer();
+
+            $http({
+                method:'GET',
+                url:'assets/frontend/phl/app/languages/' + options.key + '.json'
+            }).success(function (data) {
+                deferred.resolve(data);
+            }).error(function () {
+                deferred.reject(options.key);
+            });
+
+            return deferred.promise;
+        }
+    });
+
     // setup global scope variables
 
     phl.run(['$rootScope', 'ROUTES', function ($rootScope, ROUTES) {
+
         $rootScope.ROUTES = ROUTES;
     }]);
 

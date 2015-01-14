@@ -1,33 +1,17 @@
 "use strict";
 
 /**
- * Controller "MenuController"
+ * Controller "LanguageController"
  *
  * @dependencies $scope global variables
  *
  */
-phl.controller('IndexController', function($scope, $rootScope, $http, $location, $sce) {
+phl.controller('LanguageController', ['$scope', '$translate', function ($scope, $translate) {
 
-    /**
-     *	Perform a GET request on the API and pass the slug to it using $location.url()
-     *	On success, pass the data to the view through $scope.page
-     */
-    $http.get($location.url())
-        .success(function(data, status, headers, config){
+    $scope.toggleLanguage = function (key) {
+        $translate.use(key);
 
-            $scope.trusty = function() {
+        $translate.use(($translate.use() === 'en') ? key : 'en');
 
-                return $sce.trustAsHtml(data.content);
-            }
-
-            // Inject the title into the rootScope
-            $rootScope.title = data.title;
-
-        })
-        .error(function(data, status, headers, config){
-
-            // redirect to not found page
-            $location.url('/error/notFound');
-
-        })
-});
+    };
+}]);;
