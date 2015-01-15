@@ -1,6 +1,7 @@
 <?php
 namespace Modules\Frontend\Controllers;
 use Phalcon\Mvc\View;
+use Modules\Frontend\Forms;
 
 /**
  * Class SignController
@@ -38,7 +39,9 @@ class SignController extends ControllerBase
 
             $this->response->setJsonContent([
                 'title'     => 'Sign IN',
-                'content'   => $this->view->getRender('', 'sign/index', []),
+                'content'   =>  $this->view->getRender('', 'sign/index', [
+                    'form'  =>  new Forms\SignForm()
+                ]),
             ]);
 
             $this->response->setStatusCode(200, "OK");

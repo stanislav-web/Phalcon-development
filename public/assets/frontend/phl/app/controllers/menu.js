@@ -29,16 +29,11 @@ phl.controller('TopMenuController', function($scope, $location, $translatePartia
         $http.get(url)
             .success(function(data){
 
-                $scope.message = function() {
-
-                    return $sce.trustAsHtml(data.content);
-                }
-
                 // paste to modal box
 
                 $splash.open({
                     title: data.title,
-                    message: data.content
+                    message: $sce.trustAsHtml(data.content)
                 });
             })
             .error(function(){
