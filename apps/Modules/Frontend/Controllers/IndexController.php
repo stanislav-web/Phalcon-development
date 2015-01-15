@@ -22,12 +22,6 @@ class IndexController extends ControllerBase
     public function initialize()
     {
         parent::initialize();
-
-        // add java scripts minified
-
-        $this->assets->collection('footer-js')
-            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/controllers/'.$this->router->getControllerName().'.js');
-
     }
 
     /**

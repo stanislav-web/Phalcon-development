@@ -9,7 +9,7 @@
  * @dependencies $translatePartialLoader angular-translate-loader-partial.min.js
  *
  */
-phl.controller('TopMenuController', ['$scope', '$location', '$translatePartialLoader', function($scope, $location, $translatePartialLoader) {
+phl.controller('TopMenuController', function($scope, $location, $translatePartialLoader, $splash, $http, $sce, $rootScope) {
 
     // add language support to this controller
 
@@ -20,16 +20,32 @@ phl.controller('TopMenuController', ['$scope', '$location', '$translatePartialLo
         return route === $location.url();
     }
 
-    $scope.open = function(url) {
-        console.log(url);
-        $scope.showModal = true;
-    };
 
-    $scope.ok = function() {
-        $scope.showModal = false;
-    };
+    // open splash modal
+    $scope.openSplash = function(url) {
 
-    $scope.cancel = function() {
-        $scope.showModal = false;
+        // get data from url
+
+        $http.get(url)
+            .success(function(data){
+
+                $scope.message = function() {
+
+                    return $sce.trustAsHtml(data.content);
+                }
+
+                // paste to modal box
+
+                $splash.open({
+                    title: data.title,
+                    message: data.content
+                });
+            })
+            .error(function(){
+
+                // redirect to not found page
+                $location.url('/error/notFound');
+
+        });
     };
-}]);
+});

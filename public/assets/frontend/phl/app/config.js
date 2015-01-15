@@ -12,7 +12,8 @@
             HELP:       '/help',
             AGREEMENT:  '/agreement',
             ABOUT:      '/about',
-            NOT_FOUND:  '/error/notfound'
+            NOT_FOUND:  '/error/notfound',
+            SIGN:       '/sign'
         }
     })());
 
@@ -21,7 +22,7 @@
         return {
             ARTICLE:    'assets/frontend/phl/app/templates/index.html',
             ERROR:      'assets/frontend/phl/app/templates/error.html',
-            AUTH:       'assets/frontend/phl/app/templates/auth.html'
+            SIGN:       'assets/frontend/phl/app/templates/sign.html'
         }
     })());
 

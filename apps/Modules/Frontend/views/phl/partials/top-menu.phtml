@@ -16,7 +16,7 @@
             <a href="<?=$this->url->get(['for' => 'front-about']);?>" translate="ABOUT">ABOUT</a>
         </li>
         <li ng-class="{ active:isActive('<?=$this->url->get(['for' => 'front-sign']);?>')}">
-            <a href="<?=$this->url->get(['for' => 'front-sign']);?>" ng-click="open('/sign');" translate="LOGIN / REGISTER">LOGIN / REGISTER</a>
+            <a ng-click="openSplash('/sign');" translate="LOGIN / REGISTER">LOGIN / REGISTER</a>
         </li>
     </ul>
 </nav>

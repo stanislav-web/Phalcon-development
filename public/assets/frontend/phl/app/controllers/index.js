@@ -1,19 +1,22 @@
 "use strict";
 
 /**
- * Controller "MenuController"
+ * Controller "IndexController"
  *
- * @dependencies $scope global variables
- *
+ * @dependencies $scope global controller variables
+ * @dependencies $rootScope global variables
+ * @dependencies $http http ajax service
+ * @dependencies $location url service
+ * @dependencies $sce sanitize HTML service
  */
 phl.controller('IndexController', function($scope, $rootScope, $http, $location, $sce) {
 
     /**
      *	Perform a GET request on the API and pass the slug to it using $location.url()
-     *	On success, pass the data to the view through $scope.page
+     *	On success, pass the data to the view through $scope.trusty
      */
     $http.get($location.url())
-        .success(function(data, status, headers, config){
+        .success(function(data){
 
             $scope.trusty = function() {
 
@@ -24,10 +27,10 @@ phl.controller('IndexController', function($scope, $rootScope, $http, $location,
             $rootScope.title = data.title;
 
         })
-        .error(function(data, status, headers, config){
+        .error(function(){
 
             // redirect to not found page
             $location.url('/error/notFound');
 
-        })
+        });
 });

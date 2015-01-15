@@ -22,12 +22,6 @@ class SignController extends ControllerBase
     public function initialize()
     {
         parent::initialize();
-
-        // add java scripts minified
-
-        $this->assets->collection('footer-js')
-            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/controllers/'.$this->router->getControllerName().'.js');
-
     }
 
     /**
@@ -43,8 +37,8 @@ class SignController extends ControllerBase
             ]);
 
             $this->response->setJsonContent([
-                'title'     => $this->engine->getName(),
-                'content'   => $this->view->getRender('', 'index/index', []),
+                'title'     => 'Sign IN',
+                'content'   => $this->view->getRender('', 'sign/index', []),
             ]);
 
             $this->response->setStatusCode(200, "OK");

@@ -109,6 +109,7 @@ class ControllerBase extends Controller
             ->addCss('assets/plugins/bootstrap/bootstrap.min.css')
             ->addCss('assets/frontend/'.strtolower($this->engine->getCode()).'/css/style.css')
             ->addCss('assets/frontend/'.strtolower($this->engine->getCode()).'/css/menu.css')
+            ->addCss('assets/frontend/'.strtolower($this->engine->getCode()).'/css/splash.css')
             ->setAttributes(['media' => 'all']);
 
         // add java scripts minified
@@ -125,10 +126,11 @@ class ControllerBase extends Controller
             ->addJs('assets/plugins/angular/angular-spinner.min.js')
             ->addJs('assets/plugins/jquery/jquery.min.js')
             ->addJs('assets/plugins/bootstrap/bootstrap.min.js')
-            ->addJs('assets/plugins/angular/angular-bootstrap-modal.js')
+            ->addJs('assets/plugins/angular/ui-bootstrap-tpls-0.12.0.min.js')
             ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/spinner.js')
             ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/app.js')
             ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/config.js')
+            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/splash.js')
             ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/controllers/menu.js')
             ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/controllers/language.js');
 
@@ -148,7 +150,8 @@ class ControllerBase extends Controller
             ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/js/move-top.js')
             ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/js/easing.js')
             ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/js/rules.js')
-            ->addJs('assets/plugins/spinner/spin.min.js');
+            ->addJs('assets/plugins/spinner/spin.min.js')
+            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/controllers/index.js');
 
         if (APPLICATION_ENV === 'production') {
 
