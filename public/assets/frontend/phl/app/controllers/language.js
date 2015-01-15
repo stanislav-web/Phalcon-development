@@ -4,14 +4,31 @@
  * Controller "LanguageController"
  *
  * @dependencies $scope global variables
+ * @dependencies $translate angular-translater
+ * @dependencies $translate angular-cookies
  *
  */
-phl.controller('LanguageController', ['$scope', '$translate', function ($scope, $translate) {
 
-    $scope.toggleLanguage = function (key) {
-        $translate.use(key);
+phl.controller('LanguageController', ['$translate', '$scope', '$cookies', function ($translate, $scope, $cookies) {
 
-        $translate.use(($translate.use() === 'en') ? key : 'en');
+    // set up language switcher
 
+    $scope.changeLanguage = function (langKey) {
+
+        // change quickly
+        $translate.use(langKey);
+
+        if(store.enabled) {
+
+            // send to storage
+            store.set('NG_TRANSLATE_LANG_KEY', langKey);
+        }
+        else {
+
+            // create cookie
+            $cookies.NG_TRANSLATE_LANG_KEY = langKey;
+        }
+
+        $scope.currentLanguage  =   langKey;
     };
-}]);;
+}]);

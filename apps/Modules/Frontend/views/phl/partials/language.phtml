@@ -1,13 +1,14 @@
-<nav ng-controller="LanguageController">
-    <ul>
-        <li>
-            <button ng-click="toggleLanguage('en')">English</button>
+<?php echo $this->tag->stylesheetLink("assets/plugins/bootstrap-language/languages.min.css", true); ?>
+<div id="footer_language_list">
+    <ul ng-controller="LanguageController" ng-init="changeLanguage(currentLanguage)">
+        <li ng-class="{'active':currentLanguage === 'en'}">
+            <span ng-click="changeLanguage('en')" class="lang-sm lang-lbl" lang="en"></span>&nbsp;
         </li>
-        <li>
-            <button ng-click="toggleLanguage('de')">Deutch</button>
+        <li ng-class="{'active':currentLanguage === 'ru'}">
+            <span ng-click="changeLanguage('ru')" class="lang-sm lang-lbl" lang="ru"></span>&nbsp;
         </li>
-        <li>
-            <button ng-click="toggleLanguage('ru')">Russian</button>
+        <li ng-class="{'active':currentLanguage === 'de'}">
+            <span ng-click="changeLanguage('de')" class="lang-sm lang-lbl" lang="de"></span>&nbsp;
         </li>
     </ul>
-</nav>
+</div>

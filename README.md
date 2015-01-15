@@ -28,7 +28,10 @@ Phalcon Development Boards
 + [Защита веб-приложения на Phalcon + AngularJS от CSRF атак](http://habrahabr.ru/post/245467/)
 + [Combinar Angular y Phalcon](http://uno-de-piera.com/combinar-angular-y-phalcon/)
 + [The Basics of JavaScript Framework SEO in AngularJS](http://builtvisible.com/javascript-framework-seo/)
++ [Angular Translate](http://angular-translate.github.io/)
++ [Languages for Bootstrap 3](http://usrz.github.io/bootstrap-languages/)
 
 ------------------------
 ![Alt text](http://dl1.joxi.net/drive/0001/0378/90490/141130/6931035855.jpg "Screen")
 ![Angular + Phalcon routing](http://dl1.joxi.net/drive/0001/0378/90490/150110/32cfed48dd.jpg "Angular + Phalcon routing")
+![Angular + Phalcon routing](http://dl2.joxi.net/drive/0004/0211/323795/150114/fe9907631e.jpg "Angular + Phalcon routing")

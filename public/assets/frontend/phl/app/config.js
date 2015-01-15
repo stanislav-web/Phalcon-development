@@ -19,8 +19,9 @@
     phl.constant('TEMPLATE', (function () {
 
         return {
-            ARTICLE:        'assets/frontend/phl/app/templates/index.html',
-            ERROR:          'assets/frontend/phl/app/templates/error.html'
+            ARTICLE:    'assets/frontend/phl/app/templates/index.html',
+            ERROR:      'assets/frontend/phl/app/templates/error.html',
+            AUTH:       'assets/frontend/phl/app/templates/auth.html'
         }
     })());
 
@@ -59,15 +60,27 @@
 
     }]);
 
-    // configure localization service
+    // configure preload transliteration
 
-    phl.config(['$translateProvider', function ($translateProvider) {
+    phl.config(['$translateProvider', '$translatePartialLoaderProvider', function ($translateProvider, $translatePartialLoader) {
 
-        $translateProvider.useLoader('customLoader', {});
 
-        // which language to use?
-        $translateProvider.preferredLanguage('en');
+        // try to find out preferred language by yourself
 
+        $translateProvider.fallbackLanguage(['en', 'ru', 'de'])
+            .determinePreferredLanguage()
+            .registerAvailableLanguageKeys(['en', 'de', 'ru'], {
+                'en_US': 'en',
+                'en_GB': 'en',
+                'de_DE': 'de',
+                'ru_RU': 'ru'
+            });
+
+        // get all partitions of language {part} - controller
+
+        $translateProvider.useLoader('$translatePartialLoader', {
+            urlTemplate: 'assets/frontend/phl/app/languages/{lang}/{part}.json'
+        });
     }]);
 
 })(angular);

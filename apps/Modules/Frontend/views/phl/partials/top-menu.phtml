@@ -1,25 +1,22 @@
 <nav ng-controller="TopMenuController" class="cssmenu">
     <ul>
-        <li ng-class="{ active:isActive('/')}">
-            <a href="/">Home</a>
+        <li ng-class="{ active:isActive('<?=$this->url->get(['for' => 'front']);?>')}">
+            <a href="<?=$this->url->get(['for' => 'front']);?>" translate="HOME">HOME</a>
         </li>
-        <li ng-class="{ active:isActive('/agreement')}">
-            <a href="/agreement">Agreement</a>
+        <li ng-class="{ active:isActive('<?=$this->url->get(['for' => 'front-agreement']);?>')}">
+            <a href="<?=$this->url->get(['for' => 'front-agreement']);?>" translate="AGREEMENT">AGREEMENT</a>
         </li>
-        <li ng-class="{ active:isActive('/help')}">
-            <a href="/help">Help</a>
+        <li ng-class="{ active:isActive('<?=$this->url->get(['for' => 'front-help']);?>')}">
+            <a href="<?=$this->url->get(['for' => 'front-help']);?>" translate="HELP">HELP</a>
         </li>
-        <li ng-class="{ active:isActive('/contacts')}">
-            <a href="/contacts">Contacts</a>
+        <li ng-class="{ active:isActive('<?=$this->url->get(['for' => 'front-contacts']);?>')}">
+            <a href="<?=$this->url->get(['for' => 'front-contacts']);?>" translate="CONTACTS">CONTACTS</a>
         </li>
-        <li ng-class="{ active:isActive('/about')}">
-            <a href="/about">About</a>
+        <li ng-class="{ active:isActive('<?=$this->url->get(['for' => 'front-about']);?>')}">
+            <a href="<?=$this->url->get(['for' => 'front-about']);?>" translate="ABOUT">ABOUT</a>
         </li>
-        <li ng-class="{ active:isActive('/wrong')}">
-            <a href="/wrong">Wrong</a>
-        </li>
-        <li ng-class="{ active:isActive('/error/notfound')}">
-            <a href="/error/notfound">Not Found</a>
+        <li ng-class="{ active:isActive('<?=$this->url->get(['for' => 'front-sign']);?>')}">
+            <a href="<?=$this->url->get(['for' => 'front-sign']);?>" ng-click="open('/sign');" translate="LOGIN / REGISTER">LOGIN / REGISTER</a>
         </li>
     </ul>
 </nav>

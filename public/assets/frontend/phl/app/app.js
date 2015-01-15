@@ -5,7 +5,7 @@ var phl;
 
     // application module
 
-    phl = angular.module('phl', ['ngRoute', 'ngAnimate', 'ngSanitize', 'ngLoadingSpinner', 'pascalprecht.translate', function($httpProvider) {
+    phl = angular.module('phl', ['ngRoute', 'ngAnimate', 'ngSanitize', 'ngLoadingSpinner', 'pascalprecht.translate', 'ngCookies', 'ui.bootstrap.modal', function($httpProvider) {
 
         $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
         $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
@@ -63,28 +63,29 @@ var phl;
         };
     });
 
-    phl.factory('customLoader', function ($http, $q) {
-        return function (options) {
-            var deferred = $q.defer();
-
-            $http({
-                method:'GET',
-                url:'assets/frontend/phl/app/languages/' + options.key + '.json'
-            }).success(function (data) {
-                deferred.resolve(data);
-            }).error(function () {
-                deferred.reject(options.key);
-            });
-
-            return deferred.promise;
-        }
-    });
-
     // setup global scope variables
 
-    phl.run(['$rootScope', 'ROUTES', function ($rootScope, ROUTES) {
+    phl.run(['$rootScope', 'ROUTES', '$translate', '$cookies', function ($rootScope, ROUTES, $translate, $cookies) {
 
+        // set global scope for routes & template
         $rootScope.ROUTES = ROUTES;
+
+        if(store.enabled) {
+
+            // getting from storage
+            $rootScope.currentLanguage = store.get('NG_TRANSLATE_LANG_KEY') || 'ru';
+        }
+        else {
+
+            // getting from cookies
+            $rootScope.currentLanguage = $cookies.NG_TRANSLATE_LANG_KEY || 'ru';
+        }
+
+        // update languages global
+        $rootScope.$on('$translatePartialLoaderStructureChanged', function () {
+            $translate.refresh();
+        });
+
     }]);
 
 })(angular);

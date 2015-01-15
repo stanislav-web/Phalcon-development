@@ -28,6 +28,13 @@ $router->add("/help", [
     'namespace' => 'Modules\Frontend\Controllers',
 ])->setName("front-help");
 
+$router->add("/sign", [
+    'module'        => "Frontend",
+    'controller'    => 'sign',
+    'action'        => 'index',
+    'namespace' => 'Modules\Frontend\Controllers',
+])->setName("front-sign");
+
 $router->add("/agreement", [
     'module'        => "Frontend",
     'controller'    => 'index',

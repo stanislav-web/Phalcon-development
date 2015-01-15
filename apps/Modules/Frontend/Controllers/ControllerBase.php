@@ -87,10 +87,12 @@ class ControllerBase extends Controller
         $this->config = $this->di->get('config');
 
         if (APPLICATION_ENV === 'development') {
+
             // add toolbar to the layout
             $toolbar = new \Fabfuel\Prophiler\Toolbar($this->di->get('profiler'));
             $toolbar->addDataCollector(new \Fabfuel\Prophiler\DataCollector\Request());
-            //$this->view->setVar('toolbar', $toolbar);
+            $this->view->setVar('toolbar', $toolbar);
+
         }
     }
 
@@ -112,21 +114,27 @@ class ControllerBase extends Controller
         // add java scripts minified
 
         $jsh = $this->assets->collection('header-js')
+            ->addJs('assets/plugins/store/store.min.js')
             ->addJs('assets/plugins/angular/angular.min.js')
             ->addJs('assets/plugins/angular/angular-route.min.js')
             ->addJs('assets/plugins/angular/angular-animate.min.js')
             ->addJs('assets/plugins/angular/angular-sanitize.min.js')
-            ->addJs('assets/plugins/angular/angular-spinner.min.js')
             ->addJs('assets/plugins/angular/angular-translate.min.js')
-            ->addJs('assets/plugins/angular/angular-translate-loader-static-files.min.js')
+            ->addJs('assets/plugins/angular/angular-translate-loader-partial.min.js')
+            ->addJs('assets/plugins/angular/angular-cookies.min.js')
+            ->addJs('assets/plugins/angular/angular-spinner.min.js')
             ->addJs('assets/plugins/jquery/jquery.min.js')
             ->addJs('assets/plugins/bootstrap/bootstrap.min.js')
+            ->addJs('assets/plugins/angular/angular-bootstrap-modal.js')
             ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/spinner.js')
             ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/app.js')
             ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/config.js')
-            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/controllers/menu.js');
+            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/controllers/menu.js')
+            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/controllers/language.js');
 
         if (APPLICATION_ENV === 'production') {
+
+            // glue and minimize scripts header
 
             $jsh->join(true);
             $jsh->addFilter(new \Phalcon\Assets\Filters\Jsmin());
@@ -143,6 +151,8 @@ class ControllerBase extends Controller
             ->addJs('assets/plugins/spinner/spin.min.js');
 
         if (APPLICATION_ENV === 'production') {
+
+            // glue and minimize scripts footer
 
             $jsf->join(true);
             $jsf->addFilter(new \Phalcon\Assets\Filters\Jsmin());

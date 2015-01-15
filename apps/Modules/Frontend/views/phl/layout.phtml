@@ -6,7 +6,6 @@
         <?= $this->tag->tagHtml('meta', ['charset' => 'UTF-8']) . PHP_EOL; ?>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <meta http-equiv="X-UA-Compatible" content="IE=edge; chrome=1">
-        <meta name="fragment" content="!">
         <meta name="description" content="{{ Meta.metaDescription() }}">
         <meta name="keywords" content="{{ Meta.metaKeywords() }}">
         <meta http-equiv="Cache-Control" content="public">
@@ -23,7 +22,7 @@
         <!-- Javascript area content -->
             <?php $this->assets->outputJs('header-js'); ?>
         <!-- /Javascript area content -->
-        <title>{{title || "<?php echo $this->filter->sanitize($this->tag->getTitle(), "striptags"); ?>"}}</title>
+        <title ng-bind="title"><?php echo $this->filter->sanitize($this->tag->getTitle(), "striptags"); ?></title>
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -48,10 +47,6 @@
                 <?php $this->partial('mini-cart'); ?>
                 <!-- /Mini cart -->
 
-                <!-- Language switcher -->
-                <?php $this->partial('language'); ?>
-                <!-- /Language switcher -->
-
                 <div class="clear"></div>
             </div>
         </div>
@@ -69,6 +64,13 @@
         </div>
         <!-- /Content -->
 
+        <!-- Footer -->
+        <footer class="footer navbar" class="view-animate">
+            <!-- Language switcher -->
+            <?php $this->partial('language'); ?>
+            <!-- /Language switcher -->
+        </footer>
+        <!-- /Footer -->
         <?php $this->assets->outputJs('footer-js'); ?>
         <a href="#" id="toTop" style="display: block;"><span id="toTopHover" style="opacity: 1;"></span></a>
         <?= (isset($toolbar) === true) ? $toolbar->render() : ''; ?>
