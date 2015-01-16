@@ -25,30 +25,5 @@ class SignController extends ControllerBase
         parent::initialize();
     }
 
-    /**
-     * Home action
-     */
-    public function indexAction()
-    {
-        if($this->request->isAjax() === true) {
-
-            $this->view->disableLevel([
-                View::LEVEL_LAYOUT => true,
-                View::LEVEL_MAIN_LAYOUT => true,
-            ]);
-
-            $this->response->setJsonContent([
-                'title'     => 'Sign IN',
-                'content'   =>  $this->view->getRender('', 'sign/index', [
-                    'form'  =>  new Forms\SignForm()
-                ]),
-            ]);
-
-            $this->response->setStatusCode(200, "OK");
-            $this->response->setContentType('application/json', 'UTF-8');
-
-            return $this->response->send();
-        }
-    }
 }
 

@@ -11,7 +11,7 @@ angular.module('ui.splash', ['ui.bootstrap'])
                     opts = angular.extend(opts || {}, {
                         backdrop: false,
                         scope: scope,
-                        templateUrl: 'splash/content.html',
+                        templateUrl: '/assets/frontend/phl/app/templates/sign.html',
                         windowTemplateUrl: 'splash/index.html'
                     });
                     return $modal.open(opts);
@@ -26,13 +26,6 @@ angular.module('ui.splash', ['ui.bootstrap'])
                 '<section class="splash" ng-class="{\'splash-open\': animate}" ng-style="{\'z-index\': 1000, display: \'block\'}" ng-click="close($event)">' +
                 '  <div class="splash-inner" ng-transclude></div>' +
                 '</section>'
-            );
-            $templateCache.put('splash/content.html',
-                '<div class="splash-content text-center">' +
-                '  <h1 ng-bind="title"></h1>' +
-                '  <p class="lead" ng-bind-html="message"></p>' +
-                '  <button class="btn btn-lg btn-outline" ng-bind="btnText || \'Ok, cool\'" ng-click="$close()"></button>' +
-                '</div>'
             );
         }
     ]);

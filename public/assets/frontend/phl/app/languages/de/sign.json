@@ -1,0 +1,21 @@
+{
+    "SIGN IN"               : "Einloggen",
+    "LOGIN"                 : "Benutzername",
+    "PASSWORD"              : "Passwort",
+    "CLOSE"                 : "In der nähe",
+    "REMEMBER"              : "Mich erinnern",
+    "REMEMBER_HELP"         : "(ob dies ein privater computer)",
+    "SIGN_NOTICE"           : "Wahlweise können sie sich selbst ein konto registrieren",
+    "LOGIN_NOTIFY"          : "Anmeldung zu ihrem benutzerkonto",
+    "LOGIN_PLACEHOLDER"     : "Bitte geben Sie eine gültige Telefon oder Email",
+    "PASSWORD_PLACEHOLDER"  : "Geben sie das passwort",
+    "LOGIN_REQUIRED"        : "ID unbedingt",
+    "PASSWORD_REQUIRED"     : "Passwort ist erforderlich, um geben",
+    "REGISTER_NOTIFY"       : "Jetzt kostenlos registrieren",
+    "REGISTER_SA"           : "Deine bestellungen",
+    "REGISTER_FR"           : "Fast neu ordnen",
+    "REGISTER_SY"           : "Speichern sie ihre lieblingsprodukte",
+    "REGISTER_FC"           : "Fast kasse",
+    "REGISTER_MORE"         : "Lesen sie mehr",
+    "REGISTER"              : "Registrieren"
+}

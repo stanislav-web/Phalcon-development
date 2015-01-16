@@ -1,0 +1,86 @@
+<link rel='stylesheet' id='phl' href='/assets/frontend/phl/css/sign.css' type='text/css' media='all'/>
+<div class="splash-content text-center">
+
+    <div class="modal-contents">
+
+        <div class="modal-header">
+
+            <!-- Close -->
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true" ng-click="$close()">×</span><span class="sr-only" ng-click="$close()" translate="CLOSE"></span></button>
+            <!-- /Close -->
+
+            <!-- Title -->
+            <h4 class="modal-title" ng-bind="title" id="myModalLabel" translate="SIGN IN">SIGN IN</h4>
+            <!-- /Title -->
+
+            <!-- Help message -->
+            <p ng-bind-html="message" translate="SIGN_NOTICE"></p>
+            <!-- /Help message -->
+
+        </div>
+
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-xs-6">
+
+                    <div class="well">
+                        <p class="lead" translate="LOGIN_NOTIFY">Assign</p>
+
+                        <!-- Sign form -->
+                        <form name="form" ng-submit="login()" role="form">
+                            <input type="hidden" name="{{token_id}}" value="{{token_val}}"/>
+
+                            <!-- Login -->
+                            <div class="form-group">
+                                <!--<label for="login" class="control-label" translate="LOGIN">LOGIN</label>-->
+                                <input type="text" class="form-control" id="login" name="login" ng-model="login" placeholder="{{ 'LOGIN_PLACEHOLDER' | translate }}" required autofocus>
+                                <span ng-show="form.login.$dirty && form.login.$error.required" class="help-block" translate="LOGIN_REQUIRED"></span>
+                            </div>
+                            <!-- /Login -->
+
+                            <!-- Password -->
+                            <div class="form-group">
+                                <!--<label for="password" class="control-label" translate="PASSWORD">PASSWORD</label>-->
+                                <input type="password" class="form-control" id="password" name="password" ng-model="password" placeholder="{{ 'PASSWORD_PLACEHOLDER' | translate }}" required>
+                                <span ng-show="form.password.$dirty && form.password.$error.required" class="help-block" translate="PASSWORD_REQUIRED"></span>
+                            </div>
+                            <!-- /Password -->
+
+                            <!-- Show error message -->
+                            <div ng-show="error" class="alert alert-danger">{{error}}</div>
+                            <!-- /Show error message -->
+
+                            <!-- Remember -->
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="remember" id="remember"> {{ 'REMEMBER' | translate }}
+                                </label>
+                                <p class="help-block" translate="REMEMBER_HELP"></p>
+                            </div>
+                            <!-- /Remember -->
+
+                            <button type="submit" class="btn btn-success btn-block" ng-disabled="form.$invalid || dataLoading" translate="SIGN IN">SIGN IN</button>
+                            <img ng-if="dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
+                        </form>
+                        <!-- /Sign form -->
+                    </div>
+                </div>
+
+                <div class="col-xs-6">
+                    <div class="well">
+                        <p class="lead" translate="REGISTER_NOTIFY">Register now for FREE</p>
+                        <ul class="list-privilegies">
+                            <li><span class="fa fa-check text-success"></span> {{ 'REGISTER_SA' | translate }}</li>
+                            <li><span class="fa fa-check text-success"></span> {{ 'REGISTER_FR' | translate }}</li>
+                            <li><span class="fa fa-check text-success"></span> {{ 'REGISTER_SY' | translate }}</li>
+                            <li><span class="fa fa-check text-success"></span> {{ 'REGISTER_FC' | translate }}</li>
+                            <li ng-controller="TopMenuController"><a href="/agreement#advantages" ng-click="$close()"><u translate="REGISTER_MORE"></u></a></li>
+                        </ul>
+                        <button type="submit" class="btn btn-info btn-block" ng-disabled="form.$invalid || dataLoading" translate="REGISTER"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -3,10 +3,9 @@
 /**
  * Controller "LanguageController"
  *
- * @dependencies $scope global variables
  * @dependencies $translate angular-translater
- * @dependencies $translate angular-cookies
- *
+ * @dependencies $scope global variables
+ * @dependencies $cookies angular-cookies
  */
 phl.controller('LanguageController', ['$translate', '$scope', '$cookies', function ($translate, $scope, $cookies) {
 
@@ -20,7 +19,7 @@ phl.controller('LanguageController', ['$translate', '$scope', '$cookies', functi
         if(store.enabled) {
 
             // send to storage
-            store.set('NG_TRANSLATE_LANG_KEY', langKey);
+            store.set('NG_TRANSLATE_LANG_KEY',   );
         }
         else {
 

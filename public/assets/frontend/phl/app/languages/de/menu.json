@@ -1,8 +1,8 @@
 {
-    "HOME"      : "Zuhause",
-    "AGREEMENT" : "Vertrag",
-    "HELP"      : "Hilfe",
-    "CONTACTS"  : "Kontakte",
-    "ABOUT"     : "Über",
-    "SIGN IN"   : "Anmelden"
+    "HOME"          : "Zuhause",
+    "AGREEMENT"     : "Vertrag",
+    "HELP"          : "Hilfe",
+    "CONTACTS"      : "Kontakte",
+    "ABOUT"         : "Über",
+    "SIGN IN"       : "Anmelden"
 }

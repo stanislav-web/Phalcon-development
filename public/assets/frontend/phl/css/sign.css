@@ -1,0 +1,29 @@
+/** Sign In modal form **/
+
+.modal-contents {
+    background: transparent;
+    font-size: 15px;
+}
+.modal-contents .modal-header {
+
+}
+.modal-contents .modal-header .close {
+    color: white;
+}
+
+.modal-contents .modal-body {
+
+}
+.modal-contents .modal-body .well {
+    background: none;
+    min-height: 350px;
+}
+
+.modal-contents .modal-body .well input {
+
+}
+
+.modal-contents .modal-body .well ul.list-privilegies {
+
+}
+

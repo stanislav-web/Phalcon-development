@@ -1,0 +1,21 @@
+{
+    "SIGN IN"               : "Sign In",
+    "LOGIN"                 : "Login",
+    "PASSWORD"              : "Password",
+    "CLOSE"                 : "Close",
+    "REMEMBER"              : "Remember me",
+    "REMEMBER_HELP"         : "(if this is a private computer)",
+    "SIGN_NOTICE"           : "Optionally, you can register an account to yourself",
+    "LOGIN_NOTIFY"          : "Login to account",
+    "LOGIN_PLACEHOLDER"     : "Please enter a valid phone or email",
+    "PASSWORD_PLACEHOLDER"  : "Type password",
+    "LOGIN_REQUIRED"        : "Username is required",
+    "PASSWORD_REQUIRED"     : "Password is required",
+    "REGISTER_NOTIFY"       : "Register now for Free",
+    "REGISTER_SA"           : "See all your orders",
+    "REGISTER_FR"           : "Fast re-order",
+    "REGISTER_SY"           : "Save your favorites products",
+    "REGISTER_FC"           : "Fast checkout",
+    "REGISTER_MORE"         : "Read more",
+    "REGISTER"              : "Sign Up"
+}
