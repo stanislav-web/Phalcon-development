@@ -57,3 +57,7 @@ $di->set('crypt', function () {
 
 });
 
+// Default component to crypt cookies values
+
+$di->set('ulogin', '\Ulogin\Ulogin');
+

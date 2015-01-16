@@ -1930,5 +1930,57 @@
             "phalcon uploader",
             "uploader"
         ]
+    },
+    {
+        "name": "stanislav-web/phalcon-ulogin",
+        "version": "v1.0-stable",
+        "version_normalized": "1.0.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/stanislav-web/phalcon-ulogin.git",
+            "reference": "d8a44e5f8e2df8381386a6914ee57b917e137b7e"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/stanislav-web/phalcon-ulogin/zipball/d8a44e5f8e2df8381386a6914ee57b917e137b7e",
+            "reference": "d8a44e5f8e2df8381386a6914ee57b917e137b7e",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.4.0"
+        },
+        "time": "2014-12-27 12:14:56",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "ULogin\\": "src/ULogin"
+            },
+            "classmap": [
+                "phpunit/src/ULogin"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "GPL-3.0"
+        ],
+        "authors": [
+            {
+                "name": "Stanislav WEB",
+                "email": "stanisov@gmail.com",
+                "homepage": "http://reds.com",
+                "role": "Developer"
+            }
+        ],
+        "description": "Phalcon ULogin. The authorization form uLogin through social networks",
+        "homepage": "https://github.com/stanislav-web/phalcon-ulogin",
+        "keywords": [
+            "authorization",
+            "phalcon",
+            "phalcon ulogin",
+            "phalcon ulogin widget",
+            "social",
+            "ulogin"
+        ]
     }
 ]
