@@ -19,7 +19,7 @@ phl.controller('LanguageController', ['$translate', '$scope', '$cookies', functi
         if(store.enabled) {
 
             // send to storage
-            store.set('NG_TRANSLATE_LANG_KEY',   );
+            store.set('NG_TRANSLATE_LANG_KEY',   langKey);
         }
         else {
 
