@@ -33,7 +33,7 @@
                             <!-- Login -->
                             <div class="form-group">
                                 <!--<label for="login" class="control-label" translate="LOGIN">LOGIN</label>-->
-                                <input type="text" class="form-control" id="login" name="login" ng-model="login" placeholder="{{ 'LOGIN_PLACEHOLDER' | translate }}" required autofocus>
+                                <input type="text" ng-minlength="3" ng-maxlength="150" class="form-control" id="login" name="login" ng-model="login" placeholder="{{ 'LOGIN_PLACEHOLDER' | translate }}" required autofocus>
                                 <span ng-show="form.login.$dirty && form.login.$error.required" class="help-block" translate="LOGIN_REQUIRED"></span>
                             </div>
                             <!-- /Login -->
@@ -53,13 +53,13 @@
                             <!-- Remember -->
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" name="remember" id="remember"> {{ 'REMEMBER' | translate }}
+                                    <input type="checkbox" ng-model="remember" name="remember" id="remember" value="1"> {{ 'REMEMBER' | translate }}
                                 </label>
                                 <p class="help-block" translate="REMEMBER_HELP"></p>
                             </div>
                             <!-- /Remember -->
 
-                            <button type="submit" class="btn btn-success btn-block" ng-disabled="form.$invalid || dataLoading" translate="SIGN IN">SIGN IN</button>
+                            <button type="submit" id="type[login]" ng-model="sign" name="type[login]" class="btn btn-success btn-block" ng-disabled="form.$invalid || dataLoading" translate="SIGN IN">SIGN IN</button>
                             <img ng-if="dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
                         </form>
                         <!-- /Sign form -->
@@ -76,7 +76,7 @@
                             <li><span class="fa fa-check text-success"></span> {{ 'REGISTER_FC' | translate }}</li>
                             <li ng-controller="TopMenuController"><a href="/agreement#advantages" ng-click="$close()"><u translate="REGISTER_MORE"></u></a></li>
                         </ul>
-                        <button type="submit" class="btn btn-info btn-block" ng-disabled="form.$invalid || dataLoading" translate="REGISTER"></button>
+                        <button type="type[register]" id="register" ng-model="register" name="type[register]" class="btn btn-info btn-block" ng-disabled="form.$invalid || dataLoading" translate="REGISTER"></button>
                     </div>
                 </div>
             </div>
@@ -84,4 +84,3 @@
 
     </div>
 </div>
-<script type="text/javascript" src="/assets/frontend/phl/app/sign.js"></script>

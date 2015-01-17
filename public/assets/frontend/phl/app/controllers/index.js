@@ -9,7 +9,8 @@
  * @dependencies $location url service
  * @dependencies $sce sanitize HTML service
  */
-phl.controller('IndexController', function($scope, $rootScope, $http, $location, $sce) {
+phl.controller('IndexController', ['$scope', '$rootScope', '$http', '$location', '$sce',
+    function($scope, $rootScope, $http, $location, $sce) {
 
     /**
      *	Perform a GET request on the API and pass the slug to it using $location.url()
@@ -33,4 +34,4 @@ phl.controller('IndexController', function($scope, $rootScope, $http, $location,
             $location.url('/error/notFound');
 
         });
-});
+}]);

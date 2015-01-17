@@ -3,29 +3,34 @@
 (function(angular){
 
 phl.factory('AuthenticationService',
-    ['Base64', '$http', '$cookieStore', '$rootScope', '$timeout',
-        function (Base64, $http, $cookieStore, $rootScope, $timeout) {
+    ['Base64', '$http', '$cookieStore', '$rootScope',
+        function (Base64, $http, $cookieStore, $rootScope) {
             var service = {};
 
-            service.Login = function (login, password, callback) {
+            service.Login = function (login, password, remember, callback) {
+
+
+                /* Use this for real authentication
+                              ----------------------------------------------*/
+                $http.post('/sign', { login: login, password: password, remember: remember })
+                    .success(function (response) {
+                        console.log('sdsdsd');
+                        callback(response);
+                    });
+
+
 
                 /* Dummy authentication for testing, uses $timeout to simulate api call
                               ----------------------------------------------*/
-                $timeout(function(){
+                /**$timeout(function(){
                     var response = { success: login === 'test' && password === 'test' };
                     if(!response.success) {
                         response.message = 'Login or password is incorrect';
                     }
                     callback(response);
-                }, 1000);
+                }, 1000);*/
 
 
-                /* Use this for real authentication
-                              ----------------------------------------------*/
-                //$http.post('/api/authenticate', { login: login, password: password })
-                //    .success(function (response) {
-                //        callback(response);
-                //    });
 
             };
 

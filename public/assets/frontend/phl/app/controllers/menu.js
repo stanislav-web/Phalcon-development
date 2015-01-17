@@ -10,7 +10,8 @@
  * @dependencies $anchorScroll hash scroll support
  *
  */
-phl.controller('TopMenuController', function($scope, $location, $translatePartialLoader, $splash, $http, $sce, $rootScope, $anchorScroll) {
+phl.controller('TopMenuController', ['$scope', '$location', '$translatePartialLoader', '$splash', '$http', '$sce', '$rootScope', '$anchorScroll',
+    function($scope, $location, $translatePartialLoader, $splash, $http, $sce, $rootScope, $anchorScroll) {
 
     // add language support to this controller
     $translatePartialLoader.addPart('menu');
@@ -23,6 +24,7 @@ phl.controller('TopMenuController', function($scope, $location, $translatePartia
             return route === $location.url() + '#' + $location.hash();
 
         }
+
         return route === $location.url();
     }
 
@@ -42,4 +44,4 @@ phl.controller('TopMenuController', function($scope, $location, $translatePartia
 
         $splash.open();
     };
-});
+}]);

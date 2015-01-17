@@ -25,5 +25,15 @@ class SignController extends ControllerBase
         parent::initialize();
     }
 
+    /**
+     * indexAction() Check auth action
+     * @access public
+     * @return null
+     */
+    public function indexAction()
+    {
+        exit('sdsds');
+    }
+
 }
 

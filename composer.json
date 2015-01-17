@@ -20,6 +20,7 @@
             "role": "Developer"
         }
     ],
+    "minimum-stability": "dev",
     "require": {
         "stanislav-web/phalcon-searcher": "dev-master",
         "stanislav-web/phalcon-uploader": "dev-master",

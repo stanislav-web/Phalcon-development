@@ -7,7 +7,8 @@
  * @dependencies $translate angular-translater
  * @dependencies $cookies angular-cookies
  */
-phl.controller('SignController', function ($scope, $rootScope, $location, AuthenticationService, $translatePartialLoader) {
+phl.controller('SignController', ['$scope', '$rootScope', '$location', 'AuthenticationService', '$translatePartialLoader',
+    function ($scope, $rootScope, $location, AuthenticationService, $translatePartialLoader) {
 
     // add language support to this action
     $translatePartialLoader.addPart('sign');
@@ -17,7 +18,7 @@ phl.controller('SignController', function ($scope, $rootScope, $location, Authen
 
     $scope.signIn = function () {
         $scope.dataLoading = true;
-        AuthenticationService.Login($scope.login, $scope.password, function(response) {
+        AuthenticationService.Login($scope.login, $scope.password, $scope.remember, function(response) {
 
              if(response.success) {
 
@@ -35,4 +36,4 @@ phl.controller('SignController', function ($scope, $rootScope, $location, Authen
         });
     };
 
-});
+}]);
