@@ -7,7 +7,8 @@
  * @dependencies $scope global variables
  * @dependencies $cookies angular-cookies
  */
-phl.controller('LanguageController', ['$translate', '$scope', '$cookies', function ($translate, $scope, $cookies) {
+phl.controller('LanguageController', ['$translate', '$scope', '$cookies',
+    function ($translate, $scope, $cookies) {
 
     // set up language switcher
 

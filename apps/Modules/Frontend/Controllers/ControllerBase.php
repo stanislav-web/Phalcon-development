@@ -131,8 +131,11 @@ class ControllerBase extends Controller
             ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/app.js')
             ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/config.js')
             ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/splash.js')
+            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/services/sign.js')
             ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/controllers/menu.js')
-            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/controllers/language.js');
+            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/controllers/language.js')
+            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/controllers/sign.js');
+
 
         if (APPLICATION_ENV === 'production') {
 

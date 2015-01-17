@@ -1,5 +1,5 @@
 <link rel='stylesheet' id='phl' href='/assets/frontend/phl/css/sign.css' type='text/css' media='all'/>
-<div class="splash-content text-center">
+<div class="splash-content text-center" ng-controller="SignController">
 
     <div class="modal-contents">
 
@@ -27,7 +27,7 @@
                         <p class="lead" translate="LOGIN_NOTIFY">Assign</p>
 
                         <!-- Sign form -->
-                        <form name="form" ng-submit="login()" role="form">
+                        <form name="form" ng-submit="signIn()" role="form">
                             <input type="hidden" name="{{token_id}}" value="{{token_val}}"/>
 
                             <!-- Login -->
@@ -84,3 +84,4 @@
 
     </div>
 </div>
+<script type="text/javascript" src="/assets/frontend/phl/app/sign.js"></script>
