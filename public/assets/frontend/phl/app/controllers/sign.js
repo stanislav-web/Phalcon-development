@@ -13,18 +13,30 @@ phl.controller('SignController', ['$scope', '$rootScope', '$location', 'Authenti
     // add language support to this action
     $translatePartialLoader.addPart('sign');
 
-    // reset login status
-    AuthenticationService.ClearCredentials();
+    // logout, before log in again
+    AuthenticationService.Logout();
+
+    // set sign type
+    $scope.typeSign = function(string) {
+        $scope.type = string;
+    };
 
     $scope.signIn = function () {
+
         $scope.dataLoading = true;
-        AuthenticationService.Login($scope.login, $scope.password, $scope.remember, function(response) {
 
-             if(response.success) {
+        // call auth service
 
-                    // success authentication
+        AuthenticationService.Login($scope.login, $scope.password, $scope.type, function(response) {
 
-                    AuthenticationService.SetCredentials($scope.login, $scope.password);
+
+            // get response from server
+            console.log(response);
+
+            if(response.success) {
+
+                    // success authentication (setup success cookies and some user data)
+                    AuthenticationService.UserApply(response.data);
                     $location.path('/');
 
              } else {

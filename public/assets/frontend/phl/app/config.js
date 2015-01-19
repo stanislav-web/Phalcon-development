@@ -66,13 +66,13 @@
 
         // try to find out preferred language by yourself
 
-        $translateProvider.fallbackLanguage(['en', 'ru', 'de'])
+        $translateProvider.fallbackLanguage(['en', 'ru', 'de', 'uk'])
             .determinePreferredLanguage()
-            .registerAvailableLanguageKeys(['en', 'de', 'ru'], {
+            .registerAvailableLanguageKeys(['en', 'de', 'ru', 'uk'], {
                 'en_US': 'en',
                 'en_GB': 'en',
                 'de_DE': 'de',
-                'ru_RU': 'ru'
+                'ua_UK': 'uk'
             });
 
         // get all partitions of language {part} - controller

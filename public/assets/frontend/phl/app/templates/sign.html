@@ -21,13 +21,14 @@
 
         <div class="modal-body">
             <div class="row">
+                <!-- Sign form -->
+                <form name="form" ng-submit="signIn()" role="form">
+
                 <div class="col-xs-6">
 
                     <div class="well">
                         <p class="lead" translate="LOGIN_NOTIFY">Assign</p>
 
-                        <!-- Sign form -->
-                        <form name="form" ng-submit="signIn()" role="form">
                             <input type="hidden" name="{{token_id}}" value="{{token_val}}"/>
 
                             <!-- Login -->
@@ -51,18 +52,16 @@
                             <!-- /Show error message -->
 
                             <!-- Remember -->
-                            <div class="checkbox">
+                            <!--<div class="checkbox">
                                 <label>
                                     <input type="checkbox" ng-model="remember" name="remember" id="remember" value="1"> {{ 'REMEMBER' | translate }}
                                 </label>
                                 <p class="help-block" translate="REMEMBER_HELP"></p>
-                            </div>
+                            </div>-->
                             <!-- /Remember -->
 
-                            <button type="submit" id="type[login]" ng-model="sign" name="type[login]" class="btn btn-success btn-block" ng-disabled="form.$invalid || dataLoading" translate="SIGN IN">SIGN IN</button>
+                            <button ng-click="typeSign('signin')" type="submit" id="signin" class="btn btn-success btn-block" ng-disabled="form.$invalid || dataLoading" translate="SIGN IN">SIGN IN</button>
                             <img ng-if="dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
-                        </form>
-                        <!-- /Sign form -->
                     </div>
                 </div>
 
@@ -76,9 +75,12 @@
                             <li><span class="fa fa-check text-success"></span> {{ 'REGISTER_FC' | translate }}</li>
                             <li ng-controller="TopMenuController"><a href="/agreement#advantages" ng-click="$close()"><u translate="REGISTER_MORE"></u></a></li>
                         </ul>
-                        <button type="type[register]" id="register" ng-model="register" name="type[register]" class="btn btn-info btn-block" ng-disabled="form.$invalid || dataLoading" translate="REGISTER"></button>
+                        <button ng-click="typeSign('signup')" type="submit" id="signup" class="btn btn-info btn-block" ng-disabled="form.$invalid || dataLoading" translate="REGISTER"></button>
                     </div>
                 </div>
+
+                </form>
+                <!-- /Sign form -->
             </div>
         </div>
 
