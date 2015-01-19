@@ -13,14 +13,17 @@ phl.controller('SignController', ['$scope', '$rootScope', '$location', 'Authenti
     // add language support to this action
     $translatePartialLoader.addPart('sign');
 
-    // logout, before log in again
-    AuthenticationService.Logout();
-
-    // set sign type
+    /**
+     * Get Sign type (login / register )
+     * @param string
+     */
     $scope.typeSign = function(string) {
         $scope.type = string;
     };
 
+    /**
+     * Login to account
+     */
     $scope.signIn = function () {
 
         $scope.dataLoading = true;
@@ -45,6 +48,15 @@ phl.controller('SignController', ['$scope', '$rootScope', '$location', 'Authenti
 
              }
         });
+    };
+
+    /**
+     * Login out
+     */
+    $scope.logout = function () {
+
+        AuthenticationService.Logout();
+        $location.path('/');
     };
 
 }]);

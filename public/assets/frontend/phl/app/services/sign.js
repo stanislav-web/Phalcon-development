@@ -8,7 +8,6 @@ phl.factory('AuthenticationService',
 
             var service = {};
 
-
             /**
              * Send data to server ( Input data )
              *
@@ -37,7 +36,13 @@ phl.factory('AuthenticationService',
 
                 $rootScope.user = data.user;
 
-                //$cookieStore.put('auth', data.cookies);
+                $http.get('/profile')
+                    .success(function (response) {
+
+                        //console.log(response);
+                        $rootScope.title    =   response.title;
+                        $rootScope.user     =   response.user;
+                });
             };
 
             /**
@@ -45,7 +50,14 @@ phl.factory('AuthenticationService',
              * @constructor
              */
             service.Logout = function () {
-                $rootScope.user = {};
+
+                $http.get('/logout')
+                    .success(function (response) {
+
+                        $rootScope.title    =   response.title;
+                        delete $rootScope.user;
+                    });
+
             };
 
             return service;

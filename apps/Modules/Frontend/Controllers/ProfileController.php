@@ -14,6 +14,8 @@ use Phalcon\Mvc\View;
 class ProfileController extends ControllerBase
 {
 
+    protected $private  =   false;
+
     /**
      * initialize() Initialize constructor
      * @access public
@@ -22,6 +24,14 @@ class ProfileController extends ControllerBase
     public function initialize()
     {
         parent::initialize();
+
+        if($this->user !== null) {
+
+            $this->private = true;
+        }
+        else {
+            $this->response->redirect('/');
+        }
     }
 
     /**
@@ -31,6 +41,26 @@ class ProfileController extends ControllerBase
      */
     public function indexAction()
     {
+        $this->tag->prependTitle(ucfirst($this->user->getName()).' - ');
+
+        if($this->request->isAjax() === true) {
+
+            $this->view->disableLevel([
+                View::LEVEL_LAYOUT => true,
+                View::LEVEL_MAIN_LAYOUT => true,
+            ]);
+
+            $this->response->setJsonContent([
+                'title'     =>  ucfirst($this->user->getName()).' - '.$this->engine->getName(),
+                'user'      =>  $this->user->toArray()
+            ]);
+
+            $this->response->setStatusCode(200, "OK");
+            $this->response->setContentType('application/json', 'UTF-8');
+
+            return $this->response->send();
+        }
+
         //var_dump($this->user); exit;
     }
 }

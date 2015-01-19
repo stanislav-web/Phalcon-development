@@ -41,6 +41,7 @@ class SignController extends ControllerBase
 
                     // The token is ok, check sign type
                     $type   =   $this->request->getPost('type');
+
                     if($type === 'signin') {
 
                         // login
@@ -102,11 +103,23 @@ class SignController extends ControllerBase
 
         // destroy auth data
         $this->clearUserData();
-        //$this->response->redirect('/');
+        if($this->request->isAjax() === false) {
+            $this->response->redirect('/');
+        }
+        else {
 
-        var_dump($_COOKIE);
+            // As Json string
+            $this->responseMsg = [
+                'success'   =>  true
+            ];
 
-        exit();
+            $this->response->setJsonContent($this->responseMsg);
+            $this->response->setStatusCode(200, "OK");
+
+            $this->response->setContentType('application/json', 'UTF-8');
+
+            return $this->response->send();
+        }
     }
 
     /**

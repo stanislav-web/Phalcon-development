@@ -14,7 +14,7 @@
             ABOUT:      '/about',
             NOT_FOUND:  '/error/notfound',
             PROFILE:    '/profile',
-            LOGOUT:     '/logout',
+            LOGOUT:     '/logout'
         }
     })());
 
@@ -66,6 +66,10 @@
                 templateUrl: TEMPLATE.PROFILE,
                 controller: "SignController",
                 security: false
+        })
+        .when(ROUTES.LOGOUT, {
+            templateUrl: TEMPLATE.ARTICLE,
+            controller: "SignController"
         })
         .otherwise({ redirectTo: ROUTES.HOME });
 

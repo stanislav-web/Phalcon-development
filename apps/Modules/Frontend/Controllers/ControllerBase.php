@@ -63,6 +63,7 @@ class ControllerBase extends Controller
 
     /**
      * initialize() Initial all global objects
+     *
      * @access public
      * @return null
      */
@@ -146,6 +147,7 @@ class ControllerBase extends Controller
     /**
      * Add assets content
      *
+     * @access protected
      * @return null
      */
     private function addAssetsContent() {
@@ -219,9 +221,11 @@ class ControllerBase extends Controller
     /**
      * Clear all auth user data
      *
+     * @access protected
      * @return null
      */
     protected function clearUserData() {
+
 
         if(isset($this->user) && $this->user !== null) {
             $cookieSalt =  md5($this->user->getLogin().$this->request->getUserAgent().$this->user->getSalt());
@@ -237,8 +241,7 @@ class ControllerBase extends Controller
         // destroy cookies
         if(isset($cookieSalt) === true) {
 
-            $this->cookies->delete($cookieSalt);
-            $this->cookies->set($cookieSalt, '', time() - $this->config->rememberKeep * 2);
+            $this->cookies->get($cookieSalt)->delete();
 
         }
     }
