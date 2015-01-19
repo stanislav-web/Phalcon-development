@@ -16,14 +16,33 @@ use Phalcon\Mvc\View;
 class ControllerBase extends Controller
 {
     /**
-     * @var \Phalcon\Di > Config
+     * Config service
+     * @var object Phalcon\Config
      */
-    protected $config;
+    protected $config = false;
+
+    /**
+     * Auth user
+     * @var object Models\Users
+     */
+    protected $user = null;
+
+    /**
+     * Logger service
+     * @var object Phalcon\Logger\Adapter\File
+     */
+    protected $logger = false;
 
     /**
      * @var \Models\Engines
      */
     protected $engine;
+
+    /**
+     * Ping response as Json
+     * @var array
+     */
+    protected $responseMsg = [];
 
     /**
      * After route executed event
@@ -49,6 +68,18 @@ class ControllerBase extends Controller
      */
     public function initialize()
     {
+        // load configurations
+        $this->config = $this->di->get('config');
+
+        if($this->user === null) {
+            $this->user = $this->session->get('user');
+        }
+
+        // load logger
+        if ($this->config->logger->enable === true) {
+            $this->logger = $this->di->get('logger');
+        }
+
         // find current engine
         if($this->session->has('engine') === false) {
 
@@ -65,9 +96,6 @@ class ControllerBase extends Controller
 
         if($this->engine !== null) {
 
-            // get config
-            $this->config = $this->di->get('config');
-
             // setup app title
             $this->tag->setTitle($this->engine->getName());
 
@@ -83,8 +111,26 @@ class ControllerBase extends Controller
             $this->addAssetsContent();
         }
 
+        // check user data
+        if($this->user !== null) {
+
+            // verify cookie salt
+            $salt = md5($this->user->getLogin().$this->request->getUserAgent().$this->user->getSalt());
+
+            if($this->cookies->has($salt) === true) {
+
+                // success! user is logged in the system
+                // $this->user - get all user data
+
+                $this->responseMsg = [
+                    'user' =>   $this->user->toArray(),
+                ];
+
+                $this->view->setVar('user', $this->user->toArray());
+            }
+        }
+
         // load configurations
-        $this->config = $this->di->get('config');
 
         if (APPLICATION_ENV === 'development') {
 
@@ -168,5 +214,32 @@ class ControllerBase extends Controller
         }
 
         return;
+    }
+
+    /**
+     * Clear all auth user data
+     *
+     * @return null
+     */
+    protected function clearUserData() {
+
+        if(isset($this->user) && $this->user !== null) {
+            $cookieSalt =  md5($this->user->getLogin().$this->request->getUserAgent().$this->user->getSalt());
+        }
+
+        // destroy session data
+        if($this->session->has('user')) {
+
+            $this->session->remove('user');
+            $this->user = null;
+        }
+
+        // destroy cookies
+        if(isset($cookieSalt) === true) {
+
+            $this->cookies->delete($cookieSalt);
+            $this->cookies->set($cookieSalt, '', time() - $this->config->rememberKeep * 2);
+
+        }
     }
 }

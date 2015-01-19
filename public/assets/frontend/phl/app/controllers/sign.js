@@ -7,8 +7,8 @@
  * @dependencies $translate angular-translater
  * @dependencies $cookies angular-cookies
  */
-phl.controller('SignController', ['$scope', '$rootScope', '$location', 'AuthenticationService', '$translatePartialLoader',
-    function ($scope, $rootScope, $location, AuthenticationService, $translatePartialLoader) {
+phl.controller('SignController', ['$scope', '$rootScope', '$location', 'AuthenticationService', '$translatePartialLoader', '$splash',
+    function ($scope, $rootScope, $location, AuthenticationService, $translatePartialLoader, $splash) {
 
     // add language support to this action
     $translatePartialLoader.addPart('sign');
@@ -29,15 +29,14 @@ phl.controller('SignController', ['$scope', '$rootScope', '$location', 'Authenti
 
         AuthenticationService.Login($scope.login, $scope.password, $scope.type, function(response) {
 
-
-            // get response from server
-            console.log(response);
-
             if(response.success) {
 
                     // success authentication (setup success cookies and some user data)
-                    AuthenticationService.UserApply(response.data);
-                    $location.path('/');
+                    AuthenticationService.UserApply(response);
+
+                    // close splash window & redirect to profile
+                    $splash.close();
+                    $location.path('/profile');
 
              } else {
 

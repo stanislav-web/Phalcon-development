@@ -35,12 +35,9 @@ phl.factory('AuthenticationService',
              */
             service.UserApply = function (data) {
 
-                $rootScope.auth = {
-                    login: data.login
-                };
+                $rootScope.user = data.user;
 
-                $http.defaults.headers.common['Authorization'] = 'Basic ' + data.cookies;
-                $cookieStore.put('auth', data.cookies);
+                //$cookieStore.put('auth', data.cookies);
             };
 
             /**
@@ -48,9 +45,7 @@ phl.factory('AuthenticationService',
              * @constructor
              */
             service.Logout = function () {
-                $rootScope.auth = {};
-                $cookieStore.remove('auth');
-                $http.defaults.headers.common.Authorization = 'Basic ';
+                $rootScope.user = {};
             };
 
             return service;

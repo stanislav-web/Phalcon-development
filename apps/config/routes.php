@@ -51,6 +51,13 @@ $router->add("/about", [
     'namespace' => 'Modules\Frontend\Controllers',
 ])->setName("front-about");
 
+$router->add('/logout', [
+    'module' => "Frontend",
+    'controller' => "sign",
+    'action' => "logout",
+    'namespace' => 'Modules\Frontend\Controllers',
+])->setName('logout');
+
 $router->add('/:controller/:action/:params', [
     'module' => "Frontend",
     'controller' => 1,

@@ -1,7 +1,7 @@
 <?php
 namespace Modules\Frontend\Controllers;
 use Phalcon\Mvc\View;
-use Modules\Frontend\Forms;
+use Models\Users;
 
 /**
  * Class SignController
@@ -14,12 +14,6 @@ use Modules\Frontend\Forms;
  */
 class SignController extends ControllerBase
 {
-
-    /**
-     * Ping response as Json
-     * @var array
-     */
-    private $response = [];
 
     /**
      * initialize() Initialize constructor
@@ -38,7 +32,6 @@ class SignController extends ControllerBase
      */
     public function indexAction()
     {
-        $response = [];
 
         if($this->request->isAjax() === true) {
 
@@ -61,24 +54,22 @@ class SignController extends ControllerBase
                 }
                 else
                 {
-                    // CSRF protection
+                    // If CSRF request was broken
 
-                    if ($this->_config->logger->enable)
-                        $this->_logger->error('Authenticate failed from ' . $this->request->getClientAddress() . '. CSRF attack');
+                    if ($this->config->logger->enable)
+                        $this->logger->error('Authenticate failed from ' . $this->request->getClientAddress() . '. CSRF attack');
 
-                    $message    =   'Invalid access token! Reload please';
-                    $response['message']    =   $message;
-                    $this->flashSession->error($message);
+                    $this->message('Invalid access token! Reload please');
                 }
             }
             else
             {
-                if ($this->_config->logger->enable)
-                    $this->_logger->error('Authenticate failed from ' . $this->request->getClientAddress() . '. Wrong auth method');
+                // if the request is different from POST
 
-                $message    =   'Wrong way! The data could not be loaded.';
-                $response['message']    =   $message;
-                $this->flashSession->error($message);
+                if ($this->config->logger->enable)
+                    $this->logger->error('Authenticate failed from ' . $this->request->getClientAddress() . '. Wrong auth method');
+
+                $this->message('Wrong way! The data could not be loaded.');
             }
 
             $this->view->disableLevel([
@@ -86,7 +77,7 @@ class SignController extends ControllerBase
                 View::LEVEL_MAIN_LAYOUT => true,
             ]);
 
-            $this->response->setJsonContent($this->response);
+            $this->response->setJsonContent($this->responseMsg);
             $this->response->setStatusCode(200, "OK");
 
             $this->response->setContentType('application/json', 'UTF-8');
@@ -101,76 +92,107 @@ class SignController extends ControllerBase
         }
     }
 
+    /**
+     * Logout action to destroy user auth data
+     *
+     * @access public
+     * @return null
+     */
+    public function logoutAction() {
+
+        // destroy auth data
+        $this->clearUserData();
+        //$this->response->redirect('/');
+
+        var_dump($_COOKIE);
+
+        exit();
+    }
+
+    /**
+     * Authorization to customer area
+     */
     protected function login() {
 
+        // destroy previous session user data
 
+        // get post data
         $login = $this->request->getPost('login', 'trim');
         $password = $this->request->getPost('password', 'trim');
 
-$user = (new Users())->findFirst([
-    "login = ?0",
-    "bind" => [$login]
-]);
+        $user = (new Users())->findFirst([
+            "login = ?0",
+            "bind" => [$login]
+        ]);
 
-if (empty($user) === false) {
+        if(empty($user) === false) {
 
-    if ($this->security->checkHash($password, $user->getPassword()))
-    {
-        // Check if the "remember me" was selected
-        if (isset($remember)) {
-            $this->cookies->set('remember', $user->getId(), time() + $this->_config->rememberKeep);
-            $this->cookies->set('rememberToken',
-                md5($user->getPassword() . $user->getSalt()),
-                time() + $this->_config->rememberKeep);
+            // user founded, check password
+            if($this->security->checkHash($password, $user->getPassword()))
+            {
+
+                $salt = md5($user->getLogin().$this->request->getUserAgent().$user->getSalt());
+                $data = md5($user->getPassword() . $user->getSalt());
+
+                // setup user cookies and send to client for update
+                $this->cookies->set($salt, $data, time() + $this->config->rememberKeep);
+
+                // set authentication user data for logged user
+
+                $this->session->set('user', $user);
+
+                // update auth params
+                $user->setDateLastvisit(date('Y-m-d H:i:s'))
+                    ->setIp($this->request->getClientAddress())
+                    ->setUa($this->request->getUserAgent())
+                    ->save();
+
+                if ($this->config->logger->enable) {
+                    $this->logger->log('Authenticate success from ' . $this->request->getClientAddress());
+                }
+
+                // success
+
+                $this->responseMsg = [
+                    'user' =>   $user->toArray(),
+                    'cookies' => [
+                        $salt => $data
+                    ],
+                    'success'   =>  true
+                ];
+            }
+            else
+            {
+
+                if($this->config->logger->enable) {
+                    $this->logger->error('Authenticate failed from ' . $this->request->getClientAddress() . '. Wrong authenticate data');
+                }
+
+                // wrong authenticate data (password or login)
+                $this->message('Wrong authenticate data');
+            }
         }
-
-        // set authentication for logged user
-        $this->session->set('auth', $user);
-
-        // update auth params
-        $user->setDateLastvisit(date('Y-m-d H:i:s'))
-            ->setIp($this->request->getClientAddress())
-            ->setUa($this->request->getUserAgent())
-            ->save();
-
-        $referrer = parse_url($this->request->getHTTPReferer(), PHP_URL_PATH);
-
-        if ($this->_config->logger->enable) {
-            $this->_logger->log('Authenticate success from ' . $this->request->getClientAddress());
-        }
-
-        // full http redirect to the referrer page
-        if ($referrer != $this->request->getURI())
-            return $this->response->redirect($referrer);
         else
-            return $this->response->redirect('dashboard');
-    }
-    else
-    {
-        // Wrong authenticate data (password or login)
-        $this->flashSession->error("Wrong authenticate data");
+        {
+            if($this->config->logger->enable)
+                $this->logger->error('Authenticate failed from ' . $this->request->getClientAddress() . '. The user ' . $login . ' not found');
 
-        if ($this->_config->logger->enable) {
-            $this->_logger->error('Authenticate failed from ' . $this->request->getClientAddress() . '. Wrong authenticate data');
+            // user does not exist in database
+            $this->message('The user not found');
         }
-
-        $this->response->redirect('dashboard/auth');
-        $this->view->disable();
-    }
-} else {
-    // user does not exist in database
-    $this->flashSession->error("The user not found");
-
-
-    if ($this->_config->logger->enable)
-        $this->_logger->error('Authenticate failed from ' . $this->request->getClientAddress() . '. The user ' . $login . ' not found');
-
-    $this->response->redirect('dashboard/auth');
-    $this->view->disable();
-} 
-
     }
 
+    /**
+     * Setup response message
+     *
+     * @param string $message
+     * @return null
+     */
+    protected function message($message) {
+
+        $this->responseMsg['message']    =   $message;
+        $this->flashSession->error($message);
+    }
 
 }
 

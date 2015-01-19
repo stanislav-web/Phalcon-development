@@ -4,6 +4,9 @@ angular.module('ui.splash', ['ui.bootstrap'])
         '$modal',
         '$rootScope',
         function($modal, $rootScope) {
+
+            var modalInstance;
+
             return {
                 open: function (attrs, opts) {
                     var scope = $rootScope.$new();
@@ -14,7 +17,14 @@ angular.module('ui.splash', ['ui.bootstrap'])
                         templateUrl: '/assets/frontend/phl/app/templates/sign.html',
                         windowTemplateUrl: 'splash/index.html'
                     });
-                    return $modal.open(opts);
+                    modalInstance = $modal.open(opts);
+
+                    return modalInstance;
+                },
+
+                close: function () {
+
+                    return modalInstance.close();
                 }
             };
         }

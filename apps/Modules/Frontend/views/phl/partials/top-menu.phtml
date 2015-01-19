@@ -15,8 +15,17 @@
         <li ng-class="{ active:isActive('<?=$this->url->get(['for' => 'front-about']);?>')}">
             <a href="<?=$this->url->get(['for' => 'front-about']);?>" translate="ABOUT">ABOUT</a>
         </li>
+        <?php if(empty($user) === false): ?>
+            <li ng-class="{ active:isActive('<?=$this->url->get('profile');?>')}">
+                <a href="<?=$this->url->get('profile');?>" translate="PROFILE">PROFILE</a>
+            </li>
+            <li>
+                <a href="<?=$this->url->get('logout');?>" translate="LOGOUT">LOGOUT</a>
+            </li>
+        <?php else: ?>
         <li ng-class="{ active:isActive('<?=$this->url->get(['for' => 'front-sign']);?>')}">
             <a ng-click="openSplash();" translate="SIGN IN">SIGN IN</a>
         </li>
+        <?php endif;?>
     </ul>
 </nav>

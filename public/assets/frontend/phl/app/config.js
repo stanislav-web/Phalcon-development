@@ -12,7 +12,9 @@
             HELP:       '/help',
             AGREEMENT:  '/agreement',
             ABOUT:      '/about',
-            NOT_FOUND:  '/error/notfound'
+            NOT_FOUND:  '/error/notfound',
+            PROFILE:    '/profile',
+            LOGOUT:     '/logout',
         }
     })());
 
@@ -20,7 +22,8 @@
 
         return {
             ARTICLE:    'assets/frontend/phl/app/templates/index.html',
-            ERROR:      'assets/frontend/phl/app/templates/error.html'
+            ERROR:      'assets/frontend/phl/app/templates/error.html',
+            PROFILE:    'assets/frontend/phl/app/templates/profile.html'
         }
     })());
 
@@ -38,7 +41,7 @@
         .when(ROUTES.CONTACTS, {
                 templateUrl: TEMPLATE.ARTICLE,
                 controller: "IndexController"
-            })
+        })
         .when(ROUTES.HELP, {
                 templateUrl: TEMPLATE.ARTICLE,
                 controller: "IndexController"
@@ -51,9 +54,18 @@
                 templateUrl: TEMPLATE.ARTICLE,
                 controller: "IndexController"
         })
+        $routeProvider.when(ROUTES.LOGOUT, {
+            controller: "IndexController",
+            redirectTo: ROUTES.LOGOUT
+        })
         .when(ROUTES.NOT_FOUND, {
                 templateUrl: TEMPLATE.ERROR,
                 controller: 'IndexController'
+        })
+        .when(ROUTES.PROFILE, {
+                templateUrl: TEMPLATE.PROFILE,
+                controller: "SignController",
+                security: false
         })
         .otherwise({ redirectTo: ROUTES.HOME });
 

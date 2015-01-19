@@ -1,8 +1,10 @@
 {
-    "HOME"      : "Home",
-    "AGREEMENT" : "Agreement",
-    "HELP"      : "Help",
-    "CONTACTS"  : "Contacts",
-    "ABOUT"     : "About",
-    "SIGN IN"   : "Sign in"
+    "HOME"          : "Home",
+    "AGREEMENT"     : "Agreement",
+    "HELP"          : "Help",
+    "CONTACTS"      : "Contacts",
+    "ABOUT"         : "About",
+    "SIGN IN"       : "Sign in",
+    "PROFILE"       : "My Account",
+    "LOGOUT"        : "Log out"
 }

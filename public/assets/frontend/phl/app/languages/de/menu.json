@@ -4,5 +4,7 @@
     "HELP"          : "Hilfe",
     "CONTACTS"      : "Kontakte",
     "ABOUT"         : "Über",
-    "SIGN IN"       : "Einloggen"
+    "SIGN IN"       : "Einloggen",
+    "PROFILE"       : "Mein Konto",
+    "LOGOUT"        : "Exit"
 }
