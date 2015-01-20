@@ -143,12 +143,11 @@ class SignController extends ControllerBase
             // user founded, check password
             if($this->security->checkHash($password, $user->getPassword()))
             {
-
-                $salt = md5($user->getLogin().$this->request->getUserAgent().$user->getSalt());
-                $data = md5($user->getPassword() . $user->getSalt());
+                $data = md5($user->getPassword() . $user->getSalt().$this->request->getUserAgent());
 
                 // setup user cookies and send to client for update
-                $this->cookies->set($salt, $data, time() + $this->config->rememberKeep);
+
+                $this->cookies->set('token', $data, time() + ($this->config->rememberKeep), '/', $this->engine->getHost(), false, false);
 
                 // set authentication user data for logged user
 
@@ -168,9 +167,7 @@ class SignController extends ControllerBase
 
                 $this->responseMsg = [
                     'user' =>   $user->toArray(),
-                    'cookies' => [
-                        $salt => $data
-                    ],
+                    'token' =>  $data,
                     'success'   =>  true
                 ];
             }

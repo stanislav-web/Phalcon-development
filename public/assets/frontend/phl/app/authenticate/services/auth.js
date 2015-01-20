@@ -6,10 +6,11 @@
      *  Auth Service factory
      */
     phlModule.factory('authService',
-        ['$http', '$cookieStore', '$rootScope',
-        function ($http, $cookieStore, $rootScope) {
+        ['$http', '$cookieStore', '$rootScope', 'access',
+        function ($http, $cookieStore, $rootScope, access) {
 
             var service = {};
+            var user    = false;
 
             /**
              * Send data to server ( Input data )
@@ -37,12 +38,13 @@
              */
             service.UserApply = function (data) {
 
-                $rootScope.user = data.user;
+                $rootScope.user = user = data.user;
+
+                access.init(data.token);
 
                 $http.get('/profile')
                     .success(function (response) {
 
-                        //console.log(response);
                         $rootScope.title    =   response.title;
                         $rootScope.user     =   response.user;
                 });
@@ -61,6 +63,15 @@
                         delete $rootScope.user;
                     });
 
+            };
+
+            /**
+             * Remove user data from cookies (Log out)
+             * @constructor
+             */
+            service.isLoggedIn = function () {
+
+                return(user)? user : false;
             };
 
             return service;

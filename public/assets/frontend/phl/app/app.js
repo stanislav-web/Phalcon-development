@@ -70,7 +70,10 @@ var splashModule;
 
     // setup global scope variables
 
-    phlModule.run(['$rootScope', 'ROUTES', '$translate', '$cookies', function ($rootScope, ROUTES, $translate, $cookies) {
+    phlModule.run(['$rootScope', 'ROUTES', '$translate', '$cookies', 'access', 'authService', function ($rootScope, ROUTES, $translate, $cookies, access, authService) {
+
+        // set access token (if exist)
+        access.init();
 
         // set global scope for routes & template
         $rootScope.ROUTES = ROUTES;
@@ -89,6 +92,17 @@ var splashModule;
         // update languages global
         $rootScope.$on('$translatePartialLoaderStructureChanged', function () {
             $translate.refresh();
+        });
+
+        // authorize check for each routes
+        $rootScope.$on('$routeChangeStart', function (event) {
+
+            if (!authService.isLoggedIn()) {
+                console.log('DENY');
+            }
+            else {
+                console.log('ALLOW');
+            }
         });
 
     }]);

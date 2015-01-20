@@ -75,7 +75,7 @@ $config = [
     ],
 
     // Remember state
-    'rememberKeep' => 86400 * 30,
+    'rememberKeep'   => 604800,
     'cookieCryptKey' => '#1dj8$=dp?.ak//j1V$'
 ];
 

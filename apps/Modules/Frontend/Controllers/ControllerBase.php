@@ -190,7 +190,9 @@ class ControllerBase extends Controller
         $jsf = $this->assets->collection('footer-js')
             ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/app.js')
             ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/config.js')
+            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/common/services/access.js')
             ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/common/directives/spinner.js')
+            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/common/services/interceptor.js')
             ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/common/services/splash.js')
             ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/authenticate/services/auth.js')
             ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/common/controllers/menu.js')
@@ -225,22 +227,18 @@ class ControllerBase extends Controller
      */
     protected function clearUserData() {
 
-
-        if(isset($this->user) && $this->user !== null) {
-            $cookieSalt =  md5($this->user->getLogin().$this->request->getUserAgent().$this->user->getSalt());
-        }
+        $this->user = null;
 
         // destroy session data
         if($this->session->has('user')) {
 
             $this->session->remove('user');
-            $this->user = null;
         }
 
         // destroy cookies
-        if(isset($cookieSalt) === true) {
+        if($this->cookies->has('token')) {
 
-            $this->cookies->get($cookieSalt)->delete();
+            $this->cookies->get('token')->delete();
 
         }
     }
