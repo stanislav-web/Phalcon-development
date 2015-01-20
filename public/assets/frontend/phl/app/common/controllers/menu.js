@@ -10,7 +10,7 @@
  * @dependencies $anchorScroll hash scroll support
  *
  */
-phl.controller('TopMenuController', ['$scope', '$location', '$translatePartialLoader', '$splash', '$http', '$sce', '$rootScope', '$anchorScroll',
+phlModule.controller('TopMenuCtrl', ['$scope', '$location', '$translatePartialLoader', '$splash', '$http', '$sce', '$rootScope', '$anchorScroll',
     function($scope, $location, $translatePartialLoader, $splash, $http, $sce, $rootScope, $anchorScroll) {
 
     // add language support to this controller

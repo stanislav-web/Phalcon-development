@@ -1,6 +1,6 @@
 <?php echo $this->tag->stylesheetLink("assets/plugins/bootstrap-language/languages.min.css", true); ?>
 <div id="footer_language_list">
-    <ul ng-controller="LanguageController" ng-init="changeLanguage(currentLanguage)">
+    <ul ng-controller="LanguageCtrl" ng-init="changeLanguage(currentLanguage)">
         <li ng-class="{'active':currentLanguage === 'en'}">
             <span ng-click="changeLanguage('en')" class="lang-sm lang-lbl" lang="en"></span>&nbsp;
         </li>

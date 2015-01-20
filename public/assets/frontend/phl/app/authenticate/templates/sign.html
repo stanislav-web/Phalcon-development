@@ -1,5 +1,5 @@
 <link rel='stylesheet' id='phl' href='/assets/frontend/phl/css/sign.css' type='text/css' media='all'/>
-<div class="splash-content text-center" ng-controller="SignController">
+<div class="splash-content text-center" ng-controller="SignCtrl">
 
     <div class="modal-contents">
 
@@ -73,7 +73,7 @@
                             <li><span class="fa fa-check text-success"></span> {{ 'REGISTER_FR' | translate }}</li>
                             <li><span class="fa fa-check text-success"></span> {{ 'REGISTER_SY' | translate }}</li>
                             <li><span class="fa fa-check text-success"></span> {{ 'REGISTER_FC' | translate }}</li>
-                            <li ng-controller="TopMenuController"><a href="/agreement#advantages" ng-click="$close()"><u translate="REGISTER_MORE"></u></a></li>
+                            <li ng-controller="TopMenuCtrl"><a href="/agreement#advantages" ng-click="$close()"><u translate="REGISTER_MORE"></u></a></li>
                         </ul>
                         <button ng-click="typeSign('signup')" type="submit" id="signup" class="btn btn-info btn-block" ng-disabled="form.$invalid || dataLoading" translate="REGISTER"></button>
                     </div>

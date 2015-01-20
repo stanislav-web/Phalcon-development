@@ -2,8 +2,11 @@
 
 (function(angular){
 
-phl.factory('AuthenticationService',
-    ['$http', '$cookieStore', '$rootScope',
+    /**
+     *  Auth Service factory
+     */
+    phlModule.factory('authService',
+        ['$http', '$cookieStore', '$rootScope',
         function ($http, $cookieStore, $rootScope) {
 
             var service = {};

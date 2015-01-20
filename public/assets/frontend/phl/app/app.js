@@ -1,12 +1,16 @@
 "use strict";
 
-var phl;
+var phlModule;
+var spinnerModule;
+var splashModule;
 
 (function(angular){
 
-    // application module
+    spinnerModule = angular.module('ngLoadingSpinner', ['angularSpinner']);
+    splashModule = angular.module('ui.splash', ['ui.bootstrap']);
 
-    phl = angular.module('phl', ['ngRoute', 'ngAnimate', 'ngSanitize', 'ngLoadingSpinner', 'pascalprecht.translate', 'ngCookies', 'ui.splash', function($httpProvider) {
+    // application module
+    phlModule = angular.module('phl', ['ngRoute', 'ngAnimate', 'ngSanitize', 'ngLoadingSpinner', 'pascalprecht.translate', 'ngCookies', 'ui.splash', function($httpProvider) {
 
         $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
         $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
@@ -17,8 +21,8 @@ var phl;
             }
             var token = $('meta[name=token]');
 
-            phl.value('token_id', token.attr('title'));
-            phl.value('token_val', token.attr('content'));
+            phlModule.value('token_id', token.attr('title'));
+            phlModule.value('token_val', token.attr('content'));
 
             data[token.attr('title')] = token.attr('content');
             return angular.isObject(data) && String(data) !== '[object File]' ? $.param(data) : data;
@@ -27,7 +31,7 @@ var phl;
 
     // create meta services
 
-    phl.service('Meta', function() {
+    phlModule.service('Meta', function() {
 
         var metaDescription = '';
         var metaKeywords = '';
@@ -66,7 +70,7 @@ var phl;
 
     // setup global scope variables
 
-    phl.run(['$rootScope', 'ROUTES', '$translate', '$cookies', function ($rootScope, ROUTES, $translate, $cookies) {
+    phlModule.run(['$rootScope', 'ROUTES', '$translate', '$cookies', function ($rootScope, ROUTES, $translate, $cookies) {
 
         // set global scope for routes & template
         $rootScope.ROUTES = ROUTES;

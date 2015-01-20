@@ -2,10 +2,9 @@
 
 (function(){
 
-    // ngLoadingSpinner application module
+    // ngLoadingSpinner directive
 
-    angular.module('ngLoadingSpinner', ['angularSpinner'])
-        .directive('usSpinner',   ['$http', '$rootScope' ,function ($http, $rootScope){
+    spinnerModule.directive('usSpinner',   ['$http', '$rootScope' ,function ($http, $rootScope){
             return {
                 link: function (scope, elm, attrs)
                 {

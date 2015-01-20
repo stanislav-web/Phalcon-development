@@ -9,7 +9,7 @@
  * @dependencies $location url service
  * @dependencies $sce sanitize HTML service
  */
-phl.controller('IndexController', ['$scope', '$rootScope', '$http', '$location', '$sce',
+phlModule.controller('IndexCtrl', ['$scope', '$rootScope', '$http', '$location', '$sce',
     function($scope, $rootScope, $http, $location, $sce) {
 
     /**

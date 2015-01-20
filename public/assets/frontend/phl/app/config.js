@@ -4,7 +4,7 @@
 
     // create config constants
 
-    phl.constant('ROUTES', (function () {
+    phlModule.constant('ROUTES', (function () {
 
         return {
             HOME:       '/',
@@ -18,58 +18,58 @@
         }
     })());
 
-    phl.constant('TEMPLATE', (function () {
+    phlModule.constant('TEMPLATE', (function () {
 
         return {
-            ARTICLE:    'assets/frontend/phl/app/templates/index.html',
-            ERROR:      'assets/frontend/phl/app/templates/error.html',
-            PROFILE:    'assets/frontend/phl/app/templates/profile.html'
+            ARTICLE:    'assets/frontend/phl/app/common/templates/index.html',
+            ERROR:      'assets/frontend/phl/app/common/templates/error.html',
+            PROFILE:    'assets/frontend/phl/app/user/templates/profile.html'
         }
     })());
 
     // configure application's routes
 
-    phl.config(['$routeProvider', '$locationProvider', 'ROUTES', 'TEMPLATE', function($routeProvider, $locationProvider, ROUTES, TEMPLATE) {
+    phlModule.config(['$routeProvider', '$locationProvider', 'ROUTES', 'TEMPLATE', function($routeProvider, $locationProvider, ROUTES, TEMPLATE) {
 
         $locationProvider.hashPrefix('!');
         $locationProvider.html5Mode(true);
 
         $routeProvider.when(ROUTES.HOME, {
             templateUrl: TEMPLATE.ARTICLE,
-            controller: "IndexController"
+            controller: "IndexCtrl"
         })
         .when(ROUTES.CONTACTS, {
                 templateUrl: TEMPLATE.ARTICLE,
-                controller: "IndexController"
+                controller: "IndexCtrl"
         })
         .when(ROUTES.HELP, {
                 templateUrl: TEMPLATE.ARTICLE,
-                controller: "IndexController"
+                controller: "IndexCtrl"
         })
         .when(ROUTES.AGREEMENT, {
                 templateUrl: TEMPLATE.ARTICLE,
-                controller: "IndexController"
+                controller: "IndexCtrl"
         })
         .when(ROUTES.ABOUT, {
                 templateUrl: TEMPLATE.ARTICLE,
-                controller: "IndexController"
+                controller: "IndexCtrl"
         })
         $routeProvider.when(ROUTES.LOGOUT, {
-            controller: "IndexController",
+            controller: "IndexCtrl",
             redirectTo: ROUTES.LOGOUT
         })
         .when(ROUTES.NOT_FOUND, {
                 templateUrl: TEMPLATE.ERROR,
-                controller: 'IndexController'
+                controller: 'IndexCtrl'
         })
         .when(ROUTES.PROFILE, {
                 templateUrl: TEMPLATE.PROFILE,
-                controller: "SignController",
+                controller: "SignCtrl",
                 security: false
         })
         .when(ROUTES.LOGOUT, {
             templateUrl: TEMPLATE.ARTICLE,
-            controller: "SignController"
+            controller: "SignCtrl"
         })
         .otherwise({ redirectTo: ROUTES.HOME });
 
@@ -77,7 +77,7 @@
 
     // configure preload transliteration
 
-    phl.config(['$translateProvider', '$translatePartialLoaderProvider', function ($translateProvider, $translatePartialLoader) {
+    phlModule.config(['$translateProvider', '$translatePartialLoaderProvider', function ($translateProvider, $translatePartialLoader) {
 
 
         // try to find out preferred language by yourself

@@ -7,8 +7,8 @@
  * @dependencies $translate angular-translater
  * @dependencies $cookies angular-cookies
  */
-phl.controller('SignController', ['$scope', '$rootScope', '$location', 'AuthenticationService', '$translatePartialLoader', '$splash',
-    function ($scope, $rootScope, $location, AuthenticationService, $translatePartialLoader, $splash) {
+phlModule.controller('SignCtrl', ['$scope', '$rootScope', '$location', 'authService', '$translatePartialLoader', '$splash',
+    function ($scope, $rootScope, $location, authService, $translatePartialLoader, $splash) {
 
     // add language support to this action
     $translatePartialLoader.addPart('sign');
@@ -30,16 +30,16 @@ phl.controller('SignController', ['$scope', '$rootScope', '$location', 'Authenti
 
         // call auth service
 
-        AuthenticationService.Login($scope.login, $scope.password, $scope.type, function(response) {
+        authService.Login($scope.login, $scope.password, $scope.type, function(response) {
 
             if(response.success) {
 
-                    // success authentication (setup success cookies and some user data)
-                    AuthenticationService.UserApply(response);
+                // success authentication (setup success cookies and some user data)
+                authService.UserApply(response);
 
-                    // close splash window & redirect to profile
-                    $splash.close();
-                    $location.path('/profile');
+                // close splash window & redirect to profile
+                $splash.close();
+                $location.path('/profile');
 
              } else {
 
@@ -55,7 +55,7 @@ phl.controller('SignController', ['$scope', '$rootScope', '$location', 'Authenti
      */
     $scope.logout = function () {
 
-        AuthenticationService.Logout();
+        authService.Logout();
         $location.path('/');
     };
 

@@ -174,16 +174,7 @@ class ControllerBase extends Controller
             ->addJs('assets/plugins/angular/angular-spinner.min.js')
             ->addJs('assets/plugins/jquery/jquery.min.js')
             ->addJs('assets/plugins/bootstrap/bootstrap.min.js')
-            ->addJs('assets/plugins/angular/ui-bootstrap-tpls-0.12.0.min.js')
-            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/spinner.js')
-            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/app.js')
-            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/config.js')
-            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/splash.js')
-            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/services/sign.js')
-            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/controllers/menu.js')
-            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/controllers/language.js')
-            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/controllers/sign.js');
-
+            ->addJs('assets/plugins/angular/ui-bootstrap-tpls-0.12.0.min.js');
 
         if (APPLICATION_ENV === 'production') {
 
@@ -197,12 +188,20 @@ class ControllerBase extends Controller
         }
 
         $jsf = $this->assets->collection('footer-js')
+            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/app.js')
+            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/config.js')
+            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/common/directives/spinner.js')
+            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/common/services/splash.js')
+            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/authenticate/services/auth.js')
+            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/common/controllers/menu.js')
+            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/common/controllers/language.js')
+            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/common/controllers/index.js')
+            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/authenticate/controllers/sign.js')
             ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/js/menu.js')
             ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/js/move-top.js')
             ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/js/easing.js')
             ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/js/rules.js')
-            ->addJs('assets/plugins/spinner/spin.min.js')
-            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/controllers/index.js');
+            ->addJs('assets/plugins/spinner/spin.min.js');
 
         if (APPLICATION_ENV === 'production') {
 

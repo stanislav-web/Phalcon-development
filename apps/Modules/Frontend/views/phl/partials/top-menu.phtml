@@ -1,4 +1,4 @@
-<nav ng-controller="TopMenuController" class="cssmenu">
+<nav ng-controller="TopMenuCtrl" class="cssmenu">
 
     <ul ng-if="!user">
         <li ng-class="{ active:isActive('<?=$this->url->get(['for' => 'front']);?>')}">
@@ -28,7 +28,7 @@
         <li ng-class="{ active:isActive('<?=$this->url->get('profile');?>')}">
             <a href="<?=$this->url->get('profile');?>" translate="PROFILE">PROFILE</a>
         </li>
-        <li ng-controller="SignController">
+        <li ng-controller="SignCtrl">
             <a href="<?=$this->url->get('logout');?>" ng-click="logout()" target="_self" translate="LOGOUT">LOGOUT</a>
         </li>
     </ul>

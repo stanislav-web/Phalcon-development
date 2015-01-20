@@ -1,6 +1,11 @@
-// Re-usable $splash module
-angular.module('ui.splash', ['ui.bootstrap'])
-    .service('$splash', [
+'use strict';
+
+(function(angular){
+
+    /**
+     * Splash window service
+     */
+    splashModule.service('$splash', [
         '$modal',
         '$rootScope',
         function($modal, $rootScope) {
@@ -14,7 +19,7 @@ angular.module('ui.splash', ['ui.bootstrap'])
                     opts = angular.extend(opts || {}, {
                         backdrop: false,
                         scope: scope,
-                        templateUrl: '/assets/frontend/phl/app/templates/sign.html',
+                        templateUrl: '/assets/frontend/phl/app/authenticate/templates/sign.html',
                         windowTemplateUrl: 'splash/index.html'
                     });
                     modalInstance = $modal.open(opts);
@@ -29,13 +34,15 @@ angular.module('ui.splash', ['ui.bootstrap'])
             };
         }
     ])
-    .run([
-        '$templateCache',
-        function ($templateCache) {
-            $templateCache.put('splash/index.html',
-                '<section class="splash" ng-class="{\'splash-open\': animate}" ng-style="{\'z-index\': 1000, display: \'block\'}" ng-click="close($event)">' +
-                '  <div class="splash-inner" ng-transclude></div>' +
-                '</section>'
-            );
-        }
-    ]);
+        .run([
+            '$templateCache',
+            function ($templateCache) {
+                $templateCache.put('splash/index.html',
+                    '<section class="splash" ng-class="{\'splash-open\': animate}" ng-style="{\'z-index\': 1000, display: \'block\'}" ng-click="close($event)">' +
+                    '  <div class="splash-inner" ng-transclude></div>' +
+                    '</section>'
+                );
+            }
+        ]);
+
+})(angular);
