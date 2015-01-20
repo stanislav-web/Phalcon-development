@@ -1,0 +1,7 @@
+{
+    "name": "Phalcon Development. Frontend",
+    "version": "0.0.1",
+    "dependencies": {
+        "bootstrap-language": "latest"
+    }
+}

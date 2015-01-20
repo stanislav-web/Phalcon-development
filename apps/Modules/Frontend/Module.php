@@ -50,7 +50,6 @@ class Frontend implements ModuleDefinitionInterface
 
         $loader->registerNamespaces([
             'Modules\Frontend\Controllers' => $this->_config['application']['controllersFront'],
-            'Modules\Frontend\Forms' => $this->_config['application']['formsFront'],
             'Models' => $this->_config['application']['modelsDir'],
             'Helpers' => $this->_config['application']['helpersDir'],
             'Libraries' => $this->_config['application']['libraryDir'],
@@ -73,7 +72,8 @@ class Frontend implements ModuleDefinitionInterface
 
             $eventsManager = $di->getShared('eventsManager');
 
-            $eventsManager->attach('dispatch:beforeException', new \Plugins\Dispatcher\NotFoundPlugin());
+            //@deprecated
+            //$eventsManager->attach('dispatch:beforeException', new \Plugins\Dispatcher\NotFoundPlugin());
 
             $dispatcher = new \Phalcon\Mvc\Dispatcher();
 
@@ -113,21 +113,13 @@ class Frontend implements ModuleDefinitionInterface
 
         $di->set('view', function () {
             $view = new View();
+
+            // only layout show
+            $view->setRenderLevel(View::LEVEL_MAIN_LAYOUT);
             return $view;
         });
 
         require_once APP_PATH . '/Modules/' . self::MODULE . '/config/services.php';
-
-        if (APPLICATION_ENV === 'development') {
-
-            // share Fabfuel topbar
-            $profiler = new \Fabfuel\Prophiler\Profiler();
-            $di->setShared('profiler', $profiler);
-
-            $pluginManager = new \Fabfuel\Prophiler\Plugin\Manager\Phalcon($profiler);
-            $pluginManager->register();
-
-        }
 
         return;
     }

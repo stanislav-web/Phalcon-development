@@ -10,6 +10,7 @@ use Phalcon\Http\Response;
 /**
  * NotFoundPlugin
  *
+ * @deprecated
  * Handles not-found controller/actions
  */
 class NotFoundPlugin

@@ -19,21 +19,23 @@ class ControllerBase extends Controller
      * Config service
      * @var object Phalcon\Config
      */
-    protected $config = false;
+    protected $config;
 
     /**
      * Auth user
      * @var object Models\Users
      */
-    protected $user = null;
+    protected $user;
 
     /**
      * Logger service
      * @var object Phalcon\Logger\Adapter\File
      */
-    protected $logger = false;
+    protected $logger;
 
     /**
+     * Engine to show
+     *
      * @var \Models\Engines
      */
     protected $engine;
@@ -43,23 +45,6 @@ class ControllerBase extends Controller
      * @var array
      */
     protected $responseMsg = [];
-
-    /**
-     * After route executed event
-     * Setup actions json responsibility
-     *
-     * @param \Phalcon\Mvc\Dispatcher $dispatcher
-     * @access public
-     * @return null
-     */
-    public function afterExecuteRoute(\Phalcon\Mvc\Dispatcher $dispatcher)
-    {
-        // setup only layout to show before load ajax
-        // disable action view as default
-        $this->view->disableLevel([
-            View::LEVEL_ACTION_VIEW => true,
-        ]);
-    }
 
     /**
      * initialize() Initial all global objects
@@ -129,17 +114,6 @@ class ControllerBase extends Controller
 
                 $this->view->setVar('user', $this->user->toArray());
             }
-        }
-
-        // load configurations
-
-        if (APPLICATION_ENV === 'development') {
-
-            // add toolbar to the layout
-            $toolbar = new \Fabfuel\Prophiler\Toolbar($this->di->get('profiler'));
-            $toolbar->addDataCollector(new \Fabfuel\Prophiler\DataCollector\Request());
-            $this->view->setVar('toolbar', $toolbar);
-
         }
     }
 

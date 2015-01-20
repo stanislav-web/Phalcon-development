@@ -9,6 +9,5 @@
   },
   "_source": "git://github.com/usrz/bootstrap-languages.git",
   "_target": "*",
-  "_originalSource": "bootstrap-language",
-  "_direct": true
+  "_originalSource": "bootstrap-language"
 }

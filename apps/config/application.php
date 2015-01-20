@@ -9,7 +9,6 @@ $config = [
         'controllersFront' => APP_PATH . '/Modules/Frontend/Controllers/',
         'controllersBack' => APP_PATH . '/Modules/Backend/Controllers/',
         'formsBack' => APP_PATH . '/Modules/Backend/Forms/',
-        'formsFront' => APP_PATH . '/Modules/Frontend/Forms/',
         'viewsFront' => APP_PATH . '/Modules/Frontend/views/',
         'viewsBack' => APP_PATH . '/Modules/Backend/views/',
         'modelsDir' => APP_PATH . '/Models/',
