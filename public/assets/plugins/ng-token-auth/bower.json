@@ -1,0 +1,34 @@
+{
+  "name": "ng-token-auth",
+  "version": "0.0.24",
+  "authors": [
+    "Lynn Dylan Hurley <lynn.dylan.hurley@gmail.com>"
+  ],
+  "description": "Token based authentication system for angular js. Includes support for oauth2 authentication using Facebook, Github, and Google.",
+  "main": "dist/ng-token-auth.js",
+  "keywords": [
+    "authentication",
+    "oauth2",
+    "angular",
+    "token",
+    "secure"
+  ],
+  "license": "MIT",
+  "homepage": "http://github.com/lynndylanhurley/ng-token-auth",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "gulpfile.js",
+    "package.json",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": ">=1.2.0",
+    "angular-cookie": ">=4.0.6"
+  },
+  "resolutions": {
+    "angular": "1.2.25"
+  }
+}
