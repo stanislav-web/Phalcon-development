@@ -25,59 +25,42 @@ class IndexController extends ControllerBase
     }
 
     /**
-     * Home action
+     * Home action. Retrieved response as json
      */
     public function indexAction()
     {
+        // setup content
+        $this->setReply([
+            'title'     => $this->engine->getName(),
+            'content'   => 'some data',
+        ]);
+
+        // send response
         if($this->request->isAjax() === true) {
-
-            $this->view->disableLevel([
-                View::LEVEL_LAYOUT => true,
-                View::LEVEL_MAIN_LAYOUT => true,
-            ]);
-
-            $this->response->setJsonContent([
-                'title'     => $this->engine->getName(),
-                'content'   => $this->view->getRender('', 'index/index', []),
-            ]);
-
-            $this->response->setStatusCode(200, "OK");
-            $this->response->setContentType('application/json', 'UTF-8');
-
-            return $this->response->send();
+            return $this->getReply();
         }
     }
 
     /**
-     * Contacts,About,Agreement,Help action
+     * Contacts,About,Agreement,Help... action
      * Static pages
      */
     public function staticAction()
     {
-
         // get page to display - param
         $param = $this->dispatcher->getParam('page');
-
+        // setup title
         $this->tag->prependTitle(ucfirst($param).' - ');
-        $this->view->setVars(['page', strtolower($param)]);
 
+        // setup content
+        $this->setReply([
+            'title'     => ucfirst($param).' - '.$this->engine->getName(),
+            'content'   => 'some data - '.$param,
+        ]);
+
+        // send response
         if($this->request->isAjax() === true) {
-
-            $this->view->disableLevel([
-                View::LEVEL_LAYOUT => true,
-                View::LEVEL_MAIN_LAYOUT => true,
-            ]);
-
-            $this->response->setJsonContent([
-
-                'title'     => ucfirst($param).' - '.$this->engine->getName(),
-                'content'   => $this->view->getRender('', 'index/static', ['page' => strtolower($param)]),
-            ]);
-
-            $this->response->setStatusCode(200, "OK");
-            $this->response->setContentType('application/json', 'UTF-8');
-
-            return $this->response->send();
+            return $this->getReply();
         }
     }
 }

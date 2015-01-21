@@ -39,7 +39,7 @@ phlModule.controller('SignCtrl', ['$scope', '$rootScope', '$location', 'authServ
 
                 // close splash window & redirect to profile
                 $splash.close();
-                $location.path('/profile');
+                $location.path('/account');
 
              } else {
 

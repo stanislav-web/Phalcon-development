@@ -3,6 +3,7 @@ namespace Modules\Frontend\Controllers;
 
 use Phalcon\Mvc\Controller;
 use Phalcon\Mvc\View;
+use Models\Users;
 
 /**
  * Class ControllerBase
@@ -28,6 +29,12 @@ class ControllerBase extends Controller
     protected $user;
 
     /**
+     * is user Authenticated ?
+     * @var boolean
+     */
+    protected $isAuthenticated = false;
+
+    /**
      * Logger service
      * @var object Phalcon\Logger\Adapter\File
      */
@@ -41,10 +48,18 @@ class ControllerBase extends Controller
     protected $engine;
 
     /**
-     * Ping response as Json
+     * Navigation trees
+     *
      * @var array
      */
-    protected $responseMsg = [];
+    protected $navigation;
+
+    /**
+     * Json response string
+     *
+     * @var array
+     */
+    protected $reply = [];
 
     /**
      * initialize() Initial all global objects
@@ -54,17 +69,17 @@ class ControllerBase extends Controller
      */
     public function initialize()
     {
+
         // load configurations
         $this->config = $this->di->get('config');
-
-        if($this->user === null) {
-            $this->user = $this->session->get('user');
-        }
 
         // load logger
         if ($this->config->logger->enable === true) {
             $this->logger = $this->di->get('logger');
         }
+
+        // load user data
+        $this->userVerify();
 
         // find current engine
         if($this->session->has('engine') === false) {
@@ -90,30 +105,15 @@ class ControllerBase extends Controller
                 ->setMainView('layout')
                 ->setPartialsDir('partials');
 
+            // setup navigation menu bars
+            $nav = $this->di->get('navigation');
+            $this->setReply($nav[$this->isAuthenticated]);
+
             // setup to all templates
             $this->view->setVar('engine', $this->engine->toArray());
 
             // add scripts & stylesheets
             $this->addAssetsContent();
-        }
-
-        // check user data
-        if($this->user !== null) {
-
-            // verify cookie salt
-            $salt = md5($this->user->getLogin().$this->request->getUserAgent().$this->user->getSalt());
-
-            if($this->cookies->has($salt) === true) {
-
-                // success! user is logged in the system
-                // $this->user - get all user data
-
-                $this->responseMsg = [
-                    'user' =>   $this->user->toArray(),
-                ];
-
-                $this->view->setVar('user', $this->user->toArray());
-            }
         }
     }
 
@@ -139,16 +139,16 @@ class ControllerBase extends Controller
         $jsh = $this->assets->collection('header-js')
             ->addJs('assets/plugins/store/store.min.js')
             ->addJs('assets/plugins/angular/angular.min.js')
-            ->addJs('assets/plugins/angular/angular-route.min.js')
-            ->addJs('assets/plugins/angular/angular-animate.min.js')
-            ->addJs('assets/plugins/angular/angular-sanitize.min.js')
-            ->addJs('assets/plugins/angular/angular-translate.min.js')
-            ->addJs('assets/plugins/angular/angular-translate-loader-partial.min.js')
-            ->addJs('assets/plugins/angular/angular-cookies.min.js')
-            ->addJs('assets/plugins/angular/angular-spinner.min.js')
+            ->addJs('assets/plugins/angular-route/angular-route.min.js')
+            ->addJs('assets/plugins/angular-animate/angular-animate.min.js')
+            ->addJs('assets/plugins/angular-sanitize/angular-sanitize.min.js')
+            ->addJs('assets/plugins/angular-translate/angular-translate.min.js')
+            ->addJs('assets/plugins/angular-translate-loader-partial/angular-translate-loader-partial.min.js')
+            ->addJs('assets/plugins/angular-cookies/angular-cookies.min.js')
+            ->addJs('assets/plugins/angular-spinner/angular-spinner.min.js')
             ->addJs('assets/plugins/jquery/jquery.min.js')
             ->addJs('assets/plugins/bootstrap/bootstrap.min.js')
-            ->addJs('assets/plugins/angular/ui-bootstrap-tpls-0.12.0.min.js');
+            ->addJs('assets/plugins/ui-bootstrap-tpl/ui-bootstrap-tpl.min.js');
 
         if (APPLICATION_ENV === 'production') {
 
@@ -214,6 +214,87 @@ class ControllerBase extends Controller
 
             $this->cookies->get('token')->delete();
 
+        }
+    }
+
+    /**
+     * Set array reply content.
+     *
+     * @param array $reply
+     * @return null
+     */
+    protected function setReply(array $reply) {
+
+        foreach($reply as $k => $v) {
+            $this->reply[$k]    =   $v;
+        }
+    }
+
+    /**
+     * Get array reply content. To put in to view as json string
+     *
+     * @return array
+     */
+    protected function getReply() {
+
+        $this->response->setJsonContent($this->reply);
+        $this->response->setStatusCode(200, "OK");
+        $this->response->setContentType('application/json', 'UTF-8');
+
+        return $this->response->send();
+    }
+
+    /**
+     * Check user if have any access types
+     *
+     * @return null
+     */
+    protected function userVerify() {
+
+        // check user from session
+        if($this->user === null) {
+
+            if($this->session->has('user') === false) {
+
+                // check user from cookies
+
+                if($this->cookies->has('token') === true) {
+
+                    $cookieToken    =   $this->cookies->get('token')->getValue();
+
+                    $user = (new Users())->findFirst([
+                        "token = ?0",
+                        "bind" => [$cookieToken->getValue()]
+                    ])->toArray();
+
+                    if($cookieToken === $user['token']) {
+
+                        // success! user is logged in the system
+                        $this->setReply([
+                            'user'      =>  $this->user,
+                            'token'     =>  $cookieToken,
+
+                        ]);
+
+                        $this->isAuthenticated  =   true;
+
+                    }
+                }
+            }
+            else {
+
+                // success! user is logged in the system
+                $this->user = $this->session->get('user');
+                $token      = $this->session->get('token');
+
+                $this->setReply([
+                    'user'      =>  $this->user,
+                    'token'     =>  $token,
+                ]);
+
+                $this->isAuthenticated  =   true;
+
+            }
         }
     }
 }

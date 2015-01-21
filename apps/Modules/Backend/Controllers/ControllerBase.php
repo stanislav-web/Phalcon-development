@@ -72,7 +72,7 @@ class ControllerBase extends Controller
             ]);
 
             // create user auth token
-            $userToken = md5($user->getPassword() . $user->getSalt());
+            $userToken = md5($user->getPassword() . $user->getToken());
 
             // set authentication for logged user
 

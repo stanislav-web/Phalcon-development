@@ -72,8 +72,7 @@ class Frontend implements ModuleDefinitionInterface
 
             $eventsManager = $di->getShared('eventsManager');
 
-            //@deprecated
-            //$eventsManager->attach('dispatch:beforeException', new \Plugins\Dispatcher\NotFoundPlugin());
+            $eventsManager->attach('dispatch:beforeException', new \Plugins\Dispatcher\NotFoundPlugin());
 
             $dispatcher = new \Phalcon\Mvc\Dispatcher();
 

@@ -38,7 +38,7 @@ class Users extends \Phalcon\Mvc\Model
      *
      * @var string
      */
-    protected $salt;
+    protected $token;
 
     /**
      *
@@ -192,24 +192,24 @@ class Users extends \Phalcon\Mvc\Model
     }
 
     /**
-     * Returns the value of field salt
+     * Returns the value of field token
      *
      * @return string
      */
-    public function getSalt()
+    public function getToken()
     {
-        return $this->salt;
+        return $this->token;
     }
 
     /**
-     * Method to set the value of field salt
+     * Method to set the value of field token
      *
      * @param string $password
      * @return $this
      */
-    public function setSalt($salt)
+    public function setToken($token)
     {
-        $this->salt = $salt;
+        $this->token = $token;
 
         return $this;
     }

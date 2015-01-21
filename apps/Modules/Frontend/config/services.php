@@ -1,5 +1,15 @@
 <?php
 
+// Navigation menus
+
+$di->set('navigation', function () {
+
+    $navigation =   [];
+    require_once APP_PATH . '/Modules/'.self::MODULE.'/config/navigation.php';
+    return $navigation;
+
+});
+
 // Component URL is used to generate all kinds of addresses in the annex
 
 $di->set('url', function () {

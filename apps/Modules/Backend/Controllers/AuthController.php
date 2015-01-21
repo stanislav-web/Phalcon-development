@@ -74,7 +74,7 @@ class AuthController extends Controller
                         if (isset($remember)) {
                             $this->cookies->set('remember', $user->getId(), time() + $this->_config->rememberKeep);
                             $this->cookies->set('rememberToken',
-                                md5($user->getPassword() . $user->getSalt()),
+                                md5($user->getPassword() . $user->getToken()),
                                 time() + $this->_config->rememberKeep);
                         }
 
@@ -149,7 +149,7 @@ class AuthController extends Controller
         if (!empty($user)) {
             $this->cookies->set('remember', $user->getId(), time() - $this->_config->rememberKeep);
             $this->cookies->set('rememberToken',
-                md5($user->getPassword() . $user->getSalt()),
+                md5($user->getPassword() . $user->getToken()),
                 time() - $this->_config->rememberKeep);
 
             // destroy session auth
