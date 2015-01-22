@@ -150,6 +150,14 @@ $navigation = [
                             'controller' => 'categories',
                             'module' => 'Backend'
                         ],
+                        [
+                            'name' => 'Pages',
+                            'url' => '/dashboard/pages',
+                            'icon' => 'fa fa-info-circle',
+                            'action' => 'index',
+                            'controller' => 'pages',
+                            'module' => 'Backend'
+                        ],
                     ],
                 ],
 

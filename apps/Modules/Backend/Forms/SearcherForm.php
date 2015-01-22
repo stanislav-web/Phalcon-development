@@ -4,9 +4,9 @@ namespace Modules\Backend\Forms;
 use Phalcon\Forms\Element;
 use Phalcon\Forms\Form;
 
-
 /**
  * Class SearcherForm
+ *
  * @package    Backend
  * @subpackage    Modules\Backend\Forms
  * @since PHP >=5.4

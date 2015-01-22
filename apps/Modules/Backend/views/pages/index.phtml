@@ -1,0 +1,91 @@
+<!-- Block header -->
+<div id="dashboard-header" class="row">
+    <div class="col-xs-10 col-sm-4">
+        <h3><i class="fa fa-info-circle fa-md"></i> <b><?= $title; ?></b></h3>
+    </div>
+    <div class="col-xs-10 col-sm-4">
+        <div class="btn-group">
+            <?= $this->tag->linkTo(['dashboard/pages/assign', 'Add page', 'class' => 'btn btn-primary']); ?>
+        </div>
+    </div>
+</div>
+<div class="clearfix"></div>
+<!-- /Block header -->
+
+<!-- Block content -->
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <div class="box-name">
+                    <i class="fa fa-table"></i>
+                    <span>Pages & Content</span>
+                </div>
+                <div class="box-icons">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="box-content no-padding">
+                <table id="table" class="table table-datatable table-striped table-bordered table-hover table-heading ">
+                    <thead>
+                    <tr>
+                        <th class="col-md-1">ID</th>
+                        <th class="col-md-2">Title</th>
+                        <th class="col-md-1">Alias</th>
+                        <th class="col-md-2">Added</th>
+                        <th class="no-sort col-md-1">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach ($items as $item): ?>
+                        <tr>
+                            <td><?= $item->getId(); ?></td>
+                            <td class="fa-question cursor-pointer"
+                                onclick="Common.alert('<?= $this->escaper->escapeJs($item->getContent()); ?>');"><?= $this->escaper->escapeHtml($item->getTitle()); ?></td>
+                            <td><?= $item->getAlias(); ?></td>
+                            <td><?= \Helpers\Format::getFormatTime($item->getDateCreate()); ?></td>
+                            <td>
+                                <div class="btn-group">
+                                    <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
+                                        <span class="fa fa-caret-down fa-mf"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a href="<?= $this->url->get(['for' => 'dashboard-full', 'controller' => $this->router->getControllerName(), 'action' => 'assign', 'params' => $item->getId()]); ?>">
+                                                <i class="fa fa-pencil-square-o fa-fw"></i> Edit
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a onclick="Common.confirm('Are you sure want to delete this page?<br> The procedure provided a not predictable consequences', this.href); return false;"
+                                               href="<?= $this->url->get(['for' => 'dashboard-full', 'controller' => $this->router->getControllerName(), 'action' => 'delete', 'params' => $item->getId()]); ?>">
+                                                <i class="fa fa-trash-o fa-fw"></i> Delete
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Block content -->
+<script type="text/javascript">
+    $(function () {
+
+        LoadDataTablesScripts(function () {
+
+            $("#table").dataTable({
+                "bSort": true,
+                "columnDefs": [{"targets": 4, "orderable": false}],
+                "paginate": false,
+                "info": false,
+                "filter": false
+            });
+        });
+    });
+</script>

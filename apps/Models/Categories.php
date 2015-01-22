@@ -73,27 +73,8 @@ class Categories extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        // its allow to keep empty data to my db
-        $this->setup([
-            'notNullValidations' => false,
-            'exceptionOnFailedSave' => true
-        ]);
-
-        // skip attributes before every IN >
-        $this->skipAttributesOnCreate(['date_update']);
-        $this->skipAttributesOnUpdate(['date_update']);
-
-        // before insert event
-        $this->addBehavior(new Timestampable([
-                'beforeCreate' => [
-                    'field' => 'date_create',
-                    'format' => function () {
-                        $datetime = new Datetime(new DateTimeZone(date_default_timezone_get()));
-                        return $datetime->format('Y-m-d H:i:s');
-                    }
-                ]
-            ]
-        ));
+        //Skips fields/columns on both INSERT/UPDATE operations
+        $this->skipAttributes(array('date_create', 'date_update'));
 
         // create relations between Categories => EnginesCategoriesRel
 
@@ -129,15 +110,6 @@ class Categories extends \Phalcon\Mvc\Model
         if (!$result)
             throw new Exception("Rebuild tree failed");
         return $result;
-    }
-
-    /**
-     * Before create fields default values
-     */
-    public function beforeCreate()
-    {
-        // init fields by default
-        $this->setDateCreate(new \DateTime());
     }
 
     /**

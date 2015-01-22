@@ -7,6 +7,7 @@ use Models\Users;
 
 /**
  * Class ControllerBase
+ *
  * @package    Frontend
  * @subpackage    Modules\Frontend\Controllers
  * @since PHP >=5.4

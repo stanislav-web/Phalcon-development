@@ -1,9 +1,11 @@
 <?php
 namespace Modules\Frontend\Controllers;
 use Phalcon\Mvc\View;
+use Models\Pages;
 
 /**
  * Class IndexController
+ *
  * @package    Frontend
  * @subpackage    Modules\Frontend\Controllers
  * @since PHP >=5.4
@@ -25,7 +27,12 @@ class IndexController extends ControllerBase
     }
 
     /**
-     * Home action. Retrieved response as json
+     * Home action.
+     *
+     * @uses Modules\Frontend\Controllers\ControllerBase::setReply <- array
+     * @uses Modules\Frontend\Controllers\ControllerBase::getReply -> json
+     *
+     * @return void
      */
     public function indexAction()
     {
@@ -42,21 +49,39 @@ class IndexController extends ControllerBase
     }
 
     /**
-     * Contacts,About,Agreement,Help... action
-     * Static pages
+     * Static page action.
+     *
+     * @uses Modules\Frontend\Controllers\ControllerBase::setReply <- array
+     * @uses Modules\Frontend\Controllers\ControllerBase::getReply -> json
+     * @uses Models\Pages
+     *
+     * @return void
      */
     public function staticAction()
     {
         // get page to display - param
         $param = $this->dispatcher->getParam('page');
-        // setup title
-        $this->tag->prependTitle(ucfirst($param).' - ');
 
-        // setup content
-        $this->setReply([
-            'title'     => ucfirst($param).' - '.$this->engine->getName(),
-            'content'   => 'some data - '.$param,
-        ]);
+        if($param !== null) {
+
+            // get page from database
+            $page = Pages::findFirst([
+                "alias = ?0",
+                "bind" => [$param]
+            ]);
+
+            if($page !== null) {
+
+                // setup title
+                $this->tag->prependTitle(ucfirst($page->getTitle()).' - ');
+
+                // setup content
+                $this->setReply([
+                    'title'     => ucfirst($page->getTitle()).' - '.$this->engine->getName(),
+                    'content'   => $page->getContent(),
+                ]);
+            }
+        }
 
         // send response
         if($this->request->isAjax() === true) {
