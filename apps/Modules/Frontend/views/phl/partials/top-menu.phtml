@@ -1,35 +1,13 @@
 <nav ng-controller="TopMenuCtrl" class="cssmenu">
 
-    <ul ng-if="!user">
-        <li ng-class="{ active:isActive('<?=$this->url->get(['for' => 'front']);?>')}">
-            <a href="<?=$this->url->get(['for' => 'front']);?>" translate="HOME">HOME</a>
-        </li>
-        <li ng-class="{ active:isActive('<?=$this->url->get(['for' => 'front-agreement']);?>')}">
-            <a href="<?=$this->url->get(['for' => 'front-agreement']);?>" translate="AGREEMENT">AGREEMENT</a>
-        </li>
-        <li ng-class="{ active:isActive('<?=$this->url->get(['for' => 'front-help']);?>')}">
-            <a href="<?=$this->url->get(['for' => 'front-help']);?>" translate="HELP">HELP</a>
-        </li>
-        <li ng-class="{ active:isActive('<?=$this->url->get(['for' => 'front-contacts']);?>')}">
-            <a href="<?=$this->url->get(['for' => 'front-contacts']);?>" translate="CONTACTS">CONTACTS</a>
-        </li>
-        <li ng-class="{ active:isActive('<?=$this->url->get(['for' => 'front-about']);?>')}">
-            <a href="<?=$this->url->get(['for' => 'front-about']);?>" translate="ABOUT">ABOUT</a>
-        </li>
-        <li ng-class="{ active:isActive('<?=$this->url->get(['for' => 'front-sign']);?>')}">
-            <a ng-click="openSplash();" translate="SIGN IN">SIGN IN</a>
-        </li>
-    </ul>
+    <?php if(empty($menu) === false): ?>
+        <ul>
+            <?php foreach($menu as $i => $item): ?>
+                <li ng-class="{ active:isActive('<?=$item['url'];?>')}">
+                    <a <?=(isset($item['onclick'])) ? 'ng-click="'.$item['onclick'].'"' : ''?> href="<?=$item['url'];?>" translate="<?=$item['translate'];?>"><?=$item['title'];?></a>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    <?php endif; ?>
 
-    <ul ng-if="user">
-        <li ng-class="{ active:isActive('<?=$this->url->get(['for' => 'front']);?>')}">
-            <a href="<?=$this->url->get(['for' => 'front']);?>" translate="HOME">HOME</a>
-        </li>
-        <li ng-class="{ active:isActive('<?=$this->url->get('profile');?>')}">
-            <a href="<?=$this->url->get('profile');?>" translate="PROFILE">PROFILE</a>
-        </li>
-        <li ng-controller="SignCtrl">
-            <a href="<?=$this->url->get('logout');?>" ng-click="logout()" target="_self" translate="LOGOUT">LOGOUT</a>
-        </li>
-    </ul>
 </nav>

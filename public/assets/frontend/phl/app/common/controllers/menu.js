@@ -13,6 +13,7 @@
 phlModule.controller('TopMenuCtrl', ['$scope', '$location', '$translatePartialLoader', '$splash', '$http', '$sce', '$rootScope', '$anchorScroll',
     function($scope, $location, $translatePartialLoader, $splash, $http, $sce, $rootScope, $anchorScroll) {
 
+
     // add language support to this controller
     $translatePartialLoader.addPart('menu');
 
@@ -44,4 +45,5 @@ phlModule.controller('TopMenuCtrl', ['$scope', '$location', '$translatePartialLo
 
         $splash.open();
     };
-}]);
+
+    }]);

@@ -24,8 +24,9 @@ phlModule.controller('IndexCtrl', ['$scope', '$rootScope', '$http', '$location',
                 return $sce.trustAsHtml(data.content);
             }
 
-            // Inject the title into the rootScope
+            // Inject the basic elements into the rootScope
             $rootScope.title = data.title;
+            $rootScope.topmenu = data.topmenu;
 
         })
         .error(function(){

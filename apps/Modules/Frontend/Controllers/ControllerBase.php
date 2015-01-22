@@ -108,10 +108,13 @@ class ControllerBase extends Controller
 
             // setup navigation menu bars
             $nav = $this->di->get('navigation');
-            $this->setReply($nav[$this->isAuthenticated]);
 
             // setup to all templates
-            $this->view->setVar('engine', $this->engine->toArray());
+
+            $this->view->setVars([
+                'engine'    => $this->engine->toArray(),
+                'menu'      => $nav[$this->isAuthenticated]
+            ]);
 
             // add scripts & stylesheets
             $this->addAssetsContent();
