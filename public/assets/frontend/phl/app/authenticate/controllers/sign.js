@@ -10,53 +10,53 @@
 phlModule.controller('SignCtrl', ['$scope', '$rootScope', '$location', 'authService', '$translatePartialLoader', '$splash',
     function ($scope, $rootScope, $location, authService, $translatePartialLoader, $splash) {
 
-    // add language support to this action
-    $translatePartialLoader.addPart('sign');
+        // add language support to this action
+        $translatePartialLoader.addPart('sign');
 
-    /**
-     * Get Sign type (login / register )
-     * @param string
-     */
-    $scope.typeSign = function(string) {
-        $scope.type = string;
-    };
+        /**
+         * Get Sign type (login / register )
+         * @param string
+         */
+        $scope.typeSign = function(string) {
+            $scope.type = string;
+        };
 
-    /**
-     * Login to account
-     */
-    $scope.signIn = function () {
+        /**
+         * Login to account
+         */
+        $scope.signIn = function () {
 
-        $scope.dataLoading = true;
+            $scope.dataLoading = true;
 
-        // call auth service
+            // call auth service
 
-        authService.Login($scope.login, $scope.password, $scope.type, function(response) {
+            authService.Login($scope.login, $scope.password, $scope.type, function(response) {
 
-            if(response.success) {
+                if(response.success) {
 
-                // success authentication (setup success cookies and some user data)
-                authService.UserApply(response);
+                    // success authentication (setup success cookies and some user data)
+                    authService.UserApply(response);
 
-                // close splash window & redirect to profile
-                $splash.close();
-                $location.path('/account');
+                    // close splash window & redirect to profile
+                    $splash.close();
+                    $location.path('/account');
 
-             } else {
+                } else {
 
-                $scope.error = response.message;
-                $scope.dataLoading = false;
+                    $scope.error = response.message;
+                    $scope.dataLoading = false;
 
-             }
-        });
-    };
+                }
+            });
+        };
 
-    /**
-     * Login out
-     */
-    $scope.logout = function () {
+        /**
+         * Login out
+         */
+        $scope.logout = function () {
 
-        authService.Logout();
-        $location.path('/');
-    };
+            authService.Logout();
+            $location.path('/');
+        };
 
-}]);
+    }]);

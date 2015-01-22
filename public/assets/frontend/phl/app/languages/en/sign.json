@@ -1,10 +1,6 @@
 {
     "SIGN IN"               : "Sign In",
-    "LOGIN"                 : "Login",
-    "PASSWORD"              : "Password",
     "CLOSE"                 : "Close",
-    "REMEMBER"              : "Remember me",
-    "REMEMBER_HELP"         : "(if this is a private computer)",
     "SIGN_NOTICE"           : "Optionally, you can register an account to yourself",
     "LOGIN_NOTIFY"          : "Login to account",
     "LOGIN_PLACEHOLDER"     : "Please enter a valid phone or email",

@@ -13,7 +13,7 @@
             AGREEMENT:  '/agreement',
             ABOUT:      '/about',
             NOT_FOUND:  '/error/notfound',
-            PROFILE:    '/account',
+            ACCOUNT:    '/account',
             LOGOUT:     '/logout'
         }
     })());
@@ -23,8 +23,7 @@
         return {
             ARTICLE:    'assets/frontend/phl/app/common/templates/index.html',
             ERROR:      'assets/frontend/phl/app/common/templates/error.html',
-            PROFILE:    'assets/frontend/phl/app/user/templates/profile.html',
-            TOPMENU:    'assets/frontend/phl/app/common/templates/top-menu.html'
+            ACCOUNT:    'assets/frontend/phl/app/user/templates/account.html'
         }
     })());
 
@@ -63,8 +62,8 @@
                 templateUrl: TEMPLATE.ERROR,
                 controller: 'IndexCtrl'
         })
-        .when(ROUTES.PROFILE, {
-                templateUrl: TEMPLATE.PROFILE,
+        .when(ROUTES.ACCOUNT, {
+                templateUrl: TEMPLATE.ACCOUNT,
                 controller: "SignCtrl",
                 security: false
         })
@@ -98,5 +97,4 @@
             urlTemplate: 'assets/frontend/phl/app/languages/{lang}/{part}.json'
         });
     }]);
-
 })(angular);

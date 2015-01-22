@@ -154,7 +154,7 @@ class ControllerBase extends Controller
             ->addJs('assets/plugins/bootstrap/bootstrap.min.js')
             ->addJs('assets/plugins/ui-bootstrap-tpl/ui-bootstrap-tpl.min.js');
 
-        if (APPLICATION_ENV === 'production') {
+        if (APPLICATION_ENV === 'development') {
 
             // glue and minimize scripts header
 
@@ -183,7 +183,7 @@ class ControllerBase extends Controller
             ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/js/rules.js')
             ->addJs('assets/plugins/spinner/spin.min.js');
 
-        if (APPLICATION_ENV === 'production') {
+        if (APPLICATION_ENV === 'development') {
 
             // glue and minimize scripts footer
 
@@ -230,7 +230,10 @@ class ControllerBase extends Controller
     protected function setReply(array $reply) {
 
         foreach($reply as $k => $v) {
-            $this->reply[$k]    =   $v;
+            if(isset($this->reply[$k]))
+                $this->reply[$k][]    =   $v;
+            else
+                $this->reply[$k]    =   $v;
         }
     }
 

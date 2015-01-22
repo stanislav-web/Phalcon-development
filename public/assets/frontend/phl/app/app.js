@@ -98,10 +98,10 @@ var splashModule;
         $rootScope.$on('$routeChangeStart', function (event) {
 
             if (!authService.isLoggedIn()) {
-                console.log('DENY');
+                //console.log('DENY');
             }
             else {
-                console.log('ALLOW');
+                //console.log('ALLOW');
             }
         });
 
