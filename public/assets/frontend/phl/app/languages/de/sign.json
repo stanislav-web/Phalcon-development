@@ -13,5 +13,7 @@
     "REGISTER_SY"           : "Speichern sie ihre lieblingsprodukte",
     "REGISTER_FC"           : "Fast kasse",
     "REGISTER_MORE"         : "Lesen sie mehr",
-    "REGISTER"              : "Registrieren"
+    "REGISTER"              : "Registrieren",
+    "ACCOUNT"               : "Mein Konto",
+    "LOGOUT"                : "Exit"
 }

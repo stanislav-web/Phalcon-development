@@ -77,8 +77,8 @@ class IndexController extends ControllerBase
 
                 // setup content
                 $this->setReply([
-                    'title'     => ucfirst($page->getTitle()).' - '.$this->engine->getName(),
-                    'content'   => $page->getContent(),
+                    'title'     =>  ucfirst($page->getTitle()).' - '.$this->engine->getName(),
+                    'content'   =>  $page->getContent(),
                 ]);
             }
         }

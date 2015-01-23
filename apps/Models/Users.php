@@ -352,9 +352,4 @@ class Users extends \Phalcon\Mvc\Model
         return $this;
     }
 
-    public function initialize()
-    {
-        $this->hasMany('id', 'UsersObserver', 'user_id', NULL);
-    }
-
 }

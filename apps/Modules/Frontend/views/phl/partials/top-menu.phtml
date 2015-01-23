@@ -3,7 +3,7 @@
     <?php if(empty($menu) === false): ?>
         <ul>
             <?php foreach($menu as $i => $item): ?>
-                <li ng-class="{ active:isActive('<?=$item['url'];?>')}">
+                <li <?=(isset($item['controller'])) ? 'ng-controller="'.$item['controller'].'"' : ''?> ng-class="{ active:isActive('<?=$item['url'];?>')}">
                     <a <?=(isset($item['onclick'])) ? 'ng-click="'.$item['onclick'].'"' : ''?> href="<?=$item['url'];?>" translate="<?=$item['translate'];?>"><?=$item['title'];?></a>
                 </li>
             <?php endforeach; ?>

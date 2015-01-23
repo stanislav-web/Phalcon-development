@@ -13,8 +13,7 @@
             AGREEMENT:  '/agreement',
             ABOUT:      '/about',
             NOT_FOUND:  '/error/notfound',
-            ACCOUNT:    '/account',
-            LOGOUT:     '/logout'
+            ACCOUNT:    '/account'
         }
     })());
 
@@ -39,37 +38,34 @@
             controller: "IndexCtrl"
         })
         .when(ROUTES.CONTACTS, {
-                templateUrl: TEMPLATE.ARTICLE,
-                controller: "IndexCtrl"
+            templateUrl: TEMPLATE.ARTICLE,
+            controller: "IndexCtrl"
         })
         .when(ROUTES.HELP, {
-                templateUrl: TEMPLATE.ARTICLE,
-                controller: "IndexCtrl"
+            templateUrl: TEMPLATE.ARTICLE,
+            controller: "IndexCtrl"
         })
         .when(ROUTES.AGREEMENT, {
-                templateUrl: TEMPLATE.ARTICLE,
-                controller: "IndexCtrl"
+            templateUrl: TEMPLATE.ARTICLE,
+            controller: "IndexCtrl"
         })
         .when(ROUTES.ABOUT, {
-                templateUrl: TEMPLATE.ARTICLE,
-                controller: "IndexCtrl"
+            templateUrl: TEMPLATE.ARTICLE,
+            controller: "IndexCtrl"
         })
         $routeProvider.when(ROUTES.LOGOUT, {
             controller: "IndexCtrl",
             redirectTo: ROUTES.LOGOUT
         })
         .when(ROUTES.NOT_FOUND, {
-                templateUrl: TEMPLATE.ERROR,
-                controller: 'IndexCtrl'
+            templateUrl: TEMPLATE.ERROR,
+            controller: 'IndexCtrl'
         })
         .when(ROUTES.ACCOUNT, {
-                templateUrl: TEMPLATE.ACCOUNT,
-                controller: "SignCtrl",
-                security: false
-        })
-        .when(ROUTES.LOGOUT, {
-            templateUrl: TEMPLATE.ARTICLE,
-            controller: "SignCtrl"
+            templateUrl: TEMPLATE.ACCOUNT,
+            controller: "UserCtrl",
+            // You must be logged into go to this route.
+            security: true
         })
         .otherwise({ redirectTo: ROUTES.HOME });
 

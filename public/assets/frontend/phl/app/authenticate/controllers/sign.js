@@ -10,9 +10,6 @@
 phlModule.controller('SignCtrl', ['$scope', '$rootScope', '$location', 'authService', '$translatePartialLoader', '$splash',
     function ($scope, $rootScope, $location, authService, $translatePartialLoader, $splash) {
 
-        // add language support to this action
-        $translatePartialLoader.addPart('sign');
-
         /**
          * Get Sign type (login / register )
          * @param string

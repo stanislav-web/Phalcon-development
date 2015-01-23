@@ -42,7 +42,7 @@
     </head>
     <body>
         <!-- Checkout bar -->
-        <div class="header-top">
+        <header class="header-top">
             <div class="wrap">
                 <div class="logo">
                     <a href="/">
@@ -50,7 +50,7 @@
                     </a>
                 </div>
                 <!-- Top menu -->
-                <?php $this->partial('top-menu', ['menu' => $menu['topmenu']]); ?>
+                <?php $this->partial('top-menu', ['menu' => $menu['top']]); ?>
                 <!-- /Top menu -->
 
                 <!-- Mini cart -->
@@ -59,19 +59,15 @@
 
                 <div class="clear"></div>
             </div>
-        </div>
+        </header>
         <!-- /Checkout bar -->
 
-        <!-- Mega Menu bar -->
-        <?php //$this->partial('mega-menu'); ?>
-        <!-- /Mega Menu bar -->
-
         <!-- Content -->
-        <div class="main view-animate-container">
+        <section class="main view-animate-container">
             <div class="wrap">
                 <div ng-view class="view-animate"></div>
             </div>
-        </div>
+        </section>
         <!-- /Content -->
 
         <!-- Footer -->

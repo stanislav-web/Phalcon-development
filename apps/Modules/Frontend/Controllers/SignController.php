@@ -92,23 +92,16 @@ class SignController extends ControllerBase
 
         // destroy auth data
         $this->clearUserData();
+
         if($this->request->isAjax() === false) {
             $this->response->redirect('/');
         }
         else {
 
-            // As Json string
-            $this->responseMsg = [
-                'success'   =>  true
-            ];
-
-            $this->response->setJsonContent($this->responseMsg);
-            $this->response->setStatusCode(200, "OK");
-
-            $this->response->setContentType('application/json', 'UTF-8');
-
-            return $this->response->send();
+            $this->setReply(['success' => true]);
         }
+
+        return $this->getReply();
     }
 
     /**
@@ -121,7 +114,7 @@ class SignController extends ControllerBase
 
         $user = (new Users())->findFirst([
             "login = ?0",
-            "bind" => [$login]
+            "bind" => [$login],
         ]);
 
         if(empty($user) === false) {
@@ -134,8 +127,8 @@ class SignController extends ControllerBase
 
                 // setup user cookies and send to client for update
                 $this->cookies->set('token', $token, time() + ($this->config->rememberKeep), '/', $this->engine->getHost(), false, false);
+                $this->session->set('token', $token);
                 $this->session->set('user', $user);
-
 
                 // update auth params
                 $user->setDateLastvisit(date('Y-m-d H:i:s'))
@@ -150,8 +143,19 @@ class SignController extends ControllerBase
 
                 // send reply to client
                 $this->setReply([
-                    'user'  => $user->toArray(),
-                    'token' => $token,
+                    'user'  => [
+                        'id'        =>  $user->getId(),
+                        'login'     =>  $user->getLogin(),
+                        'name'      =>  $user->getName(),
+                        'surname'   =>  $user->getSurname(),
+                        'state'     =>  $user->getState(),
+                        'rating'    =>  $user->getRating(),
+                        'surname'   =>  $user->getSurname(),
+                        'date_registration' =>  $user->getDateRegistration(),
+                        'date_lastvisit'    =>  $user->getDateLastvisit()
+                    ],
+                    'token'     => $token,
+                    'success'   => true
                 ]);
             }
             else
@@ -161,7 +165,7 @@ class SignController extends ControllerBase
                     $this->logger->error('Authenticate failed from ' . $this->request->getClientAddress() . '. Wrong authenticate data');
                 }
 
-                $this->setReply(['message' => 'Wrong authenticate data']);
+                $this->setReply(['message'   => 'Wrong authenticate data']);
             }
         }
         else
@@ -175,6 +179,30 @@ class SignController extends ControllerBase
         }
     }
 
+
+    /**
+     * Clear all auth user data
+     *
+     * @access protected
+     * @return null
+     */
+    protected function clearUserData() {
+
+        $this->user = null;
+
+        // destroy session data
+        if($this->session->has('user')) {
+
+            $this->session->remove('user');
+        }
+
+        // destroy cookies
+        if($this->cookies->has('token')) {
+
+            $this->cookies->get('token')->delete();
+
+        }
+    }
 
     public function validateAction() {
 

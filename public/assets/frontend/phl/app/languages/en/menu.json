@@ -5,6 +5,6 @@
     "CONTACTS"      : "Contacts",
     "ABOUT"         : "About",
     "SIGN IN"       : "Sign in",
-    "PROFILE"       : "My Account",
+    "ACCOUNT"       : "My Account",
     "LOGOUT"        : "Log out"
 }

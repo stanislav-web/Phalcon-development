@@ -154,7 +154,7 @@ class ControllerBase extends Controller
             ->addJs('assets/plugins/bootstrap/bootstrap.min.js')
             ->addJs('assets/plugins/ui-bootstrap-tpl/ui-bootstrap-tpl.min.js');
 
-        if (APPLICATION_ENV === 'development') {
+        if (APPLICATION_ENV === 'production') {
 
             // glue and minimize scripts header
 
@@ -177,13 +177,14 @@ class ControllerBase extends Controller
             ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/common/controllers/language.js')
             ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/common/controllers/index.js')
             ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/authenticate/controllers/sign.js')
+            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/user/controllers/user.js')
             ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/js/menu.js')
             ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/js/move-top.js')
             ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/js/easing.js')
             ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/js/rules.js')
             ->addJs('assets/plugins/spinner/spin.min.js');
 
-        if (APPLICATION_ENV === 'development') {
+        if (APPLICATION_ENV === 'production') {
 
             // glue and minimize scripts footer
 
@@ -198,30 +199,6 @@ class ControllerBase extends Controller
     }
 
     /**
-     * Clear all auth user data
-     *
-     * @access protected
-     * @return null
-     */
-    protected function clearUserData() {
-
-        $this->user = null;
-
-        // destroy session data
-        if($this->session->has('user')) {
-
-            $this->session->remove('user');
-        }
-
-        // destroy cookies
-        if($this->cookies->has('token')) {
-
-            $this->cookies->get('token')->delete();
-
-        }
-    }
-
-    /**
      * Set array reply content.
      *
      * @param array $reply
@@ -230,19 +207,19 @@ class ControllerBase extends Controller
     protected function setReply(array $reply) {
 
         foreach($reply as $k => $v) {
-            if(isset($this->reply[$k]))
-                $this->reply[$k][]    =   $v;
-            else
                 $this->reply[$k]    =   $v;
         }
     }
 
     /**
-     * Get array reply content. To put in to view as json string
+     * Get array reply content. To put in to view as json string or some once else
      *
-     * @return array
+     * @param int $code
+     * @param string $status
+     * @param string $content
+     * @return \Phalcon\Http\ResponseInterface
      */
-    protected function getReply() {
+    protected function getReply($code = 200, $status = 'OK', $content = 'application/json') {
 
         $this->response->setJsonContent($this->reply);
         $this->response->setStatusCode(200, "OK");
@@ -271,8 +248,9 @@ class ControllerBase extends Controller
 
                     $user = (new Users())->findFirst([
                         "token = ?0",
-                        "bind" => [$cookieToken->getValue()]
-                    ])->toArray();
+                        "bind" => [$cookieToken->getValue()],
+                        "column" => 'token'
+                    ]);
 
                     if($cookieToken === $user['token']) {
 
@@ -280,7 +258,6 @@ class ControllerBase extends Controller
                         $this->setReply([
                             'user'      =>  $this->user,
                             'token'     =>  $cookieToken,
-
                         ]);
 
                         $this->isAuthenticated  =   true;

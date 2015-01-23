@@ -70,7 +70,8 @@ var splashModule;
 
     // setup global scope variables
 
-    phlModule.run(['$rootScope', 'ROUTES', '$translate', '$cookies', 'access', 'authService', function ($rootScope, ROUTES, $translate, $cookies, access, authService) {
+    phlModule.run(['$rootScope', 'ROUTES', '$translate', '$cookies', 'access', 'authService', '$location',
+        function ($rootScope, ROUTES, $translate, $cookies, access, authService, $location) {
 
         // set access token (if exist)
         access.init();
@@ -94,15 +95,20 @@ var splashModule;
             $translate.refresh();
         });
 
-        // authorize check for each routes
-        $rootScope.$on('$routeChangeStart', function (event) {
+        // Everytime the route in our app changes check auth status
 
-            if (!authService.isLoggedIn()) {
-                //console.log('DENY');
+        $rootScope.$on("$routeChangeStart", function(event, next, current) {
+
+            // if you're logged out send to login page.
+           if (!authService.isLoggedIn() && next.security) {
+
+                $location.path('/');
+                event.preventDefault();
             }
             else {
-                //console.log('ALLOW');
-            }
+               $rootScope.user     =   authService.getUser();
+               console.log('Authorized');
+           }
         });
 
     }]);

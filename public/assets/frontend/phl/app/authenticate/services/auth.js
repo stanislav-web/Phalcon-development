@@ -42,7 +42,7 @@
 
                 access.init(data.token);
 
-                $http.get('/profile')
+                $http.get('/account')
                     .success(function (response) {
 
                         $rootScope.title    =   response.title;
@@ -59,8 +59,9 @@
                 $http.get('/logout')
                     .success(function (response) {
 
-                        $rootScope.title    =   response.title;
-                        delete $rootScope.user;
+                        if(response.success) {
+                            delete $rootScope.user;
+                        }
                     });
 
             };
@@ -69,9 +70,13 @@
              * Remove user data from cookies (Log out)
              * @constructor
              */
-            service.isLoggedIn = function () {
+            service.isLoggedIn = function (state) {
 
-                return(user)? user : false;
+                return(user) ? user : false;
+            };
+
+            service.getUser = function() {
+                return user;
             };
 
             return service;

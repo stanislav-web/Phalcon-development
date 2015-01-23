@@ -46,4 +46,4 @@ phlModule.controller('TopMenuCtrl', ['$scope', '$location', '$translatePartialLo
         $splash.open();
     };
 
-    }]);
+}]);

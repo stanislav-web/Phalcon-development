@@ -13,5 +13,7 @@
     "REGISTER_SY"           : "Save your favorites products",
     "REGISTER_FC"           : "Fast checkout",
     "REGISTER_MORE"         : "Read more",
-    "REGISTER"              : "Sign Up"
+    "REGISTER"              : "Sign Up",
+    "ACCOUNT"               : "My Account",
+    "LOGOUT"                : "Log out"
 }
