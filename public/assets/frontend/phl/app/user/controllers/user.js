@@ -1,13 +1,5 @@
 "use strict";
 
-/**
- * Controller "UserController"
- *
- * @dependencies $scope global variables
- *
- */
-"use strict";
-
 (function(angular){
 
     /**
@@ -19,7 +11,7 @@
      * @dependencies $location url service
      * @dependencies $sce sanitize HTML service
      */
-    phlModule.controller('UserCtrl', ['$scope', '$rootScope', '$http', '$location',
+    app.controller('UserCtrl', ['$scope', '$rootScope', '$http', '$location',
         function($scope, $rootScope, $http, $location) {
 
             /**

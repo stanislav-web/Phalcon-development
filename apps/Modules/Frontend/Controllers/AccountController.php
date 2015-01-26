@@ -34,12 +34,12 @@ class AccountController extends ControllerBase
             return $this->response->redirect('/');
         }
 
-        $this->tag->prependTitle(ucfirst($this->user->getName()).' - ');
+        $this->tag->prependTitle(ucfirst($this->user['name']).' - ');
 
         // setup content
         $this->setReply([
-            'title'     => $this->user->getName() .' - '.$this->engine->getName(),
-            'user'      => $this->user->toArray(),
+            'title'     => $this->user['name'] .' - '.$this->engine->getName(),
+            'user'      => $this->user,
         ]);
 
         // send response
