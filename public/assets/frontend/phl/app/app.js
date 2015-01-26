@@ -1,6 +1,6 @@
 "use strict";
 
-var phlModule;
+var app;
 var spinnerModule;
 var splashModule;
 
@@ -10,7 +10,7 @@ var splashModule;
     splashModule = angular.module('ui.splash', ['ui.bootstrap']);
 
     // application module
-    phlModule = angular.module('phl', ['ngRoute', 'ngAnimate', 'ngSanitize', 'ngLoadingSpinner', 'pascalprecht.translate', 'ngCookies', 'ui.splash', function($httpProvider) {
+    app = angular.module('app', ['ngRoute', 'ngAnimate', 'ngSanitize', 'ngLoadingSpinner', 'pascalprecht.translate', 'ngCookies', 'ui.splash', function($httpProvider) {
 
         $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
         $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
@@ -21,8 +21,8 @@ var splashModule;
             }
             var token = $('meta[name=token]');
 
-            phlModule.value('token_id', token.attr('title'));
-            phlModule.value('token_val', token.attr('content'));
+            app.value('token_id', token.attr('title'));
+            app.value('token_val', token.attr('content'));
 
             data[token.attr('title')] = token.attr('content');
             return angular.isObject(data) && String(data) !== '[object File]' ? $.param(data) : data;
@@ -31,7 +31,7 @@ var splashModule;
 
     // create meta services
 
-    phlModule.service('Meta', function() {
+    app.service('Meta', function() {
 
         var metaDescription = '';
         var metaKeywords = '';
@@ -70,11 +70,8 @@ var splashModule;
 
     // setup global scope variables
 
-    phlModule.run(['$rootScope', 'ROUTES', '$translate', '$cookies', 'access', 'authService', '$location',
-        function ($rootScope, ROUTES, $translate, $cookies, access, authService, $location) {
-
-        // set access token (if exist)
-        access.init();
+    app.run(['$rootScope', 'ROUTES', '$translate', '$cookies', 'Authentication', '$http',
+        function ($rootScope, ROUTES, $translate, $cookies, Authentication, $http) {
 
         // set global scope for routes & template
         $rootScope.ROUTES = ROUTES;
@@ -95,20 +92,13 @@ var splashModule;
             $translate.refresh();
         });
 
-        // Everytime the route in our app changes check auth status
+        // Every time the route in our app changes check auth status
 
-        $rootScope.$on("$routeChangeStart", function(event, next, current) {
+        $rootScope.$on("$locationChangeSuccess", function(event, next, current) {
 
-            // if you're logged out send to login page.
-           if (!authService.isLoggedIn() && next.security) {
-
-                $location.path('/');
-                event.preventDefault();
+            if(!Authentication.isLoggedIn()) {
+                $http.defaults.headers.common['X-Token'] = $cookies.token;
             }
-            else {
-               $rootScope.user     =   authService.getUser();
-               console.log('Authorized');
-           }
         });
 
     }]);

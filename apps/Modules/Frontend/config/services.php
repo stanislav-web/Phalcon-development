@@ -63,6 +63,8 @@ $di->set('crypt', function () {
 
     $crypt = new \Phalcon\Crypt();
     $crypt->setKey($this->_config->cookieCryptKey);
+    $crypt->setPadding(\Phalcon\Crypt::PADDING_PKCS7);
+
     return $crypt;
 
 });

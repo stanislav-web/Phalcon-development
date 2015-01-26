@@ -30,6 +30,12 @@ class ControllerBase extends Controller
     protected $user;
 
     /**
+     * Auth user token
+     * @var string
+     */
+    protected $token    =   null;
+
+    /**
      * is user Authenticated ?
      * @var boolean
      */
@@ -79,9 +85,6 @@ class ControllerBase extends Controller
             $this->logger = $this->di->get('logger');
         }
 
-        // load user data
-        $this->userVerify();
-
         // find current engine
         if($this->session->has('engine') === false) {
 
@@ -100,6 +103,9 @@ class ControllerBase extends Controller
 
             // setup app title
             $this->tag->setTitle($this->engine->getName());
+
+            // load user data
+            $this->userVerify();
 
             // setup special view directory for this engine
             $this->view->setViewsDir($this->config['application']['viewsFront'].strtolower($this->engine->getCode()))
@@ -167,12 +173,10 @@ class ControllerBase extends Controller
 
         $jsf = $this->assets->collection('footer-js')
             ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/app.js')
-            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/config.js')
-            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/common/services/access.js')
+            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/app.config.js')
             ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/common/directives/spinner.js')
-            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/common/services/interceptor.js')
             ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/common/services/splash.js')
-            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/authenticate/services/auth.js')
+            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/authenticate/services/authentication.js')
             ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/common/controllers/menu.js')
             ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/common/controllers/language.js')
             ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/common/controllers/index.js')
@@ -222,8 +226,8 @@ class ControllerBase extends Controller
     protected function getReply($code = 200, $status = 'OK', $content = 'application/json') {
 
         $this->response->setJsonContent($this->reply);
-        $this->response->setStatusCode(200, "OK");
-        $this->response->setContentType('application/json', 'UTF-8');
+        $this->response->setStatusCode($code, $status);
+        $this->response->setContentType($content, 'UTF-8');
 
         return $this->response->send();
     }
@@ -235,49 +239,50 @@ class ControllerBase extends Controller
      */
     protected function userVerify() {
 
-        // check user from session
-        if($this->user === null) {
+        if($this->request->isGet()) {
 
-            if($this->session->has('user') === false) {
+            // get access token from header
+            $xToken = $this->request->getHeader('X_TOKEN');
 
-                // check user from cookies
+            if(empty($xToken) === false) {
+                // need to decrypt token from header
+                $this->token = $this->crypt->decryptBase64($xToken, $this->config->cookieCryptKey);
 
-                if($this->cookies->has('token') === true) {
+            }
+            // get token from session
+            else if($this->session->has('token') === true) {
+                $this->token =   $this->session->get('token');
+            }
+            // get token from cookies
+            else if($this->cookies->has('token') === true) {
+                $this->token =   $this->cookies->get('token')->getValue();
+            }
 
-                    $cookieToken    =   $this->cookies->get('token')->getValue();
+            if(is_null($this->token) === false) {
+                // token exist, check user by this token
 
-                    $user = (new Users())->findFirst([
-                        "token = ?0",
-                        "bind" => [$cookieToken->getValue()],
-                        "column" => 'token'
-                    ]);
+                $user = (new Users())->findFirst([
+                    "token = ?0",
+                    "column" => 'id, password, ua',
+                    "bind" => [$this->token],
+                ]);
 
-                    if($cookieToken === $user['token']) {
+                if($user !== false) {
+
+                    // if user were founded
+                    $this->user = $user->toArray();
+
+                    $token = $this->user['id'] . $this->user['salt'] . $this->request->getUserAgent();
+                    if($this->token === md5($token)) {
 
                         // success! user is logged in the system
                         $this->setReply([
                             'user'      =>  $this->user,
-                            'token'     =>  $cookieToken,
                         ]);
 
                         $this->isAuthenticated  =   true;
-
                     }
                 }
-            }
-            else {
-
-                // success! user is logged in the system
-                $this->user = $this->session->get('user');
-                $token      = $this->session->get('token');
-
-                $this->setReply([
-                    'user'      =>  $this->user,
-                    'token'     =>  $token,
-                ]);
-
-                $this->isAuthenticated  =   true;
-
             }
         }
     }

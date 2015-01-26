@@ -1,59 +1,80 @@
 "use strict";
+(function(angular) {
 
-/**
- * Controller "SignController"
- *
- * @dependencies $scope global variables
- * @dependencies $translate angular-translater
- * @dependencies $cookies angular-cookies
- */
-phlModule.controller('SignCtrl', ['$scope', '$rootScope', '$location', 'authService', '$translatePartialLoader', '$splash',
-    function ($scope, $rootScope, $location, authService, $translatePartialLoader, $splash) {
+    /**
+     * Controller "SignController"
+     *
+     * @dependencies $scope global variables
+     * @dependencies $translate angular-translater
+     * @dependencies $cookies angular-cookies
+     */
+    app.controller('SignCtrl', ['$scope', '$rootScope', '$location', 'Authentication', '$translatePartialLoader', '$splash',
+        function ($scope, $rootScope, $location, Authentication, $translatePartialLoader, $splash) {
 
-        /**
-         * Get Sign type (login / register )
-         * @param string
-         */
-        $scope.typeSign = function(string) {
-            $scope.type = string;
-        };
 
-        /**
-         * Login to account
-         */
-        $scope.signIn = function () {
+            /**
+             * Type of sign
+             *
+             * @type {string}
+             */
+            var type = '';
 
-            $scope.dataLoading = true;
+            /**
+             * Get Sign type (login / register )
+             *
+             * @param string
+             */
+            $scope.typeSign = function (string) {
+                type = string;
+            };
 
-            // call auth service
+            /**
+             * Sign to account action
+             *
+             */
+            $scope.sign = function () {
 
-            authService.Login($scope.login, $scope.password, $scope.type, function(response) {
+                $scope.dataLoading = true;
 
-                if(response.success) {
-
-                    // success authentication (setup success cookies and some user data)
-                    authService.UserApply(response);
-
-                    // close splash window & redirect to profile
-                    $splash.close();
-                    $location.path('/account');
-
-                } else {
-
-                    $scope.error = response.message;
-                    $scope.dataLoading = false;
-
+                // setup credentials
+                var credentials = {
+                    'type': type,
+                    'login': $scope.login,
+                    'password': $scope.password
                 }
-            });
-        };
 
-        /**
-         * Login out
-         */
-        $scope.logout = function () {
+                // call auth service
+                Authentication.login(credentials).then(function (response) {
 
-            authService.Logout();
-            $location.path('/');
-        };
+                    if (response.success) {
 
-    }]);
+                        // close splash window & redirect to account
+                        $splash.close();
+                        $location.path('/account');
+
+                    } else {
+                        // return error to show in sign form
+                        $scope.error = response.message;
+                        $scope.dataLoading = false;
+
+                    }
+                });
+            };
+
+            /**
+             * Login out
+             */
+            $scope.logout = function () {
+
+                Authentication.logout().then(function (response) {
+
+                    if (response) {
+
+                        $location.path('/');
+
+                    }
+                });
+            };
+        }]);
+
+})(angular);

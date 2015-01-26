@@ -10,6 +10,11 @@ Phalcon Development Boards
 * Backend (Phalcon, jQuery, Twitter Bootstrap)
 * Frontend (Phalcon, jQuery, AngularJS, Twitter Bootstrap)
 
+#### Implemented
+* Staging development
+* Phalcon Crypt / Decrypt cookies
+* Phalcon + Angular JS token + cookies authentication
+
 #### Requirements 
 * Requires PHP 5.4
 * Phalcon 1.3.3
