@@ -5,12 +5,13 @@
     /**
      *  Auth Service factory
      */
-    phlModule.factory('authService',
-        ['$http', '$cookieStore', '$rootScope', 'access',
-        function ($http, $cookieStore, $rootScope, access) {
+    phlModule.service('authService',
+        ['$http', '$cookieStore', '$rootScope',
+        function ($http, $cookieStore, $rootScope) {
 
             var service = {};
             var user    = false;
+            var logged    = false;
 
             /**
              * Send data to server ( Input data )
@@ -38,9 +39,8 @@
              */
             service.UserApply = function (data) {
 
-                $rootScope.user = user = data.user;
-
-                access.init(data.token);
+                $rootScope.user     = user      = data.user;
+                $rootScope.logged   = logged    = true;
 
                 $http.get('/account')
                     .success(function (response) {
@@ -60,7 +60,9 @@
                     .success(function (response) {
 
                         if(response.success) {
+
                             delete $rootScope.user;
+                            delete $rootScope.logged;
                         }
                     });
 
@@ -70,9 +72,9 @@
              * Remove user data from cookies (Log out)
              * @constructor
              */
-            service.isLoggedIn = function (state) {
+            service.isLoggedIn = function () {
 
-                return(user) ? user : false;
+                return(logged) ? logged : false;
             };
 
             service.getUser = function() {

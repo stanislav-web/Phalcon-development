@@ -32,7 +32,6 @@ class SignController extends ControllerBase
      */
     public function indexAction()
     {
-
         if($this->request->isAjax() === true) {
 
             if($this->request->isPost() === true) {
@@ -204,12 +203,16 @@ class SignController extends ControllerBase
         }
     }
 
-    public function validateAction() {
+    public function verifyAction() {
 
-    }
+        if($this->isAuthenticated === true) {
+            $this->setReply(['success' => true]);
+        }
+        else {
+            $this->setReply(['success' => false]);
+        }
 
-    public function restoreAction() {
-
+        return $this->getReply();
     }
 }
 

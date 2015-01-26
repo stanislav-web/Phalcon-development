@@ -113,7 +113,8 @@ class ControllerBase extends Controller
 
             $this->view->setVars([
                 'engine'    => $this->engine->toArray(),
-                'menu'      => $nav[$this->isAuthenticated]
+                'menu'      => $nav,
+                'isAuthenticated'   =>  $this->isAuthenticated
             ]);
 
             // add scripts & stylesheets
@@ -154,7 +155,7 @@ class ControllerBase extends Controller
             ->addJs('assets/plugins/bootstrap/bootstrap.min.js')
             ->addJs('assets/plugins/ui-bootstrap-tpl/ui-bootstrap-tpl.min.js');
 
-        if (APPLICATION_ENV === 'production') {
+        if (APPLICATION_ENV === 'development') {
 
             // glue and minimize scripts header
 
@@ -168,11 +169,10 @@ class ControllerBase extends Controller
         $jsf = $this->assets->collection('footer-js')
             ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/app.js')
             ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/config.js')
-            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/common/services/access.js')
+            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/common/services/app.js')
             ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/common/directives/spinner.js')
-            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/common/services/interceptor.js')
             ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/common/services/splash.js')
-            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/authenticate/services/auth.js')
+            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/authenticate/services/auth2.js')
             ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/common/controllers/menu.js')
             ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/common/controllers/language.js')
             ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/common/controllers/index.js')
@@ -184,7 +184,7 @@ class ControllerBase extends Controller
             ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/js/rules.js')
             ->addJs('assets/plugins/spinner/spin.min.js');
 
-        if (APPLICATION_ENV === 'production') {
+        if (APPLICATION_ENV === 'development') {
 
             // glue and minimize scripts footer
 
@@ -222,8 +222,8 @@ class ControllerBase extends Controller
     protected function getReply($code = 200, $status = 'OK', $content = 'application/json') {
 
         $this->response->setJsonContent($this->reply);
-        $this->response->setStatusCode(200, "OK");
-        $this->response->setContentType('application/json', 'UTF-8');
+        $this->response->setStatusCode($code, $status);
+        $this->response->setContentType($content, 'UTF-8');
 
         return $this->response->send();
     }
@@ -234,6 +234,7 @@ class ControllerBase extends Controller
      * @return null
      */
     protected function userVerify() {
+
 
         // check user from session
         if($this->user === null) {

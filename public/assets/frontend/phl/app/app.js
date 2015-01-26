@@ -70,14 +70,16 @@ var splashModule;
 
     // setup global scope variables
 
-    phlModule.run(['$rootScope', 'ROUTES', '$translate', '$cookies', 'access', 'authService', '$location',
-        function ($rootScope, ROUTES, $translate, $cookies, access, authService, $location) {
-
-        // set access token (if exist)
-        access.init();
+    phlModule.run(['$rootScope', 'ROUTES', '$translate', '$cookies', 'authService', 'Application',
+        function ($rootScope, ROUTES, $translate, $cookies, authService, Application) {
 
         // set global scope for routes & template
         $rootScope.ROUTES = ROUTES;
+
+        authService.requestUser().then(function() {
+
+            Application.makeReady();
+        });
 
         if(store.enabled) {
 
@@ -95,21 +97,28 @@ var splashModule;
             $translate.refresh();
         });
 
+        $rootScope.$on('$locationChangeStart', function(scope, next, current) {
+
+            if($location.path() === '/loading') return;
+
+            if(!Application.isReady())
+            {
+                $location.path('loading');
+            }
+            RouteFilter.run($location.path());
+        });
+
         // Everytime the route in our app changes check auth status
 
-        $rootScope.$on("$routeChangeStart", function(event, next, current) {
+        /*$rootScope.$on("$routeChangeStart", function(event, next, current) {
 
             // if you're logged out send to login page.
-           if (!authService.isLoggedIn() && next.security) {
+           if (authService.isLoggedIn()) {
 
-                $location.path('/');
-                event.preventDefault();
-            }
-            else {
                $rootScope.user     =   authService.getUser();
                console.log('Authorized');
-           }
-        });
+            }
+        });*/
 
     }]);
 

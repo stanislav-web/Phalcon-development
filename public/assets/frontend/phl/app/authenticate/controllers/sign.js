@@ -14,37 +14,41 @@ phlModule.controller('SignCtrl', ['$scope', '$rootScope', '$location', 'authServ
          * Get Sign type (login / register )
          * @param string
          */
-        $scope.typeSign = function(string) {
+        $scope.setType = function(string) {
+
             $scope.type = string;
         };
 
         /**
          * Login to account
          */
-        $scope.signIn = function () {
+        $scope.sign = function () {
 
             $scope.dataLoading = true;
 
             // call auth service
-
-            authService.Login($scope.login, $scope.password, $scope.type, function(response) {
+            var promise =  authService.login({
+                'login'     :   $scope.login,
+                'password'  :   $scope.password,
+                'type'      :   $scope.type
+            }).then(function(response) {
 
                 if(response.success) {
 
-                    // success authentication (setup success cookies and some user data)
-                    authService.UserApply(response);
-
-                    // close splash window & redirect to profile
-                    $splash.close();
-                    $location.path('/account');
+                    // close splash window & redirect to account
+                   $splash.close();
+                   $location.path('/account');
 
                 } else {
 
                     $scope.error = response.message;
                     $scope.dataLoading = false;
-
                 }
+
+            }, function(error) {
+                alert(error);
             });
+
         };
 
         /**

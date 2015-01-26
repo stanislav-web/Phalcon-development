@@ -11,16 +11,25 @@
 (function(angular){
 
     /**
-     * Controller "IndexController"
+     * Controller "UserCtrl"
      *
      * @dependencies $scope global controller variables
      * @dependencies $rootScope global variables
      * @dependencies $http http ajax service
      * @dependencies $location url service
-     * @dependencies $sce sanitize HTML service
      */
-    phlModule.controller('UserCtrl', ['$scope', '$rootScope', '$http', '$location',
-        function($scope, $rootScope, $http, $location) {
+    phlModule.controller('UserCtrl', ['$scope', '$rootScope', '$http', '$location', 'authService', 'Application',
+        function($scope, $rootScope, $http, $location, authService, Application) {
+
+            console.log('isAuth:', authService.isLoggedIn());
+            console.log('User:', authService.getUser());
+
+
+            Application.registerListener(function()
+            {
+                // When application is ready then redirect to the main page
+                $location.path('/');
+            });
 
             /**
              *	Perform a GET request on the API and pass the slug to it using $location.url()
