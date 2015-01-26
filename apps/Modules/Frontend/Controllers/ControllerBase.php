@@ -36,6 +36,12 @@ class ControllerBase extends Controller
     protected $token    =   null;
 
     /**
+     * Default language
+     * @var string
+     */
+    protected $language    =   'ru';
+
+    /**
      * is user Authenticated ?
      * @var boolean
      */
@@ -106,6 +112,9 @@ class ControllerBase extends Controller
 
             // load user data
             $this->userVerify();
+
+            // load lang packages
+            $this->setLanguage();
 
             // setup special view directory for this engine
             $this->view->setViewsDir($this->config['application']['viewsFront'].strtolower($this->engine->getCode()))
@@ -234,6 +243,7 @@ class ControllerBase extends Controller
     /**
      * Check user if have any access types
      *
+     * @access pritected
      * @return null
      */
     protected function userVerify() {
@@ -284,5 +294,23 @@ class ControllerBase extends Controller
                 }            
             }
         }
+    }
+
+    /**
+     * Set choised or prefered language
+     *
+     * @access private
+     * @return null
+     */
+    private function setLanguage() {
+
+        if($this->cookies->has('NG_TRANSLATE_LANG_KEY')) {
+            $this->language = $this->cookies->get('NG_TRANSLATE_LANG_KEY')->getValue();
+        }
+        else {
+            $this->language = substr($this->request->getBestLanguage(), 0, 2);
+        }
+
+        $this->setReply(['language' => $this->language]);
     }
 }
