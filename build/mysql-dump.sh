@@ -10,7 +10,7 @@ export SET DATE=$(date +"%m-%d-%Y")
 export SET DATABASE='phalcon.local';
 export SET USER='root';
 export SET PASSWORD='root';
-export SET FILE=/Users/stanislavmenshykh/phalcon.local/backup/$DATABASE-$DATE.sql.gz
+export SET FILE=/var/www/phalcon-devtools/phalcon.local/backup/$DATABASE-$DATE.sql.gz
 export SET DIR=`dirname "$FILE"`
 export SET SP="/-\|"
 export SET SC=0
@@ -38,7 +38,7 @@ mysqlbackup() {
 
     # Dump tables
 
-    mysqldump -u$USER -p$PASSWORD -R -T $DATABASE | gzip > $FILE;
+    mysqldump -u$USER -p$PASSWORD -R --triggers $DATABASE | gzip > $FILE;
 }
 
 spin() {
