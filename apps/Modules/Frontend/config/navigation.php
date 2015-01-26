@@ -7,32 +7,32 @@ $navigation =   [
             'title'     =>  'Home',
             'url'       =>  '/',
             'translate' =>  'HOME',
-            'logged'    =>  'false'
+            'isAuthenticated'    =>  'false'
         ],
         [
             'title'     =>  'Agreement',
             'url'       =>  '/agreement',
             'translate' =>  'AGREEMENT',
-            'logged'    =>  'false'
+            'isAuthenticated'    =>  'false'
         ],
         [
             'title'     =>  'Help',
             'url'       =>  '/help',
             'translate' =>  'HELP',
-            'logged'    =>  'false'
+            'isAuthenticated'    =>  'false'
 
         ],
         [
             'title'     =>  'Contacts',
             'url'       =>  '/contacts',
             'translate' =>  'CONTACTS',
-            'logged'    =>  'false'
+            'isAuthenticated'    =>  'false'
         ],
         [
             'title'     =>  'About',
             'url'       =>  '/about',
             'translate' =>  'ABOUT',
-            'logged'    =>  'false'
+            'isAuthenticated'    =>  'false'
 
         ],
         [
@@ -40,14 +40,14 @@ $navigation =   [
             'url'       =>  '#',
             'translate' =>  'SIGN IN',
             'onclick'   =>  'openSplash()',
-            'logged'    =>  'false'
+            'isAuthenticated'    =>  'false'
 
         ],
         [
             'title'     =>  'My Account',
             'url'       =>  '/account',
             'translate' =>  'ACCOUNT',
-            'logged'    =>  'true'
+            'isAuthenticated'    =>  'true'
         ],
         [
             'title'     =>  'Logout',
@@ -55,7 +55,7 @@ $navigation =   [
             'translate' =>  'LOGOUT',
             'onclick'   =>  'logout()',
             'controller'=>  'SignCtrl',
-            'logged'    =>  'true'
+            'isAuthenticated'    =>  'true'
         ],
     ],
 

@@ -33,14 +33,14 @@
 
                             <!-- Login -->
                             <div class="form-group">
-                                <input type="text" ng-minlength="3" ng-maxlength="150" class="form-control" id="login" name="login" ng-model="login" placeholder="{{ 'LOGIN_PLACEHOLDER' | translate }}" required autofocus>
+                                <input type="text" ng-minlength="3" ng-maxlength="150" class="form-control" name="login" ng-model="login" placeholder="{{ 'LOGIN_PLACEHOLDER' | translate }}" required autofocus>
                                 <span ng-show="form.login.$dirty && form.login.$error.required" class="help-block" translate="LOGIN_REQUIRED"></span>
                             </div>
                             <!-- /Login -->
 
                             <!-- Password -->
                             <div class="form-group">
-                                <input type="password" class="form-control" id="password" name="password" ng-model="password" placeholder="{{ 'PASSWORD_PLACEHOLDER' | translate }}" required>
+                                <input type="password" class="form-control" name="password" ng-model="password" placeholder="{{ 'PASSWORD_PLACEHOLDER' | translate }}" required>
                                 <span ng-show="form.password.$dirty && form.password.$error.required" class="help-block" translate="PASSWORD_REQUIRED"></span>
                             </div>
                             <!-- /Password -->
@@ -49,7 +49,7 @@
                             <div ng-show="error" class="alert alert-danger">{{error}}</div>
                             <!-- /Show error message -->
 
-                            <button ng-click="setType('signin')" type="submit" id="signin" class="btn btn-success btn-block" ng-disabled="form.$invalid || dataLoading" translate="SIGN IN">SIGN IN</button>
+                            <button ng-click="typeSign('signin')" type="submit" class="btn btn-success btn-block" ng-disabled="form.$invalid || dataLoading" translate="SIGN IN">SIGN IN</button>
                             <img ng-if="dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
                         </div>
                     </div>
@@ -64,7 +64,7 @@
                                 <li><span class="fa fa-check text-success"></span> {{ 'REGISTER_FC' | translate }}</li>
                                 <li ng-controller="TopMenuCtrl"><a href="/agreement#advantages" ng-click="$close()"><u translate="REGISTER_MORE"></u></a></li>
                             </ul>
-                            <button ng-click="setType('signup')" type="submit" id="signup" class="btn btn-info btn-block" ng-disabled="form.$invalid || dataLoading" translate="REGISTER"></button>
+                            <button ng-click="typeSign('signup')" type="submit" class="btn btn-info btn-block" ng-disabled="form.$invalid || dataLoading" translate="REGISTER"></button>
                         </div>
                     </div>
 

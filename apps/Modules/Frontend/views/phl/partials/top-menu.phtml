@@ -1,14 +1,14 @@
 <nav ng-controller="TopMenuCtrl" class="cssmenu">
     <?php if(empty($menu) === false): ?>
-        <ul>
+        <ul class="top-menu" style="opacity: 0">
             <?php foreach($menu as $i => $item): ?>
-                <span ng-if="authService.isAuthenticated">
-                    <li ng-if="<?=$item['logged']?> == true" <?=(isset($item['controller'])) ? 'ng-controller="'.$item['controller'].'"' : ''?> ng-class="{ active:isActive('<?=$item['url'];?>')}">
+                <span ng-if="isAuthenticated">
+                    <li ng-if="<?=$item['isAuthenticated']?> == true" <?=(isset($item['controller'])) ? 'ng-controller="'.$item['controller'].'"' : ''?> ng-class="{ active:isActive('<?=$item['url'];?>')}">
                         <a <?=(isset($item['onclick'])) ? 'ng-click="'.$item['onclick'].'"' : ''?> href="<?=$item['url'];?>" translate="<?=$item['translate'];?>"><?=$item['title'];?></a>
                     </li>
                 </span>
-                <span ng-if="!authService.isAuthenticated">
-                    <li ng-if="<?=$item['logged']?> == false" <?=(isset($item['controller'])) ? 'ng-controller="'.$item['controller'].'"' : ''?> ng-class="{ active:isActive('<?=$item['url'];?>')}">
+                <span ng-if="!isAuthenticated">
+                    <li ng-if="<?=$item['isAuthenticated']?> == false" <?=(isset($item['controller'])) ? 'ng-controller="'.$item['controller'].'"' : ''?> ng-class="{ active:isActive('<?=$item['url'];?>')}">
                         <a <?=(isset($item['onclick'])) ? 'ng-click="'.$item['onclick'].'"' : ''?> href="<?=$item['url'];?>" translate="<?=$item['translate'];?>"><?=$item['title'];?></a>
                     </li>
                 </span>
@@ -16,3 +16,10 @@
         </ul>
     <?php endif; ?>
 </nav>
+<script>
+    jQuery(function() {
+       setTimeout(function() {
+           $('.top-menu').css('opacity', 1);
+       },2000);
+    });
+</script>

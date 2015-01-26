@@ -4,7 +4,7 @@
 
     // create config constants
 
-    phlModule.constant('ROUTES', (function () {
+    app.constant('ROUTES', (function () {
 
         return {
             HOME:       '/',
@@ -13,11 +13,14 @@
             AGREEMENT:  '/agreement',
             ABOUT:      '/about',
             NOT_FOUND:  '/error/notfound',
-            ACCOUNT:    '/account'
+            ACCOUNT:    '/account',
+            VERIFY :    '/sign/verify',
+            LOGIN :     '/sign',
+            LOGOUT :     '/logout'
         }
     })());
 
-    phlModule.constant('TEMPLATE', (function () {
+    app.constant('TEMPLATE', (function () {
 
         return {
             ARTICLE:    'assets/frontend/phl/app/common/templates/index.html',
@@ -28,7 +31,7 @@
 
     // configure application's routes
 
-    phlModule.config(['$routeProvider', '$locationProvider', 'ROUTES', 'TEMPLATE', function($routeProvider, $locationProvider, ROUTES, TEMPLATE) {
+    app.config(['$routeProvider', '$locationProvider', 'ROUTES', 'TEMPLATE', function($routeProvider, $locationProvider, ROUTES, TEMPLATE) {
 
         $locationProvider.hashPrefix('!');
         $locationProvider.html5Mode(true);
@@ -64,8 +67,13 @@
         .when(ROUTES.ACCOUNT, {
             templateUrl: TEMPLATE.ACCOUNT,
             controller: "UserCtrl",
-            // You must be logged into go to this route.
-            security: true
+            caseInsensitiveMatch: true,
+            resolve: {
+                // route under secure verifying
+                isAuthenticated : function(Authentication) {
+                    Authentication.requestUser();
+                }
+            }
         })
         .otherwise({ redirectTo: ROUTES.HOME });
 
@@ -73,8 +81,7 @@
 
     // configure preload transliteration
 
-    phlModule.config(['$translateProvider', '$translatePartialLoaderProvider', function ($translateProvider, $translatePartialLoader) {
-
+    app.config(['$translateProvider', '$translatePartialLoaderProvider', function ($translateProvider, $translatePartialLoader) {
 
         // try to find out preferred language by yourself
 
@@ -93,4 +100,5 @@
             urlTemplate: 'assets/frontend/phl/app/languages/{lang}/{part}.json'
         });
     }]);
+
 })(angular);

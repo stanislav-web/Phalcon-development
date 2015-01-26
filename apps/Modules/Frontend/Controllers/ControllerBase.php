@@ -30,6 +30,12 @@ class ControllerBase extends Controller
     protected $user;
 
     /**
+     * Auth user token
+     * @var string
+     */
+    protected $token    =   null;
+
+    /**
      * is user Authenticated ?
      * @var boolean
      */
@@ -79,9 +85,6 @@ class ControllerBase extends Controller
             $this->logger = $this->di->get('logger');
         }
 
-        // load user data
-        $this->userVerify();
-
         // find current engine
         if($this->session->has('engine') === false) {
 
@@ -101,6 +104,9 @@ class ControllerBase extends Controller
             // setup app title
             $this->tag->setTitle($this->engine->getName());
 
+            // load user data
+            $this->userVerify();
+
             // setup special view directory for this engine
             $this->view->setViewsDir($this->config['application']['viewsFront'].strtolower($this->engine->getCode()))
                 ->setMainView('layout')
@@ -110,11 +116,9 @@ class ControllerBase extends Controller
             $nav = $this->di->get('navigation');
 
             // setup to all templates
-
             $this->view->setVars([
                 'engine'    => $this->engine->toArray(),
-                'menu'      => $nav,
-                'isAuthenticated'   =>  $this->isAuthenticated
+                'menu'      => $nav
             ]);
 
             // add scripts & stylesheets
@@ -155,7 +159,7 @@ class ControllerBase extends Controller
             ->addJs('assets/plugins/bootstrap/bootstrap.min.js')
             ->addJs('assets/plugins/ui-bootstrap-tpl/ui-bootstrap-tpl.min.js');
 
-        if (APPLICATION_ENV === 'development') {
+        if (APPLICATION_ENV === 'production') {
 
             // glue and minimize scripts header
 
@@ -168,11 +172,10 @@ class ControllerBase extends Controller
 
         $jsf = $this->assets->collection('footer-js')
             ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/app.js')
-            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/config.js')
-            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/common/services/app.js')
+            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/app.config.js')
             ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/common/directives/spinner.js')
             ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/common/services/splash.js')
-            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/authenticate/services/auth2.js')
+            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/authenticate/services/authentication.js')
             ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/common/controllers/menu.js')
             ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/common/controllers/language.js')
             ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/common/controllers/index.js')
@@ -184,7 +187,7 @@ class ControllerBase extends Controller
             ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/js/rules.js')
             ->addJs('assets/plugins/spinner/spin.min.js');
 
-        if (APPLICATION_ENV === 'development') {
+        if (APPLICATION_ENV === 'production') {
 
             // glue and minimize scripts footer
 
@@ -207,7 +210,7 @@ class ControllerBase extends Controller
     protected function setReply(array $reply) {
 
         foreach($reply as $k => $v) {
-                $this->reply[$k]    =   $v;
+            $this->reply[$k]    =   $v;
         }
     }
 
@@ -235,50 +238,50 @@ class ControllerBase extends Controller
      */
     protected function userVerify() {
 
+        if($this->request->isGet()) {
 
-        // check user from session
-        if($this->user === null) {
+            // get access token from header
+            $xToken = $this->request->getHeader('X_TOKEN');
 
-            if($this->session->has('user') === false) {
+            if(empty($xToken) === false) {
+                // need to decrypt token from header
+                $this->token = $this->crypt->decryptBase64($xToken, $this->config->cookieCryptKey);
 
-                // check user from cookies
+            }
+            // get token from session
+            else if($this->session->has('token') === true) {
+                $this->token =   $this->session->get('token');
+            }
+            // get token from cookies
+            else if($this->cookies->has('token') === true) {
+                $this->token =   $this->cookies->get('token')->getValue();
+            }
 
-                if($this->cookies->has('token') === true) {
+            if(is_null($this->token) === false) {
+                // token exist, check user by this token
 
-                    $cookieToken    =   $this->cookies->get('token')->getValue();
+                $user = (new Users())->findFirst([
+                    "token = ?0",
+                    "column" => 'id, password, ua',
+                    "bind" => [$this->token],
+                ]);
 
-                    $user = (new Users())->findFirst([
-                        "token = ?0",
-                        "bind" => [$cookieToken->getValue()],
-                        "column" => 'token'
-                    ]);
+                if($user !== false) {
 
-                    if($cookieToken === $user['token']) {
+                    // if user were founded
+                    $this->user = $user->toArray();
+
+                    $token = $this->user['id'] . $this->user['salt'] . $this->request->getUserAgent();
+                    if($this->token === md5($token)) {
 
                         // success! user is logged in the system
                         $this->setReply([
                             'user'      =>  $this->user,
-                            'token'     =>  $cookieToken,
                         ]);
 
                         $this->isAuthenticated  =   true;
-
                     }
-                }
-            }
-            else {
-
-                // success! user is logged in the system
-                $this->user = $this->session->get('user');
-                $token      = $this->session->get('token');
-
-                $this->setReply([
-                    'user'      =>  $this->user,
-                    'token'     =>  $token,
-                ]);
-
-                $this->isAuthenticated  =   true;
-
+                }            
             }
         }
     }

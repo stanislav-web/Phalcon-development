@@ -32,6 +32,7 @@ class SignController extends ControllerBase
      */
     public function indexAction()
     {
+
         if($this->request->isAjax() === true) {
 
             if($this->request->isPost() === true) {
@@ -96,7 +97,7 @@ class SignController extends ControllerBase
             $this->response->redirect('/');
         }
         else {
-
+            $this->reply    =   [];
             $this->setReply(['success' => true]);
         }
 
@@ -118,20 +119,20 @@ class SignController extends ControllerBase
 
         if(empty($user) === false) {
 
-            if($this->security->checkHash($password, $user->getPassword()))
-            {
-                // user founded, password checked. Set auth token
+            if($this->security->checkHash($password, $user->getPassword())) {
 
-                $token = md5($user->getLogin() . $user->getPassword() . $this->request->getUserAgent());
+                // user founded, password checked. Set auth token
+                $this->token = md5($user->getId() . $this->security->getSessionToken() . $this->request->getUserAgent());
 
                 // setup user cookies and send to client for update
-                $this->cookies->set('token', $token, time() + ($this->config->rememberKeep), '/', $this->engine->getHost(), false, false);
-                $this->session->set('token', $token);
-                $this->session->set('user', $user);
+                $this->cookies->set('token',    $this->token, time() + ($this->config->rememberKeep), '/', $this->engine->getHost(), false, false);
+                $this->session->set('token',    $this->token);
+                $this->session->set('user',     $user->toArray());
 
                 // update auth params
                 $user->setDateLastvisit(date('Y-m-d H:i:s'))
-                    ->setToken($token)
+                    ->setSalt($this->security->getSessionToken())
+                    ->setToken($this->token)
                     ->setIp($this->request->getClientAddress())
                     ->setUa($this->request->getUserAgent())
                     ->save();
@@ -139,6 +140,8 @@ class SignController extends ControllerBase
                 if ($this->config->logger->enable) {
                     $this->logger->log('Authenticate success from ' . $this->request->getClientAddress());
                 }
+
+                $this->isAuthenticated = true;
 
                 // send reply to client
                 $this->setReply([
@@ -153,8 +156,7 @@ class SignController extends ControllerBase
                         'date_registration' =>  $user->getDateRegistration(),
                         'date_lastvisit'    =>  $user->getDateLastvisit()
                     ],
-                    'token'     => $token,
-                    'success'   => true
+                    'success'   => true,
                 ]);
             }
             else
@@ -180,6 +182,23 @@ class SignController extends ControllerBase
 
 
     /**
+     * User authentication verify
+     *
+     * @return \Phalcon\Http\ResponseInterface
+     */
+    public function verifyAction() {
+
+        if($this->isAuthenticated === true) {
+            $this->setReply(['success' => true]);
+        }
+        else {
+            $this->setReply([false]);
+        }
+
+        return $this->getReply();
+    }
+
+    /**
      * Clear all auth user data
      *
      * @access protected
@@ -191,28 +210,19 @@ class SignController extends ControllerBase
 
         // destroy session data
         if($this->session->has('user')) {
-
             $this->session->remove('user');
+        }
+
+        if($this->session->has('token')) {
+            $this->session->remove('token');
         }
 
         // destroy cookies
         if($this->cookies->has('token')) {
-
             $this->cookies->get('token')->delete();
-
-        }
-    }
-
-    public function verifyAction() {
-
-        if($this->isAuthenticated === true) {
-            $this->setReply(['success' => true]);
-        }
-        else {
-            $this->setReply(['success' => false]);
         }
 
-        return $this->getReply();
+        $this->response->resetHeaders();
     }
 }
 

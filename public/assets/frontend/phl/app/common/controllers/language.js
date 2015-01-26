@@ -1,33 +1,37 @@
 "use strict";
 
-/**
- * Controller "LanguageController"
- *
- * @dependencies $translate angular-translater
- * @dependencies $scope global variables
- * @dependencies $cookies angular-cookies
- */
-phlModule.controller('LanguageCtrl', ['$translate', '$scope', '$cookies',
-    function ($translate, $scope, $cookies) {
+(function(angular){
 
-    // set up language switcher
+    /**
+     * Controller "LanguageController"
+     *
+     * @dependencies $translate angular-translater
+     * @dependencies $scope global variables
+     * @dependencies $cookies angular-cookies
+     */
+    app.controller('LanguageCtrl', ['$translate', '$scope', '$cookies',
+        function ($translate, $scope, $cookies) {
 
-    $scope.changeLanguage = function (langKey) {
+            // set up language switcher
 
-        // change quickly
-        $translate.use(langKey);
+            $scope.changeLanguage = function (langKey) {
 
-        if(store.enabled) {
+                // change quickly
+                $translate.use(langKey);
 
-            // send to storage
-            store.set('NG_TRANSLATE_LANG_KEY',   langKey);
-        }
-        else {
+                if(store.enabled) {
 
-            // create cookie
-            $cookies.NG_TRANSLATE_LANG_KEY = langKey;
-        }
+                    // send to storage
+                    store.set('NG_TRANSLATE_LANG_KEY',   langKey);
+                }
+                else {
 
-        $scope.currentLanguage  =   langKey;
-    };
-}]);
+                    // create cookie
+                    $cookies.NG_TRANSLATE_LANG_KEY = langKey;
+                }
+
+                $scope.currentLanguage  =   langKey;
+            };
+        }]);
+
+})(angular);
