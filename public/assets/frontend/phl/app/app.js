@@ -76,15 +76,14 @@ var splashModule;
         // set global scope for routes & template
         $rootScope.ROUTES = ROUTES;
 
-        if(store.enabled) {
-
-            // getting from storage
-            $rootScope.currentLanguage = store.get('NG_TRANSLATE_LANG_KEY') || 'ru';
-        }
-        else {
+        if($cookies) {
 
             // getting from cookies
             $rootScope.currentLanguage = $cookies.NG_TRANSLATE_LANG_KEY || 'ru';
+        }
+        else {
+            // getting from storage
+            $rootScope.currentLanguage = store.get('NG_TRANSLATE_LANG_KEY') || 'ru';
         }
 
         // update languages global

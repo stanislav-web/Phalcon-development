@@ -65,13 +65,25 @@ html {
 	display: block;
 }
 
-#tracyBluescreenError #tracyBsSearch {
-	color: #CD1818;
+#tracyBluescreenError a {
+	color: white !important;
+	opacity: 0;
 	font-size: .7em;
 }
 
-#tracyBluescreenError:hover #tracyBsSearch {
-	color: #ED8383;
+#tracyBluescreenError:hover a {
+	opacity: .6;
+}
+
+#tracyBluescreenError a:hover {
+	opacity: 1;
+}
+
+#tracyBluescreenIEWarning {
+	background: black;
+	margin: 1em;
+	padding: .5em;
+	text-align: center;
 }
 
 #tracyBluescreen h1 {
@@ -214,11 +226,11 @@ html {
 
 #tracyBluescreen a[href^=editor\:] {
 	color: inherit;
-	border-bottom: 1px dotted rgba(0, 0, 0, .2);
+	border-bottom: 1px dotted rgba(0, 0, 0, .3);
 }
 
 #tracyBluescreen span[data-tracy-href] {
-	border-bottom: 1px dotted rgba(0, 0, 0, .2);
+	border-bottom: 1px dotted rgba(0, 0, 0, .3);
 }
 
 

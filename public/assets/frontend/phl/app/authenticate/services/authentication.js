@@ -33,7 +33,7 @@
 
                 $http.get(ROUTES.VERIFY).success(function (response) {
 
-                    $timeout(function () {
+                    //$timeout(function () {
 
                         // Check if user is defined first
                         if (response.success) {
@@ -48,7 +48,7 @@
 
                         deferred.resolve(user);
 
-                    }, 1000);
+                    //}, 1000);
 
                 }).error(function (error) {
                     deferred.reject(error);

@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'Uploader\\' => array($vendorDir . '/stanislav-web/phalcon-uploader/src/Uploader'),
     'ULogin\\' => array($vendorDir . '/stanislav-web/phalcon-ulogin/src/ULogin'),
+    'Translate\\' => array($vendorDir . '/stanislav-web/phalcon-translate/src/Translate'),
     'Test\\Searcher\\Models\\' => array($vendorDir . '/stanislav-web/phalcon-searcher/phpunit/src/Searcher/Models'),
     'Test\\Searcher\\Hydrators\\' => array($vendorDir . '/stanislav-web/phalcon-searcher/phpunit/src/Searcher/Hydrators'),
     'Test\\Searcher\\Factories\\' => array($vendorDir . '/stanislav-web/phalcon-searcher/phpunit/src/Searcher/Factories'),

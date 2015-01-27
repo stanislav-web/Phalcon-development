@@ -32,19 +32,9 @@ use Tracy;
 <?php readfile(__DIR__ . '/dumper.css') ?>
 </style>
 
-<!--[if lt IE 8]><style class="tracy-debug">
-	#tracy-debug-bar img { display: none }
-	#tracy-debug-bar li { border-left: 1px solid #DCD7C8; padding: 0 3px }
-	#tracy-debug-logo span { background: #edeae0; display: inline }
-</style><![endif]-->
-
-
 <script id="tracy-debug-script">
-/* <![CDATA[ */
-<?php readfile(__DIR__ . '/tracyQ.js') ?>
 <?php readfile(__DIR__ . '/bar.js') ?>
 <?php readfile(__DIR__ . '/dumper.js') ?>
-/* ]]> */
 </script>
 
 
@@ -60,7 +50,7 @@ use Tracy;
 
 <div id="tracy-debug-bar">
 	<ul>
-		<li id="tracy-debug-logo" title="<?php echo htmlSpecialChars(implode(" |\n", $info))?>">&nbsp;<span>Tracy</span></li>
+		<li id="tracy-debug-logo" title="<?php echo htmlSpecialChars(implode(" |\n", $info), ENT_QUOTES, 'UTF-8')?>">&nbsp;<span>Tracy</span></li>
 		<?php foreach ($panels as $panel): if (!$panel['tab']) continue; ?>
 		<?php if (!empty($panel['previous'])) echo '</ul><ul class="tracy-previous">'; ?>
 		<li><?php if ($panel['panel']): ?><a href="#" rel="<?php echo $panel['id'] ?>"><?php echo trim($panel['tab']) ?></a><?php else: echo '<span>', trim($panel['tab']), '</span>'; endif ?></li>
@@ -72,18 +62,22 @@ use Tracy;
 
 
 <script>
-(function(onloadOrig) {
-	window.onload = function() {
-		if (typeof onloadOrig === 'function') onloadOrig();
+(function() {
+	if (!document.documentElement.classList) {
+		document.write('<div style="position:fixed;right:0;bottom:0;z-index:30000;font:normal normal 12px/21px sans-serif;color:#333;background:#EDEAE0;border:1px solid #ccc;padding:.2em">Warning: Tracy requires IE 10+<\/div>');
+		return;
+	}
+
+	window.addEventListener('load', function() {
 		var debug = document.body.appendChild(document.createElement('div'));
 		debug.id = 'tracy-debug';
 		debug.innerHTML = <?php echo json_encode(Helpers::fixEncoding($output)) ?>;
 		for (var i = 0, scripts = debug.getElementsByTagName('script'); i < scripts.length; i++) eval(scripts[i].innerHTML);
-		Tracy.Dumper.init();
+		Tracy.Dumper.init(<?php echo json_encode(Dumper::fetchLiveData()) ?>);
 		Tracy.Debug.init();
 		debug.style.display = 'block';
-	};
-})(window.onload);
+	});
+})();
 </script>
 
 <!-- /Tracy Debug Bar -->

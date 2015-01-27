@@ -20,7 +20,8 @@ use Symfony\Component\Console\Output\OutputInterface;
  * @author Chris Jones <leeked@gmail.com>
  * @author Fabien Potencier <fabien@symfony.com>
  *
- * @deprecated Deprecated since 2.5, to be removed in 3.0; use ProgressBar instead.
+ * @deprecated since version 2.5, to be removed in 3.0
+ *             Use {@link ProgressBar} instead.
  */
 class ProgressHelper extends Helper
 {
@@ -48,28 +49,28 @@ class ProgressHelper extends Helper
     private $output;
 
     /**
-     * Current step
+     * Current step.
      *
      * @var int
      */
     private $current;
 
     /**
-     * Maximum number of steps
+     * Maximum number of steps.
      *
      * @var int
      */
     private $max;
 
     /**
-     * Start time of the progress bar
+     * Start time of the progress bar.
      *
      * @var int
      */
     private $startTime;
 
     /**
-     * List of formatting variables
+     * List of formatting variables.
      *
      * @var array
      */
@@ -82,14 +83,14 @@ class ProgressHelper extends Helper
     );
 
     /**
-     * Available formatting variables
+     * Available formatting variables.
      *
      * @var array
      */
     private $formatVars;
 
     /**
-     * Stored format part widths (used for padding)
+     * Stored format part widths (used for padding).
      *
      * @var array
      */
@@ -101,7 +102,7 @@ class ProgressHelper extends Helper
     );
 
     /**
-     * Various time formats
+     * Various time formats.
      *
      * @var array
      */
@@ -116,6 +117,13 @@ class ProgressHelper extends Helper
         array(129600, '1 day'),
         array(604800, 'days', 86400),
     );
+
+    public function __construct($triggerDeprecationError = true)
+    {
+        if ($triggerDeprecationError) {
+            trigger_error('The '.__CLASS__.' class is deprecated since version 2.5 and will be removed in 3.0. Use the Symfony\Component\Console\Helper\ProgressBar class instead.', E_USER_DEPRECATED);
+        }
+    }
 
     /**
      * Sets the progress bar width.

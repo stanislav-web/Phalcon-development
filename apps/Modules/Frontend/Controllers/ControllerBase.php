@@ -82,7 +82,6 @@ class ControllerBase extends Controller
      */
     public function initialize()
     {
-
         // load configurations
         $this->config = $this->di->get('config');
 
@@ -116,6 +115,11 @@ class ControllerBase extends Controller
             // load lang packages
             $this->setLanguage();
 
+            // set translate path
+            $translate = $this->di->get('translate');
+            $translate->setTranslatePath(APP_PATH.'/Modules/Frontend/languages/')
+                ->setLanguage($this->language);
+
             // setup special view directory for this engine
             $this->view->setViewsDir($this->config['application']['viewsFront'].strtolower($this->engine->getCode()))
                 ->setMainView('layout')
@@ -127,14 +131,14 @@ class ControllerBase extends Controller
             // setup to all templates
             $this->view->setVars([
                 'engine'    => $this->engine->toArray(),
-                'menu'      => $nav
+                'menu'      => $nav,
+                'translate' => $translate
             ]);
 
             // add scripts & stylesheets
             $this->addAssetsContent();
         }
     }
-
 
     /**
      * Add assets content
@@ -243,7 +247,7 @@ class ControllerBase extends Controller
     /**
      * Check user if have any access types
      *
-     * @access pritected
+     * @access protected
      * @return null
      */
     protected function userVerify() {
@@ -297,7 +301,7 @@ class ControllerBase extends Controller
     }
 
     /**
-     * Set choised or prefered language
+     * Set choose or preferred language
      *
      * @access private
      * @return null
@@ -305,12 +309,11 @@ class ControllerBase extends Controller
     private function setLanguage() {
 
         if($this->cookies->has('NG_TRANSLATE_LANG_KEY')) {
-            $this->language = $this->cookies->get('NG_TRANSLATE_LANG_KEY')->getValue();
+
+            $this->language = $_COOKIE['NG_TRANSLATE_LANG_KEY'];
         }
         else {
             $this->language = substr($this->request->getBestLanguage(), 0, 2);
         }
-
-        $this->setReply(['language' => $this->language]);
     }
 }

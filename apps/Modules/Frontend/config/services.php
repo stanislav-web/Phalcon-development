@@ -68,3 +68,13 @@ $di->set('crypt', function () {
     return $crypt;
 
 });
+
+// Default component to crypt cookies values
+
+$di->set('translate', function () {
+
+    $translate = new \Translate\Translate();
+
+    return $translate;
+
+});

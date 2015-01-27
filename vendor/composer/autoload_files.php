@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    $vendorDir . '/nette/safe-stream/src/loader.php',
     $vendorDir . '/tracy/tracy/src/shortcuts.php',
     $vendorDir . '/herrera-io/json/src/lib/json_version.php',
     $vendorDir . '/herrera-io/phar-update/src/lib/constants.php',

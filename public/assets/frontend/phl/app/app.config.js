@@ -91,7 +91,8 @@
                 'en_US': 'en',
                 'en_GB': 'en',
                 'de_DE': 'de',
-                'ua_UK': 'uk'
+                'ua_UK': 'uk',
+                'ru-RU': 'ru'
             });
 
         // get all partitions of language {part} - controller

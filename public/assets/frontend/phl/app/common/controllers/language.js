@@ -19,15 +19,15 @@
                 // change quickly
                 $translate.use(langKey);
 
-                if(store.enabled) {
-
-                    // send to storage
-                    store.set('NG_TRANSLATE_LANG_KEY',   langKey);
-                }
-                else {
+                if($cookies) {
 
                     // create cookie
                     $cookies.NG_TRANSLATE_LANG_KEY = langKey;
+
+                }
+                else {
+                    // send to storage
+                    store.set('NG_TRANSLATE_LANG_KEY',   langKey);
                 }
 
                 $scope.currentLanguage  =   langKey;

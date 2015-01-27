@@ -129,7 +129,7 @@ class Command
     }
 
     /**
-     * Checks whether the command is enabled or not in the current environment
+     * Checks whether the command is enabled or not in the current environment.
      *
      * Override this to check for x or y and return false if the command can not
      * run properly under the current conditions.
@@ -162,7 +162,8 @@ class Command
      * @return null|int null or 0 if everything went fine, or an error code
      *
      * @throws \LogicException When this abstract method is not implemented
-     * @see    setCode()
+     *
+     * @see setCode()
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -604,10 +605,12 @@ class Command
      *
      * @return string A string representing the command
      *
-     * @deprecated Deprecated since version 2.3, to be removed in 3.0.
+     * @deprecated since version 2.3, to be removed in 3.0.
      */
     public function asText()
     {
+        trigger_error('The '.__METHOD__.' method is deprecated since version 2.3 and will be removed in 3.0.', E_USER_DEPRECATED);
+
         $descriptor = new TextDescriptor();
         $output = new BufferedOutput(BufferedOutput::VERBOSITY_NORMAL, true);
         $descriptor->describe($output, $this, array('raw_output' => true));
@@ -622,10 +625,12 @@ class Command
      *
      * @return string|\DOMDocument An XML string representing the command
      *
-     * @deprecated Deprecated since version 2.3, to be removed in 3.0.
+     * @deprecated since version 2.3, to be removed in 3.0.
      */
     public function asXml($asDom = false)
     {
+        trigger_error('The '.__METHOD__.' method is deprecated since version 2.3 and will be removed in 3.0.', E_USER_DEPRECATED);
+
         $descriptor = new XmlDescriptor();
 
         if ($asDom) {
