@@ -21,6 +21,9 @@ class AccountController extends ControllerBase
     public function initialize()
     {
         parent::initialize();
+
+        // add translate section
+        $this->translate->assign('account');
     }
 
     /**
@@ -46,7 +49,6 @@ class AccountController extends ControllerBase
         if($this->request->isAjax() === true) {
             return $this->getReply();
         }
-
     }
 }
 

@@ -1,6 +1,5 @@
 <?php
 namespace Models;
-use Phalcon\Mvc\Model\Behavior\Timestampable;
 
 /**
  * Class Pages `pages`

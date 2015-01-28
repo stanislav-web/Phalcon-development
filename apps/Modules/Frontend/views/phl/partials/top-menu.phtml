@@ -4,12 +4,12 @@
             <?php foreach($menu as $i => $item): ?>
                 <span ng-if="isAuthenticated">
                     <li ng-if="<?=$item['isAuthenticated']?> == true" <?=(isset($item['controller'])) ? 'ng-controller="'.$item['controller'].'"' : ''?> ng-class="{ active:isActive('<?=$item['url'];?>')}">
-                        <a <?=(isset($item['onclick'])) ? 'ng-click="'.$item['onclick'].'"' : ''?> href="<?=$item['url'];?>" translate="<?=$item['translate'];?>"><?=$translate[$item['title']];?></a>
+                        <a <?=(isset($item['onclick'])) ? 'ng-click="'.$item['onclick'].'"' : ''?> href="<?=$item['url'];?>" translate="<?=$item['translate'];?>"><?=$t->translate($item['title']);?></a>
                     </li>
                 </span>
                 <span ng-if="!isAuthenticated">
                     <li ng-if="<?=$item['isAuthenticated']?> == false" <?=(isset($item['controller'])) ? 'ng-controller="'.$item['controller'].'"' : ''?> ng-class="{ active:isActive('<?=$item['url'];?>')}">
-                        <a <?=(isset($item['onclick'])) ? 'ng-click="'.$item['onclick'].'"' : ''?> href="<?=$item['url'];?>" translate="<?=$item['translate'];?>"><?=$translate[$item['title']];?></a>
+                        <a <?=(isset($item['onclick'])) ? 'ng-click="'.$item['onclick'].'"' : ''?> href="<?=$item['url'];?>" translate="<?=$item['translate'];?>"><?=$t->translate($item['title']);?></a>
                     </li>
                 </span>
             <?php endforeach; ?>

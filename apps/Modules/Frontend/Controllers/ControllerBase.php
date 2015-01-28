@@ -1,9 +1,9 @@
 <?php
 namespace Modules\Frontend\Controllers;
 
+use Models\Users;
 use Phalcon\Mvc\Controller;
 use Phalcon\Mvc\View;
-use Models\Users;
 
 /**
  * Class ControllerBase
@@ -40,6 +40,13 @@ class ControllerBase extends Controller
      * @var string
      */
     protected $language    =   'ru';
+
+    /**
+     * Translate service
+     *
+     * @var \Translate\Translate
+     */
+    protected $translate;
 
     /**
      * is user Authenticated ?
@@ -116,8 +123,8 @@ class ControllerBase extends Controller
             $this->setLanguage();
 
             // set translate path
-            $translate = $this->di->get('translate');
-            $translate->setTranslatePath(APP_PATH.'/Modules/Frontend/languages/')
+            $this->translate = $this->di->get('translate');
+            $this->translate->setTranslatePath(APP_PATH.'/Modules/Frontend/languages/')
                 ->setLanguage($this->language);
 
             // setup special view directory for this engine
@@ -132,7 +139,7 @@ class ControllerBase extends Controller
             $this->view->setVars([
                 'engine'    => $this->engine->toArray(),
                 'menu'      => $nav,
-                'translate' => $translate
+                't'         => $this->translate
             ]);
 
             // add scripts & stylesheets

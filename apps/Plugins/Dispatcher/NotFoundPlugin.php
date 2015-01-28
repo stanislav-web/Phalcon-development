@@ -1,11 +1,10 @@
 <?php
 namespace Plugins\Dispatcher;
 
-use Phalcon\Dispatcher;
 use Phalcon\Events\Event;
+use Phalcon\Http\Response;
 use Phalcon\Mvc\Dispatcher as MvcDispatcher;
 use Phalcon\Mvc\Dispatcher\Exception as DispatcherException;
-use Phalcon\Http\Response;
 
 /**
  * NotFoundPlugin

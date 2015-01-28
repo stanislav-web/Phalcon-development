@@ -1,7 +1,6 @@
 <?php
 namespace Modules\Backend\Forms;
 
-use Models\Pages;
 use Phalcon\Forms\Element;
 use Phalcon\Forms\Form;
 

@@ -29,8 +29,5 @@
         "swiftmailer/swiftmailer": "5.*",
         "filp/whoops": "~1.0",
         "fabfuel/prophiler": "1.*"
-    },
-    "require-dev": {
-        "apigen/apigen": "dev-master"
     }
 }
