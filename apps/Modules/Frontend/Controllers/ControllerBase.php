@@ -132,7 +132,7 @@ class ControllerBase extends Controller
             $this->view->setVars([
                 'engine'    => $this->engine->toArray(),
                 'menu'      => $nav,
-                'translate' => $translate
+                't'         => $translate
             ]);
 
             // add scripts & stylesheets

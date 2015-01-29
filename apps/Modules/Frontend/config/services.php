@@ -73,7 +73,7 @@ $di->set('crypt', function () {
 
 $di->set('translate', function () {
 
-    $translate = new \Translate\Translate();
+    $translate = new \Translate\Translator();
 
     return $translate;
 
