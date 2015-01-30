@@ -5,8 +5,8 @@
     /**
      * User Authentication service
      */
-    app.service('Authentication',  ['$rootScope', '$q', '$http', '$timeout', 'ROUTES', '$cookies',
-        function($rootScope, $q, $http, $timeout, ROUTES, $cookies) {
+    app.service('Authentication',  ['$rootScope', '$q', '$http', '$timeout', '$cookies',
+        function($rootScope, $q, $http, $timeout, $cookies) {
 
         /**
          * User authentication state
@@ -27,11 +27,11 @@
              *
              * @returns {ng.IPromise<T>}
              */
-            requestUser: function () {
+            requestUser: function (route) {
 
                 var deferred = $q.defer();
 
-                $http.get(ROUTES.VERIFY).success(function (response) {
+                $http.get(route).success(function (response) {
 
                     //$timeout(function () {
 
@@ -76,16 +76,17 @@
             },
 
             /**
-             * Log in to account
+             * Log in to account / Register
              *
-             * @param credentials
+             * @param $scope object credentials
+             * @param string route handler
              * @returns {ng.IPromise<T>}
              */
-            login: function (credentials) {
+            sign: function (credentials, route) {
 
                 var deferred = $q.defer();
 
-                $http.post(ROUTES.LOGIN, credentials).success(function (response) {
+                $http.post(route, credentials).success(function (response) {
                     if (response.success) {
 
                         $rootScope.user = user = response.user;
@@ -110,11 +111,11 @@
             /**
              * Log service
              */
-            logout: function () {
+            logout: function (route) {
 
                 var deferred = $q.defer();
 
-                $http.get(ROUTES.LOGOUT).success(function (response) {
+                $http.get(route).success(function (response) {
                     if (response.success) {
 
                         $rootScope.user = user = null;

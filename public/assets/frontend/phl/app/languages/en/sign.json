@@ -15,5 +15,13 @@
     "REGISTER_MORE"         : "Read more",
     "REGISTER"              : "Sign Up",
     "ACCOUNT"               : "My Account",
-    "LOGOUT"                : "Log out"
+    "LOGOUT"                : "Log out",
+    "NAME_REQUIRED"         : "Your name is required",
+    "NAME_PLACEHOLDER"      : "Your name",
+    "PASSWORDX_REQUIRED"    : "You must confirm your password",
+    "PASSWORDX_PLACEHOLDER" : "Confirm password",
+    "REGISTER_BTN"          : "Sign up",
+    "PASSWORDS_NOT_MATCH"   : "Passwords don't match",
+    "PASSWORD_NOTICE"       : "Be careful! Attackers can guess the password. Turn ingenuity in creating a strong password",
+    "REGISTER_NOTICE"       : "Clicking on the \" Sign up \" button, you agree to our terms of service and privacy policy."
 }

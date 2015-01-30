@@ -12,11 +12,12 @@
     app.controller('SignCtrl', ['$scope', '$rootScope', '$location', 'Authentication', '$translatePartialLoader', '$splash', 'ROUTES',
         function ($scope, $rootScope, $location, Authentication, $translatePartialLoader, $splash, ROUTES) {
 
+            $scope.loginForm = true;
+            $scope.registerForm = false;
+
             /**
              * Form switcher
              */
-            $scope.loginForm = true;
-            $scope.registerForm = false;
             $scope.toggle = function(form) {
 
                 if(form === 'loginForm') {
@@ -43,7 +44,7 @@
                 }
 
                 // call auth service
-                Authentication.login(credentials).then(function (response) {
+                Authentication.sign(credentials, ROUTES.LOGIN).then(function (response) {
 
                     if (response.success) {
 
@@ -53,7 +54,7 @@
 
                     } else {
                         // return error to show in sign form
-                        $scope.error = response.message;
+                        $scope.signError = response.message;
                         $scope.dataLoading = false;
 
                     }
@@ -61,7 +62,7 @@
             };
 
             /**
-             * Sign to account action
+             * Register account action
              */
             $scope.register = function () {
 
@@ -70,11 +71,12 @@
                 // setup credentials
                 var credentials = {
                     'login': $scope.login,
+                    'name': $scope.name,
                     'password': $scope.password
                 }
 
                 // call auth service
-                Authentication.login(credentials).then(function (response) {
+                Authentication.sign(credentials, ROUTES.REGISTER).then(function (response) {
 
                     if (response.success) {
 
@@ -96,7 +98,7 @@
              */
             $scope.logout = function () {
 
-                Authentication.logout().then(function (response) {
+                Authentication.logout(ROUTES.LOGOUT).then(function (response) {
 
                     if (response) {
 
@@ -105,6 +107,14 @@
                     }
                 });
             };
+
+            /**
+             * Check password identity action
+             */
+            $scope.checkPassword = function () {
+                $scope.formRegister.passwordx.$error.dontMatch = $scope.password !== $scope.passwordx;
+            };
+
         }]);
 
 })(angular);

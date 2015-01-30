@@ -16,6 +16,7 @@
             ACCOUNT:    '/account',
             VERIFY :    '/sign/verify',
             LOGIN :     '/sign/login',
+            REGISTER :  '/sign/register',
             LOGOUT :    '/sign/logout'
         }
     })());
@@ -72,7 +73,7 @@
             resolve: {
                 // route under secure verifying
                 isAuthenticated : function(Authentication) {
-                    Authentication.requestUser();
+                    Authentication.requestUser(ROUTES.VERIFY);
                 }
             }
         })

@@ -3198,3 +3198,12 @@ ul li.active {
 #footer_language_list ul li span {
     cursor: pointer;
 }
+
+.help-block {
+    color: wheat;
+}
+blockquote.notice {
+    font-size: 12px;
+    margin: 10px 0;
+    color: thistle;
+}

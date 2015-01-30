@@ -153,6 +153,34 @@ class SignController extends ControllerBase
     }
 
     /**
+     * registerAction() user Registration action action
+     * @access public
+     * @return null
+     */
+    public function registerAction() {
+
+        if($this->access === true) {
+
+            if($this->security->checkToken()) {
+
+                exit('OK');
+            }
+            else
+            {
+                // If CSRF request was broken
+
+                if ($this->config->logger->enable)
+                    $this->logger->error('Authenticate failed from ' . $this->request->getClientAddress() . '. CSRF attack');
+
+                $this->setReply(['message' => $this->translate->translate('INVALID_TOKEN')]);
+            }
+        }
+
+        return $this->getReply();
+    }
+
+
+    /**
      * Logout action to destroy user auth data
      *
      * @access public
