@@ -5,7 +5,6 @@ use Models\Currency;
 use Models\Engines;
 use Modules\Backend\Forms;
 use Phalcon\Mvc\View;
-use Uploader\Uploader;
 
 /**
  * Class EnginesController

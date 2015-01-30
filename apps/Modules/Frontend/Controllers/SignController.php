@@ -1,7 +1,7 @@
 <?php
 namespace Modules\Frontend\Controllers;
-use Phalcon\Mvc\View;
 use Models\Users;
+use Phalcon\Mvc\View;
 
 /**
  * Class SignController

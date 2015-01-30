@@ -46,7 +46,7 @@ class Format
     /**
      * getFormatTime($timestamp, $tz) Formatted datetime to human readable
      * @param datetime $datetime MySQL datetime
-     * @param string $tz time zone like 'Europe/Moscow'
+     * @param bool|string $tz time zone like 'Europe/Moscow'
      * @param boolean $asArray
      * @return mixed
      */

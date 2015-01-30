@@ -33,9 +33,10 @@ class Node
 
     /**
      * Convert multidimensional array to key => pair array
-     * @param $obj
-     * @access static
+     * @param array $array
      * @return array
+     * @internal param $obj
+     * @access static
      */
     public static function arrayToPair(array $array)
     {

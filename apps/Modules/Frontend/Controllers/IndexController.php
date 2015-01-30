@@ -1,7 +1,7 @@
 <?php
 namespace Modules\Frontend\Controllers;
-use Phalcon\Mvc\View;
 use Models\Pages;
+use Phalcon\Mvc\View;
 
 /**
  * Class IndexController

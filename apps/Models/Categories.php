@@ -2,7 +2,6 @@
 namespace Models;
 
 use Helpers\Format;
-use Phalcon\Mvc\Model\Behavior\Timestampable;
 use Phalcon\Mvc\Model\Exception;
 use Phalcon\Mvc\Model\Resultset\Simple as Resultset;
 

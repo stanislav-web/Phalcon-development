@@ -32,7 +32,6 @@ class Navigation
      *
      * @param \Phalcon\Config $config
      * @access public
-     * @return null
      */
     public function __construct($config)
     {
