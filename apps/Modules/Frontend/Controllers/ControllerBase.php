@@ -89,11 +89,12 @@ class ControllerBase extends Controller
      */
     public function initialize()
     {
+
         // load configurations
         $this->config = $this->di->get('config');
 
         // load logger
-        if ($this->config->logger->enable === true) {
+        if($this->config->logger->enable === true) {
             $this->logger = $this->di->get('logger');
         }
 
@@ -139,16 +140,13 @@ class ControllerBase extends Controller
             $this->view->setVars([
                 'engine'    => $this->engine->toArray(),
                 'menu'      => $nav,
-<<<<<<< HEAD
-                't'         => $translate
-=======
                 't'         => $this->translate
->>>>>>> ca3769f7708fbd5552804d6745ac1b7c155de7b3
             ]);
 
             // add scripts & stylesheets
             $this->addAssetsContent();
         }
+
     }
 
     /**

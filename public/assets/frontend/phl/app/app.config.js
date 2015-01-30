@@ -15,8 +15,8 @@
             NOT_FOUND:  '/error/notfound',
             ACCOUNT:    '/account',
             VERIFY :    '/sign/verify',
-            LOGIN :     '/sign',
-            LOGOUT :     '/logout'
+            LOGIN :     '/sign/login',
+            LOGOUT :    '/sign/logout'
         }
     })());
 
@@ -25,6 +25,7 @@
         return {
             ARTICLE:    'assets/frontend/phl/app/common/templates/index.html',
             ERROR:      'assets/frontend/phl/app/common/templates/error.html',
+            SIGN:       'assets/frontend/phl/app/authenticate/templates/sign.html',
             ACCOUNT:    'assets/frontend/phl/app/user/templates/account.html'
         }
     })());

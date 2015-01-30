@@ -9,28 +9,11 @@
      * @dependencies $translate angular-translater
      * @dependencies $cookies angular-cookies
      */
-    app.controller('SignCtrl', ['$scope', '$rootScope', '$location', 'Authentication', '$translatePartialLoader', '$splash',
-        function ($scope, $rootScope, $location, Authentication, $translatePartialLoader, $splash) {
-
-            /**
-             * Type of sign
-             *
-             * @type {string}
-             */
-            var type = '';
-
-            /**
-             * Get Sign type (login / register )
-             *
-             * @param string
-             */
-            $scope.typeSign = function (string) {
-                type = string;
-            };
+    app.controller('SignCtrl', ['$scope', '$rootScope', '$location', 'Authentication', '$translatePartialLoader', '$splash', 'ROUTES',
+        function ($scope, $rootScope, $location, Authentication, $translatePartialLoader, $splash, ROUTES) {
 
             /**
              * Sign to account action
-             *
              */
             $scope.sign = function () {
 
@@ -38,7 +21,6 @@
 
                 // setup credentials
                 var credentials = {
-                    'type': type,
                     'login': $scope.login,
                     'password': $scope.password
                 }
@@ -50,7 +32,7 @@
 
                         // close splash window & redirect to account
                         $splash.close();
-                        $location.path('/account');
+                        $location.path(ROUTES.ACCOUNT);
 
                     } else {
                         // return error to show in sign form
@@ -70,7 +52,7 @@
 
                     if (response) {
 
-                        $location.path('/');
+                        $location.path(ROUTES.HOME);
 
                     }
                 });

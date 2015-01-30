@@ -21,12 +21,10 @@
 
         <div class="modal-body">
             <div class="row">
-                <!-- Sign form -->
-                <form name="form" ng-submit="sign()" role="form">
-
-                    <div class="col-xs-6">
-
-                        <div class="well">
+                <div class="col-xs-6">
+                    <div class="well">
+                        <!-- Sign form -->
+                        <form name="form" ng-submit="sign()" role="form">
                             <p class="lead" translate="LOGIN_NOTIFY">Assign</p>
 
                             <input type="hidden" name="{{token_id}}" value="{{token_val}}"/>
@@ -49,26 +47,25 @@
                             <div ng-show="error" class="alert alert-danger">{{error}}</div>
                             <!-- /Show error message -->
 
-                            <button ng-click="typeSign('signin')" type="submit" class="btn btn-success btn-block" ng-disabled="form.$invalid || dataLoading" translate="SIGN IN">SIGN IN</button>
+                            <button type="submit" class="btn btn-success btn-block" ng-disabled="form.$invalid || dataLoading" translate="SIGN IN">SIGN IN</button>
                             <img ng-if="dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
-                        </div>
+                        </form>
                     </div>
+                </div>
 
-                    <div class="col-xs-6">
-                        <div class="well">
-                            <p class="lead" translate="REGISTER_NOTIFY">Register now for FREE</p>
-                            <ul class="list-privilegies">
-                                <li><span class="fa fa-check text-success"></span> {{ 'REGISTER_SA' | translate }}</li>
-                                <li><span class="fa fa-check text-success"></span> {{ 'REGISTER_FR' | translate }}</li>
-                                <li><span class="fa fa-check text-success"></span> {{ 'REGISTER_SY' | translate }}</li>
-                                <li><span class="fa fa-check text-success"></span> {{ 'REGISTER_FC' | translate }}</li>
-                                <li ng-controller="TopMenuCtrl"><a href="/agreement#advantages" ng-click="$close()"><u translate="REGISTER_MORE"></u></a></li>
-                            </ul>
-                            <button ng-click="typeSign('signup')" type="submit" class="btn btn-info btn-block" ng-disabled="form.$invalid || dataLoading" translate="REGISTER"></button>
-                        </div>
+                <div class="col-xs-6">
+                    <div class="well">
+                        <p class="lead" translate="REGISTER_NOTIFY">Register now for FREE</p>
+                        <ul class="list-privilegies">
+                            <li><span class="fa fa-check text-success"></span> {{ 'REGISTER_SA' | translate }}</li>
+                            <li><span class="fa fa-check text-success"></span> {{ 'REGISTER_FR' | translate }}</li>
+                            <li><span class="fa fa-check text-success"></span> {{ 'REGISTER_SY' | translate }}</li>
+                            <li><span class="fa fa-check text-success"></span> {{ 'REGISTER_FC' | translate }}</li>
+                            <li ng-controller="TopMenuCtrl"><a href="/agreement#advantages" ng-click="$close()"><u translate="REGISTER_MORE"></u></a></li>
+                        </ul>
+                        <button ng-click="typeSign('signup')" type="submit" class="btn btn-info btn-block" ng-disabled="form.$invalid || dataLoading" translate="REGISTER"></button>
                     </div>
-
-                </form>
+                </div>
                 <!-- /Sign form -->
             </div>
         </div>

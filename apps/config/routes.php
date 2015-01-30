@@ -28,13 +28,6 @@ $router->add("/help", [
     'namespace' => 'Modules\Frontend\Controllers',
 ])->setName("front-help");
 
-$router->add("/sign", [
-    'module'        => "Frontend",
-    'controller'    => 'sign',
-    'action'        => 'index',
-    'namespace' => 'Modules\Frontend\Controllers',
-])->setName("front-sign");
-
 $router->add("/agreement", [
     'module'        => "Frontend",
     'controller'    => 'index',
@@ -50,13 +43,6 @@ $router->add("/about", [
     'page'         => 'about',
     'namespace' => 'Modules\Frontend\Controllers',
 ])->setName("front-about");
-
-$router->add('/logout', [
-    'module' => "Frontend",
-    'controller' => "sign",
-    'action' => "logout",
-    'namespace' => 'Modules\Frontend\Controllers',
-])->setName('logout');
 
 $router->add('/:controller/:action/:params', [
     'module' => "Frontend",

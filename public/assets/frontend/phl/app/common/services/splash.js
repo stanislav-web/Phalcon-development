@@ -5,10 +5,8 @@
     /**
      * Splash window service
      */
-    splashModule.service('$splash', [
-        '$modal',
-        '$rootScope',
-        function($modal, $rootScope) {
+    splashModule.service('$splash', ['$modal', '$rootScope', 'TEMPLATE',
+        function($modal, $rootScope, TEMPLATE) {
 
             var modalInstance;
 
@@ -19,7 +17,7 @@
                     opts = angular.extend(opts || {}, {
                         backdrop: false,
                         scope: scope,
-                        templateUrl: '/assets/frontend/phl/app/authenticate/templates/sign.html',
+                        templateUrl: TEMPLATE.SIGN,
                         windowTemplateUrl: 'splash/index.html'
                     });
                     modalInstance = $modal.open(opts);
