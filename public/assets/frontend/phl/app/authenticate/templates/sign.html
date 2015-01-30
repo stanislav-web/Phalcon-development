@@ -20,12 +20,13 @@
         </div>
 
         <div class="modal-body">
-            <div class="row">
+
+            <!-- Sign form -->
+            <div class="row" ng-show="loginForm === true">
                 <div class="col-xs-6">
                     <div class="well">
-                        <!-- Sign form -->
+                        <p class="lead" translate="LOGIN_NOTIFY"></p>
                         <form name="form" ng-submit="sign()" role="form">
-                            <p class="lead" translate="LOGIN_NOTIFY">Assign</p>
 
                             <input type="hidden" name="{{token_id}}" value="{{token_val}}"/>
 
@@ -55,7 +56,7 @@
 
                 <div class="col-xs-6">
                     <div class="well">
-                        <p class="lead" translate="REGISTER_NOTIFY">Register now for FREE</p>
+                        <p class="lead" translate="REGISTER_NOTIFY"></p>
                         <ul class="list-privilegies">
                             <li><span class="fa fa-check text-success"></span> {{ 'REGISTER_SA' | translate }}</li>
                             <li><span class="fa fa-check text-success"></span> {{ 'REGISTER_FR' | translate }}</li>
@@ -63,12 +64,65 @@
                             <li><span class="fa fa-check text-success"></span> {{ 'REGISTER_FC' | translate }}</li>
                             <li ng-controller="TopMenuCtrl"><a href="/agreement#advantages" ng-click="$close()"><u translate="REGISTER_MORE"></u></a></li>
                         </ul>
-                        <button ng-click="typeSign('signup')" type="submit" class="btn btn-info btn-block" ng-disabled="form.$invalid || dataLoading" translate="REGISTER"></button>
+                        <a ng-click="toggle('registerForm')" translate="REGISTER"></a>
                     </div>
                 </div>
-                <!-- /Sign form -->
             </div>
-        </div>
+            <!-- /Sign form -->
 
+            <!-- Register form -->
+            <div class="row" ng-hide="registerForm === false">
+                <div class="col-xs-12">
+                    <div class="well">
+                        <p class="lead ng-scope" translate="REGISTER"></p>
+
+                        <form name="form" ng-submit="register()" role="form">
+
+                            <input type="hidden" name="{{token_id}}" value="{{token_val}}"/>
+
+                            <!-- Login -->
+                            <div class="form-group">
+                                <input type="text" ng-minlength="3" ng-maxlength="150" class="form-control" name="login" ng-model="login" placeholder="{{ 'LOGIN_PLACEHOLDER' | translate }}" required autofocus>
+                                <span ng-show="form.login.$dirty && form.login.$error.required" class="help-block" translate="LOGIN_REQUIRED"></span>
+                            </div>
+                            <!-- /Login -->
+
+                            <!-- Name -->
+                            <div class="form-group">
+                                <input type="text" ng-minlength="2" ng-maxlength="150" class="form-control" name="name" ng-model="name" placeholder="{{ 'NAME_PLACEHOLDER' | translate }}" required autofocus>
+                                <span ng-show="form.name.$dirty && form.name.$error.required" class="help-block" translate="NAME_REQUIRED"></span>
+                            </div>
+                            <!-- /Name -->
+
+                            <!-- Password -->
+                            <div class="form-group">
+                                <input type="password" class="form-control" name="password" ng-model="password" placeholder="{{ 'PASSWORD_PLACEHOLDER' | translate }}" required>
+                                <span ng-show="form.password.$dirty && form.password.$error.required" class="help-block" translate="PASSWORD_REQUIRED"></span>
+                                <span translate="PASSWORD_NOTICE"></span>
+                            </div>
+                            <!-- /Password -->
+
+                            <!-- Repeat password -->
+                            <div class="form-group">
+                                <input type="password" class="form-control" name="passwordx" ng-model="passwordx" placeholder="{{ 'PASSWORDX_PLACEHOLDER' | translate }}" required>
+                                <span ng-show="form.passwordx.$dirty && form.passwordx.$error.required" class="help-block" translate="PASSWORDX_REQUIRED"></span>
+                            </div>
+                            <!-- Repeat password -->
+
+                            <!-- Show error message -->
+                            <div ng-show="error" class="alert alert-danger">{{error}}</div>
+                            <!-- /Show error message -->
+
+                            <button type="submit" class="btn-primary btn-block" ng-disabled="form.$invalid || dataLoading" translate="REGISTER_BTN"></button>
+                            <img ng-if="dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
+                        </form>
+                        <div translate="REGISTER_NOTICE"></div>
+                        <a ng-click="toggle('loginForm')" translate="SIGN IN"></a>
+                    </div>
+                </div>
+            </div>
+            <!-- /Register form -->
+        </div>
+        </div>
     </div>
 </div>

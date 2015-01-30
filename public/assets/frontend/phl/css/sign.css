@@ -4,6 +4,9 @@
     background: transparent;
     font-size: 15px;
 }
+.modal-contents a {
+    cursor: pointer;
+}
 .modal-contents .modal-header {
 
 }
