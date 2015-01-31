@@ -153,7 +153,7 @@ class SignController extends ControllerBase
     }
 
     /**
-     * registerAction() user Registration action action
+     * registerAction() User registration action action
      * @access public
      * @return null
      */
@@ -163,7 +163,68 @@ class SignController extends ControllerBase
 
             if($this->security->checkToken()) {
 
-                exit('OK');
+                $login = $this->request->getPost('login', 'trim');
+                $password = $this->request->getPost('password', 'trim');
+                $name = $this->request->getPost('name', 'trim');
+
+                $user = (new Users())->findFirst([
+                    "login = ?0",
+                    "bind" => [$login],
+                ]);
+
+                if(empty($user) === false) {
+
+                    if($this->security->checkHash($password, $user->getPassword())) {
+
+                        // user founded, password checked. Set auth token
+                        $this->token = md5($user->getId() . $this->security->getSessionToken() . $this->request->getUserAgent());
+
+                        // setup user cookies and send to client for update
+                        $this->cookies->set('token',    $this->token, time() + ($this->config->rememberKeep), '/', $this->engine->getHost(), false, false);
+                        $this->session->set('token',    $this->token);
+                        $this->session->set('user',     $user->toArray());
+
+                        // update auth params
+                        $user->setDateLastvisit(date('Y-m-d H:i:s'))
+                            ->setSalt($this->security->getSessionToken())
+                            ->setToken($this->token)
+                            ->setIp($this->request->getClientAddress())
+                            ->setUa($this->request->getUserAgent())
+                            ->save();
+
+                        if ($this->config->logger->enable) {
+                            $this->logger->log('Authenticate success from ' . $this->request->getClientAddress());
+                        }
+
+                        $this->isAuthenticated = true;
+
+                        // send reply to client
+                        $this->setReply([
+                            'user'  => [
+                                'id'        =>  $user->getId(),
+                                'login'     =>  $user->getLogin(),
+                                'name'      =>  $user->getName(),
+                                'surname'   =>  $user->getSurname(),
+                                'state'     =>  $user->getState(),
+                                'rating'    =>  $user->getRating(),
+                                'surname'   =>  $user->getSurname(),
+                                'date_registration' =>  $user->getDateRegistration(),
+                                'date_lastvisit'    =>  $user->getDateLastvisit()
+                            ],
+                            'success'   => true,
+                        ]);
+                    }
+                    else
+                    {
+                        // wrong authenticate data (password or login)
+                        if($this->config->logger->enable) {
+                            $this->logger->error('Authenticate failed from ' . $this->request->getClientAddress() . '. Wrong authenticate data');
+                        }
+
+                        $this->setReply(['message'   => $this->translate->translate('WRONG_DATA')]);
+                    }
+
+
             }
             else
             {

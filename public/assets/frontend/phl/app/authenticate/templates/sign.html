@@ -108,7 +108,16 @@
                                 <span ng-show="formRegister.passwordx.$dirty && formRegister.passwordx.$error.dontMatch" class="help-block" translate="PASSWORDS_NOT_MATCH"></span>
                                 <span ng-show="formRegister.passwordx.$dirty && formRegister.passwordx.$error.required" class="help-block" translate="PASSWORDX_REQUIRED"></span>
                             </div>
-                            <!-- Repeat password -->
+                            <!-- /Repeat password -->
+
+                            <!-- Agree box -->
+                            <div class="form-group">
+                                <span data-toggle="checkbox" class="checkbox btn btn-default"></span>
+                                <label class="control-label">
+                                    <input type="checkbox" class="form-control" data-three-state="false" data-toggle="checkbox-x" ng-model="agree" required> Agree ?
+                                </label>
+                            </div>
+                            <!-- /Agree box-->
 
                             <!-- Show error message -->
                             <div ng-show="registerError" class="help-block">{{registerError}}</div>

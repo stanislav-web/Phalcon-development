@@ -177,8 +177,8 @@ class ControllerBase extends Controller
             ->addJs('assets/plugins/angular-translate-loader-partial/angular-translate-loader-partial.min.js')
             ->addJs('assets/plugins/angular-cookies/angular-cookies.min.js')
             ->addJs('assets/plugins/angular-spinner/angular-spinner.min.js')
-            ->addJs('assets/plugins/jquery/jquery.min.js')
-            ->addJs('assets/plugins/bootstrap/bootstrap.min.js')
+            ->addJs('assets/plugins/jquery/dist/jquery.min.js')
+            ->addJs('assets/plugins/bootstrap/dist/js/bootstrap.min.js')
             ->addJs('assets/plugins/ui-bootstrap-tpl/ui-bootstrap-tpl.min.js');
 
         if (APPLICATION_ENV === 'production') {
