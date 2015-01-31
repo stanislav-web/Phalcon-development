@@ -17,24 +17,14 @@ require_once APP_PATH . '/config/application.php';
 // Require composite libraries
 require_once DOCUMENT_ROOT . ' /../vendor/autoload.php';
 
+// Require routes
+require APP_PATH . '/config/routes.php';
+
 // Create factory container
 $di = new Phalcon\DI\FactoryDefault();
 
-// Set default routes
-$di->set('router', function () {
-
-    $router = new \Phalcon\Mvc\Router();
-    $router->removeExtraSlashes(true)
-        ->setDefaults([
-            'module' => 'Frontend',
-            'controller' => 'index',
-            'action' => 'index'
-        ]);
-
-    require APP_PATH . '/config/routes.php';
-    return $router;
-
-});
+// Set routes
+$di->set('router', $router);
 
 // Set global configuration
 $di->set('config', function () use ($config) {

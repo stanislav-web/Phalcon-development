@@ -2,6 +2,13 @@
 /**
  * Setup router
  */
+$router = new \Phalcon\Mvc\Router();
+$router->removeExtraSlashes(true)
+    ->setDefaults([
+        'module' => 'Frontend',
+        'controller' => 'index',
+        'action' => 'index'
+    ]);
 
 // Frontend routes
 

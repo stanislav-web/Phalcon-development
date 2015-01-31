@@ -81,7 +81,7 @@ class SignController extends ControllerBase
                     if($this->security->checkHash($password, $user->getPassword())) {
 
                         // user founded, password checked. Set auth token
-                        $this->token = md5($user->getId() . $this->security->getSessionToken() . $this->request->getUserAgent());
+                        $this->token = md5($user->getLogin() . $this->security->getSessionToken() . $this->request->getUserAgent());
 
                         // setup user cookies and send to client for update
                         $this->cookies->set('token',    $this->token, time() + ($this->config->rememberKeep), '/', $this->engine->getHost(), false, false);
@@ -89,8 +89,8 @@ class SignController extends ControllerBase
                         $this->session->set('user',     $user->toArray());
 
                         // update auth params
-                        $user->setDateLastvisit(date('Y-m-d H:i:s'))
-                            ->setSalt($this->security->getSessionToken())
+                        //->setDateLastvisit(date('Y-m-d H:i:s'))
+                        $user->setSalt($this->security->getSessionToken())
                             ->setToken($this->token)
                             ->setIp($this->request->getClientAddress())
                             ->setUa($this->request->getUserAgent())
@@ -163,75 +163,36 @@ class SignController extends ControllerBase
 
             if($this->security->checkToken()) {
 
-                $login = $this->request->getPost('login', 'trim');
-                $password = $this->request->getPost('password', 'trim');
-                $name = $this->request->getPost('name', 'trim');
+                // required params that to be saved by this user
 
-                $user = (new Users())->findFirst([
-                    "login = ?0",
-                    "bind" => [$login],
-                ]);
+                $user = new Users();
 
-                if(empty($user) === false) {
-
-                    if($this->security->checkHash($password, $user->getPassword())) {
-
-                        // user founded, password checked. Set auth token
-                        $this->token = md5($user->getId() . $this->security->getSessionToken() . $this->request->getUserAgent());
-
-                        // setup user cookies and send to client for update
-                        $this->cookies->set('token',    $this->token, time() + ($this->config->rememberKeep), '/', $this->engine->getHost(), false, false);
-                        $this->session->set('token',    $this->token);
-                        $this->session->set('user',     $user->toArray());
-
-                        // update auth params
-                        $user->setDateLastvisit(date('Y-m-d H:i:s'))
+                $register = $user->setLogin($this->request->getPost('login', 'trim'))
+                            ->setPassword($this->security->hash($this->request->getPost('password', 'trim')))
+                            ->setName($this->request->getPost('name', 'trim', ''))
                             ->setSalt($this->security->getSessionToken())
-                            ->setToken($this->token)
                             ->setIp($this->request->getClientAddress())
                             ->setUa($this->request->getUserAgent())
-                            ->save();
+                            ->setToken(md5($this->request->getPost('login', 'trim') . $this->security->getSessionToken() . $this->request->getUserAgent() ));
 
-                        if ($this->config->logger->enable) {
-                            $this->logger->log('Authenticate success from ' . $this->request->getClientAddress());
-                        }
+                if($register->save()) {
+                    echo 'SSS'; die();
+                }
+                else {
 
-                        $this->isAuthenticated = true;
+                    // get an error
+                    foreach($user->getMessages() as $message) {
 
-                        // send reply to client
-                        $this->setReply([
-                            'user'  => [
-                                'id'        =>  $user->getId(),
-                                'login'     =>  $user->getLogin(),
-                                'name'      =>  $user->getName(),
-                                'surname'   =>  $user->getSurname(),
-                                'state'     =>  $user->getState(),
-                                'rating'    =>  $user->getRating(),
-                                'surname'   =>  $user->getSurname(),
-                                'date_registration' =>  $user->getDateRegistration(),
-                                'date_lastvisit'    =>  $user->getDateLastvisit()
-                            ],
-                            'success'   => true,
-                        ]);
+                        $this->setReply(['message' => $message->getMessage()]);
                     }
-                    else
-                    {
-                        // wrong authenticate data (password or login)
-                        if($this->config->logger->enable) {
-                            $this->logger->error('Authenticate failed from ' . $this->request->getClientAddress() . '. Wrong authenticate data');
-                        }
-
-                        $this->setReply(['message'   => $this->translate->translate('WRONG_DATA')]);
-                    }
-
-
+                }
             }
             else
             {
                 // If CSRF request was broken
 
                 if ($this->config->logger->enable)
-                    $this->logger->error('Authenticate failed from ' . $this->request->getClientAddress() . '. CSRF attack');
+                    $this->logger->error('Registration failed from ' . $this->request->getClientAddress() . '. CSRF attack');
 
                 $this->setReply(['message' => $this->translate->translate('INVALID_TOKEN')]);
             }

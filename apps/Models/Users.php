@@ -1,6 +1,20 @@
 <?php
 namespace Models;
 
+use Phalcon\Mvc\Model\Validator\Uniqueness;
+use Phalcon\Mvc\Model\Behavior\Timestampable;
+use Phalcon\Mvc\Model\Validator\PresenceOf;
+use Phalcon\Mvc\Model\Validator\Regex as RegexValidator;
+use Phalcon\Mvc\Model\Validator\StringLength as StringLengthValidator;
+/**
+ * Class Users `users`
+ * @package    Application
+ * @subpackage    Models
+ * @since PHP >=5.4
+ * @version 1.0
+ * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
+ * @filesource /apps/Models/Users.php
+ */
 class Users extends \Phalcon\Mvc\Model
 {
 
@@ -81,6 +95,85 @@ class Users extends \Phalcon\Mvc\Model
      * @var string
      */
     protected $ua;
+
+    public function getSource()
+    {
+        return "users";
+    }
+
+    /**
+     * Initialize Model
+     */
+    public function initialize()
+    {
+        // its allow to keep empty data to my db
+        $this->setup([
+            'notNullValidations' => false,
+            'exceptionOnFailedSave' => false
+        ]);
+
+        // skip attributes before every IN >
+        $this->skipAttributesOnCreate(['date_registration', 'state', 'rating', 'surname']);
+
+        $this->addBehavior(new Timestampable(array(
+            'beforeValidationOnCreate' => array(
+                'field' => 'date_registration',
+                'format' => 'Y-m-d H:i:s'
+            )
+        )));
+    }
+
+
+    /**
+     * Validate that login are unique across users
+     *
+     * @return bool
+     */
+    public function validation()
+    {
+        $this->validate(new Uniqueness([
+            "field"     => "login",
+            "message"   => "This user already taken"
+        ]));
+        $this->validate(new Uniqueness([
+            "field"     => "token",
+            "message"   => "System error! Please reload the page"
+        ]));
+
+        $this->validate(new PresenceOf([
+            'field'     => 'login',
+            'message'   => 'The login is required'
+        ]));
+
+        $this->validate(new PresenceOf([
+            'field'     => 'password',
+            'message'   => 'The password is required'
+        ]));
+
+        $this->validate(new StringLengthValidator([
+            'field'     => 'login',
+            'max'       => 30,
+            'min'       => 3,
+            'messageMaximum' => 'The login must not exceed 30 characters',
+            'messageMinimum' => 'The login must not be less than 3 characters'
+        ]));
+
+        $this->validate(new StringLengthValidator([
+            'field'     => 'name',
+            'max'       => 30,
+            'min'       => 3,
+            'messageMaximum' => 'The name must not exceed 30 characters',
+            'messageMinimum' => 'The name must not be less than 3 characters'
+        ]));
+
+        $this->validate(new RegexValidator([
+            'field'     => 'login',
+            'pattern'   => "/^((\+)|(\d[\s-]?)?[\(\[\s-]{0,2}?\d{3}[\)\]\s-]{0,2}?\d{3}[\s-]?\d{4,5}|([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+)$/",
+            'message'   => 'The login must be as email or phone number'
+        ]));
+
+        return $this->validationHasFailed() != true;
+    }
 
     /**
      * Returns the value of field id

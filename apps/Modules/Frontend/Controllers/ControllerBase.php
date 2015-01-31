@@ -126,7 +126,7 @@ class ControllerBase extends Controller
             // set translate path
             $this->translate = $this->di->get('translate');
             $this->translate->setTranslatePath(APP_PATH.'/Modules/Frontend/languages/')
-                ->setLanguage($this->language);
+                ->setLanguage($this->language)->setDefault('ru');
 
             // setup special view directory for this engine
             $this->view->setViewsDir($this->config['application']['viewsFront'].strtolower($this->engine->getCode()))
@@ -178,7 +178,7 @@ class ControllerBase extends Controller
             ->addJs('assets/plugins/angular-cookies/angular-cookies.min.js')
             ->addJs('assets/plugins/angular-spinner/angular-spinner.min.js')
             ->addJs('assets/plugins/jquery/dist/jquery.min.js')
-            ->addJs('assets/plugins/bootstrap/dist/js/bootstrap.min.js')
+            ->addJs('assets/plugins/bootstrap/bootstrap.min.js')
             ->addJs('assets/plugins/ui-bootstrap-tpl/ui-bootstrap-tpl.min.js');
 
         if (APPLICATION_ENV === 'production') {
@@ -294,7 +294,7 @@ class ControllerBase extends Controller
                     // if user were founded
                     $this->user = $user->toArray();
 
-                    $token = $this->user['id'] . $this->user['salt'] . $this->request->getUserAgent();
+                    $token = $this->user['login'] . $this->user['salt'] . $this->request->getUserAgent();
                     if($this->token === md5($token)) {
 
                         // success! user is logged in the system

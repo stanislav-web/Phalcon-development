@@ -23,5 +23,6 @@
     "REGISTER_BTN"          : "Sign up",
     "PASSWORDS_NOT_MATCH"   : "Passwords don't match",
     "PASSWORD_NOTICE"       : "Be careful! Attackers can guess the password. Turn ingenuity in creating a strong password",
-    "REGISTER_NOTICE"       : "Clicking on the \" Sign up \" button, you agree to our terms of service and privacy policy."
+    "REGISTER_NOTICE"       : "Clicking on the \" Sign up \" button, you agree to our terms of service and privacy policy.",
+    "AGREE_TERMS"           : "I agree with all the terms and conditions"
 }

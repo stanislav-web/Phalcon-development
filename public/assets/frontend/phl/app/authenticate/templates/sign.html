@@ -111,10 +111,9 @@
                             <!-- /Repeat password -->
 
                             <!-- Agree box -->
-                            <div class="form-group">
-                                <span data-toggle="checkbox" class="checkbox btn btn-default"></span>
-                                <label class="control-label">
-                                    <input type="checkbox" class="form-control" data-three-state="false" data-toggle="checkbox-x" ng-model="agree" required> Agree ?
+                            <div class="checkbox">
+                                <label class="notice">
+                                    <input type="checkbox" ng-model="agree" ng-true-value="true" ng-true-value="false" value="false" ng-change=""required> {{ 'AGREE_TERMS' | translate }}
                                 </label>
                             </div>
                             <!-- /Agree box-->
@@ -123,7 +122,7 @@
                             <div ng-show="registerError" class="help-block">{{registerError}}</div>
                             <!-- /Show error message -->
 
-                            <button type="submit" class="btn-primary btn-block" ng-disabled="formRegister.$invalid || dataLoading" translate="REGISTER_BTN"></button>
+                            <button type="submit" class="btn-primary btn-block" ng-disabled="formRegister.$invalid || dataLoading || formRegister.agree === false" translate="REGISTER_BTN"></button>
                             <img ng-if="dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
                         </form>
                         <blockquote class="notice" translate="REGISTER_NOTICE"></blockquote>

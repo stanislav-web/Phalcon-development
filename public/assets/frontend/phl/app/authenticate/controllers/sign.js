@@ -86,7 +86,7 @@
 
                     } else {
                         // return error to show in sign form
-                        $scope.error = response.message;
+                        $scope.registerError = response.message;
                         $scope.dataLoading = false;
 
                     }

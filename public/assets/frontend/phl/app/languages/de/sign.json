@@ -22,6 +22,7 @@
     "PASSWORDX_PLACEHOLDER" : "Kennwort bestätigen",
     "REGISTER_BTN"          : "Registrieren",
     "PASSWORDS_NOT_MATCH"   : "Passwörter stimmen nicht überein",
-    "PASSWORD_NOTICE"       : "Seien sie vorsichtig, angreifer können das passwort erraten schalten einfallsreichtum bei der schaffung eines sicheren Kennworts!",
-    "REGISTER_NOTICE"       : "Wenn sie auf die \" Registrieren \", akzeptieren sie unsere nutzungsbedingungen und datenschutzbestimmungen."
+    "PASSWORD_NOTICE"       : "Seien sie vorsichtig, angreifer können das passwort erraten schalten einfallsreichtum bei der schaffung eines sicheren kennworts!",
+    "REGISTER_NOTICE"       : "Wenn sie auf die \" Registrieren \", akzeptieren sie unsere nutzungsbedingungen und datenschutzbestimmungen.",
+    "AGREE_TERMS"           : "Ich bin mit allen bedingungen und konditionen"
 }
