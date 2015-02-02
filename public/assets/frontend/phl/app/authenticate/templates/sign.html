@@ -52,7 +52,7 @@
                             <img ng-if="dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
                         </form>
                         <div class="clearfix"></div>
-                        <a ng-click="toggle('remindForm')" translate="REMIND_ACCESS"></a>
+                        <a ng-click="toggle('restoreForm')" translate="REMIND_ACCESS"></a>
                     </div>
                 </div>
 
@@ -134,27 +134,31 @@
             </div>
             <!-- /Register form -->
 
-            <!-- Remind form -->
-            <div class="row" ng-show="remindForm === true">
+            <!-- Restore form -->
+            <div class="row" ng-show="restoreForm === true">
                 <div class="col-xs-12">
                     <div class="well">
                         <blockquote class="notice" translate="REMIND_NOTIFY"></blockquote>
-                        <form name="formRemind" ng-submit="remind()" role="form">
+                        <form name="formRestore" ng-submit="restore()" role="form">
 
                             <input type="hidden" name="{{token_id}}" value="{{token_val}}"/>
 
                             <!-- Login -->
                             <div class="form-group">
                                 <input type="text" ng-minlength="3" ng-maxlength="150" class="form-control" name="login" ng-model="login" placeholder="{{ 'LOGIN_PLACEHOLDER' | translate }}" required>
-                                <span ng-show="formRemind.login.$dirty && formRemind.login.$error.required" class="help-block" translate="LOGIN_REQUIRED"></span>
+                                <span ng-show="formRestore.login.$dirty && formRestore.login.$error.required" class="help-block" translate="LOGIN_REQUIRED"></span>
                             </div>
                             <!-- /Login -->
 
                             <!-- Show error message -->
-                            <div ng-show="remindError" class="help-block">{{remindError}}</div>
+                            <div ng-show="restoreError" class="help-block">{{restoreError}}</div>
                             <!-- /Show error message -->
 
-                            <button type="submit" class="btn-primary btn-block" ng-disabled="formRemind.$invalid || dataLoading" translate="REMIND_PASSWORD"></button>
+                            <!-- Show success message -->
+                            <div ng-show="restoreSuccess" class="help-block">{{restoreSuccess}}</div>
+                            <!-- /Show success message -->
+
+                            <button type="submit" class="btn-primary btn-block" ng-disabled="formRestore.$invalid || dataLoading" translate="REMIND_PASSWORD"></button>
                             <img ng-if="dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
                         </form>
                         <div class="clearfix"></div>

@@ -23,18 +23,18 @@
 
                 if(form === 'loginForm') {
                     $scope.registerForm = false;
-                    $scope.remindForm = false;
+                    $scope.restoreForm = false;
                     $scope.loginForm = true;
                 }
-                else if(form === 'remindForm') {
+                else if(form === 'restoreForm') {
 
                     $scope.registerForm = false;
-                    $scope.remindForm = true;
+                    $scope.restoreForm = true;
                     $scope.loginForm = false;
                 }
                 else {
                     $scope.registerForm = true;
-                    $scope.remindForm = false;
+                    $scope.restoreForm = false;
                     $scope.loginForm = false;
                 }
             };
@@ -71,9 +71,9 @@
             };
 
             /**
-             * Remind access password action
+             * Restore access password action
              */
-            $scope.remind = function () {
+            $scope.restore = function () {
 
                 $scope.dataLoading = true;
 
@@ -83,15 +83,20 @@
                 }
 
                 // call auth service
-                Authentication.sign(credentials, ROUTES.REMIND).then(function (response) {
+                Authentication.sign(credentials, ROUTES.RESTORE).then(function (response) {
 
                     if (response.success) {
 
-                        console.log('OK');
+                        $scope.restoreSuccess = response.message;
+                        $scope.dataLoading = false;
+
+                        setTimeout(function() {
+                            $splash.close();
+                        }, 3000);
 
                     } else {
                         // return error to show in sign form
-                        $scope.remindError = response.message;
+                        $scope.restoreError = response.message;
                         $scope.dataLoading = false;
 
                     }

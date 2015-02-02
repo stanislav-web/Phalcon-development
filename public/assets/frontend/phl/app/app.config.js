@@ -17,8 +17,8 @@
             VERIFY :    '/sign/verify',
             LOGIN :     '/sign/login',
             REGISTER :  '/sign/register',
-            LOGOUT :    '/sign/logout',
-            REMIND :    '/sign/remind'
+            RESTORE :   '/sign/restore',
+            LOGOUT :    '/sign/logout'
         }
     })());
 

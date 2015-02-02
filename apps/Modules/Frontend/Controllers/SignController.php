@@ -235,32 +235,70 @@ class SignController extends ControllerBase
     }
 
     /**
-     * remindAction() Remind access password action
+     * restoreAction() Remind access password action
      *
      * @access public
      * @return null
      */
-    public function remindAction() {
+    public function restoreAction() {
 
         if($this->access === true) {
 
             if($this->security->checkToken()) {
 
-                // get mailer service
+                // find user by login
+                $login = $this->request->getPost('login', 'trim');
 
-                $mailer = $this->di->get('mailer');
+                $user = (new Users())->findFirst([
+                    "login = ?0",
+                    "bind" => [$login],
+                ]);
 
-                // send recovery mail
+                if(empty($user) === false) {
 
-                $status = $mailer->send('emails/sign/remind', [
-                    'test' => 'test' // Переменные для передачи в шаблон
-                ], function($message) {
-                    $message->to('stanisov@gmail.com');
-                    $message->subject('Test Email');
-                });
+                    // user founded restore access by login
 
-                if($status === 1) {
-                    $this->setReply(['success' => true]);
+                    if(filter_var($login, FILTER_VALIDATE_EMAIL) !== false) {
+
+                        // get mailer service
+
+                        $mailer = $this->di->get('mailer');
+
+                        // send recovery mail
+
+                        $status = $mailer->send('emails/restore_password', [
+                            'test' => 'test'
+                        ], function($message) use ($login) {
+                            $message->to($login);
+                            $message->subject(sprintf($this->translate->translate('PASSWORD_RECOVERY_SUBJECT'), $this->engine->getHost()));
+                        });
+
+                        if($status === 1) {
+                            $this->setReply([
+                                'success' => true,
+                                'message' => $this->translate->translate('PASSWORD_RECOVERY_SUCCESS')
+                            ]);
+                        }
+                        else {
+                            $this->setReply([
+                                'message' => $this->translate->translate('PASSWORD_RECOVERY_FAILED')
+                            ]);
+                        }
+                    }
+                    else
+                    {
+                        // phone number, use SMS service
+                    }
+
+                }
+                else {
+
+                    if($this->config->logger->enable)
+                        $this->logger->error('Restore failed from ' . $this->request->getClientAddress() . '. Attempt to restore: ' . $login);
+
+                    // user does not exist in database
+                    $this->setReply(['message' => $this->translate->translate('NOT_FOUND')]);
+
                 }
             }
             else
