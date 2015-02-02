@@ -49,7 +49,7 @@ $di->setShared('session', function () {
     return $session;
 });
 
-$di->set('cookies', function () {
+$di->setShared('cookies', function () {
 
     $cookies = new \Phalcon\Http\Response\Cookies();
     $cookies->useEncryption(true);
@@ -71,7 +71,7 @@ $di->set('crypt', function () {
 
 // Default component to crypt cookies values
 
-$di->set('translate', function () {
+$di->setShared('translate', function () {
 
     $translate = new \Translate\Translator();
 

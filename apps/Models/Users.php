@@ -119,45 +119,49 @@ class Users extends \Phalcon\Mvc\Model
      */
     public function validation()
     {
+        // get translate service
+
+        $t  =   $this->getDI()->getShared('translate');
+
         $this->validate(new Uniqueness([
             "field"     => "login",
-            "message"   => "This user already taken"
+            "message"   => $t->translate('USER_EXIST')
         ]));
         $this->validate(new Uniqueness([
             "field"     => "token",
-            "message"   => "System error! Please reload the page"
+            "message"   => $t->translate('INVALID_TOKEN')
         ]));
 
         $this->validate(new PresenceOf([
             'field'     => 'login',
-            'message'   => 'The login is required'
+            'message'   => $t->translate('LOGIN_REQUIRED')
         ]));
 
         $this->validate(new PresenceOf([
             'field'     => 'password',
-            'message'   => 'The password is required'
+            'message'   => $t->translate('PASSWORD_REQUIRED')
         ]));
 
         $this->validate(new StringLengthValidator([
             'field'     => 'login',
             'max'       => 30,
             'min'       => 3,
-            'messageMaximum' => 'The login must not exceed 30 characters',
-            'messageMinimum' => 'The login must not be less than 3 characters'
+            'messageMaximum' => $t->translate('LOGIN_MAX_INVALID'),
+            'messageMinimum' => $t->translate('LOGIN_MIN_INVALID')
         ]));
 
         $this->validate(new StringLengthValidator([
             'field'     => 'name',
             'max'       => 30,
-            'min'       => 3,
-            'messageMaximum' => 'The name must not exceed 30 characters',
-            'messageMinimum' => 'The name must not be less than 3 characters'
+            'min'       => 2,
+            'messageMaximum' => $t->translate('NAME_MAX_INVALID'),
+            'messageMinimum' => $t->translate('NAME_MIN_INVALID')
         ]));
 
         $this->validate(new RegexValidator([
             'field'     => 'login',
             'pattern'   => "/^((\+)|(\d[\s-]?)?[\(\[\s-]{0,2}?\d{3}[\)\]\s-]{0,2}?\d{3}[\s-]?\d{4,5}|([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+)$/",
-            'message'   => 'The login must be as email or phone number'
+            'message'   => $t->translate('LOGIN_FORMAT_INVALID')
         ]));
 
         return $this->validationHasFailed() != true;

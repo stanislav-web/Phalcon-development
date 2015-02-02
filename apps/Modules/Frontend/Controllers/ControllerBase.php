@@ -1,6 +1,7 @@
 <?php
 namespace Modules\Frontend\Controllers;
 
+use Helpers\Http;
 use Models\Users;
 use Phalcon\Mvc\Controller;
 use Phalcon\Mvc\View;
@@ -313,13 +314,8 @@ class ControllerBase extends Controller
      */
     private function setLanguage() {
 
-        if($this->cookies->has('NG_TRANSLATE_LANG_KEY')) {
-
-            $this->language = $_COOKIE['NG_TRANSLATE_LANG_KEY'];
-        }
-        else {
-            $this->language = substr($this->request->getBestLanguage(), 0, 2);
-        }
+        // use helper to get preferred or selected language
+        $this->language = Http::getLanguage('NG_TRANSLATE_LANG_KEY');
 
         // set translate path
         $this->translate = $this->di->get('translate');

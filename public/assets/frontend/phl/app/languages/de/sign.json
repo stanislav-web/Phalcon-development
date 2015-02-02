@@ -17,7 +17,7 @@
     "ACCOUNT"               : "Mein Konto",
     "LOGOUT"                : "Exit",
     "NAME_REQUIRED"         : "Ihr name ist erforderlich",
-    "NAME_PLACEHOLDER"      : "Ihr Name",
+    "NAME_PLACEHOLDER"      : "Ihr name",
     "PASSWORDX_REQUIRED"    : "Sie müssen ihr passwort bestätigen",
     "PASSWORDX_PLACEHOLDER" : "Kennwort bestätigen",
     "REGISTER_BTN"          : "Registrieren",
