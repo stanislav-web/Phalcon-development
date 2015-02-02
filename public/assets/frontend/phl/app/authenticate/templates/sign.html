@@ -26,7 +26,7 @@
                 <div class="col-xs-6">
                     <div class="well">
                         <p class="lead" translate="LOGIN_NOTIFY"></p>
-                        <form name="formSign" ng-submit="sign()" role="form">
+                        <form name="formSign" ng-submit="sign()" role="form" autocomplete="off">
 
                             <input type="hidden" name="{{token_id}}" value="{{token_val}}"/>
 
@@ -78,7 +78,7 @@
                     <div class="well">
                         <p class="lead ng-scope" translate="REGISTER"></p>
 
-                        <form name="formRegister" ng-submit="register()" role="form">
+                        <form name="formRegister" ng-submit="register()" role="form" autocomplete="off">
 
                             <input type="hidden" name="{{token_id}}" value="{{token_val}}"/>
 
@@ -139,7 +139,7 @@
                 <div class="col-xs-12">
                     <div class="well">
                         <blockquote class="notice" translate="REMIND_NOTIFY"></blockquote>
-                        <form name="formRestore" ng-submit="restore()" role="form">
+                        <form name="formRestore" ng-submit="restore()" role="form" autocomplete="off">
 
                             <input type="hidden" name="{{token_id}}" value="{{token_val}}"/>
 
