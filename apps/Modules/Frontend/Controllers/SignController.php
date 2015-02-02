@@ -2,6 +2,7 @@
 namespace Modules\Frontend\Controllers;
 use Models\Users;
 use Phalcon\Mvc\View;
+use Phalcon\Text as Randomize;
 
 /**
  * Class SignController
@@ -256,28 +257,33 @@ class SignController extends ControllerBase
 
                 if(empty($user) === false) {
 
-                    // user founded restore access by login
+                    // user founded restore access by login, generate password
+
+                    $password = Randomize::random(Randomize::RANDOM_ALNUM, 16);
 
                     if(filter_var($login, FILTER_VALIDATE_EMAIL) !== false) {
 
-                        // get mailer service
+                        // send recovery mail
 
                         $mailer = $this->di->get('mailer');
 
-                        // send recovery mail
-
                         $status = $mailer->send('emails/restore_password', [
-                            'test' => 'test'
-                        ], function($message) use ($login) {
-                            $message->to($login);
+                            'login'     => $user->getLogin(),
+                            'name'      => $user->getName(),
+                            'password'  => $password,
+                            'site'      =>  $this->engine->getHost()
+                        ], function($message) use ($user) {
+                            $message->to($user->getLogin());
                             $message->subject(sprintf($this->translate->translate('PASSWORD_RECOVERY_SUBJECT'), $this->engine->getHost()));
                         });
 
                         if($status === 1) {
+
                             $this->setReply([
                                 'success' => true,
                                 'message' => $this->translate->translate('PASSWORD_RECOVERY_SUCCESS')
                             ]);
+
                         }
                         else {
                             $this->setReply([
