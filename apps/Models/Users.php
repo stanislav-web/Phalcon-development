@@ -2,7 +2,6 @@
 namespace Models;
 
 use Phalcon\Mvc\Model\Validator\Uniqueness;
-use Phalcon\Mvc\Model\Behavior\Timestampable;
 use Phalcon\Mvc\Model\Validator\PresenceOf;
 use Phalcon\Mvc\Model\Validator\Regex as RegexValidator;
 use Phalcon\Mvc\Model\Validator\StringLength as StringLengthValidator;
@@ -108,14 +107,8 @@ class Users extends \Phalcon\Mvc\Model
         ]);
 
         // skip attributes before every IN >
-        $this->skipAttributesOnCreate(['date_registration', 'state', 'rating', 'surname']);
-
-        $this->addBehavior(new Timestampable(array(
-            'beforeValidationOnCreate' => array(
-                'field' => 'date_registration',
-                'format' => 'Y-m-d H:i:s'
-            )
-        )));
+        $this->skipAttributesOnCreate(['date_registration', 'date_lastvisit', 'state', 'rating', 'surname']);
+        $this->skipAttributesOnUpdate(['date_lastvisit']);
     }
 
 

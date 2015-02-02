@@ -89,8 +89,7 @@ class SignController extends ControllerBase
                         $this->session->set('user',     $user->toArray());
 
                         // update auth params
-                        $user->setDateLastvisit(date('Y-m-d H:i:s'))
-                            ->setSalt($this->security->getSessionToken())
+                        $user->setSalt($this->security->getSessionToken())
                             ->setToken($this->token)
                             ->setIp($this->request->getClientAddress())
                             ->setUa($this->request->getUserAgent())
@@ -111,7 +110,6 @@ class SignController extends ControllerBase
                                 'surname'   =>  $user->getSurname(),
                                 'state'     =>  $user->getState(),
                                 'rating'    =>  $user->getRating(),
-                                'surname'   =>  $user->getSurname(),
                                 'date_registration' =>  $user->getDateRegistration(),
                                 'date_lastvisit'    =>  $user->getDateLastvisit()
                             ],
@@ -167,16 +165,48 @@ class SignController extends ControllerBase
 
                 $user = new Users();
 
-                $register = $user->setLogin($this->request->getPost('login', 'trim'))
-                            ->setPassword($this->security->hash($this->request->getPost('password', 'trim')))
-                            ->setName($this->request->getPost('name', 'trim', ''))
-                            ->setSalt($this->security->getSessionToken())
-                            ->setIp($this->request->getClientAddress())
-                            ->setUa($this->request->getUserAgent())
-                            ->setToken(md5($this->request->getPost('login', 'trim') . $this->security->getSessionToken() . $this->request->getUserAgent() ));
+                $register =
+                    $user->setLogin($this->request->getPost('login', 'trim'))
+                        ->setPassword($this->security->hash($this->request->getPost('password', 'trim')))
+                        ->setName($this->request->getPost('name', 'trim', ''))
+                        ->setSalt($this->security->getSessionToken())
+                        ->setIp($this->request->getClientAddress())
+                        ->setUa($this->request->getUserAgent())
+                        ->setToken(md5($this->request->getPost('login', 'trim') . $this->security->getSessionToken() . $this->request->getUserAgent()));
 
                 if($register->save()) {
-                    echo 'SSS'; die();
+
+                    // user created
+
+                    $this->token = md5($register->getLogin() . $this->security->getSessionToken() . $this->request->getUserAgent());
+
+                    // setup user cookies and send to client for update
+                    $this->cookies->set('token',    $this->token, time() + ($this->config->rememberKeep), '/', $this->engine->getHost(), false, false);
+                    $this->session->set('token',    $this->token);
+                    $this->session->set('user',     $register->toArray());
+
+                    // update auth params
+
+                    if ($this->config->logger->enable) {
+                        $this->logger->log('Registration success from ' . $this->request->getClientAddress().'. User: '.$register->getLogin());
+                    }
+
+                    $this->isAuthenticated = true;
+
+                    // send reply to client
+                    $this->setReply([
+                        'user'  => [
+                            'id'        =>  $register->getId(),
+                            'login'     =>  $register->getLogin(),
+                            'name'      =>  $register->getName(),
+                            'surname'   =>  $register->getSurname(),
+                            'state'     =>  $register->getState(),
+                            'rating'    =>  $register->getRating(),
+                            'date_registration' =>  $user->getDateRegistration(),
+                            'date_lastvisit'    =>  $user->getDateLastvisit()
+                        ],
+                        'success'   => true,
+                    ]);
                 }
                 else {
 
