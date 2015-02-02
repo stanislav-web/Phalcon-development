@@ -40,15 +40,18 @@ class NotFoundPlugin
             return $event->isStopped();
         }
 
-        // Handle other exceptions.
-        $dispatcher->forward([
-                'module'        => 'Frontend',
-                'namespace'     => 'Modules\Frontend\Controllers',
-                'controller'    => 'Error',
-                'action'        => 'uncaughtException'
-            ]
-        );
+        if (APPLICATION_ENV === 'development') { // production
 
-        return $event->isStopped();
+            // Handle other exceptions.
+            $dispatcher->forward([
+                    'module' => 'Frontend',
+                    'namespace' => 'Modules\Frontend\Controllers',
+                    'controller' => 'Error',
+                    'action' => 'uncaughtException'
+                ]
+            );
+
+            return $event->isStopped();
+        }
     }
 }

@@ -22,6 +22,7 @@ class SignController extends ControllerBase
 
     /**
      * initialize() Initialize constructor
+     *
      * @access public
      * @return null
      */
@@ -59,6 +60,7 @@ class SignController extends ControllerBase
 
     /**
      * loginAction() Check auth action
+     *
      * @access public
      * @return null
      */
@@ -152,6 +154,7 @@ class SignController extends ControllerBase
 
     /**
      * registerAction() User registration action action
+     *
      * @access public
      * @return null
      */
@@ -231,6 +234,48 @@ class SignController extends ControllerBase
         return $this->getReply();
     }
 
+    /**
+     * remindAction() Remind access password action
+     *
+     * @access public
+     * @return null
+     */
+    public function remindAction() {
+
+        if($this->access === true) {
+
+            if($this->security->checkToken()) {
+
+                // get mailer service
+
+                $mailer = $this->di->get('mailer');
+
+                // send recovery mail
+
+                $status = $mailer->send('emails/sign/remind', [
+                    'test' => 'test' // Переменные для передачи в шаблон
+                ], function($message) {
+                    $message->to('stanisov@gmail.com');
+                    $message->subject('Test Email');
+                });
+
+                if($status === 1) {
+                    $this->setReply(['success' => true]);
+                }
+            }
+            else
+            {
+                // If CSRF request was broken
+
+                if ($this->config->logger->enable)
+                    $this->logger->error('Remind access failed from ' . $this->request->getClientAddress() . '. CSRF attack');
+
+                $this->setReply(['message' => $this->translate->translate('INVALID_TOKEN')]);
+            }
+        }
+
+        return $this->getReply();
+    }
 
     /**
      * Logout action to destroy user auth data

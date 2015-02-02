@@ -78,3 +78,12 @@ $di->set('translate', function () {
     return $translate;
 
 });
+
+// Register Mailer Service
+
+$di->set('mailer', function () {
+
+    $service = new Vanchelo\Mailer\MailerService();
+
+    return $service->mailer();
+});

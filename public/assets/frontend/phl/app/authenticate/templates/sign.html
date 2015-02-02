@@ -10,7 +10,7 @@
             <!-- /Close -->
 
             <!-- Title -->
-            <h4 class="modal-title" ng-bind="title" id="myModalLabel" translate="SIGN IN">SIGN IN</h4>
+            <h4 class="modal-title" ng-bind="title" id="myModalLabel" translate="SIGN IN"></h4>
             <!-- /Title -->
 
             <!-- Help message -->
@@ -51,6 +51,8 @@
                             <button type="submit" class="btn btn-primary btn-block" ng-disabled="formSign.$invalid || dataLoading" translate="SIGN IN">SIGN IN</button>
                             <img ng-if="dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
                         </form>
+                        <div class="clearfix"></div>
+                        <a ng-click="toggle('remindForm')" translate="REMIND_ACCESS"></a>
                     </div>
                 </div>
 
@@ -71,7 +73,7 @@
             <!-- /Sign form -->
 
             <!-- Register form -->
-            <div class="row" ng-hide="registerForm === false">
+            <div class="row" ng-show="registerForm === true">
                 <div class="col-xs-12">
                     <div class="well">
                         <p class="lead ng-scope" translate="REGISTER"></p>
@@ -131,7 +133,36 @@
                 </div>
             </div>
             <!-- /Register form -->
-        </div>
+
+            <!-- Remind form -->
+            <div class="row" ng-show="remindForm === true">
+                <div class="col-xs-12">
+                    <div class="well">
+                        <blockquote class="notice" translate="REMIND_NOTIFY"></blockquote>
+                        <form name="formRemind" ng-submit="remind()" role="form">
+
+                            <input type="hidden" name="{{token_id}}" value="{{token_val}}"/>
+
+                            <!-- Login -->
+                            <div class="form-group">
+                                <input type="text" ng-minlength="3" ng-maxlength="150" class="form-control" name="login" ng-model="login" placeholder="{{ 'LOGIN_PLACEHOLDER' | translate }}" required>
+                                <span ng-show="formRemind.login.$dirty && formRemind.login.$error.required" class="help-block" translate="LOGIN_REQUIRED"></span>
+                            </div>
+                            <!-- /Login -->
+
+                            <!-- Show error message -->
+                            <div ng-show="remindError" class="help-block">{{remindError}}</div>
+                            <!-- /Show error message -->
+
+                            <button type="submit" class="btn-primary btn-block" ng-disabled="formRemind.$invalid || dataLoading" translate="REMIND_PASSWORD"></button>
+                            <img ng-if="dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
+                        </form>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- /Remind form -->
+
         </div>
     </div>
 </div>

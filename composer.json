@@ -28,6 +28,7 @@
         "stanislav-web/phalcon-translate": "1.1-stable",
         "swiftmailer/swiftmailer": "5.*",
         "filp/whoops": "~1.0",
-        "fabfuel/prophiler": "1.*"
+        "fabfuel/prophiler": "1.*",
+        "vanchelo/phalcon-mailer": "dev-master"
     }
 }
