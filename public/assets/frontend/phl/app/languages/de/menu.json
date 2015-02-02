@@ -6,5 +6,10 @@
     "ABOUT"         : "Über",
     "SIGN IN"       : "Einloggen",
     "ACCOUNT"       : "Mein Konto",
+    "PURCHASES"     : "Meine Einkäufe",
+    "OBSERVATIONS"  : "Beobachtungen",
+    "BETS"          : "Meine Wetten",
+    "SELL"          : "Meine Verkäufe",
+    "SOLD_OUT"      : "Verkauft",
     "LOGOUT"        : "Exit"
 }

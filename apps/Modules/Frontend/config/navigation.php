@@ -50,21 +50,21 @@ $navigation =   [
             'isAuthenticated'    =>  'true'
         ],
         [
-            'title'     =>  'Bought',
-            'url'       =>  '/transactions/bought',
-            'translate' =>  'BOUGHT',
+            'title'     =>  'My Purchases',
+            'url'       =>  '/transactions/purchases',
+            'translate' =>  'PURCHASES',
             'isAuthenticated'    =>  'true'
         ],
         [
-            'title'     =>  'Observations',
+            'title'     =>  'My Observations',
             'url'       =>  '/transactions/observations',
             'translate' =>  'OBSERVATIONS',
             'isAuthenticated'    =>  'true'
         ],
         [
-            'title'     =>  'Parlays',
-            'url'       =>  '/transactions/parlays',
-            'translate' =>  'PARLAYS',
+            'title'     =>  'My Bets',
+            'url'       =>  '/transactions/bets',
+            'translate' =>  'BETS',
             'isAuthenticated'    =>  'true'
         ],
         [
