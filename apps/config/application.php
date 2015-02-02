@@ -73,6 +73,10 @@ $config = [
         ],
     ],
 
+    // Default language
+
+    'language'  => 'en',
+
     // Remember state
     'rememberKeep'   => 604800,
     'cookieCryptKey' => '#1dj8$=dp?.ak//j1V$'

@@ -1,8 +1,15 @@
+version 1.5.1
+=============
+**Date**: 31-Jan-2015
+
+- (enh #13): Code restructure and formatting to cleanup various lint errors (using JSHint Code cleanup library).
+- (enh #14): Implement reusable constructor for extending plugin if needed.
+
 version 1.5.0
 =============
 **Date**: 28-Dec-2014
 
-1. (enh #9, #10, #11): Fix validation of checkbox changes for plugin initialization on checkbox inputs as well as initialization via text inputs :
+1. (enh #9, #10, #11): Fix validation of checkbox changes for plugin initialization on checkbox inputs:
    - Three State & Two State
        - Non-enclosed labels 
        - Enclosed labels

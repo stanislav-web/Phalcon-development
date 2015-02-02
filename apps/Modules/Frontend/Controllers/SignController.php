@@ -89,8 +89,8 @@ class SignController extends ControllerBase
                         $this->session->set('user',     $user->toArray());
 
                         // update auth params
-                        //->setDateLastvisit(date('Y-m-d H:i:s'))
-                        $user->setSalt($this->security->getSessionToken())
+                        $user->setDateLastvisit(date('Y-m-d H:i:s'))
+                            ->setSalt($this->security->getSessionToken())
                             ->setToken($this->token)
                             ->setIp($this->request->getClientAddress())
                             ->setUa($this->request->getUserAgent())

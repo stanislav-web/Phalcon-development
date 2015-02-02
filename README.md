@@ -21,6 +21,7 @@ Phalcon Development Boards
 * Memcache
 * APC (APCu)
 * PHP mcrypt library
+* PHP PDO MySQL driver
 
 #### Testing 
 * PHP 5.5.9 (with FPM)

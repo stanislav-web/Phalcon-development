@@ -44,7 +44,7 @@ class ControllerBase extends Controller
     /**
      * Translate service
      *
-     * @var \Translate\Translate
+     * @var \Translate\Translator
      */
     protected $translate;
 
@@ -123,11 +123,6 @@ class ControllerBase extends Controller
             // load lang packages
             $this->setLanguage();
 
-            // set translate path
-            $this->translate = $this->di->get('translate');
-            $this->translate->setTranslatePath(APP_PATH.'/Modules/Frontend/languages/')
-                ->setLanguage($this->language)->setDefault('ru');
-
             // setup special view directory for this engine
             $this->view->setViewsDir($this->config['application']['viewsFront'].strtolower($this->engine->getCode()))
                 ->setMainView('layout')
@@ -159,7 +154,7 @@ class ControllerBase extends Controller
 
         // add styles minified
         $css = $this->assets->collection('header-css')
-            ->addCss('assets/plugins/bootstrap/bootstrap.min.css')
+            ->addCss('assets/plugins/bootstrap/dist/css/bootstrap.min.css')
             ->addCss('assets/frontend/'.strtolower($this->engine->getCode()).'/css/style.css')
             ->addCss('assets/frontend/'.strtolower($this->engine->getCode()).'/css/menu.css')
             ->addCss('assets/frontend/'.strtolower($this->engine->getCode()).'/css/splash.css')
@@ -178,7 +173,7 @@ class ControllerBase extends Controller
             ->addJs('assets/plugins/angular-cookies/angular-cookies.min.js')
             ->addJs('assets/plugins/angular-spinner/angular-spinner.min.js')
             ->addJs('assets/plugins/jquery/dist/jquery.min.js')
-            ->addJs('assets/plugins/bootstrap/bootstrap.min.js')
+            ->addJs('assets/plugins/bootstrap/dist/js/bootstrap.min.js')
             ->addJs('assets/plugins/ui-bootstrap-tpl/ui-bootstrap-tpl.min.js');
 
         if (APPLICATION_ENV === 'production') {
@@ -231,7 +226,8 @@ class ControllerBase extends Controller
      */
     protected function setReply(array $reply) {
 
-        foreach($reply as $k => $v) {
+        foreach($reply as $k => $v)
+        {
             $this->reply[$k]    =   $v;
         }
     }
@@ -324,5 +320,10 @@ class ControllerBase extends Controller
         else {
             $this->language = substr($this->request->getBestLanguage(), 0, 2);
         }
+
+        // set translate path
+        $this->translate = $this->di->get('translate');
+        $this->translate->setTranslatePath(APP_PATH.'/Modules/Frontend/languages/')
+            ->setLanguage($this->language)->setDefault($this->config->language);
     }
 }

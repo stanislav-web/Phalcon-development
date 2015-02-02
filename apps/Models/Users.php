@@ -6,6 +6,7 @@ use Phalcon\Mvc\Model\Behavior\Timestampable;
 use Phalcon\Mvc\Model\Validator\PresenceOf;
 use Phalcon\Mvc\Model\Validator\Regex as RegexValidator;
 use Phalcon\Mvc\Model\Validator\StringLength as StringLengthValidator;
+
 /**
  * Class Users `users`
  * @package    Application
@@ -17,7 +18,6 @@ use Phalcon\Mvc\Model\Validator\StringLength as StringLengthValidator;
  */
 class Users extends \Phalcon\Mvc\Model
 {
-
     /**
      *
      * @var integer
@@ -95,11 +95,6 @@ class Users extends \Phalcon\Mvc\Model
      * @var string
      */
     protected $ua;
-
-    public function getSource()
-    {
-        return "users";
-    }
 
     /**
      * Initialize Model
@@ -262,7 +257,7 @@ class Users extends \Phalcon\Mvc\Model
      */
     public function setSurname($surname)
     {
-        $this->name = $surname;
+        $this->surname = $surname;
 
         return $this;
     }
@@ -441,7 +436,7 @@ class Users extends \Phalcon\Mvc\Model
     /**
      * Method to set the value of field ip
      *
-     * @param integer $ip
+     * @param int $ip
      * @return $this
      */
     public function setIp($ip)

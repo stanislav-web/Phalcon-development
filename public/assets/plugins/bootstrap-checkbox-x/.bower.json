@@ -1,6 +1,6 @@
 {
   "name": "bootstrap-checkbox-x",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "homepage": "https://github.com/kartik-v/bootstrap-checkbox-x",
   "authors": [
     "Kartik Visweswaran <kartikv2@gmail.com>"
@@ -33,14 +33,13 @@
     "test",
     "tests"
   ],
-  "_release": "1.5.0",
+  "_release": "1.5.1",
   "_resolution": {
     "type": "version",
-    "tag": "v1.5.0",
-    "commit": "199cd981ad3bfd646900be15539e2d0865ad88eb"
+    "tag": "v1.5.1",
+    "commit": "471212868bc9616ba4e1dd2c2588f270d2fdb64b"
   },
   "_source": "git://github.com/kartik-v/bootstrap-checkbox-x.git",
   "_target": "~1.5.0",
-  "_originalSource": "bootstrap-checkbox-x",
-  "_direct": true
+  "_originalSource": "bootstrap-checkbox-x"
 }
