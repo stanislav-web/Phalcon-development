@@ -31,24 +31,17 @@
 
                 var deferred = $q.defer();
 
-                $http.get(route).success(function (response) {
+                $http.get(route, {headers : {
+                    'X-Token':   $cookies.token
+                }}).success(function (response) {
 
-                    //$timeout(function () {
+                    // Check if user is defined first
+                    if (response.success) {
+                        $rootScope.user = user = response.user;
+                        $rootScope.isAuthenticated = isAuthenticated = true;
 
-                        // Check if user is defined first
-                        if (response.success) {
-
-
-                            $rootScope.user = user = response.user;
-                            $rootScope.isAuthenticated = isAuthenticated = true;
-
-                            // send auth token
-                            $http.defaults.headers.common['X-Token'] = $cookies.token;
-                        }
-
-                        deferred.resolve(user);
-
-                    //}, 1000);
+                    }
+                    deferred.resolve(user);
 
                 }).error(function (error) {
                     deferred.reject(error);
@@ -69,7 +62,7 @@
             /**
              * Is user still auth ?
              *
-             * @returns {null}
+             * @returns {boolean}
              */
             isLoggedIn: function () {
                 return (isAuthenticated) ? true : false;
@@ -115,7 +108,9 @@
 
                 var deferred = $q.defer();
 
-                $http.get(route).success(function (response) {
+                $http.delete(route, {headers : {
+                    'X-Token':   ''
+                }}).success(function (response) {
                     if (response.success) {
 
                         $rootScope.user = user = null;
@@ -134,6 +129,6 @@
 
                 return deferred.promise;
             }
-        }
+        };
     }]);
 })(angular);
