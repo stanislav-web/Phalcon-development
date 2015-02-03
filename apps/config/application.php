@@ -67,12 +67,12 @@ $config = [
         'host'   => 'smtp.gmail.com',
         'port'   => 587,
         'from'   => [
-            'address' => 'fake@gmail.com',
-            'name'    => 'My Cool Company'
+            'address' => '1@gmail.com',
+            'name'    => 'Admin'
         ],
         'encryption' => 'tls',
-        'username'   => 'fake@gmail.com',
-        'password'   => '11111111',
+        'username'   => '1@gmail.com',
+        'password'   => '1',
         'sendmail'   => '/usr/sbin/sendmail -bs',
     ],
 
