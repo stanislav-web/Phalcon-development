@@ -6,5 +6,10 @@
     "ABOUT"         : "About",
     "SIGN IN"       : "Sign in",
     "ACCOUNT"       : "My Account",
+    "PURCHASES"     : "My Purchases",
+    "OBSERVATIONS"  : "My Observations",
+    "BETS"          : "My Bets",
+    "SELL"          : "My Sales",
+    "SOLD_OUT"      : "Sold out",
     "LOGOUT"        : "Log out"
 }

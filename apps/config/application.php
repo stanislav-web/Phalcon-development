@@ -62,15 +62,18 @@ $config = [
     // Mailing and subscribe configuration
 
     'mail' => [
-        'fromName' => 'Admin',
-        'fromEmail' => 'email@gmail.com',
-        'smtp' => [
-            'server' => 'smtp.gmail.com',
-            'port' => 587,
-            'security' => 'tls',
-            'username' => 'Admin',
-            'password' => '',
+
+        'driver' => 'smtp', // mail, sendmail, smtp
+        'host'   => 'smtp.gmail.com',
+        'port'   => 587,
+        'from'   => [
+            'address' => 'fake@gmail.com',
+            'name'    => 'My Cool Company'
         ],
+        'encryption' => 'tls',
+        'username'   => 'fake@gmail.com',
+        'password'   => '11111111',
+        'sendmail'   => '/usr/sbin/sendmail -bs',
     ],
 
     // Default language

@@ -14,6 +14,7 @@
 
             $scope.loginForm = true;
             $scope.registerForm = false;
+            $scope.remindForm = false;
 
             /**
              * Form switcher
@@ -22,10 +23,18 @@
 
                 if(form === 'loginForm') {
                     $scope.registerForm = false;
+                    $scope.restoreForm = false;
                     $scope.loginForm = true;
+                }
+                else if(form === 'restoreForm') {
+
+                    $scope.registerForm = false;
+                    $scope.restoreForm = true;
+                    $scope.loginForm = false;
                 }
                 else {
                     $scope.registerForm = true;
+                    $scope.restoreForm = false;
                     $scope.loginForm = false;
                 }
             };
@@ -55,6 +64,39 @@
                     } else {
                         // return error to show in sign form
                         $scope.signError = response.message;
+                        $scope.dataLoading = false;
+
+                    }
+                });
+            };
+
+            /**
+             * Restore access password action
+             */
+            $scope.restore = function () {
+
+                $scope.dataLoading = true;
+
+                // setup credentials
+                var credentials = {
+                    'login': $scope.login
+                }
+
+                // call auth service
+                Authentication.sign(credentials, ROUTES.RESTORE).then(function (response) {
+
+                    if (response.success) {
+
+                        $scope.restoreSuccess = response.message;
+                        $scope.dataLoading = false;
+
+                        setTimeout(function() {
+                            $splash.close();
+                        }, 3000);
+
+                    } else {
+                        // return error to show in sign form
+                        $scope.restoreError = response.message;
                         $scope.dataLoading = false;
 
                     }

@@ -2,6 +2,7 @@
 namespace Modules\Frontend\Controllers;
 use Models\Users;
 use Phalcon\Mvc\View;
+use Phalcon\Text as Randomize;
 
 /**
  * Class SignController
@@ -22,6 +23,7 @@ class SignController extends ControllerBase
 
     /**
      * initialize() Initialize constructor
+     *
      * @access public
      * @return null
      */
@@ -59,6 +61,7 @@ class SignController extends ControllerBase
 
     /**
      * loginAction() Check auth action
+     *
      * @access public
      * @return null
      */
@@ -89,8 +92,7 @@ class SignController extends ControllerBase
                         $this->session->set('user',     $user->toArray());
 
                         // update auth params
-                        $user->setDateLastvisit(date('Y-m-d H:i:s'))
-                            ->setSalt($this->security->getSessionToken())
+                        $user->setSalt($this->security->getSessionToken())
                             ->setToken($this->token)
                             ->setIp($this->request->getClientAddress())
                             ->setUa($this->request->getUserAgent())
@@ -111,7 +113,6 @@ class SignController extends ControllerBase
                                 'surname'   =>  $user->getSurname(),
                                 'state'     =>  $user->getState(),
                                 'rating'    =>  $user->getRating(),
-                                'surname'   =>  $user->getSurname(),
                                 'date_registration' =>  $user->getDateRegistration(),
                                 'date_lastvisit'    =>  $user->getDateLastvisit()
                             ],
@@ -154,6 +155,7 @@ class SignController extends ControllerBase
 
     /**
      * registerAction() User registration action action
+     *
      * @access public
      * @return null
      */
@@ -167,16 +169,48 @@ class SignController extends ControllerBase
 
                 $user = new Users();
 
-                $register = $user->setLogin($this->request->getPost('login', 'trim'))
-                            ->setPassword($this->security->hash($this->request->getPost('password', 'trim')))
-                            ->setName($this->request->getPost('name', 'trim', ''))
-                            ->setSalt($this->security->getSessionToken())
-                            ->setIp($this->request->getClientAddress())
-                            ->setUa($this->request->getUserAgent())
-                            ->setToken(md5($this->request->getPost('login', 'trim') . $this->security->getSessionToken() . $this->request->getUserAgent() ));
+                $register =
+                    $user->setLogin($this->request->getPost('login', 'trim'))
+                        ->setPassword($this->security->hash($this->request->getPost('password', 'trim')))
+                        ->setName($this->request->getPost('name', 'trim', ''))
+                        ->setSalt($this->security->getSessionToken())
+                        ->setIp($this->request->getClientAddress())
+                        ->setUa($this->request->getUserAgent())
+                        ->setToken(md5($this->request->getPost('login', 'trim') . $this->security->getSessionToken() . $this->request->getUserAgent()));
 
                 if($register->save()) {
-                    echo 'SSS'; die();
+
+                    // user created
+
+                    $this->token = md5($register->getLogin() . $this->security->getSessionToken() . $this->request->getUserAgent());
+
+                    // setup user cookies and send to client for update
+                    $this->cookies->set('token',    $this->token, time() + ($this->config->rememberKeep), '/', $this->engine->getHost(), false, false);
+                    $this->session->set('token',    $this->token);
+                    $this->session->set('user',     $register->toArray());
+
+                    // update auth params
+
+                    if ($this->config->logger->enable) {
+                        $this->logger->log('Registration success from ' . $this->request->getClientAddress().'. User: '.$register->getLogin());
+                    }
+
+                    $this->isAuthenticated = true;
+
+                    // send reply to client
+                    $this->setReply([
+                        'user'  => [
+                            'id'        =>  $register->getId(),
+                            'login'     =>  $register->getLogin(),
+                            'name'      =>  $register->getName(),
+                            'surname'   =>  $register->getSurname(),
+                            'state'     =>  $register->getState(),
+                            'rating'    =>  $register->getRating(),
+                            'date_registration' =>  $user->getDateRegistration(),
+                            'date_lastvisit'    =>  $user->getDateLastvisit()
+                        ],
+                        'success'   => true,
+                    ]);
                 }
                 else {
 
@@ -201,6 +235,91 @@ class SignController extends ControllerBase
         return $this->getReply();
     }
 
+    /**
+     * restoreAction() Remind access password action
+     *
+     * @access public
+     * @return null
+     */
+    public function restoreAction() {
+
+        if($this->access === true) {
+
+            if($this->security->checkToken()) {
+
+                // find user by login
+                $login = $this->request->getPost('login', 'trim');
+
+                $user = (new Users())->findFirst([
+                    "login = ?0",
+                    "bind" => [$login],
+                ]);
+
+                if(empty($user) === false) {
+
+                    // user founded restore access by login, generate password
+
+                    $password = Randomize::random(Randomize::RANDOM_ALNUM, 16);
+
+                    if(filter_var($login, FILTER_VALIDATE_EMAIL) !== false) {
+
+                        // send recovery mail
+
+                        $mailer = $this->di->get('mailer');
+
+                        $status = $mailer->send('emails/restore_password', [
+                            'login'     => $user->getLogin(),
+                            'name'      => $user->getName(),
+                            'password'  => $password,
+                            'site'      =>  $this->engine->getHost()
+                        ], function($message) use ($user) {
+                            $message->to($user->getLogin());
+                            $message->subject(sprintf($this->translate->translate('PASSWORD_RECOVERY_SUBJECT'), $this->engine->getHost()));
+                        });
+
+                        if($status === 1) {
+
+                            $this->setReply([
+                                'success' => true,
+                                'message' => $this->translate->translate('PASSWORD_RECOVERY_SUCCESS')
+                            ]);
+
+                        }
+                        else {
+                            $this->setReply([
+                                'message' => $this->translate->translate('PASSWORD_RECOVERY_FAILED')
+                            ]);
+                        }
+                    }
+                    else
+                    {
+                        // phone number, use SMS service
+                    }
+
+                }
+                else {
+
+                    if($this->config->logger->enable)
+                        $this->logger->error('Restore failed from ' . $this->request->getClientAddress() . '. Attempt to restore: ' . $login);
+
+                    // user does not exist in database
+                    $this->setReply(['message' => $this->translate->translate('NOT_FOUND')]);
+
+                }
+            }
+            else
+            {
+                // If CSRF request was broken
+
+                if ($this->config->logger->enable)
+                    $this->logger->error('Remind access failed from ' . $this->request->getClientAddress() . '. CSRF attack');
+
+                $this->setReply(['message' => $this->translate->translate('INVALID_TOKEN')]);
+            }
+        }
+
+        return $this->getReply();
+    }
 
     /**
      * Logout action to destroy user auth data

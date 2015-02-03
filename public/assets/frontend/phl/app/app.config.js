@@ -17,6 +17,7 @@
             VERIFY :    '/sign/verify',
             LOGIN :     '/sign/login',
             REGISTER :  '/sign/register',
+            RESTORE :   '/sign/restore',
             LOGOUT :    '/sign/logout'
         }
     })());
@@ -77,8 +78,20 @@
                 }
             }
         })
+        .when('/transactions/:name', {
+                templateUrl: function(urlattr){
+                    return 'assets/frontend/phl/app/transactions/templates/' + urlattr.name + '.html';
+                },
+                caseInsensitiveMatch: true,
+                controller: "UserCtrl",
+                resolve: {
+                    // route under secure verifying
+                    isAuthenticated : function(Authentication) {
+                        Authentication.requestUser(ROUTES.VERIFY);
+                    }
+                }
+            })
         .otherwise({ redirectTo: ROUTES.HOME });
-
     }]);
 
     // configure preload transliteration

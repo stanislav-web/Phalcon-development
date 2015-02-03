@@ -34,17 +34,9 @@ $di->set('config', function () use ($config) {
 try {
 
     $application = new Phalcon\Mvc\Application($di);
-    // Register modules
-    $application->registerModules([
-        'Frontend' => [
-            'className' => 'Modules\Frontend',
-            'path' => APP_PATH . '/Modules/Frontend/Module.php',
-        ],
-        'Backend' => [
-            'className' => 'Modules\Backend',
-            'path' => APP_PATH . '/Modules/Backend/Module.php',
-        ],
-    ])->setDefaultModule('Frontend');
+
+    // Require modules
+    require APP_PATH . '/config/modules.php';
 
     if (APPLICATION_ENV === 'development') {
         // require whoops
