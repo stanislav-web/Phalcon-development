@@ -110,7 +110,21 @@ $config = [
                 'assets/plugins/ui-bootstrap-tpl/ui-bootstrap-tpl.min.js'
             ],
             'footer-js'    =>  [
-
+                'assets/plugins/spinner/spin.min.js',
+                'assets/frontend/:engine/app/app.js',
+                'assets/frontend/:engine/app/app.config.js',
+                'assets/frontend/:engine/app/common/directives/spinner.js',
+                'assets/frontend/:engine/app/common/services/splash.js',
+                'assets/frontend/:engine/app/common/controllers/menu.js',
+                'assets/frontend/:engine/app/common/controllers/language.js',
+                'assets/frontend/:engine/app/common/controllers/index.js',
+                'assets/frontend/:engine/app/authenticate/services/authentication.js',
+                'assets/frontend/:engine/app/authenticate/controllers/sign.js',
+                'assets/frontend/:engine/app/user/controllers/user.js',
+                'assets/frontend/:engine/js/menu.js',
+                'assets/frontend/:engine/js/move-top.js',
+                'assets/frontend/:engine/js/easing.js',
+                'assets/frontend/:engine/js/rules.js',
             ],
         ]
     ]

@@ -157,76 +157,35 @@ class ControllerBase extends Controller
         foreach($this->config->assets as $type => $collection) {
 
             foreach($collection as $title => $content) {
+
                 // create collection
+                $min = $title;
                 $title = $this->assets->collection($title);
 
-                foreach($content as $string) {
-                    if($type === 'css') {
-                        // collect css
-
-                        $title->addCss(strtr($string, [':engine' => strtolower($this->engine->getCode())]));
+                if($type === 'css') {
+                    // collect css
+                    foreach($content as $string) {
+                        $title->addCss(strtr($string, [':engine' => strtolower($this->engine->getCode())]))->setAttributes(['media' => 'all']);
                     }
-                    else {
-                        // collect js
-                        //$title->addJs(strtr($string, [':engine' => strtolower($this->engine->getCode())]));
+                }
+                else {
+                    // collect js
+                    foreach($content as $string) {
+                        $title->addJs(strtr($string, [':engine' => strtolower($this->engine->getCode())]));
+                    }
+
+                    if (APPLICATION_ENV === 'production') {
+
+                        // glue and minimize scripts header
+
+                        $title->join(true);
+                        $title->addFilter(new \Phalcon\Assets\Filters\Jsmin());
+                        $title->setTargetPath('assets/frontend/'.strtolower($this->engine->getCode()).'/'.$min.'.min.js');
+                        $title->setTargetUri('assets/frontend/'.strtolower($this->engine->getCode()).'/'.$min.'.min.js');
+
                     }
                 }
             }
-        }
-
-        // add java scripts
-
-        $jsh = $this->assets->collection('header-js')
-            ->addJs('assets/plugins/store/store.min.js')
-            ->addJs('assets/plugins/angular/angular.min.js')
-            ->addJs('assets/plugins/angular-route/angular-route.min.js')
-            ->addJs('assets/plugins/angular-animate/angular-animate.min.js')
-            ->addJs('assets/plugins/angular-sanitize/angular-sanitize.min.js')
-            ->addJs('assets/plugins/angular-translate/angular-translate.min.js')
-            ->addJs('assets/plugins/angular-translate-loader-partial/angular-translate-loader-partial.min.js')
-            ->addJs('assets/plugins/angular-cookies/angular-cookies.min.js')
-            ->addJs('assets/plugins/angular-spinner/angular-spinner.min.js')
-            ->addJs('assets/plugins/jquery/dist/jquery.min.js')
-            ->addJs('assets/plugins/bootstrap/dist/js/bootstrap.min.js')
-            ->addJs('assets/plugins/ui-bootstrap-tpl/ui-bootstrap-tpl.min.js');
-
-        if (APPLICATION_ENV === 'production') {
-
-            // glue and minimize scripts header
-
-            $jsh->join(true);
-            $jsh->addFilter(new \Phalcon\Assets\Filters\Jsmin());
-            $jsh->setTargetPath('assets/frontend/'.strtolower($this->engine->getCode()).'/js-hover.min.js');
-            $jsh->setTargetUri('assets/frontend/'.strtolower($this->engine->getCode()).'/js-hover.min.js');
-
-        }
-
-        $jsf = $this->assets->collection('footer-js')
-            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/app.js')
-            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/app.config.js')
-            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/common/directives/spinner.js')
-            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/common/services/splash.js')
-            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/authenticate/services/authentication.js')
-            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/common/controllers/menu.js')
-            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/common/controllers/language.js')
-            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/common/controllers/index.js')
-            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/authenticate/controllers/sign.js')
-            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/app/user/controllers/user.js')
-            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/js/menu.js')
-            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/js/move-top.js')
-            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/js/easing.js')
-            ->addJs('assets/frontend/'.strtolower($this->engine->getCode()).'/js/rules.js')
-            ->addJs('assets/plugins/spinner/spin.min.js');
-
-        if (APPLICATION_ENV === 'production') {
-
-            // glue and minimize scripts footer
-
-            $jsf->join(true);
-            $jsf->addFilter(new \Phalcon\Assets\Filters\Jsmin());
-            $jsf->setTargetPath('assets/frontend/'.strtolower($this->engine->getCode()).'/js-footer.min.js');
-            $jsf->setTargetUri('assets/frontend/'.strtolower($this->engine->getCode()).'/js-footer.min.js');
-
         }
 
         return;
