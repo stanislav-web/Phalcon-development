@@ -107,10 +107,10 @@ $config = [
                 'assets/plugins/angular-animate/angular-animate.min.js',
                 'assets/plugins/jquery/dist/jquery.min.js',
                 'assets/plugins/bootstrap/dist/js/bootstrap.min.js',
-                'assets/plugins/ui-bootstrap-tpl/ui-bootstrap-tpl.min.js'
+                'assets/plugins/ui-bootstrap-tpl/ui-bootstrap-tpl.min.js',
+                'assets/plugins/spinner/spin.min.js',
             ],
             'footer-js'    =>  [
-                'assets/plugins/spinner/spin.min.js',
                 'assets/frontend/:engine/app/app.js',
                 'assets/frontend/:engine/app/app.config.js',
                 'assets/frontend/:engine/app/common/directives/spinner.js',

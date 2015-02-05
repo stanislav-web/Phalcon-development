@@ -91,6 +91,10 @@ class ControllerBase extends Controller
     public function initialize()
     {
 
+        $sms = new \SMSFactory\Run();
+
+        $sms->call('BulkSMS');
+        exit;
         // load configurations
         $this->config = $this->di->get('config');
 
@@ -142,7 +146,6 @@ class ControllerBase extends Controller
             // add scripts & stylesheets
             $this->addAssetsContent();
         }
-
     }
 
     /**

@@ -3,6 +3,7 @@ namespace Modules\Frontend\Controllers;
 use Models\Users;
 use Phalcon\Mvc\View;
 use Phalcon\Text as Randomize;
+use SMSFactory\Run;
 
 /**
  * Class SignController
@@ -294,6 +295,9 @@ class SignController extends ControllerBase
                     else
                     {
                         // phone number, use SMS service
+
+                        //$sms = new Run();
+                        //$sms->call('Provider');
                     }
 
                 }

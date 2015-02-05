@@ -33,6 +33,7 @@
         "vanchelo/phalcon-mailer": "dev-master"
     },
     "require-dev": {
-        "phpunit/phpunit": "4.*"
+        "phpunit/phpunit": "4.*",
+        "phalcon/incubator": "1.3.4"
     }
 }
