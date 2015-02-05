@@ -153,15 +153,28 @@ class ControllerBase extends Controller
      */
     private function addAssetsContent() {
 
-        // add styles minified
-        $css = $this->assets->collection('header-css')
-            ->addCss('assets/plugins/bootstrap/dist/css/bootstrap.min.css')
-            ->addCss('assets/frontend/'.strtolower($this->engine->getCode()).'/css/style.css')
-            ->addCss('assets/frontend/'.strtolower($this->engine->getCode()).'/css/menu.css')
-            ->addCss('assets/frontend/'.strtolower($this->engine->getCode()).'/css/splash.css')
-            ->setAttributes(['media' => 'all']);
+        // add styles
+        foreach($this->config->assets as $type => $collection) {
 
-        // add java scripts minified
+            foreach($collection as $title => $content) {
+                // create collection
+                $title = $this->assets->collection($title);
+
+                foreach($content as $string) {
+                    if($type === 'css') {
+                        // collect css
+
+                        $title->addCss(strtr($string, [':engine' => strtolower($this->engine->getCode())]));
+                    }
+                    else {
+                        // collect js
+                        //$title->addJs(strtr($string, [':engine' => strtolower($this->engine->getCode())]));
+                    }
+                }
+            }
+        }
+
+        // add java scripts
 
         $jsh = $this->assets->collection('header-js')
             ->addJs('assets/plugins/store/store.min.js')
