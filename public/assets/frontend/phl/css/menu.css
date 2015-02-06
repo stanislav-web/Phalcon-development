@@ -1,4 +1,4 @@
-.megamenu{margin-bottom:0px;padding:0;width:100%;list-style:none;display:inline-block;position:relative;}
+.megamenu{margin-bottom:0px;padding:0;width:100%;list-style:none;position:relative;}
 .megamenu li{margin-bottom:-5px;display:inline}
 .megamenu>li>a{float:left;padding:8px 20px;text-decoration:none;text-transform:capitalize;font-size:0.85em; -webkit-transition: all 0.3s ease-in-out;
     -moz-transition: all 0.3s ease-in-out;

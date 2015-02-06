@@ -82,7 +82,52 @@ $config = [
 
     // Remember state
     'rememberKeep'   => 604800,
-    'cookieCryptKey' => '#1dj8$=dp?.ak//j1V$'
+    'cookieCryptKey' => '#1dj8$=dp?.ak//j1V$',
+
+    // assets distributions
+    'assets'    =>  [
+        'css'   =>  [
+            'header-css'    =>  [
+                'assets/plugins/bootstrap/dist/css/bootstrap.min.css',
+                'assets/frontend/:engine/css/style.css',
+                'assets/frontend/:engine/css/menu.css',
+                'assets/frontend/:engine/css/splash.css'
+            ]
+        ],
+        'js'    =>  [
+            'header-js'    =>  [
+                'assets/plugins/store/store.min.js',
+                'assets/plugins/angular/angular.min.js',
+                'assets/plugins/angular-route/angular-route.min.js',
+                'assets/plugins/angular-sanitize/angular-sanitize.min.js',
+                'assets/plugins/angular-translate/angular-translate.min.js',
+                'assets/plugins/angular-translate-loader-partial/angular-translate-loader-partial.min.js',
+                'assets/plugins/angular-cookies/angular-cookies.min.js',
+                'assets/plugins/angular-spinner/angular-spinner.min.js',
+                'assets/plugins/angular-animate/angular-animate.min.js',
+                'assets/plugins/jquery/dist/jquery.min.js',
+                'assets/plugins/bootstrap/dist/js/bootstrap.min.js',
+                'assets/plugins/ui-bootstrap-tpl/ui-bootstrap-tpl.min.js',
+                'assets/plugins/spinner/spin.min.js',
+            ],
+            'footer-js'    =>  [
+                'assets/frontend/:engine/app/app.js',
+                'assets/frontend/:engine/app/app.config.js',
+                'assets/frontend/:engine/app/common/directives/spinner.js',
+                'assets/frontend/:engine/app/common/services/splash.js',
+                'assets/frontend/:engine/app/common/controllers/menu.js',
+                'assets/frontend/:engine/app/common/controllers/language.js',
+                'assets/frontend/:engine/app/common/controllers/index.js',
+                'assets/frontend/:engine/app/authenticate/services/authentication.js',
+                'assets/frontend/:engine/app/authenticate/controllers/sign.js',
+                'assets/frontend/:engine/app/user/controllers/user.js',
+                'assets/frontend/:engine/js/menu.js',
+                'assets/frontend/:engine/js/move-top.js',
+                'assets/frontend/:engine/js/easing.js',
+                'assets/frontend/:engine/js/rules.js',
+            ],
+        ]
+    ]
 ];
 
 /**
