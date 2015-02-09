@@ -69,6 +69,13 @@ class ControllerBase extends Controller
     protected $engine;
 
     /**
+     * Engine to show
+     *
+     * @var \Models\Categories
+     */
+    protected $categories;
+
+    /**
      * Navigation trees
      *
      * @var array
@@ -91,12 +98,6 @@ class ControllerBase extends Controller
     public function initialize()
     {
 
-        $sms = new \SMSFactory\Sender();
-
-        var_dump($sms->call('BulkSMS')->setRecipient('380954916517')->debug(true)->send('Test Message'));
-        var_dump($sms->call('Clickatell')->setRecipient('380954916517')->debug(true)->send('Test Message'));
-
-        exit;
         // load configurations
         $this->config = $this->di->get('config');
 
@@ -118,8 +119,14 @@ class ControllerBase extends Controller
 
             $this->engine   =   $this->session->get('engine');
         }
+        // get related categories HasMany
+        //$this->categories   =   \Models\EnginesCategoriesRel::find("engine_id = '1'");
+        //foreach ($this->categories as $c) {
+        //    var_dump($c->category);
+        //}
 
         if($this->engine !== null) {
+
 
             // setup app title
             $this->tag->setTitle($this->engine->getName());

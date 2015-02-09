@@ -24,7 +24,7 @@
     "require": {
         "stanislav-web/phalcon-searcher": "dev-master",
         "stanislav-web/phalcon-uploader": "dev-master",
-        "stanislav-web/phalcon-sms-factory": "dev-master",
+        "stanislav-web/phalcon-sms-factory": "1.*",
         "stanislav-web/phalcon-ulogin": "1.0-stable",
         "stanislav-web/phalcon-translate": "1.1-stable",
         "swiftmailer/swiftmailer": "5.*",

@@ -19,13 +19,11 @@ class EnginesCategoriesRel extends \Phalcon\Mvc\Model
     const TABLE = '\Models\EnginesCategoriesRel';
 
     /**
-     *
      * @var integer
      */
     protected $engine_id;
 
     /**
-     *
      * @var string
      */
     protected $category_id;
@@ -36,10 +34,10 @@ class EnginesCategoriesRel extends \Phalcon\Mvc\Model
     public function initialize()
     {
         $this->belongsTo('engine_id', Engines::TABLE, 'id',
-            array('alias' => 'engineRel')
+            array('alias' => 'engine')
         );
         $this->belongsTo('category_id', Categories::TABLE, 'id',
-            array('alias' => 'categoryRel')
+            array('alias' => 'category')
         );
     }
 

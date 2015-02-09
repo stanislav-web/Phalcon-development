@@ -116,13 +116,8 @@ class Engines extends \Phalcon\Mvc\Model
 
         // create relations between Engines => EnginesCategoriesRel
 
-        $this->hasManyToMany("id",
-            EnginesCategoriesRel::TABLE,
-            "engine_id",
-            "category_id",
-            Categories::TABLE,
-            "id",
-            ['alias' => 'enginesRel']
+        $this->hasManyToMany("id", EnginesCategoriesRel::TABLE, "engine_id", "category_id", Categories::TABLE, "id",
+            ['alias' => 'engines']
         );
     }
 
