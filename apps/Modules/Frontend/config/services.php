@@ -87,3 +87,10 @@ $di->set('mailer', function () {
 
     return $service->mailer();
 });
+
+// Register SMS Service
+
+$di->set('SMS', function () use ($di) {
+
+    return new SMSFactory\Sender($di);
+});

@@ -91,12 +91,6 @@ class ControllerBase extends Controller
     public function initialize()
     {
 
-        $sms = new \SMSFactory\Sender();
-
-        var_dump($sms->call('BulkSMS')->setRecipient('380954916517')->debug(true)->send('Test Message'));
-        var_dump($sms->call('Clickatell')->setRecipient('380954916517')->debug(true)->send('Test Message'));
-
-        exit;
         // load configurations
         $this->config = $this->di->get('config');
 
