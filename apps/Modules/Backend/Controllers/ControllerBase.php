@@ -82,8 +82,6 @@ class ControllerBase extends Controller
 
         $auth = $this->session->get('auth');
 
-
-
         // if the user is logged in
 
         if ($auth === null) {
@@ -138,7 +136,6 @@ class ControllerBase extends Controller
      */
     public function initialize()
     {
-
         // load configurations
         $this->_config = $this->di->get('config');
         if ($this->_config->logger->enable === true) {

@@ -36,6 +36,7 @@ class DashboardController extends ControllerBase
     public function initialize()
     {
         parent::initialize();
+
         $this->tag->setTitle(self::NAME);
 
         // create cache key

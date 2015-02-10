@@ -42,8 +42,10 @@
                     <?php foreach ($items as $item): ?>
                         <tr>
                             <td><?= $item->getId(); ?></td>
-                            <td class="fa-question cursor-pointer"
-                                onclick="Common.alert('<?= $this->escaper->escapeJs($item->getContent()); ?>');"><?= $this->escaper->escapeHtml($item->getTitle()); ?></td>
+                            <td class="cursor-pointer"
+                                onclick="Common.alert('<?= $this->escaper->escapeJs($item->getContent()); ?>');">
+                                <span class="fa fa-question"><?= $this->escaper->escapeHtml($item->getTitle()); ?></span>
+                            </td>
                             <td><?= $item->getAlias(); ?></td>
                             <td><?= \Helpers\Format::getFormatTime($item->getDateCreate()); ?></td>
                             <td>

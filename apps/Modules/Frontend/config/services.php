@@ -88,7 +88,7 @@ $di->set('mailer', function () {
     return $service->mailer();
 });
 
-// Register SMS Service
+// SMS sender service
 
 $di->set('SMS', function () use ($di) {
 

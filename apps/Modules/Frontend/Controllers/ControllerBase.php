@@ -69,6 +69,13 @@ class ControllerBase extends Controller
     protected $engine;
 
     /**
+     * Engine to show
+     *
+     * @var \Models\Categories
+     */
+    protected $categories;
+
+    /**
      * Navigation trees
      *
      * @var array
@@ -112,8 +119,16 @@ class ControllerBase extends Controller
 
             $this->engine   =   $this->session->get('engine');
         }
+        // get related categories HasMany
+        $categories   =   \Models\EnginesCategoriesRel::find("engine_id = '1'");
 
+
+        foreach ($categories as $c => $v) {
+            var_dump($v);
+        }
+exit('sdsd');
         if($this->engine !== null) {
+
 
             // setup app title
             $this->tag->setTitle($this->engine->getName());

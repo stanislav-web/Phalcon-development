@@ -22,50 +22,47 @@ class Categories extends \Phalcon\Mvc\Model
      */
     const TABLE = '\Models\Categories';
 
-    protected
+    /**
+     * @var integer
+     */
+    protected $id;
 
-        /**
-         *
-         * @var integer
-         */
-        $id,
+    /**
+     * @var string
+     */
+    protected $title;
 
-        /**
-         * @var string
-         */
-        $title,
+    /**
+     * @var string
+     */
+    protected $description;
 
-        /**
-         * @var string
-         */
-        $description,
+    /**
+     * @var string
+     */
+    protected $alias;
 
-        /**
-         * @var string
-         */
-        $alias,
+    /**
+     * @var integer
+     */
+    protected $parent_id;
 
-        /**
-         * @var integer
-         */
-        $parent_id,
+    /**
+     * @var integer
+     */
+    protected $sort;
 
-        /**
-         * @var integer
-         */
-        $sort,
+    /**
+     * Datetime create
+     * @var datetime
+     */
+    protected $date_create;
 
-        /**
-         * Datetime create
-         * @var datetime
-         */
-        $date_create,
-
-        /**
-         * Timestamp add
-         * @var timestamp
-         */
-        $date_update;
+    /**
+     * Timestamp add
+     * @var timestamp
+     */
+    protected $date_update;
 
     /**
      * Initialize Model
@@ -77,13 +74,8 @@ class Categories extends \Phalcon\Mvc\Model
 
         // create relations between Categories => EnginesCategoriesRel
 
-        $this->hasManyToMany("id",
-            EnginesCategoriesRel::TABLE,
-            "category_id",
-            "engine_id",
-            Engines::TABLE,
-            "id",
-            ['alias' => 'categoriesRel']
+        $this->hasManyToMany("id", EnginesCategoriesRel::TABLE, "category_id", "engine_id", Engines::TABLE, "id",
+            ['alias' => 'engines']
         );
     }
 

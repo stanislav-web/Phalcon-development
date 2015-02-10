@@ -16,7 +16,6 @@ $di->setShared('session', function () {
         'host' => $this->_config->cache->memcached->host,        // mandatory
         'port' => $this->_config->cache->memcached->port,        // optional (standard: 11211)
         'lifetime' => $this->_config->cache->lifetime,                // optional (standard: 8600)
-        'prefix' => $this->_config->cache->prefix,                // optional (standard: [empty_string]), means memcache key is my-app_31231jkfsdfdsfds3
         'persistent' => false                                        // optional (standard: false)
     ]);
     $session->start();
