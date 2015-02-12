@@ -2,6 +2,7 @@
 return [
     'NOT_FOUND'         =>  'Nicht gefunden',
     'WRONG_DATA'        =>  'Kein gültiges kennwort',
+    'WRONG_USER_TOKEN'  =>  'Ihre token nicht gültig',
     'INVALID_TOKEN'     =>  'Das ist nicht wahr Token! Starten sie bitte',
     'INVALID_REQUEST'   =>  'Es ist nicht möglich, die Anforderung zu verarbeiten',
     'USER_EXIST'        =>  'Solch ein benutzer bereits angemeldet ist',

@@ -50,10 +50,11 @@ class Frontend implements ModuleDefinitionInterface
 
         $loader->registerNamespaces([
             'Modules\Frontend\Controllers' => $this->_config['application']['controllersFront'],
-            'Models' => $this->_config['application']['modelsDir'],
-            'Helpers' => $this->_config['application']['helpersDir'],
+            'Models'    => $this->_config['application']['modelsDir'],
+            'Services'  => $this->_config['application']['servicesDir'],
+            'Helpers'   => $this->_config['application']['helpersDir'],
             'Libraries' => $this->_config['application']['libraryDir'],
-            'Plugins' => $this->_config['application']['pluginsDir'],
+            'Plugins'   => $this->_config['application']['pluginsDir'],
         ]);
 
         $loader->register();

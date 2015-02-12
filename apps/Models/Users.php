@@ -119,9 +119,9 @@ class Users extends \Phalcon\Mvc\Model
      */
     public function validation()
     {
-        // get translate service
-
-        $t  =   $this->getDI()->getShared('translate');
+        // get language service
+        $language = $this->getDI()->getShared('LanguageService')->define();
+        $t  =   $this->getDI()->getShared('TranslateService', [$language])->path(APP_PATH.'/Modules/Frontend/languages/');
 
         $this->validate(new Uniqueness([
             "field"     => "login",

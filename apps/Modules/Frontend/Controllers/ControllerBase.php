@@ -1,8 +1,5 @@
 <?php
 namespace Modules\Frontend\Controllers;
-
-use Helpers\Http;
-use Models\Users;
 use Phalcon\Mvc\Controller;
 use Phalcon\Mvc\View;
 
@@ -25,22 +22,10 @@ class ControllerBase extends Controller
     protected $config;
 
     /**
-     * Auth user
-     * @var object Models\Users
+     * Auth user data
+     * @var array
      */
-    protected $user;
-
-    /**
-     * Auth user token
-     * @var string
-     */
-    protected $token    =   null;
-
-    /**
-     * Default language
-     * @var string
-     */
-    protected $language    =   'ru';
+    protected $user = [];
 
     /**
      * Translate service
@@ -97,66 +82,54 @@ class ControllerBase extends Controller
      */
     public function initialize()
     {
-
         // load configurations
         $this->config = $this->di->get('config');
+
+        // define language service
+        $this->language = $this->di->get('LanguageService')->define();
+
+        // define translate service
+        $this->translate = $this->di->get("TranslateService", [$this->language])
+            ->path(APP_PATH.'/Modules/Frontend/languages/');
 
         // load logger
         if($this->config->logger->enable === true) {
             $this->logger = $this->di->get('logger');
         }
 
-        // find current engine
-        if($this->session->has('engine') === false) {
+        // define engine
+        $this->engine = $this->di->get("EngineService", [$this->request->getHttpHost()])->define();
 
-            $this->engine   =   \Models\Engines::findFirst("host = '".$this->request->getHttpHost()."'");
+        // load user data
+        $security = $this->di->get("AuthService", [$this->config, $this->request]);
 
-            // collect to the session
-            $this->session->set('engine', $this->engine);
+        if(($this->isAuthenticated = $security->isAuth()) === true) {
+
+            // success! user is logged in the system
+            $this->user = $security->getUser(['id' => $this->session->get('user')['id']])->toArray();
+            $this->setReply(['user'      =>  $this->user]);
         }
-        else {
-            // get current engine
 
-            $this->engine   =   $this->session->get('engine');
-        }
-        // get related categories HasMany
-        $categories   =   \Models\EnginesCategoriesRel::find("engine_id = '1'");
+        // setup special view directory for this engine
+        $this->view->setViewsDir($this->config['application']['viewsFront'].strtolower($this->engine->getCode()))
+            ->setMainView('layout')
+            ->setPartialsDir('partials');
 
+        // setup navigation menu bars
+        $nav = $this->di->get('navigation');
 
-        foreach ($categories as $c => $v) {
-            var_dump($v);
-        }
-exit('sdsd');
-        if($this->engine !== null) {
+        // setup app title
+        $this->tag->setTitle($this->engine->getName());
 
+        // setup to all templates
+        $this->view->setVars([
+            'engine'    => $this->engine->toArray(),
+            'menu'      => $nav,
+            't'         => $this->translate
+        ]);
 
-            // setup app title
-            $this->tag->setTitle($this->engine->getName());
-
-            // load user data
-            $this->userVerify();
-
-            // load lang packages
-            $this->setLanguage();
-
-            // setup special view directory for this engine
-            $this->view->setViewsDir($this->config['application']['viewsFront'].strtolower($this->engine->getCode()))
-                ->setMainView('layout')
-                ->setPartialsDir('partials');
-
-            // setup navigation menu bars
-            $nav = $this->di->get('navigation');
-
-            // setup to all templates
-            $this->view->setVars([
-                'engine'    => $this->engine->toArray(),
-                'menu'      => $nav,
-                't'         => $this->translate
-            ]);
-
-            // add scripts & stylesheets
-            $this->addAssetsContent();
-        }
+        // add scripts & stylesheets
+        $this->addAssetsContent();
     }
 
     /**
@@ -234,78 +207,5 @@ exit('sdsd');
         $this->response->setContentType($content, 'UTF-8');
 
         return $this->response->send();
-    }
-
-    /**
-     * Check user if have any access types
-     *
-     * @access protected
-     * @return null
-     */
-    protected function userVerify() {
-
-        if($this->request->isGet()) {
-
-            // get access token from header
-            $xToken = $this->request->getHeader('X_TOKEN');
-
-            if(empty($xToken) === false) {
-                // need to decrypt token from header
-                $this->token = $this->crypt->decryptBase64($xToken, $this->config->cookieCryptKey);
-
-            }
-            // get token from session
-            else if($this->session->has('token') === true) {
-                $this->token =   $this->session->get('token');
-            }
-            // get token from cookies
-            else if($this->cookies->has('token') === true) {
-                $this->token =   $this->cookies->get('token')->getValue();
-            }
-
-            if(is_null($this->token) === false) {
-                // token exist, check user by this token
-
-                $user = (new Users())->findFirst([
-                    "token = ?0",
-                    "column" => 'id, password, ua',
-                    "bind" => [$this->token],
-                ]);
-
-                if($user !== false) {
-
-                    // if user were founded
-                    $this->user = $user->toArray();
-
-                    $token = $this->user['login'] . $this->user['salt'] . $this->request->getUserAgent();
-                    if($this->token === md5($token)) {
-
-                        // success! user is logged in the system
-                        $this->setReply([
-                            'user'      =>  $this->user,
-                        ]);
-
-                        $this->isAuthenticated  =   true;
-                    }
-                }            
-            }
-        }
-    }
-
-    /**
-     * Set choose or preferred language
-     *
-     * @access private
-     * @return null
-     */
-    private function setLanguage() {
-
-        // use helper to get preferred or selected language
-        $this->language = Http::getLanguage('NG_TRANSLATE_LANG_KEY');
-
-        // set translate path
-        $this->translate = $this->di->get('translate');
-        $this->translate->setTranslatePath(APP_PATH.'/Modules/Frontend/languages/')
-            ->setLanguage($this->language)->setDefault($this->config->language);
     }
 }

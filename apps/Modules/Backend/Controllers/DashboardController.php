@@ -53,6 +53,7 @@ class DashboardController extends ControllerBase
         //{
         // add crumb to chain
         $this->_breadcrumbs->add(self::NAME);
+
         //}
         //$this->view->cache(['key' => $this->cacheKey]);
     }

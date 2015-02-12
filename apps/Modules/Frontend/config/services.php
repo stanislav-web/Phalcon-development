@@ -69,16 +69,6 @@ $di->set('crypt', function () {
 
 });
 
-// Default component to crypt cookies values
-
-$di->setShared('translate', function () {
-
-    $translate = new \Translate\Translator();
-
-    return $translate;
-
-});
-
 // Register Mailer Service
 
 $di->set('mailer', function () {
@@ -94,3 +84,19 @@ $di->set('SMS', function () use ($di) {
 
     return new SMSFactory\Sender($di);
 });
+
+$di->set('EngineService', function() use ($di) {
+
+});
+
+// Define language service
+$di->setShared('LanguageService', 'Services\LanguageService');
+
+// Define translate service
+$di->setShared('TranslateService','Services\TranslateService');
+
+// Define engine service
+$di->setShared('EngineService','Services\EngineService');
+
+// Define auth service
+$di->setShared('AuthService','Services\AuthService');

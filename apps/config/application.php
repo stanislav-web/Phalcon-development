@@ -12,6 +12,7 @@ $config = [
         'viewsFront' => APP_PATH . '/Modules/Frontend/views/',
         'viewsBack' => APP_PATH . '/Modules/Backend/views/',
         'modelsDir' => APP_PATH . '/Models/',
+        'servicesDir' => APP_PATH . '/Services/',
         'helpersDir' => APP_PATH . '/Helpers/',
         'libraryDir' => APP_PATH . '/Libraries/',
         'pluginsDir' => APP_PATH . '/Plugins/',

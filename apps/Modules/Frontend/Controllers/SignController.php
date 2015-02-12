@@ -32,25 +32,14 @@ class SignController extends ControllerBase
     {
         parent::initialize();
 
-        // assign transalte service
+        // assign translate service
         $this->translate->assign('sign');
 
         if($this->request->isAjax() === true) {
 
-            if ($this->request->isPost() === true) {
+            // enable access to data via AJAX POST in this Controller
+            $this->access = true;
 
-                // enable access to data via AJAX POST in this Controller
-                $this->access = true;
-            }
-            else
-            {
-                // if the request is different from POST
-
-                if ($this->config->logger->enable)
-                    $this->logger->error('Could not resolve request ' . $this->request->getClientAddress() . '. Wrong auth method');
-
-                $this->setReply(['message' => $this->translate->translate('INVALID_REQUEST')]);
-            }
         }
         else {
 
@@ -70,87 +59,45 @@ class SignController extends ControllerBase
 
         if($this->access === true) {
 
-            if($this->security->checkToken()) {
+            if ($this->security->checkToken()) {
 
-                $login = $this->request->getPost('login', 'trim');
-                $password = $this->request->getPost('password', 'trim');
+                // get authenticated service
+                $AuthService = $this->di->get("AuthService", [$this->config, $this->request]);
 
-                $user = (new Users())->findFirst([
-                    "login = ?0",
-                    "bind" => [$login],
-                ]);
+                // verify user credentials
+                $user = $AuthService->login(
+                    $this->request->getPost('login'),
+                    $this->request->getPost('password'),
+                    $this->security);
 
-                if(empty($user) === false) {
+                if ($AuthService->isAuth() === true) {
 
-                    if($this->security->checkHash($password, $user->getPassword())) {
+                    // authenticate success
+                    $this->isAuthenticated = true;
 
-                        // user founded, password checked. Set auth token
-                        $this->token = md5($user->getLogin() . $this->security->getSessionToken() . $this->request->getUserAgent());
-
-                        // setup user cookies and send to client for update
-                        $this->cookies->set('token',    $this->token, time() + ($this->config->rememberKeep), '/', $this->engine->getHost(), false, false);
-                        $this->session->set('token',    $this->token);
-                        $this->session->set('user',     $user->toArray());
-
-                        // update auth params
-                        $user->setSalt($this->security->getSessionToken())
-                            ->setToken($this->token)
-                            ->setIp($this->request->getClientAddress())
-                            ->setUa($this->request->getUserAgent())
-                            ->save();
-
-                        if ($this->config->logger->enable) {
-                            $this->logger->log('Authenticate success from ' . $this->request->getClientAddress());
-                        }
-
-                        $this->isAuthenticated = true;
-
-                        // send reply to client
-                        $this->setReply([
-                            'user'  => [
-                                'id'        =>  $user->getId(),
-                                'login'     =>  $user->getLogin(),
-                                'name'      =>  $user->getName(),
-                                'surname'   =>  $user->getSurname(),
-                                'state'     =>  $user->getState(),
-                                'rating'    =>  $user->getRating(),
-                                'date_registration' =>  $user->getDateRegistration(),
-                                'date_lastvisit'    =>  $user->getDateLastvisit()
-                            ],
-                            'success'   => true,
-                        ]);
+                    if ($this->config->logger->enable) {
+                        $this->logger->log('Authenticate success from ' . $this->request->getClientAddress());
                     }
-                    else
-                    {
-                        // wrong authenticate data (password or login)
-                        if($this->config->logger->enable) {
-                            $this->logger->error('Authenticate failed from ' . $this->request->getClientAddress() . '. Wrong authenticate data');
-                        }
 
-                        $this->setReply(['message'   => $this->translate->translate('WRONG_DATA')]);
+                    // send reply to client
+                    $this->setReply(['user' => $user->toArray(),'success' => true]);
+
+                } else {
+
+                    // authenticate failed
+                    foreach ($AuthService->getErrors() as $error) {
+                        $this->setReply(['message' => $this->translate->translate($error)]);
                     }
-                }
-                else
-                {
-
-                    if($this->config->logger->enable)
-                        $this->logger->error('Authenticate failed from ' . $this->request->getClientAddress() . '. The user ' . $login . ' not found');
-
-                    // user does not exist in database
-                    $this->setReply(['message' => $this->translate->translate('NOT_FOUND')]);
+                    if ($this->config->logger->enable) {
+                        $this->logger->error('Authenticate failed from ' . $this->request->getClientAddress());
+                    }
                 }
             }
-            else
-            {
-                // If CSRF request was broken
-
-                if ($this->config->logger->enable)
-                    $this->logger->error('Authenticate failed from ' . $this->request->getClientAddress() . '. CSRF attack');
-
+            else {
+                // security token invalid
                 $this->setReply(['message' => $this->translate->translate('INVALID_TOKEN')]);
             }
         }
-
         return $this->getReply();
     }
 

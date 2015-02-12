@@ -2,6 +2,7 @@
 return [
     'NOT_FOUND'         =>  'The user not found',
     'WRONG_DATA'        =>  'Wrong authenticate data',
+    'WRONG_USER_TOKEN'  =>  'Your token invalid',
     'INVALID_TOKEN'     =>  'Invalid access token! Reload please',
     'INVALID_REQUEST'   =>  'Could not resolve request',
     'USER_EXIST'        =>  'This user already taken',
