@@ -3,38 +3,32 @@
 /**
  * @define Document root
  * @define Application path
- * @define Staging development
+ * @define Staging development environment
  */
 defined('DOCUMENT_ROOT') || define('DOCUMENT_ROOT', $_SERVER["DOCUMENT_ROOT"]);
-defined('APP_PATH') || define('APP_PATH', DOCUMENT_ROOT . '/../apps');
-
+defined('APP_PATH') || define('APP_PATH', DOCUMENT_ROOT . '/../Application');
 defined('APPLICATION_ENV') ||
 define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production'));
 
-// Require configurations
+// Require global configurations
 require_once APP_PATH . '/config/application.php';
 
 // Require composite libraries
 require_once DOCUMENT_ROOT . ' /../vendor/autoload.php';
 
 // Require routes
-require APP_PATH . '/config/routes.php';
+require_once APP_PATH . '/config/routes.php';
 
-// Create factory container
-$di = new Phalcon\DI\FactoryDefault();
-
-// Set routes
-$di->set('router', $router);
-
-// Set global configuration
-$di->set('config', function () use ($config) {
-    return (new \Phalcon\Config($config));
-});
+// Require global services
+require_once APP_PATH . '/config/services.php';
 
 try {
 
+
     $application = new Phalcon\Mvc\Application($di);
 
+    var_dump($di->get('config'));
+    exit(APPLICATION_ENV);
     // Require modules
     require APP_PATH . '/config/modules.php';
 
