@@ -116,6 +116,9 @@ class Users extends \Phalcon\Mvc\Model
         // skip attributes before every IN >
         $this->skipAttributesOnCreate(['date_registration', 'date_lastvisit', 'state', 'rating', 'surname']);
         $this->skipAttributesOnUpdate(['date_lastvisit']);
+
+        var_dump($this->getDI()->get('LanguageService')); exit;
+
     }
 
 
@@ -126,6 +129,7 @@ class Users extends \Phalcon\Mvc\Model
      */
     public function validation()
     {
+
         // get language service
         $language = $this->getDI()->getShared('LanguageService')->define();
         $t  =   $this->getDI()->getShared('TranslateService', [$language])->path(APP_PATH.'/Modules/Frontend/languages/');

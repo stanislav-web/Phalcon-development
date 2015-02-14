@@ -18,7 +18,12 @@ class ErrorController extends \Phalcon\Mvc\Controller
     /**
      * @var \Phalcon\Di > Config
      */
-    public $config;
+    private $config;
+
+    /**
+     * @var \Phalcon\Di > ErrorHttpService
+     */
+    private $errorHttpService;
 
     /**
      * initialize() Initial all global objects
@@ -28,6 +33,7 @@ class ErrorController extends \Phalcon\Mvc\Controller
     public function initialize() {
 
         $this->config = $this->di->get('config');
+        $this->errorHttpService = $this->di->get('ErrorHttpService');
 
         $this->view->setViewsDir($this->config['application']['viewsFront']);
 
@@ -37,14 +43,14 @@ class ErrorController extends \Phalcon\Mvc\Controller
      */
     public function notFoundAction()
     {
-        // The response is already populated with a 404 Not Found header.
-        $this->response->setStatusCode(404, "Not Found");
-
         $this->tag->setTitle("Not Found");
 
-        if ($this->di->has('logger') === true) {
-            $this->di->get('logger')->error('404 Page detected: ' .$this->request->getServer('REQUEST_URI').' from IP: '.$this->request->getClientAddress());
-        }
+
+        // The response is already populated with a 404 Not Found header.
+        $this->errorHttpService->setStatus(404, "Not Found");
+        $this->errorHttpService->log(
+            '404 Page detected: ' .$this->request->getServer('REQUEST_URI').' from IP: '.$this->request->getClientAddress()
+        );
 
         // return error as 404
 
@@ -54,15 +60,14 @@ class ErrorController extends \Phalcon\Mvc\Controller
                 View::LEVEL_LAYOUT => true,
                 View::LEVEL_MAIN_LAYOUT => true,
             ]);
-
-            $this->response->setJsonContent([
+            $this->errorHttpService->setJsonContent([
                 'content'   => $this->view->getRender('', 'error/notFound', []),
             ]);
-            $this->response->setStatusCode(200, "OK");
 
-            $this->response->setContentType('application/json', 'UTF-8');
+            $this->errorHttpService->setStatusCode(200, "OK");
+            $this->errorHttpService->setContentType('application/json', 'UTF-8');
 
-            return $this->response->send();
+            return $this->errorHttpService->send();
         }
         else {
 
@@ -78,12 +83,11 @@ class ErrorController extends \Phalcon\Mvc\Controller
     public function uncaughtExceptionAction()
     {
         // You need to specify the response header, as it's not automatically set here.
-        $this->response->setStatusCode(500, 'Internal Server Error');
-        $this->tag->setTitle("Internal Server Error");
 
-        if ($this->di->has('logger') === true) {
-            $this->di->get('logger')->error('500 Internal Server Error detected: ' .$this->request->getServer('REQUEST_URI').' from IP: '.$this->request->getClientAddress());
-        }
+        $this->errorHttpService->setStatus(500, 'Internal Server Error');
+        $this->errorHttpService->log('500 Internal Server Error detected: ' .$this->request->getServer('REQUEST_URI').' from IP: '.$this->request->getClientAddress());
+
+        $this->tag->setTitle("Internal Server Error");
 
         // return error as 500
 
@@ -94,14 +98,13 @@ class ErrorController extends \Phalcon\Mvc\Controller
                 View::LEVEL_MAIN_LAYOUT => true,
             ]);
 
-            $this->response->setJsonContent([
+            $this->errorHttpService->setJsonContent([
                 'content'   => $this->view->getRender('', 'error/uncaughtException', []),
             ]);
-            $this->response->setStatusCode(200, "OK");
+            $this->errorHttpService->setStatusCode(200, "OK");
+            $this->errorHttpService->setContentType('application/json', 'UTF-8');
 
-            $this->response->setContentType('application/json', 'UTF-8');
-
-            return $this->response->send();
+            return $this->errorHttpService->send();
         }
         else {
 

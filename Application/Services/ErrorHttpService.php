@@ -42,8 +42,46 @@ class ErrorHttpService implements InjectionAwareInterface {
         return $this->di;
     }
 
-    public function register(array $credentials) {
+    /**
+     * Get server request
+     *
+     * @return \Phalcon\Http\Request
+     */
+    public function getRequest()
+    {
+        return $this->getDi()->get('request');
+    }
 
+    /**
+     * Get server response
+     *
+     * @return \Phalcon\Http\Response
+     */
+    public function getResponse()
+    {
+        return $this->getDi()->get('response');
+    }
 
+    /**
+     * Set status and message
+     *
+     * @param int $code response code
+     * @param string $message response message
+     * @return ErrorHttpService
+     */
+    public function setStatus($code, $message = '') {
+        $this->getResponse()->setStatusCode($code, $message);
+        return $this;
+    }
+
+    /**
+     * Exception logger
+     *
+     * @param string $message
+     */
+    public function log($message) {
+        if ($this->getDi()->has('logger') === true) {
+            $this->getDi()->get('logger')->error($message);
+        }
     }
 }

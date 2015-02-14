@@ -22,40 +22,6 @@ $di->set('url', function () {
 
 });
 
-// Component Session. Starting a Session
-
-$di->setShared('session', function () {
-    $session = new \Phalcon\Session\Adapter\Files([
-        'host' => $this->_config->cache->memcached->host,        // mandatory
-        'port' => $this->_config->cache->memcached->port,        // optional (standard: 11211)
-        'lifetime' => $this->_config->cache->lifetime,           // optional (standard: 8600)
-        'prefix' => $this->_config->cache->prefix,               // optional (standard: [empty_string]), means memcache key is my-app_31231jkfsdfdsfds3
-        'persistent' => false                                    // optional (standard: false)
-    ]);
-    $session->start();
-    return $session;
-});
-
-$di->setShared('cookies', function () {
-
-    $cookies = new \Phalcon\Http\Response\Cookies();
-    $cookies->useEncryption(true);
-    return $cookies;
-
-});
-
-// Default component to crypt cookies values
-
-$di->set('crypt', function () {
-
-    $crypt = new \Phalcon\Crypt();
-    $crypt->setKey($this->_config->cookieCryptKey);
-    $crypt->setPadding(\Phalcon\Crypt::PADDING_PKCS7);
-
-    return $crypt;
-
-});
-
 // Register Mailer Service
 
 $di->set('mailer', function () {

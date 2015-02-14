@@ -10,18 +10,6 @@ $di->set('url', function () {
 
 });
 
-// Component Session. Starting a Session
-$di->setShared('session', function () {
-    $session = new \Phalcon\Session\Adapter\Files([
-        'host' => $this->_config->cache->memcached->host,        // mandatory
-        'port' => $this->_config->cache->memcached->port,        // optional (standard: 11211)
-        'lifetime' => $this->_config->cache->lifetime,                // optional (standard: 8600)
-        'persistent' => false                                        // optional (standard: false)
-    ]);
-    $session->start();
-    return $session;
-});
-
 // Component flashSession (Session keep flash messages).
 $di->setShared('flash', function () {
 
@@ -31,24 +19,6 @@ $di->setShared('flash', function () {
         'notice' => 'alert alert-info',
     ]);
     return $flash;
-
-});
-
-// Component cookies
-$di->setShared('cookies', function () {
-
-    $cookies = new \Phalcon\Http\Response\Cookies();
-    $cookies->useEncryption(true);
-    return $cookies;
-
-});
-
-// Default component to crypt cookies values
-$di->set('crypt', function () {
-
-    $crypt = new \Phalcon\Crypt();
-    $crypt->setKey($this->_config->cookieCryptKey);
-    return $crypt;
 
 });
 

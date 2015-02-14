@@ -49,4 +49,4 @@ crashlytics-build.properties
 composer.lock
 logs
 vendor/
-Application/config
+config

@@ -20,6 +20,11 @@
             "role": "Developer"
         }
     ],
+    "autoload": {
+      "psr-4": {
+        "Application\\": "Application/"
+      }
+    },
     "minimum-stability": "dev",
     "require": {
         "php": ">=5.4",

@@ -11,23 +11,23 @@ defined('APPLICATION_ENV') ||
 define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production'));
 
 // Require global configurations
-require_once APP_PATH . '/config/application.php';
+require_once DOCUMENT_ROOT . '/../config/application.php';
 
 // Require composite libraries
 require_once DOCUMENT_ROOT . ' /../vendor/autoload.php';
 
 // Require routes
-require_once APP_PATH . '/config/routes.php';
+require_once DOCUMENT_ROOT . '/../config/routes.php';
 
 // Require global services
-require_once APP_PATH . '/config/services.php';
+require_once DOCUMENT_ROOT . '/../config/services.php';
 
 try {
 
     $application = new Phalcon\Mvc\Application($di);
 
     // Require modules
-    require APP_PATH . '/config/modules.php';
+    require_once DOCUMENT_ROOT . '/../config/modules.php';
 
     if (APPLICATION_ENV === 'development') {
         // require whoops exception handler

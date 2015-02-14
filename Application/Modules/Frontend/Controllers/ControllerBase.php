@@ -97,7 +97,7 @@ class ControllerBase extends Controller
             ->path(APP_PATH.'/Modules/Frontend/languages/');
 
         // load logger
-        if($this->config->logger->enable === true) {
+        if($this->di->has('logger')) {
             $this->logger = $this->di->get('logger');
         }
 

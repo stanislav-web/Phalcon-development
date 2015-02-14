@@ -17,7 +17,7 @@ use Phalcon\Mvc\View;
  * @copyright Stanilav WEB
  * @filesource /Application/Modules/Frontend.php
  */
-class Frontend implements ModuleDefinitionInterface
+class Frontend
 {
     /**
      * Current module name
@@ -42,23 +42,11 @@ class Frontend implements ModuleDefinitionInterface
     /**
      * Register the autoloader specific to the current module
      * @access public
-     * @return \Phalcon\Loader\Loader()
+     * @return \Phalcon\Loader
      */
     public function registerAutoloaders()
     {
 
-        $loader = new Loader();
-
-        $loader->registerNamespaces([
-            'Application\Modules\Frontend\Controllers' => $this->_config['application']['controllersFront'],
-            'Application\Models'    => $this->_config['application']['modelsDir'],
-            'Application\Services'  => $this->_config['application']['servicesDir'],
-            'Application\Helpers'   => $this->_config['application']['helpersDir'],
-            'Application\Libraries' => $this->_config['application']['libraryDir'],
-            'Application\Plugins'   => $this->_config['application']['pluginsDir'],
-        ]);
-
-        $loader->register();
     }
 
     /**
