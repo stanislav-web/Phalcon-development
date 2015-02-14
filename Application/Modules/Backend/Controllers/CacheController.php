@@ -1,7 +1,7 @@
 <?php
 namespace Application\Modules\Backend\Controllers;
 
-use Helpers;
+use Application\Helpers;
 use Phalcon\Mvc\View;
 
 /**
@@ -23,12 +23,11 @@ class CacheController extends ControllerBase
      */
     const NAME = 'Cache';
 
-    private
-        /**
-         * Available cache engines to review
-         * @var array
-         */
-        $_engines = ['apc' => true, 'memcache' => true, 'filesystem' => true, 'mysql' => true];
+    /**
+     * Available cache engines to review
+     * @var array
+     */
+    private $_engines = ['apc' => true, 'memcache' => true, 'filesystem' => true, 'mysql' => true];
 
     /**
      * initialize() Initialize constructor

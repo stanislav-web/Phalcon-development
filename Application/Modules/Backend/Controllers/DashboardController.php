@@ -17,6 +17,7 @@ class DashboardController extends ControllerBase
 {
     /**
      * Controller name
+     *
      * @use for another Controllers to set views , paths
      * @const
      */
@@ -31,6 +32,7 @@ class DashboardController extends ControllerBase
 
     /**
      * initialize() Initialize constructor
+     *
      * @access public
      * @return null
      */

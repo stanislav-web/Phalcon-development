@@ -15,7 +15,6 @@ use Phalcon\Mvc\View;
  */
 class ErrorController extends \Phalcon\Mvc\Controller
 {
-
     /**
      * @var \Phalcon\Di > Config
      */
@@ -38,13 +37,12 @@ class ErrorController extends \Phalcon\Mvc\Controller
      */
     public function notFoundAction()
     {
-
         // The response is already populated with a 404 Not Found header.
         $this->response->setStatusCode(404, "Not Found");
 
         $this->tag->setTitle("Not Found");
 
-        if ($this->config->logger->enable === true) {
+        if ($this->di->has('logger') === true) {
             $this->di->get('logger')->error('404 Page detected: ' .$this->request->getServer('REQUEST_URI').' from IP: '.$this->request->getClientAddress());
         }
 
@@ -83,7 +81,7 @@ class ErrorController extends \Phalcon\Mvc\Controller
         $this->response->setStatusCode(500, 'Internal Server Error');
         $this->tag->setTitle("Internal Server Error");
 
-        if ($this->config->logger->enable === true) {
+        if ($this->di->has('logger') === true) {
             $this->di->get('logger')->error('500 Internal Server Error detected: ' .$this->request->getServer('REQUEST_URI').' from IP: '.$this->request->getClientAddress());
         }
 

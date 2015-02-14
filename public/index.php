@@ -38,5 +38,12 @@ try {
     echo $application->handle()->getContent();
 
 } catch (\Exception $e) {
-    echo $e->getMessage();
+
+    if (APPLICATION_ENV === 'production') {
+        $di->get('logger')->critical($e->getMessage().' File: '.$e->getFile().' Line: '.$e->getLine());
+    }
+    else {
+        echo $e->getMessage();
+        var_dump($e->getTrace());
+    }
 }

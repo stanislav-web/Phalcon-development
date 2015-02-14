@@ -9,40 +9,41 @@ use Phalcon\Mvc\Controller;
  *
  * @package    Application\Modules\Backend
  * @subpackage    Controllers
- * @since PHP >=5.4
+ * @since PHP > = 5.4
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @filesource /Application/Modules/Backend/Controllers/AuthController.php
  */
 class AuthController extends Controller
 {
-    protected
+    /**
+     * Config service
+     *
+     * @var \Phalcon\Config $config
+     */
+    private $config;
 
-        /**
-         * Config service
-         * @var object Phalcon\Config
-         */
-        $_config = false,
-
-        /**
-         * Logger service
-         * @var object Phalcon\Logger\Adapter\File
-         */
-        $_logger = false;
+    /**
+     * Logger service
+     *
+     * @var  \Phalcon\Logger $logger
+     */
+    private $logger;
 
     /**
      * initialize() Initial all global objects
+     *
      * @access public
      * @return null
      */
     public function initialize()
     {
         // load configures
-        $this->_config = $this->di->get('config');
+        $this->config = $this->di->get('config');
 
-        if ($this->_config->logger->enable)
-            $this->_logger = $this->di->get('logger');
-
+        if ($this->di->has('logger')) {
+            $this->logger = $this->di->get('logger');
+        }
         // set default page title
         $this->tag->setTitle('Authenticate');
     }
@@ -73,10 +74,10 @@ class AuthController extends Controller
                     {
                         // Check if the "remember me" was selected
                         if (isset($remember)) {
-                            $this->cookies->set('remember', $user->getId(), time() + $this->_config->rememberKeep);
+                            $this->cookies->set('remember', $user->getId(), time() + $this->config->rememberKeep);
                             $this->cookies->set('rememberToken',
                                 md5($user->getPassword() . $user->getToken()),
-                                time() + $this->_config->rememberKeep);
+                                time() + $this->config->rememberKeep);
                         }
 
                         // set authentication for logged user
@@ -90,8 +91,8 @@ class AuthController extends Controller
 
                         $referrer = parse_url($this->request->getHTTPReferer(), PHP_URL_PATH);
 
-                        if ($this->_config->logger->enable) {
-                            $this->_logger->log('Authenticate success from ' . $this->request->getClientAddress());
+                        if ($this->config->logger->enable) {
+                            $this->logger->log('Authenticate success from ' . $this->request->getClientAddress());
                         }
 
                         // full http redirect to the referrer page
@@ -105,9 +106,7 @@ class AuthController extends Controller
                         // Wrong authenticate data (password or login)
                         $this->flashSession->error("Wrong authenticate data");
 
-                        if ($this->_config->logger->enable) {
-                            $this->_logger->error('Authenticate failed from ' . $this->request->getClientAddress() . '. Wrong authenticate data');
-                        }
+                        $this->logger->warning('Authenticate failed from ' . $this->request->getClientAddress() . '. Wrong authenticate data');
 
                         $this->response->redirect('dashboard/auth');
                         $this->view->disable();
@@ -116,9 +115,7 @@ class AuthController extends Controller
                     // user does not exist in database
                     $this->flashSession->error("The user not found");
 
-
-                    if ($this->_config->logger->enable)
-                        $this->_logger->error('Authenticate failed from ' . $this->request->getClientAddress() . '. The user ' . $login . ' not found');
+                    $this->logger->warning('Authenticate failed from ' . $this->request->getClientAddress() . '. The user ' . $login . ' not found');
 
                     $this->response->redirect('dashboard/auth');
                     $this->view->disable();
@@ -127,11 +124,8 @@ class AuthController extends Controller
             else
             {
                 // CSRF protection
-
-                if ($this->_config->logger->enable)
-                    $this->_logger->error('Authenticate failed from ' . $this->request->getClientAddress() . '. CSRF attack');
-
                 $this->flashSession->error("Invalid access token");
+                $this->logger->warning('Authenticate failed from ' . $this->request->getClientAddress() . '. CSRF attack');
                 $this->response->redirect('dashboard/auth');
                 $this->view->disable();
             }
@@ -148,10 +142,10 @@ class AuthController extends Controller
         $user = $this->session->get('auth');
 
         if (!empty($user)) {
-            $this->cookies->set('remember', $user->getId(), time() - $this->_config->rememberKeep);
+            $this->cookies->set('remember', $user->getId(), time() - $this->config->rememberKeep);
             $this->cookies->set('rememberToken',
                 md5($user->getPassword() . $user->getToken()),
-                time() - $this->_config->rememberKeep);
+                time() - $this->config->rememberKeep);
 
             // destroy session auth
             $this->session->destroy();

@@ -12,8 +12,12 @@ namespace Application\Helpers;
  * @copyright Stanilav WEB
  * @filesource /Application/Helpers/Format.php
  */
-class Format
+class Format extends \Phalcon\Tag
 {
+
+    public function test() {
+        echo 'sssss';
+    }
     /**
      * Format byte code to human understand
      *
@@ -21,7 +25,7 @@ class Format
      * @param int $precision after comma numbers
      * @return string
      */
-    public static function formatBytes($bytes, $precision = 2)
+    public function formatBytes($bytes, $precision = 2)
     {
         $size = array('bytes', 'kb', 'mb', 'gb', 'tb', 'pb', 'eb', 'zb', 'yb');
         $factor = floor((strlen($bytes) - 1) / 3);

@@ -72,12 +72,6 @@ $di->set('SMS', function () use ($di) {
     return new SMSFactory\Sender($di);
 });
 
-// Define language service
-$di->setShared('LanguageService', 'Application\Services\LanguageService');
-
-// Define translate service
-$di->setShared('TranslateService','Application\Services\TranslateService');
-
 // Define engine service
 $di->setShared('EngineService','Application\Services\EngineService');
 

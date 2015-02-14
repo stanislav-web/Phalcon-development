@@ -36,7 +36,7 @@ class ControllerBase extends Controller
      * Logger service
      * @var \Application\Plugins\Breadcrumbs\Breadcrumbs $breadcrumbs
      */
-    protected $breadcrumbs = false;
+    protected $breadcrumbs;
 
     /**
      * From `users` table auth data
@@ -53,6 +53,7 @@ class ControllerBase extends Controller
      */
     public function beforeExecuteRoute($dispatcher)
     {
+
         //auth token
         if ($this->cookies->has('remember')) {
 
@@ -87,10 +88,9 @@ class ControllerBase extends Controller
                 'controller' => 'auth',
                 'action' => 'index',
             ]);
-
         }
 
-        $this->_user = $auth;
+        $this->user = $auth;
     }
 
     /**
@@ -126,19 +126,20 @@ class ControllerBase extends Controller
 
     /**
      * initialize() Initial all global objects
+     *
      * @access public
      * @return null
      */
     public function initialize()
     {
         // load configurations
-        $this->_config = $this->di->get('config');
-        if ($this->_config->logger->enable === true) {
-            $this->_logger = $this->di->get('logger');
+        $this->config = $this->di->get('config');
+        if ($this->di->has('logger')) {
+            $this->logger = $this->di->get('logger');
         }
 
         // setup breadcrumbs
-        $this->_breadcrumbs = $this->di->get('breadcrumbs');
+        $this->breadcrumbs = $this->di->get('breadcrumbs');
 
         // setup navigation
 
@@ -159,8 +160,8 @@ class ControllerBase extends Controller
 
         // global view variables
         $this->view->setVars([
-            'user' => $this->_user,
-            'breadcrumbs' => $this->_breadcrumbs,
+            'user' => $this->user,
+            'breadcrumbs' => $this->breadcrumbs,
             'navigation' => $navigation,
             'search' => new Forms\SearcherForm()
         ]);
