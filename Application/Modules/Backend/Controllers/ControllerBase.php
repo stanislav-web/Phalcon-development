@@ -1,15 +1,16 @@
 <?php
-namespace Modules\Backend\Controllers;
+namespace Application\Modules\Backend\Controllers;
 
-use Models\Users;
-use Modules\Backend\Forms;
+use Application\Models\Users;
+use Application\Modules\Backend\Forms;
 use Phalcon\Mvc\Controller;
 use Phalcon\Mvc\View;
 
 /**
  * Class ControllerBase
- * @package    Backend
- * @subpackage    Modules\Backend\Controllers
+ *
+ * @package    Application\Modules\Backend
+ * @subpackage    Controllers
  * @since PHP >=5.4
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
@@ -17,38 +18,32 @@ use Phalcon\Mvc\View;
  */
 class ControllerBase extends Controller
 {
+    /**
+     * Config service
+     *
+     * @var \Phalcon\Config $config
+     */
+    protected $config;
 
-    protected
+    /**
+     * Logger service
+     *
+     * @var \Phalcon\Logger\Adapter\File $logger
+     */
+    protected $logger;
 
-        /**
-         * Config service
-         * @var object Phalcon\Config
-         */
-        $_config = false,
+    /**
+     * Logger service
+     * @var \Application\Plugins\Breadcrumbs\Breadcrumbs $breadcrumbs
+     */
+    protected $breadcrumbs = false;
 
-        /**
-         * Logger service
-         * @var object Phalcon\Logger\Adapter\File
-         */
-        $_logger = false,
-
-        /**
-         * Logger service
-         * @var object Libraries\Breadcrumbs
-         */
-        $_breadcrumbs = false,
-
-        /**
-         * Global records limit per page
-         * @var int
-         */
-        $_limitRecords = 10,
-
-        /**
-         * From `users` table auth data
-         * @var array
-         */
-        $_user = [];
+    /**
+     * From `users` table auth data
+     *
+     * @var array
+     */
+    protected $user = [];
 
     /**
      * beforeExecuteRoute($dispatcher) before init route

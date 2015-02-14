@@ -24,16 +24,13 @@ require_once APP_PATH . '/config/services.php';
 
 try {
 
-
     $application = new Phalcon\Mvc\Application($di);
 
-    var_dump($di->get('config'));
-    exit(APPLICATION_ENV);
     // Require modules
     require APP_PATH . '/config/modules.php';
 
     if (APPLICATION_ENV === 'development') {
-        // require whoops
+        // require whoops exception handler
         new Whoops\Provider\Phalcon\WhoopsServiceProvider($di);
     }
 

@@ -1,12 +1,13 @@
 <?php
-namespace Modules\Backend\Controllers;
+namespace Application\Modules\Backend\Controllers;
 
 use Phalcon\Mvc\View;
 
 /**
  * Class SearchController
- * @package    Backend
- * @subpackage    Modules\Backend\Controllers
+ *
+ * @package    Application\Modules\Backend
+ * @subpackage    Controllers
  * @since PHP >=5.4
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
