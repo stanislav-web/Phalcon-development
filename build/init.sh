@@ -16,5 +16,4 @@ sudo service memcached restart
 cd ../
 git pull origin $GIT_BRANCH
 bower update
-composer self-update
 composer install -o
