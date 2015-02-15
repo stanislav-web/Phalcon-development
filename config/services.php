@@ -90,3 +90,6 @@ $di->setShared('TranslateService',function() use ($di, $config) {
         (new Application\Services\LanguageService())->define($di), $config['language']
     ))->path($config['translates']);
 });
+
+// Define auth service
+$di->setShared('AuthService','Application\Services\AuthService');

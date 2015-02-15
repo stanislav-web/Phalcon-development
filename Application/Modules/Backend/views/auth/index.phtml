@@ -8,7 +8,7 @@
 
                         <p><?php $this->flash->output() ?></p>
                     </div>
-                    <form action="" method="POST">
+                    <form action="" method="POST" autocomplete="off">
                         <input type="hidden" name="<?php echo $this->security->getTokenKey() ?>"
                                value="<?php echo $this->security->getToken() ?>"/>
 

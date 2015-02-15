@@ -68,6 +68,12 @@ class Users extends \Phalcon\Mvc\Model
 
     /**
      *
+     * @var int
+     */
+    protected $role;
+
+    /**
+     *
      * @var string
      */
     protected $state;
@@ -325,12 +331,36 @@ class Users extends \Phalcon\Mvc\Model
     /**
      * Method to set the value of field token
      *
-     * @param string $password
+     * @param string $token
      * @return $this
      */
     public function setToken($token)
     {
         $this->token = $token;
+
+        return $this;
+    }
+
+
+    /**
+     * Returns the value of field role
+     *
+     * @return string
+     */
+    public function getRole()
+    {
+        return $this->role;
+    }
+
+    /**
+     * Method to set the value of field token
+     *
+     * @param string $role
+     * @return Users
+     */
+    public function setRole($role)
+    {
+        $this->role = $role;
 
         return $this;
     }
@@ -349,7 +379,7 @@ class Users extends \Phalcon\Mvc\Model
      * Method to set the value of field state
      *
      * @param string $state
-     * @return $this
+     * @return Users
      */
     public function setState($state)
     {
@@ -372,7 +402,7 @@ class Users extends \Phalcon\Mvc\Model
      * Method to set the value of field rating
      *
      * @param double $rating
-     * @return $this
+     * @return Users
      */
     public function setRating($rating)
     {
@@ -395,7 +425,7 @@ class Users extends \Phalcon\Mvc\Model
      * Method to set the value of field date_registration
      *
      * @param string $date_registration
-     * @return $this
+     * @return Users
      */
     public function setDateRegistration($date_registration)
     {
@@ -441,7 +471,7 @@ class Users extends \Phalcon\Mvc\Model
      * Method to set the value of field ip
      *
      * @param int $ip
-     * @return $this
+     * @return Users
      */
     public function setIp($ip)
     {
@@ -464,7 +494,7 @@ class Users extends \Phalcon\Mvc\Model
      * Method to set the value of field ua
      *
      * @param string $ua
-     * @return $this
+     * @return Users
      */
     public function setUa($ua)
     {

@@ -39,9 +39,17 @@ class ControllerBase extends Controller
     protected $breadcrumbs;
 
     /**
-     * From `users` table auth data
+     * Auth user service
      *
-     * @var array
+     * @uses \Services\AuthService
+     * @var \Phalcon\Di
+     */
+    protected $auth;
+
+    /**
+     * Auth user data
+     *
+     * @var array $user
      */
     protected $user = [];
 
@@ -54,33 +62,14 @@ class ControllerBase extends Controller
     public function beforeExecuteRoute($dispatcher)
     {
 
-        //auth token
-        if ($this->cookies->has('remember')) {
+        // load user data
+        $this->auth = $this->di->get("AuthService", [$this->di->get('config'), $this->request]);
+        if($this->auth->isAuth() === true) {
 
-            // if user was remembered
-            $userId = $this->cookies->get('remember')->getValue();
-            $rememberToken = $this->cookies->get('rememberToken')->getValue();
-
-            $users = new Users();
-            $user = $users->findFirst([
-                "id = ?0",
-                "bind" => [$userId]
-            ]);
-
-            // create user auth token
-            $userToken = md5($user->getPassword() . $user->getToken());
-
-            // set authentication for logged user
-
-            if ($rememberToken == $userToken)
-                $this->session->set('auth', $user);
+            // success! user is logged in the system
+            $this->user = $this->auth->getUser();
         }
-
-        $auth = $this->session->get('auth');
-
-        // if the user is logged in
-
-        if ($auth === null) {
+        else {
 
             $this->flashSession->error("You don't have access");
             // dispatch to login page
@@ -89,8 +78,6 @@ class ControllerBase extends Controller
                 'action' => 'index',
             ]);
         }
-
-        $this->user = $auth;
     }
 
     /**

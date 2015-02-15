@@ -61,7 +61,7 @@ class SignController extends ControllerBase
 
         if($this->access === true) {
 
-            if ($this->security->checkToken()) {
+            if ($this->security->checkToken() === true) {
 
                 // verify user credentials
                 $this->auth->login(

@@ -31,6 +31,3 @@ $di->set('SMS', function () use ($di) {
 
 // Define engine service
 $di->setShared('EngineService','Application\Services\EngineService');
-
-// Define auth service
-$di->setShared('AuthService','Application\Services\AuthService');

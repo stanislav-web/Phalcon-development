@@ -55,7 +55,7 @@ class AuthController extends Controller
     {
         if($this->request->isPost() === true) {
 
-            if ($this->security->checkToken()) {
+            if ($this->security->checkToken() === true) {
 
                 // The token is ok, check authorization
 
@@ -88,7 +88,7 @@ class AuthController extends Controller
                             ->setIp($this->request->getClientAddress())
                             ->setUa($this->request->getUserAgent())
                             ->save();
-
+                        exit('asasa');
                         $referrer = parse_url($this->request->getHTTPReferer(), PHP_URL_PATH);
 
                         if ($this->config->logger->enable) {
