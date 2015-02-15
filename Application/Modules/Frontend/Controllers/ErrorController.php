@@ -26,17 +26,13 @@ class ErrorController extends \Phalcon\Mvc\Controller
     private $errorHttpService;
 
     /**
-     * initialize() Initial all global objects
-     * @access public
-     * @return null
+     * Event before route executed
      */
-    public function initialize() {
+    public function beforeExecuteRoute() {
 
         $this->config = $this->di->get('config');
         $this->errorHttpService = $this->di->get('ErrorHttpService');
-
         $this->view->setViewsDir($this->config['application']['viewsFront']);
-
     }
     /**
      * Page not found Action
@@ -44,7 +40,6 @@ class ErrorController extends \Phalcon\Mvc\Controller
     public function notFoundAction()
     {
         $this->tag->setTitle("Not Found");
-
 
         // The response is already populated with a 404 Not Found header.
         $this->errorHttpService->setStatus(404, "Not Found");

@@ -2,6 +2,7 @@
 namespace Application\Modules\Backend\Controllers;
 
 use Application\Models\Users;
+use Application\Models\UserRoles;
 use Application\Modules\Backend\Forms;
 use Phalcon\Mvc\Controller;
 use Phalcon\Mvc\View;
@@ -64,7 +65,8 @@ class ControllerBase extends Controller
 
         // load user data
         $this->auth = $this->di->get("AuthService", [$this->di->get('config'), $this->request]);
-        if($this->auth->isAuth() === true) {
+        if($this->auth->isAuth() === true
+            && $this->auth->hasRole(UserRoles::ADMIN)) {
 
             // success! user is logged in the system
             $this->user = $this->auth->getUser();
@@ -121,7 +123,9 @@ class ControllerBase extends Controller
     {
         // load configurations
         $this->config = $this->di->get('config');
-        if ($this->di->has('logger')) {
+
+        // load logger
+        if($this->di->has('logger')) {
             $this->logger = $this->di->get('logger');
         }
 

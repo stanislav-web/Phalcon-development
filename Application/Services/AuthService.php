@@ -153,6 +153,24 @@ class AuthService implements InjectionAwareInterface {
     }
 
     /**
+     * Check user role
+     * 
+     * @param int $role
+     * @return bool
+     */
+    public function hasRole($role) {
+
+        $session = $this->di->getShared('session');
+        if($session->has('user') === true) {
+
+            return ($session->get('user')['role'] === $role) ? true : false;
+        }
+        else {
+            return false;
+        }
+    }
+
+    /**
      * Get auth error messages
      * @return array
      */

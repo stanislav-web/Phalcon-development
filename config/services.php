@@ -92,4 +92,7 @@ $di->setShared('TranslateService',function() use ($di, $config) {
 });
 
 // Define auth service
+$di->setShared('LogService','Application\Services\LogService');
+
+// Define auth service
 $di->setShared('AuthService','Application\Services\AuthService');

@@ -10,17 +10,8 @@ $config = [
     // Global application config
 
     'application' => [
-        'controllersFront' => APP_PATH . '/Modules/Frontend/Controllers/',
-        'controllersBack' => APP_PATH . '/Modules/Backend/Controllers/',
-        'formsBack' => APP_PATH . '/Modules/Backend/Forms/',
         'viewsFront' => APP_PATH . '/Modules/Frontend/views/',
         'viewsBack' => APP_PATH . '/Modules/Backend/views/',
-        'modelsDir' => APP_PATH . '/Models/',
-        'servicesDir' => APP_PATH . '/Services/',
-        'helpersDir' => APP_PATH . '/Helpers/',
-        'libraryDir' => APP_PATH . '/Libraries/',
-        'pluginsDir' => APP_PATH . '/Plugins/',
-        'logDir' => APP_PATH . '../logs/',
         'baseUri' => '/',
         'cryptSalt' => '$9diko$.f#11',
     ],
