@@ -44,6 +44,5 @@ try {
     }
     else {
         echo $e->getMessage();
-        var_dump($e->getTrace());
     }
 }

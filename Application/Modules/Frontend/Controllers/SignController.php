@@ -204,24 +204,21 @@ class SignController extends ControllerBase
                 if(empty($user) === false) {
 
                     // user founded restore access by login, generate password
-
                     $password = Randomize::random(Randomize::RANDOM_ALNUM, 16);
 
                     if(filter_var($login, FILTER_VALIDATE_EMAIL) !== false) {
 
                         // send recovery mail
 
-                        $mailer = $this->di->get('mailer');
-
-                        $status = $mailer->send('emails/restore_password', [
+                        $mailer = $this->di->get('MailService');
+                        $status = $mailer->createMessageFromView('emails/restore_password', [
                             'login'     => $user->getLogin(),
                             'name'      => $user->getName(),
                             'password'  => $password,
                             'site'      =>  $this->engine->getHost()
-                        ], function($message) use ($user) {
-                            $message->to($user->getLogin());
-                            $message->subject(sprintf($this->translate->translate('PASSWORD_RECOVERY_SUBJECT'), $this->engine->getHost()));
-                        });
+                        ])->to($user->getLogin(), $user->getName())
+                        ->subject(sprintf($this->translate->translate('PASSWORD_RECOVERY_SUBJECT'), $this->engine->getHost()))->send();
+
 
                         if($status === 1) {
 

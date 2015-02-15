@@ -116,9 +116,6 @@ class Users extends \Phalcon\Mvc\Model
         // skip attributes before every IN >
         $this->skipAttributesOnCreate(['date_registration', 'date_lastvisit', 'state', 'rating', 'surname']);
         $this->skipAttributesOnUpdate(['date_lastvisit']);
-
-        var_dump($this->getDI()->get('LanguageService')); exit;
-
     }
 
 
