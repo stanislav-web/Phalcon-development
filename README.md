@@ -12,6 +12,7 @@ Phalcon Development Boards
 
 #### Implemented
 * Staging development
+* Service layer
 * Phalcon Crypt / Decrypt cookies
 * Phalcon + Angular JS token + cookies authentication
 
