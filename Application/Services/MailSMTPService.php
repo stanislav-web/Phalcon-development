@@ -109,8 +109,8 @@ class MailSMTPService implements InjectionAwareInterface {
      */
     public function log($message, $level) {
 
-        if ($this->getDi()->has('logger') === true) {
-            $this->getDi()->get('logger')->log($message, $level);
+        if ($this->getDi()->has('LogService') === true) {
+            $this->getDi()->get('LogService')->save($message, $level);
         }
     }
 }

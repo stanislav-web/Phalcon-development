@@ -1,11 +1,12 @@
 <?php
 namespace Application\Services;
 
-use Application\Libraries\CacheManagement\CacheExceptions;
 use \Phalcon\DI\InjectionAwareInterface;
 use \Phalcon\Logger;
+use Phalcon\Logger\Adapter\Database as LoggerDatabase;
+
 /**
- * Class LogService. Log Service
+ * Class LogDbService. Save logs into database
  *
  * @package Application
  * @subpackage Services
@@ -13,9 +14,10 @@ use \Phalcon\Logger;
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @copyright Stanislav WEB
- * @filesource /Application/Services/LogService.php
+ * @filesource /Application/Services/LogDbService.php
  */
-class LogService implements InjectionAwareInterface {
+class LogDbService extends LoggerDatabase
+    implements InjectionAwareInterface {
 
     /**
      * Available log code
@@ -23,14 +25,28 @@ class LogService implements InjectionAwareInterface {
      * @var array $codes
      */
     private $codes = [
-        Logger::ALERT       =>  'alert',
-        Logger::CRITICAL    =>  'critical',
-        Logger::DEBUG       =>  'debug',
-        Logger::ERROR       =>  'error',
-        Logger::INFO        =>  'info',
-        Logger::NOTICE      =>  'notice',
-        Logger::WARNING     =>  'warning'
+        Logger::ALERT,
+        Logger::CRITICAL,
+        Logger::DEBUG,
+        Logger::ERROR,
+        Logger::INFO,
+        Logger::NOTICE,
+        Logger::WARNING
     ];
+
+    /**
+     * Logging name
+     *
+     * @var string $name
+     */
+    protected $name = 'app';
+
+    /**
+     * Table
+     *
+     * @var string $table
+     */
+    private $table = 'logs';
 
     /**
      * Dependency injection container
@@ -59,6 +75,19 @@ class LogService implements InjectionAwareInterface {
     }
 
     /**
+     * Init log service
+     *
+     * @param \Phalcon\Db\Adapter\Pdo\Mysql $connection
+     * @throws Logger\Exception
+     */
+    public function __construct(\Phalcon\Db\Adapter\Pdo\Mysql $connection) {
+        parent::__construct($this->name, [
+            'db'    => $connection,
+            'table' => $this->table
+        ]);
+    }
+
+    /**
      * Log save handler
      *
      * @param string $message
@@ -66,10 +95,8 @@ class LogService implements InjectionAwareInterface {
     public function save($message, $code) {
 
         if(array_key_exists($code, $this->codes) === true) {
-            if ($this->getDi()->has('logger') === true) {
 
-                $this->getDi()->get('logger')->{$this->codes[$code]}($message);
-            }
+            $this->log($message, $code);
         }
         else {
             throw new \Exception('Log code not found');

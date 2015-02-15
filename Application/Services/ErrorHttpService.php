@@ -80,8 +80,8 @@ class ErrorHttpService implements InjectionAwareInterface {
      * @param string $message
      */
     public function log($message) {
-        if ($this->getDi()->has('LogService') === true) {
-            $this->getDi()->get('LogService')->save($message, \Phalcon\Logger::ERROR);
+        if ($this->getDi()->has('LogDbService') === true) {
+            $this->getDi()->get('LogDbService')->save($message, \Phalcon\Logger::ERROR);
         }
     }
 }

@@ -2,6 +2,7 @@
 namespace Application\Modules\Frontend\Controllers;
 
 use Application\Models\Users;
+use Phalcon\Logger;
 use Phalcon\Mvc\View;
 use Phalcon\Text as Randomize;
 use SMSFactory\Run;
@@ -72,10 +73,7 @@ class SignController extends ControllerBase
                 if ($this->auth->isAuth() === true) {
 
                     // authenticate success
-
-                    if ($this->config->logger->enable) {
-                        $this->logger->notice('Authenticate success from ' . $this->request->getClientAddress());
-                    }
+                    $this->logger->save('Authenticate success from ' . $this->request->getClientAddress(), 5);
 
                     // send reply to client
                     $this->setReply(['user' => $this->auth->getUser(),'success' => true]);
@@ -86,14 +84,16 @@ class SignController extends ControllerBase
                     foreach ($this->auth->getErrors() as $error) {
                         $this->setReply(['message' => $this->translate->translate($error)]);
                     }
-                    if ($this->config->logger->enable) {
-                        $this->logger->warning('Authenticate failed from ' . $this->request->getClientAddress());
-                    }
+
+                    $this->logger->save('Authenticate failed from ' . $this->request->getClientAddress(), 4);
+
                 }
             }
             else {
                 // security token invalid
                 $this->setReply(['message' => $this->translate->translate('INVALID_TOKEN')]);
+
+                $this->logger->save('Invalid token has been catches by ' . $this->request->getClientAddress(), 4);
             }
         }
         return $this->getReply();
@@ -136,12 +136,7 @@ class SignController extends ControllerBase
                     $this->session->set('user',     $register->toArray());
 
                     // update auth params
-
-                    if ($this->config->logger->enable) {
-                        $this->logger->notice('Registration success from ' . $this->request->getClientAddress().'. User: '.$register->getLogin());
-                    }
-
-                    $this->isAuthenticated = true;
+                    $this->logger->save('Registration success from ' . $this->request->getClientAddress().'. User: '.$register->getLogin(),5);
 
                     // send reply to client
                     $this->setReply([
@@ -171,10 +166,8 @@ class SignController extends ControllerBase
             {
                 // If CSRF request was broken
 
-                if ($this->config->logger->enable)
-                    $this->logger->warning('Registration failed from ' . $this->request->getClientAddress() . '. CSRF attack');
-
                 $this->setReply(['message' => $this->translate->translate('INVALID_TOKEN')]);
+                $this->logger->save('Registration failed from ' . $this->request->getClientAddress() . '. CSRF attack',4);
             }
         }
 
@@ -245,11 +238,10 @@ class SignController extends ControllerBase
                 }
                 else {
 
-                    if($this->config->logger->enable)
-                        $this->logger->warning('Restore failed from ' . $this->request->getClientAddress() . '. Attempt to restore: ' . $login);
-
                     // user does not exist in database
                     $this->setReply(['message' => $this->translate->translate('NOT_FOUND')]);
+
+                    $this->logger->save('Restore failed from ' . $this->request->getClientAddress() . '. Attempt to restore: ' . $login,4);
 
                 }
             }
@@ -257,10 +249,9 @@ class SignController extends ControllerBase
             {
                 // If CSRF request was broken
 
-                if ($this->config->logger->enable)
-                    $this->logger->warning('Remind access failed from ' . $this->request->getClientAddress() . '. CSRF attack');
-
                 $this->setReply(['message' => $this->translate->translate('INVALID_TOKEN')]);
+
+                $this->logger->save('Remind access failed from ' . $this->request->getClientAddress() . '. CSRF attack',4);
             }
         }
 

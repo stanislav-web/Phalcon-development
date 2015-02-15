@@ -121,12 +121,12 @@ class ControllerBase extends Controller
      */
     public function initialize()
     {
-        // load configurations
+        // define configurations
         $this->config = $this->di->get('config');
 
-        // load logger
-        if($this->di->has('logger')) {
-            $this->logger = $this->di->get('logger');
+        // define logger
+        if($this->di->has('LogDbService')) {
+            $this->logger = $this->di->get('LogDbService');
         }
 
         // setup breadcrumbs

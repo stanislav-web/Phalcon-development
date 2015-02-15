@@ -40,7 +40,8 @@ try {
 } catch (\Exception $e) {
 
     if (APPLICATION_ENV === 'production') {
-        $di->get('logger')->critical($e->getMessage().' File: '.$e->getFile().' Line: '.$e->getLine());
+
+        $di->get('LoggerService')->save($e->getMessage().' File: '.$e->getFile().' Line: '.$e->getLine(), 1);
     }
     else {
         echo $e->getMessage();

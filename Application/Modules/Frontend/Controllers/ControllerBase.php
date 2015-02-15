@@ -92,9 +92,9 @@ class ControllerBase extends Controller
         // define translate service
         $this->translate = $this->di->get("TranslateService");
 
-        // load logger
-        if($this->di->has('logger')) {
-            $this->logger = $this->di->get('logger');
+        // define logger
+        if($this->di->has('LogDbService')) {
+            $this->logger = $this->di->get('LogDbService');
         }
 
         // define engine

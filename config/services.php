@@ -25,21 +25,6 @@ $di->setShared('config', function () use ($config) {
 // Set routes
 $di->setShared('router', $router);
 
-// Set logger service
-if ($config['logger'] == true) {
-
-    $di->setShared('logger', function() use ($config) {
-
-        $connection = new \Phalcon\Db\Adapter\Pdo\Mysql($config['database']);
-
-        $logger = new Phalcon\Logger\Adapter\Database('errors', array(
-            'db' => $connection,
-            'table' => 'logs'
-        ));
-        return $logger;
-    });
-}
-
 // Component Session. Starting a Session
 $di->setShared('session', function () use ($config) {
     $session = new \Phalcon\Session\Adapter\Files([
@@ -91,8 +76,15 @@ $di->setShared('TranslateService',function() use ($di, $config) {
     ))->path($config['translates']);
 });
 
-// Define auth service
-$di->setShared('LogService','Application\Services\LogService');
+// Set logger service
+if ($config['logger'] == true) {
+
+    $di->setShared('LogDbService', function() use ($config) {
+
+        $connection = new \Phalcon\Db\Adapter\Pdo\Mysql($config['database']);
+        return new Application\Services\LogDbService($connection);
+    });
+}
 
 // Define auth service
 $di->setShared('AuthService','Application\Services\AuthService');
