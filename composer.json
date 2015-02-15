@@ -32,12 +32,13 @@
         "stanislav-web/phalcon-uploader": "dev-master",
         "stanislav-web/phalcon-sms-factory": "1.*",
         "stanislav-web/phalcon-ulogin": "1.0-stable",
-        "stanislav-web/phalcon-translate": "1.1-stable",
+        "stanislav-web/phalcon-translate": "1.*",
         "swiftmailer/swiftmailer": "5.*",
         "filp/whoops": "~1.0",
         "fabfuel/prophiler": "1.*"
     },
     "require-dev": {
-        "phpunit/phpunit": "4.*"
+        "phpunit/phpunit": "4.*",
+        "bruli/php-git-hooks": "1.*@dev"
     }
 }
