@@ -129,7 +129,8 @@ class Users extends \Phalcon\Mvc\Model
 
         // get language service
         $language = $this->getDI()->getShared('LanguageService')->define();
-        $t  =   $this->getDI()->getShared('TranslateService', [$language])->path(APP_PATH.'/Modules/Frontend/languages/');
+        $t  =   $this->getDI()->getShared('TranslateService', [$language])
+            ->path(APP_PATH.'/Modules/Frontend/languages/')->assign('sign');
 
         $this->validate(new Uniqueness([
             "field"     => "login",
@@ -419,7 +420,7 @@ class Users extends \Phalcon\Mvc\Model
      * Method to set the value of field date_lastvisit
      *
      * @param string $date_lastvisit
-     * @return $this
+     * @return Users
      */
     public function setDateLastvisit($date_lastvisit)
     {

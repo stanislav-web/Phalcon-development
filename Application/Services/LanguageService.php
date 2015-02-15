@@ -62,9 +62,16 @@ class LanguageService implements InjectionAwareInterface {
      *
      * @return null
      */
-    public function define() {
+    public function define(\Phalcon\DiInterface $di, $language = null) {
 
-        $this->getCookieLanguage() !== false ? $this->language :  $this->getHttpLanguage();
+        $this->setDi($di);
+
+        if($language !== null) {
+            $this->language = $language;
+        }
+        else {
+            $this->getCookieLanguage() !== false ? $this->language :  $this->getHttpLanguage();
+        }
 
         return $this->language;
     }

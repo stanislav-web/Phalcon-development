@@ -89,12 +89,8 @@ class ControllerBase extends Controller
         // load configurations
         $this->config = $this->di->get('config');
 
-        // define language service
-        $this->language = $this->di->get('LanguageService')->define();
-
         // define translate service
-        $this->translate = $this->di->get("TranslateService", [$this->language])
-            ->path(APP_PATH.'/Modules/Frontend/languages/');
+        $this->translate = $this->di->get("TranslateService");
 
         // load logger
         if($this->di->has('logger')) {

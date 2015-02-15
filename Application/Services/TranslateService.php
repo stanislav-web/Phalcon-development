@@ -1,7 +1,6 @@
 <?php
 namespace Application\Services;
 
-use \Phalcon\DI\InjectionAwareInterface;
 use \Translate\Translator;
 
 /**
@@ -15,14 +14,14 @@ use \Translate\Translator;
  * @copyright Stanislav WEB
  * @filesource /Application/Services/TranslateService.php
  */
-class TranslateService implements InjectionAwareInterface {
+class TranslateService {
 
     /**
-     * Dependency injection container
+     * Default language
      *
-     * @var \Phalcon\DiInterface $di;
+     * @var string $defaultLanguage;
      */
-    protected $di;
+    protected $defaultLanguage;
 
     /**
      * Translator
@@ -34,30 +33,13 @@ class TranslateService implements InjectionAwareInterface {
     /**
      * Set chased language
      *
-     * @param string $language
+     * @param string $definedLanguage
+     * @param string $defaultLanguage
      */
-    public function __construct($language) {
+    public function __construct($definedLanguage, $defaultLanguage) {
 
-        $this->translate = (new Translator())->setLanguage($language);
-    }
-
-    /**
-     * Set dependency container
-     *
-     * @param \Phalcon\DiInterface $di
-     */
-    public function setDi($di)
-    {
-        $this->di = $di;
-    }
-
-    /**
-     * Get dependency container
-     * @return \Phalcon\DiInterface
-     */
-    public function getDi()
-    {
-        return $this->di;
+        $this->translate = (new Translator())->setLanguage($definedLanguage);
+        $this->defaultLanguage  =   $defaultLanguage;
     }
 
     /**
@@ -67,7 +49,7 @@ class TranslateService implements InjectionAwareInterface {
      */
     public function path($path) {
 
-        $this->translate->setDefault($this->di->get('config')->language)
+        $this->translate->setDefault($this->defaultLanguage)
             ->setTranslatePath($path);
 
         return $this->translate;

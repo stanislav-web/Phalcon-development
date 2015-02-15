@@ -83,10 +83,10 @@ $di->setShared('MailService', function () use ($di, $config) {
     return $mailer;
 });
 
-// Define language service
-$di->setShared('LanguageService', function () {
-    return new Application\Services\LanguageService();
-});
-
 // Define translate service
-$di->setShared('TranslateService','Application\Services\TranslateService');
+$di->setShared('TranslateService',function() use ($di, $config) {
+
+    return (new Application\Services\TranslateService(
+        (new Application\Services\LanguageService())->define($di), $config['language']
+    ))->path(APP_PATH.'/Modules/Frontend/languages/');
+});
