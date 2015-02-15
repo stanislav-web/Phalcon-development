@@ -22,15 +22,6 @@ $di->set('url', function () {
 
 });
 
-// Register Mailer Service
-
-$di->set('mailer', function () {
-
-    $service = new Vanchelo\Mailer\MailerService();
-
-    return $service->mailer();
-});
-
 // SMS sender service
 
 $di->set('SMS', function () use ($di) {

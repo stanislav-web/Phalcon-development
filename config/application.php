@@ -79,6 +79,7 @@ $config = [
     // Default language
 
     'language'  => 'en',
+    'translates'  => APP_PATH . '/../languages/',
 
     // Remember state
     'rememberKeep'   => 604800,

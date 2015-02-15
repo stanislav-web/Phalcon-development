@@ -88,5 +88,5 @@ $di->setShared('TranslateService',function() use ($di, $config) {
 
     return (new Application\Services\TranslateService(
         (new Application\Services\LanguageService())->define($di), $config['language']
-    ))->path(APP_PATH.'/Modules/Frontend/languages/');
+    ))->path($config['translates']);
 });
