@@ -47,7 +47,7 @@
                                 <span class="fa fa-question"><?= $this->escaper->escapeHtml($item->getTitle()); ?></span>
                             </td>
                             <td><?= $item->getAlias(); ?></td>
-                            <td><?= \Helpers\Format::getFormatTime($item->getDateCreate()); ?></td>
+                            <td><?= $this->tag->getFormatTime($item->getDateCreate()); ?></td>
                             <td>
                                 <div class="btn-group">
                                     <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">

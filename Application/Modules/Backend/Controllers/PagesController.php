@@ -100,9 +100,7 @@ class PagesController extends ControllerBase
                     $this->flashSession->success('The page was successfully deleted!');
                 }
 
-                if ($this->_logger) {
-                    $this->_logger->log('Delete page #' . $id . ' by ' . $this->request->getClientAddress());
-                }
+                    $this->logger->save('Delete page #' . $id . ' by ' . $this->request->getClientAddress(), 6);
 
                 // forward does not working correctly with this  action type
                 // by the way this handle need to remove in another action (
@@ -171,9 +169,7 @@ class PagesController extends ControllerBase
                         $this->flashSession->success('The page was successfully updated!');
                     }
 
-                    if ($this->_logger) {
-                        $this->_logger->log('Page assigned by ' . $this->request->getClientAddress());
-                    }
+                    $this->logger->save('Page assigned by ' . $this->request->getClientAddress(), 6);
 
                     // forward does not working correctly with this  action type
                     // by the way this handle need to remove in another action (

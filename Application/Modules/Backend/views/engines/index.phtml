@@ -52,8 +52,8 @@
                             <td><?= $item->getHost(); ?></td>
                             <td><?= $item->getCode(); ?></td>
                             <td><?= $item->currencyRel->getSymbol(); ?></td>
-                            <td><?= \Models\Engines::$statuses[$item->getStatus()]; ?></td>
-                            <td><?= \Helpers\Format::getFormatTime($item->getDateCreate()); ?></td>
+                            <td><?= $statuses[$item->getStatus()]; ?></td>
+                            <td><?= $this->tag->getFormatTime($item->getDateCreate()); ?></td>
                             <td>
                                 <div class="btn-group">
                                     <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">

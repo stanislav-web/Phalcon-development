@@ -68,6 +68,7 @@ class EnginesController extends ControllerBase
         $this->view->setVars([
             'items' => $engines,
             'title' => $title,
+            'statuses' => Engines::$statuses
         ]);
     }
 
@@ -91,8 +92,7 @@ class EnginesController extends ControllerBase
                 } else // saved successfully
                     $this->flashSession->success('The engine was successfully deleted!');
 
-                if ($this->_logger)
-                    $this->_logger->log('Delete engine #' . $id . ' by ' . $this->request->getClientAddress());
+                    $this->logger->save('Delete engine #' . $id . ' by ' . $this->request->getClientAddress(), 6);
 
                 // forward does not working correctly with this  action type
                 // by the way this handle need to remove in another action (
@@ -235,7 +235,7 @@ class EnginesController extends ControllerBase
                         $this->flashSession->success('The engine was successfully updated!');
 
                     if ($this->_logger)
-                        $this->_logger->log('Engine assigned by ' . $this->request->getClientAddress());
+                        $this->logger->save('Engine assigned by ' . $this->request->getClientAddress(), 6);
 
                     // forward does not working correctly with this  action type
                     // by the way this handle need to remove in another action (
