@@ -211,7 +211,7 @@ class AuthService implements InjectionAwareInterface {
                 "bind" => [$credentials[key($credentials)]],
             ]);
 
-            if($asArray === true) {
+            if($this->user !== false && $asArray === true) {
                 $this->user->toArray();
             }
 
