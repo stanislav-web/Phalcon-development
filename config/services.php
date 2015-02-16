@@ -85,6 +85,8 @@ if ($config['logger'] == true) {
         return new Application\Services\LogDbService($connection);
     });
 }
+// Define helper's service
+$di->set('tag', '\Application\Services\HelpersService');
 
 // Define auth service
 $di->setShared('AuthService','Application\Services\AuthService');

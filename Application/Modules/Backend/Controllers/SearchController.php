@@ -52,9 +52,9 @@ class SearchController extends ControllerBase
         $this->tag->setTitle(' - ' . DashboardController::NAME);
 
         // create cache key
-        $this->cacheKey = md5(\Modules\Backend::MODULE . self::NAME . $this->router->getControllerName() . $this->router->getActionName());
+        $this->cacheKey = md5(\Application\Modules\Backend::MODULE . self::NAME . $this->router->getControllerName() . $this->router->getActionName());
 
-        $this->_breadcrumbs->add(DashboardController::NAME, $this->url->get(['for' => 'dashboard']));
+        $this->breadcrumbs->add(DashboardController::NAME, $this->url->get(['for' => 'dashboard']));
     }
 
     /**
@@ -69,7 +69,7 @@ class SearchController extends ControllerBase
 
         // add crumb to chain (name, link)
 
-        $this->_breadcrumbs->add($title);
+        $this->breadcrumbs->add($title);
 
         $this->query = $this->request->get('query', null, null);
 

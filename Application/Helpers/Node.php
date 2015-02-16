@@ -12,10 +12,11 @@ namespace Application\Helpers;
  * @copyright Stanilav WEB
  * @filesource /Application/Helpers/Node.php
  */
-class Node
+trait Node
 {
     /**
      * Convert object to array
+     *
      * @param $obj
      * @access static
      * @return array
@@ -34,6 +35,7 @@ class Node
 
     /**
      * Convert multidimensional array to key => pair array
+     *
      * @param array $array
      * @return array
      * @internal param $obj
@@ -44,7 +46,7 @@ class Node
         $result = [];
         if (!empty($array)) {
             foreach ($array as $n => $values) {
-                if (sizeof($values) == 2) {
+                if (count($values) == 2) {
                     $values = array_values($values);
                     $result[$values[0]] = $values[1];
                 }
@@ -55,6 +57,7 @@ class Node
 
     /**
      * Add handler to even array values
+     *
      * @param $obj
      * @access static
      * @return array
@@ -73,6 +76,7 @@ class Node
 
     /**
      * Unserialize string
+     *
      * @param $original
      * @access static
      * @return mixed
@@ -87,6 +91,7 @@ class Node
 
     /**
      * If is serialized value
+     *
      * @param string $value
      * @param string $value
      * @access static
@@ -125,6 +130,7 @@ class Node
 
     /**
      * Check if callable class has constructor
+     *
      * @param mixed $class Class, object , namespace
      * @return bool
      */

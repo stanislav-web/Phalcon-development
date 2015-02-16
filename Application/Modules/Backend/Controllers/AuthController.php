@@ -65,13 +65,15 @@ class AuthController extends Controller
      */
     public function indexAction()
     {
+        // logged out before show form
+        $this->auth->logout();
+
         if($this->request->isPost() === true) {
 
             if ($this->security->checkToken() === true) {
 
-                // The token is ok, check authorization
+                // The token is ok, verify user credentials
 
-                // verify user credentials
                 $this->auth->login(
                     $this->request->getPost('login'),
                     $this->request->getPost('password'),
@@ -111,6 +113,7 @@ class AuthController extends Controller
                 $this->view->disable();
             }
         }
+
         $this->view->setMainView('non-auth-layout');
     }
 
@@ -119,24 +122,16 @@ class AuthController extends Controller
      */
     public function logoutAction()
     {
-        // get auth user
-        $user = $this->session->get('auth');
+        $loggedOut = ($this->auth->logout() === true) ? true : false;
 
-        if (!empty($user)) {
-            $this->cookies->set('remember', $user->getId(), time() - $this->config->rememberKeep);
-            $this->cookies->set('rememberToken',
-                md5($user->getPassword() . $user->getToken()),
-                time() - $this->config->rememberKeep);
+        if($loggedOut === true) {
 
-            // destroy session auth
-            $this->session->destroy();
+            // redirect auth form
+            return $this->dispatcher->forward([
+                'controller' => 'auth',
+                'action' => 'index',
+            ]);
         }
-
-        // redirect auth form
-        return $this->dispatcher->forward([
-            'controller' => 'auth',
-            'action' => 'index',
-        ]);
     }
 }
 

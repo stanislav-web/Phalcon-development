@@ -101,7 +101,7 @@ class SignController extends ControllerBase
 
     /**
      * registerAction() User registration action action
-     *
+     * @TODO need repair
      * @access public
      * @return null
      */
@@ -271,8 +271,8 @@ class SignController extends ControllerBase
         }
         else {
 
-            $status = ($this->auth->logout() === true) ? true : false;
-            $this->setReply(['success' => $status]);
+            $loggedOut = ($this->auth->logout() === true) ? true : false;
+            $this->setReply(['success' => $loggedOut]);
         }
 
         return $this->getReply();

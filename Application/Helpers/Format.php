@@ -12,12 +12,8 @@ namespace Application\Helpers;
  * @copyright Stanilav WEB
  * @filesource /Application/Helpers/Format.php
  */
-class Format extends \Phalcon\Tag
+trait Format
 {
-
-    public function test() {
-        echo 'sssss';
-    }
     /**
      * Format byte code to human understand
      *

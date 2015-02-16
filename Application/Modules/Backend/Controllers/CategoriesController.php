@@ -1,9 +1,10 @@
 <?php
 namespace Application\Modules\Backend\Controllers;
 
-use Models\Categories;
-use Models\Engines;
-use Modules\Backend\Forms;
+use Application\Models\Categories;
+use Application\Models\Currency;
+use Application\Models\Engines;
+use Application\Modules\Backend\Forms;
 use Phalcon\Mvc\View;
 
 /**
@@ -37,7 +38,7 @@ class CategoriesController extends ControllerBase
      * is Json ?
      * @var bool
      */
-    private $_isJsonResponse = false;
+    private $isJsonResponse = false;
 
     /**
      * initialize() Initialize constructor
@@ -50,14 +51,14 @@ class CategoriesController extends ControllerBase
 
         // set json content here
         if ($this->request->getPost('sEcho') != null)
-            $this->_isJsonResponse = true;
+            $this->isJsonResponse = true;
         else {
             $this->tag->setTitle(' - ' . DashboardController::NAME);
 
             // create cache key
-            $this->cacheKey = md5(\Modules\Backend::MODULE . self::NAME . $this->router->getControllerName() . $this->router->getActionName());
+            $this->cacheKey = md5(\Application\Modules\Backend::MODULE . self::NAME . $this->router->getControllerName() . $this->router->getActionName());
 
-            $this->_breadcrumbs->add(DashboardController::NAME, $this->url->get(['for' => 'dashboard']));
+            $this->breadcrumbs->add(DashboardController::NAME, $this->url->get(['for' => 'dashboard']));
         }
     }
 
@@ -96,13 +97,13 @@ class CategoriesController extends ControllerBase
      */
     public function indexAction()
     {
-        if (!$this->_isJsonResponse) {
+        if (!$this->isJsonResponse) {
             $title = ucfirst(self::NAME);
             $this->tag->prependTitle($title);
 
             // add crumb to chain (name, link)
 
-            $this->_breadcrumbs->add($title);
+            $this->breadcrumbs->add($title);
 
             $this->view->setVars([
                 'title' => $title,
@@ -260,7 +261,7 @@ class CategoriesController extends ControllerBase
             $this->tag->prependTitle($title . ' - ' . self::NAME);
 
             // add crumb to chain (name, link)
-            $this->_breadcrumbs->add(self::NAME, $this->url->get(['for' => 'dashboard-controller', 'controller' => 'engines']))
+            $this->breadcrumbs->add(self::NAME, $this->url->get(['for' => 'dashboard-controller', 'controller' => 'engines']))
                 ->add($title);
 
             // set variables output to view

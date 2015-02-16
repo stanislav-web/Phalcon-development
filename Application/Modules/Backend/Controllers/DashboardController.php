@@ -55,7 +55,7 @@ class DashboardController extends ControllerBase
         //if($this->view->getCache()->exists($this->cacheKey))
         //{
         // add crumb to chain
-        $this->_breadcrumbs->add(self::NAME);
+        $this->breadcrumbs->add(self::NAME);
 
         //}
         //$this->view->cache(['key' => $this->cacheKey]);
@@ -66,7 +66,7 @@ class DashboardController extends ControllerBase
         //if($this->view->getCache()->exists($this->cacheKey))
         //{
         // add crumb to chain
-        $this->_breadcrumbs->add(self::NAME);
+        $this->breadcrumbs->add(self::NAME);
         //}
         //$this->view->cache(['key' => $this->cacheKey]);
     }

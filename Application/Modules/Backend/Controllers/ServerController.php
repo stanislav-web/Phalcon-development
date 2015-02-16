@@ -31,7 +31,7 @@ class ServerController extends ControllerBase
     {
         parent::initialize();
         $this->tag->setTitle(' - ' . DashboardController::NAME);
-        $this->_breadcrumbs->add(DashboardController::NAME, $this->url->get(['for' => 'dashboard']));
+        $this->breadcrumbs->add(DashboardController::NAME, $this->url->get(['for' => 'dashboard']));
     }
 
     public function indexAction()
@@ -39,6 +39,6 @@ class ServerController extends ControllerBase
         $this->tag->prependTitle(self::NAME);
 
         // add crumb to chain (name, link)
-        $this->_breadcrumbs->add(self::NAME);
+        $this->breadcrumbs->add(self::NAME);
     }
 }

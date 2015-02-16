@@ -1,8 +1,8 @@
 <?php
 namespace Application\Modules\Backend\Controllers;
 
-use Models\Pages;
-use Modules\Backend\Forms;
+use Application\Models\Pages;
+use Application\Modules\Backend\Forms;
 use Phalcon\Mvc\View;
 
 /**
@@ -45,9 +45,9 @@ class PagesController extends ControllerBase
         $this->tag->setTitle(' - ' . DashboardController::NAME);
 
         // create cache key
-        $this->cacheKey = md5(\Modules\Backend::MODULE . self::NAME . $this->router->getControllerName() . $this->router->getActionName());
+        $this->cacheKey = md5(\Application\Modules\Backend::MODULE . self::NAME . $this->router->getControllerName() . $this->router->getActionName());
 
-        $this->_breadcrumbs->add(DashboardController::NAME, $this->url->get(['for' => 'dashboard']));
+        $this->breadcrumbs->add(DashboardController::NAME, $this->url->get(['for' => 'dashboard']));
     }
 
     /**
@@ -62,7 +62,7 @@ class PagesController extends ControllerBase
 
         // add crumb to chain (name, link)
 
-        $this->_breadcrumbs->add($title);
+        $this->breadcrumbs->add($title);
 
         // get all records
 
@@ -190,7 +190,7 @@ class PagesController extends ControllerBase
             $this->tag->prependTitle($title . ' - ' . self::NAME);
 
             // add crumb to chain (name, link)
-            $this->_breadcrumbs->add(self::NAME, $this->url->get(['for' => 'dashboard-controller', 'controller' => 'pages']))
+            $this->breadcrumbs->add(self::NAME, $this->url->get(['for' => 'dashboard-controller', 'controller' => 'pages']))
                 ->add($title);
 
             // set variables output to view
