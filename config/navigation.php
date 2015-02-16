@@ -79,7 +79,6 @@ $navigation = [
                             'controller' => 'server',
                             'module' => 'Backend'
                         ],
-
                         [
                             'name' => 'Cache',
                             'url' => '#',
@@ -117,6 +116,14 @@ $navigation = [
                                     'module' => 'Backend'
                                 ],
                             ],
+                        ],
+                        [
+                            'name' => 'Logs',
+                            'url' => '/dashboard/logs',
+                            'icon' => 'fa fa-list-alt',
+                            'action' => 'index',
+                            'controller' => 'logs',
+                            'module' => 'Backend'
                         ],
 
                     ],
