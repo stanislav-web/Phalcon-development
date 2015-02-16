@@ -44,7 +44,7 @@
                             <td><?= $item->getId(); ?></td>
                             <td class="cursor-pointer"
                                 onclick="Common.alert('<?= $this->escaper->escapeJs($item->getContent()); ?>');">
-                                <span class="fa fa-question"><?= $this->escaper->escapeHtml($item->getTitle()); ?></span>
+                                <span class="fa fa-question"> <?= $this->escaper->escapeHtml($item->getTitle()); ?></span>
                             </td>
                             <td><?= $item->getAlias(); ?></td>
                             <td><?= $this->tag->getFormatTime($item->getDateCreate()); ?></td>

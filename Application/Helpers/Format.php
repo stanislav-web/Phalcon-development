@@ -53,7 +53,13 @@ trait Format
      */
     public static function getFormatTime($datetime, $tz = false, $asArray = false)
     {
-        $dt = new \DateTime($datetime);
+        if(is_numeric($datetime)) {
+            $dt = new \DateTime();
+            $dt->setTimestamp($datetime);
+        }
+        else {
+            $dt = new \DateTime($datetime);
+        }
 
         // setup timezone
         if (!$tz) $_tz = $dt->getTimezone();

@@ -40,6 +40,7 @@ class LogsController extends ControllerBase
      */
     public function initialize()
     {
+
         parent::initialize();
         $this->tag->setTitle(' - ' . DashboardController::NAME);
 
@@ -65,10 +66,10 @@ class LogsController extends ControllerBase
 
         // get all records
 
-        $pages = Logs::find();
+        $logs = Logs::find();
 
         $this->view->setVars([
-            'items' => $pages,
+            'items' => $logs,
             'title' => $title,
         ]);
     }
