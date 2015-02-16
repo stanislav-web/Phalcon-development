@@ -23,6 +23,13 @@ class AuthService implements InjectionAwareInterface {
     const TOKEN_KEY = 'token';
 
     /**
+     * @const INVALID_AUTH message
+     */
+    const INVALID_AUTH = 'Wrong authenticate data';
+
+    const INVALID_ACCESS_TOKEN = 'Invalid access token';
+
+    /**
      * Dependency injection container
      *
      * @var \Phalcon\DiInterface $di;
@@ -95,7 +102,6 @@ class AuthService implements InjectionAwareInterface {
         $this->request = $request;
     }
 
-
     public function register(array $credentials) {
 
 
@@ -154,7 +160,7 @@ class AuthService implements InjectionAwareInterface {
 
     /**
      * Check user role
-     * 
+     *
      * @param int $role
      * @return bool
      */
@@ -162,8 +168,8 @@ class AuthService implements InjectionAwareInterface {
 
         $session = $this->di->getShared('session');
         if($session->has('user') === true) {
-
-            return ($session->get('user')['role'] === $role) ? true : false;
+;
+            return ((int)$session->get('user')['role'] === $role) ? true : false;
         }
         else {
             return false;
@@ -204,6 +210,7 @@ class AuthService implements InjectionAwareInterface {
                 "".key($credentials)." = ?0",
                 "bind" => [$credentials[key($credentials)]],
             ]);
+
             if($asArray === true) {
                 $this->user->toArray();
             }

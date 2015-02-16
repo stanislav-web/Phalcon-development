@@ -1,7 +1,6 @@
 <?php
 namespace Application\Services;
 
-use \Phalcon\DI\InjectionAwareInterface;
 use \Phalcon\Logger;
 use Phalcon\Logger\Adapter\Database as LoggerDatabase;
 
@@ -16,8 +15,7 @@ use Phalcon\Logger\Adapter\Database as LoggerDatabase;
  * @copyright Stanislav WEB
  * @filesource /Application/Services/LogDbService.php
  */
-class LogDbService extends LoggerDatabase
-    implements InjectionAwareInterface {
+class LogDbService extends LoggerDatabase {
 
     /**
      * Available log code
@@ -49,32 +47,6 @@ class LogDbService extends LoggerDatabase
     private $table = 'logs';
 
     /**
-     * Dependency injection container
-     *
-     * @var \Phalcon\DiInterface $di;
-     */
-    protected $di;
-
-    /**
-     * Set dependency container
-     *
-     * @param \Phalcon\DiInterface $di
-     */
-    public function setDi($di)
-    {
-        $this->di = $di;
-    }
-
-    /**
-     * Get dependency container
-     * @return \Phalcon\DiInterface
-     */
-    public function getDi()
-    {
-        return $this->di;
-    }
-
-    /**
      * Init log service
      *
      * @param \Phalcon\Db\Adapter\Pdo\Mysql $connection
@@ -99,7 +71,7 @@ class LogDbService extends LoggerDatabase
             $this->log($message, $code);
         }
         else {
-            throw new \Exception('Log code not found');
+            throw new \Exception('Logger code not found');
         }
 
     }

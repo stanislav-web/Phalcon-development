@@ -62,9 +62,12 @@ class ControllerBase extends Controller
      */
     public function beforeExecuteRoute($dispatcher)
     {
+        // define configurations
+        $this->config = $this->di->get('config');
 
         // load user data
-        $this->auth = $this->di->get("AuthService", [$this->di->get('config'), $this->request]);
+        $this->auth = $this->di->get("AuthService", [$this->config, $this->request]);
+
         if($this->auth->isAuth() === true
             && $this->auth->hasRole(UserRoles::ADMIN)) {
 
@@ -121,8 +124,6 @@ class ControllerBase extends Controller
      */
     public function initialize()
     {
-        // define configurations
-        $this->config = $this->di->get('config');
 
         // define logger
         if($this->di->has('LogDbService')) {

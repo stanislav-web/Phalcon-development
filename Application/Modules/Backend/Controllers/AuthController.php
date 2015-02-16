@@ -2,8 +2,9 @@
 namespace Application\Modules\Backend\Controllers;
 
 use Application\Models\Users;
+use Application\Models\UserRoles;
 use Phalcon\Mvc\Controller;
-
+use Application\Services\AuthService;
 /**
  * Class AuthController
  *
@@ -31,6 +32,14 @@ class AuthController extends Controller
     private $logger;
 
     /**
+     * Auth user service
+     *
+     * @uses \Services\AuthService
+     * @var \Phalcon\Di
+     */
+    private $auth;
+
+    /**
      * initialize() Initial all global objects
      *
      * @access public
@@ -41,9 +50,12 @@ class AuthController extends Controller
         // load configures
         $this->config = $this->di->get('config');
 
-        if ($this->di->has('logger')) {
-            $this->logger = $this->di->get('logger');
+        if ($this->di->has('LogDbService')) {
+            $this->logger = $this->di->get('LogDbService');
         }
+        // load user data
+        $this->auth = $this->di->get("AuthService", [$this->config, $this->request]);
+
         // set default page title
         $this->tag->setTitle('Authenticate');
     }
@@ -59,73 +71,42 @@ class AuthController extends Controller
 
                 // The token is ok, check authorization
 
-                $login = $this->request->getPost('username');
-                $password = $this->request->getPost('password', 'trim');
-                $remember = $this->request->getPost('remember');
+                // verify user credentials
+                $this->auth->login(
+                    $this->request->getPost('login'),
+                    $this->request->getPost('password'),
+                    $this->security);
 
-                $user = (new Users())->findFirst([
-                    "login = ?0",
-                    "bind" => [$login]
-                ]);
+                if ($this->auth->isAuth() === true
+                    && $this->auth->hasRole(UserRoles::ADMIN)
+                ) {
 
-                if (empty($user) === false) {
+                    // authenticate success
+                    $this->logger->save('Authenticate to CP success from ' . $this->request->getClientAddress(), 5);
 
-                    if ($this->security->checkHash($password, $user->getPassword()))
-                    {
-                        // Check if the "remember me" was selected
-                        if (isset($remember)) {
-                            $this->cookies->set('remember', $user->getId(), time() + $this->config->rememberKeep);
-                            $this->cookies->set('rememberToken',
-                                md5($user->getPassword() . $user->getToken()),
-                                time() + $this->config->rememberKeep);
-                        }
+                    $referrer = parse_url($this->request->getHTTPReferer(), PHP_URL_PATH);
 
-                        // set authentication for logged user
-                        $this->session->set('auth', $user);
-
-                        // update auth params
-                        $user->setDateLastvisit(date('Y-m-d H:i:s'))
-                            ->setIp($this->request->getClientAddress())
-                            ->setUa($this->request->getUserAgent())
-                            ->save();
-
-                        $referrer = parse_url($this->request->getHTTPReferer(), PHP_URL_PATH);
-
-                        if ($this->config->logger->enable) {
-                            $this->logger->log('Authenticate success from ' . $this->request->getClientAddress());
-                        }
-
-                        // full http redirect to the referrer page
-                        if ($referrer != $this->request->getURI())
-                            return $this->response->redirect($referrer);
-                        else
-                            return $this->response->redirect('dashboard');
-                    }
+                    // full http redirect to the referrer page
+                    if ($referrer != $this->request->getURI())
+                        return $this->response->redirect($referrer);
                     else
-                    {
-                        // Wrong authenticate data (password or login)
-                        $this->flashSession->error("Wrong authenticate data");
-
-                        $this->logger->warning('Authenticate failed from ' . $this->request->getClientAddress() . '. Wrong authenticate data');
-
-                        $this->response->redirect('dashboard/auth');
-                        $this->view->disable();
-                    }
+                        return $this->response->redirect('dashboard');
                 } else {
-                    // user does not exist in database
-                    $this->flashSession->error("The user not found");
 
-                    $this->logger->warning('Authenticate failed from ' . $this->request->getClientAddress() . '. The user ' . $login . ' not found');
+                    // Wrong authenticate data (password or login)
+                    $this->flashSession->error(AuthService::INVALID_AUTH);
+                    $this->logger->save('Authenticate to CP failed from ' . $this->request->getClientAddress() . '. Wrong authenticate data', 4);
 
                     $this->response->redirect('dashboard/auth');
                     $this->view->disable();
                 }
             }
-            else
-            {
-                // CSRF protection
-                $this->flashSession->error("Invalid access token");
-                $this->logger->warning('Authenticate failed from ' . $this->request->getClientAddress() . '. CSRF attack');
+            else {
+                // CSRF protection. Security token invalid
+                $this->logger->save('Invalid token has been catches by ' . $this->request->getClientAddress(), 4);
+                $this->flashSession->error(AuthService::INVALID_ACCESS_TOKEN);
+
+                $this->logger->save('Authenticate to CP failed from ' . $this->request->getClientAddress() . '. CSRF attack', 4);
                 $this->response->redirect('dashboard/auth');
                 $this->view->disable();
             }
