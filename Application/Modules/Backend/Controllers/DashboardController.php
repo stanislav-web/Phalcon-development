@@ -52,6 +52,7 @@ class DashboardController extends ControllerBase
 
     public function indexAction()
     {
+
         //if($this->view->getCache()->exists($this->cacheKey))
         //{
         // add crumb to chain

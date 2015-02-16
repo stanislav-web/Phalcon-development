@@ -47,9 +47,9 @@
     <?= $this->tag->javascriptInclude("//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js", false); ?>
     <?= $this->tag->javascriptInclude("https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js", false); ?>
 <?php else: ?>
-    <?= $this->tag->javascriptInclude("assets/plugins/jquery/jquery.min.js", true);  // local ?>
+    <?= $this->tag->javascriptInclude("assets/plugins/jquery/dist/jquery.min.js", true);  // local ?>
     <?= $this->tag->javascriptInclude("assets/plugins/jquery-ui/jquery-ui.min.js", true); ?>
-    <?= $this->tag->javascriptInclude("assets/plugins/bootstrap/bootstrap.min.js", true);  // local ?>
+    <?= $this->tag->javascriptInclude("assets/plugins/bootstrap/dist/js/bootstrap.min.js", true);  // local ?>
 <?php endif; ?>
 
 </body>

@@ -26,7 +26,7 @@ $di->setShared('flash', function () {
 $di->set('uploader', '\Uploader\Uploader');
 
 // Setup Hansel & Gretel breadcrumbs ))
-$di->set('breadcrumbs', '\Plugins\Breadcrumbs\Breadcrumbs');
+$di->set('breadcrumbs', '\Application\Plugins\Breadcrumbs\Breadcrumbs');
 
 // Setup Searcher component
 $di->set('searcher', 'Searcher\Searcher');
@@ -34,7 +34,7 @@ $di->set('searcher', 'Searcher\Searcher');
 // Component Navigation. Manage site navigation
 $di->setShared('navigation', function () {
 
-    require_once APP_PATH . '/config/navigation.php';
+    require_once APP_PATH . '/../config/navigation.php';
 
     if (isset($navigation[self::MODULE]))
         return new Application\Libraries\Navigation\Navigation(new \Phalcon\Config($navigation[self::MODULE]));

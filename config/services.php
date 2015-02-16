@@ -4,11 +4,8 @@
  * This section contains the settings to be used for this module.
  */
 
-use Phalcon\DI\FactoryDefault as Di;
-
 // Create factory container
 $di = new Phalcon\DI\FactoryDefault();
-
 
 // Set global configuration (merge of environment)
 $di->setShared('config', function () use ($config) {
