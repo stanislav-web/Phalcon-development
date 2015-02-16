@@ -168,7 +168,7 @@ class AuthService implements InjectionAwareInterface {
 
         $session = $this->di->getShared('session');
         if($session->has('user') === true) {
-;
+
             return ((int)$session->get('user')['role'] === $role) ? true : false;
         }
         else {
@@ -191,7 +191,7 @@ class AuthService implements InjectionAwareInterface {
      * @param boolean $asArray get as Array
      * @return mixed
      */
-    public function getUser(array $credentials = [], $asArray = false) {
+    public function getUser(array $credentials = [], $asArray = true) {
 
         if(empty($credentials) === true) {
 
@@ -214,6 +214,7 @@ class AuthService implements InjectionAwareInterface {
             if($asArray === true) {
                 $this->user->toArray();
             }
+
         }
         return $this->user;
     }

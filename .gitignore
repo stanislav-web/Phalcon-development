@@ -49,3 +49,4 @@ crashlytics-build.properties
 composer.lock
 logs
 vendor/
+phinx.yml

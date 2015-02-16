@@ -41,7 +41,7 @@ try {
 
     if (APPLICATION_ENV === 'production') {
 
-        $di->get('LoggerService')->save($e->getMessage().' File: '.$e->getFile().' Line: '.$e->getLine(), 1);
+        $di->get('LogDbService')->save($e->getMessage().' File: '.$e->getFile().' Line: '.$e->getLine(), 1);
     }
     else {
         echo $e->getMessage();

@@ -1,7 +1,6 @@
 <?php
 namespace Application\Modules\Backend\Controllers;
 
-use Application\Models\Users;
 use Application\Models\UserRoles;
 use Phalcon\Mvc\Controller;
 use Application\Services\AuthService;
@@ -80,7 +79,7 @@ class AuthController extends Controller
                     $this->security);
 
                 if ($this->auth->isAuth() === true
-                    && $this->auth->hasRole(UserRoles::ADMIN)
+                    && $this->auth->hasRole(UserRoles::ADMIN) === true
                 ) {
 
                     // authenticate success

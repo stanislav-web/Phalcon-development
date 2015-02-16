@@ -69,7 +69,7 @@ class ControllerBase extends Controller
         $this->auth = $this->di->get("AuthService", [$this->config, $this->request]);
 
         if($this->auth->isAuth() === true
-            && $this->auth->hasRole(UserRoles::ADMIN)) {
+            && $this->auth->hasRole(UserRoles::ADMIN) === true) {
 
             // success! user is logged in the system
             $this->user = $this->auth->getUser();
@@ -124,7 +124,6 @@ class ControllerBase extends Controller
      */
     public function initialize()
     {
-
         // define logger
         if($this->di->has('LogDbService')) {
             $this->logger = $this->di->get('LogDbService');
