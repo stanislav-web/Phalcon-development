@@ -12,10 +12,10 @@ $di->set('navigation', function () {
 
 // Component URL is used to generate all kinds of addresses in the annex
 
-$di->set('url', function () {
+$di->set('url', function () use ($di) {
 
     $url = new \Phalcon\Mvc\Url();
-    $url->setBaseUri($this->_config->application->baseUri)
+    $url->setBaseUri($di->get('config')['application']['baseUri'])
         ->setBasePath(DOCUMENT_ROOT);
 
     return $url;
