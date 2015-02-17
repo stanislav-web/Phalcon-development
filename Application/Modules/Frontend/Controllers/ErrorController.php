@@ -1,6 +1,7 @@
 <?php
 namespace Application\Modules\Frontend\Controllers;
 
+use Application\Services\ErrorHttpService;
 use Phalcon\Mvc\View;
 
 /**
@@ -39,10 +40,10 @@ class ErrorController extends \Phalcon\Mvc\Controller
      */
     public function notFoundAction()
     {
-        $this->tag->setTitle("Not Found");
+        $this->tag->setTitle(ErrorHttpService::NOT_FOUND_MESSAGE);
 
         // The response is already populated with a 404 Not Found header.
-        $this->errorHttpService->setStatus(404, "Not Found");
+        $this->errorHttpService->setStatus(ErrorHttpService::NOT_FOUND_CODE, ErrorHttpService::NOT_FOUND_MESSAGE);
         $this->errorHttpService->log(
             '404 Page detected: ' .$this->request->getServer('REQUEST_URI').' from IP: '.$this->request->getClientAddress()
         );
@@ -55,14 +56,9 @@ class ErrorController extends \Phalcon\Mvc\Controller
                 View::LEVEL_LAYOUT => true,
                 View::LEVEL_MAIN_LAYOUT => true,
             ]);
-            $this->errorHttpService->setJsonContent([
-                'content'   => $this->view->getRender('', 'error/notFound', []),
-            ]);
 
-            $this->errorHttpService->setStatusCode(200, "OK");
-            $this->errorHttpService->setContentType('application/json', 'UTF-8');
-
-            return $this->errorHttpService->send();
+            return $this->errorHttpService->setJsonContent(ErrorHttpService::NOT_FOUND_MESSAGE,
+                'Contact support please','application/json', 'UTF-8')->send();
         }
         else {
 
@@ -79,10 +75,9 @@ class ErrorController extends \Phalcon\Mvc\Controller
     {
         // You need to specify the response header, as it's not automatically set here.
 
-        $this->errorHttpService->setStatus(500, 'Internal Server Error');
-        $this->errorHttpService->log('500 Internal Server Error detected: ' .$this->request->getServer('REQUEST_URI').' from IP: '.$this->request->getClientAddress());
+        $this->tag->setTitle(ErrorHttpService::UNCAUGHT_EXCEPTION_MESSAGE);
 
-        $this->tag->setTitle("Internal Server Error");
+        $this->errorHttpService->setStatus(ErrorHttpService::UNCAUGHT_EXCEPTION_CODE, ErrorHttpService::UNCAUGHT_EXCEPTION_MESSAGE);
 
         // return error as 500
 
@@ -93,13 +88,8 @@ class ErrorController extends \Phalcon\Mvc\Controller
                 View::LEVEL_MAIN_LAYOUT => true,
             ]);
 
-            $this->errorHttpService->setJsonContent([
-                'content'   => $this->view->getRender('', 'error/uncaughtException', []),
-            ]);
-            $this->errorHttpService->setStatusCode(200, "OK");
-            $this->errorHttpService->setContentType('application/json', 'UTF-8');
-
-            return $this->errorHttpService->send();
+            return $this->errorHttpService->setJsonContent(ErrorHttpService::UNCAUGHT_EXCEPTION_MESSAGE,
+                'Contact support please','application/json', 'UTF-8')->send();
         }
         else {
 

@@ -36,7 +36,10 @@
                     $rootScope.user =   data.user;
 
                 })
-                .error(function(){
+                .error(function(data) {
+
+                    $rootScope.title    = data.title;
+                    $rootScope.content  = data.content;
 
                     // redirect to not found page
                     $location.url(ROUTES.NOT_FOUND);

@@ -16,6 +16,11 @@ use \Phalcon\DI\InjectionAwareInterface;
  */
 class ErrorHttpService implements InjectionAwareInterface {
 
+    const NOT_FOUND_CODE                =   404;
+    const UNCAUGHT_EXCEPTION_CODE       =   500;
+    const NOT_FOUND_MESSAGE             =   'Page Not Found';
+    const UNCAUGHT_EXCEPTION_MESSAGE    =   'Internal Server Error';
+
     /**
      * Dependency injection container
      *
@@ -72,6 +77,23 @@ class ErrorHttpService implements InjectionAwareInterface {
     public function setStatus($code, $message = '') {
         $this->getResponse()->setStatusCode($code, $message);
         return $this;
+    }
+
+    /**
+     * Set content to response
+     *
+     * @param string $template view template
+     * @param string $contentType
+     * @param string $charset
+     * @return \Phalcon\Http\Response
+     */
+    public function setJsonContent($title, $template, $contentType = 'application/json', $charset = 'UTF-8') {
+        $this->getResponse()->setJsonContent([
+            'title'     => $title,
+            'content'   => $template,
+        ])->setContentType($contentType, $charset);
+
+        return $this->getResponse();
     }
 
     /**
