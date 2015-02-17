@@ -37,7 +37,7 @@ trait Format
      */
     public static function limitString($orig, $chars)
     {
-        if (strlen($orig) > $chars)
+        if(strlen($orig) > $chars)
             $output = substr($orig, 0, $chars) . '...';
         else
             $output = $orig;

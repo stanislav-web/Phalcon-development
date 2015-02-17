@@ -69,8 +69,9 @@ class EngineService implements InjectionAwareInterface {
     public function define() {
 
         $session = $this->di->getShared('session');
+
         // find current engine
-        if($session->has('engine') === false) {
+        if($session->has('engine') === false || $session->get('engine') === null) {
 
             $engine   =   Engines::findFirst("host = '".$this->host."'");
 
