@@ -1,6 +1,7 @@
 <?php
 namespace Application\Services;
 
+use Application\Models\UserRoles;
 use \Phalcon\DI\InjectionAwareInterface;
 use Application\Models\Users;
 
@@ -23,10 +24,9 @@ class AuthService implements InjectionAwareInterface {
     const TOKEN_KEY = 'token';
 
     /**
-     * @const INVALID_AUTH message
+     * @const INVALID_AUTH messages
      */
     const INVALID_AUTH = 'Wrong authenticate data';
-
     const INVALID_ACCESS_TOKEN = 'Invalid access token';
 
     /**

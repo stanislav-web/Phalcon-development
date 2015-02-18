@@ -1,7 +1,6 @@
 <?php
 namespace Application\Modules\Backend\Controllers;
 
-use Application\Models\Users;
 use Application\Models\UserRoles;
 use Application\Modules\Backend\Forms;
 use Phalcon\Mvc\Controller;
