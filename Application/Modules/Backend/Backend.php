@@ -96,7 +96,5 @@ class Backend
             $pluginManager->register();
 
         }
-
-        return;
     }
 }

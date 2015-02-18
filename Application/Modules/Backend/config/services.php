@@ -1,7 +1,6 @@
 <?php
 
 // Component URL is used to generate all kinds of addresses in the annex
-
 $di->set('url', function () {
 
     $url = new \Phalcon\Mvc\Url();
@@ -26,8 +25,8 @@ $di->setShared('flash', function () {
 // Setup upload files service
 $di->set('uploader', '\Uploader\Uploader');
 
-// Setup DataTable service
-$di->set('uploader', '\Uploader\Uploader');
+// Define engine service
+$di->set('DataService','Application\Services\DataService');
 
 // Setup Hansel & Gretel breadcrumbs ))
 $di->set('breadcrumbs', '\Application\Plugins\Breadcrumbs\Breadcrumbs');

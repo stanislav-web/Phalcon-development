@@ -36,6 +36,7 @@ class AccountController extends ControllerBase
      */
     public function indexAction()
     {
+
         if($this->auth->isAuth() === true) {
 
             $this->tag->prependTitle(ucfirst($this->user['name']).' - ');
@@ -52,6 +53,7 @@ class AccountController extends ControllerBase
             }
         }
         else {
+
             return $this->response->redirect('/');
         }
     }

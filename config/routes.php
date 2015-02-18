@@ -4,15 +4,13 @@
  * This section contains the settings of application routes
  */
 
-$router = new \Phalcon\Mvc\Router();
+$router = new \Phalcon\Mvc\Router(true);
 $router->removeExtraSlashes(true)
     ->setDefaults([
         'module' => 'Frontend',
         'controller' => 'index',
         'action' => 'index'
     ]);
-
-// Frontend routes
 
 $router->add('/', [
     'module' => "Frontend",
@@ -60,7 +58,6 @@ $router->add('/:controller/:action/:params', [
     'params' => 3,
     'namespace' => 'Application\Modules\Frontend\Controllers',
 ])->setName('front-full');
-
 // Backend routes
 
 $router->add('/dashboard', [
