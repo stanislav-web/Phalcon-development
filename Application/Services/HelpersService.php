@@ -1,7 +1,6 @@
 <?php
 namespace Application\Services;
 
-use Application\Helpers\Format;
 use \Phalcon\Tag;
 
 /**

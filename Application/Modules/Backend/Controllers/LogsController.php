@@ -33,6 +33,12 @@ class LogsController extends ControllerBase
     public $cacheKey = false;
 
     /**
+     * is Json ?
+     * @var bool
+     */
+    private $isJsonResponse = false;
+
+    /**
      * initialize() Initialize constructor
      *
      * @access public
@@ -63,15 +69,33 @@ class LogsController extends ControllerBase
         // add crumb to chain (name, link)
 
         $this->breadcrumbs->add($title);
-
-        // get all records
-
-        $logs = Logs::find();
-
         $this->view->setVars([
-            'items' => $logs,
             'title' => $title,
         ]);
+
+        if ($this->request->isPost()) {
+            // what kind of content type will be represented ?
+            $this->setJsonResponse();
+
+            // get records
+
+                $dataTable = $this->di->get('DataService', [new Logs(), 0, 10])->hydrate();
+
+                $rows = $dataTable->jsonFromObject();
+
+            var_dump($rows); exit;
+        }
+    }
+
+    /**
+     * setJsonResponse() set json mode
+     * @access protected
+     * @return null
+     */
+    private function setJsonResponse()
+    {
+        $this->view->disable();
+        $this->response->setContentType('application/json', 'UTF-8');
     }
 }
 

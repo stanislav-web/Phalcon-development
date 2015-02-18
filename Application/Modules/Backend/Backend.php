@@ -40,16 +40,18 @@ class Backend
 
     /**
      * Register the autoloader specific to the current module
+     *
      * @access public
-     * @return \Phalcon\Loader\Loader()
+     * @return \Phalcon\Loader
      */
     public function registerAutoloaders()
     {
-
+        return true;
     }
 
     /**
      * Registration services for specific module
+     *
      * @param \Phalcon\DI $di
      * @access public
      * @return mixed

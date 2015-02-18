@@ -39,11 +39,7 @@ try {
 
 } catch (\Exception $e) {
 
-    if (APPLICATION_ENV === 'production') {
-
-        $di->get('LogDbService')->save($e->getMessage().' File: '.$e->getFile().' Line: '.$e->getLine(), 1);
-    }
-    else {
+    if (APPLICATION_ENV === 'development') {
         echo $e->getMessage();
     }
 }

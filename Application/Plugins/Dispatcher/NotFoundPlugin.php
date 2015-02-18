@@ -47,6 +47,9 @@ class NotFoundPlugin
             return $event->isStopped();
         }
 
+        // save to log
+        \Phalcon\DI::getDefault()->get('LogDbService')->save($exception->getMessage(), \Phalcon\Logger::CRITICAL);
+
         if (APPLICATION_ENV === 'production') { // production
 
             // Handle other exceptions.

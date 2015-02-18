@@ -25,6 +25,12 @@ $di->setShared('flash', function () {
 // Setup upload files service
 $di->set('uploader', '\Uploader\Uploader');
 
+// Setup upload files service
+$di->set('datatable', '\DataTables\DataTable');
+
+// Define engine service
+$di->set('DataService','Application\Services\DataService');
+
 // Setup Hansel & Gretel breadcrumbs ))
 $di->set('breadcrumbs', '\Application\Plugins\Breadcrumbs\Breadcrumbs');
 
