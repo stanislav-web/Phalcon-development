@@ -16,27 +16,7 @@ use Phalcon\Mvc\View;
  */
 class LogsController extends ControllerBase
 {
-    /**
-     * Controller name
-     *
-     * @use for another Controllers to set views , paths
-     * @const
-     */
-    const NAME = 'Logs';
 
-    /**
-     * Cache key
-     *
-     * @use for every action
-     * @access public
-     */
-    public $cacheKey = false;
-
-    /**
-     * is Json ?
-     * @var bool
-     */
-    private $isJsonResponse = false;
 
     /**
      * initialize() Initialize constructor
@@ -46,14 +26,14 @@ class LogsController extends ControllerBase
      */
     public function initialize()
     {
-
         parent::initialize();
-        $this->tag->setTitle(' - ' . DashboardController::NAME);
+
 
         // create cache key
-        $this->cacheKey = md5(\Application\Modules\Backend::MODULE . self::NAME . $this->router->getControllerName() . $this->router->getActionName());
+        //$this->cacheKey = md5($this->dispatcher->getModuleName() . $this->dispatcher->getControllerName() . $this->dispatcher->getActionName());
 
         $this->breadcrumbs->add(DashboardController::NAME, $this->url->get(['for' => 'dashboard']));
+
     }
 
     /**
@@ -63,21 +43,21 @@ class LogsController extends ControllerBase
      */
     public function indexAction()
     {
-        $title = ucfirst(self::NAME);
-        $this->tag->prependTitle($title);
+
 
         // add crumb to chain (name, link)
 
-        $this->breadcrumbs->add($title);
+
+        //$this->breadcrumbs->add($title);
         $this->view->setVars([
-            'title' => $title,
+            'title' => 'sdsd',
         ]);
 
         // get records
 
-        $dataTable = $this->di->get('DataService', [new Logs(), 0, 10])->hydrate();
+        //$dataTable = $this->di->get('DataService', [new Logs(), 0, 10])->hydrate();
 
-        $rows = $dataTable->jsonFromObject();
+        //$rows = $dataTable->jsonFromObject();
 
         if ($this->request->isPost()) {
             // what kind of content type will be represented ?
@@ -89,7 +69,6 @@ class LogsController extends ControllerBase
 
                 $rows = $dataTable->jsonFromObject();
 
-            var_dump($rows); exit;
         }
     }
 

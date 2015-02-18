@@ -1,7 +1,6 @@
 <?php
 namespace Application\Services;
 
-use \Phalcon\Mvc\Model\Exception;
 use \DataTables\DataTable as TableService;
 
 /**

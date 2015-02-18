@@ -116,7 +116,7 @@ if ($config['logger'] == true) {
     });
 }
 // Define helper's service
-$di->set('tag', '\Application\Services\HelpersService');
+$di->setShared('tag', '\Application\Services\HelpersService');
 
 // Define auth service
 $di->setShared('AuthService','Application\Services\AuthService');

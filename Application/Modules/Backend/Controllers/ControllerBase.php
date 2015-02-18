@@ -24,20 +24,27 @@ class ControllerBase extends Controller
      *
      * @var \Phalcon\Config $config
      */
-    protected $config;
+    protected $config = null;
 
     /**
      * Logger service
      *
      * @var \Phalcon\Logger\Adapter\File $logger
      */
-    protected $logger;
+    protected $logger = null;
+
+    /**
+     * Meta Service
+     *
+     * @var \Application\Services\MetaService $metaService
+     */
+    protected $metaService = null;
 
     /**
      * Logger service
      * @var \Application\Plugins\Breadcrumbs\Breadcrumbs $breadcrumbs
      */
-    protected $breadcrumbs;
+    protected $breadcrumbs = null;
 
     /**
      * Auth user service
@@ -45,7 +52,7 @@ class ControllerBase extends Controller
      * @uses \Services\AuthService
      * @var \Phalcon\Di
      */
-    protected $auth;
+    protected $authService = null;
 
     /**
      * Auth user data
@@ -66,13 +73,19 @@ class ControllerBase extends Controller
         $this->config = $this->di->get('config');
 
         // load user data
-        $this->auth = $this->di->get("AuthService", [$this->config, $this->request]);
+        $this->authService = $this->di->get("AuthService", [$this->config, $this->request]);
 
-        if($this->auth->isAuth() === true
-            && $this->auth->hasRole(UserRoles::ADMIN) === true) {
+        if($this->authService->isAuth() === true
+            && $this->authService->hasRole(UserRoles::ADMIN) === true) {
 
             // success! user is logged in the system
-            $this->user = $this->auth->getUser();
+            $this->user = $this->authService->getUser();
+
+            // define meta service
+            $this->metaService = $this->di->get('MetaService');
+            $this->metaService
+                ->setBaseTitle(DashboardController::NAME)
+                ->setTitle($this->dispatcher->getControllerName());
         }
         else {
 
