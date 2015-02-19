@@ -79,6 +79,42 @@ class ControllerBase extends Controller
     protected $reply = [];
 
     /**
+     * Send response collection put from controllers
+     *
+     * @return \Phalcon\Http\ResponseInterface
+     */
+    public function afterExecuteRoute()
+    {
+        if($this->request->isAjax() === true) {
+
+            die($this->getReply());
+        }
+        else {
+
+            // setup special view directory for this engine
+            $this->view->setViewsDir($this->config['application']['viewsFront'].strtolower($this->engine->getCode()))
+                ->setMainView('layout')
+                ->setPartialsDir('partials');
+
+            // setup navigation menu bars
+            $nav = $this->di->get('navigation');
+
+            // setup app title
+            $this->tag->setTitle($this->engine->getName());
+
+            // setup to all templates
+            $this->view->setVars([
+                'engine'    => $this->engine->toArray(),
+                'menu'      => $nav,
+                't'         => $this->translate
+            ]);
+
+            // define assets service
+            $this->di->get("AssetsService", [$this->engine])->define();
+        }
+    }
+
+    /**
      * initialize() Initial all global objects
      *
      * @access public
@@ -100,9 +136,6 @@ class ControllerBase extends Controller
         // define translate service
         $this->translate = $this->di->get("TranslateService");
 
-        // define assets service
-        $this->di->get("AssetsService", [$this->engine])->define();
-
         // load user data
         $this->auth = $this->di->get("AuthService", [$this->config, $this->request]);
 
@@ -111,24 +144,6 @@ class ControllerBase extends Controller
             // success! user is logged in the system
             $this->user = $this->auth->getUser();
         }
-
-        // setup special view directory for this engine
-        $this->view->setViewsDir($this->config['application']['viewsFront'].strtolower($this->engine->getCode()))
-            ->setMainView('layout')
-            ->setPartialsDir('partials');
-
-        // setup navigation menu bars
-        $nav = $this->di->get('navigation');
-
-        // setup app title
-        $this->tag->setTitle($this->engine->getName());
-
-       // setup to all templates
-       $this->view->setVars([
-            'engine'    => $this->engine->toArray(),
-            'menu'      => $nav,
-            't'         => $this->translate
-       ]);
     }
 
     /**
@@ -159,6 +174,6 @@ class ControllerBase extends Controller
         $this->response->setStatusCode($code, $status);
         $this->response->setContentType($content, 'UTF-8');
 
-        return $this->response->send();
+        return $this->response->getContent();
     }
 }

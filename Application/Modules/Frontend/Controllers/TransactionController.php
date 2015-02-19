@@ -41,11 +41,6 @@ class TransactionController extends ControllerBase
             'title'     => $this->engine->getName(),
             'content'   => 'some data',
         ]);
-
-        // send response
-        if($this->request->isAjax() === true) {
-            return $this->getReply();
-        }
     }
 }
 

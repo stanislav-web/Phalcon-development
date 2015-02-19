@@ -96,7 +96,6 @@ class SignController extends ControllerBase
                 $this->logger->save('Invalid token has been catches by ' . $this->request->getClientAddress(), 4);
             }
         }
-        return $this->getReply();
     }
 
     /**
@@ -170,8 +169,6 @@ class SignController extends ControllerBase
                 $this->logger->save('Registration failed from ' . $this->request->getClientAddress() . '. CSRF attack',4);
             }
         }
-
-        return $this->getReply();
     }
 
     /**
@@ -255,7 +252,6 @@ class SignController extends ControllerBase
             }
         }
 
-        return $this->getReply();
     }
 
     /**
@@ -275,7 +271,6 @@ class SignController extends ControllerBase
             $this->setReply(['success' => $loggedOut]);
         }
 
-        return $this->getReply();
     }
 
 
@@ -291,7 +286,5 @@ class SignController extends ControllerBase
         if($AuthService->isAuth() === true) {
             $this->setReply(['success' => true]);
         }
-
-        return $this->getReply();
     }
 }

@@ -46,11 +46,6 @@ class AccountController extends ControllerBase
                 'title'     => $this->user['name'] .' - '.$this->engine->getName(),
                 'user'      => $this->user,
             ]);
-
-            // send response
-            if($this->request->isAjax() === true) {
-                return $this->getReply();
-            }
         }
         else {
 

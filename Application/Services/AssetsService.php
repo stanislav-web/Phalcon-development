@@ -2,6 +2,7 @@
 namespace Application\Services;
 
 use \Phalcon\DI\InjectionAwareInterface;
+use \Phalcon\Assets\Filters\Jsmin;
 
 /**
  * Class AssetsService. Actions above application front content
@@ -144,21 +145,39 @@ class AssetsService implements InjectionAwareInterface
 
                 $this->setCollection($this->getAssets()->collection($key));
 
-                if($type === 'css') {
+                if($type === 'css') { // CSS StyleSheets
 
                     array_map(function($resource) {
 
                         $this->getCollection()->addCss(strtr($resource, [':engine' => strtolower($this->getEngine()->getCode())]))->setAttributes(['media' => 'all']);
                     }, $resources);
                 }
-                else {
+                else { // Javascript
 
                     array_map(function($resource) {
 
                         $this->getCollection()->addJs(strtr($resource, [':engine' => strtolower($this->getEngine()->getCode())]));
                     }, $resources);
+
+                    if (APPLICATION_ENV === 'production') {
+                        $this->minify($key);
+                    }
                 }
             }
         }
     }
+
+    /**
+     * Minimize params
+     *
+     * @param string $key
+     */
+    public function minify($key) {
+
+        $this->collection->join(true);
+        $this->collection->addFilter(new Jsmin());
+        $this->collection->setTargetPath('assets/frontend/'.strtolower($this->getEngine()->getCode()).'/'.$key.'.min.js');
+        $this->collection->setTargetUri('assets/frontend/'.strtolower($this->getEngine()->getCode()).'/'.$key.'.min.js');
+    }
+
 }

@@ -18,11 +18,6 @@ class IndexController extends ControllerBase
 
     /**
      * Home action.
-     *
-     * @uses Application\Modules\Frontend\Controllers\ControllerBase::setReply <- array
-     * @uses Application\Modules\Frontend\Controllers\ControllerBase::getReply -> json
-     *
-     * @return void
      */
     public function indexAction()
     {
@@ -31,11 +26,6 @@ class IndexController extends ControllerBase
             'title'     => $this->engine->getName(),
             'content'   => 'some data',
         ]);
-
-        // send response
-        if($this->request->isAjax() === true) {
-            return $this->getReply();
-        }
     }
 }
 
