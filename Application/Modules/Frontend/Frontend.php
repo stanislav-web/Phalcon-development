@@ -73,32 +73,6 @@ class Frontend
             return $dispatcher;
         }, true);
 
-        // Database connection is created based in the parameters defined in the configuration file
-
-        $di->set('db', function () {
-
-            try {
-                $connect = new \Phalcon\Db\Adapter\Pdo\Mysql([
-                    "host" => $this->_config->database->host,
-                    "username" => $this->_config->database->username,
-                    "password" => $this->_config->database->password,
-                    "dbname" => $this->_config->database->dbname,
-                    "persistent" => $this->_config->database->persistent,
-                    "options" => [
-                        \PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES '{$this->_config->database->charset}'",
-                        \PDO::ATTR_CASE => \PDO::CASE_LOWER,
-                        \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
-                        \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC
-                    ]
-                ]);
-                return $connect;
-            }
-            catch (\PDOException $e) {
-                echo $e->getMessage();
-            }
-
-        }, true);
-
         // Registration of component representations (Views)
 
         $di->set('view', function () {

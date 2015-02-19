@@ -2,6 +2,7 @@
 namespace Application\Services;
 
 use \Phalcon\DI\InjectionAwareInterface;
+use \Application\Plugins\Breadcrumbs\Breadcrumbs;
 
 /**
  * Class MetaService. Actions above application meta view
@@ -14,7 +15,7 @@ use \Phalcon\DI\InjectionAwareInterface;
  * @copyright Stanislav WEB
  * @filesource /Application/Services/MetaService.php
  */
-class MetaService  implements InjectionAwareInterface
+class MetaService implements InjectionAwareInterface
 {
     /**
      * Dependency injection container
@@ -24,11 +25,25 @@ class MetaService  implements InjectionAwareInterface
     protected $di;
 
     /**
+     * Page title (home)
+     *
+     * @var string $homeTitle;
+     */
+    protected $homeTitle;
+
+    /**
      * Page title
      *
      * @var string $title;
      */
     protected $title;
+
+    /**
+     * Home link spot
+     *
+     * @var string $homelink;
+     */
+    protected $homelink;
 
     /**
      * Meta keywords
@@ -45,11 +60,38 @@ class MetaService  implements InjectionAwareInterface
     protected $description;
 
     /**
+     * Breadcrumbs Chain
+     *
+     * @var Breadcrumbs $breadcrumbs;
+     */
+    protected $breadcrumbs;
+
+    /**
      * Helper Service
      *
      * @var \Application\Services\HelpersService $tag;
      */
     protected $tag = null;
+
+    /**
+     * @return string
+     */
+    public function getHomelink()
+    {
+        return $this->homelink;
+    }
+
+    /**
+     * @param string $homelink
+     * @return MetaService
+     */
+    public function setHomelink($homelink)
+    {
+        $this->homelink = $homelink;
+
+        $this->setBreadcrumbs();
+        return $this;
+    }
 
     /**
      * @return HelpersService
@@ -88,12 +130,13 @@ class MetaService  implements InjectionAwareInterface
     }
 
     /**
-     * @param string $baseTitle
+     * @param string $homeTitle
      * @return MetaService
      */
-    public function setBaseTitle($baseTitle, $delimiter = ' - ')
+    public function setHomeTitle($homeTitle, $delimiter = ' - ')
     {
-        $this->getTag()->setTitle($delimiter . $baseTitle);
+        $this->homeTitle    =   $homeTitle;
+        $this->getTag()->setTitle($delimiter . $homeTitle);
 
         return $this;
     }
@@ -150,11 +193,42 @@ class MetaService  implements InjectionAwareInterface
      */
     public function setTitle($title)
     {
+        $this->title = ucfirst($title);
 
-        $this->title = (empty($this->getTag()->getTitle()) === true) ?
-            $this->getTag()->setTitle($this->baseTitle) :
-                $this->getTag()->prependTitle(ucfirst($title));
+        (empty($this->getTag()->getTitle()) === true) ?
+            $this->getTag()->setTitle($this->homeTitle) :
+                $this->getTag()->prependTitle($this->title);
+
+        $this->getDi()->get('view')->setVar('title', $this->title);
 
         return $this;
+    }
+
+    /**
+     * Set breadcrumbs home spot start
+     *
+     * @param Breadcrumbs $breadcrumbs
+     * @return MetaService
+     */
+    public function setBreadcrumbs()
+    {
+
+        $this->breadcrumbs = (new Breadcrumbs())->add($this->homeTitle, $this->getHomelink());
+            if(empty($this->title) === false && $this->homeTitle != $this->title) {
+
+                $this->breadcrumbs->add($this->title);
+            }
+
+        return $this;
+    }
+
+    /**
+     * Get breadcrumbs
+     *
+     * @return Breadcrumbs
+     */
+    public function getBreadcrumbs()
+    {
+        return $this->breadcrumbs;
     }
 }

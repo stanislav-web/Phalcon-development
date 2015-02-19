@@ -31,3 +31,6 @@ $di->set('SMS', function () use ($di) {
 
 // Define engine service
 $di->setShared('EngineService','Application\Services\EngineService');
+
+// Define assets service
+$di->setShared('AssetsService', 'Application\Services\AssetsService');

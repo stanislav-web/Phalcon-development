@@ -73,7 +73,7 @@ class Backend
 
         // Registration of component representations (Views)
 
-        $di->set('view', function () {
+        $di->setShared('view', function () {
             $view = new View();
             $view->setViewsDir($this->_config['application']['viewsBack'])
                 ->setMainView('auth-layout')

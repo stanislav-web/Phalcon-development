@@ -17,16 +17,33 @@ use Phalcon\Mvc\View;
  */
 class Breadcrumbs
 {
+    /**
+     * Storage elements
+     *
+     * @var array $elements
+     */
+    private $elements = [];
 
     /**
-     * Set of storage elements
-     * @var array
-     * @access private
+     * Default view dir for breadcrumbs template
+     *
+     * @var string $viewDir
      */
-    private $_elements = [],
-        $_viewDir = false,
-        $_partialName = 'breadcrumbs',
-        $_separator = false;
+    private $viewDir = '';
+
+    /**
+     * Default view partial template
+     *
+     * @var string $partialName
+     */
+    private $partialName = 'breadcrumbs';
+
+    /**
+     * Crud separator
+     *
+     * @var string $separator
+     */
+    private $separator = '';
 
     /**
      * Adding items to the chain
@@ -40,7 +57,7 @@ class Breadcrumbs
     {
         if ($link == (new Request)->getURI()) $el = ['active' => true, 'link' => $link, 'text' => $caption];
         else $el = ['active' => false, 'link' => $link, 'text' => $caption];
-        $this->_elements[] = $el;
+        $this->elements[] = $el;
         return $this;
     }
 
@@ -52,7 +69,7 @@ class Breadcrumbs
      */
     public function separator($value)
     {
-        $this->_separator = $value;
+        $this->separator = $value;
         return $this;
     }
 
@@ -63,7 +80,7 @@ class Breadcrumbs
      */
     public function reset()
     {
-        $this->_elements = [];
+        $this->elements = [];
     }
 
     /**
@@ -74,8 +91,8 @@ class Breadcrumbs
      */
     public function generate()
     {
-        $lastKey = key(array_slice($this->_elements, -1, 1, true));
-        $this->_elements[$lastKey]['active'] = true;
+        $lastKey = key(array_slice($this->elements, -1, 1, true));
+        $this->elements[$lastKey]['active'] = true;
 
         // set views dir
         $view = $this->setBreadcrumbsView(new View(), dirname(__FILE__) . '/views/');
@@ -91,12 +108,12 @@ class Breadcrumbs
      */
     public function setBreadcrumbsView(View $view, $value)
     {
-        $this->_viewDir = (string)$value;
+        $this->viewDir = (string)$value;
 
-        $view->setPartialsDir($this->_viewDir);
-        $view->partial($this->_partialName, [
-                'elements' => $this->_elements,
-                'separator' => $this->_separator,
+        $view->setPartialsDir($this->viewDir);
+        $view->partial($this->partialName, [
+                'elements' => $this->elements,
+                'separator' => $this->separator,
             ]
         );
         return;

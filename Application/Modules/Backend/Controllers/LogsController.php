@@ -27,13 +27,6 @@ class LogsController extends ControllerBase
     public function initialize()
     {
         parent::initialize();
-
-
-        // create cache key
-        //$this->cacheKey = md5($this->dispatcher->getModuleName() . $this->dispatcher->getControllerName() . $this->dispatcher->getActionName());
-
-        $this->breadcrumbs->add(DashboardController::NAME, $this->url->get(['for' => 'dashboard']));
-
     }
 
     /**
@@ -43,44 +36,15 @@ class LogsController extends ControllerBase
      */
     public function indexAction()
     {
-
-
-        // add crumb to chain (name, link)
-
-
-        //$this->breadcrumbs->add($title);
-        $this->view->setVars([
-            'title' => 'sdsd',
-        ]);
-
         // get records
-
         //$dataTable = $this->di->get('DataService', [new Logs(), 0, 10])->hydrate();
+        //$rows = $dataTable->jsonFromObject();
 
         //$rows = $dataTable->jsonFromObject();
 
         if ($this->request->isPost()) {
             // what kind of content type will be represented ?
-            $this->setJsonResponse();
-
-            // get records
-
-                $dataTable = $this->di->get('DataService', [new Logs(), 0, 10])->hydrate();
-
-                $rows = $dataTable->jsonFromObject();
-
         }
-    }
-
-    /**
-     * setJsonResponse() set json mode
-     * @access protected
-     * @return null
-     */
-    private function setJsonResponse()
-    {
-        $this->view->disable();
-        $this->response->setContentType('application/json', 'UTF-8');
     }
 }
 

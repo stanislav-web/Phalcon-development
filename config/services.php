@@ -87,8 +87,6 @@ $di->set('crypt', function () use ($config) {
 
 });
 
-// Define language service
-$di->setShared('ErrorHttpService', 'Application\Services\ErrorHttpService');
 
 // Define mailer service
 $di->setShared('MailService', function () use ($di, $config) {
@@ -117,6 +115,9 @@ if ($config['logger'] == true) {
 }
 // Define helper's service
 $di->setShared('tag', '\Application\Services\HelpersService');
+
+// Define language service
+$di->setShared('ErrorHttpService', 'Application\Services\ErrorHttpService');
 
 // Define auth service
 $di->setShared('AuthService','Application\Services\AuthService');

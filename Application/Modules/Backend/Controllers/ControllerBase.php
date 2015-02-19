@@ -40,12 +40,6 @@ class ControllerBase extends Controller
     protected $metaService = null;
 
     /**
-     * Logger service
-     * @var \Application\Plugins\Breadcrumbs\Breadcrumbs $breadcrumbs
-     */
-    protected $breadcrumbs = null;
-
-    /**
      * Auth user service
      *
      * @uses \Services\AuthService
@@ -83,8 +77,9 @@ class ControllerBase extends Controller
             // define meta service
             $this->metaService = $this->di->get('MetaService');
             $this->metaService
-                ->setBaseTitle(DashboardController::NAME)
-                ->setTitle($this->dispatcher->getControllerName());
+                ->setHomeTitle(DashboardController::NAME)
+                ->setTitle($this->dispatcher->getControllerName())
+                ->setHomelink($this->url->get(['for' => 'dashboard']));
         }
         else {
 
@@ -125,6 +120,7 @@ class ControllerBase extends Controller
                 $dispatcher->getControllerName(),    //	render Controller
                 $dispatcher->getActionName()        //	render Action
             );
+
         }
     }
 
@@ -140,9 +136,6 @@ class ControllerBase extends Controller
         if($this->di->has('LogDbService')) {
             $this->logger = $this->di->get('LogDbService');
         }
-
-        // setup breadcrumbs
-        $this->breadcrumbs = $this->di->get('breadcrumbs');
 
         // setup navigation
 
@@ -164,7 +157,7 @@ class ControllerBase extends Controller
         // global view variables
         $this->view->setVars([
             'user' => $this->user,
-            'breadcrumbs' => $this->breadcrumbs,
+            'breadcrumbs' => $this->metaService->getBreadcrumbs(),
             'navigation' => $navigation,
             'search' => new Forms\SearcherForm()
         ]);

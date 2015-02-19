@@ -28,9 +28,6 @@ $di->set('uploader', '\Uploader\Uploader');
 // Meta Service Helper
 $di->set('MetaService','Application\Services\MetaService');
 
-// Setup Hansel & Gretel breadcrumbs ))
-$di->set('breadcrumbs', '\Application\Plugins\Breadcrumbs\Breadcrumbs');
-
 // Setup Searcher component
 $di->set('searcher', 'Searcher\Searcher');
 

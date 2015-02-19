@@ -89,9 +89,6 @@ class ControllerBase extends Controller
         // load configurations
         $this->config = $this->di->get('config');
 
-        // define translate service
-        $this->translate = $this->di->get("TranslateService");
-
         // define logger
         if($this->di->has('LogDbService')) {
             $this->logger = $this->di->get('LogDbService');
@@ -100,13 +97,21 @@ class ControllerBase extends Controller
         // define engine
         $this->engine = $this->di->get("EngineService", [$this->request->getHttpHost()])->define();
 
+        // define translate service
+        $this->translate = $this->di->get("TranslateService");
+
+        // define assets service
+        $this->di->get("AssetsService", [$this->engine])->define();
+
         // load user data
         $this->auth = $this->di->get("AuthService", [$this->config, $this->request]);
+
         if($this->auth->isAuth() === true) {
 
             // success! user is logged in the system
             $this->user = $this->auth->getUser();
         }
+
         // setup special view directory for this engine
         $this->view->setViewsDir($this->config['application']['viewsFront'].strtolower($this->engine->getCode()))
             ->setMainView('layout')
@@ -118,61 +123,12 @@ class ControllerBase extends Controller
         // setup app title
         $this->tag->setTitle($this->engine->getName());
 
-        // setup to all templates
-        $this->view->setVars([
+       // setup to all templates
+       $this->view->setVars([
             'engine'    => $this->engine->toArray(),
             'menu'      => $nav,
             't'         => $this->translate
-        ]);
-
-        // add scripts & stylesheets
-        $this->addAssetsContent();
-    }
-
-    /**
-     * Add assets content
-     *
-     * @access protected
-     * @return null
-     */
-    private function addAssetsContent() {
-
-        // add styles
-        foreach($this->config->assets as $type => $collection) {
-
-            foreach($collection as $title => $content) {
-
-                // create collection
-                $min = $title;
-                $title = $this->assets->collection($title);
-
-                if($type === 'css') {
-                    // collect css
-                    foreach($content as $string) {
-                        $title->addCss(strtr($string, [':engine' => strtolower($this->engine->getCode())]))->setAttributes(['media' => 'all']);
-                    }
-                }
-                else {
-                    // collect js
-                    foreach($content as $string) {
-                        $title->addJs(strtr($string, [':engine' => strtolower($this->engine->getCode())]));
-                    }
-
-                    if (APPLICATION_ENV === 'production') {
-
-                        // glue and minimize scripts header
-
-                        $title->join(true);
-                        $title->addFilter(new \Phalcon\Assets\Filters\Jsmin());
-                        $title->setTargetPath('assets/frontend/'.strtolower($this->engine->getCode()).'/'.$min.'.min.js');
-                        $title->setTargetUri('assets/frontend/'.strtolower($this->engine->getCode()).'/'.$min.'.min.js');
-
-                    }
-                }
-            }
-        }
-
-        return;
+       ]);
     }
 
     /**
