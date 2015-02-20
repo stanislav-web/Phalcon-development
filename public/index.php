@@ -10,36 +10,47 @@ defined('APP_PATH') || define('APP_PATH', DOCUMENT_ROOT . '/../Application');
 defined('APPLICATION_ENV') ||
 define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production'));
 
-// Require global configurations
-require_once DOCUMENT_ROOT . '/../config/application.php';
-
 // Require composite libraries
+
 require_once DOCUMENT_ROOT . ' /../vendor/autoload.php';
 
-// Require routes
-require_once DOCUMENT_ROOT . '/../config/routes.php';
+// Enable PHP Console
+$connector = PhpConsole\Connector::getInstance();
 
-// Require global services
-require_once DOCUMENT_ROOT . '/../config/services.php';
+if($connector->isActiveClient() === true) {
 
-try {
+    $handler = PhpConsole\Handler::getInstance();
+    PhpConsole\Helper::register();
+    $handler->start(); // start handling PHP errors & exceptions
 
-    $application = new Phalcon\Mvc\Application($di);
+    // Require global configurations
+    require_once DOCUMENT_ROOT . '/../config/application.php';
 
-    // Require modules
-    require_once DOCUMENT_ROOT . '/../config/modules.php';
+    // Require routes
+    require_once DOCUMENT_ROOT . '/../config/routes.php';
 
-    if (APPLICATION_ENV === 'development') {
-        // require whoops exception handler
-        new Whoops\Provider\Phalcon\WhoopsServiceProvider($di);
-    }
+    // Require global services
+    require_once DOCUMENT_ROOT . '/../config/services.php';
 
-    // Handle the request
-    echo $application->handle()->getContent();
+    try {
 
-} catch (\Exception $e) {
+        $application = new Phalcon\Mvc\Application($di);
 
-    if (APPLICATION_ENV === 'development') {
-        echo $e->getMessage();
+        // Require modules
+        require_once DOCUMENT_ROOT . '/../config/modules.php';
+
+        if (APPLICATION_ENV === 'development') {
+            // require whoops exception handler
+            new Whoops\Provider\Phalcon\WhoopsServiceProvider($di);
+        }
+
+        // Handle the request
+        echo $application->handle()->getContent();
+
+    } catch (\Exception $e) {
+
+        if (APPLICATION_ENV === 'development') {
+            echo $e->getMessage();
+        }
     }
 }

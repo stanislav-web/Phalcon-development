@@ -87,7 +87,6 @@ $di->set('crypt', function () use ($config) {
 
 });
 
-
 // Define mailer service
 $di->setShared('MailService', function () use ($di, $config) {
     $mailer = new Application\Services\MailSMTPService($config['mail']);

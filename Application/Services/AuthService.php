@@ -1,7 +1,6 @@
 <?php
 namespace Application\Services;
 
-use Application\Models\UserRoles;
 use \Phalcon\DI\InjectionAwareInterface;
 use Application\Models\Users;
 
@@ -44,18 +43,19 @@ class AuthService implements InjectionAwareInterface {
     protected $config;
 
     /**
+     * Request
+     *
+     * @var \Phalcon\Http\Request  $request;
+     */
+    protected $request;
+
+    /**
      * Access token
      *
      * @var string $token;
      */
     protected $token;
 
-    /**
-     * Request
-     *
-     * @var \Phalcon\Http\Request  $request;
-     */
-    protected $request;
 
     /**
      * User data
@@ -88,18 +88,6 @@ class AuthService implements InjectionAwareInterface {
     public function getDi()
     {
         return $this->di;
-    }
-
-    /**
-     * Config load
-     *
-     * @param \Phalcon\Config $config
-     * @param \Phalcon\Http\Request $request
-     */
-    public function __construct(\Phalcon\Config $config, \Phalcon\Http\Request $request) {
-
-        $this->config = $config;
-        $this->request = $request;
     }
 
     public function register(array $credentials) {
@@ -166,7 +154,8 @@ class AuthService implements InjectionAwareInterface {
      */
     public function hasRole($role) {
 
-        $session = $this->di->getShared('session');
+        $session = $this->getDi()->getShared('session');
+
         if($session->has('user') === true) {
 
             return ((int)$session->get('user')['role'] === $role) ? true : false;
