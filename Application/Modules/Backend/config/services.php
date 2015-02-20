@@ -10,18 +10,6 @@ $di->set('url', function () {
 
 });
 
-// Component flashSession (Session keep flash messages).
-$di->setShared('flash', function () {
-
-    $flash = new Phalcon\Flash\Session([
-        'error' => 'alert alert-danger',
-        'success' => 'alert alert-success',
-        'notice' => 'alert alert-info',
-    ]);
-    return $flash;
-
-});
-
 // Setup upload files service
 $di->set('uploader', '\Uploader\Uploader');
 
@@ -111,3 +99,15 @@ if ($this->_config->cache->enable == true) {
 
     });
 }
+
+// Component flashSession (Session keep flash messages).
+$di->setShared('flash', function () {
+
+    $flash = new Phalcon\Flash\Session([
+        'error' => 'alert alert-danger',
+        'success' => 'alert alert-success',
+        'notice' => 'alert alert-info',
+    ]);
+    return $flash;
+
+});

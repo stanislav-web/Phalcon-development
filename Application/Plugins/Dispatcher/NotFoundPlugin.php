@@ -50,7 +50,7 @@ class NotFoundPlugin
         // save to log
         \Phalcon\DI::getDefault()->get('LogDbService')->save($exception->getMessage(), \Phalcon\Logger::CRITICAL);
 
-        if (APPLICATION_ENV === 'production') { // production
+        if (APPLICATION_ENV === 'production') { // development
 
             // Handle other exceptions.
             $dispatcher->forward([

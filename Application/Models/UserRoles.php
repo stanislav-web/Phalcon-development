@@ -77,7 +77,7 @@ class UserRoles extends \Phalcon\Mvc\Model
     /**
      * Method to set the value of field name
      *
-     * @param string $login
+     * @param string $name
      * @return $this
      */
     public function setName($name)

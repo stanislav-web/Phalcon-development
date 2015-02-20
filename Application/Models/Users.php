@@ -62,12 +62,6 @@ class Users extends \Phalcon\Mvc\Model
 
     /**
      *
-     * @var string
-     */
-    protected $token;
-
-    /**
-     *
      * @var int
      */
     protected $role;
@@ -139,10 +133,6 @@ class Users extends \Phalcon\Mvc\Model
         $this->validate(new Uniqueness([
             "field"     => "login",
             "message"   => $t->translate('USER_EXIST')
-        ]));
-        $this->validate(new Uniqueness([
-            "field"     => "token",
-            "message"   => $t->translate('INVALID_TOKEN')
         ]));
 
         $this->validate(new PresenceOf([
@@ -319,30 +309,6 @@ class Users extends \Phalcon\Mvc\Model
     }
 
     /**
-     * Returns the value of field token
-     *
-     * @return string
-     */
-    public function getToken()
-    {
-        return $this->token;
-    }
-
-    /**
-     * Method to set the value of field token
-     *
-     * @param string $token
-     * @return $this
-     */
-    public function setToken($token)
-    {
-        $this->token = $token;
-
-        return $this;
-    }
-
-
-    /**
      * Returns the value of field role
      *
      * @return string
@@ -353,7 +319,7 @@ class Users extends \Phalcon\Mvc\Model
     }
 
     /**
-     * Method to set the value of field token
+     * Method to set the value of field role
      *
      * @param string $role
      * @return Users

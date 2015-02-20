@@ -28,33 +28,6 @@ $di->setShared('db', function () use ($config) {
 // Set routes
 $di->setShared('router', $router);
 
-
-// Database connection is created based in the parameters defined in the configuration file
-
-$di->setShared('db', function () use ($config, $di) {
-
-    try {
-        $connect = new \Phalcon\Db\Adapter\Pdo\Mysql([
-            "host"          => $config['database']['host'],
-            "username"     => $config['database']['username'],
-            "password"      => $config['database']['password'],
-            "dbname"        => $config['database']['dbname'],
-            "persistent"    => $config['database']['persistent'],
-            "options" => [
-                \PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES '{$config['database']['charset']}'",
-                \PDO::ATTR_CASE => \PDO::CASE_LOWER,
-                \PDO::ATTR_ERRMODE => $config['database']['debug'],
-                \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC
-            ]
-        ]);
-        return $connect;
-    }
-    catch (\PDOException $e) {
-        $di->get('LogDbService')->save($e->getMessage(), 1);
-    }
-});
-
-
 // Component Session. Starting a Session
 $di->setShared('session', function () use ($config) {
     $session = new \Phalcon\Session\Adapter\Files([

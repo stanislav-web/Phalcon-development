@@ -65,10 +65,7 @@ class SignController extends ControllerBase
             if ($this->security->checkToken() === true) {
 
                 // verify user credentials
-                $this->auth->login(
-                    $this->request->getPost('login'),
-                    $this->request->getPost('password'),
-                    $this->security);
+                $this->auth->authenticate($this->request->getPost());
 
                 if ($this->auth->isAuth() === true) {
 
@@ -81,12 +78,16 @@ class SignController extends ControllerBase
                 } else {
 
                     // authenticate failed
-                    foreach ($this->auth->getErrors() as $error) {
-                        $this->setReply(['message' => $this->translate->translate($error)]);
+                    foreach ($this->auth->getErrors() as $key => $msg) {
+                        if(is_numeric($key) === true) {
+
+                            $this->setReply(['message' => $msg]);
+                        }
+                        else {
+                            $this->setReply(['message' => $this->translate->translate($key)]);
+                        }
                     }
-
                     $this->logger->save('Authenticate failed from ' . $this->request->getClientAddress(), 4);
-
                 }
             }
             else {
@@ -100,7 +101,7 @@ class SignController extends ControllerBase
 
     /**
      * registerAction() User registration action action
-     * @TODO need repair
+     *
      * @access public
      * @return null
      */
@@ -112,53 +113,42 @@ class SignController extends ControllerBase
 
                 // required params that to be saved by this user
 
-                $user = new Users();
+                $isRegistered = $this->auth->register();
 
-                $register =
-                    $user->setLogin($this->request->getPost('login', 'trim'))
-                        ->setPassword($this->security->hash($this->request->getPost('password', 'trim')))
-                        ->setName($this->request->getPost('name', 'trim', ''))
-                        ->setSalt($this->security->getSessionToken())
-                        ->setIp($this->request->getClientAddress())
-                        ->setUa($this->request->getUserAgent())
-                        ->setToken(md5($this->request->getPost('login', 'trim') . $this->security->getSessionToken() . $this->request->getUserAgent()));
+                if($isRegistered === true) {
+                    // Success registration
+                    $user = $this->auth->getUser();
 
-                if($register->save()) {
+                    $this->logger->save('Registration success from ' . $this->request->getClientAddress().'. User: '.$user['id'],5);
 
-                    // user created
-
-                    $this->token = md5($register->getLogin() . $this->security->getSessionToken() . $this->request->getUserAgent());
-
-                    // setup user cookies and send to client for update
-                    $this->cookies->set('token',    $this->token, time() + ($this->config->rememberKeep), '/', $this->engine->getHost(), false, false);
-                    $this->session->set('token',    $this->token);
-                    $this->session->set('user',     $register->toArray());
-
-                    // update auth params
-                    $this->logger->save('Registration success from ' . $this->request->getClientAddress().'. User: '.$register->getLogin(),5);
-
-                    // send reply to client
                     $this->setReply([
                         'user'  => [
-                            'id'        =>  $register->getId(),
-                            'login'     =>  $register->getLogin(),
-                            'name'      =>  $register->getName(),
-                            'surname'   =>  $register->getSurname(),
-                            'state'     =>  $register->getState(),
-                            'rating'    =>  $register->getRating(),
-                            'date_registration' =>  $user->getDateRegistration(),
-                            'date_lastvisit'    =>  $user->getDateLastvisit()
+                            'id'        =>  $user['id'],
+                            'login'     =>  $user['login'],
+                            'name'      =>  $user['name'],
+                            'surname'   =>  $user['surname'],
+                            'state'     =>  $user['state'],
+                            'rating'    =>  $user['rating'],
+                            'date_registration' =>  $user['date_registration'],
+                            'date_lastvisit'    =>  $user['date_lastvisit']
                         ],
                         'success'   => true,
                     ]);
                 }
                 else {
 
-                    // get an error
-                    foreach($user->getMessages() as $message) {
+                    // Failed registration
 
-                        $this->setReply(['message' => $message->getMessage()]);
+                    foreach ($this->auth->getErrors() as $key => $msg) {
+                        if(is_numeric($key) === true) {
+
+                            $this->setReply(['message' => $msg]);
+                        }
+                        else {
+                            $this->setReply(['message' => $this->translate->translate($key)]);
+                        }
                     }
+                    $this->logger->save('Registration failed from ' . $this->request->getClientAddress(), 4);
                 }
             }
             else

@@ -1,7 +1,7 @@
 <?php
 return [
-    'NOT_FOUND'         =>  'Nicht gefunden',
-    'WRONG_DATA'        =>  'Kein gültiges kennwort',
+    'USER_NOT_FOUND'         =>  'Nicht gefunden',
+    'INVALID_AUTH_DATA'        =>  'Kein gültiges kennwort',
     'WRONG_USER_TOKEN'  =>  'Ihre token nicht gültig',
     'INVALID_TOKEN'     =>  'Das ist nicht wahr Token! Starten sie bitte',
     'INVALID_REQUEST'   =>  'Es ist nicht möglich, die Anforderung zu verarbeiten',

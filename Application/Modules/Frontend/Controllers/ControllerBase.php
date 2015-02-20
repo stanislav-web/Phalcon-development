@@ -18,15 +18,15 @@ class ControllerBase extends Controller
 {
     /**
      * Config service
-     * @var object Phalcon\Config
+     *
+     * @var \Phalcon\Config $config
      */
     protected $config;
 
     /**
      * Auth user service
      *
-     * @uses \Services\AuthService
-     * @var \Phalcon\Di
+     * @var \Application\Services\AuthService $auth
      */
     protected $auth;
 
@@ -46,21 +46,21 @@ class ControllerBase extends Controller
 
     /**
      * Logger service
-     * @var object Phalcon\Logger\Adapter\File
+     * @var \Phalcon\Logger\Adapter\File $logger
      */
     protected $logger;
 
     /**
      * Engine to show
      *
-     * @var \Application\Models\Engines
+     * @var \Application\Models\Engines $engine
      */
     protected $engine;
 
     /**
      * Engine to show
      *
-     * @var \Application\Models\Categories
+     * @var \Application\Models\Categories $categories
      */
     protected $categories;
 
@@ -137,7 +137,7 @@ class ControllerBase extends Controller
         $this->translate = $this->di->get("TranslateService");
 
         // load user data
-        $this->auth = $this->di->get("AuthService", [$this->config, $this->request]);
+        $this->auth = $this->di->get("AuthService");
 
         if($this->auth->isAuth() === true) {
 
