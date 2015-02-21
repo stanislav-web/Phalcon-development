@@ -10,7 +10,7 @@ var splashModule;
     splashModule = angular.module('ui.splash', ['ui.bootstrap']);
 
     // application module
-    app = angular.module('app', ['ngRoute', 'ngAnimate', 'ngSanitize', 'ngLoadingSpinner', 'pascalprecht.translate', 'ngCookies', 'ui.splash', function($httpProvider) {
+    app = angular.module('app', ['ngRoute', 'ngAnimate', 'ngSanitize', 'ngLoadingSpinner', 'pascalprecht.translate', 'ngCookies', 'ui.splash', 'ab-base64', function($httpProvider) {
 
         $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
         $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';

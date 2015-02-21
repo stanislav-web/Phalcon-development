@@ -1,6 +1,7 @@
 <?php
 namespace Application\Services;
 
+use Application\Models\UserRoles;
 use \Phalcon\DI\InjectionAwareInterface;
 use Application\Models\Users;
 use Application\Models\UserAccess;
@@ -24,19 +25,6 @@ class AuthService implements InjectionAwareInterface {
     const TOKEN_KEY = 'token';
 
     /**
-     * Response error messages
-     *
-     * @var array $messages
-     */
-    private $message = [
-        'USER_NOT_FOUND'        => 'User not found',
-        'INVALID_AUTH_DATA'     => 'Wrong authenticate data',
-        'INVALID_REQUEST_TOKEN' => 'Invalid request token',
-        'INVALID_ACCESS_TOKEN'  => 'Invalid access token',
-        'USER_ALREADY_REGISTERED'  => 'The user already registered',
-    ];
-
-    /**
      * Dependency injection container
      *
      * @var \Phalcon\DiInterface $di;
@@ -44,11 +32,18 @@ class AuthService implements InjectionAwareInterface {
     protected $di;
 
     /**
-     * User auth errors
+     * Dependency injection container
      *
-     * @var array $errors;
+     * @var \Translate\Translator $translate;
      */
-    protected $errors = [];
+    protected $translate;
+
+    /**
+     * User auth error
+     *
+     * @var array $error
+     */
+    protected $error = '';
 
     /**
      * Set dependency container
@@ -58,6 +53,15 @@ class AuthService implements InjectionAwareInterface {
     public function setDi($di)
     {
         $this->di = $di;
+    }
+
+    /**
+     * Get translate service
+     *
+     * @return \Translate\Translator
+     */
+    public function getTranslator() {
+        return $this->getDI()->getShared('TranslateService')->assign('sign');
     }
 
     /**
@@ -79,12 +83,21 @@ class AuthService implements InjectionAwareInterface {
     }
 
     /**
-     * Get Request data plugin
+     * Get Request data service
      *
      * @return \Phalcon\Http\Request
      */
     public function getRequest() {
         return $this->getDi()->get('request');
+    }
+
+    /**
+     * Get Response data service
+     *
+     * @return \Phalcon\Http\Response
+     */
+    public function getResponse() {
+        return $this->getDi()->get('response');
     }
 
     /**
@@ -102,8 +115,8 @@ class AuthService implements InjectionAwareInterface {
      * @param string $message
      * @param string $code
      */
-    public function setErrors($message, $code = null) {
-        $this->errors[$code] = $message;
+    public function setError($message) {
+        $this->error = $this->getTranslator()->translate($message);
     }
 
     /**
@@ -111,8 +124,8 @@ class AuthService implements InjectionAwareInterface {
      *
      * @return array
      */
-    public function getErrors() {
-        return $this->errors;
+    public function getError() {
+        return $this->error;
     }
 
     /**
@@ -123,6 +136,8 @@ class AuthService implements InjectionAwareInterface {
      */
     public function authenticate(array $credentials)
     {
+        $this->logout();
+
         // get user from database
         $user = $this->getUser(['login' => $credentials['login']]);
 
@@ -142,24 +157,33 @@ class AuthService implements InjectionAwareInterface {
 
                 // update auth params
 
-                $user = new Users();
+                $userUpdate = new Users();
 
-                $user->setIp($this->getRequest()->getClientAddress())
+                $userUpdate->setIp($this->getRequest()->getClientAddress())
                     ->setUa($this->getRequest()->getUserAgent())
+                    ->setSalt($this->getSecurity()->getSessionToken())
                     ->save();
 
                 // save data to session
-                $this->getDi()->get('session')->set('user', $user->toArray());
+                $this->getDi()->getShared('session')->set('user', [
+                    'id'        =>  $user['id'],
+                    'name'      =>  $user['name'],
+                    'surname'   =>  $user['surname'],
+                    'role'      =>  $user['role'],
+                    'state'     =>  $user['state'],
+                    'salt'      =>  $userUpdate->getSalt(),
+                    'rating'    =>  $user['rating'],
+                ]);
                 return true;
             }
             else {
 
-                $this->setErrors($this->message['INVALID_AUTH_DATA'], 'INVALID_AUTH_DATA');
+                $this->setError('INVALID_AUTH_DATA');
                 return false;
             }
         }
         else {
-            $this->setErrors($this->message['USER_NOT_FOUND'], 'USER_NOT_FOUND');
+            $this->setError('USER_NOT_FOUND');
             return false;
         }
     }
@@ -180,6 +204,7 @@ class AuthService implements InjectionAwareInterface {
                 ->setPassword($this->getSecurity()->hash($this->getRequest()->getPost('password', 'trim')))
                 ->setName($this->getRequest()->getPost('name', 'trim', ''))
                 ->setSalt($this->getSecurity()->getSessionToken())
+                ->setRole(UserRoles::USER)
                 ->setIp($this->getRequest()->getClientAddress())
                 ->setUa($this->getRequest()->getUserAgent());
 
@@ -196,7 +221,7 @@ class AuthService implements InjectionAwareInterface {
             $this->setAccessToken($user->getId(), $token, (time() + $this->getConfig()->rememberKeep));
 
             // save data to session
-            $this->getDi()->get('session')->set('user', $user->toArray());
+            $this->getDi()->getShared('session')->set('user', $user->toArray());
 
             return true;
         }
@@ -205,7 +230,7 @@ class AuthService implements InjectionAwareInterface {
             // get an error
             foreach($user->getMessages() as $message) {
 
-                $this->setErrors($message->getMessage());
+                $this->setError($message->getMessage());
             }
 
             return false;
@@ -223,7 +248,7 @@ class AuthService implements InjectionAwareInterface {
     public function setAccessToken($user_id, $token, $expire_date) {
 
         // get storage service
-        $session = $this->getDi()->get('session');
+        $session = $this->getDi()->getShared('session');
 
         $userAccess = new UserAccess();
 
@@ -253,11 +278,11 @@ class AuthService implements InjectionAwareInterface {
         // get token from session
         if($this->getDi()->get('session')->has(self::TOKEN_KEY) === true) {
 
-            $token =   $this->getDi()->get('session')->get(self::TOKEN_KEY);
+            $token =   $this->getDi()->getShared('session')->get(self::TOKEN_KEY);
         }
         else {
 
-            $token = $this->getRequest()->getHeader('X_TOKEN');
+            $token = base64_decode($this->getRequest()->getHeader('X_TOKEN'));
 
             $userAccess = new UserAccess();
             $token = $userAccess->findFirst([
@@ -279,9 +304,10 @@ class AuthService implements InjectionAwareInterface {
      */
     public function getUser(array $credentials = []) {
 
-        $session = $this->di->get('session');
+        $session = $this->getDi()->getShared('session');
 
         if($session->has('user') === true) {
+
             $user =   $session->get('user');
         }
         else {
@@ -304,7 +330,7 @@ class AuthService implements InjectionAwareInterface {
      */
     public function hasRole($role) {
 
-        $session = $this->getDi()->get('session');
+        $session = $this->getDi()->getShared('session');
 
         if($session->has('user') === true) {
 
@@ -323,7 +349,7 @@ class AuthService implements InjectionAwareInterface {
     public function isAuth() {
 
         // access ok
-        $session = $this->getDi()->get('session');
+        $session = $this->getDi()->getShared('session');
 
         if($session->has('user') === true) {
 
@@ -332,11 +358,19 @@ class AuthService implements InjectionAwareInterface {
             if($access['token'] === $this->cryptToken($session->get('user')['id'], $session->get('user')['salt'],
                     $this->getRequest()->getUserAgent())) {
 
-                return true;
+                if($access['expire_date'] > time()) {
+
+                    return true;
+                }
+                else {
+
+                    // drop access token. Auth has expired
+                    return false;
+                }
             }
             else {
 
-                $this->setErrors($this->message['INVALID_ACCESS_TOKEN'], 'INVALID_ACCESS_TOKEN');
+                $this->setError('INVALID_ACCESS_TOKEN');
 
                 return false;
             }
@@ -368,7 +402,7 @@ class AuthService implements InjectionAwareInterface {
     public function logout() {
 
         $session = $this->getDi()->getShared('session');
-        $this->getDi()->getShared('response')->resetHeaders();
+        $this->getResponse()->resetHeaders();
 
         // destroy user data
         if($session->has('user')) {

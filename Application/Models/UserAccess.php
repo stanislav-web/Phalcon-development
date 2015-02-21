@@ -101,8 +101,9 @@ class UserAccess extends \Phalcon\Mvc\Model
     public function setExpireDate($expire_date)
     {
         $datetime = new \Datetime();
+
         $datetime->setTimestamp($expire_date);
-        $datetime->setTimezone(date_default_timezone_get());
+        $datetime->setTimezone(new \DateTimeZone(date_default_timezone_get()));
 
         $this->expire_date = $datetime->format('Y-m-d H:i:s');
 

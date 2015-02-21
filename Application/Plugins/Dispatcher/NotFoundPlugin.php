@@ -48,7 +48,10 @@ class NotFoundPlugin
         }
 
         // save to log
-        \Phalcon\DI::getDefault()->get('LogDbService')->save($exception->getMessage(), \Phalcon\Logger::CRITICAL);
+        \Phalcon\DI::getDefault()->get('LogDbService')->save($exception->getMessage()
+            .' File: '.$exception->getFile()
+            .' Line:'.$exception->getLine(),
+            \Phalcon\Logger::CRITICAL);
 
         if (APPLICATION_ENV === 'production') { // development
 

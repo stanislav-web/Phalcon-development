@@ -96,6 +96,7 @@ $config = [
                 'assets/plugins/angular-translate-loader-partial/angular-translate-loader-partial.min.js',
                 'assets/plugins/angular-cookies/angular-cookies.min.js',
                 'assets/plugins/angular-spinner/angular-spinner.min.js',
+                'assets/plugins/angular-utf8-base64/angular-utf8-base64.min.js',
                 'assets/plugins/angular-animate/angular-animate.min.js',
                 'assets/plugins/jquery/dist/jquery.min.js',
                 'assets/plugins/bootstrap/dist/js/bootstrap.min.js',

@@ -69,6 +69,7 @@ return [
                 'assets/plugins/angular-translate-loader-partial/angular-translate-loader-partial.js',
                 'assets/plugins/angular-cookies/angular-cookies.js',
                 'assets/plugins/angular-spinner/angular-spinner.js',
+                'assets/plugins/angular-utf8-base64/angular-utf8-base64.js',
                 'assets/plugins/angular-animate/angular-animate.js',
                 'assets/plugins/jquery/dist/jquery.js',
                 'assets/plugins/bootstrap/dist/js/bootstrap.js',

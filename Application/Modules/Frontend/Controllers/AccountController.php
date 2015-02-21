@@ -23,8 +23,6 @@ class AccountController extends ControllerBase
      */
     public function initialize()
     {
-        parent::initialize();
-
         // add translate section
         $this->translate->assign('account');
     }
@@ -39,12 +37,14 @@ class AccountController extends ControllerBase
 
         if($this->auth->isAuth() === true) {
 
-            $this->tag->prependTitle(ucfirst($this->user['name']).' - ');
+            $user = $this->auth->getUser();
+
+            $this->tag->prependTitle(ucfirst($user['name']).' - ');
 
             // setup content
             $this->setReply([
-                'title'     => $this->user['name'] .' - '.$this->engine->getName(),
-                'user'      => $this->user,
+                'title'     => $user['name'] .' - '.$this->engine->getName(),
+                'user'      => $user,
             ]);
         }
         else {

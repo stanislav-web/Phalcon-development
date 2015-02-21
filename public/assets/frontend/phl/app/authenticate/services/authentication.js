@@ -5,8 +5,8 @@
     /**
      * User Authentication service
      */
-    app.service('Authentication',  ['$rootScope', '$q', '$http', '$timeout', '$cookies',
-        function($rootScope, $q, $http, $timeout, $cookies) {
+    app.service('Authentication',  ['$rootScope', '$q', '$http', 'base64', '$cookies',
+        function($rootScope, $q, $http, base64) {
 
         /**
          * User authentication state
@@ -32,13 +32,16 @@
                 var deferred = $q.defer();
 
                 $http.get(route, {headers : {
-                    'X-Token':   $cookies.token
+                    'X-Token':   store.get('token')
                 }}).success(function (response) {
 
                     // Check if user is defined first
                     if (response.success) {
                         $rootScope.user = user = response.user;
                         $rootScope.isAuthenticated = isAuthenticated = true;
+
+                        // update auth token
+                        store.set('token', base64.encode(response.token));
 
                     }
                     deferred.resolve(user);
@@ -85,8 +88,8 @@
                         $rootScope.user = user = response.user;
                         $rootScope.isAuthenticated = isAuthenticated = true;
 
-                        // send auth token
-                        $http.defaults.headers.common['X-Token'] = $cookies.token;
+                        // set auth token
+                        store.set('token', base64.encode(response.token));
 
                         deferred.resolve(response);
                     }

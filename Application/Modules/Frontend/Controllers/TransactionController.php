@@ -23,7 +23,6 @@ class TransactionController extends ControllerBase
      */
     public function initialize()
     {
-        parent::initialize();
     }
 
     /**

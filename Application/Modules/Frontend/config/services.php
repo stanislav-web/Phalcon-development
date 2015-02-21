@@ -34,3 +34,6 @@ $di->setShared('EngineService','Application\Services\EngineService');
 
 // Define assets service
 $di->setShared('AssetsService', 'Application\Services\AssetsService');
+
+// Define view service
+$di->setShared('ViewService', 'Application\Services\ViewService');

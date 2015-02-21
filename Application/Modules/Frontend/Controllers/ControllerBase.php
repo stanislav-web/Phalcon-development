@@ -31,13 +31,6 @@ class ControllerBase extends Controller
     protected $auth;
 
     /**
-     * Auth user data
-     *
-     * @var array $user
-     */
-    protected $user = [];
-
-    /**
      * Translate service
      *
      * @var \Translate\Translator
@@ -58,13 +51,6 @@ class ControllerBase extends Controller
     protected $engine;
 
     /**
-     * Engine to show
-     *
-     * @var \Application\Models\Categories $categories
-     */
-    protected $categories;
-
-    /**
      * Navigation trees
      *
      * @var array
@@ -79,48 +65,9 @@ class ControllerBase extends Controller
     protected $reply = [];
 
     /**
-     * Send response collection put from controllers
-     *
-     * @return \Phalcon\Http\ResponseInterface
+     * Event before routes execute
      */
-    public function afterExecuteRoute()
-    {
-        if($this->request->isAjax() === true) {
-
-            die($this->getReply());
-        }
-        else {
-
-            // setup special view directory for this engine
-            $this->view->setViewsDir($this->config['application']['viewsFront'].strtolower($this->engine->getCode()))
-                ->setMainView('layout')
-                ->setPartialsDir('partials');
-
-            // setup navigation menu bars
-            $nav = $this->di->get('navigation');
-
-            // setup app title
-            $this->tag->setTitle($this->engine->getName());
-
-            // setup to all templates
-            $this->view->setVars([
-                'engine'    => $this->engine->toArray(),
-                'menu'      => $nav,
-                't'         => $this->translate
-            ]);
-
-            // define assets service
-            $this->di->get("AssetsService", [$this->engine])->define();
-        }
-    }
-
-    /**
-     * initialize() Initial all global objects
-     *
-     * @access public
-     * @return null
-     */
-    public function initialize()
+    public function beforeExecuteRoute()
     {
         // load configurations
         $this->config = $this->di->get('config');
@@ -133,16 +80,51 @@ class ControllerBase extends Controller
         // define engine
         $this->engine = $this->di->get("EngineService", [$this->request->getHttpHost()])->define();
 
+        if($this->request->isAjax() === false) {
+
+            // define assets service
+            $this->di->get("AssetsService", [$this->engine])->define();
+        }
+
         // define translate service
         $this->translate = $this->di->get("TranslateService");
 
-        // load user data
+        // define auth service
         $this->auth = $this->di->get("AuthService");
 
-        if($this->auth->isAuth() === true) {
+    }
 
-            // success! user is logged in the system
-            $this->user = $this->auth->getUser();
+    /**
+     * Send response collection put from controllers
+     *
+     * @return \Phalcon\Http\ResponseInterface
+     */
+    public function afterExecuteRoute()
+    {
+        if($this->request->isAjax() === true) {
+
+            // is user auth
+            if ($this->auth->isAuth() === true) {
+                $this->setReply($this->auth->getAccessToken());
+            }
+
+            die($this->getReply());
+        }
+        else {
+
+            // setup app title
+            $this->tag->setTitle($this->engine->getName());
+
+            $this->di->get("ViewService", [$this->engine])->define();
+
+            // setup navigation menu bars
+            $nav = $this->di->get('navigation');
+
+            // setup to all templates
+            $this->view->setVars([
+                'menu'      => $nav,
+                't'         => $this->translate
+            ]);
         }
     }
 
