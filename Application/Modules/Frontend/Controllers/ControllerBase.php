@@ -38,12 +38,6 @@ class ControllerBase extends Controller
     protected $translate;
 
     /**
-     * Logger service
-     * @var \Phalcon\Logger\Adapter\File $logger
-     */
-    protected $logger;
-
-    /**
      * Engine to show
      *
      * @var \Application\Models\Engines $engine
@@ -71,11 +65,6 @@ class ControllerBase extends Controller
     {
         // load configurations
         $this->config = $this->di->get('config');
-
-        // define logger
-        if($this->di->has('LogDbService')) {
-            $this->logger = $this->di->get('LogDbService');
-        }
 
         // define engine
         $this->engine = $this->di->get("EngineService", [$this->request->getHttpHost()])->define();

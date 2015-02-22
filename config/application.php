@@ -124,45 +124,12 @@ $config = [
 
     // sms api configurations
     'sms'   =>  [
-        'BulkSMS'   =>  [
-            'username'  => 'SWEB',
-            'password'  => 'QWERTY123',
-        ],
-        'Clickatell'    =>  [
-            'api_id'    => '3524819',
-            'user'      => 'SWEB-TEST',
-            'password'  => 'JRdaZcAGbaZSgR',
-            'form'      => 'SWEB'
-        ],
-        'MessageBird'   => [
-            'originator'        => 'Stanislav',
-            'access_key'    =>  'test_UHaeiTLfAe3avOULhawXvn7iR',
-        ],
+
         'Nexmo'         =>  [
-            'from'      => 'SWEB',
-            'api_key'       => '90c8f84f',
-            'api_secret'  => 'e7e15653',
+            'from'      => 'Phalcon Dev',
+            'api_key'   => '90c8f84f',
+            'api_secret'=> 'e7e15653',
             'type'      => 'unicode'
-        ],
-        'SmsAero'       =>  [
-            'from'          => 'INFORM',
-            'user'          => 'stanisov@gmail.com',
-            'password'      => '96e79218965eb72c92a549dd5a330112',
-        ],
-        'SMSC'       =>  [
-            'login'     => 'SWEB',
-            'psw'       => '11111111',
-            'charset'   => 'utf-8',
-            'sender'    => 'Stanislav',
-            'translit'  => 0,
-            'fmt'       => 3, // response as json
-        ],
-        'SmsUkraine'       =>  [
-            'from'        => 'SWEB',
-            'login'     => '380954916517',
-            'password'  => '1111111111',
-            'version'  => 'http',
-            'flash'     => 0,
         ],
     ]
 ];

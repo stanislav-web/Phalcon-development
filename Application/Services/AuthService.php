@@ -1,10 +1,12 @@
 <?php
 namespace Application\Services;
 
-use Application\Models\UserRoles;
+use \Phalcon\Text as Randomize;
 use \Phalcon\DI\InjectionAwareInterface;
+use Application\Models\UserRoles;
 use Application\Models\Users;
 use Application\Models\UserAccess;
+
 
 /**
  * Class AuthService. User authentication, reg, remind, logout, verify actions
@@ -20,9 +22,20 @@ use Application\Models\UserAccess;
 class AuthService implements InjectionAwareInterface {
 
     /**
-     * @const TOKEN_KEY
+     * @const Access token key
      */
     const TOKEN_KEY = 'token';
+
+    /**
+     * @const SMS Provider
+     */
+    const SMS_PROVIDER = 'Nexmo';
+
+
+    /**
+     * @const Max pass length while recovery
+     */
+    const RECOVERY_PASS_LENGTH = 10;
 
     /**
      * Dependency injection container
@@ -39,11 +52,18 @@ class AuthService implements InjectionAwareInterface {
     protected $translate;
 
     /**
-     * User auth error
+     * User auth error messages
      *
      * @var array $error
      */
     protected $error = '';
+
+    /**
+     * User auth success messages
+     *
+     * @var array $error
+     */
+    protected $success = '';
 
     /**
      * Set dependency container
@@ -74,12 +94,36 @@ class AuthService implements InjectionAwareInterface {
     }
 
     /**
+     * Get logger service
+     *
+     * @return \Application\Services\LogDbService
+     */
+    public function getLogger() {
+        if($this->getDi()->has('LogDbService')) {
+
+            return $this->getDi()->get('LogDbService');
+        }
+    }
+
+    /**
+     * Get mailer service
+     *
+     * @return \Application\Services\MailSMTPService
+     */
+    public function getMailer() {
+        if($this->getDi()->has('MailService')) {
+
+            return $this->getDi()->get('MailService');
+        }
+    }
+
+    /**
      * Get security plugin
      *
      * @return \Phalcon\Security
      */
     public function getSecurity() {
-        return $this->getDi()->get('security');
+        return $this->getDi()->getShared('security');
     }
 
     /**
@@ -101,6 +145,15 @@ class AuthService implements InjectionAwareInterface {
     }
 
     /**
+     * Get SMS service
+     *
+     * @return \SMSFactory\Sender
+     */
+    public function getSmsService() {
+        return $this->getDi()->get('SMS');
+    }
+
+    /**
      * Get dependency container
      * @return \Phalcon\DiInterface
      */
@@ -110,13 +163,16 @@ class AuthService implements InjectionAwareInterface {
     }
 
     /**
-     * Set auth error messages
+     * Set auth error message
      *
      * @param string $message
-     * @param string $code
+     * @return false
      */
     public function setError($message) {
         $this->error = $this->getTranslator()->translate($message);
+
+        $this->getLogger()->save($this->error. ' IP: '.$this->getRequest()->getClientAddress(), \Phalcon\Logger::WARNING);
+        return false;
     }
 
     /**
@@ -129,6 +185,26 @@ class AuthService implements InjectionAwareInterface {
     }
 
     /**
+     * Set auth success message
+     *
+     * @param string $message
+     * @return true
+     */
+    public function setSuccess($message) {
+        $this->success = $this->getTranslator()->translate($message);
+        return true;
+    }
+
+    /**
+     * Get auth success messages
+     *
+     * @return array
+     */
+    public function getSuccess() {
+        return $this->success;
+    }
+
+    /**
      * Authenticate user from credentials
      *
      * @param array $credentials
@@ -138,53 +214,59 @@ class AuthService implements InjectionAwareInterface {
     {
         $this->logout();
 
-        // get user from database
-        $user = $this->getUser(['login' => $credentials['login']]);
+        if($this->getSecurity()->checkToken() === true) {
 
-        if (empty($user) === false) {
+            // get user from database
+            $user = $this->getUser(['login' => $credentials['login']]);
 
-            if($this->getSecurity()->checkHash($credentials['password'], $user['password'])) {
+            if (empty($user) === false) {
 
-                // user founded, password checked. Set auth token
+                if($this->getSecurity()->checkHash($credentials['password'], $user['password'])) {
 
-                $token = $this->cryptToken($user['id'],
-                    $this->getSecurity()->getSessionToken(),
-                    $this->getRequest()->getUserAgent()
-                );
+                    // user founded, password checked. Set auth token
 
-                // setup token to storage
-                $this->setAccessToken($user['id'], $token, (time() + $this->getConfig()->rememberKeep));
+                    $token = $this->cryptToken($user['id'],
+                        $this->getSecurity()->getSessionToken(),
+                        $this->getRequest()->getUserAgent()
+                    );
 
-                // update auth params
+                    // setup token to storage
+                    $this->setAccessToken($user['id'], $token, (time() + $this->getConfig()->rememberKeep));
 
-                $userUpdate = new Users();
+                    // update auth params
 
-                $userUpdate->setIp($this->getRequest()->getClientAddress())
-                    ->setUa($this->getRequest()->getUserAgent())
-                    ->setSalt($this->getSecurity()->getSessionToken())
-                    ->save();
+                    $userUpdate = new Users();
 
-                // save data to session
-                $this->getDi()->getShared('session')->set('user', [
-                    'id'        =>  $user['id'],
-                    'name'      =>  $user['name'],
-                    'surname'   =>  $user['surname'],
-                    'role'      =>  $user['role'],
-                    'state'     =>  $user['state'],
-                    'salt'      =>  $userUpdate->getSalt(),
-                    'rating'    =>  $user['rating'],
-                ]);
-                return true;
+                    $userUpdate->setIp($this->getRequest()->getClientAddress())
+                        ->setUa($this->getRequest()->getUserAgent())
+                        ->setSalt($this->getSecurity()->getSessionToken())
+                        ->save();
+
+                    // save data to session
+                    $this->getDi()->getShared('session')->set('user', [
+                        'id'        =>  $user['id'],
+                        'name'      =>  $user['name'],
+                        'surname'   =>  $user['surname'],
+                        'role'      =>  $user['role'],
+                        'state'     =>  $user['state'],
+                        'salt'      =>  $userUpdate->getSalt(),
+                        'rating'    =>  $user['rating'],
+                    ]);
+
+                    return true;
+                }
+                else {
+
+                    $this->setError('INVALID_AUTH_DATA');
+                }
             }
             else {
-
-                $this->setError('INVALID_AUTH_DATA');
-                return false;
+                $this->setError('USER_NOT_FOUND');
             }
         }
         else {
-            $this->setError('USER_NOT_FOUND');
-            return false;
+            // security token invalid
+            $this->setError('INVALID_REQUEST_TOKEN');
         }
     }
 
@@ -234,6 +316,77 @@ class AuthService implements InjectionAwareInterface {
             }
 
             return false;
+        }
+    }
+
+    /**
+     * Restore user data
+     *
+     * @param \Application\Models\Engines $engine
+     * @return bool
+     * @throws \Phalcon\Exception
+     */
+    public function restore(\Application\Models\Engines $engine)
+    {
+        // required params that to be saved by this user
+
+        $login = $this->getRequest()->getPost('login', 'trim');
+
+        $user = (new Users())->findFirst([
+            "login = ?0",
+            "bind" => [$login],
+        ]);
+
+        if (empty($user) === false) {
+
+            // user founded restore access by login, generate password
+            $password = Randomize::random(Randomize::RANDOM_ALNUM, self::RECOVERY_PASS_LENGTH);
+
+            // update password in Db
+
+            $updatePassword = $user->setPassword($this->getSecurity()->hash($password));
+
+            if($updatePassword->update() === true) {
+
+                if (filter_var($user->getLogin(), FILTER_VALIDATE_EMAIL) !== false) {
+
+                    // restore by email
+
+                    $status = $this->sendRecoveryMail($user, $password, $engine);
+
+                    if ($status === 1) {
+                        return $this->setSuccess('PASSWORD_RECOVERY_SUCCESS');
+
+                    } else {
+                        return $this->setError('PASSWORD_RECOVERY_FAILED');
+                    }
+                }
+                else {
+
+                    // restore by SMS
+
+                    $status = $this->sendRecoverySMS($user, $password, $engine);
+
+                    if(isset($status['success']) === true) {
+                        return $this->setSuccess('PASSWORD_RECOVERY_SUCCESS');
+                    }
+                    else {
+                        return $this->setError('PASSWORD_RECOVERY_FAILED');
+                    }
+                }
+            }
+            else {
+
+                // get an error
+                foreach($updatePassword->getMessages() as $message) {
+
+                    $this->setError($message->getMessage());
+                }
+                return false;
+            }
+        }
+        else {
+            return $this->setError('USER_NOT_FOUND');
         }
     }
 
@@ -423,5 +576,49 @@ class AuthService implements InjectionAwareInterface {
         else {
             return false;
         }
+    }
+
+    /**
+     * Send recovery email
+     *
+     * @param \Application\Models\Users $user
+     * @param string $password
+     * @param \Application\Models\Engines $engine
+     * @return int
+     * @throws \Phalcon\Exception
+     */
+    private function sendRecoveryMail(\Application\Models\Users $user, $password, \Application\Models\Engines $engine) {
+
+        $mailer = $this->getMailer();
+
+        $this->getDi()->getShared('ViewService',[$engine])->define();
+
+        $status = $mailer->createMessageFromView('emails/restore_password_email', [
+            'login'     => $user->getLogin(),
+            'name'      => $user->getName(),
+            'password'  => $password,
+            'site'      => $engine->getHost(),
+            'sitename'  => $engine->getName()
+        ])->priority(1)->to($user->getLogin(), $user->getName())
+            ->subject(sprintf($this->getTranslator()->translate('PASSWORD_RECOVERY_SUBJECT'), $engine->getHost()))->send();
+
+        return $status;
+    }
+
+    /**
+     * Send recovery SMS
+     *
+     * @param \Application\Models\Users $user
+     * @param string $password
+     * @param \Application\Models\Engines $engine
+     * @return mixed
+     * @throws \Phalcon\Exception
+     */
+    private function sendRecoverySMS(\Application\Models\Users $user, $password, \Application\Models\Engines $engine) {
+
+        $template =  "Hello, ".$user->getName()."! Your temporary generated password is: ".$password.". Best regards, ".ucfirst($engine->getName());
+        $status = $this->getSmsService()->call(self::SMS_PROVIDER)->setRecipient($user->getLogin())->send($template);
+
+        return $status;
     }
 }

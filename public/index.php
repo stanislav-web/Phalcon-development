@@ -14,43 +14,44 @@ define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV')
 
 require_once DOCUMENT_ROOT . ' /../vendor/autoload.php';
 
-// Enable PHP Console
-$connector = PhpConsole\Connector::getInstance();
+// Require global configurations
+require_once DOCUMENT_ROOT . '/../config/application.php';
 
-if($connector->isActiveClient() === true) {
+// Require routes
+require_once DOCUMENT_ROOT . '/../config/routes.php';
 
-    $handler = PhpConsole\Handler::getInstance();
-    PhpConsole\Helper::register();
-    $handler->start(); // start handling PHP errors & exceptions
+// Require global services
+require_once DOCUMENT_ROOT . '/../config/services.php';
 
-    // Require global configurations
-    require_once DOCUMENT_ROOT . '/../config/application.php';
+try {
 
-    // Require routes
-    require_once DOCUMENT_ROOT . '/../config/routes.php';
+    $application = new Phalcon\Mvc\Application($di);
 
-    // Require global services
-    require_once DOCUMENT_ROOT . '/../config/services.php';
+    // Require modules
+    require_once DOCUMENT_ROOT . '/../config/modules.php';
 
-    try {
+    if (APPLICATION_ENV === 'development') {
+        // require whoops exception handler
+        new Whoops\Provider\Phalcon\WhoopsServiceProvider($di);
+    }
 
-        $application = new Phalcon\Mvc\Application($di);
+    // Handle the request
+    echo $application->handle()->getContent();
 
-        // Require modules
-        require_once DOCUMENT_ROOT . '/../config/modules.php';
+} catch (\Exception $e) {
 
-        if (APPLICATION_ENV === 'development') {
-            // require whoops exception handler
-            new Whoops\Provider\Phalcon\WhoopsServiceProvider($di);
-        }
+    if (APPLICATION_ENV === 'development') {
+        echo $e->getMessage();
+    }
+    else {
 
-        // Handle the request
-        echo $application->handle()->getContent();
-
-    } catch (\Exception $e) {
-
-        if (APPLICATION_ENV === 'development') {
-            echo $e->getMessage();
+        // define logger
+        if($di->has('LogDbService')) {
+            $logger = $di->get('LogDbService');
+            $logger->save($e->getMessage()
+                .' File: '.$e->getFile()
+                .' Line:'.$e->getLine(),
+                \Phalcon\Logger::CRITICAL);
         }
     }
 }

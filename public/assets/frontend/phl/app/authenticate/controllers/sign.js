@@ -50,7 +50,7 @@
                 var credentials = {
                     'login': $scope.login,
                     'password': $scope.password
-                }
+                };
 
                 // call auth service
                 Authentication.sign(credentials, ROUTES.LOGIN).then(function (response) {
@@ -80,10 +80,10 @@
                 // setup credentials
                 var credentials = {
                     'login': $scope.login
-                }
+                };
 
                 // call auth service
-                Authentication.sign(credentials, ROUTES.RESTORE).then(function (response) {
+                Authentication.restore(credentials, ROUTES.RESTORE).then(function (response) {
 
                     if (response.success) {
 
@@ -112,10 +112,10 @@
 
                 // setup credentials
                 var credentials = {
-                    'login': $scope.login,
-                    'name': $scope.name,
+                    'login':    $scope.login,
+                    'name':     $scope.name,
                     'password': $scope.password
-                }
+                };
 
                 // call auth service
                 Authentication.sign(credentials, ROUTES.REGISTER).then(function (response) {

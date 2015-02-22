@@ -50,3 +50,4 @@ composer.lock
 logs
 vendor/
 phinx.yml
+config/application.php

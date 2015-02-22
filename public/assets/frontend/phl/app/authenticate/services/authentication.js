@@ -68,7 +68,7 @@
              * @returns {boolean}
              */
             isLoggedIn: function () {
-                return (isAuthenticated) ? true : false;
+                return (isAuthenticated === true) ? true : false;
             },
 
             /**
@@ -90,6 +90,33 @@
 
                         // set auth token
                         store.set('token', base64.encode(response.token));
+
+                        deferred.resolve(response);
+                    }
+                    else {
+                        deferred.resolve(response);
+                    }
+
+                }).error(function (error) {
+                    deferred.reject(error);
+                });
+
+                return deferred.promise;
+            },
+
+            /**
+             * Restore account
+             *
+             * @param $scope object credentials
+             * @param string route handler
+             * @returns {ng.IPromise<T>}
+             */
+            restore: function (credentials, route) {
+
+                var deferred = $q.defer();
+
+                $http.post(route, credentials).success(function (response) {
+                    if (response.success) {
 
                         deferred.resolve(response);
                     }
