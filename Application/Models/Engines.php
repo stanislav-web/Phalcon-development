@@ -2,6 +2,8 @@
 namespace Application\Models;
 
 use Phalcon\Mvc\Model\Behavior\Timestampable;
+use Phalcon\Mvc\Model\Validator\Uniqueness;
+use Phalcon\Mvc\Model\Validator\PresenceOf;
 
 /**
  * Class Engines `engines`
@@ -120,6 +122,47 @@ class Engines extends \Phalcon\Mvc\Model
         $this->hasManyToMany("id", EnginesCategoriesRel::TABLE, "engine_id", "category_id", Categories::TABLE, "id",
             ['alias' => 'categories']
         );
+    }
+
+    /**
+     * Validate that login are unique across users
+     *
+     * @return bool
+     */
+    public function validation()
+    {
+        $this->validate(new Uniqueness([
+            "field"     => "host",
+            "message"   => 'This host already exist in list'
+        ]));
+
+        $this->validate(new Uniqueness([
+            "field"     => "code",
+            "message"   => 'This code already exist in list'
+        ]));
+
+
+        $this->validate(new PresenceOf([
+            'field'     => 'name',
+            'message'   => 'The engine name is required'
+        ]));
+
+        $this->validate(new PresenceOf([
+            'field'     => 'host',
+            'message'   => 'The engine host is required'
+        ]));
+
+        $this->validate(new PresenceOf([
+            'field'     => 'code',
+            'message'   => 'The engine code is required'
+        ]));
+
+        $this->validate(new PresenceOf([
+            'field'     => 'logo',
+            'message'   => 'The engine logo is required'
+        ]));
+
+        return $this->validationHasFailed() != true;
     }
 
     /**

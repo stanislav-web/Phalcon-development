@@ -15,20 +15,11 @@ use Phalcon\Mvc\View;
  */
 class DashboardController extends ControllerBase
 {
-    /**
-     * Controller name
-     *
-     * @use for another Controllers to set views , paths
-     * @const
-     */
-    const NAME = 'Dashboard';
 
     /**
-     * Cache key
-     * @use for every action
-     * @access public
+     * @const Basic virtual dir name
      */
-    public $cacheKey = false;
+    const NAME = 'Dashboard';
 
     /**
      * initialize() Initialize constructor
@@ -39,37 +30,11 @@ class DashboardController extends ControllerBase
     public function initialize()
     {
         parent::initialize();
-
-        $this->tag->setTitle(self::NAME);
-
-        // create cache key
-        $this->cacheKey = md5(
-            $this->router->getModuleName()
-            . $this->router->getControllerName()
-            . $this->router->getActionName()
-        );
     }
 
     public function indexAction()
     {
 
-        //if($this->view->getCache()->exists($this->cacheKey))
-        //{
-        // add crumb to chain
-        $this->breadcrumbs->add(self::NAME);
-
-        //}
-        //$this->view->cache(['key' => $this->cacheKey]);
-    }
-
-    public function profileAction()
-    {
-        //if($this->view->getCache()->exists($this->cacheKey))
-        //{
-        // add crumb to chain
-        $this->breadcrumbs->add(self::NAME);
-        //}
-        //$this->view->cache(['key' => $this->cacheKey]);
     }
 }
 

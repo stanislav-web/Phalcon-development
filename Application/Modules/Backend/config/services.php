@@ -4,7 +4,7 @@
 $di->set('url', function () {
 
     $url = new \Phalcon\Mvc\Url();
-    $url->setBaseUri($this->_config->application->baseUri)
+    $url->setBaseUri($this->config->application->baseUri)
         ->setBasePath(DOCUMENT_ROOT);
     return $url;
 
@@ -30,11 +30,11 @@ $di->setShared('navigation', function () {
 });
 
 // If the configuration specify the use of metadata adapter use it or use memory otherwise
-if ($this->_config->cache->metadata == true) {
+if ($this->config->cache->metadata == true) {
     $di->setShared('modelsMetadata', function () {
         return new Phalcon\Mvc\Model\Metadata\Apc([
-            'prefix' => $this->_config->cache->prefix,
-            'lifetime' => $this->_config->cache->lifetime
+            'prefix' => $this->config->cache->prefix,
+            'lifetime' => $this->config->cache->lifetime
         ]);
     });
 }
@@ -43,60 +43,37 @@ if ($this->_config->cache->metadata == true) {
 $di->setShared('viewCache', function () {
 
     $frontCache = new \Phalcon\Cache\Frontend\Output([
-        "lifetime" => $this->_config->cache->lifetime
+        "lifetime" => $this->config->cache->lifetime
     ]);
     //Memcached connection settings
 
     $cache = new \Phalcon\Cache\Backend\Memcache($frontCache, [
-        "host" => $this->_config->cache->memcached->host,
-        "port" => $this->_config->cache->memcached->port,
-        "persistent" => $this->_config->cache->memcached->persistent
+        "host" => $this->config->cache->memcached->host,
+        "port" => $this->config->cache->memcached->port,
+        "persistent" => $this->config->cache->memcached->persistent
     ]);
     return $cache;
 
 });
 
-
 // Set the backend data cache service
-if ($this->_config->cache->enable == true) {
+if ($this->config->cache->enable == true) {
 
     $di->set('dbCache', function () {
 
         // Data caching (queries data, json data etc)
 
-        $dbCache = new Phalcon\Cache\Frontend\Data([
-            "lifetime" => $this->_config->cache->lifetime
+        $dbCache =  new Phalcon\Cache\Frontend\Data([
+            "lifetime" => $this->config->cache->lifetime
         ]);
 
-        // Choose data storage
-        switch ($this->_config->cache->adapter) {
-            case 'memcache':
-
-                $cache = new Phalcon\Cache\Backend\Memcache($dbCache, [
-                    "prefix" => $this->_config->cache->prefix,
-                    "host" => $this->_config->cache->memcached->host,
-                    "port" => $this->_config->cache->memcached->port,
-                    "persistent" => $this->_config->cache->memcached->persistent,
-                ]);
-
-                break;
-
-            case 'apc':
-
-                $cache = new Phalcon\Cache\Backend\Apc($dbCache, [
-                    "prefix" => $this->_config->cache->prefix
-                ]);
-
-                break;
-
-            case 'xcache':
-                $cache = new Phalcon\Cache\Backend\Xcache($dbCache, [
-                    "prefix" => $this->_config->cache->prefix,
-                ]);
-                break;
-        }
+        $cache = new Phalcon\Cache\Backend\Memcache($dbCache, [
+            "prefix" => $this->config->cache->prefix,
+            "host" => $this->config->cache->memcached->host,
+            "port" => $this->config->cache->memcached->port,
+            "persistent" => $this->config->cache->memcached->persistent,
+        ]);
         return $cache;
-
     });
 }
 

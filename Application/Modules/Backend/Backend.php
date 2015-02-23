@@ -26,16 +26,17 @@ class Backend
 
     /**
      * Global config
-     * @var bool | array
+     *
+     * @var \Phalcon\Config
      */
-    protected $_config = false;
+    protected $config;
 
     /**
      * Configuration init
      */
     public function __construct()
     {
-        $this->_config = \Phalcon\DI::getDefault()->get('config');
+        $this->config = \Phalcon\DI::getDefault()->get('config');
     }
 
     /**
@@ -75,7 +76,7 @@ class Backend
 
         $di->setShared('view', function () {
             $view = new View();
-            $view->setViewsDir($this->_config['application']['viewsBack'])
+            $view->setViewsDir($this->config['application']['viewsBack'])
                 ->setMainView('auth-layout')
                 ->setPartialsDir('partials');
             return $view;

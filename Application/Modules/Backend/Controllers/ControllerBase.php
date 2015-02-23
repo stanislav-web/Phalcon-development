@@ -19,25 +19,18 @@ use Phalcon\Mvc\View;
 class ControllerBase extends Controller
 {
     /**
-     * Config service
-     *
-     * @var \Phalcon\Config $config
-     */
-    protected $config = null;
-
-    /**
      * Logger service
      *
-     * @var \Phalcon\Logger\Adapter\File $logger
+     * @var \Application\Services\LogDbService $logger
      */
-    protected $logger = null;
+    protected $logger;
 
     /**
      * Meta Service
      *
      * @var \Application\Services\MetaService $metaService
      */
-    protected $metaService = null;
+    protected $metaService;
 
     /**
      * Auth user service
@@ -45,7 +38,7 @@ class ControllerBase extends Controller
      * @uses \Services\AuthService
      * @var \Phalcon\Di
      */
-    protected $authService = null;
+    protected $authService;
 
     /**
      * Auth user data
@@ -62,11 +55,8 @@ class ControllerBase extends Controller
      */
     public function beforeExecuteRoute($dispatcher)
     {
-        // define configurations
-        $this->config = $this->di->get('config');
-
         // load user data
-        $this->authService = $this->di->get("AuthService", [$this->config, $this->request]);
+        $this->authService = $this->di->get("AuthService");
 
         if($this->authService->isAuth() === true
             && $this->authService->hasRole(UserRoles::ADMIN) === true) {
@@ -161,5 +151,23 @@ class ControllerBase extends Controller
             'navigation' => $navigation,
             'search' => new Forms\SearcherForm()
         ]);
+    }
+
+    /**
+     * Setup bread crumbs path
+     *
+     * @return \Application\Plugins\Breadcrumbs\Breadcrumbs
+     */
+    protected function setBreadcrumbs() {
+        return $this->metaService->getBreadcrumbs();
+    }
+
+    /**
+     * Get global config
+     *
+     * @return \Phalcon\Config
+     */
+    protected function getConfig() {
+        return $this->di->get('config');
     }
 }

@@ -31,7 +31,6 @@ class AuthService implements InjectionAwareInterface {
      */
     const SMS_PROVIDER = 'Nexmo';
 
-
     /**
      * @const Max pass length while recovery
      */

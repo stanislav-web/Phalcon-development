@@ -1,11 +1,6 @@
 <?php
 namespace Application\Modules\Frontend\Controllers;
 
-use Application\Models\Users;
-use Phalcon\Logger;
-use Phalcon\Mvc\View;
-use SMSFactory\Run;
-
 /**
  * Class SignController
  *
@@ -18,19 +13,6 @@ use SMSFactory\Run;
  */
 class SignController extends ControllerBase
 {
-
-    /**
-     * Initialize constructor
-     *
-     * @access public
-     * @return null
-     */
-    public function initialize()
-    {
-        // assign translate service
-        $this->translate->assign('sign');
-    }
-
     /**
      * Login action
      */
@@ -50,7 +32,7 @@ class SignController extends ControllerBase
         } else {
 
             // authenticate failed
-            $this->setReply(['message' => $this->auth->getError()], \Phalcon\Logger::WARNING);
+            $this->setReply(['message' => $this->auth->getError()]);
         }
 
     }
@@ -105,10 +87,7 @@ class SignController extends ControllerBase
     }
 
     /**
-     * restoreAction() Remind access password action
-     *
-     * @access public
-     * @return null
+     * Remind access password action
      */
     public function restoreAction()
     {
@@ -130,9 +109,6 @@ class SignController extends ControllerBase
 
     /**
      * Logout action to destroy user auth data
-     *
-     * @access public
-     * @return null
      */
     public function logoutAction()
     {

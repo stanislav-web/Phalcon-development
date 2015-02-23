@@ -36,7 +36,7 @@ $config = [
         'enable' => true,
         'lifetime' => 86400,
         'prefix' => 'cache_',
-        'adapter' => 'apc',        //	Memcache, xCache, Apc
+        'adapter' => 'memcached',        //	Memcache, xCache, Apc
         'metadata' => true,
         'annotations' => true,
 
@@ -60,11 +60,11 @@ $config = [
         'port'   => 587,
         'encryption' => 'tls',
         'from'   => [
-            'email' => 'blabla@gmail.com',
+            'email' => 'stanisov@gmail.com',
             'name'    => 'Admin'
         ],
-        'username'   => 'blabla@gmail.com',
-        'password'   => '',
+        'username'   => 'stanisov@gmail.com',
+        'password'   => 'QWERTY!@#$%^&*()',
     ],
 
     // Default language

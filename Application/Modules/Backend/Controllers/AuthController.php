@@ -17,24 +17,7 @@ use Application\Services\AuthService;
 class AuthController extends Controller
 {
     /**
-     * Config service
-     *
-     * @var \Phalcon\Config $config
-     */
-    private $config;
-
-    /**
-     * Logger service
-     *
-     * @var  \Phalcon\Logger $logger
-     */
-    private $logger;
-
-    /**
-     * Auth user service
-     *
-     * @uses \Services\AuthService
-     * @var \Phalcon\Di
+     * @var \Application\Services\AuthService
      */
     private $auth;
 
@@ -46,84 +29,60 @@ class AuthController extends Controller
      */
     public function initialize()
     {
-        // load configures
-        $this->config = $this->di->get('config');
-
-        if ($this->di->has('LogDbService')) {
-            $this->logger = $this->di->get('LogDbService');
-        }
-        // load user data
-        $this->auth = $this->di->get("AuthService", [$this->config, $this->request]);
+        // define user auth service
+        $this->auth = $this->di->get("AuthService");
 
         // set default page title
         $this->tag->setTitle('Authenticate');
     }
 
     /**
-     * LogIn action
+     * Login action
      */
-    public function indexAction()
-    {
-        // logged out before show form
-        $this->auth->logout();
+    public function indexAction() {
 
         if($this->request->isPost() === true) {
 
-            if ($this->security->checkToken() === true) {
+            // verify user credentials
+            $isAuthenticate = $this->auth->authenticate($this->request->getPost());
 
-                // The token is ok, verify user credentials
+            if ($isAuthenticate === true
+                && $this->auth->hasRole(UserRoles::ADMIN) === true) {
 
-                $this->auth->login(
-                    $this->request->getPost('login'),
-                    $this->request->getPost('password'),
-                    $this->security);
+                // send reply to client
+                $referrer = parse_url($this->request->getHTTPReferer(), PHP_URL_PATH);
 
-                if ($this->auth->isAuth() === true
-                    && $this->auth->hasRole(UserRoles::ADMIN) === true
-                ) {
-
-                    // authenticate success
-                    $this->logger->save('Authenticate to CP success from ' . $this->request->getClientAddress(), 5);
-
-                    $referrer = parse_url($this->request->getHTTPReferer(), PHP_URL_PATH);
-
-                    // full http redirect to the referrer page
-                    if ($referrer != $this->request->getURI())
-                        return $this->response->redirect($referrer);
-                    else
-                        return $this->response->redirect('dashboard');
-                } else {
-
-                    // Wrong authenticate data (password or login)
-                    $this->flashSession->error(AuthService::INVALID_AUTH);
-                    $this->logger->save('Authenticate to CP failed from ' . $this->request->getClientAddress() . '. Wrong authenticate data', 4);
-
-                    $this->response->redirect('dashboard/auth');
-                    $this->view->disable();
+                // full http redirect to the referrer page
+                if ($referrer != $this->request->getURI()) {
+                    return $this->response->redirect($referrer);
                 }
-            }
-            else {
-                // CSRF protection. Security token invalid
-                $this->logger->save('Invalid token has been catches by ' . $this->request->getClientAddress(), 4);
-                $this->flashSession->error(AuthService::INVALID_ACCESS_TOKEN);
+                else {
+                    return $this->response->redirect('dashboard');
+                }
+            } else {
 
-                $this->logger->save('Authenticate to CP failed from ' . $this->request->getClientAddress() . '. CSRF attack', 4);
+                // wrong authenticate data
+                $this->flashSession->error($this->auth->getError());
                 $this->response->redirect('dashboard/auth');
                 $this->view->disable();
             }
         }
-
-        $this->view->setMainView('non-auth-layout');
+        else {
+            // logged out before show form
+            $this->auth->logout();
+            $this->view->setMainView('non-auth-layout');
+        }
     }
 
     /**
-     * LogOut action
+     * Logout action
      */
     public function logoutAction()
     {
-        $loggedOut = ($this->auth->logout() === true) ? true : false;
 
-        if($loggedOut === true) {
+        $isLoggedOut = ($this->auth->logout() === true) ? true : false;
+
+        if($isLoggedOut === true) {
 
             // redirect auth form
             return $this->dispatcher->forward([

@@ -25,20 +25,6 @@ class Frontend
     const MODULE = 'Frontend';
 
     /**
-     * Global config
-     * @var bool | array
-     */
-    protected $_config = false;
-
-    /**
-     * Configuration init
-     */
-    public function __construct()
-    {
-        $this->_config = \Phalcon\DI::getDefault()->get('config');
-    }
-
-    /**
      * Register the autoloader specific to the current module
      *
      * @access public

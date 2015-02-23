@@ -8,9 +8,9 @@
 
         return {
             HOME:       '/',
-            CONTACTS:   '/contacts',
-            HELP:       '/help',
-            AGREEMENT:  '/agreement',
+            CONTACTS:   '/about/contacts',
+            HELP:       '/about/help',
+            AGREEMENT:  '/about/agreement',
             ABOUT:      '/about',
             NOT_FOUND:  '/error/notfound',
             ACCOUNT:    '/account',

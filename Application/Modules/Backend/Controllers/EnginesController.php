@@ -19,57 +19,114 @@ use Phalcon\Mvc\View;
 class EnginesController extends ControllerBase
 {
     /**
-     * Controller name
-     * @use for another Controllers to set views , paths
-     * @const
+     * @const Basic virtual dir name
      */
     const NAME = 'Engines';
 
     /**
-     * Cache key
-     * @use for every action
-     * @access public
-     */
-    public $cacheKey = false;
-
-    /**
      * initialize() Initialize constructor
+     *
      * @access public
      * @return null
      */
     public function initialize()
     {
         parent::initialize();
-        $this->tag->setTitle(' - ' . DashboardController::NAME);
-
-        // create cache key
-        $this->cacheKey = md5(\Application\Modules\Backend::MODULE . self::NAME . $this->router->getControllerName() . $this->router->getActionName());
-
-        $this->breadcrumbs->add(DashboardController::NAME, $this->url->get(['for' => 'dashboard']));
     }
 
     /**
      * Get list of all engines
-     * @return null
      */
     public function indexAction()
     {
-        $title = ucfirst(self::NAME);
-        $this->tag->prependTitle($title);
-
-        // add crumb to chain (name, link)
-
-        $this->breadcrumbs->add($title);
-
-        // get all records
+        $this->setBreadcrumbs()->add(self::NAME);
 
         $engines = (new Engines())->get();
 
         $this->view->setVars([
             'items' => $engines,
-            'title' => $title,
             'statuses' => Engines::$statuses
         ]);
+    }
+
+    /**
+     * Add engine action
+     */
+    public function addAction() {
+
+        // handling POST data
+        if ($this->request->isPost()) {
+
+            $engines =
+                (new Engines())
+                    ->setName($this->request->getPost('name'))
+                    ->setDescription($this->request->getPost('description'), null, '')
+                    ->setHost($this->request->getPost('host'))
+                    ->setCode($this->request->getPost('code'))
+                    ->setCurrencyId($this->request->getPost('currency_id', null, 1))
+                    ->setStatus($this->request->getPost('status', null, 0));
+
+            // check uploaded logo (if exist)
+
+            if($this->request->hasFiles() !== false) {
+
+                $uploader = $this->di->get('uploader');
+
+                $uploader->setRules(['directory' =>  DOCUMENT_ROOT.'/files/logo']);
+
+                if($uploader->isValid() === true) {
+
+                    $uploader->move();
+                    $engines->setLogo(basename($uploader->getInfo()[0]['path']));
+
+                }
+                else {
+                    // the store failed, the following message were produced
+                    foreach ($uploader->getErrors() as $message) {
+                        $this->flashSession->error($message);
+                    }
+                }
+            }
+
+            if($engines->save() === true) {
+
+                $this->flashSession->success('The engine was successfully added!');
+                $this->logger->save('Engine `' . $engines->getName() . '`` assigned by ' . $this->request->getClientAddress(), 6);
+                // forward does not working correctly with this  action type
+                // by the way this handle need to remove in another action (
+                return
+                    $this->response->redirect([
+                        'for' => 'dashboard-full',
+                        'controller' => $this->router->getControllerName(),
+                ]);
+            }
+            else {
+                // the store failed, the following message were produced
+                foreach ($engines->getMessages() as $message)
+                    $this->flashSession->error((string)$message);
+
+                // forward does not working correctly with this  action type
+                // by the way this handle need to remove in another action (
+                return
+                    $this->response->redirect([
+                        'for' => 'dashboard-full',
+                        'controller' => $this->router->getControllerName(),
+                        'action' => $this->router->getActionName()
+                ]);
+            }
+        }
+        else {
+            // add crumb to chain (name, link)
+            $this->setBreadcrumbs()->add(self::NAME, $this->url->get(['for' => 'dashboard-controller', 'controller' => 'engines']))->add('Add');
+
+            // set variables output to view
+            $this->view->setVars([
+                'title' => 'Add',
+                'form' => (new Forms\EngineForm(null, [
+                    'currency' => Currency::find(),
+                ]))
+            ]);
+        }
     }
 
     /**
@@ -106,6 +163,8 @@ class EnginesController extends ControllerBase
             echo $e->getMessage();
         }
     }
+
+
 
     /**
      * Shows the view to create (edit) engine
@@ -210,7 +269,6 @@ class EnginesController extends ControllerBase
                 }
 
 
-                exit('Close');
 
                 if (!$engines->save()) {
 
@@ -267,5 +325,6 @@ class EnginesController extends ControllerBase
             echo $e->getMessage();
         }
     }
+
 }
 

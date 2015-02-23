@@ -133,10 +133,10 @@ class MetaService implements InjectionAwareInterface
      * @param string $homeTitle
      * @return MetaService
      */
-    public function setHomeTitle($homeTitle, $delimiter = ' - ')
+    public function setHomeTitle($homeTitle)
     {
         $this->homeTitle    =   $homeTitle;
-        $this->getTag()->setTitle($delimiter . $homeTitle);
+        $this->getTag()->setTitle($homeTitle);
 
         return $this;
     }
@@ -191,15 +191,15 @@ class MetaService implements InjectionAwareInterface
      * @param string $title
      * @return MetaService
      */
-    public function setTitle($title)
+    public function setTitle($title, $delimiter = ' - ')
     {
         $this->title = ucfirst($title);
 
         (empty($this->getTag()->getTitle()) === true) ?
-            $this->getTag()->setTitle($this->homeTitle) :
-                $this->getTag()->prependTitle($this->title);
+            $this->getTag()->setTitle($this->homeTitle) : ($this->homeTitle != $this->title ?
+                $this->getTag()->prependTitle($this->title.$delimiter): '');
 
-        $this->getDi()->get('view')->setVar('title', $this->title);
+        $this->getDi()->getShared('view')->setVar('title', $this->title);
 
         return $this;
     }
@@ -212,12 +212,7 @@ class MetaService implements InjectionAwareInterface
      */
     public function setBreadcrumbs()
     {
-
         $this->breadcrumbs = (new Breadcrumbs())->add($this->homeTitle, $this->getHomelink());
-            if(empty($this->title) === false && $this->homeTitle != $this->title) {
-
-                $this->breadcrumbs->add($this->title);
-            }
 
         return $this;
     }

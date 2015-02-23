@@ -19,38 +19,6 @@ $router->add('/', [
     'namespace' => 'Application\Modules\Frontend\Controllers',
 ])->setName('front');
 
-$router->add("/contacts", [
-    'module'        => "Frontend",
-    'controller'    => 'index',
-    'action'        => 'static',
-    'page'         => 'contacts',
-    'namespace' => 'Application\Modules\Frontend\Controllers',
-])->setName("front-contacts");
-
-$router->add("/help", [
-    'module'        => "Frontend",
-    'controller'    => 'index',
-    'action'        => 'static',
-    'page'         => 'help',
-    'namespace' => 'Application\Modules\Frontend\Controllers',
-])->setName("front-help");
-
-$router->add("/agreement", [
-    'module'        => "Frontend",
-    'controller'    => 'index',
-    'action'        => 'static',
-    'page'         => 'agreement',
-    'namespace' => 'Application\Modules\Frontend\Controllers',
-])->setName("front-agreement");
-
-$router->add("/about", [
-    'module'        => "Frontend",
-    'controller'    => 'index',
-    'action'        => 'static',
-    'page'         => 'about',
-    'namespace' => 'Application\Modules\Frontend\Controllers',
-])->setName("front-about");
-
 $router->add('/:controller/:action/:params', [
     'module' => "Frontend",
     'controller' => 1,
