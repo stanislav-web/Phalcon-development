@@ -56,7 +56,7 @@ class EnginesController extends ControllerBase
         // handling POST data
         if ($this->request->isPost()) {
 
-            $engines =
+            $engine =
                 (new Engines())
                     ->setName($this->request->getPost('name'))
                     ->setDescription($this->request->getPost('description'), null, '')
@@ -76,7 +76,7 @@ class EnginesController extends ControllerBase
                 if($uploader->isValid() === true) {
 
                     $uploader->move();
-                    $engines->setLogo(basename($uploader->getInfo()[0]['path']));
+                    $engine->setLogo(basename($uploader->getInfo()[0]['path']));
 
                 }
                 else {
@@ -87,10 +87,10 @@ class EnginesController extends ControllerBase
                 }
             }
 
-            if($engines->save() === true) {
+            if($engine->save() === true) {
 
                 $this->flashSession->success('The engine was successfully added!');
-                $this->logger->save('Engine `' . $engines->getName() . '`` assigned by ' . $this->request->getClientAddress(), 6);
+                $this->logger->save('Engine `' . $engine->getName() . '` assigned by ' . $this->request->getClientAddress(), 6);
                 // forward does not working correctly with this  action type
                 // by the way this handle need to remove in another action (
                 return
@@ -105,7 +105,7 @@ class EnginesController extends ControllerBase
                 $uploader->truncate();
 
                 // the store failed, the following message were produced
-                foreach ($engines->getMessages() as $message)
+                foreach ($engine->getMessages() as $message)
                     $this->flashSession->error((string)$message);
 
                 // forward does not working correctly with this  action type
@@ -133,7 +133,7 @@ class EnginesController extends ControllerBase
     }
 
     /**
-     * Add engine action
+     * Edit engine action
      */
     public function editAction() {
 
@@ -187,7 +187,7 @@ class EnginesController extends ControllerBase
             if($engines->update() === true) {
 
                 $this->flashSession->success('The engine was successfully modified!');
-                $this->logger->save('Engine `' . $engines->getName() . '`` modified by ' . $this->request->getClientAddress(), 6);
+                $this->logger->save('Engine `' . $engines->getName() . '` modified by ' . $this->request->getClientAddress(), 6);
                 // forward does not working correctly with this  action type
                 // by the way this handle need to remove in another action (
                 return
@@ -232,7 +232,7 @@ class EnginesController extends ControllerBase
     }
 
     /**
-     * Delete action
+     * Delete engine action
      */
     public function deleteAction()
     {

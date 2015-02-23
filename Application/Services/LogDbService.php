@@ -53,7 +53,10 @@ class LogDbService extends LoggerDatabase {
      * @throws Logger\Exception
      */
     public function __construct(\Phalcon\Db\Adapter\Pdo\Mysql $connection) {
-        parent::__construct($this->name, [
+
+        $dispatcher = \Phalcon\DI\FactoryDefault::getDefault()->get('dispatcher');
+
+        parent::__construct($dispatcher->getModuleName(), [
             'db'    => $connection,
             'table' => $this->table
         ]);
