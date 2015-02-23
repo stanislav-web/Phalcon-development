@@ -60,11 +60,11 @@ $config = [
         'port'   => 587,
         'encryption' => 'tls',
         'from'   => [
-            'email' => 'stanisov@gmail.com',
+            'email' => 'bla@gmail.com',
             'name'    => 'Admin'
         ],
-        'username'   => 'stanisov@gmail.com',
-        'password'   => 'QWERTY!@#$%^&*()',
+        'username'   => 'bla@gmail.com',
+        'password'   => 'bla',
     ],
 
     // Default language
@@ -127,8 +127,8 @@ $config = [
 
         'Nexmo'         =>  [
             'from'      => 'Phalcon Dev',
-            'api_key'   => '90c8f84f',
-            'api_secret'=> 'e7e15653',
+            'api_key'   => 'ssss',
+            'api_secret'=> 'ssss',
             'type'      => 'unicode'
         ],
     ]
