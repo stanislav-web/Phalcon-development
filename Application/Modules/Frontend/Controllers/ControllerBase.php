@@ -17,13 +17,6 @@ use Phalcon\Mvc\View;
 class ControllerBase extends Controller
 {
     /**
-     * Config service
-     *
-     * @var \Phalcon\Config $config
-     */
-    protected $config;
-
-    /**
      * Auth user service
      *
      * @var \Application\Services\AuthService $auth
@@ -63,9 +56,6 @@ class ControllerBase extends Controller
      */
     public function beforeExecuteRoute()
     {
-        // load configurations
-        $this->config = $this->di->get('config');
-
         // define engine
         $this->engine = $this->di->get("EngineService", [$this->request->getHttpHost()])->define();
 

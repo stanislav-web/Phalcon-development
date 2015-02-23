@@ -22,11 +22,17 @@ class AboutController extends ControllerBase
     private $page;
 
     /**
+     * @var string $title
+     */
+    private $title;
+
+    /**
      * Initialize internal router
      */
     public function initialize() {
 
         $dispatch = $this->dispatcher->getActionName();
+
         $action   =   ($dispatch === 'index') ? 'about' : $dispatch;
 
         // get page from database
@@ -35,7 +41,8 @@ class AboutController extends ControllerBase
             "bind" => [$action]
         ]);
 
-        var_dump($this->page); exit;
+        $this->title    =   ucfirst($this->page->getTitle()).' - '.$this->engine->getName();
+        $this->tag->setTitle($this->title);
     }
 
     /**
@@ -45,38 +52,45 @@ class AboutController extends ControllerBase
     {
         // setup content
         $this->setReply([
-            'title'     =>  ucfirst($this->page->getTitle()).' - '.$this->engine->getName(),
+            'title'     =>  $this->title,
             'content'   =>  $this->page->getContent(),
         ]);
     }
 
     /**
-     * Static pages action.
+     * Help action.
      */
-    public function staticAction()
+    public function helpAction()
     {
-        // get page to display - param
-        $param = $this->dispatcher->getParam('page');
-        if($param !== null) {
-            // get page from database
-            $page = Pages::findFirst([
-                "alias = ?0",
-                "bind" => [$param]
-            ]);
-            if($page !== null) {
-                // setup title
-                $this->tag->prependTitle(ucfirst($page->getTitle()).' - ');
-                // setup content
-                $this->setReply([
-                    'title'     =>  ucfirst($page->getTitle()).' - '.$this->engine->getName(),
-                    'content'   =>  $page->getContent(),
-                ]);
-            }
-        }
-        // send response
-        if($this->request->isAjax() === true) {
-            return $this->getReply();
-        }
+        // setup content
+        $this->setReply([
+            'title'     =>  $this->title,
+            'content'   =>  $this->page->getContent(),
+        ]);
+    }
+
+    /**
+     * Agreement action.
+     */
+    public function agreementAction()
+    {
+        // setup content
+        $this->setReply([
+            'title'     =>  $this->title,
+            'content'   =>  $this->page->getContent(),
+        ]);
+    }
+
+    /**
+     * Contacts action.
+     */
+    public function contactsAction()
+    {
+        // setup content
+        $this->setReply([
+            'title'     =>  $this->title,
+            'content'   =>  $this->page->getContent(),
+        ]);
     }
 }
 

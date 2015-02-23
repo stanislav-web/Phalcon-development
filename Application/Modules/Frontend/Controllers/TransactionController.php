@@ -15,23 +15,8 @@ use Phalcon\Mvc\View;
  */
 class TransactionController extends ControllerBase
 {
-
-    /**
-     * initialize() Initialize constructor
-     * @access public
-     * @return null
-     */
-    public function initialize()
-    {
-    }
-
     /**
      * Home action.
-     *
-     * @uses Application\Modules\Frontend\Controllers\ControllerBase::setReply <- array
-     * @uses Application\Modules\Frontend\Controllers\ControllerBase::getReply -> json
-     *
-     * @return void
      */
     public function indexAction()
     {
