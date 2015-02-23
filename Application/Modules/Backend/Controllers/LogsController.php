@@ -17,10 +17,7 @@ use Phalcon\Mvc\View;
 class LogsController extends ControllerBase
 {
     /**
-     * initialize() Initialize constructor
-     *
-     * @access public
-     * @return null
+     * Initialize constructor
      */
     public function initialize()
     {

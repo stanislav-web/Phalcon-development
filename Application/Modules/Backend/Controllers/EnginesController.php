@@ -24,10 +24,7 @@ class EnginesController extends ControllerBase
     const NAME = 'Engines';
 
     /**
-     * initialize() Initialize constructor
-     *
-     * @access public
-     * @return null
+     * Initialize constructor
      */
     public function initialize()
     {

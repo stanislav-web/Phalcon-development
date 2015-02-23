@@ -16,6 +16,9 @@ $di->set('uploader', '\Uploader\Uploader');
 // Meta Service Helper
 $di->set('MetaService','Application\Services\MetaService');
 
+// Data Service Helper
+$di->set('DataService','Application\Services\DataService');
+
 // Setup Searcher component
 $di->set('searcher', 'Searcher\Searcher');
 

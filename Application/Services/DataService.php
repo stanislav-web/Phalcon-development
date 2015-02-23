@@ -153,11 +153,13 @@ class DataService {
     public function jsonFromBuild() {
 
         $resultSet = $this->getResultSet();
-
         if($resultSet instanceof \Phalcon\Mvc\Model\Query\Builder) {
 
             if($resultSet->count() > 0) {
                 return (new TableService())->fromBuilder($resultSet)->sendResponse();
+            }
+            else {
+                exit(json_encode(['data' => [], 'recordsTotal' => 0, 'draw' => "1", 'recordsFiltered' => 0]));
             }
         }
 
@@ -179,6 +181,9 @@ class DataService {
 
                 return (new TableService())->fromResultSet($resultSet)->sendResponse();
             }
+            else {
+                exit(json_encode(['data' => [], 'recordsTotal' => 0, 'draw' => "1", 'recordsFiltered' => 0]));
+            }
         }
 
         return null;
@@ -197,6 +202,9 @@ class DataService {
 
             if($resultSet->count() > 0) {
                 return (new TableService())->fromArray($resultSet)->sendResponse();
+            }
+            else {
+                exit(json_encode(['data' => [], 'recordsTotal' => 0, 'draw' => "1", 'recordsFiltered' => 0]));
             }
         }
 

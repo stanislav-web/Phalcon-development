@@ -34,16 +34,16 @@
                        class="table table-bordered table-striped table-hover table-heading table-datatable">
                     <thead>
                     <tr>
-                        <th class="no-sort col-md-1"></th>
-                        <th class="col-md-1">Pos</th>
-                        <th class="col-md-2">Title</th>
+                        <th class="no-sort col-md-1">ID</th>
+                        <th class="col-md-1">Title</th>
                         <th class="col-md-2">Description</th>
                         <th class="col-md-2">Alias</th>
+                        <th class="col-md-2">Parent</th>
                         <th class="col-md-1">Sort</th>
                     </tr>
                     </thead>
-                    <tfoot>
-                    </tfoot>
+                    <tbody>
+                    </tbody>
                 </table>
             </div>
         </div>
@@ -55,51 +55,24 @@
     $(function () {
 
         LoadDataTablesScripts(function () {
-            var editor;
 
-            // Activate an inline edit on click of a table cell
-            $('#table').on('click', 'tbody td:not(:first-child)', function (e) {
-                editor.inline(this);
-            });
-
-            $('#table').dataTable({
-                "bProcessing": true,
-                "bServerSide": true,
-                "aaSorting": [[0, "asc"]],
-                "sDom": "T<'box-content'<'col-sm-6'f><'col-sm-6 text-right'l><'clearfix'>>rt<'box-content'<'col-sm-6'i><'col-sm-6 text-right'p><'clearfix'>>",
-                "sServerMethod": "POST",
-                "sAjaxSource": "/dashboard/categories",
-                "language": {
-                    "sSearch": "",
-                    "infoFiltered": '',
-                    "info": "Showing _START_ to _END_ of _TOTAL_ entries",
-                    "sLengthMenu": '_MENU_'
+            $('#table').DataTable({
+                serverSide: true,
+                paginate: true,
+                ajax: {
+                    url: '/dashboard/categories',
+                    method: 'POST'
                 },
-                "bPaginate": true, // Pagination True
-
-                "sPaginationType": "full_numbers",
-                "aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
-                "aoColumns": [
-                    {"bVisible": true, "bSearchable": false, "bSortable": false},
-                    {"bVisible": true, "bSearchable": true, "bSortable": true},
-                    {"bVisible": true, "bSearchable": true, "bSortable": true},
-                    {"bVisible": true, "bSearchable": true, "bSortable": true},
-                    {"bVisible": true, "bSearchable": true, "bSortable": true},
-                    {"bVisible": true, "bSearchable": true, "bSortable": true}
+                columns: [
+                    {data: "id", searchable: false},
+                    {data: "title"},
+                    {data: "description"},
+                    {data: "alias"},
+                    {data: "parent_id"},
+                    {data: "sort", searchable: false}
                 ],
-                "columnDefs": [{
-                    "targets": 0,
-                    "data": null,
-                    "defaultContent": "<button>Click!</button>"
-                }],
-                tableTools: {
-                    sRowSelect: "os",
-                    sRowSelector: 'td:first-child',
-                    aButtons: [
-                        {sExtends: "editor_create", editor: editor},
-                        {sExtends: "editor_edit", editor: editor},
-                        {sExtends: "editor_remove", editor: editor}
-                    ]
+                "language": {
+                    "emptyTable":     "No records found"
                 }
             });
             $('label input[type=search]').attr('placeholder', 'Search...');
