@@ -62,8 +62,25 @@ class Backend
         // Dispatch register
         $di->set('dispatcher', function () use ($di) {
 
-            // Creating an event manager
+            // call event manager
             $eventsManager = $di->getShared('eventsManager');
+
+            //event before dispatch loop
+            $eventsManager->attach("dispatch:beforeDispatchLoop", function($event, $dispatcher) {
+
+                $keyParams = array();
+                $params = $dispatcher->getParams();
+
+                // use odd parameters as keys and even as values
+                foreach ($params as $number => $value) {
+                    if ($number & 1) {
+                        $keyParams[$params[$number - 1]] = $value;
+                    }
+                }
+
+                //Override parameters
+                $dispatcher->setParams($keyParams);
+            });
 
             $dispatcher = new \Phalcon\Mvc\Dispatcher();
             $dispatcher->setEventsManager($eventsManager);

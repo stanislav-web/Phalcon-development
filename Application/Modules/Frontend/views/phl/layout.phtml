@@ -45,7 +45,8 @@
             <div class="wrap">
                 <div class="logo">
                     <a href="/">
-                        <?=$this->tag->image(["files/logo/".($engine['logo']), "alt" => "Logo"]); ?>
+                        <?=(empty($engine['logo']) === false) ?
+                            $this->tag->image(["files/logo/".($engine['logo']), "alt" => "Logo"]) : $engine['name']; ?>
                     </a>
                 </div>
                 <!-- Top menu -->

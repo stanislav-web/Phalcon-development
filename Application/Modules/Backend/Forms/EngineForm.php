@@ -63,7 +63,7 @@ class EngineForm extends Form
                 'id' => 'logo-upload',
                 'class' => 'file',
                 'data-show-upload' => 'false',
-                'data-show-caption' => 'true'
+                'data-show-caption' => 'true',
             ])
         );
 

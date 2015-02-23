@@ -60,13 +60,13 @@
                                         <span class="fa fa-caret-down fa-mf"></span></a>
                                     <ul class="dropdown-menu">
                                         <li>
-                                            <a href="<?= $this->url->get(['for' => 'dashboard-full', 'controller' => $this->router->getControllerName(), 'action' => 'assign', 'params' => $item->getId()]); ?>">
+                                            <a href="<?= $this->url->get(['for' => 'dashboard-full', 'controller' => $this->router->getControllerName(), 'action' => 'edit', 'params' => 'id/'.$item->getId()]); ?>">
                                                 <i class="fa fa-pencil-square-o fa-fw"></i> Edit
                                             </a>
                                         </li>
                                         <li>
                                             <a onclick="Common.confirm('Are you sure want to delete this category?<br> The procedure provided a not predictable consequences', this.href); return false;"
-                                               href="<?= $this->url->get(['for' => 'dashboard-full', 'controller' => $this->router->getControllerName(), 'action' => 'delete', 'params' => $item->getId()]); ?>">
+                                               href="<?= $this->url->get(['for' => 'dashboard-full', 'controller' => $this->router->getControllerName(), 'action' => 'delete', 'params' => 'id/'.$item->getId()]); ?>">
                                                 <i class="fa fa-trash-o fa-fw"></i> Delete
                                             </a>
                                         </li>

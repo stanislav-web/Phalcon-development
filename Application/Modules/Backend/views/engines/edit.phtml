@@ -103,46 +103,9 @@
         </div>
     </div>
 </div>
-<?= $this->tag->javascriptInclude("assets/plugins/store/store.min.js", true);  // local ?>
 <!-- Block content -->
 <script type="text/javascript">
     $(document).ready(function () {
-
-        if(!store.enabled) {
-            Common.alert('Local storage is not supported by your browser. Please disable "Private Mode", or upgrade to a modern browser.')
-            return;
-        }
-        else
-        {
-
-            var add = store.get('add-engine');
-
-            var fields = $('form#add-engine input[type=text], form#add-engine textarea');
-
-            if(typeof add !== typeof undefined)
-            {
-                $.each(fields, function(i) {
-
-                   var input = $(this);
-                   var	attr = input.attr('name');
-
-                    $.each(add, function(i, v) {
-
-                        if(typeof attr !== typeof undefined && attr !== false) {
-                            if(attr === v.name)
-                                input.val(v.value);
-                        }
-                    });
-                });
-            }
-
-            // serialize to storage
-
-            $('#save').on('click', function(e) {
-                store.remove('add-engine');
-                store.set('add-engine', $('form#add-engine').serializeArray());
-            });
-        }
 
         // Create Wysiwig editor for textare
         TinyMCEStart('#description', null);

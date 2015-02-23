@@ -23,73 +23,71 @@ class Engines extends \Phalcon\Mvc\Model
      */
     const TABLE = '\Application\Models\Engines';
 
-    public static
-
-        /**
-         * Engine statuses
-         * @var array
-         */
-        $statuses = [
+    /**
+     * Engine statuses
+     *
+     * @var array $statuses
+     */
+    public static $statuses = [
         0 => 'Off',
         1 => 'On',
         2 => 'Pending'
     ];
 
+    /**
+     *
+     * @var integer
+     */
+    protected $id;
 
-    protected
+    /**
+     * @var string
+     */
+    protected $host;
 
-        /**
-         *
-         * @var integer
-         */
-        $id,
+    /**
+     * @var string
+     */
+    protected $name;
 
-        /**
-         * @var string
-         */
-        $host,
+    /**
+     * @var string
+     */
+    protected $description;
 
-        /**
-         * @var string
-         */
-        $name,
+    /**
+     * @var string
+     */
+    protected $code;
 
-        /**
-         * @var string
-         */
-        $description,
+    /**
+     * @var string
+     */
+    protected $logo;
 
-        /**
-         * @var string
-         */
-        $code,
+    /**
+     * @var integer
+     */
+    protected $currency_id;
 
-        /**
-         * @var string
-         */
-        $logo,
+    /**
+     * @var integer
+     */
+    protected $status;
 
-        /**
-         * @var integer
-         */
-        $currency_id,
+    /**
+     * Datetime create
+     *
+     * @var datetime
+     */
+    protected $date_create;
 
-        /**
-         * @var integer
-         */
-        $status,
-
-        /**
-         * Datetime create
-         * @var datetime
-         */
-        $date_create,
-
-        /**
-         * Timestamp add
-         * @var timestamp
-         */
-        $date_update;
+    /**
+     * Timestamp add
+     *
+     * @var timestamp
+     */
+    protected $date_update;
 
     /**
      * Initialize Model
@@ -104,7 +102,7 @@ class Engines extends \Phalcon\Mvc\Model
 
         // skip attributes before every IN >
         $this->skipAttributesOnCreate(['date_update']);
-        $this->skipAttributesOnUpdate(['date_update']);
+        $this->skipAttributesOnUpdate(['date_create', 'date_update']);
 
         $this->belongsTo('currency_id', Currency::TABLE, 'id', [
             'alias' => 'currencyRel',
@@ -124,13 +122,9 @@ class Engines extends \Phalcon\Mvc\Model
         );
     }
 
-    /**
-     * Validate that login are unique across users
-     *
-     * @return bool
-     */
-    public function validation()
+    public function beforeValidationOnCreate()
     {
+        //Do the validations
         $this->validate(new Uniqueness([
             "field"     => "host",
             "message"   => 'This host already exist in list'
@@ -140,7 +134,6 @@ class Engines extends \Phalcon\Mvc\Model
             "field"     => "code",
             "message"   => 'This code already exist in list'
         ]));
-
 
         $this->validate(new PresenceOf([
             'field'     => 'name',
@@ -157,9 +150,26 @@ class Engines extends \Phalcon\Mvc\Model
             'message'   => 'The engine code is required'
         ]));
 
+        return $this->validationHasFailed() != true;
+    }
+
+    public function beforeValidationOnUpdate()
+    {
+        //Do the validations
+
         $this->validate(new PresenceOf([
-            'field'     => 'logo',
-            'message'   => 'The engine logo is required'
+            'field'     => 'name',
+            'message'   => 'The engine name is required'
+        ]));
+
+        $this->validate(new PresenceOf([
+            'field'     => 'host',
+            'message'   => 'The engine host is required'
+        ]));
+
+        $this->validate(new PresenceOf([
+            'field'     => 'code',
+            'message'   => 'The engine code is required'
         ]));
 
         return $this->validationHasFailed() != true;
@@ -260,7 +270,7 @@ class Engines extends \Phalcon\Mvc\Model
      */
     public function setCurrencyId($currency_id)
     {
-        $this->currency_id = $currency_id;
+        $this->currency_id = (int)$currency_id;
 
         return $this;
     }
@@ -273,7 +283,7 @@ class Engines extends \Phalcon\Mvc\Model
      */
     public function setStatus($status)
     {
-        $this->status = $status;
+        $this->status = (int)$status;
 
         return $this;
     }
@@ -296,7 +306,7 @@ class Engines extends \Phalcon\Mvc\Model
      */
     public function setId($id)
     {
-        $this->id = $id;
+        $this->id = (int)$id;
 
         return $this;
     }
