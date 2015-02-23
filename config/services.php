@@ -30,12 +30,13 @@ $di->setShared('router', $router);
 
 // Component Session. Starting a Session
 $di->setShared('session', function () use ($config) {
-    $session = new \Phalcon\Session\Adapter\Files([
+    $session = new \Phalcon\Session\Adapter\Memcache([
         'host'          => $config['cache']['memcached']['host'],       // mandatory
         'port'          => $config['cache']['memcached']['port'],       // optional (standard: 11211)
         'lifetime'      => $config['cache']['lifetime'],                // optional (standard: 8600)
         'persistent'    => $config['cache']['memcached']['persistent']  // optional (standard: false)
     ]);
+    session_set_cookie_params($config['rememberKeep'], "/");
     $session->start();
     return $session;
 });
