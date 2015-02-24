@@ -34,11 +34,12 @@
                        class="table table-bordered table-striped table-hover table-heading table-datatable">
                     <thead>
                     <tr>
-                        <th class="col-md-1">Category</th>
-                        <th class="col-md-2">Parent</th>
-                        <th class="col-md-2">Description</th>
+                        <th class="col-md-2">Category</th>
+                        <th class="col-md-3">Description</th>
+                        <th class="col-md-1">Parent</th>
                         <th class="col-md-2">Alias</th>
                         <th class="col-md-1">Sort</th>
+                        <th class="col-md-2">Manage</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -68,14 +69,23 @@
                     "info": "Showing _START_ to _END_ of _TOTAL_ entries",
                     "sLengthMenu": '_MENU_'
                 },
-
+                "aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
                 columns: [
                     {data: "title"},
-                    {data: "parent_id"},
                     {data: "description"},
+                    {data: "parent_id"},
                     {data: "alias"},
                     {data: "sort", searchable: false}
                 ],
+                "columnDefs": [{
+                    "targets": 5,
+                    "data": null,
+                    "render": function(obj){
+                        console.log(obj);
+                        return "<input id='" + obj.id + "' type='text' value='myval'/>"
+                    }
+                }],
+                "sPaginationType": "full_numbers",
                 "language": {
                     "emptyTable":     "No records found"
                 }
