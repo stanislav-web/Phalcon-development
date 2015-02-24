@@ -16,7 +16,7 @@
 <!-- Block content -->
 <div class="row">
     <div class="col-xs-12">
-        <div class="box">
+        <div class="box no-border">
             <div class="box-header">
                 <div class="box-name">
                     <i class="fa fa-table"></i>
@@ -34,11 +34,10 @@
                        class="table table-bordered table-striped table-hover table-heading table-datatable">
                     <thead>
                     <tr>
-                        <th class="no-sort col-md-1">ID</th>
-                        <th class="col-md-1">Title</th>
+                        <th class="col-md-1">Category</th>
+                        <th class="col-md-2">Parent</th>
                         <th class="col-md-2">Description</th>
                         <th class="col-md-2">Alias</th>
-                        <th class="col-md-2">Parent</th>
                         <th class="col-md-1">Sort</th>
                     </tr>
                     </thead>
@@ -63,12 +62,18 @@
                     url: '/dashboard/categories',
                     method: 'POST'
                 },
+                "sDom": "<'box-content'<'col-sm-6'f><'col-sm-6 text-right'l><'clearfix'>>rt<'box-content'<'col-sm-6'i><'col-sm-6 text-right'p><'clearfix'>>",
+                "oLanguage": {
+                    "sSearch": "",
+                    "info": "Showing _START_ to _END_ of _TOTAL_ entries",
+                    "sLengthMenu": '_MENU_'
+                },
+
                 columns: [
-                    {data: "id", searchable: false},
                     {data: "title"},
+                    {data: "parent_id"},
                     {data: "description"},
                     {data: "alias"},
-                    {data: "parent_id"},
                     {data: "sort", searchable: false}
                 ],
                 "language": {

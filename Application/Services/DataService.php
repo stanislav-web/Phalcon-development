@@ -31,19 +31,24 @@ class DataService {
     protected $resultSet;
 
     /**
-     * Limit rows per page
+     * Set dependency container
      *
-     * @var int $limit
+     * @param \Phalcon\DiInterface $di
      */
-    protected $limit = 10;
+    public function setDi($di)
+    {
+        $this->di = $di;
+    }
 
     /**
-     * Offset records
+     * Get dependency container
      *
-     * @var int $offset
+     * @return \Phalcon\DiInterface
      */
-    protected $offset = 0;
-
+    public function getDi()
+    {
+        return $this->di;
+    }
     /**
      * @return model
      */
@@ -63,37 +68,19 @@ class DataService {
     }
 
     /**
-     * @return int $limit
-     */
-    public function getLimit()
-    {
-        return $this->limit;
-    }
-
-    /**
-     * @param int $limit
-     */
-    public function setLimit($limit)
-    {
-        $this->limit = (int)$limit;
-
-        return $this;
-    }
-
-    /**
      * @return int
      */
-    public function getOffset()
+    public function getPage()
     {
-        return $this->offset;
+        return $this->page;
     }
 
     /**
      * @param int $offset
      */
-    public function setOffset($offset)
+    public function setPage($page)
     {
-        $this->offset = (int)$offset;
+        $this->page = (int)$page;
 
         return $this;
     }
@@ -118,30 +105,16 @@ class DataService {
 
     /**
      * @param $model
-     * @param $offset
-     * @param $limit
      */
-    public function __construct($model, $offset = null, $limit = null) {
+    public function __construct($model) {
 
         $this->setModel($model);
-
-        if(is_numeric($offset) === true) {
-            $this->setOffset($limit);
-        }
-
-        if(is_numeric($limit) === true) {
-
-            $this->setLimit($limit);
-        }
     }
 
     public function hydrate() {
 
         return $this->setResultSet(
-            $this->getModel()->find([
-                'limit'  => $this->getLimit(),
-                'offset' => $this->getOffset()
-            ])
+            $this->getModel()->find()
         );
     }
 

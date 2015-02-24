@@ -31,22 +31,22 @@ class Categories extends \Phalcon\Mvc\Model
     /**
      * @var string
      */
-    protected $title;
+    public $title;
 
     /**
      * @var string
      */
-    protected $description;
+    public $description;
 
     /**
      * @var string
      */
-    protected $alias;
+    public $alias;
 
     /**
      * @var integer
      */
-    protected $parent_id;
+    public $parent_id;
 
     /**
      * @var integer

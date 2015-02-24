@@ -30,12 +30,13 @@ class CategoriesController extends ControllerBase
         parent::initialize();
     }
 
-
     /**
      * Get list of all categories
      */
     public function indexAction()
     {
+        $this->setBreadcrumbs()->add(self::NAME);
+
         if ($this->request->isPost()) {
             // what kind of content type will be represented ?
             $dataTable = $this->di->get('DataService', [new Categories()])->hydrate();

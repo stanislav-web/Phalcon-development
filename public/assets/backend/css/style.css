@@ -2818,3 +2818,6 @@ td.beauty-hover {
 .no-overflow {
     overflow: visible !important;
 }
+.no-border {
+    border: none !important;
+}
