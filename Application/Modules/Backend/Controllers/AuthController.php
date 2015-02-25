@@ -52,7 +52,7 @@ class AuthController extends Controller
                 // send reply to client
                 $referrer = parse_url($this->request->getHTTPReferer(), PHP_URL_PATH);
 
-                $this->flashSession->success('Welcome, to aboard, '.$this->auth->getUser()['name']);
+                $this->flashSession->success('Welcome to aboard, '.$this->auth->getUser()['name']);
 
                 // full http redirect to the referrer page
                 if ($referrer != $this->request->getURI()) {

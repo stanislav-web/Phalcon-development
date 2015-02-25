@@ -34,12 +34,13 @@
                        class="table table-bordered table-striped table-hover table-heading table-datatable">
                     <thead>
                     <tr>
+                        <th class="col-md-1">Select</th>
                         <th class="col-md-2">Category</th>
-                        <th class="col-md-3">Description</th>
-                        <th class="col-md-1">Parent</th>
-                        <th class="col-md-2">Alias</th>
+                        <th class="col-md-4">Description</th>
+                        <th class="col-md-2">Parent</th>
+                        <th class="col-md-1">Alias</th>
                         <th class="col-md-1">Sort</th>
-                        <th class="col-md-2">Manage</th>
+                        <th class="col-md-1">Manage</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -71,23 +72,54 @@
                 },
                 "aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
                 columns: [
-                    {data: "title"},
-                    {data: "description"},
-                    {data: "parent_id"},
-                    {data: "alias"},
-                    {data: "sort", searchable: false}
+                    {data: null, targets: "0", searchable: false, orderable: false, render: function (obj) {
+                        return '<input type="checkbox" name="check['+obj.id+']" value="1">'
+                    }},
+                    {data: "title", targets: "1"},
+                    {data: "description", targets: "2"},
+                    {data: "parent_id", targets: "3"},
+                    {data: "alias", targets: "4"},
+                    {data: "sort", targets: "5" , searchable: false},
+                    {data: null, targets: "6" , searchable: false, orderable: false}
                 ],
-                "columnDefs": [{
-                    "targets": 5,
-                    "data": null,
-                    "render": function(obj){
-                        console.log(obj);
-                        return "<input id='" + obj.id + "' type='text' value='myval'/>"
+                "columnDefs": [
+                    {
+                        "targets": 6,
+                        "data": null,
+                        "render": function(obj){
+                            return '<div class="btn-group">' +
+                                    '<a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">' +
+                                        '<span class="fa fa-caret-down fa-mf"></span>' +
+                                    '</a>' +
+                                    '<ul class="dropdown-menu">' +
+                                        '<li>' +
+                                            '<a href="<?= $this->url->get(['for' => 'dashboard-full', 'controller' => $this->router->getControllerName(), 'action' => 'edit']); ?>id/'+obj.id+'">' +
+                                                '<i class="fa fa-pencil-square-o fa-fw"></i> Edit' +
+                                            '</a>' +
+                                        '</li>' +
+                                        '<li>' +
+                                            '<a onclick="Common.confirm(\'Are you sure want to delete this category?<br> The procedure provided a not predictable consequences\', this.href); return false;" href="<?= $this->url->get(['for' => 'dashboard-full', 'controller' => $this->router->getControllerName(), 'action' => 'delete']); ?>id/'+obj.id+'">' +
+                                                '<i class="fa fa-trash-o fa-fw"></i> Delete' +
+                                            '</a>' +
+                                        '</li>' +
+                                        '<li>' +
+                                            '<a href="<?= $this->url->get(['for' => 'dashboard-full', 'controller' => $this->router->getControllerName(), 'action' => 'enable']); ?>id/'+obj.id+'">' +
+                                                '<i class="fa fa-unlock-alt fa-fw"></i> Enable' +
+                                            '</a>' +
+                                        '</li>' +
+                                        '<li>' +
+                                            '<a href="<?= $this->url->get(['for' => 'dashboard-full', 'controller' => $this->router->getControllerName(), 'action' => 'disable']); ?>id/'+obj.id+'">' +
+                                                '<i class="fa fa-lock fa-fw"></i> Disable' +
+                                            '</a>' +
+                                        '</li>' +
+                                    '</ul>' +
+                                '</div>'
+                        }
                     }
-                }],
+                ],
                 "sPaginationType": "full_numbers",
                 "language": {
-                    "emptyTable":     "No records found"
+                    "emptyTable": "No records found"
                 }
             });
             $('label input[type=search]').attr('placeholder', 'Search...');
