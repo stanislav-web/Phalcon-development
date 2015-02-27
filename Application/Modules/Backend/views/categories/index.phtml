@@ -34,7 +34,9 @@
                        class="table table-bordered table-striped table-hover table-heading table-datatable">
                     <thead>
                     <tr>
-                        <th class="col-md-1">Select</th>
+                        <th class="col-md-1 sorting_asc_disable">
+                            <button id="toggle-all" class="btn btn-info margin-zero">Toggle</button>
+                        </th>
                         <th class="col-md-2">Category</th>
                         <th class="col-md-5">Description</th>
                         <th class="col-md-1">Parent</th>
@@ -55,6 +57,12 @@
 
     $(function () {
 
+        $('#toggle-all').on('click', function() {
+
+            $('input.buttons-checkbox').attr('checked', this.checked);
+            $('input.buttons-checkbox').parent().button('toggle');
+        });
+
         LoadDataTablesScripts(function () {
 
             $('#table').DataTable({
@@ -64,7 +72,7 @@
                     url: '/dashboard/categories',
                     method: 'POST'
                 },
-                "sDom": "<'box-content'<'col-sm-6'f><'col-sm-6 text-right'l><'clearfix'>>rt<'box-content'<'col-sm-6'i><'col-sm-6 text-right'p><'clearfix'>> <'box-content-tools'T>",
+                "sDom": "<'box-content'<'col-sm-6'f><'col-sm-6 text-right'l><'clearfix'>>rt<'box-content'<'col-sm-6'i><'col-sm-6 text-right'p><'clearfix'>>",
                 "oLanguage": {
                     "sSearch": "",
                     "info": "Showing _START_ to _END_ of _TOTAL_ entries",
@@ -77,7 +85,7 @@
                 },
                 columns: [
                     {data: null, targets: "0", searchable: false, orderable: false, render: function (obj) {
-                        return '<div class="btn-group" data-toggle="buttons"><label class="btn btn-primary" for="row-'+obj.id+'"><input type="checkbox" name="id['+obj.id+']"> '+obj.id+' </label></div>'
+                        return '<div class="btn-group" data-toggle="buttons"><label class="btn btn-primary" for="row-'+obj.id+'"><input class="buttons-checkbox" type="checkbox" name="id['+obj.id+']"> '+obj.id+' </label></div>'
                     }},
                     {data: "title", targets: "1"},
                     {data: "description", targets: "2"},
@@ -115,9 +123,6 @@
                 "sPaginationType": "full_numbers",
                 "language": {
                     "emptyTable": "No records found"
-                },
-                "tableTools": {
-                    "sSwfPath": "assets/plugins/datatables/copy_csv_xls_pdf.swf"
                 }
             });
             $('label input[type=search]').attr('placeholder', 'Search...');

@@ -2821,3 +2821,10 @@ td.beauty-hover {
 .no-border {
     border: none !important;
 }
+
+.sorting_asc_disable {
+    background: none !important;
+}
+.margin-zero {
+    margin: 0;
+}

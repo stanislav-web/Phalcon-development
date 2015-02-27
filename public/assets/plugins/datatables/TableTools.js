@@ -2180,7 +2180,7 @@ var TableTools;
      * @namespace TableTools default settings for initialisation
      */
     TableTools.DEFAULTS = {
-        "sSwfPath": "/assets/plugins/datatable/swf/copy_csv_xls_pdf.swf",
+        "sSwfPath": "/assets/plugins/datatables/copy_csv_xls_pdf.swf",
         "sRowSelect": "none",
         "sSelectedClass": null,
         "fnPreRowSelect": null,
