@@ -33,9 +33,6 @@
                 <table id="table" cellspacing="0" class="table table-bordered table-striped table-hover table-heading table-datatable">
                     <thead>
                     <tr>
-                        <th class="col-md-1 sorting_asc_disable">
-                            <button id="toggle-all" class="btn btn-info margin-zero">Toggle</button>
-                        </th>
                         <th class="col-md-2">Category</th>
                         <th class="col-md-5">Description</th>
                         <th class="col-md-1">Parent</th>
@@ -49,25 +46,12 @@
                 </table>
             </div>
         </div>
-        <div>
-            <div class="btn-group" data-toggle="buttons">
-                <button type="submit" class="btn btn-success btn-label-left"><span><i class="fa fa-unlock-alt fa-fw"></i></span> Enable</button>
-                <button type="submit" class="btn btn-default btn-label-left"><span><i class="fa fa-lock fa-fw"></i></span> Disable</button>
-                <button type="submit" class="btn btn-danger btn-label-left"><span><i class="fa fa-trash-o fa-fw"></i></span> Delete</button>
-            </div>
-        </div>
     </div>
 </div>
 <!-- Block content -->
 <script type="text/javascript">
 
     $(function () {
-
-        $('#toggle-all').on('click', function() {
-
-            $('input.buttons-checkbox').attr('checked', this.checked);
-            $('input.buttons-checkbox').parent().button('toggle');
-        });
 
         LoadDataTablesScripts(function () {
 
@@ -85,14 +69,8 @@
                     "sLengthMenu": '_MENU_'
                 },
                 "aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
-                "fnRowCallback": function( nRow, aData) {
-                    $(nRow).attr("id",'row-' + aData.id);
-                    return nRow;
-                },
+
                 columns: [
-                    {data: null, targets: "0", searchable: false, orderable: false, render: function (obj) {
-                        return '<div class="btn-group" data-toggle="buttons"><label class="btn btn-primary" for="row-'+obj.id+'"><input class="buttons-checkbox" type="checkbox" name="id['+obj.id+']"> '+obj.id+' </label></div>'
-                    }},
                     {data: "title", targets: "1"},
                     {data: "description", targets: "2"},
                     {data: "parent_id", targets: "3"},
@@ -131,7 +109,7 @@
                     "emptyTable": "No records found"
                 }
             });
-            $('label input[type=search]').attr('placeholder', 'Search...');
+            $('label input[type=search]').attr('placeholder', 'Search category...');
         });
     });
 </script>
