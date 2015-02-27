@@ -3207,3 +3207,7 @@ blockquote.notice {
     margin: 10px 0;
     color: thistle;
 }
+
+.box-content-tools {
+    display: none;
+}

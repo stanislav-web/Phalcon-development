@@ -36,6 +36,7 @@ $di->setShared('session', function () use ($config) {
         'lifetime'      => $config['cache']['lifetime'],                // optional (standard: 8600)
         'persistent'    => $config['cache']['memcached']['persistent']  // optional (standard: false)
     ]);
+
     session_set_cookie_params($config['rememberKeep'], "/");
     $session->start();
     return $session;

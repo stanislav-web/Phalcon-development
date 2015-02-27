@@ -229,6 +229,8 @@ class AuthService implements InjectionAwareInterface {
                         $this->getRequest()->getUserAgent()
                     );
 
+                    session_regenerate_id(true);
+
                     // setup token to storage
                     $this->setAccessToken($user['id'], $token, (time() + $this->getConfig()->rememberKeep));
 
@@ -297,6 +299,8 @@ class AuthService implements InjectionAwareInterface {
                 $this->getSecurity()->getSessionToken(),
                 $this->getRequest()->getUserAgent()
             );
+
+            session_regenerate_id(true);
 
             // setup token to storage
             $this->setAccessToken($user->getId(), $token, (time() + $this->getConfig()->rememberKeep));
@@ -568,6 +572,8 @@ class AuthService implements InjectionAwareInterface {
 
             $session->remove('user');
         }
+
+        session_regenerate_id(true);
 
         if($this->isAuth() === false) {
             return true;
