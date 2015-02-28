@@ -1,6 +1,8 @@
 <?php
 namespace Application\Services;
 use Phalcon\Db\Adapter\Pdo\Mysql as AdapterGateway;
+use Phalcon\DI\InjectionAwareInterface;
+use Phalcon\Events\Manager as EventsManager;
 
 /**
  * Class MySQLConnectService. Connection to Database service
@@ -19,8 +21,18 @@ class MySQLConnectService extends AdapterGateway {
      * Init MySQL Connect
      *
      * @param array $dbConfig
+     * @param \Phalcon\DI\FactoryDefault $di
      */
-    public function __construct(array $dbConfig) {
+    public function __construct(array $dbConfig, \Phalcon\DI\FactoryDefault $di) {
+
+        $eventsManager = new EventsManager();
+
+        // Listen MySQLConnectService
+        $eventsManager->attach('db', function($event, $connection) use ($di) {
+            if ($event->getType() == 'beforeQuery') {
+                $di->get('LogDbService')->save($connection->getSQLStatement(), 6);
+            }
+        });
 
         parent::__construct([
             "host"          => $dbConfig['host'],

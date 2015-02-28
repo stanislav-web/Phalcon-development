@@ -21,8 +21,8 @@ $di->setShared('config', function () use ($config) {
 
 // Database connection is created based in the parameters defined in the configuration file
 
-$di->setShared('db', function () use ($config) {
-    return new \Application\Services\MySQLConnectService($config['database']);
+$di->setShared('db', function () use ($config, $di) {
+    return new \Application\Services\MySQLConnectService($config['database'], $di);
 });
 
 // Set routes

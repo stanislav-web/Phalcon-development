@@ -19,6 +19,9 @@ $di->set('MetaService','Application\Services\MetaService');
 // Data Service Helper
 $di->set('DataService','Application\Services\DataService');
 
+// Transaction manager
+$di->setShared('transactions', '\Phalcon\Mvc\Model\Transaction\Manager');
+
 // Setup Searcher component
 $di->set('searcher', 'Searcher\Searcher');
 

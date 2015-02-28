@@ -171,36 +171,12 @@ class CategoriesController extends ControllerBase
         // handling POST data
         if ($this->request->isPost()) {
 
-            $engine =
-                (new Engines())
-                    ->setName($this->request->getPost('name'))
-                    ->setDescription($this->request->getPost('description'), null, '')
-                    ->setHost($this->request->getPost('host'))
-                    ->setCode($this->request->getPost('code'))
-                    ->setCurrencyId($this->request->getPost('currency_id', null, 1))
-                    ->setStatus($this->request->getPost('status', null, 0));
+            $category = (new Categories())->add($this->request->getPost());
 
+
+            exit;
             // check uploaded logo (if exist)
 
-            if($this->request->hasFiles() !== false) {
-
-                $uploader = $this->di->get('uploader');
-
-                $uploader->setRules(['directory' =>  DOCUMENT_ROOT.'/files/logo']);
-
-                if($uploader->isValid() === true) {
-
-                    $uploader->move();
-                    $engine->setLogo(basename($uploader->getInfo()[0]['path']));
-
-                }
-                else {
-                    // the store failed, the following message were produced
-                    foreach ($uploader->getErrors() as $message) {
-                        $this->flashSession->error($message);
-                    }
-                }
-            }
 
             if($engine->save() === true) {
 

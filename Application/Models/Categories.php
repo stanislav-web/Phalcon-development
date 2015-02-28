@@ -92,6 +92,15 @@ class Categories extends \Phalcon\Mvc\Model
     }
 
     /**
+     * Get transaction manager
+     *
+     * @return \Phalcon\Mvc\Model\Transaction\Manager
+     */
+    protected function tnx() {
+        return $this->getDI()->get('transactions');
+    }
+
+    /**
      * This action run after save anything to this model
      * @return null
      */
@@ -184,7 +193,8 @@ class Categories extends \Phalcon\Mvc\Model
      */
     public function setParentId($parent_id)
     {
-        $this->parent_id = $parent_id;
+        $this->parent_id = (empty($parent_id) === false)
+            ? (int)$parent_id : null;
 
         return $this;
     }
@@ -318,5 +328,33 @@ class Categories extends \Phalcon\Mvc\Model
     public function getDateUpdate()
     {
         return $this->date_update;
+    }
+
+    public function add(array $data) {
+
+        // begin transaction
+        $transaction = $this->tnx()->get();
+
+        $category = $this->setTitle($data['title'])
+            ->setDescription($data['description'])
+            ->setAlias($data['title'])
+            ->setParentId($data['parent_id'])
+            ->setSort($data['sort'])
+            ->setVisibility($data['visibility']);
+
+        $category->setTransaction($transaction);
+
+        if($category->save() === true) {
+            var_dump($category);
+
+            var_dump($transaction);
+        }
+        else {
+            foreach ($category->getMessages() as $message) {
+                $transaction->rollback($message->getMessage());
+            }
+        }
+
+        $transaction->commit();
     }
 }
