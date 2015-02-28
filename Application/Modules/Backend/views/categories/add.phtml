@@ -15,7 +15,7 @@
             <!-- Add Category form -->
             <?= $this->tag->form(['id' => 'add', 'class' => 'form-horizontal', 'method' => 'post']); ?>
             <div class="form-group">
-                <label for="title" class="control-label col-sm-3">Name</label>
+                <label for="title" class="control-label col-sm-3">Title</label>
 
                 <div class="col-sm-6">
                     <?= $form->render('title', [
@@ -41,9 +41,8 @@
                 <label for="parent_id" class="control-label col-sm-3">Parent category</label>
 
                 <div class="col-sm-6">
-                    <?= $form->render('parent_id[]', [
+                    <?= $form->render('parent_id', [
                         'class' => 'populate placeholder',
-                        'id'    =>  'parent_id',
                         'width' => '40'
                     ]); ?>
                 </div>
@@ -53,7 +52,7 @@
                 <label for="engine_id" class="control-label col-sm-3">Engine</label>
 
                 <div class="col-sm-6">
-                    <?= $form->render('engine_id', [
+                    <?= $form->render('engine_id[]', [
                         'class' => 'populate placeholder',
                         'id'    =>  'engine_id',
                         'width' => '40'
@@ -77,7 +76,7 @@
 
                 <div class="col-sm-6 col-sm-offset-2 height-25">
                     <label for="visibility" class="cursor-pointer ">
-                        <span class="inline-cbox">Visibility</span> <?= $form->render('visibility'); ?>
+                        <span class="inline-cbox">Visibile</span> <?= $form->render('visibility'); ?>
                     </label>
                 </div>
             </div>
@@ -116,60 +115,27 @@
                 },
                 message: 'This value is not valid',
                 fields: {
-                    name: {
-                        message: 'The name is not valid',
+                    title: {
+                        message: 'The title is not valid',
                         validators: {
                             notEmpty: {
-                                message: 'The name is required and can\'t be empty'
+                                message: 'The title is required and can\'t be empty'
                             },
                             stringLength: {
                                 min: 3,
-                                max: '40',
-                                message: 'The name must be more than 3 and less than 40 characters long'
+                                max: 255,
+                                message: 'The title must be more than 3 and less than 255 characters long'
                             },
                             regexp: {
-                                regexp: /^[a-zA-Z0-9_\. ]+$/,
+                                regexp: /^[a-zA-Z\u0400-\u04FF0-9_\. ]+$/,
                                 message: 'The name can only consist of alphabetical, number, dot, underscore and space'
                             }
                         }
                     },
-                    currency_id: {
+                    "engine_id[]": {
                         validators: {
                             notEmpty: {
-                                message: 'The currency is required and can\'t be empty'
-                            }
-                        }
-                    },
-                    status: {
-                        validators: {
-                            notEmpty: {
-                                message: 'The status is required and can\'t be empty'
-                            }
-                        }
-                    },
-                    host: {
-                        message: 'The host is not valid',
-                        validators: {
-                            notEmpty: {
-                                message: 'The host is required and can\'t be empty'
-                            },
-                            stringLength: {
-                                min: 3,
-                                max: '40',
-                                message: 'The host must be more than 3 and less than 40 characters long'
-                            }
-                        }
-                    },
-                    code: {
-                        message: 'The code is not valid',
-                        validators: {
-                            notEmpty: {
-                                message: 'The code is required and can\'t be empty'
-                            },
-                            stringLength: {
-                                min: 3,
-                                max: 3,
-                                message: 'The host must be 3 characters long'
+                                message: 'The engine(s) is required and can\'t be empty'
                             }
                         }
                     }
@@ -177,6 +143,6 @@
             })
         );
 
-        $('#visibility').betterCheckbox({boxClass: 'bb', tickClass: 'bt', tickInnerHTML: "enabled"});
+        $('#visibility').betterCheckbox({boxClass: 'fb', tickClass: 'ft', tickInnerHTML: "✔"});
     });
 </script>

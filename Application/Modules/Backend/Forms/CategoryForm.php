@@ -61,16 +61,18 @@ class CategoryForm extends Form
             ])
         );
 
-        $this->add((new Element\Select("parent_id[]", $this->categories, ['useEmpty' => true, 'multiple' => true]))
+        $this->add((new Element\Select("parent_id", $this->categories))
             ->setDefault((isset($options['default'])) ? $options['default']->getParentId() : '')
         );
 
-        $this->add((new Element\Select("engine_id", $this->engines))
-            ->setDefault((isset($options['default'])) ? $options['default']->getEngine() : 1)
+        $this->add((new Element\Select("engine_id[]", $this->engines, ['useEmpty' => true, 'multiple' => true]))
+            ->setDefault((isset($options['default'])) ? $options['default']->getEngine() : null)
         );
 
         $this->add(new Element\Numeric("sort", [
                 'id' => 'sort',
+                'min' => 0,
+                'max' => 99,
                 'value' => (isset($options['default'])) ? $options['default']->getSort() : 0
             ])
         );
@@ -113,7 +115,7 @@ class CategoryForm extends Form
         $HelpersService = $this->getDI()->get('tag');
 
         return ($categories->count() > 0)
-            ? $HelpersService->arrayToPair($categories->toArray())
+            ? (['' => 'Select category']+$HelpersService->arrayToPair($categories->toArray()))
             : [];
     }
 }
