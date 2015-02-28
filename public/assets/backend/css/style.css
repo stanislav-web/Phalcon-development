@@ -2828,3 +2828,9 @@ td.beauty-hover {
 .margin-zero {
     margin: 0;
 }
+.invisible-row {
+    color: burlywood;
+}
+.visible-row {
+    color: #5a8db6;
+}

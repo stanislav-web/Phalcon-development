@@ -54,6 +54,11 @@ class Categories extends \Phalcon\Mvc\Model
     protected $sort;
 
     /**
+     * @var integer
+     */
+    protected $visibility;
+
+    /**
      * Datetime create
      * @var datetime
      */
@@ -70,8 +75,14 @@ class Categories extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
+        // its allow to keep empty data to my db
+        $this->setup([
+            'notNullValidations' => true,
+            'exceptionOnFailedSave' => false
+        ]);
+
         //Skips fields/columns on both INSERT/UPDATE operations
-        $this->skipAttributes(array('date_create', 'date_update'));
+        $this->skipAttributes(['date_create', 'date_update']);
 
         // create relations between Categories => EnginesCategoriesRel
 
@@ -81,10 +92,10 @@ class Categories extends \Phalcon\Mvc\Model
     }
 
     /**
-     * This action run before save anything to this model
+     * This action run after save anything to this model
      * @return null
      */
-    public function beforeSave()
+    public function afterSave()
     {
         $this->rebuildTree();
     }
@@ -107,12 +118,21 @@ class Categories extends \Phalcon\Mvc\Model
     /**
      * Method to set the value of field date_create
      *
-     * @param integer $status
-     * @return $this
+     * @param integer $date_create
+     * @return Categories
      */
-    public function setDateCreate($date_create)
+    public function setDateCreate($date_create = null)
     {
-        $this->date_create = $date_create;
+        if($date_create === null) {
+
+            $datetime = new Datetime(new DateTimeZone(date_default_timezone_get()));
+
+            $this->date_create = $datetime->format('Y-m-d H:i:s');
+
+        }
+        else {
+            $this->date_create  =   $date_create;
+        }
 
         return $this;
     }
@@ -121,7 +141,7 @@ class Categories extends \Phalcon\Mvc\Model
      * Method to set the value of field title
      *
      * @param string $host
-     * @return $this
+     * @return Categories
      */
     public function setTitle($title)
     {
@@ -134,7 +154,7 @@ class Categories extends \Phalcon\Mvc\Model
      * Method to set the value of field description
      *
      * @param string $host
-     * @return $this
+     * @return Categories
      */
     public function setDescription($description)
     {
@@ -147,7 +167,7 @@ class Categories extends \Phalcon\Mvc\Model
      * Method to set the value of field alias
      *
      * @param string $name
-     * @return $this
+     * @return Categories
      */
     public function setAlias($alias)
     {
@@ -160,7 +180,7 @@ class Categories extends \Phalcon\Mvc\Model
      * Method to set the value of field parent_id
      *
      * @param string $description
-     * @return $this
+     * @return Categories
      */
     public function setParentId($parent_id)
     {
@@ -170,10 +190,25 @@ class Categories extends \Phalcon\Mvc\Model
     }
 
     /**
+     * Method to set the value of field visibility
+     *
+     * @param int $visibility
+     * @return Categories
+     */
+    public function setVisibility($visibility)
+    {
+        $this->skipAttributesOnUpdate(['title', 'description','parent_id', 'alias', 'sort']);
+
+        $this->visibility = $visibility;
+
+        return $this;
+    }
+
+    /**
      * Method to set the value of field sort
      *
-     * @param string $description
-     * @return $this
+     * @param int $sort
+     * @return Categories
      */
     public function setSort($sort)
     {
@@ -196,7 +231,7 @@ class Categories extends \Phalcon\Mvc\Model
      * Method to set the value of field id
      *
      * @param integer $id
-     * @return $this
+     * @return Categories
      */
     public function setId($id)
     {
@@ -256,6 +291,16 @@ class Categories extends \Phalcon\Mvc\Model
     }
 
     /**
+     * Returns the value of field visibility
+     *
+     * @return integer
+     */
+    public function getVisibility()
+    {
+        return $this->visibility;
+    }
+
+    /**
      * Returns the value of field date_create
      *
      * @return integer
@@ -273,79 +318,5 @@ class Categories extends \Phalcon\Mvc\Model
     public function getDateUpdate()
     {
         return $this->date_update;
-    }
-
-    /**
-     * Get all related records from Categories joined to Engines
-     * @param array $params
-     * @return \Phalcon\Paginator\Adapter\QueryBuilder
-     */
-    public function get(array $params = [])
-    {
-        /**
-         * Array of database columns which should be read and sent back to DataTables. Use a space where
-         * you want to insert a non-database field (for example a counter or static image)
-         */
-
-        $params['iTotal'] = self::find()->count();
-        $builder = $this->_modelsManager->createBuilder();
-
-        // setup selected columns
-        $params['aColumns'] = ['c.lft', 'c.title', 'c.description', 'c.alias', 'c.sort'];
-        $builder->addFrom(self::TABLE, 'c')->columns($params['aColumns']);
-
-        // setup paging
-
-        if (isset($params['iDisplayStart']) && $params['iDisplayLength'] != '-1')
-            $builder->offset($params['iDisplayStart'])->limit($params['iDisplayLength']);
-
-
-        // setup ordering
-
-        if (isset($params['iSortingCols']) && $params['iSortingCols'] > 0) {
-            // ordering as default
-            $order = [];
-            for ($i = 0; $i < intval($params['iSortingCols']); $i++) {
-                $iSortCol = $params['iSortCol_' . $i];
-                $bSortable = $params['bSortable_' . $i];
-                $sSortDir = $params['sSortDir_' . $i];
-
-                if ($bSortable == 'true') {
-                    $order[] = $params['aColumns'][intval($iSortCol)] . " " . $sSortDir;
-                }
-            }
-            $builder->orderBy(implode(',', $order));
-        }
-
-        /**
-         * Filtering
-         * NOTE this does not match the built-in DataTables filtering which does it
-         * word by word on any field. It's possible to do here, but concerned about efficiency
-         * on very large tables, and MySQL's regex functionality is very limited
-         */
-        if (isset($params['sSearch']) && !empty($params['sSearch'])) {
-            for ($i = 0; $i < count($params['aColumns']); $i++) {
-                $bSearchable = $params['bSearchable_' . $i];
-
-                // individual column filtering
-                if (isset($bSearchable) && $bSearchable == 'true') {
-                    if ($i > 0)
-                        $builder->orWhere($params['aColumns'][$i] . " LIKE :" . $i . ":",
-                            [$i => "%" . $params['sSearch'] . "%"]);
-                    else
-                        $builder->where($params['aColumns'][$i] . " LIKE :" . $i . ":",
-                            [$i => "%" . $params['sSearch'] . "%"]);
-                }
-            }
-        }
-
-        // execute query
-        $query = $builder->getQuery()->execute();
-
-        // format output
-        $result = Format::toDataTable($query, $params);
-
-        // return result
-        return $result;
     }
 }

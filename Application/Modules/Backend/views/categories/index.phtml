@@ -5,7 +5,7 @@
     </div>
     <div class="col-xs-10 col-sm-4">
         <div class="btn-group">
-            <?= $this->tag->linkTo(['dashboard/categories/assign', 'Add category', 'class' => 'btn btn-primary']); ?>
+            <?= $this->tag->linkTo(['dashboard/categories/add', 'Add category', 'class' => 'btn btn-primary']); ?>
             <?= $this->tag->linkTo(['dashboard/categories/rebuild', 'Rebuild tree', 'class' => 'btn btn-success']); ?>
         </div>
     </div>
@@ -34,10 +34,11 @@
                     <thead>
                     <tr>
                         <th class="col-md-2">Category</th>
-                        <th class="col-md-5">Description</th>
+                        <th class="col-md-4">Description</th>
                         <th class="col-md-1">Parent</th>
                         <th class="col-md-1">Alias</th>
                         <th class="col-md-1">Sort</th>
+                        <th class="col-md-1">Visibility</th>
                         <th class="col-md-1">Manage</th>
                     </tr>
                     </thead>
@@ -69,40 +70,52 @@
                     "sLengthMenu": '_MENU_'
                 },
                 "aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                "fnRowCallback": function( nRow, aData) {
+                    if(aData.visibility == 0) {
+                        $(nRow).addClass("invisible-row");
+                    }
+                    else  {
+                        $(nRow).addClass("visible-row");
+                    }
+                    return nRow;
 
+                },
                 columns: [
                     {data: "title", targets: "1"},
                     {data: "description", targets: "2"},
                     {data: "parent_id", targets: "3"},
                     {data: "alias", targets: "4"},
                     {data: "sort", targets: "5" , searchable: false},
-                    {data: null, targets: "6" , searchable: false, orderable: false, render: function(obj){
-                        return '<div class="btn-group">' +
-                        '<a class="btn btn-primary" href="<?= $this->url->get(['for' => 'dashboard-full', 'controller' => $this->router->getControllerName(), 'action' => 'edit']); ?>id/'+obj.id+'">' +
-                        '<i class="fa fa-pencil-square-o fa-fw"></i> Edit' +
-                        '</a>' +
-                        '<a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">' +
-                        '<span class="fa fa-caret-down fa-mf"></span>' +
-                        '</a>' +
-                        '<ul class="dropdown-menu">' +
-                        '<li>' +
-                        '<a onclick="Common.confirm(\'Are you sure want to delete this category?<br> The procedure provided a not predictable consequences\', this.href); return false;" href="<?= $this->url->get(['for' => 'dashboard-full', 'controller' => $this->router->getControllerName(), 'action' => 'delete']); ?>id/'+obj.id+'">' +
-                        '<i class="fa fa-trash-o fa-fw"></i> Delete' +
-                        '</a>' +
-                        '</li>' +
-                        '<li>' +
-                        '<a href="<?= $this->url->get(['for' => 'dashboard-full', 'controller' => $this->router->getControllerName(), 'action' => 'enable']); ?>id/'+obj.id+'">' +
-                        '<i class="fa fa-unlock-alt fa-fw"></i> Enable' +
-                        '</a>' +
-                        '</li>' +
-                        '<li>' +
-                        '<a href="<?= $this->url->get(['for' => 'dashboard-full', 'controller' => $this->router->getControllerName(), 'action' => 'disable']); ?>id/'+obj.id+'">' +
-                        '<i class="fa fa-lock fa-fw"></i> Disable' +
-                        '</a>' +
-                        '</li>' +
-                        '</ul>' +
-                        '</div>'
-                    }}
+                    {data: "visibility", targets: "6", "visible" : false, searchable: false, orderable: false},
+                    {data: null, targets: "7" , searchable: false, orderable: false,
+                        render: function(obj){
+                            return '<div class="btn-group">' +
+                            '<a class="btn btn-primary" href="<?= $this->url->get(['for' => 'dashboard-full', 'controller' => $this->router->getControllerName(), 'action' => 'edit']); ?>id/'+obj.id+'">' +
+                            '<i class="fa fa-pencil-square-o fa-fw"></i> Edit' +
+                            '</a>' +
+                            '<a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">' +
+                            '<span class="fa fa-caret-down fa-mf"></span>' +
+                            '</a>' +
+                            '<ul class="dropdown-menu">' +
+                            '<li>' +
+                            '<a onclick="Common.confirm(\'Are you sure want to delete this category?<br> The procedure provided a not predictable consequences\', this.href); return false;" href="<?= $this->url->get(['for' => 'dashboard-full', 'controller' => $this->router->getControllerName(), 'action' => 'delete']); ?>id/'+obj.id+'">' +
+                            '<i class="fa fa-trash-o fa-fw"></i> Delete' +
+                            '</a>' +
+                            '</li>' +
+                            '<li>' +
+                            '<a href="<?= $this->url->get(['for' => 'dashboard-full', 'controller' => $this->router->getControllerName(), 'action' => 'enable']); ?>id/'+obj.id+'">' +
+                            '<i class="fa fa-unlock-alt fa-fw"></i> Enable' +
+                            '</a>' +
+                            '</li>' +
+                            '<li>' +
+                            '<a href="<?= $this->url->get(['for' => 'dashboard-full', 'controller' => $this->router->getControllerName(), 'action' => 'disable']); ?>id/'+obj.id+'">' +
+                            '<i class="fa fa-lock fa-fw"></i> Disable' +
+                            '</a>' +
+                            '</li>' +
+                            '</ul>' +
+                            '</div>'
+                        }
+                    },
                 ],
                 "sPaginationType": "full_numbers",
                 "language": {

@@ -179,7 +179,7 @@ class Engines extends \Phalcon\Mvc\Model
      * Method to set the value of field date_create
      *
      * @param integer $status
-     * @return $this
+     * @return Engines
      */
     public function setDateCreate($date_create = null)
     {
@@ -201,7 +201,7 @@ class Engines extends \Phalcon\Mvc\Model
      * Method to set the value of field host
      *
      * @param string $host
-     * @return $this
+     * @return Engines
      */
     public function setHost($host)
     {
@@ -214,7 +214,7 @@ class Engines extends \Phalcon\Mvc\Model
      * Method to set the value of field name
      *
      * @param string $name
-     * @return $this
+     * @return Engines
      */
     public function setName($name)
     {
@@ -227,7 +227,7 @@ class Engines extends \Phalcon\Mvc\Model
      * Method to set the value of field description
      *
      * @param string $description
-     * @return $this
+     * @return Engines
      */
     public function setDescription($description)
     {
@@ -240,7 +240,7 @@ class Engines extends \Phalcon\Mvc\Model
      * Method to set the value of field code
      *
      * @param string $code
-     * @return $this
+     * @return Engines
      */
     public function setCode($code)
     {
@@ -253,7 +253,7 @@ class Engines extends \Phalcon\Mvc\Model
      * Method to set the value of field logo
      *
      * @param string $logo
-     * @return $this
+     * @return Engines
      */
     public function setLogo($logo)
     {
@@ -266,7 +266,7 @@ class Engines extends \Phalcon\Mvc\Model
      * Method to set the value of field currency_id
      *
      * @param integer $currency_id
-     * @return $this
+     * @return Engines
      */
     public function setCurrencyId($currency_id)
     {
@@ -279,7 +279,7 @@ class Engines extends \Phalcon\Mvc\Model
      * Method to set the value of field status
      *
      * @param integer $status
-     * @return $this
+     * @return Engines
      */
     public function setStatus($status)
     {
@@ -302,7 +302,7 @@ class Engines extends \Phalcon\Mvc\Model
      * Method to set the value of field id
      *
      * @param integer $id
-     * @return $this
+     * @return Engines
      */
     public function setId($id)
     {

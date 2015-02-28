@@ -61,7 +61,7 @@ class Pages extends \Phalcon\Mvc\Model
     public function initialize()
     {
         //Skips fields/columns on both INSERT/UPDATE operations
-        $this->skipAttributes(array('date_create', 'date_update'));
+        $this->skipAttributes(['date_create', 'date_update']);
     }
 
     /**
