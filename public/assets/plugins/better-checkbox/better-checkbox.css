@@ -1,0 +1,41 @@
+.betterCheckbox-box{
+    width:18px;
+    height:18px;
+    border: 3px solid #333333;
+    display: inline-block;
+    cursor:pointer;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.betterCheckbox-tick{
+    width:18px;
+    height:18px;
+    background: url('checkmark.png');
+}
+
+.bt {
+    font-size: 18px;
+    font-family: verdana;
+    position:relative;
+    top:-5px;
+    text-align:center;
+    border: 2px solid #9b0e0e;
+    -moz-transform: rotate(-5deg);
+    -webkit-transform: rotate(-5deg);
+    -o-transform: rotate(-5deg);
+    -ms-transform: rotate(-5deg);
+    transform: rotate(-5deg);
+}
+.bb {
+    width:100px;
+    height:18px;
+    border: 3px dotted #666666;
+    display: inline-block;
+    cursor:pointer;
+    color: #9b0e0e;
+}
+.bb.disabled {
+    border: 3px dotted #898989;
+    background:#ededed;
+}

@@ -18,7 +18,6 @@ trait Node
      * Convert object to array
      *
      * @param $obj
-     * @access static
      * @return array
      */
     public static function objectToArray($obj)
@@ -38,8 +37,6 @@ trait Node
      *
      * @param array $array
      * @return array
-     * @internal param $obj
-     * @access static
      */
     public static function arrayToPair(array $array)
     {
@@ -55,11 +52,32 @@ trait Node
         return $result;
     }
 
+
+    /**
+     * Set key for multidimensional array
+     *
+     * @param array $array
+     * @param string $key
+     * @return array
+     */
+    public static function arraySetKey(array $array, $key)
+    {
+        $result = [];
+        if (!empty($array)) {
+            foreach ($array as $n => $values) {
+                if (isset($values[$key])) {
+                    $result[$values[$key]] = $values;
+                }
+            }
+        }
+
+        return $result;
+    }
+
     /**
      * Add handler to even array values
      *
      * @param $obj
-     * @access static
      * @return array
      */
     public static function arrayMapDeep($array, $callback)

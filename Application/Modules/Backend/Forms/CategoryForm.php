@@ -4,7 +4,6 @@ namespace Application\Modules\Backend\Forms;
 use Application\Models\Engines;
 use Phalcon\Forms\Element;
 use Phalcon\Forms\Form;
-use Phalcon\Mvc\Model\Resultset\Simple as SimpleResultset;
 
 /**
  * Class CategoryForm
@@ -28,12 +27,14 @@ class CategoryForm extends Form
 
     /**
      * Available categories (for parent)
+     *
      * @var array
      */
     private $categories = [];
 
     /**
      * Initialize form's elements
+     *
      * @param null $obj
      * @param mixed $options
      */
@@ -41,16 +42,16 @@ class CategoryForm extends Form
     {
         $this->setEntity($this);
 
-        // create engines array to Select node
+        // get engines array to Select node
         $this->engines = $this->getEngines($options['engines']);
 
-        // create statuses array to Select node
+        // get categories array to Select node
         $this->categories = $this->getCategories($options['categories']);
 
-        $this->add(new Element\Text("name", [
-                'id' => 'name',
+        $this->add(new Element\Text("title", [
+                'id' => 'title',
                 'required' => 'true',
-                'value' => (isset($options['default'])) ? $options['default']->getName() : ''
+                'value' => (isset($options['default'])) ? $options['default']->getTitle() : ''
             ])
         );
 
@@ -60,34 +61,25 @@ class CategoryForm extends Form
             ])
         );
 
-        $this->add(new Element\File("logo", [
-                'id' => 'logo-upload',
-                'class' => 'file',
-                'data-show-upload' => 'false',
-                'data-show-caption' => 'true',
+        $this->add((new Element\Select("parent_id[]", $this->categories, ['useEmpty' => true, 'multiple' => true]))
+            ->setDefault((isset($options['default'])) ? $options['default']->getParentId() : '')
+        );
+
+        $this->add((new Element\Select("engine_id", $this->engines))
+            ->setDefault((isset($options['default'])) ? $options['default']->getEngine() : 1)
+        );
+
+        $this->add(new Element\Numeric("sort", [
+                'id' => 'sort',
+                'value' => (isset($options['default'])) ? $options['default']->getSort() : 0
             ])
         );
 
-        $this->add(new Element\Text("host", [
-                'id' => 'host',
-                'required' => 'true',
-                'value' => (isset($options['default'])) ? $options['default']->getHost() : ''
+        $this->add(new Element\Check("visibility", [
+                'id' => 'visibility',
+                'class' => 'bt',
+                'value' => (isset($options['default'])) ? $options['default']->getVisibility() : 1
             ])
-        );
-
-        $this->add(new Element\Text("code", [
-                'id' => 'code',
-                'required' => 'true',
-                'value' => (isset($options['default'])) ? $options['default']->getCode() : ''
-            ])
-        );
-
-        $this->add((new Element\Select("currency_id", $this->currencies))
-                ->setDefault((isset($options['default'])) ? $options['default']->getCurrencyId() : 1)
-        );
-
-        $this->add((new Element\Select("status", $this->statuses))
-                ->setDefault((isset($options['default'])) ? $options['default']->getStatus() : 1)
         );
 
         $this->add(new Element\Submit("save", [
@@ -97,16 +89,31 @@ class CategoryForm extends Form
     }
 
     /**
-     * Create currency list from database
+     * Get engines list from database
      *
-     * @param SimpleResultset $currency
+     * @param \Phalcon\Mvc\Model\Resultset\Simple $currency
      * @return array
      */
-    public function getEngines(SimpleResultset $engines)
+    public function getEngines(\Phalcon\Mvc\Model\Resultset\Simple $engines)
     {
-        var_dump($engines->toArray()); exit;
-        foreach ($currency as $v)
-            $this->currencies[$v->getId()] = $v->getName();
-        return $this->currencies;
+        $HelpersService = $this->getDI()->get('tag');
+        return ($engines->count() > 0)
+            ? $HelpersService->arrayToPair($engines->toArray())
+            : [];
+    }
+
+    /**
+     * Get categories list from database
+     *
+     * @param \Phalcon\Mvc\Model\Resultset\Simple $currency
+     * @return array
+     */
+    public function getCategories(\Phalcon\Mvc\Model\Resultset\Simple $categories)
+    {
+        $HelpersService = $this->getDI()->get('tag');
+
+        return ($categories->count() > 0)
+            ? $HelpersService->arrayToPair($categories->toArray())
+            : [];
     }
 }

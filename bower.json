@@ -9,6 +9,7 @@
     "angular-route": "~1.3.10",
     "angular-cookies": "~1.3.10",
     "angular-translate": "~2.5.2",
-    "angular-translate-loader-partial": "~2.5.2"
+    "angular-translate-loader-partial": "~2.5.2",
+    "select2" : "latest"
   }
 }

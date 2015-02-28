@@ -4,7 +4,6 @@ namespace Application\Modules\Backend\Forms;
 use Application\Models\Engines;
 use Phalcon\Forms\Element;
 use Phalcon\Forms\Form;
-use Phalcon\Mvc\Model\Resultset\Simple as SimpleResultset;
 
 /**
  * Class EngineForm
@@ -98,13 +97,20 @@ class EngineForm extends Form
     /**
      * Create currency list from database
      *
-     * @param SimpleResultset $currency
+     * @param \Phalcon\Mvc\Model\Resultset\Simple $currency
      * @return array
      */
-    public function getCurrencyList(SimpleResultset $currency)
+    public function getCurrencyList(\Phalcon\Mvc\Model\Resultset\Simple $currency)
     {
-        foreach ($currency as $v)
-            $this->currencies[$v->getId()] = $v->getName();
-        return $this->currencies;
+        $result = [];
+
+        if($currency->count() > 0) {
+
+            foreach ($currency->toArray() as $v) {
+                $result[$v['id']] = $v['name'];
+            }
+        }
+
+        return $result;
     }
 }

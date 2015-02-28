@@ -1,4 +1,5 @@
-<!-- Block header -->
+<?= $this->tag->stylesheetLink("assets/plugins/better-checkbox/better-checkbox.css", true); // local  ?>
+<?= $this->tag->javascriptInclude("assets/plugins/better-checkbox/better-checkbox.min.js", true); // local  ?><!-- Block header -->
 <div id="dashboard-header" class="row">
     <div class="col-xs-10 col-sm-4">
         <h3><i class="fa fa-edit fa-md"></i> <b><?= $title; ?></b></h3>
@@ -11,16 +12,16 @@
 <div class="row">
     <div class="col-xs-12">
         <div class="box-conten no-padding">
-            <!-- Add Engine form -->
+            <!-- Add Category form -->
             <?= $this->tag->form(['id' => 'add', 'class' => 'form-horizontal', 'method' => 'post']); ?>
             <div class="form-group">
-                <label for="name" class="control-label col-sm-3">Name</label>
+                <label for="title" class="control-label col-sm-3">Name</label>
 
                 <div class="col-sm-6">
-                    <?= $form->render('name', [
-                        'placeholder' => 'Input engine name',
+                    <?= $form->render('title', [
+                        'placeholder' => 'Input category name',
                         'class' => 'form-control',
-                        'maxlength' => '40',
+                        'maxlength' => '255',
                     ]); ?>
                 </div>
             </div>
@@ -31,52 +32,53 @@
                 <div class="col-sm-6">
                     <?= $form->render('description', [
                         'class' => 'col-sm-5 form-control',
+                        'id'    =>  'description'
                     ]); ?>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="host" class="control-label col-sm-3">Host</label>
+                <label for="parent_id" class="control-label col-sm-3">Parent category</label>
 
                 <div class="col-sm-6">
-                    <?= $form->render('host', [
-                        'placeholder' => 'Input host name',
-                        'class' => 'col-sm-5 form-control',
-                        'maxlength' => '40',
-                    ]); ?>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="code" class="control-label col-sm-3">Code</label>
-
-                <div class="col-sm-6">
-                    <?= $form->render('code', [
-                        'placeholder' => 'Code like short name',
-                        'class' => 'col-sm-5 form-control',
-                        'maxlength' => '3',
-                    ]); ?>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="currency_id" class="control-label col-sm-3">Currency</label>
-
-                <div class="col-sm-6">
-                    <?= $form->render('currency_id', [
+                    <?= $form->render('parent_id[]', [
                         'class' => 'populate placeholder',
+                        'id'    =>  'parent_id',
                         'width' => '40'
                     ]); ?>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="status" class="control-label col-sm-3">Status</label>
+                <label for="engine_id" class="control-label col-sm-3">Engine</label>
 
                 <div class="col-sm-6">
-                    <?= $form->render('status', [
-                        'class' => 'populate placeholder'
+                    <?= $form->render('engine_id', [
+                        'class' => 'populate placeholder',
+                        'id'    =>  'engine_id',
+                        'width' => '40'
                     ]); ?>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="sort" class="control-label col-sm-3">Sort index</label>
+
+                <div class="col-sm-6">
+                    <?= $form->render('sort', [
+                        'class' => 'form-control',
+                        'maxlength' => '2',
+                    ]); ?>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-3"></div>
+
+                <div class="col-sm-6 col-sm-offset-2 height-25">
+                    <label for="visibility" class="cursor-pointer ">
+                        <span class="inline-cbox">Visibility</span> <?= $form->render('visibility'); ?>
+                    </label>
                 </div>
             </div>
 
@@ -101,7 +103,7 @@
 
         // styling selects
         LoadSelect2Script(function () {
-            $('#currency_id, #status').select2();
+            $('#parent_id, #engine_id').select2();
         });
 
         // Load  form validation
@@ -174,5 +176,7 @@
                 }
             })
         );
+
+        $('#visibility').betterCheckbox({boxClass: 'bb', tickClass: 'bt', tickInnerHTML: "enabled"});
     });
 </script>

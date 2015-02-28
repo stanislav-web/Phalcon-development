@@ -123,7 +123,9 @@ class EnginesController extends ControllerBase
             $this->view->setVars([
                 'title' => 'Add',
                 'form' => (new Forms\EngineForm(null, [
-                    'currency' => Currency::find(),
+                    'currency' => Currency::find([
+                        "columns" => "id, name"
+                    ]),
                 ]))
             ]);
         }

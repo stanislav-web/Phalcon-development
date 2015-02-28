@@ -2834,3 +2834,11 @@ td.beauty-hover {
 .visible-row {
     color: #5a8db6;
 }
+
+.inline-cbox {
+    margin: 0 10px;
+    vertical-align: text-bottom;
+}
+.height-25 {
+    height: 25px;
+}

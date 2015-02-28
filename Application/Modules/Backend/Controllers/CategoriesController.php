@@ -241,7 +241,9 @@ class CategoriesController extends ControllerBase
             $this->view->setVars([
                 'title' => 'Add',
                 'form' => (new Forms\CategoryForm(null, [
-                    'categories' => Categories::find(),
+                    'categories' => Categories::find([
+                        "columns" => "id, title"
+                    ]),
                     'engines'    => Engines::find([
                         "columns" => "id, name"
                     ]),
