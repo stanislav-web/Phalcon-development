@@ -162,7 +162,6 @@ class CategoriesController extends ControllerBase
             ]);
     }
 
-
     /**
      * Add category action
      */
@@ -171,43 +170,22 @@ class CategoriesController extends ControllerBase
         // handling POST data
         if ($this->request->isPost()) {
 
-            $category = (new Categories())->add($this->request->getPost());
+            $isAddCategory = (new Categories())->add($this->request->getPost());
 
-
-            exit;
-            // check uploaded logo (if exist)
-
-
-            if($engine->save() === true) {
-
-                $this->flashSession->success('The engine was successfully added!');
-                $this->logger->save('Engine `' . $engine->getName() . '` assigned by ' . $this->request->getClientAddress(), 6);
-                // forward does not working correctly with this  action type
-                // by the way this handle need to remove in another action (
-                return
-                    $this->response->redirect([
-                        'for' => 'dashboard-full',
-                        'controller' => $this->router->getControllerName(),
-                    ]);
+            if($isAddCategory === true) {
+                $this->flashSession->success('The category was successfully added!');
             }
             else {
-
-                // remove uploaded files
-                $uploader->truncate();
-
-                // the store failed, the following message were produced
-                foreach ($engine->getMessages() as $message)
-                    $this->flashSession->error((string)$message);
-
-                // forward does not working correctly with this  action type
-                // by the way this handle need to remove in another action (
-                return
-                    $this->response->redirect([
-                        'for' => 'dashboard-full',
-                        'controller' => $this->router->getControllerName(),
-                        'action' => $this->router->getActionName()
-                    ]);
+                $this->flashSession->error('Failed when add a category');
             }
+
+            // forward does not working correctly with this  action type
+            // by the way this handle need to remove in another action (
+            return
+                $this->response->redirect([
+                    'for' => 'dashboard-full',
+                    'controller' => $this->router->getControllerName(),
+                ]);
         }
         else {
             // add crumb to chain (name, link)

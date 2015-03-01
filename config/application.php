@@ -34,7 +34,7 @@ $config = [
 
     'cache' => [
         'enable' => true,
-        'lifetime' => 86400,
+        'lifetime' => 604800,
         'prefix' => 'cache_',
         'adapter' => 'memcached',        //	Memcache, xCache, Apc
         'metadata' => true,

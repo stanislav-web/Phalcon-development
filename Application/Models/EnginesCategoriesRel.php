@@ -1,6 +1,8 @@
 <?php
 namespace Application\Models;
 
+use Phalcon\Mvc\Model\Validator\PresenceOf;
+
 /**
  * Class EnginesCategoriesRel `engines_categories_rel`
  *
@@ -22,12 +24,12 @@ class EnginesCategoriesRel extends \Phalcon\Mvc\Model
     /**
      * @var integer
      */
-    protected $engine_id;
+    public $engine_id;
 
     /**
      * @var string
      */
-    protected $category_id;
+    public $category_id;
 
     /**
      * Initialize Model
@@ -40,6 +42,26 @@ class EnginesCategoriesRel extends \Phalcon\Mvc\Model
         $this->belongsTo('category_id', Categories::TABLE, 'id',
             array('alias' => 'category')
         );
+    }
+
+    /**
+     * @return bool
+     */
+    public function beforeValidationOnCreate()
+    {
+        //Do the validations
+
+        $this->validate(new PresenceOf([
+            'field'     => 'category_id',
+            'message'   => 'The CategoryId is required'
+        ]));
+
+        $this->validate(new PresenceOf([
+            'field'     => 'engine_id',
+            'message'   => 'The CategoryId is required'
+        ]));
+
+        return $this->validationHasFailed() != true;
     }
 
     /**

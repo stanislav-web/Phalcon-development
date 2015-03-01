@@ -122,6 +122,9 @@ class Engines extends \Phalcon\Mvc\Model
         );
     }
 
+    /**
+     * @return bool
+     */
     public function beforeValidationOnCreate()
     {
         //Do the validations
@@ -153,6 +156,9 @@ class Engines extends \Phalcon\Mvc\Model
         return $this->validationHasFailed() != true;
     }
 
+    /**
+     * @return bool
+     */
     public function beforeValidationOnUpdate()
     {
         //Do the validations

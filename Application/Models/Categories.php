@@ -1,9 +1,13 @@
 <?php
 namespace Application\Models;
 
-use Application\Helpers\Format;
+use Phalcon\Mvc\Model\Validator\Uniqueness;
+use Phalcon\Mvc\Model\Validator\PresenceOf;
 use Phalcon\Mvc\Model\Exception;
 use Phalcon\Mvc\Model\Resultset\Simple as Resultset;
+use Phalcon\Mvc\Model\Transaction\Failed as TnxFailed;
+use Phalcon\Db\RawValue;
+use Phalcon\Tag;
 
 /**
  * Class Categories `categories`
@@ -102,6 +106,7 @@ class Categories extends \Phalcon\Mvc\Model
 
     /**
      * This action run after save anything to this model
+     *
      * @return null
      */
     public function afterSave()
@@ -111,6 +116,7 @@ class Categories extends \Phalcon\Mvc\Model
 
     /**
      * Calling rebuild categories tree function
+     *
      * @throws \Phalcon\Mvc\Model\Exception
      * @return Resultset
      */
@@ -178,9 +184,11 @@ class Categories extends \Phalcon\Mvc\Model
      * @param string $name
      * @return Categories
      */
-    public function setAlias($alias)
+    public function setAlias($alias = '')
     {
-        $this->alias = \Phalcon\Tag::friendlyTitle($alias);
+        $this->alias = (empty($alias))
+            ? Tag::friendlyTitle($this->getTitle(), '-', true)
+            : strtolower(trim($alias));
 
         return $this;
     }
@@ -193,8 +201,8 @@ class Categories extends \Phalcon\Mvc\Model
      */
     public function setParentId($parent_id)
     {
-        $this->parent_id = (empty($parent_id) === false)
-            ? (int)$parent_id : null;
+        $this->parent_id = (isset($parent_id) === false)
+            ? (int)$parent_id : new RawValue('null');
 
         return $this;
     }
@@ -222,7 +230,8 @@ class Categories extends \Phalcon\Mvc\Model
      */
     public function setSort($sort)
     {
-        $this->sort = $sort;
+        $this->sort = (isset($sort) === false)
+            ? (int)$sort : new RawValue('default');
 
         return $this;
     }
@@ -330,31 +339,86 @@ class Categories extends \Phalcon\Mvc\Model
         return $this->date_update;
     }
 
+    /**
+     * @return bool
+     */
+    public function beforeValidationOnCreate()
+    {
+        if(empty($this->alias)) {
+            $this->setAlias();
+        }
+
+        if(empty($this->visibility)) {
+            $this->setVisibility(0);
+        }
+
+        //Do the validations
+        $this->validate(new Uniqueness([
+            "field"     => "alias",
+            "message"   => 'This alias already exist'
+        ]));
+
+        $this->validate(new PresenceOf([
+            'field'     => 'title',
+            'message'   => 'The title is required'
+        ]));
+
+        $this->validate(new PresenceOf([
+            'field'     => 'description',
+            'message'   => 'The description is required'
+        ]));
+
+        return $this->validationHasFailed() != true;
+    }
+
+    /**
+     * Add category
+     * @param array $data
+     * @return bool
+     * @throws \Phalcon\Db\Exception
+     */
     public function add(array $data) {
 
-        // begin transaction
-        $transaction = $this->tnx()->get();
+        try {
 
-        $category = $this->setTitle($data['title'])
-            ->setDescription($data['description'])
-            ->setAlias($data['title'])
-            ->setParentId($data['parent_id'])
-            ->setSort($data['sort'])
-            ->setVisibility($data['visibility']);
+            // begin transaction
+            $transaction = $this->tnx()->get();
 
-        $category->setTransaction($transaction);
+            foreach($data as $field => $value) {
 
-        if($category->save() === true) {
-            var_dump($category);
-
-            var_dump($transaction);
-        }
-        else {
-            foreach ($category->getMessages() as $message) {
-                $transaction->rollback($message->getMessage());
+                    $this->{$field}   =   $value;
             }
-        }
+            $this->setTransaction($transaction);
 
-        $transaction->commit();
+            if($this->save() === true) {
+
+                foreach($data['engine_id'] as $i => $engine_id) {
+
+                    $rel = (new EnginesCategoriesRel())->setCategoryId($this->getId())->setEngineId($engine_id);
+
+                    if($rel->save() === false) {
+
+                        foreach ($rel->getMessages() as $message) {
+
+                            $transaction->rollback($message->getMessage());
+                        }
+                    }
+                }
+                $transaction->commit();
+
+                return true;
+            }
+            else {
+                foreach ($this->getMessages() as $message) {
+
+                    $transaction->rollback($message->getMessage());
+                }
+            }
+
+            $transaction->commit();
+        }
+        catch(TnxFailed $e) {
+            throw new \Phalcon\Db\Exception($e->getMessage());
+        }
     }
 }

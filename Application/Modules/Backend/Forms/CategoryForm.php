@@ -54,6 +54,12 @@ class CategoryForm extends Form
             ])
         );
 
+        $this->add(new Element\Text("alias", [
+                'id' => 'alias',
+                'value' => (isset($options['alias'])) ? $options['default']->getAlias() : ''
+            ])
+        );
+
         $this->add(new Element\TextArea("description", [
                 'id' => 'description',
                 'value' => (isset($options['default'])) ? $options['default']->getDescription() : ''
