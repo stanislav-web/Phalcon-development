@@ -18,3 +18,5 @@ git pull origin $GIT_BRANCH
 bower update
 composer update
 composer install -o
+vendor/bin/codecept build
+vendor/bin/codecept run

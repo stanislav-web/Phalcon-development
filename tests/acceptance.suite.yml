@@ -9,9 +9,6 @@ modules:
     enabled:
         - PhpBrowser
         - AcceptanceHelper
-        - REST
     config:
         PhpBrowser:
-            url: 'http://phalcon.local'
-        REST :
             url: 'http://phalcon.local'
