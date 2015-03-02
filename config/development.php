@@ -23,6 +23,8 @@ return [
 
     // Configure backend and frontend data caching
 
+    // Configure backend and frontend data caching
+
     'cache' => [
         'enable' => false,
         'metadata' => false,

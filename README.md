@@ -14,7 +14,7 @@ Phalcon Development Boards
 * Staging development
 * Service layer
 * Phalcon Crypt / Decrypt cookies
-* Phalcon + Angular JS token + cookies authentication
+* Phalcon + Angular JS token
 
 #### Requirements 
 * Requires PHP 5.4

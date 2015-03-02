@@ -83,6 +83,7 @@
                 var deferred = $q.defer();
 
                 $http.post(route, credentials).success(function (response) {
+
                     if (response.success) {
 
                         $rootScope.user = user = response.user;
@@ -98,6 +99,7 @@
                     }
 
                 }).error(function (error) {
+
                     deferred.reject(error);
                 });
 
@@ -125,6 +127,7 @@
                     }
 
                 }).error(function (error) {
+
                     deferred.reject(error);
                 });
 

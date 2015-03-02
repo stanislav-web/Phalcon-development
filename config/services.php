@@ -37,7 +37,7 @@ $di->setShared('session', function () use ($config) {
         'persistent'    => $config['cache']['memcached']['persistent']  // optional (standard: false)
     ]);
 
-    session_set_cookie_params($config['rememberKeep'], "/");
+    session_set_cookie_params($config['cache']['lifetime'], "/");
     $session->start();
     return $session;
 });
@@ -55,7 +55,7 @@ $di->setShared('cookies', function () {
 $di->set('crypt', function () use ($config) {
 
     $crypt = new \Phalcon\Crypt();
-    $crypt->setKey($config['cookieCryptKey']);
+    $crypt->setKey($config['application']['cryptSalt']);
     $crypt->setPadding(\Phalcon\Crypt::PADDING_PKCS7);
 
     return $crypt;
