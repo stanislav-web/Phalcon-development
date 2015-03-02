@@ -149,6 +149,7 @@
                         $rootScope.user = user = null;
                         $rootScope.isAuthenticated = isAuthenticated = false;
                         $http.defaults.headers.common['X-Token'] = '';
+                        store.remove('token');
 
                         deferred.resolve(true);
                     }

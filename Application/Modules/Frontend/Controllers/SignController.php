@@ -49,6 +49,9 @@ class SignController extends ControllerBase
 
             $this->setReply(array_merge(['success' => true], $AuthService->getAccessToken()));
         }
+        else {
+            $this->response->setStatusCode(401, 'Unauthorized')->send();
+        }
     }
 
     /**
