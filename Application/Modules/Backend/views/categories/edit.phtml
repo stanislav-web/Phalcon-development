@@ -1,0 +1,160 @@
+<?= $this->tag->stylesheetLink("assets/plugins/better-checkbox/better-checkbox.css", true); // local  ?>
+<?= $this->tag->javascriptInclude("assets/plugins/better-checkbox/better-checkbox.min.js", true); // local  ?><!-- Block header -->
+<div id="dashboard-header" class="row">
+    <div class="col-xs-10 col-sm-4">
+        <h3><i class="fa fa-edit fa-md"></i> <b><?= $title; ?></b></h3>
+    </div>
+</div>
+<div class="clearfix"></div>
+<!-- /Block header -->
+
+<!-- Block content -->
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box-conten no-padding">
+            <!-- Add Category form -->
+            <?= $this->tag->form(['id' => 'add', 'class' => 'form-horizontal', 'method' => 'post']); ?>
+            <div class="form-group">
+                <label for="title" class="control-label col-sm-3">Title</label>
+
+                <div class="col-sm-6">
+                    <?= $form->render('title', [
+                        'placeholder' => 'Input category name',
+                        'class' => 'form-control',
+                        'maxlength' => '255',
+                    ]); ?>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="title" class="control-label col-sm-3">Alias</label>
+
+                <div class="col-sm-6">
+                    <?= $form->render('alias', [
+                        'placeholder' => 'Title alias for friendly url',
+                        'class' => 'form-control',
+                        'maxlength' => '64',
+                    ]); ?>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="description" class="control-label col-sm-3">Description</label>
+
+                <div class="col-sm-6">
+                    <?= $form->render('description', [
+                        'class' => 'col-sm-5 form-control',
+                        'id'    =>  'description'
+                    ]); ?>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="parent_id" class="control-label col-sm-3">Parent category</label>
+
+                <div class="col-sm-6">
+                    <?= $form->render('parent_id', [
+                        'class' => 'populate placeholder',
+                        'width' => '40'
+                    ]); ?>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="engine_id" class="control-label col-sm-3">Engine</label>
+
+                <div class="col-sm-6">
+                    <?= $form->render('engine_id[]', [
+                        'class' => 'populate placeholder',
+                        'id'    =>  'engine_id',
+                        'width' => '40'
+                    ]); ?>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="sort" class="control-label col-sm-3">Sort index</label>
+
+                <div class="col-sm-6">
+                    <?= $form->render('sort', [
+                        'class' => 'form-control',
+                        'maxlength' => '2',
+                    ]); ?>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-3"></div>
+
+                <div class="col-sm-6 col-sm-offset-2 height-25">
+                    <label for="visibility" class="cursor-pointer ">
+                        <span class="inline-cbox">Visibile</span> <?= $form->render('visibility'); ?>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-6 ">
+                    <?= $form->render('save', ['value' => 'Save', 'class' => 'btn btn-primary btn-lg btn-block']); ?>
+                </div>
+            </div>
+            </form>
+            <!-- /Add Engine form -->
+        </div>
+    </div>
+</div>
+
+<!-- Block content -->
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        // Create Wysiwig editor for textare
+        TinyMCEStart('#description', null);
+
+        // styling selects
+        LoadSelect2Script(function () {
+            $('#parent_id, #engine_id').select2();
+        });
+
+        // Load  form validation
+        LoadBootstrapValidatorScript(
+            $('#add').bootstrapValidator({
+                feedbackIcons: {
+                    valid: 'fa fa-check',
+                    invalid: 'fa fa-times',
+                    validating: 'fa fa-refresh'
+                },
+                message: 'This value is not valid',
+                fields: {
+                    title: {
+                        message: 'The title is not valid',
+                        validators: {
+                            notEmpty: {
+                                message: 'The title is required and can\'t be empty'
+                            },
+                            stringLength: {
+                                min: 3,
+                                max: 255,
+                                message: 'The title must be more than 3 and less than 255 characters long'
+                            },
+                            regexp: {
+                                regexp: /^[a-zA-Z\u0400-\u04FF0-9_\. -]+$/,
+                                message: 'The name can only consist of alphabetical, number, dot, underscore and space'
+                            }
+                        }
+                    },
+                    "engine_id[]": {
+                        validators: {
+                            notEmpty: {
+                                message: 'The engine(s) is required and can\'t be empty'
+                            }
+                        }
+                    }
+                }
+            })
+        );
+
+        $('#visibility').betterCheckbox({boxClass: 'fb', tickClass: 'ft', tickInnerHTML: "✔"});
+    });
+</script>

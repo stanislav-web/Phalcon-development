@@ -170,9 +170,9 @@ class CategoriesController extends ControllerBase
         // handling POST data
         if ($this->request->isPost()) {
 
-            $isAddCategory = (new Categories())->add($this->request->getPost());
+            $isAdd = (new Categories())->add($this->request->getPost());
 
-            if($isAddCategory === true) {
+            if($isAdd === true) {
                 $this->flashSession->success('The category was successfully added!');
             }
             else {
@@ -194,6 +194,60 @@ class CategoriesController extends ControllerBase
             // set variables output to view
             $this->view->setVars([
                 'title' => 'Add',
+                'form' => (new Forms\CategoryForm(null, [
+                    'categories' => Categories::find([
+                        "columns" => "id, title"
+                    ]),
+                    'engines'    => Engines::find([
+                        "columns" => "id, name"
+                    ]),
+                ]))
+            ]);
+        }
+    }
+
+    /**
+     * Edit category action
+     */
+    public function editAction() {
+
+        $params = $this->dispatcher->getParams();
+
+        if (isset($params['id']) === false) {
+
+            return $this->response->redirect([
+                'for' => 'dashboard-full',
+                'controller' => $this->router->getControllerName(),
+            ]);
+        }
+
+        // handling POST data
+        if ($this->request->isPost()) {
+
+            $isAdd = (new Categories())->edit($this->request->getPost());
+
+            if($isAdd === true) {
+                $this->flashSession->success('The category was successfully updated!');
+            }
+            else {
+                $this->flashSession->error('Failed when update a category');
+            }
+
+            // forward does not working correctly with this  action type
+            // by the way this handle need to remove in another action (
+            return
+                $this->response->redirect([
+                    'for' => 'dashboard-full',
+                    'controller' => $this->router->getControllerName(),
+                ]);
+        }
+        else {
+            // add crumb to chain (name, link)
+            $this->setBreadcrumbs()->add(self::NAME, $this->url->get(['for' => 'dashboard-controller', 'controller' => 'categories']))->add('Edit');
+
+            // set variables output to view
+            $this->view->setVars([
+                'title' => 'Edit',
                 'form' => (new Forms\CategoryForm(null, [
                     'categories' => Categories::find([
                         "columns" => "id, title"
@@ -230,4 +284,3 @@ class CategoriesController extends ControllerBase
             ]);
     }
 }
-
