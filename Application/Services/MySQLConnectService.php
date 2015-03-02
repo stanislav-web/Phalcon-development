@@ -23,29 +23,25 @@ class MySQLConnectService extends AdapterGateway {
      * @param array $dbConfig
      * @param \Phalcon\DI\FactoryDefault $di
      */
-    public function __construct(array $dbConfig, \Phalcon\DI\FactoryDefault $di) {
+    public function __construct(array $dbConfig) {
 
-        $eventsManager = new EventsManager();
-
-        // Listen MySQLConnectService
-        $eventsManager->attach('db', function($event, $connection) use ($di) {
-            if ($event->getType() == 'beforeQuery') {
-                $di->get('LogDbService')->save($connection->getSQLStatement(), 6);
-            }
-        });
-
-        parent::__construct([
-            "host"          => $dbConfig['host'],
-            "username"      => $dbConfig['username'],
-            "password"      => $dbConfig['password'],
-            "dbname"        => $dbConfig['dbname'],
-            "persistent"    => $dbConfig['persistent'],
-            "options" => [
-                \PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES '{$dbConfig['charset']}'",
-                \PDO::ATTR_CASE => \PDO::CASE_LOWER,
-                \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
-                \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC
-            ]
-        ]);
+        try {
+            parent::__construct([
+                "host"          => $dbConfig['host'],
+                "username"      => $dbConfig['username'],
+                "password"      => $dbConfig['password'],
+                "dbname"        => $dbConfig['dbname'],
+                "persistent"    => $dbConfig['persistent'],
+                "options" => [
+                    \PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES '{$dbConfig['charset']}'",
+                    \PDO::ATTR_CASE => \PDO::CASE_LOWER,
+                    \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
+                    \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC
+                ]
+            ]);
+        }
+        catch(\PDOException $e) {
+            throw new \Phalcon\Db\Exception($e->getMessage());
+        }
     }
 }
