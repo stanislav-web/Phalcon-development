@@ -13,13 +13,13 @@ $config = [
         'viewsFront' => APP_PATH . '/Modules/Frontend/views/',
         'viewsBack' => APP_PATH . '/Modules/Backend/views/',
         'baseUri' => '/',
-        'cryptSalt' => '$9diko$.f#11',
+        'cryptSalt' => '#1dj8$=dp?.ak//j1V$',
     ],
 
     // Configure database driver
 
     'database' => [
-        'adapter' => 'Mysql',              // Mysql, Postgres, Sqlite
+        'adapter' => 'Mysql',
         'host' => 'localhost',
         'username' => 'root',
         'password' => 'root',
@@ -36,7 +36,7 @@ $config = [
         'enable' => true,
         'lifetime' => 604800,
         'prefix' => 'cache_',
-        'adapter' => 'memcached',        //	Memcache, xCache, Apc
+        'adapter' => 'memcached',
         'metadata' => true,
         'annotations' => true,
 
@@ -55,7 +55,7 @@ $config = [
 
     'mail' => [
 
-        'driver' => 'smtp', // mail, sendmail, smtp
+        'driver' => 'smtp',
         'host'   => 'smtp.gmail.com',
         'port'   => 587,
         'encryption' => 'tls',
@@ -72,11 +72,8 @@ $config = [
     'language'  => 'en',
     'translates'  => APP_PATH . '/../languages/',
 
-    // Remember state
-    'rememberKeep'   => 604800,
-    'cookieCryptKey' => '#1dj8$=dp?.ak//j1V$',
-
     // assets distributions
+
     'assets'    =>  [
         'css'   =>  [
             'header-css'    =>  [
@@ -108,6 +105,7 @@ $config = [
                 'assets/frontend/:engine/app/app.config.js',
                 'assets/frontend/:engine/app/common/directives/spinner.js',
                 'assets/frontend/:engine/app/common/services/splash.js',
+                'assets/frontend/:engine/app/common/services/session.js',
                 'assets/frontend/:engine/app/common/controllers/menu.js',
                 'assets/frontend/:engine/app/common/controllers/language.js',
                 'assets/frontend/:engine/app/common/controllers/index.js',

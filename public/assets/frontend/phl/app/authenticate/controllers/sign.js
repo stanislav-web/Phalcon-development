@@ -55,18 +55,16 @@
                 // call auth service
                 Authentication.sign(credentials, ROUTES.LOGIN).then(function (response) {
 
-                    if (response.success) {
+                    // close splash window & redirect to account
+                    $splash.close();
+                    $location.path(ROUTES.ACCOUNT);
 
-                        // close splash window & redirect to account
-                        $splash.close();
-                        $location.path(ROUTES.ACCOUNT);
+                }, function(error) {
 
-                    } else {
-                        // return error to show in sign form
-                        $scope.signError = response.message;
-                        $scope.dataLoading = false;
+                    // return error to show in sign form
+                    $scope.signError = error.message;
+                    $scope.dataLoading = false;
 
-                    }
                 });
             };
 
@@ -85,21 +83,19 @@
                 // call auth service
                 Authentication.restore(credentials, ROUTES.RESTORE).then(function (response) {
 
-                    if (response.success) {
+                    $scope.restoreSuccess = response.message;
+                    $scope.dataLoading = false;
 
-                        $scope.restoreSuccess = response.message;
-                        $scope.dataLoading = false;
+                    setTimeout(function() {
+                        $splash.close();
+                    }, 3000);
 
-                        setTimeout(function() {
-                            $splash.close();
-                        }, 3000);
+                }, function(error) {
 
-                    } else {
-                        // return error to show in sign form
-                        $scope.restoreError = response.message;
-                        $scope.dataLoading = false;
+                    // return error to show in sign form
+                    $scope.restoreError = error.message;
+                    $scope.dataLoading = false;
 
-                    }
                 });
             };
 
@@ -120,18 +116,16 @@
                 // call auth service
                 Authentication.sign(credentials, ROUTES.REGISTER).then(function (response) {
 
-                    if (response.success) {
+                    // close splash window & redirect to account
+                    $splash.close();
+                    $location.path(ROUTES.ACCOUNT);
 
-                        // close splash window & redirect to account
-                        $splash.close();
-                        $location.path(ROUTES.ACCOUNT);
+                }, function(error) {
 
-                    } else {
-                        // return error to show in sign form
-                        $scope.registerError = response.message;
-                        $scope.dataLoading = false;
+                    // return error to show in sign form
+                    $scope.registerError = error.message;
+                    $scope.dataLoading = false;
 
-                    }
                 });
             };
 

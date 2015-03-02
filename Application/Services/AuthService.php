@@ -232,7 +232,7 @@ class AuthService implements InjectionAwareInterface {
                     session_regenerate_id(true);
 
                     // setup token to storage
-                    $this->setAccessToken($user['id'], $token, (time() + $this->getConfig()->rememberKeep));
+                    $this->setAccessToken($user['id'], $token, (time() + $this->getConfig()->cache->lifetime));
 
                     // update auth params
 
@@ -303,7 +303,7 @@ class AuthService implements InjectionAwareInterface {
             session_regenerate_id(true);
 
             // setup token to storage
-            $this->setAccessToken($user->getId(), $token, (time() + $this->getConfig()->rememberKeep));
+            $this->setAccessToken($user->getId(), $token, (time() + $this->getConfig()->cache->lifetime));
 
             // save data to session
             $this->getDi()->getShared('session')->set('user', $user->toArray());
@@ -565,7 +565,7 @@ class AuthService implements InjectionAwareInterface {
 
             if($session->has(self::TOKEN_KEY)) {
 
-                $this->setAccessToken($session->get('user')['id'], $session->get('token')['token'], (time() - $this->getConfig()->rememberKeep));
+                $this->setAccessToken($session->get('user')['id'], $session->get('token')['token'], (time() - $this->getConfig()->cache->lifetime));
 
                 $session->remove(self::TOKEN_KEY);
             }

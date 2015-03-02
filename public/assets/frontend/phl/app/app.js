@@ -70,8 +70,8 @@ var splashModule;
 
     // setup global scope variables
 
-    app.run(['$rootScope', 'ROUTES', '$translate', '$cookies', 'Authentication', '$http',
-        function ($rootScope, ROUTES, $translate, $cookies, Authentication, $http) {
+    app.run(['$rootScope', 'ROUTES', '$translate', '$cookies', 'Authentication', 'Session', '$http',
+        function ($rootScope, ROUTES, $translate, $cookies, Authentication, Session, $http) {
 
         // set global scope for routes & template
         $rootScope.ROUTES = ROUTES;
@@ -83,7 +83,7 @@ var splashModule;
         }
         else {
             // getting from storage
-            $rootScope.currentLanguage = store.get('NG_TRANSLATE_LANG_KEY') || 'ru';
+            $rootScope.currentLanguage = Session.get('NG_TRANSLATE_LANG_KEY') || 'ru';
         }
 
         // update languages global

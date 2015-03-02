@@ -23,6 +23,8 @@ return [
 
     // Configure backend and frontend data caching
 
+    // Configure backend and frontend data caching
+
     'cache' => [
         'enable' => false,
         'metadata' => false,
@@ -81,6 +83,7 @@ return [
                 'assets/frontend/:engine/app/app.config.js',
                 'assets/frontend/:engine/app/common/directives/spinner.js',
                 'assets/frontend/:engine/app/common/services/splash.js',
+                'assets/frontend/:engine/app/common/services/session.js',
                 'assets/frontend/:engine/app/common/controllers/menu.js',
                 'assets/frontend/:engine/app/common/controllers/language.js',
                 'assets/frontend/:engine/app/common/controllers/index.js',

@@ -5,8 +5,8 @@
     /**
      * User Authentication service
      */
-    app.service('Authentication',  ['$rootScope', '$q', '$http', 'base64', '$cookies',
-        function($rootScope, $q, $http, base64) {
+    app.service('Authentication',  ['$rootScope', '$q', '$http', 'base64', 'Session',
+        function($rootScope, $q, $http, base64, Session) {
 
         /**
          * User authentication state
@@ -41,7 +41,7 @@
                         $rootScope.isAuthenticated = isAuthenticated = true;
 
                         // update auth token
-                        store.set('token', base64.encode(response.token));
+                        Session.set('token', base64.encode(response.token));
 
                     }
                     deferred.resolve(user);
@@ -83,13 +83,14 @@
                 var deferred = $q.defer();
 
                 $http.post(route, credentials).success(function (response) {
+
                     if (response.success) {
 
                         $rootScope.user = user = response.user;
                         $rootScope.isAuthenticated = isAuthenticated = true;
 
                         // set auth token
-                        store.set('token', base64.encode(response.token));
+                        Session.set('token', base64.encode(response.token));
 
                         deferred.resolve(response);
                     }
@@ -98,6 +99,7 @@
                     }
 
                 }).error(function (error) {
+
                     deferred.reject(error);
                 });
 
@@ -125,6 +127,7 @@
                     }
 
                 }).error(function (error) {
+
                     deferred.reject(error);
                 });
 
@@ -132,20 +135,21 @@
             },
 
             /**
-             * Log service
+             * Logout
+             *
+             * @param route
+             * @returns {*}
              */
             logout: function (route) {
 
                 var deferred = $q.defer();
 
-                $http.delete(route, {headers : {
-                    'X-Token':   ''
-                }}).success(function (response) {
+                $http.delete(route).success(function (response) {
                     if (response.success) {
 
                         $rootScope.user = user = null;
                         $rootScope.isAuthenticated = isAuthenticated = false;
-                        $http.defaults.headers.common['X-Token'] = '';
+                        Session.remove('token');
 
                         deferred.resolve(true);
                     }

@@ -33,8 +33,8 @@ class SignController extends ControllerBase
 
             // authenticate failed
             $this->setReply(['message' => $this->auth->getError()]);
+            $this->response->setStatusCode(401, 'Unauthorized')->send();
         }
-
     }
 
     /**
@@ -48,6 +48,9 @@ class SignController extends ControllerBase
         if ($AuthService->isAuth() === true) {
 
             $this->setReply(array_merge(['success' => true], $AuthService->getAccessToken()));
+        }
+        else {
+            $this->response->setStatusCode(401, 'Unauthorized')->send();
         }
     }
 
@@ -83,6 +86,7 @@ class SignController extends ControllerBase
             // Failed registration
 
             $this->setReply(['message' => $this->auth->getError()]);
+            $this->response->setStatusCode(401, 'Unauthorized')->send();
         }
     }
 
@@ -104,6 +108,7 @@ class SignController extends ControllerBase
         }
         else {
             $this->setReply(['message' => $this->auth->getError()]);
+            $this->response->setStatusCode(401, 'Unauthorized')->send();
         }
     }
 
