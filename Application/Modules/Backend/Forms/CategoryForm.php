@@ -70,11 +70,12 @@ class CategoryForm extends Form
             ->setDefault((isset($options['default'])) ? $options['default']->getParentId() : '')
         );
 
-
         $this->add((new Element\Select("engine_id[]", $this->engines, ['useEmpty' => true, 'multiple' => true]))
             ->setDefault((isset($options['default'])) ? call_user_func(function() use ($options) {
+
                 $engines = $this->getHelpers()->arraySetKey($options['default']->engines->toArray(), 'id');
                 return array_keys($engines);
+
             }): null)
         );
 
