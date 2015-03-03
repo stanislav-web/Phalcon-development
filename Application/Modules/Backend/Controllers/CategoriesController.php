@@ -226,6 +226,23 @@ class CategoriesController extends ControllerBase
         // handling POST data
         if ($this->request->isPost()) {
 
+            $isEdit = (new Categories())->edit($params['id'], $this->request->getPost());
+
+            if($isEdit === true) {
+                $this->flashSession->success('The category was successfully updated!');
+            }
+            else {
+                $this->flashSession->error('Failed when update a category');
+            }
+
+            // forward does not working correctly with this  action type
+            // by the way this handle need to remove in another action (
+            return
+                $this->response->redirect([
+                    'for' => 'dashboard-full',
+                    'controller' => $this->router->getControllerName(),
+                ]);
+
         }
         else {
             // add crumb to chain (name, link)

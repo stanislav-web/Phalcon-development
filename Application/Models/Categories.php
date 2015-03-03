@@ -8,6 +8,7 @@ use Phalcon\Mvc\Model\Resultset\Simple as Resultset;
 use Phalcon\Mvc\Model\Transaction\Failed as TnxFailed;
 use Phalcon\Db\RawValue;
 use Phalcon\Tag;
+use Phalcon\Db\Exception as DbException;
 
 /**
  * Class Categories `categories`
@@ -201,8 +202,8 @@ class Categories extends \Phalcon\Mvc\Model
      */
     public function setParentId($parent_id)
     {
-        $this->parent_id = (isset($parent_id) === false)
-            ? (int)$parent_id : new RawValue('null');
+        $this->parent_id = (isset($parent_id) === true)
+            ? (int)$parent_id : new RawValue('default');
 
         return $this;
     }
@@ -230,7 +231,7 @@ class Categories extends \Phalcon\Mvc\Model
      */
     public function setSort($sort)
     {
-        $this->sort = (isset($sort) === false)
+        $this->sort = (isset($sort) === true)
             ? (int)$sort : new RawValue('default');
 
         return $this;
@@ -342,6 +343,42 @@ class Categories extends \Phalcon\Mvc\Model
     /**
      * @return bool
      */
+    public function beforeValidationOnUpdate()
+    {
+        if(empty($this->alias)) {
+            $this->setAlias();
+        }
+
+        if(empty($this->visibility)) {
+            $this->setVisibility(0);
+        }
+
+        if(empty($this->parent_id)) {
+            $this->setParentId(null);
+        }
+
+        //Do the validations
+        $this->validate(new Uniqueness([
+            "field"     => "alias",
+            "message"   => 'This alias already exist'
+        ]));
+
+        $this->validate(new PresenceOf([
+            'field'     => 'title',
+            'message'   => 'The title is required'
+        ]));
+
+        $this->validate(new PresenceOf([
+            'field'     => 'description',
+            'message'   => 'The description is required'
+        ]));
+
+        return $this->validationHasFailed() != true;
+    }
+
+    /**
+     * @return bool
+     */
     public function beforeValidationOnCreate()
     {
         if(empty($this->alias)) {
@@ -350,6 +387,10 @@ class Categories extends \Phalcon\Mvc\Model
 
         if(empty($this->visibility)) {
             $this->setVisibility(0);
+        }
+
+        if(empty($this->parent_id)) {
+            $this->setParentId(null);
         }
 
         //Do the validations
@@ -373,6 +414,7 @@ class Categories extends \Phalcon\Mvc\Model
 
     /**
      * Add category
+     *
      * @param array $data
      * @return bool
      * @throws \Phalcon\Db\Exception
@@ -383,6 +425,7 @@ class Categories extends \Phalcon\Mvc\Model
 
             // begin transaction
             $transaction = $this->tnx()->get();
+            $transaction->begin();
 
             foreach($data as $field => $value) {
 
@@ -396,7 +439,7 @@ class Categories extends \Phalcon\Mvc\Model
 
                     $rel = (new EnginesCategoriesRel())->setCategoryId($this->getId())->setEngineId($engine_id);
 
-                    if($rel->save() === false) {
+                    if($rel->update() === false) {
 
                         foreach ($rel->getMessages() as $message) {
 
@@ -414,11 +457,90 @@ class Categories extends \Phalcon\Mvc\Model
                     $transaction->rollback($message->getMessage());
                 }
             }
+        }
+        catch(TnxFailed $e) {
+            throw new DbException($e->getMessage());
+        }
+    }
+
+    /**
+     * Edit category
+     *
+     * @param array $data
+     * @param int $category_id
+     * @return bool
+     * @throws \Phalcon\Db\Exception
+     */
+    public function edit($category_id, array $data) {
+
+        try {
+
+            // begin transaction
+            $transaction = $this->tnx()->get();
+            $transaction->begin();
+
+            $this->setId($category_id);
+
+            foreach($data as $field => $value) {
+
+                $this->{$field}   =   $value;
+            }
+
+            $this->setTransaction($transaction);
+
+            if($this->save() === true) {
+
+                $isDeleted = $this->deleteRelationCategories(new EnginesCategoriesRel(), $category_id);
+
+                if($isDeleted === true) {
+
+                    $transaction->commit();
+
+                    $enginesCategories = new EnginesCategoriesRel();
+
+                    foreach($data['engine_id'] as $i => $engine_id) {
+
+                        $save = $enginesCategories->setCategoryId($category_id)->setEngineId($engine_id)->save();
+
+                        if($save === false) {
+
+                            foreach ($enginesCategories->getMessages() as $message) {
+
+                                $transaction->rollback($message->getMessage());
+                            }
+                        }
+                    }
+                }
+                $transaction->commit();
+
+                return true;
+            }
+            else {
+                foreach ($this->getMessages() as $message) {
+
+                    $transaction->rollback($message->getMessage());
+                }
+            }
 
             $transaction->commit();
         }
         catch(TnxFailed $e) {
-            throw new \Phalcon\Db\Exception($e->getMessage());
+            throw new DbException($e->getMessage());
         }
+    }
+
+    /**
+     * Delete relation categories
+     *
+     * @param EnginesCategoriesRel $model
+     * @param                      $category_id
+     * @return boolean
+     * @throws DbException
+     */
+    public function deleteRelationCategories(\Application\Models\EnginesCategoriesRel $model, $category_id) {
+
+        return $this->getReadConnection()
+            ->delete($model->getSource(), "category_id = ".(int)$category_id);
+
     }
 }
