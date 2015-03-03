@@ -5,13 +5,23 @@ set -u;
 set -e;
 
 # Define variables
-
+OSTYPE="`uname`"
 export SET GIT_BRANCH='Frontend';
 
-sudo service php5-fpm restart
-sudo service nginx restart
-sudo service mysql restart
-sudo service memcached restart
+# Detect the platform (similar to $OSTYPE)
+
+case "$OSTYPE" in
+  Linux*)
+
+    sudo service php5-fpm restart
+    sudo service nginx restart
+    sudo service mysql restart
+    sudo service memcached restart
+   ;;
+
+   darwin*)
+   ;;
+esac
 
 cd ../
 git pull origin $GIT_BRANCH
