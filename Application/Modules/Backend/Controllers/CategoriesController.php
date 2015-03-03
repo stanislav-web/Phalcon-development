@@ -221,25 +221,11 @@ class CategoriesController extends ControllerBase
             ]);
         }
 
+        $category = Categories::findFirst($params['id']);
+
         // handling POST data
         if ($this->request->isPost()) {
 
-            $isAdd = (new Categories())->edit($this->request->getPost());
-
-            if($isAdd === true) {
-                $this->flashSession->success('The category was successfully updated!');
-            }
-            else {
-                $this->flashSession->error('Failed when update a category');
-            }
-
-            // forward does not working correctly with this  action type
-            // by the way this handle need to remove in another action (
-            return
-                $this->response->redirect([
-                    'for' => 'dashboard-full',
-                    'controller' => $this->router->getControllerName(),
-                ]);
         }
         else {
             // add crumb to chain (name, link)
@@ -249,12 +235,13 @@ class CategoriesController extends ControllerBase
             $this->view->setVars([
                 'title' => 'Edit',
                 'form' => (new Forms\CategoryForm(null, [
-                    'categories' => Categories::find([
-                        "columns" => "id, title"
-                    ]),
                     'engines'    => Engines::find([
                         "columns" => "id, name"
                     ]),
+                    'categories'    => Categories::find([
+                        "columns" => "id, title"
+                    ]),
+                    'default' => $category
                 ]))
             ]);
         }

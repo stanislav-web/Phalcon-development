@@ -73,8 +73,8 @@ $di->setShared('MailService', function () use ($di, $config) {
 $di->setShared('TranslateService',function() use ($di, $config) {
 
     return (new Application\Services\TranslateService(
-        (new Application\Services\LanguageService())->define($di), $config['language']
-    ))->path($config['translates']);
+        (new Application\Services\LanguageService())->define($di), $config['locale']['language']
+    ))->path($config['locale']['translates']);
 
 });
 

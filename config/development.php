@@ -49,7 +49,8 @@ return [
         ],
     ],
 
-    // assets distributions
+    // Assets distributions
+
     'assets'    =>  [
         'css'   =>  [
             'header-css'    =>  [

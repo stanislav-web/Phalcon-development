@@ -63,10 +63,12 @@ $config = [
         'password'   => 'bla',
     ],
 
-    // Default language
+    // App localization by default
 
-    'language'  => 'en',
-    'translates'  => APP_PATH . '/../languages/',
+    'locale'    =>  [
+        'language'  => 'en',
+        'translates'  => APP_PATH . '/../languages/',
+    ],
 
     // assets distributions
 

@@ -56,7 +56,7 @@ class CategoryForm extends Form
 
         $this->add(new Element\Text("alias", [
                 'id' => 'alias',
-                'value' => (isset($options['alias'])) ? $options['default']->getAlias() : ''
+                'value' => (isset($options['default'])) ? $options['default']->getAlias() : ''
             ])
         );
 
@@ -70,8 +70,12 @@ class CategoryForm extends Form
             ->setDefault((isset($options['default'])) ? $options['default']->getParentId() : '')
         );
 
+
         $this->add((new Element\Select("engine_id[]", $this->engines, ['useEmpty' => true, 'multiple' => true]))
-            ->setDefault((isset($options['default'])) ? $options['default']->getEngine() : null)
+            ->setDefault((isset($options['default'])) ? call_user_func(function() use ($options) {
+                $engines = $this->getHelpers()->arraySetKey($options['default']->engines->toArray(), 'id');
+                return array_keys($engines);
+            }): null)
         );
 
         $this->add(new Element\Numeric("sort", [
@@ -82,11 +86,11 @@ class CategoryForm extends Form
             ])
         );
 
-        $this->add(new Element\Check("visibility", [
+        $this->add((new Element\Check("visibility", [
                 'id' => 'visibility',
                 'class' => 'bt',
-                'value' => (isset($options['default'])) ? $options['default']->getVisibility() : 1
-            ])
+                'value' => 1
+            ]))->setDefault((isset($options['default'])) ? $options['default']->getVisibility() : '')
         );
 
         $this->add(new Element\Submit("save", [
@@ -103,9 +107,8 @@ class CategoryForm extends Form
      */
     public function getEngines(\Phalcon\Mvc\Model\Resultset\Simple $engines)
     {
-        $HelpersService = $this->getDI()->get('tag');
         return ($engines->count() > 0)
-            ? $HelpersService->arrayToPair($engines->toArray())
+            ? $this->getHelpers()->arrayToPair($engines->toArray())
             : [];
     }
 
@@ -117,10 +120,18 @@ class CategoryForm extends Form
      */
     public function getCategories(\Phalcon\Mvc\Model\Resultset\Simple $categories)
     {
-        $HelpersService = $this->getDI()->get('tag');
-
         return ($categories->count() > 0)
-            ? (['' => 'Select category']+$HelpersService->arrayToPair($categories->toArray()))
+            ? (['' => 'Select category']+$this->getHelpers()->arrayToPair($categories->toArray()))
             : [];
+    }
+
+    /**
+     * Get Helpers Service
+     *
+     * @return \Application\Services\HelpersService
+     */
+    public function getHelpers() {
+
+        return $this->getDI()->get('tag');
     }
 }
