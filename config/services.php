@@ -20,7 +20,6 @@ $di->setShared('config', function () use ($config) {
 });
 
 // Database connection is created based in the parameters defined in the configuration file
-
 $di->setShared('db', function () use ($config) {
     return new \Application\Services\MySQLConnectService($config['database']);
 });
@@ -76,17 +75,17 @@ $di->setShared('TranslateService',function() use ($di, $config) {
     return (new Application\Services\TranslateService(
         (new Application\Services\LanguageService())->define($di), $config['language']
     ))->path($config['translates']);
+
 });
 
-// Set logger service
-if ($config['logger'] == true) {
+// Define logger service
+$di->setShared('LogDbService', function() use ($config) {
 
-    $di->setShared('LogDbService', function() use ($config) {
+    $connection = new \Phalcon\Db\Adapter\Pdo\Mysql($config['database']);
+    return new Application\Services\LogDbService($connection);
 
-        $connection = new \Phalcon\Db\Adapter\Pdo\Mysql($config['database']);
-        return new Application\Services\LogDbService($connection);
-    });
-}
+});
+
 // Define helper's service
 $di->setShared('tag', '\Application\Services\HelpersService');
 

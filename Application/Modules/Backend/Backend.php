@@ -25,21 +25,6 @@ class Backend
     const MODULE = 'Backend';
 
     /**
-     * Global config
-     *
-     * @var \Phalcon\Config
-     */
-    protected $config;
-
-    /**
-     * Configuration init
-     */
-    public function __construct()
-    {
-        $this->config = \Phalcon\DI::getDefault()->get('config');
-    }
-
-    /**
      * Register the autoloader specific to the current module
      *
      * @access public
@@ -91,9 +76,9 @@ class Backend
 
         // Registration of component representations (Views)
 
-        $di->setShared('view', function () {
+        $di->setShared('view', function () use ($di) {
             $view = new View();
-            $view->setViewsDir($this->config['application']['viewsBack'])
+            $view->setViewsDir($di->get('config')->application->viewsBack)
                 ->setMainView('auth-layout')
                 ->setPartialsDir('partials');
             return $view;

@@ -117,13 +117,13 @@ class SignController extends ControllerBase
      */
     public function logoutAction()
     {
-
-        if ($this->request->isAjax() === false) {
-            $this->response->redirect('/');
-        } else {
+        if($this->request->isDelete()) {
 
             $loggedOut = ($this->auth->logout() === true) ? true : false;
             $this->setReply(['success' => $loggedOut]);
+        }
+        else {
+            $this->response->setStatusCode(403, 'Access Forbidden')->send();
         }
     }
 }

@@ -11,15 +11,12 @@ export SET GIT_BRANCH='Frontend';
 # Detect the platform (similar to $OSTYPE)
 
 case "$OSTYPE" in
-  Linux*)
+    Linux*)
 
-    sudo service php5-fpm restart
-    sudo service nginx restart
-    sudo service mysql restart
-    sudo service memcached restart
-   ;;
-
-   darwin*)
+        sudo service php5-fpm restart
+        sudo service nginx restart
+        sudo service mysql restart
+        sudo service memcached restart
    ;;
 esac
 

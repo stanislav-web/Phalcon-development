@@ -296,8 +296,8 @@ class AuthService implements InjectionAwareInterface {
             // register successful
 
             $token = $this->cryptToken($user->getId(),
-                $this->getSecurity()->getSessionToken(),
-                $this->getRequest()->getUserAgent()
+                $user->getPassword(),
+                $this->getConfig()->application->cryptSalt
             );
 
             session_regenerate_id(true);
@@ -453,6 +453,24 @@ class AuthService implements InjectionAwareInterface {
     }
 
     /**
+     * Remove user access token
+     *
+     * @param $user_id
+     * @return bool
+     */
+    public function removeAccessTokenByUser($user_id) {
+
+        $userAccess = new UserAccess();
+        $isDelete = $userAccess->findFirst([
+            "user_id = ?0",
+            "bind" => [$user_id],
+        ])->delete();
+
+        return $isDelete;
+
+    }
+
+    /**
      * Get user data
      *
      * @param array $credentials
@@ -520,7 +538,8 @@ class AuthService implements InjectionAwareInterface {
                 }
                 else {
 
-                    // drop access token. Auth has expired
+                    // remove token from database
+                    $this->removeAccessTokenByUser($session->get('user')['id']);
                     return false;
                 }
             }
@@ -532,6 +551,7 @@ class AuthService implements InjectionAwareInterface {
             }
         }
         else {
+
             return false;
         }
     }
@@ -539,15 +559,15 @@ class AuthService implements InjectionAwareInterface {
     /**
      * Crypt auth token
      *
-     * @param int $id User Id
-     * @param string $security security temp token
-     * @param string $ua User Agent
+     * @param int $id user id
+     * @param string $password user password
+     * @param string $salt salt
      *
      * @return string
      */
-    public function cryptToken($id, $security, $ua) {
+    public function cryptToken($id, $password, $salt) {
 
-        return md5($id . $security . $ua);
+        return md5($id . $password . $salt);
     }
 
     /**

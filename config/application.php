@@ -47,10 +47,6 @@ $config = [
         ],
     ],
 
-    // Log configuration
-
-    'logger' =>  true,
-
     // Mailing and subscribe configuration
 
     'mail' => [

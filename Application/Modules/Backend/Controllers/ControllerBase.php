@@ -35,7 +35,7 @@ class ControllerBase extends Controller
     /**
      * Auth user service
      *
-     * @uses \Services\AuthService
+     * @uses \Application\Services\AuthService
      * @var \Phalcon\Di
      */
     protected $authService;

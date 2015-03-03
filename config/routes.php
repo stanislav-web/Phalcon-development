@@ -5,6 +5,7 @@
  */
 
 $router = new \Phalcon\Mvc\Router(true);
+
 $router->removeExtraSlashes(true)
     ->setDefaults([
         'module' => 'Frontend',

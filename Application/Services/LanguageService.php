@@ -29,7 +29,7 @@ class LanguageService implements InjectionAwareInterface {
      *
      * @var string $language;
      */
-    protected $language;
+    protected $language = 'en';
 
     /**
      * Default cookie / session key to keep language code

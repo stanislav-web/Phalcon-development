@@ -1,10 +1,10 @@
 <?php
 
 // Component URL is used to generate all kinds of addresses in the annex
-$di->set('url', function () {
+$di->set('url', function () use ($di) {
 
     $url = new \Phalcon\Mvc\Url();
-    $url->setBaseUri($this->config->application->baseUri)
+    $url->setBaseUri($di->get('config')->application->baseUri)
         ->setBasePath(DOCUMENT_ROOT);
     return $url;
 
@@ -35,52 +35,52 @@ $di->setShared('navigation', function () {
 
 });
 
-// If the configuration specify the use of metadata adapter use it or use memory otherwise
-if ($this->config->cache->metadata == true) {
-    $di->setShared('modelsMetadata', function () {
-        return new Phalcon\Mvc\Model\Metadata\Apc([
-            'prefix' => $this->config->cache->prefix,
-            'lifetime' => $this->config->cache->lifetime
-        ]);
-    });
-}
-
-//Set the views cache service
-$di->setShared('viewCache', function () {
-
-    $frontCache = new \Phalcon\Cache\Frontend\Output([
-        "lifetime" => $this->config->cache->lifetime
-    ]);
-    //Memcached connection settings
-
-    $cache = new \Phalcon\Cache\Backend\Memcache($frontCache, [
-        "host" => $this->config->cache->memcached->host,
-        "port" => $this->config->cache->memcached->port,
-        "persistent" => $this->config->cache->memcached->persistent
-    ]);
-    return $cache;
-
-});
-
 // Set the backend data cache service
-if ($this->config->cache->enable == true) {
+if ($di->get('config')->cache->enable == true) {
 
-    $di->set('dbCache', function () {
+
+    $di->set('dbCache', function () use ($di) {
 
         // Data caching (queries data, json data etc)
 
         $dbCache =  new Phalcon\Cache\Frontend\Data([
-            "lifetime" => $this->config->cache->lifetime
+            "lifetime" => $di->get('config')->cache->lifetime
         ]);
 
         $cache = new Phalcon\Cache\Backend\Memcache($dbCache, [
-            "prefix" => $this->config->cache->prefix,
-            "host" => $this->config->cache->memcached->host,
-            "port" => $this->config->cache->memcached->port,
-            "persistent" => $this->config->cache->memcached->persistent,
+            "prefix"    => $di->get('config')->cache->prefix,
+            "host"      => $di->get('config')->cache->memcached->host,
+            "port"      => $di->get('config')->cache->memcached->port,
+            "persistent" => $di->get('config')->cache->memcached->persistent,
         ]);
         return $cache;
     });
+
+    //Set the views cache service
+    $di->setShared('viewCache', function () use ($di) {
+
+        $frontCache = new \Phalcon\Cache\Frontend\Output([
+            "lifetime" => $di->get('config')->cache->lifetime
+        ]);
+
+        $cache = new \Phalcon\Cache\Backend\Memcache($frontCache, [
+            "host" => $di->get('config')->cache->memcached->host,
+            "port" => $di->get('config')->cache->memcached->port,
+            "persistent" => $di->get('config')->cache->memcached->persistent
+        ]);
+        return $cache;
+
+    });
+
+    // If the configuration specify the use of metadata adapter use it or use memory otherwise
+    if ($di->get('config')->cache->metadata == true) {
+        $di->setShared('modelsMetadata', function () use ($di) {
+            return new Phalcon\Mvc\Model\Metadata\Apc([
+                'prefix' => $di->get('config')->cache->prefix,
+                'lifetime' => $di->get('config')->cache->lifetime
+            ]);
+        });
+    }
 }
 
 // Component flashSession (Session keep flash messages).

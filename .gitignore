@@ -53,4 +53,3 @@ phinx.yml
 config/application.php
 tests/_output/*
 api
-tests/_output/*
