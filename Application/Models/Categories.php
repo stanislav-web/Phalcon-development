@@ -32,7 +32,7 @@ class Categories extends \Phalcon\Mvc\Model
     /**
      * @var integer
      */
-    protected $id;
+    private $id;
 
     /**
      * @var string
@@ -57,24 +57,24 @@ class Categories extends \Phalcon\Mvc\Model
     /**
      * @var integer
      */
-    protected $sort;
+    public $sort;
 
     /**
      * @var integer
      */
-    protected $visibility;
+    public $visibility;
 
     /**
      * Datetime create
      * @var datetime
      */
-    protected $date_create;
+    private $date_create;
 
     /**
      * Timestamp add
      * @var timestamp
      */
-    protected $date_update;
+    private $date_update;
 
     /**
      * Initialize Model

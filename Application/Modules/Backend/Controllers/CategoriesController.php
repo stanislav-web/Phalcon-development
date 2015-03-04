@@ -170,15 +170,15 @@ class CategoriesController extends ControllerBase
         // handling POST data
         if ($this->request->isPost()) {
 
-            $category = new Categories();
+            $categoriesService = $this->getDI()->get('CategoriesService');
 
-            if($category->add($this->request->getPost()) === true) {
+            if($categoriesService->addCategory($this->request->getPost()) === true) {
                 $this->flashSession->success('The category was successfully added!');
             }
             else {
 
                 // the store failed, the following message were produced
-                foreach ($category->getMessages() as $message) {
+                foreach($categoriesService->getErrors() as $message) {
                     $this->flashSession->error((string)$message);
                 }
             }

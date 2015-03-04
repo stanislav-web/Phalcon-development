@@ -94,3 +94,6 @@ $di->setShared('ErrorHttpService', 'Application\Services\ErrorHttpService');
 
 // Define auth service
 $di->setShared('AuthService','Application\Services\AuthService');
+
+// Define categories service
+$di->setShared('CategoriesService','Application\Services\CategoriesService');
