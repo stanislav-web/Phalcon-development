@@ -95,7 +95,7 @@ $config = [
                 'assets/plugins/angular-animate/angular-animate.min.js',
                 'assets/plugins/jquery/dist/jquery.min.js',
                 'assets/plugins/bootstrap/dist/js/bootstrap.min.js',
-                'assets/plugins/ui-bootstrap-tpl/ui-bootstrap-tpl.min.js',
+                'assets/plugins/angular-bootstrap/ui-bootstrap-tpls.min.js',
                 'assets/plugins/spinner/spin.min.js',
             ],
             'footer-js'    =>  [

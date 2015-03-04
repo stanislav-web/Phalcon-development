@@ -3,6 +3,7 @@ namespace Application\Models;
 
 use Phalcon\Mvc\Model\Validator\Uniqueness;
 use Phalcon\Mvc\Model\Validator\PresenceOf;
+use Phalcon\Mvc\Model\Validator\StringLength;
 use Phalcon\Mvc\Model\Exception;
 use Phalcon\Mvc\Model\Resultset\Simple as Resultset;
 use Phalcon\Mvc\Model\Transaction\Failed as TnxFailed;
@@ -343,7 +344,7 @@ class Categories extends \Phalcon\Mvc\Model
     /**
      * @return bool
      */
-    public function beforeValidationOnUpdate()
+    public function beforeValidation()
     {
         if(empty($this->alias)) {
             $this->setAlias();
@@ -363,40 +364,12 @@ class Categories extends \Phalcon\Mvc\Model
             "message"   => 'This alias already exist'
         ]));
 
-        $this->validate(new PresenceOf([
-            'field'     => 'title',
-            'message'   => 'The title is required'
-        ]));
-
-        $this->validate(new PresenceOf([
+        $this->validate(new StringLength([
             'field'     => 'description',
-            'message'   => 'The description is required'
-        ]));
-
-        return $this->validationHasFailed() != true;
-    }
-
-    /**
-     * @return bool
-     */
-    public function beforeValidationOnCreate()
-    {
-        if(empty($this->alias)) {
-            $this->setAlias();
-        }
-
-        if(empty($this->visibility)) {
-            $this->setVisibility(0);
-        }
-
-        if(empty($this->parent_id)) {
-            $this->setParentId(null);
-        }
-
-        //Do the validations
-        $this->validate(new Uniqueness([
-            "field"     => "alias",
-            "message"   => 'This alias already exist'
+            'max'       => 512,
+            'min'       => 15,
+            'messageMaximum' => 'Description must have maximum 512 characters',
+            'messageMinimum' => 'Description must have minimum 15 characters'
         ]));
 
         $this->validate(new PresenceOf([
@@ -440,11 +413,7 @@ class Categories extends \Phalcon\Mvc\Model
                     $rel = (new EnginesCategoriesRel())->setCategoryId($this->getId())->setEngineId($engine_id);
 
                     if($rel->update() === false) {
-
-                        foreach ($rel->getMessages() as $message) {
-
-                            $transaction->rollback($message->getMessage());
-                        }
+                        $transaction->rollback();
                     }
                 }
                 $transaction->commit();
@@ -452,10 +421,7 @@ class Categories extends \Phalcon\Mvc\Model
                 return true;
             }
             else {
-                foreach ($this->getMessages() as $message) {
-
-                    $transaction->rollback($message->getMessage());
-                }
+                $transaction->rollback();
             }
         }
         catch(TnxFailed $e) {
@@ -503,11 +469,7 @@ class Categories extends \Phalcon\Mvc\Model
                         $save = $enginesCategories->setCategoryId($category_id)->setEngineId($engine_id)->save();
 
                         if($save === false) {
-
-                            foreach ($enginesCategories->getMessages() as $message) {
-
-                                $transaction->rollback($message->getMessage());
-                            }
+                            $transaction->rollback();
                         }
                     }
                 }
@@ -516,10 +478,7 @@ class Categories extends \Phalcon\Mvc\Model
                 return true;
             }
             else {
-                foreach ($this->getMessages() as $message) {
-
-                    $transaction->rollback($message->getMessage());
-                }
+                $transaction->rollback();
             }
 
             $transaction->commit();

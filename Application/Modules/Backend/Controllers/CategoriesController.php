@@ -170,13 +170,17 @@ class CategoriesController extends ControllerBase
         // handling POST data
         if ($this->request->isPost()) {
 
-            $isAdd = (new Categories())->add($this->request->getPost());
+            $category = new Categories();
 
-            if($isAdd === true) {
+            if($category->add($this->request->getPost()) === true) {
                 $this->flashSession->success('The category was successfully added!');
             }
             else {
-                $this->flashSession->error('Failed when add a category');
+
+                // the store failed, the following message were produced
+                foreach ($category->getMessages() as $message) {
+                    $this->flashSession->error((string)$message);
+                }
             }
 
             // forward does not working correctly with this  action type
@@ -226,13 +230,16 @@ class CategoriesController extends ControllerBase
         // handling POST data
         if ($this->request->isPost()) {
 
-            $isEdit = (new Categories())->edit($params['id'], $this->request->getPost());
+            $category = new Categories();
 
-            if($isEdit === true) {
+            if($category->edit($params['id'], $this->request->getPost()) === true) {
                 $this->flashSession->success('The category was successfully updated!');
             }
             else {
-                $this->flashSession->error('Failed when update a category');
+                // the store failed, the following message were produced
+                foreach ($category->getMessages() as $message) {
+                    $this->flashSession->error((string)$message);
+                }
             }
 
             // forward does not working correctly with this  action type

@@ -74,7 +74,7 @@ return [
                 'assets/plugins/angular-animate/angular-animate.js',
                 'assets/plugins/jquery/dist/jquery.js',
                 'assets/plugins/bootstrap/dist/js/bootstrap.js',
-                'assets/plugins/ui-bootstrap-tpl/ui-bootstrap-tpl.js',
+                'assets/plugins/angular-bootstrap/ui-bootstrap-tpls.js',
                 'assets/plugins/spinner/spin.js',
             ],
             'footer-js'    =>  [
