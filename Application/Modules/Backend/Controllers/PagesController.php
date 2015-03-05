@@ -60,14 +60,9 @@ class PagesController extends ControllerBase
             if($page->save() === true) {
 
                 $this->flashSession->success('The page was successfully added!');
-                $this->logger->save('Page `' . $page->getTitle() . '` assigned by ' . $this->request->getClientAddress(), 6);
                 // forward does not working correctly with this  action type
                 // by the way this handle need to remove in another action (
-                return
-                    $this->response->redirect([
-                        'for' => 'dashboard-full',
-                        'controller' => $this->router->getControllerName(),
-                    ]);
+                return $this->forward();
             }
             else {
 
@@ -77,12 +72,7 @@ class PagesController extends ControllerBase
 
                 // forward does not working correctly with this  action type
                 // by the way this handle need to remove in another action (
-                return
-                    $this->response->redirect([
-                        'for' => 'dashboard-full',
-                        'controller' => $this->router->getControllerName(),
-                        'action' => $this->router->getActionName()
-                    ]);
+                return $this->forward();
             }
         }
         else {
@@ -109,10 +99,7 @@ class PagesController extends ControllerBase
 
         if (isset($params['id']) === false) {
 
-            return $this->response->redirect([
-                'for' => 'dashboard-full',
-                'controller' => $this->router->getControllerName(),
-            ]);
+            return $this->forward();
         }
 
         $page = Pages::findFirst($params['id']);
@@ -129,7 +116,6 @@ class PagesController extends ControllerBase
             if($page->update() === true) {
 
                 $this->flashSession->success('The page was successfully modified!');
-                $this->logger->save('Page `' . $page->getTitle() . '` modified by ' . $this->request->getClientAddress(), 6);
                 // forward does not working correctly with this  action type
                 // by the way this handle need to remove in another action (
                 return
@@ -146,12 +132,7 @@ class PagesController extends ControllerBase
 
                 // forward does not working correctly with this  action type
                 // by the way this handle need to remove in another action (
-                return
-                    $this->response->redirect([
-                        'for' => 'dashboard-full',
-                        'controller' => $this->router->getControllerName(),
-                        'action' => $this->router->getActionName()
-                    ]);
+                return $this->forward();
             }
         }
         else {
@@ -178,10 +159,7 @@ class PagesController extends ControllerBase
 
         if (isset($params['id']) === false) {
 
-            return $this->response->redirect([
-                'for' => 'dashboard-full',
-                'controller' => $this->router->getControllerName(),
-            ]);
+            return $this->forward();
         }
 
         $pages = (new Pages())->setId($params['id']);
@@ -194,17 +172,11 @@ class PagesController extends ControllerBase
             }
         } else {
             $this->flashSession->success('The page was successfully deleted!');
-            $this->logger->save('Delete page #' . $params['id'] . ' by ' . $this->request->getClientAddress(), 6);
         }
-
 
         // forward does not working correctly with this  action type
         // by the way this handle need to remove in another action (
-        return
-            $this->response->redirect([
-                'for' => 'dashboard-full',
-                'controller' => $this->router->getControllerName(),
-            ]);
+        return $this->forward();
 
     }
 }

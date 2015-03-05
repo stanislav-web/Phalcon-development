@@ -90,11 +90,8 @@ class EnginesController extends ControllerBase
                 $this->logger->save('Engine `' . $engine->getName() . '` assigned by ' . $this->request->getClientAddress(), 6);
                 // forward does not working correctly with this  action type
                 // by the way this handle need to remove in another action (
-                return
-                    $this->response->redirect([
-                        'for' => 'dashboard-full',
-                        'controller' => $this->router->getControllerName(),
-                ]);
+                return $this->forward();
+
             }
             else {
 
@@ -107,12 +104,8 @@ class EnginesController extends ControllerBase
 
                 // forward does not working correctly with this  action type
                 // by the way this handle need to remove in another action (
-                return
-                    $this->response->redirect([
-                        'for' => 'dashboard-full',
-                        'controller' => $this->router->getControllerName(),
-                        'action' => $this->router->getActionName()
-                ]);
+                return $this->forward();
+
             }
         }
         else {
@@ -189,11 +182,8 @@ class EnginesController extends ControllerBase
                 $this->logger->save('Engine `' . $engines->getName() . '` modified by ' . $this->request->getClientAddress(), 6);
                 // forward does not working correctly with this  action type
                 // by the way this handle need to remove in another action (
-                return
-                    $this->response->redirect([
-                        'for' => 'dashboard-full',
-                        'controller' => $this->router->getControllerName(),
-                    ]);
+                return $this->forward();
+
             }
             else {
 
@@ -206,12 +196,8 @@ class EnginesController extends ControllerBase
 
                 // forward does not working correctly with this  action type
                 // by the way this handle need to remove in another action (
-                return
-                    $this->response->redirect([
-                        'for' => 'dashboard-full',
-                        'controller' => $this->router->getControllerName(),
-                        'action' => $this->router->getActionName()
-                    ]);
+                return $this->forward();
+
             }
         }
         else {
@@ -258,15 +244,9 @@ class EnginesController extends ControllerBase
             $this->logger->save('Delete engine #' . $params['id'] . ' by ' . $this->request->getClientAddress(), 6);
         }
 
-
         // forward does not working correctly with this  action type
         // by the way this handle need to remove in another action (
-        return
-            $this->response->redirect([
-                'for' => 'dashboard-full',
-                'controller' => $this->router->getControllerName(),
-            ]);
-
+        return $this->forward();
     }
 }
 

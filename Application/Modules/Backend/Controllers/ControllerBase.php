@@ -168,6 +168,21 @@ class ControllerBase extends Controller
      * @return \Phalcon\Config
      */
     protected function getConfig() {
+
         return $this->di->get('config');
+
+    }
+
+    /**
+     * Controller forward action
+     *
+     * @return null
+     */
+    protected function forward() {
+
+        $this->response->redirect([
+            'for' => 'dashboard-full',
+            'controller' => $this->router->getControllerName(),
+        ]);
     }
 }

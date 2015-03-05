@@ -56,10 +56,7 @@ class CategoriesController extends ControllerBase
 
         if (isset($params['id']) === false) {
 
-            return $this->response->redirect([
-                'for' => 'dashboard-full',
-                'controller' => $this->router->getControllerName(),
-            ]);
+            return $this->forward();
         }
 
         $categoriesService = $this->getDI()->get('CategoriesService');
@@ -94,10 +91,7 @@ class CategoriesController extends ControllerBase
 
         if (isset($params['id']) === false) {
 
-            return $this->response->redirect([
-                'for' => 'dashboard-full',
-                'controller' => $this->router->getControllerName(),
-            ]);
+            return $this->forward();
         }
 
         $categoriesService = $this->getDI()->get('CategoriesService');
@@ -132,10 +126,7 @@ class CategoriesController extends ControllerBase
 
         if (isset($params['id']) === false) {
 
-            return $this->response->redirect([
-                'for' => 'dashboard-full',
-                'controller' => $this->router->getControllerName(),
-            ]);
+            return $this->forward();
         }
 
         $categoriesService = $this->getDI()->get('CategoriesService');
@@ -153,11 +144,7 @@ class CategoriesController extends ControllerBase
 
         // forward does not working correctly with this  action type
         // by the way this handle need to remove in another action (
-        return
-            $this->response->redirect([
-                'for' => 'dashboard-full',
-                'controller' => $this->router->getControllerName(),
-            ]);
+        return $this->forward();
     }
 
     /**
@@ -183,11 +170,7 @@ class CategoriesController extends ControllerBase
 
             // forward does not working correctly with this  action type
             // by the way this handle need to remove in another action (
-            return
-                $this->response->redirect([
-                    'for' => 'dashboard-full',
-                    'controller' => $this->router->getControllerName(),
-                ]);
+            return $this->forward();
         }
         else {
             // add crumb to chain (name, link)
@@ -217,10 +200,7 @@ class CategoriesController extends ControllerBase
 
         if (isset($params['id']) === false) {
 
-            return $this->response->redirect([
-                'for' => 'dashboard-full',
-                'controller' => $this->router->getControllerName(),
-            ]);
+            return $this->forward();
         }
 
         // handling POST data
@@ -241,11 +221,7 @@ class CategoriesController extends ControllerBase
 
             // forward does not working correctly with this  action type
             // by the way this handle need to remove in another action (
-            return
-                $this->response->redirect([
-                    'for' => 'dashboard-full',
-                    'controller' => $this->router->getControllerName(),
-                ]);
+            return $this->forward();
 
         }
         else {
@@ -285,10 +261,6 @@ class CategoriesController extends ControllerBase
 
         // forward does not working correctly with this  action type
         // by the way this handle need to remove in another action (
-        return
-            $this->response->redirect([
-                'for' => 'dashboard-full',
-                'controller' => $this->router->getControllerName(),
-            ]);
+        return $this->forward();
     }
 }
