@@ -42,13 +42,6 @@ class CategoriesService implements InjectionAwareInterface {
     private $categoryModel;
 
     /**
-     * EnginesCategoriesRel relation model to category
-     *
-     * @var \Application\Models\EnginesCategoriesRel $relModel;
-     */
-    protected $relModel;
-
-    /**
      * Set dependency container
      *
      * @param \Phalcon\DiInterface $di
@@ -71,37 +64,41 @@ class CategoriesService implements InjectionAwareInterface {
      * Add category
      *
      * @param array $data
+     * @throws DbException
      */
     public function addCategory(array $data) {
 
+        // Request a transaction
+        $transaction = $this->transactionManager()->get();
         $this->categoryModel = new Categories();
-        $this->relModel = new EnginesCategoriesRel();
+        $this->categoryModel->setTransaction($transaction);
 
         try {
-
-            // begin transaction
-            $transaction = $this->transactionManager()->get(true);
 
             foreach($data as $field => $value) {
 
                 $this->categoryModel->{$field}   =   $value;
             }
-            // setup transaction
-            $this->categoryModel->setTransaction($transaction);
 
             if($this->categoryModel->save() === true) {
 
                 foreach($data['engine_id'] as $i => $engine_id) {
 
-                    $this->relModel
+                    $isSet = (new EnginesCategoriesRel())
                         ->setCategoryId($this->categoryModel->getId())
                         ->setEngineId($engine_id);
 
-                    if($this->relModel->update() === false) {
-                        $this->setErrors($this->relModel->getMessages());
+                    $isSet->setTransaction($transaction);
+
+                    if($isSet->save() === false) {
+
+                        $this->setErrors($isSet->getMessages());
                         $transaction->rollback();
+
+                        return false;
                     }
                 }
+
                 $transaction->commit();
 
                 return true;
@@ -109,9 +106,78 @@ class CategoriesService implements InjectionAwareInterface {
             else {
                 $this->setErrors($this->categoryModel->getMessages());
                 $transaction->rollback();
+                return false;
             }
         }
         catch(TransactionException $e) {
+
+            $this->setErrors($e->getMessage());
+            throw new DbException($e->getMessage());
+        }
+    }
+
+    /**
+     * Edit category
+     *
+     * @param int      $category_id
+     * @param array $data
+     * @throws DbException
+     */
+    public function editCategory($category_id, array $data) {
+
+        // Request a transaction
+        $transaction = $this->transactionManager()->get();
+        $this->categoryModel = new Categories();
+        $this->categoryModel->setTransaction($transaction);
+
+        try {
+
+            $this->categoryModel->setId($category_id);
+
+            foreach($data as $field => $value) {
+
+                $this->categoryModel->{$field}   =   $value;
+            }
+
+            if($this->categoryModel->save() === true) {
+
+                // remove all relative records
+                $isDeleted = $this->categoryModel->deleteRelationCategories(new EnginesCategoriesRel(), $category_id);
+
+                if($isDeleted === true) {
+
+                    foreach($data['engine_id'] as $i => $engine_id) {
+
+                        $isSet = (new EnginesCategoriesRel())->setCategoryId($category_id)->setEngineId($engine_id);
+
+                        if($isSet->save() === false) {
+
+                            $this->setErrors($isSet->getMessages());
+                            $transaction->rollback();
+
+                            return false;
+                        }
+                    }
+                    $transaction->commit();
+
+                    return true;
+                }
+                else {
+                    $this->setErrors($this->categoryModel->getMessages());
+                    $transaction->rollback();
+
+                    return false;
+                }
+            }
+            else {
+                $this->setErrors($this->categoryModel->getMessages());
+                $transaction->rollback();
+
+                return false;
+            }
+        }
+        catch(TransactionException $e) {
+
             $this->setErrors($e->getMessage());
             throw new DbException($e->getMessage());
         }

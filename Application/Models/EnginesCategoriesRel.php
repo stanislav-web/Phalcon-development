@@ -24,12 +24,12 @@ class EnginesCategoriesRel extends \Phalcon\Mvc\Model
     /**
      * @var integer
      */
-    public $engine_id;
+    private $engine_id;
 
     /**
      * @var string
      */
-    public $category_id;
+    private $category_id;
 
     /**
      * Initialize Model

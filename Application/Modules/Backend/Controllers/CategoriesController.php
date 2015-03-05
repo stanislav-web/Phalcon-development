@@ -225,19 +225,18 @@ class CategoriesController extends ControllerBase
             ]);
         }
 
-        $category = Categories::findFirst($params['id']);
-
         // handling POST data
         if ($this->request->isPost()) {
 
-            $category = new Categories();
+            $categoriesService = $this->getDI()->get('CategoriesService');
 
-            if($category->edit($params['id'], $this->request->getPost()) === true) {
+            if($categoriesService->editCategory($params['id'], $this->request->getPost()) === true) {
                 $this->flashSession->success('The category was successfully updated!');
             }
             else {
+
                 // the store failed, the following message were produced
-                foreach ($category->getMessages() as $message) {
+                foreach($categoriesService->getErrors() as $message) {
                     $this->flashSession->error((string)$message);
                 }
             }
@@ -265,7 +264,7 @@ class CategoriesController extends ControllerBase
                     'categories'    => Categories::find([
                         "columns" => "id, title"
                     ]),
-                    'default' => $category
+                    'default' => Categories::findFirst($params['id'])
                 ]))
             ]);
         }

@@ -98,15 +98,6 @@ class Categories extends \Phalcon\Mvc\Model
     }
 
     /**
-     * Get transaction manager
-     *
-     * @return \Phalcon\Mvc\Model\Transaction\Manager
-     */
-    protected function tnx() {
-        return $this->getDI()->get('transactions');
-    }
-
-    /**
      * This action run after save anything to this model
      *
      * @return null
@@ -383,50 +374,6 @@ class Categories extends \Phalcon\Mvc\Model
         ]));
 
         return $this->validationHasFailed() != true;
-    }
-
-    /**
-     * Add category
-     *
-     * @param array $data
-     * @return bool
-     * @throws \Phalcon\Db\Exception
-     */
-    public function add(array $data) {
-
-        try {
-
-            // begin transaction
-            $transaction = $this->tnx()->get();
-            $transaction->begin();
-
-            foreach($data as $field => $value) {
-
-                    $this->{$field}   =   $value;
-            }
-            $this->setTransaction($transaction);
-
-            if($this->save() === true) {
-
-                foreach($data['engine_id'] as $i => $engine_id) {
-
-                    $rel = (new EnginesCategoriesRel())->setCategoryId($this->getId())->setEngineId($engine_id);
-
-                    if($rel->update() === false) {
-                        $transaction->rollback();
-                    }
-                }
-                $transaction->commit();
-
-                return true;
-            }
-            else {
-                $transaction->rollback();
-            }
-        }
-        catch(TnxFailed $e) {
-            throw new DbException($e->getMessage());
-        }
     }
 
     /**
