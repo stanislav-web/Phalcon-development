@@ -191,7 +191,7 @@ class Engines extends \Phalcon\Mvc\Model
     {
         if($date_create === null) {
 
-            $datetime = new Datetime(new DateTimeZone(date_default_timezone_get()));
+            $datetime = new \Datetime(new \DateTimeZone(date_default_timezone_get()));
 
             $this->date_create = $datetime->format('Y-m-d H:i:s');
 

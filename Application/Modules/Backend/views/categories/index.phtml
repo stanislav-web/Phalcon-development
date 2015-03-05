@@ -95,8 +95,8 @@
                             '</a>' +
                             '<ul class="dropdown-menu">' +
                             '<li>' +
-                            '<a onclick="Common.confirm(\'Are you sure want to delete this category?<br> The procedure provided a not predictable consequences\', this.href); return false;" href="<?= $this->url->get(['for' => 'dashboard-full', 'controller' => $this->router->getControllerName(), 'action' => 'delete']); ?>id/'+obj.id+'">' +
-                            '<i class="fa fa-trash-o fa-fw"></i> Delete' +
+                            '<a href="<?= $this->url->get(['for' => 'dashboard-full', 'controller' => $this->router->getControllerName(), 'action' => 'disable']); ?>id/'+obj.id+'">' +
+                            '<i class="fa fa-lock fa-fw"></i> Disable' +
                             '</a>' +
                             '</li>' +
                             '<li>' +
@@ -104,9 +104,10 @@
                             '<i class="fa fa-unlock-alt fa-fw"></i> Enable' +
                             '</a>' +
                             '</li>' +
+                            '<li class="divider"></li>' +
                             '<li>' +
-                            '<a href="<?= $this->url->get(['for' => 'dashboard-full', 'controller' => $this->router->getControllerName(), 'action' => 'disable']); ?>id/'+obj.id+'">' +
-                            '<i class="fa fa-lock fa-fw"></i> Disable' +
+                            '<a onclick="Common.confirm(\'Are you sure want to delete this category?<br> The procedure provided a not predictable consequences\', this.href); return false;" href="<?= $this->url->get(['for' => 'dashboard-full', 'controller' => $this->router->getControllerName(), 'action' => 'delete']); ?>id/'+obj.id+'">' +
+                            '<i class="fa fa-trash-o fa-fw"></i> Delete' +
                             '</a>' +
                             '</li>' +
                             '</ul>' +

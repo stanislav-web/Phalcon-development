@@ -246,7 +246,6 @@ class CategoriesService implements InjectionAwareInterface {
         return $this->getDI()->get('transactions');
     }
 
-
     /**
      * Delete relation categories
      *
