@@ -35,13 +35,6 @@ class CategoriesService implements InjectionAwareInterface {
     private $errors = [];
 
     /**
-     * Category model instance
-     *
-     * @var \Application\Models\Categories $categoryModel;
-     */
-    private $categoryModel;
-
-    /**
      * Set dependency container
      *
      * @param \Phalcon\DiInterface $di
@@ -70,22 +63,22 @@ class CategoriesService implements InjectionAwareInterface {
 
         // Request a transaction
         $transaction = $this->transactionManager()->get();
-        $this->categoryModel = new Categories();
-        $this->categoryModel->setTransaction($transaction);
+        $categoryModel = new Categories();
+        $categoryModel->setTransaction($transaction);
 
         try {
 
             foreach($data as $field => $value) {
 
-                $this->categoryModel->{$field}   =   $value;
+                $categoryModel->{$field}   =   $value;
             }
 
-            if($this->categoryModel->save() === true) {
+            if($categoryModel->save() === true) {
 
                 foreach($data['engine_id'] as $i => $engine_id) {
 
                     $isSet = (new EnginesCategoriesRel())
-                        ->setCategoryId($this->categoryModel->getId())
+                        ->setCategoryId($categoryModel->getId())
                         ->setEngineId($engine_id);
 
                     $isSet->setTransaction($transaction);
@@ -104,7 +97,7 @@ class CategoriesService implements InjectionAwareInterface {
                 return true;
             }
             else {
-                $this->setErrors($this->categoryModel->getMessages());
+                $this->setErrors($categoryModel->getMessages());
                 $transaction->rollback();
                 return false;
             }
@@ -127,22 +120,22 @@ class CategoriesService implements InjectionAwareInterface {
 
         // Request a transaction
         $transaction = $this->transactionManager()->get();
-        $this->categoryModel = new Categories();
-        $this->categoryModel->setTransaction($transaction);
+        $categoryModel = new Categories();
+        $categoryModel->setTransaction($transaction);
 
         try {
 
-            $this->categoryModel->setId($category_id);
+            $categoryModel->setId($category_id);
 
             foreach($data as $field => $value) {
 
-                $this->categoryModel->{$field}   =   $value;
+                $categoryModel->{$field}   =   $value;
             }
 
-            if($this->categoryModel->save() === true) {
+            if($categoryModel->save() === true) {
 
                 // remove all relative records
-                $isDeleted = $this->categoryModel->deleteRelationCategories(new EnginesCategoriesRel(), $category_id);
+                $isDeleted = $this->deleteRelationCategories(new EnginesCategoriesRel(), $category_id);
 
                 if($isDeleted === true) {
 
@@ -163,14 +156,14 @@ class CategoriesService implements InjectionAwareInterface {
                     return true;
                 }
                 else {
-                    $this->setErrors($this->categoryModel->getMessages());
+                    $this->setErrors($categoryModel->getMessages());
                     $transaction->rollback();
 
                     return false;
                 }
             }
             else {
-                $this->setErrors($this->categoryModel->getMessages());
+                $this->setErrors($categoryModel->getMessages());
                 $transaction->rollback();
 
                 return false;
@@ -181,6 +174,48 @@ class CategoriesService implements InjectionAwareInterface {
             $this->setErrors($e->getMessage());
             throw new DbException($e->getMessage());
         }
+    }
+
+    /**
+     * Set category visible
+     *
+     * @param int      $category_id
+     * @return boolean
+     */
+    public function setVisible($category_id) {
+
+        $categoryModel = new Categories();
+
+        return $categoryModel->getReadConnection()
+            ->update($categoryModel->getSource(), ['visibility'], [1], "id = ".(int)$category_id);
+    }
+
+    /**
+     * Set category invisible
+     *
+     * @param int      $category_id
+     * @return boolean
+     */
+    public function setInvisible($category_id) {
+
+        $categoryModel = new Categories();
+
+        return $categoryModel->getReadConnection()
+            ->update($categoryModel->getSource(), ['visibility'], [0], "id = ".(int)$category_id);
+    }
+
+    /**
+     * Set category invisible
+     *
+     * @param int      $category_id
+     * @return boolean
+     */
+    public function deleteCategory($category_id) {
+
+        $categoryModel = new Categories();
+
+        return $categoryModel->getReadConnection()
+            ->delete($categoryModel->getSource(), "id = ".(int)$category_id);
     }
 
     /**
@@ -206,8 +241,23 @@ class CategoriesService implements InjectionAwareInterface {
      *
      * @return \Phalcon\Mvc\Model\Transaction\Manager
      */
-    protected function transactionManager() {
+    private function transactionManager() {
 
         return $this->getDI()->get('transactions');
+    }
+
+
+    /**
+     * Delete relation categories
+     *
+     * @param EnginesCategoriesRel $model
+     * @param                      $category_id
+     * @return boolean
+     * @throws DbException
+     */
+    private function deleteRelationCategories(\Application\Models\EnginesCategoriesRel $model, $category_id) {
+
+        return $model->getReadConnection()
+            ->delete($model->getSource(), "category_id = ".(int)$category_id);
     }
 }

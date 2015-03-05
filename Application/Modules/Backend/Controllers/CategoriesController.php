@@ -62,17 +62,17 @@ class CategoriesController extends ControllerBase
             ]);
         }
 
-        $category = (new Categories())->setId($params['id']);
+        $categoriesService = $this->getDI()->get('CategoriesService');
 
-        if ($category->delete() === false) {
+        if($categoriesService->deleteCategory($params['id']) === true) {
+            $this->flashSession->success('The category #' . $params['id'] . ' was successfully deleted');
+        }
+        else {
 
             // the store failed, the following message were produced
-            foreach ($category->getMessages() as $message) {
+            foreach($categoriesService->getErrors() as $message) {
                 $this->flashSession->error((string)$message);
             }
-        } else {
-            $this->flashSession->success('The category was successfully deleted!');
-            $this->logger->save('Delete category #' . $params['id'] . ' by ' . $this->request->getClientAddress(), 6);
         }
 
         // forward does not working correctly with this  action type
@@ -100,16 +100,15 @@ class CategoriesController extends ControllerBase
             ]);
         }
 
-        $category = (new Categories())->setId($params['id'])->setVisibility(1);
+        $categoriesService = $this->getDI()->get('CategoriesService');
 
-        if ($category->update() === true) {
-
+        if($categoriesService->setVisible($params['id']) === true) {
             $this->flashSession->success('The category #'.$params['id'].' became visible');
-
-        } else {
+        }
+        else {
 
             // the store failed, the following message were produced
-            foreach ($category->getMessages() as $message) {
+            foreach($categoriesService->getErrors() as $message) {
                 $this->flashSession->error((string)$message);
             }
         }
@@ -139,16 +138,15 @@ class CategoriesController extends ControllerBase
             ]);
         }
 
-        $category = (new Categories())->setId($params['id'])->setVisibility(0);
+        $categoriesService = $this->getDI()->get('CategoriesService');
 
-        if ($category->update() === true) {
-
+        if($categoriesService->setInvisible($params['id']) === true) {
             $this->flashSession->success('The category #'.$params['id'].' became invisible');
-
-        } else {
+        }
+        else {
 
             // the store failed, the following message were produced
-            foreach ($category->getMessages() as $message) {
+            foreach($categoriesService->getErrors() as $message) {
                 $this->flashSession->error((string)$message);
             }
         }

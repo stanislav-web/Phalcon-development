@@ -209,7 +209,6 @@ class Categories extends \Phalcon\Mvc\Model
     public function setVisibility($visibility)
     {
         $this->skipAttributesOnUpdate(['title', 'description','parent_id', 'alias', 'sort']);
-
         $this->visibility = $visibility;
 
         return $this;
@@ -374,79 +373,5 @@ class Categories extends \Phalcon\Mvc\Model
         ]));
 
         return $this->validationHasFailed() != true;
-    }
-
-    /**
-     * Edit category
-     *
-     * @param array $data
-     * @param int $category_id
-     * @return bool
-     * @throws \Phalcon\Db\Exception
-     */
-    public function edit($category_id, array $data) {
-
-        try {
-
-            // begin transaction
-            $transaction = $this->tnx()->get();
-            $transaction->begin();
-
-            $this->setId($category_id);
-
-            foreach($data as $field => $value) {
-
-                $this->{$field}   =   $value;
-            }
-
-            $this->setTransaction($transaction);
-
-            if($this->save() === true) {
-
-                $isDeleted = $this->deleteRelationCategories(new EnginesCategoriesRel(), $category_id);
-
-                if($isDeleted === true) {
-
-                    $transaction->commit();
-
-                    $enginesCategories = new EnginesCategoriesRel();
-
-                    foreach($data['engine_id'] as $i => $engine_id) {
-
-                        $save = $enginesCategories->setCategoryId($category_id)->setEngineId($engine_id)->save();
-
-                        if($save === false) {
-                            $transaction->rollback();
-                        }
-                    }
-                }
-                $transaction->commit();
-
-                return true;
-            }
-            else {
-                $transaction->rollback();
-            }
-
-            $transaction->commit();
-        }
-        catch(TnxFailed $e) {
-            throw new DbException($e->getMessage());
-        }
-    }
-
-    /**
-     * Delete relation categories
-     *
-     * @param EnginesCategoriesRel $model
-     * @param                      $category_id
-     * @return boolean
-     * @throws DbException
-     */
-    public function deleteRelationCategories(\Application\Models\EnginesCategoriesRel $model, $category_id) {
-
-        return $this->getReadConnection()
-            ->delete($model->getSource(), "category_id = ".(int)$category_id);
-
     }
 }
