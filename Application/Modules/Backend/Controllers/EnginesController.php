@@ -36,11 +36,11 @@ class EnginesController extends ControllerBase
     public function indexAction() {
         $this->setBreadcrumbs()->add(self::NAME);
 
-        $engineService = $this->getDI()->get('EngineService');
+        $engines = $this->getDI()->get('EngineService');
 
         $this->view->setVars([
-            'items' => $engineService->getEngines(),
-            'statuses' => $engineService->getStatuses()
+            'items' => $engines->read(),
+            'statuses' => $engines->getStatuses()
         ]);
     }
 
@@ -56,15 +56,15 @@ class EnginesController extends ControllerBase
             return $this->forward();
         }
 
-        $engineService = $this->getDI()->get('EngineService');
+        $engine = $this->getDI()->get('EngineService');
 
-        if($engineService->deleteEngine($params['id']) === true) {
+        if($engine->delete($params['id']) === true) {
             $this->flashSession->success('The engine #'.$params['id'].' was successfully deleted');
         }
         else {
 
             // the store failed, the following message were produced
-            foreach($engineService->getErrors() as $message) {
+            foreach($engine->getErrors() as $message) {
                 $this->flashSession->error((string)$message);
             }
         }
@@ -80,15 +80,15 @@ class EnginesController extends ControllerBase
         // handling POST data
         if ($this->request->isPost()) {
 
-            $engineService = $this->getDI()->get('EngineService');
+            $engine = $this->getDI()->get('EngineService');
 
-            if($engineService->addEngine($this->request->getPost()) === true) {
+            if($engine->create($this->request->getPost()) === true) {
                 $this->flashSession->success('The engine was successfully added!');
             }
             else {
 
                 // the store failed, the following message were produced
-                foreach($engineService->getErrors() as $message) {
+                foreach($engine->getErrors() as $message) {
                     $this->flashSession->error((string)$message);
                 }
             }
@@ -117,7 +117,7 @@ class EnginesController extends ControllerBase
     public function editAction() {
 
         $params = $this->dispatcher->getParams();
-        $engineService = $this->getDI()->get('EngineService');
+        $engine = $this->getDI()->get('EngineService');
 
         if (isset($params['id']) === false) {
 
@@ -126,13 +126,13 @@ class EnginesController extends ControllerBase
 
         if ($this->request->isPost()) {
 
-            if($engineService->editEngine($params['id'], $this->request->getPost()) === true) {
+            if($engine->update($params['id'], $this->request->getPost()) === true) {
                 $this->flashSession->success('The engine was successfully modified!');
             }
             else {
 
                 // the store failed, the following message were produced
-                foreach($engineService->getErrors() as $message) {
+                foreach($engine->getErrors() as $message) {
                     $this->flashSession->error((string)$message);
                 }
             }
@@ -149,7 +149,7 @@ class EnginesController extends ControllerBase
                 'title' => 'Edit',
                 'form' => (new Forms\EngineForm(null, [
                     'currency' => Currency::find(),
-                    'default' => $engineService->getEngine($params['id'])
+                    'default' => $engine->read($params['id'])
                 ]))
             ]);
         }

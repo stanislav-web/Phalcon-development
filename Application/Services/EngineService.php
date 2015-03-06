@@ -2,10 +2,11 @@
 namespace Application\Services;
 
 use \Phalcon\DI\InjectionAwareInterface;
-use Application\Models\Engines;
-use Application\Models\Currency;
 use \Phalcon\Mvc\Model\Exception;
 use \Phalcon\Http\Request;
+use Application\Aware\ModelCrudInterface;
+use Application\Models\Engines;
+use Application\Models\Currency;
 
 /**
  * Class EngineService. Actions above application engine
@@ -18,7 +19,7 @@ use \Phalcon\Http\Request;
  * @copyright Stanislav WEB
  * @filesource /Application/Services/EngineService.php
  */
-class EngineService implements InjectionAwareInterface {
+class EngineService implements InjectionAwareInterface, ModelCrudInterface {
 
     /**
      * Dependency injection container
@@ -63,11 +64,12 @@ class EngineService implements InjectionAwareInterface {
     /**
      * Define used engine
      *
+     * @param string $host
      * @return \Application\Models\Engines $engine
      */
     public function define($host) {
 
-        $session = $this->di->getShared('session');
+        $session = $this->getDi()->getShared('session');
 
         // find current engine
         if($session->has('engine') === false || $session->get('engine') === null) {
@@ -90,12 +92,12 @@ class EngineService implements InjectionAwareInterface {
     }
 
     /**
-     * Add engine
+     * Create engine
      *
      * @param array $data
-     * @throws DbException
+     * return boolean
      */
-    public function addEngine(array $data) {
+    public function create(array $data) {
 
         $engineModel = new Engines();
 
@@ -138,16 +140,29 @@ class EngineService implements InjectionAwareInterface {
     }
 
     /**
+     * Read engines
+     *
+     * @param array $data
+     * @return mixed
+     */
+    public function read($id = null, array $data = []) {
+
+        $result = (empty($id) === true) ? $this->getList() : $this->getOne($id);
+
+        return $result;
+    }
+
+    /**
      * Edit category
      *
-     * @param int      $engine_id
+     * @param int $id
      * @param array $data
      */
-    public function editEngine($engine_id, array $data) {
+    public function update($id, array $data) {
 
         $engineModel = new Engines();
 
-        $engineModel->setId($engine_id);
+        $engineModel->setId($id);
 
         foreach($data as $field => $value) {
 
@@ -191,12 +206,30 @@ class EngineService implements InjectionAwareInterface {
      * @param int      $engine_id
      * @return boolean
      */
-    public function deleteEngine($engine_id) {
+    public function delete($id) {
 
         $engineModel = new Engines();
 
         return $engineModel->getReadConnection()
-            ->delete($engineModel->getSource(), "id = ".(int)$engine_id);
+            ->delete($engineModel->getSource(), "id = ".(int)$id);
+    }
+
+    /**
+     * Set errors message
+     *
+     * @param mixed $errors
+     */
+    public function setErrors($errors) {
+        $this->errors = $errors;
+    }
+
+    /**
+     * Get error messages
+     *
+     * @return mixed $errors
+     */
+    public function getErrors() {
+        return $this->errors;
     }
 
     /**
@@ -204,7 +237,7 @@ class EngineService implements InjectionAwareInterface {
      *
      * @return \Phalcon\Mvc\Model\Resultset\Simple
      */
-    public function getEngines()
+    public function getList()
     {
         $engineModel = new Engines();
 
@@ -224,7 +257,7 @@ class EngineService implements InjectionAwareInterface {
      * @param int $engine_id
      * @return \Phalcon\Mvc\Model
      */
-    public function getEngine($engine_id)
+    public function getOne($engine_id)
     {
         return Engines::findFirst($engine_id);
     }
@@ -237,26 +270,7 @@ class EngineService implements InjectionAwareInterface {
      */
     public function getStatuses($status_id = null)
     {
-        return ($status_id !== null) ?
+        return ($status_id === null) ?
             Engines::$statuses : Engines::$statuses[(int)$status_id];
     }
-
-    /**
-     * Set errors message
-     *
-     * @param mixed $errors
-     */
-    private function setErrors($errors) {
-        $this->errors = $errors;
-    }
-
-    /**
-     * Get error messages
-     *
-     * @return mixed $errors
-     */
-    public function getErrors() {
-        return $this->errors;
-    }
-
 }

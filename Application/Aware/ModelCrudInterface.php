@@ -2,7 +2,7 @@
 namespace Application\Aware;
 
 /**
- * ModelServiceInterface. Implementing rules necessary intended for service models
+ * ModelCrudInterface. Implementing rules necessary intended for service's models
  *
  * @package Application
  * @subpackage Aware
@@ -10,9 +10,9 @@ namespace Application\Aware;
  * @version    1.0
  * @author     Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @copyright  Stanislav WEB
- * @filesource /Application/Aware/ModelServiceInterface.php
+ * @filesource /Application/Aware/ModelCrudInterface.php
  */
-interface ModelServiceInterface {
+interface ModelCrudInterface {
 
     /**
      * Create record
@@ -21,6 +21,14 @@ interface ModelServiceInterface {
      * @return boolean
      */
     public function create(array $data);
+
+    /**
+     * Read record(s)
+     *
+     * @param array $data
+     * @return boolean
+     */
+    public function read($id, array $data);
 
     /**
      * Update record
@@ -35,9 +43,21 @@ interface ModelServiceInterface {
      * Delete record
      *
      * @param int $id
-     * @param array $data
      * @return boolean
      */
-    public function delete($id, array $data);
+    public function delete($id);
 
+    /**
+     * Set errors message
+     *
+     * @param mixed $errors
+     */
+    public function setErrors($errors);
+
+    /**
+     * Get error messages
+     *
+     * @return mixed $errors
+     */
+    public function getErrors();
 }
