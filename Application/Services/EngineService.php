@@ -3,6 +3,7 @@ namespace Application\Services;
 
 use \Phalcon\DI\InjectionAwareInterface;
 use Application\Models\Engines;
+use Application\Models\Currency;
 use \Phalcon\Mvc\Model\Exception;
 use \Phalcon\Http\Request;
 
@@ -196,6 +197,48 @@ class EngineService implements InjectionAwareInterface {
 
         return $engineModel->getReadConnection()
             ->delete($engineModel->getSource(), "id = ".(int)$engine_id);
+    }
+
+    /**
+     * Get all related records from Engines joined to Currency
+     *
+     * @return \Phalcon\Mvc\Model\Resultset\Simple
+     */
+    public function getEngines()
+    {
+        $engineModel = new Engines();
+
+        $builder = $engineModel->getModelsManager()->createBuilder();
+        $builder
+            ->addFrom(Engines::TABLE, 'e')
+            ->leftJoin(Currency::TABLE, 'c.id = e.currency_id', 'c');
+
+        $result = $builder->getQuery()->execute();
+
+        return $result;
+    }
+
+    /**
+     * Get engine by Id
+     *
+     * @param int $engine_id
+     * @return \Phalcon\Mvc\Model
+     */
+    public function getEngine($engine_id)
+    {
+        return Engines::findFirst($engine_id);
+    }
+
+    /**
+     * Get engine(s) status
+     *
+     * @param int $status_id
+     * @return array
+     */
+    public function getStatuses($status_id = null)
+    {
+        return ($status_id !== null) ?
+            Engines::$statuses : Engines::$statuses[(int)$status_id];
     }
 
     /**

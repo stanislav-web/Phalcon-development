@@ -4,6 +4,7 @@ namespace Application\Models;
 use Phalcon\Mvc\Model\Behavior\Timestampable;
 use Phalcon\Mvc\Model\Validator\Uniqueness;
 use Phalcon\Mvc\Model\Validator\PresenceOf;
+use Phalcon\Mvc\Model\Validator\StringLength;
 
 /**
  * Class Engines `engines`
@@ -153,6 +154,14 @@ class Engines extends \Phalcon\Mvc\Model
             'message'   => 'The engine code is required'
         ]));
 
+        $this->validate(new StringLength([
+            'field'     => 'description',
+            'max'       => 512,
+            'min'       => 15,
+            'messageMaximum' => 'Description must have maximum 512 characters',
+            'messageMinimum' => 'Description must have minimum 15 characters'
+        ]));
+
         return $this->validationHasFailed() != true;
     }
 
@@ -176,6 +185,14 @@ class Engines extends \Phalcon\Mvc\Model
         $this->validate(new PresenceOf([
             'field'     => 'code',
             'message'   => 'The engine code is required'
+        ]));
+
+        $this->validate(new StringLength([
+            'field'     => 'description',
+            'max'       => 512,
+            'min'       => 15,
+            'messageMaximum' => 'Description must have maximum 512 characters',
+            'messageMinimum' => 'Description must have minimum 15 characters'
         ]));
 
         return $this->validationHasFailed() != true;
@@ -405,22 +422,5 @@ class Engines extends \Phalcon\Mvc\Model
     public function getDateUpdate()
     {
         return $this->date_update;
-    }
-
-    /**
-     * Get all related records from Engines joined to Currency
-     * @param array $params
-     * @return
-     */
-    public function get(array $params = [])
-    {
-        $builder = $this->_modelsManager->createBuilder();
-        $builder
-            ->addFrom(self::TABLE, 'e')
-            ->leftJoin(Currency::TABLE, 'c.id = e.currency_id', 'c');
-
-        $result = $builder->getQuery()->execute();
-
-        return $result;
     }
 }

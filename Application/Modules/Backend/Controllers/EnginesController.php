@@ -2,7 +2,6 @@
 namespace Application\Modules\Backend\Controllers;
 
 use Application\Models\Currency;
-use Application\Models\Engines;
 use Application\Modules\Backend\Forms;
 use Phalcon\Mvc\View;
 
@@ -37,11 +36,11 @@ class EnginesController extends ControllerBase
     public function indexAction() {
         $this->setBreadcrumbs()->add(self::NAME);
 
-        $engines = (new Engines())->get();
+        $engineService = $this->getDI()->get('EngineService');
 
         $this->view->setVars([
-            'items' => $engines,
-            'statuses' => Engines::$statuses
+            'items' => $engineService->getEngines(),
+            'statuses' => $engineService->getStatuses()
         ]);
     }
 
@@ -118,6 +117,7 @@ class EnginesController extends ControllerBase
     public function editAction() {
 
         $params = $this->dispatcher->getParams();
+        $engineService = $this->getDI()->get('EngineService');
 
         if (isset($params['id']) === false) {
 
@@ -125,8 +125,6 @@ class EnginesController extends ControllerBase
         }
 
         if ($this->request->isPost()) {
-
-            $engineService = $this->getDI()->get('EngineService');
 
             if($engineService->editEngine($params['id'], $this->request->getPost()) === true) {
                 $this->flashSession->success('The engine was successfully modified!');
@@ -151,7 +149,7 @@ class EnginesController extends ControllerBase
                 'title' => 'Edit',
                 'form' => (new Forms\EngineForm(null, [
                     'currency' => Currency::find(),
-                    'default' => Engines::findFirst($params['id'])
+                    'default' => $engineService->getEngine($params['id'])
                 ]))
             ]);
         }
