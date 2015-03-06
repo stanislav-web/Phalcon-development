@@ -4,6 +4,7 @@ namespace Application\Services;
 use \Phalcon\DI\InjectionAwareInterface;
 use Application\Models\Engines;
 use \Phalcon\Mvc\Model\Exception;
+use \Phalcon\Http\Request;
 
 /**
  * Class EngineService. Actions above application engine
@@ -26,11 +27,18 @@ class EngineService implements InjectionAwareInterface {
     protected $di;
 
     /**
-     * Current host
+     * Upload logo directory
      *
-     * @var string $host;
+     * @var string $logoDirectory;
      */
-    protected $host;
+    private $logoDirectory = 'files/logo';
+
+    /**
+     * Errors array
+     *
+     * @var array $errors;
+     */
+    private $errors = [];
 
     /**
      * Set dependency container
@@ -52,28 +60,18 @@ class EngineService implements InjectionAwareInterface {
     }
 
     /**
-     * Set current hostname
-     *
-     * @param string $host
-     */
-    public function __construct($host) {
-
-        $this->host = $host;
-    }
-
-    /**
      * Define used engine
      *
      * @return \Application\Models\Engines $engine
      */
-    public function define() {
+    public function define($host) {
 
         $session = $this->di->getShared('session');
 
         // find current engine
         if($session->has('engine') === false || $session->get('engine') === null) {
 
-            $engine   =   Engines::findFirst("host = '".$this->host."'");
+            $engine   =   Engines::findFirst("host = '".$host."'");
 
             if($engine === null) {
                 throw new Exception('Not found used host');
@@ -88,6 +86,134 @@ class EngineService implements InjectionAwareInterface {
         }
 
         return $engine;
+    }
+
+    /**
+     * Add engine
+     *
+     * @param array $data
+     * @throws DbException
+     */
+    public function addEngine(array $data) {
+
+        $engineModel = new Engines();
+
+        foreach($data as $field => $value) {
+
+            $engineModel->{$field}   =   $value;
+        }
+
+        // check uploaded logo (if exist)
+
+        if((new Request())->hasFiles() !== false) {
+
+            $uploader = $this->getDi()->get('uploader');
+
+            $uploader->setRules(['directory' =>  DOCUMENT_ROOT.DIRECTORY_SEPARATOR.$this->logoDirectory]);
+
+            if($uploader->isValid() === true) {
+
+                $uploader->move();
+                $engineModel->setLogo(basename($uploader->getInfo()[0]['path']));
+            }
+            else {
+                // the store failed, the following message were produced
+                $uploader->truncate();
+                $this->setErrors($uploader->getErrors());
+
+                return false;
+            }
+        }
+
+        if($engineModel->save() === true) {
+
+            return true;
+        }
+        else {
+
+            $this->setErrors($engineModel->getMessages());
+            return false;
+        }
+    }
+
+    /**
+     * Edit category
+     *
+     * @param int      $engine_id
+     * @param array $data
+     */
+    public function editEngine($engine_id, array $data) {
+
+        $engineModel = new Engines();
+
+        $engineModel->setId($engine_id);
+
+        foreach($data as $field => $value) {
+
+            $engineModel->{$field}   =   $value;
+        }
+        // check uploaded logo (if exist)
+
+        if((new Request())->hasFiles() !== false) {
+
+            $uploader = $this->getDi()->get('uploader');
+
+            $uploader->setRules(['directory' =>  DOCUMENT_ROOT.DIRECTORY_SEPARATOR.$this->logoDirectory]);
+
+            if($uploader->isValid() === true) {
+
+                $uploader->move();
+                $engineModel->setLogo(basename($uploader->getInfo()[0]['path']));
+            }
+            else {
+                // the store failed, the following message were produced
+                $uploader->truncate();
+                $this->setErrors($uploader->getErrors());
+
+                return false;
+            }
+        }
+        if($engineModel->save() === true) {
+
+            return true;
+        }
+        else {
+            $this->setErrors($engineModel->getMessages());
+
+            return false;
+        }
+    }
+
+    /**
+     * Delete engine
+     *
+     * @param int      $engine_id
+     * @return boolean
+     */
+    public function deleteEngine($engine_id) {
+
+        $engineModel = new Engines();
+
+        return $engineModel->getReadConnection()
+            ->delete($engineModel->getSource(), "id = ".(int)$engine_id);
+    }
+
+    /**
+     * Set errors message
+     *
+     * @param mixed $errors
+     */
+    private function setErrors($errors) {
+        $this->errors = $errors;
+    }
+
+    /**
+     * Get error messages
+     *
+     * @return mixed $errors
+     */
+    public function getErrors() {
+        return $this->errors;
     }
 
 }

@@ -6,10 +6,8 @@ use Phalcon\Mvc\Model\Validator\PresenceOf;
 use Phalcon\Mvc\Model\Validator\StringLength;
 use Phalcon\Mvc\Model\Exception;
 use Phalcon\Mvc\Model\Resultset\Simple as Resultset;
-use Phalcon\Mvc\Model\Transaction\Failed as TnxFailed;
 use Phalcon\Db\RawValue;
 use Phalcon\Tag;
-use Phalcon\Db\Exception as DbException;
 
 /**
  * Class Categories `categories`

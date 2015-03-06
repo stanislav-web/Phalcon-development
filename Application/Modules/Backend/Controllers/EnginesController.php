@@ -32,7 +32,7 @@ class EnginesController extends ControllerBase
     }
 
     /**
-     * Get list of all engines
+     * Get list of engines action
      */
     public function indexAction() {
         $this->setBreadcrumbs()->add(self::NAME);
@@ -46,6 +46,34 @@ class EnginesController extends ControllerBase
     }
 
     /**
+     * Delete engine action
+     */
+    public function deleteAction()
+    {
+        $params = $this->dispatcher->getParams();
+
+        if (isset($params['id']) === false) {
+
+            return $this->forward();
+        }
+
+        $engineService = $this->getDI()->get('EngineService');
+
+        if($engineService->deleteEngine($params['id']) === true) {
+            $this->flashSession->success('The engine #'.$params['id'].' was successfully deleted');
+        }
+        else {
+
+            // the store failed, the following message were produced
+            foreach($engineService->getErrors() as $message) {
+                $this->flashSession->error((string)$message);
+            }
+        }
+
+        return $this->forward();
+    }
+
+    /**
      * Add engine action
      */
     public function addAction() {
@@ -53,60 +81,20 @@ class EnginesController extends ControllerBase
         // handling POST data
         if ($this->request->isPost()) {
 
-            $engine =
-                (new Engines())
-                    ->setName($this->request->getPost('name'))
-                    ->setDescription($this->request->getPost('description'), null, '')
-                    ->setHost($this->request->getPost('host'))
-                    ->setCode($this->request->getPost('code'))
-                    ->setCurrencyId($this->request->getPost('currency_id', null, 1))
-                    ->setStatus($this->request->getPost('status', null, 0));
+            $engineService = $this->getDI()->get('EngineService');
 
-            // check uploaded logo (if exist)
-
-            if($this->request->hasFiles() !== false) {
-
-                $uploader = $this->di->get('uploader');
-
-                $uploader->setRules(['directory' =>  DOCUMENT_ROOT.'/files/logo']);
-
-                if($uploader->isValid() === true) {
-
-                    $uploader->move();
-                    $engine->setLogo(basename($uploader->getInfo()[0]['path']));
-
-                }
-                else {
-                    // the store failed, the following message were produced
-                    foreach ($uploader->getErrors() as $message) {
-                        $this->flashSession->error($message);
-                    }
-                }
-            }
-
-            if($engine->save() === true) {
-
+            if($engineService->addEngine($this->request->getPost()) === true) {
                 $this->flashSession->success('The engine was successfully added!');
-                $this->logger->save('Engine `' . $engine->getName() . '` assigned by ' . $this->request->getClientAddress(), 6);
-                // forward does not working correctly with this  action type
-                // by the way this handle need to remove in another action (
-                return $this->forward();
-
             }
             else {
 
-                // remove uploaded files
-                $uploader->truncate();
-
                 // the store failed, the following message were produced
-                foreach ($engine->getMessages() as $message)
+                foreach($engineService->getErrors() as $message) {
                     $this->flashSession->error((string)$message);
-
-                // forward does not working correctly with this  action type
-                // by the way this handle need to remove in another action (
-                return $this->forward();
-
+                }
             }
+
+            return $this->forward();
         }
         else {
             // add crumb to chain (name, link)
@@ -133,72 +121,25 @@ class EnginesController extends ControllerBase
 
         if (isset($params['id']) === false) {
 
-            return $this->response->redirect([
-                'for' => 'dashboard-full',
-                'controller' => $this->router->getControllerName(),
-            ]);
+            return $this->forward();
         }
-
-        $engine = Engines::findFirst($params['id']);
 
         if ($this->request->isPost()) {
 
-            $engines =
-                (new Engines())
-                    ->setId($params['id'])
-                    ->setName($this->request->getPost('name'))
-                    ->setDescription($this->request->getPost('description'), null, '')
-                    ->setHost($this->request->getPost('host'))
-                    ->setCode($this->request->getPost('code'))
-                    ->setCurrencyId($this->request->getPost('currency_id', null, 1))
-                    ->setStatus($this->request->getPost('status', null, 0));
+            $engineService = $this->getDI()->get('EngineService');
 
-            // check uploaded logo (if exist)
-
-            if($this->request->hasFiles() !== false) {
-
-                $uploader = $this->di->get('uploader');
-
-                $uploader->setRules(['directory' =>  DOCUMENT_ROOT.'/files/logo']);
-
-                if($uploader->isValid() === true) {
-
-                    $uploader->move();
-
-                    $engines->setLogo(basename($uploader->getInfo()[0]['path']));
-
-                }
-                else {
-                    // the store failed, the following message were produced
-                    foreach ($uploader->getErrors() as $message) {
-                        $this->flashSession->error($message);
-                    }
-                }
-            }
-
-            if($engines->update() === true) {
-
+            if($engineService->editEngine($params['id'], $this->request->getPost()) === true) {
                 $this->flashSession->success('The engine was successfully modified!');
-                $this->logger->save('Engine `' . $engines->getName() . '` modified by ' . $this->request->getClientAddress(), 6);
-                // forward does not working correctly with this  action type
-                // by the way this handle need to remove in another action (
-                return $this->forward();
-
             }
             else {
 
-                // remove uploaded files
-                $uploader->truncate();
-
                 // the store failed, the following message were produced
-                foreach ($engines->getMessages() as $message)
+                foreach($engineService->getErrors() as $message) {
                     $this->flashSession->error((string)$message);
-
-                // forward does not working correctly with this  action type
-                // by the way this handle need to remove in another action (
-                return $this->forward();
-
+                }
             }
+
+            return $this->forward();
         }
         else {
 
@@ -210,43 +151,11 @@ class EnginesController extends ControllerBase
                 'title' => 'Edit',
                 'form' => (new Forms\EngineForm(null, [
                     'currency' => Currency::find(),
-                    'default' => $engine
+                    'default' => Engines::findFirst($params['id'])
                 ]))
             ]);
         }
     }
 
-    /**
-     * Delete engine action
-     */
-    public function deleteAction()
-    {
-        $params = $this->dispatcher->getParams();
-
-        if (isset($params['id']) === false) {
-
-            return $this->response->redirect([
-                'for' => 'dashboard-full',
-                'controller' => $this->router->getControllerName(),
-            ]);
-        }
-
-        $engines = (new Engines())->setId($params['id']);
-
-        if ($engines->delete() === false) {
-
-            // the store failed, the following message were produced
-            foreach ($engines->getMessages() as $message) {
-                $this->flashSession->error((string)$message);
-            }
-        } else {
-            $this->flashSession->success('The engine was successfully deleted!');
-            $this->logger->save('Delete engine #' . $params['id'] . ' by ' . $this->request->getClientAddress(), 6);
-        }
-
-        // forward does not working correctly with this  action type
-        // by the way this handle need to remove in another action (
-        return $this->forward();
-    }
 }
 

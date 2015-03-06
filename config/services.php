@@ -86,6 +86,9 @@ $di->setShared('LogDbService', function() use ($config) {
 
 });
 
+// Define engine service
+$di->setShared('EngineService','Application\Services\EngineService');
+
 // Define helper's service
 $di->setShared('tag', '\Application\Services\HelpersService');
 

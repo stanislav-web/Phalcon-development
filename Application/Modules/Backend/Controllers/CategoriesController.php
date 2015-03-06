@@ -42,8 +42,8 @@ class CategoriesController extends ControllerBase
 
             $dataTable = $this->di->get('DataService', [new Categories()])->hydrate();
             $dataTable->jsonFromObject();
-            return;
 
+            return;
         }
     }
 
@@ -72,13 +72,7 @@ class CategoriesController extends ControllerBase
             }
         }
 
-        // forward does not working correctly with this  action type
-        // by the way this handle need to remove in another action (
-        return
-            $this->response->redirect([
-                'for' => 'dashboard-full',
-                'controller' => $this->router->getControllerName(),
-            ]);
+        return $this->forward();
 
     }
 
@@ -107,14 +101,7 @@ class CategoriesController extends ControllerBase
             }
         }
 
-        // forward does not working correctly with this  action type
-        // by the way this handle need to remove in another action (
-        return
-            $this->response->redirect([
-                'for' => 'dashboard-full',
-                'controller' => $this->router->getControllerName(),
-            ]);
-
+        return $this->forward();
     }
 
     /**
@@ -142,8 +129,6 @@ class CategoriesController extends ControllerBase
             }
         }
 
-        // forward does not working correctly with this  action type
-        // by the way this handle need to remove in another action (
         return $this->forward();
     }
 
@@ -168,8 +153,6 @@ class CategoriesController extends ControllerBase
                 }
             }
 
-            // forward does not working correctly with this  action type
-            // by the way this handle need to remove in another action (
             return $this->forward();
         }
         else {
@@ -219,8 +202,6 @@ class CategoriesController extends ControllerBase
                 }
             }
 
-            // forward does not working correctly with this  action type
-            // by the way this handle need to remove in another action (
             return $this->forward();
 
         }
@@ -249,18 +230,17 @@ class CategoriesController extends ControllerBase
      */
     public function rebuildAction()
     {
-        // call rebuild mysql function
-        $categories = (new Categories())->rebuildTree();
+        $categoriesService = $this->getDI()->get('CategoriesService');
 
-        if (!$categories instanceof \Phalcon\Mvc\Model\Resultset\Simple) {
-            // the store failed, the following message were produced
-            foreach ($categories->getMessages() as $message)
-                $this->flashSession->error((string)$message);
-        } else
+        if($categoriesService->rebuildTree() === true) {
+
             $this->flashSession->success('Categories rebuild success!');
+        }
+        else {
+            // the store failed, the following message were produced
+            $this->flashSession->error('Categories rebuild failed!');
+        }
 
-        // forward does not working correctly with this  action type
-        // by the way this handle need to remove in another action (
         return $this->forward();
     }
 }

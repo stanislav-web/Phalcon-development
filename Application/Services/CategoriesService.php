@@ -205,7 +205,7 @@ class CategoriesService implements InjectionAwareInterface {
     }
 
     /**
-     * Set category invisible
+     * Delete category
      *
      * @param int      $category_id
      * @return boolean
@@ -258,5 +258,24 @@ class CategoriesService implements InjectionAwareInterface {
 
         return $model->getReadConnection()
             ->delete($model->getSource(), "category_id = ".(int)$category_id);
+    }
+
+    /**
+     * Rebuild tree after success update or insert
+     *
+     * @return bool
+     * @throws \Phalcon\Mvc\Model\Exception
+     */
+    public function rebuildTree() {
+
+        // call rebuild mysql function
+        $categoryModel = new Categories();
+        $rebuild = $categoryModel->rebuildTree();
+
+        if ($rebuild instanceof \Phalcon\Mvc\Model\Resultset\Simple) {
+
+            return true;
+        }
+        return false;
     }
 }

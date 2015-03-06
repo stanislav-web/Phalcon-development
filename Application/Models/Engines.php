@@ -43,37 +43,37 @@ class Engines extends \Phalcon\Mvc\Model
     /**
      * @var string
      */
-    protected $host;
+    public $host;
 
     /**
      * @var string
      */
-    protected $name;
+    public $name;
 
     /**
      * @var string
      */
-    protected $description;
+    public $description;
 
     /**
      * @var string
      */
-    protected $code;
+    public $code;
 
     /**
      * @var string
      */
-    protected $logo;
+    public $logo;
 
     /**
      * @var integer
      */
-    protected $currency_id;
+    public $currency_id;
 
     /**
      * @var integer
      */
-    protected $status;
+    public $status;
 
     /**
      * Datetime create

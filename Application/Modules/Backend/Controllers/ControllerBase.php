@@ -180,7 +180,7 @@ class ControllerBase extends Controller
      */
     protected function forward() {
 
-        $this->response->redirect([
+        return $this->response->redirect([
             'for' => 'dashboard-full',
             'controller' => $this->router->getControllerName(),
         ]);
