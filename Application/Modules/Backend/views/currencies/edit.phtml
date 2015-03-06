@@ -1,0 +1,125 @@
+<!-- Block header -->
+<div id="dashboard-header" class="row">
+    <div class="col-xs-10 col-sm-4">
+        <h3><i class="fa fa-edit fa-md"></i> <b><?= $title; ?></b></h3>
+    </div>
+</div>
+<div class="clearfix"></div>
+<!-- /Block header -->
+
+<!-- Block content -->
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box-conten no-padding">
+            <!-- Add Currency form -->
+            <?= $this->tag->form(['id' => 'edit-currency', 'class' => 'form-horizontal', 'method' => 'post']); ?>
+            <div class="form-group">
+                <label for="name" class="control-label col-sm-3">Name</label>
+
+                <div class="col-sm-6">
+                    <?= $form->render('name', [
+                        'placeholder' => 'Input currency name',
+                        'class' => 'form-control',
+                        'maxlength'     => '45',
+                    ]); ?>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="symbol" class="control-label col-sm-3">Symbol</label>
+
+                <div class="col-sm-6">
+                    <?= $form->render('symbol', [
+                        'placeholder' => 'Input currency symbol',
+                        'class' => 'form-control',
+                        'maxlength'     => '4',
+                    ]); ?>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="code" class="control-label col-sm-3">Code</label>
+
+                <div class="col-sm-6">
+                    <?= $form->render('code', [
+                        'placeholder' => 'Input currency code',
+                        'class' => 'form-control',
+                        'maxlength'     => '3',
+                    ]); ?>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-6 ">
+                    <?= $form->render('save', ['value' => 'Save', 'class' => 'btn btn-primary btn-lg btn-block']); ?>
+                </div>
+            </div>
+            </form>
+            <!-- /Add Engine form -->
+        </div>
+    </div>
+</div>
+<!-- Block content -->
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        // Load  form validation
+        LoadBootstrapValidatorScript(
+            $('#edit-currency').bootstrapValidator({
+                feedbackIcons: {
+                    valid: 'fa fa-check',
+                    invalid: 'fa fa-times',
+                    validating: 'fa fa-refresh'
+                },
+                message: 'This value is not valid',
+                fields: {
+                    name: {
+                        message: 'The name is not valid',
+                        validators: {
+                            notEmpty: {
+                                message: 'The name is required and can\'t be empty'
+                            },
+                            stringLength: {
+                                min: 3,
+                                max: '40',
+                                message: 'The name must be more than 3 and less than 40 characters long'
+                            },
+                            regexp: {
+                                regexp: /^[a-яA-Za-zA-Z0-9_\. ]+$/,
+                                message: 'The name can only consist of alphabetical, number, dot, underscore and space'
+                            }
+                        }
+                    },
+
+                    code: {
+                        message: 'The code is not valid',
+                        validators: {
+                            notEmpty: {
+                                message: 'The code is required and can\'t be empty'
+                            },
+                            stringLength: {
+                                min: 3,
+                                max: 3,
+                                message: 'The code must be 3 characters long'
+                            }
+                        }
+                    },
+                    symbol: {
+                        message: 'The symbol is not valid',
+                        validators: {
+                            notEmpty: {
+                                message: 'The symbol is required and can\'t be empty'
+                            },
+                            stringLength: {
+                                min: 1,
+                                max: 3,
+                                message: 'The symbol must be more than 1 and less than 4 characters long'
+                            }
+                        }
+                    }
+                }
+            })
+        );
+    });
+</script>

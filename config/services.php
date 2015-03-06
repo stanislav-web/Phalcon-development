@@ -100,3 +100,6 @@ $di->setShared('AuthService','Application\Services\AuthService');
 
 // Define categories service
 $di->setShared('CategoriesService','Application\Services\CategoriesService');
+
+// Define currencies service
+$di->setShared('CurrencyService','Application\Services\CurrencyService');

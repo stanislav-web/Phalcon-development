@@ -142,6 +142,7 @@ class EngineService implements InjectionAwareInterface, ModelCrudInterface {
     /**
      * Read engines
      *
+     * @param int $id
      * @param array $data
      * @return mixed
      */
@@ -203,7 +204,7 @@ class EngineService implements InjectionAwareInterface, ModelCrudInterface {
     /**
      * Delete engine
      *
-     * @param int      $engine_id
+     * @param int      $id
      * @return boolean
      */
     public function delete($id) {
@@ -252,14 +253,25 @@ class EngineService implements InjectionAwareInterface, ModelCrudInterface {
     }
 
     /**
-     * Get engine by Id
+     * Get engines by condition
      *
-     * @param int $engine_id
+     * @param array $params
      * @return \Phalcon\Mvc\Model
      */
-    public function getOne($engine_id)
+    public function getListByParams(array $params = [])
     {
-        return Engines::findFirst($engine_id);
+        return Engines::find($params);
+    }
+
+    /**
+     * Get engine by Id
+     *
+     * @param int $id
+     * @return \Phalcon\Mvc\Model
+     */
+    public function getOne($id)
+    {
+        return Engines::findFirst($id);
     }
 
     /**

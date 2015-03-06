@@ -1,8 +1,6 @@
 <?php
 namespace Application\Modules\Backend\Controllers;
 
-use Application\Models\Categories;
-use Application\Models\Engines;
 use Application\Modules\Backend\Forms;
 use Phalcon\Mvc\View;
 
@@ -40,7 +38,9 @@ class CategoriesController extends ControllerBase
 
         if ($this->request->isPost()) {
 
-            $dataTable = $this->di->get('DataService', [new Categories()])->hydrate();
+            $categories = $this->getDI()->get('CategoriesService');
+
+            $dataTable = $this->getDI()->get('DataService', [$categories->getInstance()])->hydrate();
             $dataTable->jsonFromObject();
 
             return;
@@ -59,15 +59,15 @@ class CategoriesController extends ControllerBase
             return $this->forward();
         }
 
-        $categoriesService = $this->getDI()->get('CategoriesService');
+        $category = $this->getDI()->get('CategoriesService');
 
-        if($categoriesService->deleteCategory($params['id']) === true) {
+        if($category->delete($params['id']) === true) {
             $this->flashSession->success('The category #' . $params['id'] . ' was successfully deleted');
         }
         else {
 
             // the store failed, the following message were produced
-            foreach($categoriesService->getErrors() as $message) {
+            foreach($category->getErrors() as $message) {
                 $this->flashSession->error((string)$message);
             }
         }
@@ -88,15 +88,15 @@ class CategoriesController extends ControllerBase
             return $this->forward();
         }
 
-        $categoriesService = $this->getDI()->get('CategoriesService');
+        $category = $this->getDI()->get('CategoriesService');
 
-        if($categoriesService->setVisible($params['id']) === true) {
+        if($category->setVisible($params['id']) === true) {
             $this->flashSession->success('The category #'.$params['id'].' became visible');
         }
         else {
 
             // the store failed, the following message were produced
-            foreach($categoriesService->getErrors() as $message) {
+            foreach($category->getErrors() as $message) {
                 $this->flashSession->error((string)$message);
             }
         }
@@ -116,15 +116,15 @@ class CategoriesController extends ControllerBase
             return $this->forward();
         }
 
-        $categoriesService = $this->getDI()->get('CategoriesService');
+        $category = $this->getDI()->get('CategoriesService');
 
-        if($categoriesService->setInvisible($params['id']) === true) {
+        if($category->setInvisible($params['id']) === true) {
             $this->flashSession->success('The category #'.$params['id'].' became invisible');
         }
         else {
 
             // the store failed, the following message were produced
-            foreach($categoriesService->getErrors() as $message) {
+            foreach($category->getErrors() as $message) {
                 $this->flashSession->error((string)$message);
             }
         }
@@ -137,18 +137,18 @@ class CategoriesController extends ControllerBase
      */
     public function addAction() {
 
+        $category = $this->getDI()->get('CategoriesService');
+
         // handling POST data
         if ($this->request->isPost()) {
 
-            $categoriesService = $this->getDI()->get('CategoriesService');
-
-            if($categoriesService->addCategory($this->request->getPost()) === true) {
+            if($category->create($this->request->getPost()) === true) {
                 $this->flashSession->success('The category was successfully added!');
             }
             else {
 
                 // the store failed, the following message were produced
-                foreach($categoriesService->getErrors() as $message) {
+                foreach($category->getErrors() as $message) {
                     $this->flashSession->error((string)$message);
                 }
             }
@@ -158,18 +158,19 @@ class CategoriesController extends ControllerBase
         else {
             // add crumb to chain (name, link)
             $this->setBreadcrumbs()->add(self::NAME, $this->url->get(['for' => 'dashboard-controller', 'controller' => 'categories']))->add('Add');
+            $engines = $this->getDI()->get('EngineService');
 
             // set variables output to view
             $this->view->setVars([
                 'title' => 'Add',
-                'form' => (new Forms\CategoryForm(null, [
-                    'categories' => Categories::find([
+                'form' => new Forms\CategoryForm(null, [
+                    'categories' => $category->read(null, [
                         "columns" => "id, title"
                     ]),
-                    'engines'    => Engines::find([
+                    'engines'    => $engines->getListByParams([
                         "columns" => "id, name"
                     ]),
-                ]))
+                ])
             ]);
         }
     }
@@ -185,19 +186,18 @@ class CategoriesController extends ControllerBase
 
             return $this->forward();
         }
+        $category = $this->getDI()->get('CategoriesService');
 
         // handling POST data
         if ($this->request->isPost()) {
 
-            $categoriesService = $this->getDI()->get('CategoriesService');
-
-            if($categoriesService->editCategory($params['id'], $this->request->getPost()) === true) {
+            if($category->update($params['id'], $this->request->getPost()) === true) {
                 $this->flashSession->success('The category was successfully updated!');
             }
             else {
 
                 // the store failed, the following message were produced
-                foreach($categoriesService->getErrors() as $message) {
+                foreach($category->getErrors() as $message) {
                     $this->flashSession->error((string)$message);
                 }
             }
@@ -208,19 +208,20 @@ class CategoriesController extends ControllerBase
         else {
             // add crumb to chain (name, link)
             $this->setBreadcrumbs()->add(self::NAME, $this->url->get(['for' => 'dashboard-controller', 'controller' => 'categories']))->add('Edit');
+            $engines = $this->getDI()->get('EngineService');
 
             // set variables output to view
             $this->view->setVars([
                 'title' => 'Edit',
-                'form' => (new Forms\CategoryForm(null, [
-                    'engines'    => Engines::find([
+                'form' => new Forms\CategoryForm(null, [
+                    'engines'    => $engines->getListByParams([
                         "columns" => "id, name"
                     ]),
-                    'categories'    => Categories::find([
+                    'categories'    => $category->read(null, [
                         "columns" => "id, title"
                     ]),
-                    'default' => Categories::findFirst($params['id'])
-                ]))
+                    'default' => $category->read($params['id'])
+                ])
             ]);
         }
     }
@@ -230,9 +231,9 @@ class CategoriesController extends ControllerBase
      */
     public function rebuildAction()
     {
-        $categoriesService = $this->getDI()->get('CategoriesService');
+        $categories = $this->getDI()->get('CategoriesService');
 
-        if($categoriesService->rebuildTree() === true) {
+        if($categories->rebuildTree() === true) {
 
             $this->flashSession->success('Categories rebuild success!');
         }

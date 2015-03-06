@@ -29,19 +29,19 @@ class Currency extends \Phalcon\Mvc\Model
      *
      * @var string
      */
-    protected $code;
+    public $code;
 
     /**
      *
      * @var string
      */
-    protected $name;
+    public $name;
 
     /**
      *
      * @var string
      */
-    protected $symbol;
+    public $symbol;
 
     /**
      * Initialize Model

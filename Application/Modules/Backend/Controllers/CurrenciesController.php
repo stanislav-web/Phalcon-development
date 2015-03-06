@@ -5,21 +5,21 @@ use Application\Modules\Backend\Forms;
 use Phalcon\Mvc\View;
 
 /**
- * Class EnginesController
+ * Class CurrenciesController
  *
  * @package    Application\Modules\Backend
  * @subpackage    Controllers
  * @since PHP >=5.4
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
- * @filesource /Application/Modules/Backend/Controllers/EnginesController.php
+ * @filesource /Application/Modules/Backend/Controllers/CurrenciesController.php
  */
-class EnginesController extends ControllerBase
+class CurrenciesController extends ControllerBase
 {
     /**
      * @const Basic virtual dir name
      */
-    const NAME = 'Engines';
+    const NAME = 'Currencies';
 
     /**
      * Initialize constructor
@@ -30,21 +30,20 @@ class EnginesController extends ControllerBase
     }
 
     /**
-     * Get list of engines action
+     * Get list of currencies action
      */
     public function indexAction() {
         $this->setBreadcrumbs()->add(self::NAME);
 
-        $engines = $this->getDI()->get('EngineService');
+        $currency = $this->getDI()->get('CurrencyService');
 
         $this->view->setVars([
-            'items' => $engines->read(),
-            'statuses' => $engines->getStatuses()
+            'items' => $currency->read(),
         ]);
     }
 
     /**
-     * Delete engine action
+     * Delete currency action
      */
     public function deleteAction()
     {
@@ -55,15 +54,15 @@ class EnginesController extends ControllerBase
             return $this->forward();
         }
 
-        $engine = $this->getDI()->get('EngineService');
+        $currency = $this->getDI()->get('CurrencyService');
 
-        if($engine->delete($params['id']) === true) {
-            $this->flashSession->success('The engine #'.$params['id'].' was successfully deleted');
+        if($currency->delete($params['id']) === true) {
+            $this->flashSession->success('The currency #'.$params['id'].' was successfully deleted');
         }
         else {
 
             // the store failed, the following message were produced
-            foreach($engine->getErrors() as $message) {
+            foreach($currency->getErrors() as $message) {
                 $this->flashSession->error((string)$message);
             }
         }
@@ -72,22 +71,22 @@ class EnginesController extends ControllerBase
     }
 
     /**
-     * Add engine action
+     * Add currency action
      */
     public function addAction() {
+
+        $currency = $this->getDI()->get('CurrencyService');
 
         // handling POST data
         if ($this->request->isPost()) {
 
-            $engine = $this->getDI()->get('EngineService');
-
-            if($engine->create($this->request->getPost()) === true) {
-                $this->flashSession->success('The engine was successfully added!');
+            if($currency->create($this->request->getPost()) === true) {
+                $this->flashSession->success('The currency was successfully added!');
             }
             else {
 
                 // the store failed, the following message were produced
-                foreach($engine->getErrors() as $message) {
+                foreach($currency->getErrors() as $message) {
                     $this->flashSession->error((string)$message);
                 }
             }
@@ -96,28 +95,23 @@ class EnginesController extends ControllerBase
         }
         else {
             // add crumb to chain (name, link)
-            $this->setBreadcrumbs()->add(self::NAME, $this->url->get(['for' => 'dashboard-controller', 'controller' => 'engines']))->add('Add');
-            $currency = $this->getDI()->get('CurrencyService');
+            $this->setBreadcrumbs()->add(self::NAME, $this->url->get(['for' => 'dashboard-controller', 'controller' => 'currencies']))->add('Add');
 
             // set variables output to view
             $this->view->setVars([
                 'title' => 'Add',
-                'form' => new Forms\EngineForm(null, [
-                    'currency' => $currency->read(null, [
-                        "columns" => "id, name"
-                    ]),
-                ])
+                'form' => new Forms\CurrencyForm()
             ]);
         }
     }
 
     /**
-     * Edit engine action
+     * Edit currency action
      */
     public function editAction() {
 
         $params = $this->dispatcher->getParams();
-        $engine = $this->getDI()->get('EngineService');
+        $currency = $this->getDI()->get('CurrencyService');
 
         if (isset($params['id']) === false) {
 
@@ -126,13 +120,13 @@ class EnginesController extends ControllerBase
 
         if ($this->request->isPost()) {
 
-            if($engine->update($params['id'], $this->request->getPost()) === true) {
-                $this->flashSession->success('The engine was successfully modified!');
+            if($currency->update($params['id'], $this->request->getPost()) === true) {
+                $this->flashSession->success('The currency was successfully modified!');
             }
             else {
 
                 // the store failed, the following message were produced
-                foreach($engine->getErrors() as $message) {
+                foreach($currency->getErrors() as $message) {
                     $this->flashSession->error((string)$message);
                 }
             }
@@ -142,19 +136,16 @@ class EnginesController extends ControllerBase
         else {
 
             // add crumb to chain (name, link)
-            $this->setBreadcrumbs()->add(self::NAME, $this->url->get(['for' => 'dashboard-controller', 'controller' => 'engines']))->add('Edit');
-            $currency = $this->getDI()->get('CurrencyService');
+            $this->setBreadcrumbs()->add(self::NAME, $this->url->get(['for' => 'dashboard-controller', 'controller' => 'currencies']))->add('Edit');
 
             // set variables output to view
             $this->view->setVars([
                 'title' => 'Edit',
-                'form' => new Forms\EngineForm(null, [
-                    'currency' => $currency->read(),
-                    'default' => $engine->read($params['id'])
+                'form' => new Forms\CurrencyForm(null, [
+                    'default' => $currency->read($params['id'])
                 ])
             ]);
         }
     }
-
 }
 

@@ -150,6 +150,15 @@ $navigation = [
                         ],
 
                         [
+                            'name' => 'Currencies',
+                            'url' => '/dashboard/currencies',
+                            'icon' => 'fa fa-usd',
+                            'action' => 'index',
+                            'controller' => 'currencies',
+                            'module' => 'Backend'
+                        ],
+
+                        [
                             'name' => 'Categories',
                             'url' => '/dashboard/categories',
                             'icon' => 'fa fa-bars',

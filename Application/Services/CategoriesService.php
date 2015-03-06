@@ -2,10 +2,11 @@
 namespace Application\Services;
 
 use \Phalcon\DI\InjectionAwareInterface;
+use \Phalcon\Db\Exception as DbException;
+use \Phalcon\Mvc\Model\Transaction\Failed as TransactionException;
 use Application\Models\Categories;
 use Application\Models\EnginesCategoriesRel;
-use Phalcon\Db\Exception as DbException;
-use Phalcon\Mvc\Model\Transaction\Failed as TransactionException;
+use Application\Aware\ModelCrudInterface;
 
 /**
  * Class CategoriesService. Actions above application categories
@@ -18,7 +19,7 @@ use Phalcon\Mvc\Model\Transaction\Failed as TransactionException;
  * @copyright Stanislav WEB
  * @filesource /Application/Services/CategoriesService.php
  */
-class CategoriesService implements InjectionAwareInterface {
+class CategoriesService implements InjectionAwareInterface, ModelCrudInterface {
 
     /**
      * Dependency injection container
@@ -54,12 +55,21 @@ class CategoriesService implements InjectionAwareInterface {
     }
 
     /**
-     * Add category
+     * Get instance of polymorphic object
+     *
+     * @return Categories
+     */
+    public function getInstance() {
+        return new Categories();
+    }
+
+    /**
+     * Create category
      *
      * @param array $data
      * @throws DbException
      */
-    public function addCategory(array $data) {
+    public function create(array $data) {
 
         // Request a transaction
         $transaction = $this->transactionManager()->get();
@@ -110,13 +120,27 @@ class CategoriesService implements InjectionAwareInterface {
     }
 
     /**
-     * Edit category
+     * Read category(ies)
+     *
+     * @param int $id
+     * @param array $data
+     * @return boolean
+     */
+    public function read($id = null, array $data = []) {
+
+        $result = (empty($id) === true) ? $this->getList($data) : $this->getOne($id);
+
+        return $result;
+    }
+
+    /**
+     * Update category
      *
      * @param int      $category_id
      * @param array $data
      * @throws DbException
      */
-    public function editCategory($category_id, array $data) {
+    public function update($category_id, array $data) {
 
         // Request a transaction
         $transaction = $this->transactionManager()->get();
@@ -177,6 +201,38 @@ class CategoriesService implements InjectionAwareInterface {
     }
 
     /**
+     * Delete category
+     *
+     * @param int      $category_id
+     * @return boolean
+     */
+    public function delete($category_id) {
+
+        $categoryModel = new Categories();
+
+        return $categoryModel->getReadConnection()
+            ->delete($categoryModel->getSource(), "id = ".(int)$category_id);
+    }
+
+    /**
+     * Set errors message
+     *
+     * @param mixed $errors
+     */
+    public function setErrors($errors) {
+        $this->errors = $errors;
+    }
+
+    /**
+     * Get error messages
+     *
+     * @return mixed $errors
+     */
+    public function getErrors() {
+        return $this->errors;
+    }
+
+    /**
      * Set category visible
      *
      * @param int      $category_id
@@ -205,35 +261,25 @@ class CategoriesService implements InjectionAwareInterface {
     }
 
     /**
-     * Delete category
+     * Get category by Id
      *
-     * @param int      $category_id
-     * @return boolean
+     * @param int $id
+     * @return \Phalcon\Mvc\Model
      */
-    public function deleteCategory($category_id) {
-
-        $categoryModel = new Categories();
-
-        return $categoryModel->getReadConnection()
-            ->delete($categoryModel->getSource(), "id = ".(int)$category_id);
+    public function getOne($id)
+    {
+        return Categories::findFirst($id);
     }
 
     /**
-     * Set errors message
+     * Get categories by condition
      *
-     * @param mixed $errors
+     * @param array $params
+     * @return \Phalcon\Mvc\Model
      */
-    private function setErrors($errors) {
-        $this->errors = $errors;
-    }
-
-    /**
-     * Get error messages
-     *
-     * @return mixed $errors
-     */
-    public function getErrors() {
-        return $this->errors;
+    public function getList(array $params = [])
+    {
+        return Categories::find($params);
     }
 
     /**

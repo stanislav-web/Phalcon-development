@@ -25,6 +25,7 @@ interface ModelCrudInterface {
     /**
      * Read record(s)
      *
+     * @param int $id
      * @param array $data
      * @return boolean
      */
