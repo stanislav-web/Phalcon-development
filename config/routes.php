@@ -50,3 +50,5 @@ $router->add('/dashboard/:controller/:action/:params', [
     'params' => 3,
     'namespace' => 'Application\Modules\Backend\Controllers',
 ])->setName('dashboard-full');
+
+$router->mount(new Application\Routes\Pages());

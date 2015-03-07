@@ -80,13 +80,17 @@ class PageService implements InjectionAwareInterface, ModelCrudInterface {
     /**
      * Read pages
      *
-     * @param int $id
-     * @param array $data
+     * @param int $id get by id
+     * @param array $data conditions
+     * @param int $limit conditions
      * @return mixed
      */
-    public function read($id = null, array $data = []) {
+    public function read($id = null, array $data = [], $limit = null) {
 
-        $result = (empty($id) === true) ? $this->getList($data) : $this->getOne($id);
+        $result = (empty($id) === true)
+            ? (is_null($limit) === true ? $this->getList($data)
+                : $this->getOne(null, $data))
+        :  $this->getOne($id);
 
         return $result;
     }
@@ -134,11 +138,14 @@ class PageService implements InjectionAwareInterface, ModelCrudInterface {
      * Get page by Id
      *
      * @param int $id
+     * @param array $params
      * @return \Phalcon\Mvc\Model
      */
-    public function getOne($id)
+    public function getOne($id = null, array $params = [])
     {
-        return Pages::findFirst($id);
+        return (is_null($id) === false)
+            ? Pages::findFirst($id)
+            : Pages::findFirst($params);
     }
 
     /**

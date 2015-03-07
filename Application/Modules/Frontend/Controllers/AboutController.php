@@ -2,7 +2,6 @@
 namespace Application\Modules\Frontend\Controllers;
 
 use Phalcon\Mvc\View;
-use Application\Models\Pages;
 
 /**
  * Class AboutController
@@ -17,79 +16,28 @@ use Application\Models\Pages;
 class AboutController extends ControllerBase
 {
     /**
-     * @var \Application\Models\Pages $page
+     * Resolve dynamic routes action
      */
-    private $page;
+    public function resolveAction()
+    {
+        $params = $this->router->getParams();
 
-    /**
-     * @var string $title
-     */
-    private $title;
+        $action   =   (isset($params[0]) === true) ? $params[0] : 'about';
 
-    /**
-     * Initialize internal router
-     */
-    public function initialize() {
+        $pageService = $this->getDI()->get('PageService');
 
-        $dispatch = $this->dispatcher->getActionName();
-
-        $action   =   ($dispatch === 'index') ? 'about' : $dispatch;
-
-        // get page from database
-        $this->page = Pages::findFirst([
+        $page = $pageService->read(null, [
             "alias = ?0",
             "bind" => [$action]
-        ]);
+        ], 1);
 
-        $this->title    =   ucfirst($this->page->getTitle()).' - '.$this->engine->getName();
-        $this->tag->setTitle($this->title);
-    }
+        $title    =   ucfirst($page->getTitle()).' - '.$this->engine->getName();
+        $this->tag->setTitle($title);
 
-    /**
-     * About action.
-     */
-    public function indexAction()
-    {
         // setup content
         $this->setReply([
-            'title'     =>  $this->title,
-            'content'   =>  $this->page->getContent(),
-        ]);
-    }
-
-    /**
-     * Help action.
-     */
-    public function helpAction()
-    {
-        // setup content
-        $this->setReply([
-            'title'     =>  $this->title,
-            'content'   =>  $this->page->getContent(),
-        ]);
-    }
-
-    /**
-     * Agreement action.
-     */
-    public function agreementAction()
-    {
-        // setup content
-        $this->setReply([
-            'title'     =>  $this->title,
-            'content'   =>  $this->page->getContent(),
-        ]);
-    }
-
-    /**
-     * Contacts action.
-     */
-    public function contactsAction()
-    {
-        // setup content
-        $this->setReply([
-            'title'     =>  $this->title,
-            'content'   =>  $this->page->getContent(),
+            'title'     =>  $title,
+            'content'   =>  $page->getContent(),
         ]);
     }
 }
