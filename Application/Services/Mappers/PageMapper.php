@@ -1,29 +1,30 @@
 <?php
-namespace Application\Services;
+namespace Application\Services\Mappers;
 
 use \Phalcon\DI\InjectionAwareInterface;
+use Phalcon\Db\Exception as DbException;
 use Application\Aware\ModelCrudInterface;
-use Application\Models\Currency;
+use Application\Models\Pages;
 
 /**
- * Class CurrencyService. Actions above application engine
+ * Class PageMapper. Actions above application pages
  *
- * @package Application
- * @subpackage Services
+ * @package Application\Services
+ * @subpackage Mappers
  * @since PHP >=5.4
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @copyright Stanislav WEB
- * @filesource /Application/Services/CurrencyService.php
+ * @filesource /Application/Services/Mappers/PageMapper.php
  */
-class CurrencyService implements InjectionAwareInterface, ModelCrudInterface {
+class PageMapper implements InjectionAwareInterface, ModelCrudInterface {
 
     /**
      * Dependency injection container
      *
      * @var \Phalcon\DiInterface $di;
      */
-    protected $di;
+    private $di;
 
     /**
      * Errors array
@@ -52,85 +53,67 @@ class CurrencyService implements InjectionAwareInterface, ModelCrudInterface {
     }
 
     /**
-     * Create currency
+     * Add page
      *
      * @param array $data
-     * return boolean
      */
     public function create(array $data) {
 
-        $currencyModel = new Currency();
+        $pageModel = new Pages();
 
         foreach($data as $field => $value) {
 
-            $currencyModel->{$field}   =   $value;
+            $pageModel->{$field}   =   $value;
         }
 
-        if($currencyModel->save() === true) {
+        if($pageModel->save() === true) {
 
             return true;
         }
         else {
 
-            $this->setErrors($currencyModel->getMessages());
+            $this->setErrors($pageModel->getMessages());
             return false;
         }
     }
 
     /**
-     * Read currency
+     * Read pages
      *
-     * @param int $id
-     * @param array $data
+     * @param int $id get by id
+     * @param array $data conditions
+     * @param int $limit conditions
      * @return mixed
      */
-    public function read($id = null, array $data = []) {
+    public function read($id = null, array $data = [], $limit = null) {
 
-        $result = (empty($id) === true) ? $this->getList($data) : $this->getOne($id);
+        $result = (empty($id) === true)
+            ? (is_null($limit) === true ? $this->getList($data)
+                : $this->getOne(null, $data))
+        :  $this->getOne($id);
 
         return $result;
     }
 
     /**
-     * Edit currency
+     * Edit page
      *
-     * @param int $id
+     * @param int      $id
      * @param array $data
+     * @throws DbException
      */
     public function update($id, array $data) {
 
-        $currencyModel = new Currency();
-
-        $currencyModel->setId($id);
-
-        foreach($data as $field => $value) {
-
-            $currencyModel->{$field}   =   $value;
-        }
-
-        if($currencyModel->save() === true) {
-
-            return true;
-        }
-        else {
-            $this->setErrors($currencyModel->getMessages());
-
-            return false;
-        }
     }
 
     /**
-     * Delete currency
+     * Delete page
      *
      * @param int      $id
      * @return boolean
      */
     public function delete($id) {
 
-        $currencyModel = new Currency();
-
-        return $currencyModel->getReadConnection()
-            ->delete($currencyModel->getSource(), "id = ".(int)$id);
     }
 
     /**
@@ -152,24 +135,27 @@ class CurrencyService implements InjectionAwareInterface, ModelCrudInterface {
     }
 
     /**
-     * Get currency by Id
+     * Get page by Id
      *
      * @param int $id
+     * @param array $params
      * @return \Phalcon\Mvc\Model
      */
-    public function getOne($id)
+    public function getOne($id = null, array $params = [])
     {
-        return Currency::findFirst($id);
+        return (is_null($id) === false)
+            ? Pages::findFirst($id)
+            : Pages::findFirst($params);
     }
 
     /**
-     * Get currencies by condition
+     * Get pages by condition
      *
      * @param array $params
      * @return \Phalcon\Mvc\Model
      */
     public function getList(array $params = [])
     {
-        return Currency::find($params);
+        return Pages::find($params);
     }
 }

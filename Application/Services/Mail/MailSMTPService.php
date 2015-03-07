@@ -1,5 +1,5 @@
 <?php
-namespace Application\Services;
+namespace Application\Services\Mail;
 
 use \Phalcon\DI\InjectionAwareInterface;
 use \Phalcon\Mailer\Manager;
@@ -7,13 +7,13 @@ use \Phalcon\Mailer\Manager;
 /**
  * Class MailSMTPService. SMTP Mailer service under the Swift
  *
- * @package Application
- * @subpackage Services
+ * @package Application\Services
+ * @subpackage Mail
  * @since PHP >=5.4
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @copyright Stanislav WEB
- * @filesource /Application/Services/MailSMTPService.php
+ * @filesource /Application/Services/Mail/MailSMTPService.php
  */
 class MailSMTPService implements InjectionAwareInterface {
 
@@ -98,7 +98,7 @@ class MailSMTPService implements InjectionAwareInterface {
      *
      * @param MailSMTPExceptions $plugin
      */
-    public function registerExceptionsHandler(\Application\Services\MailSMTPExceptions $plugin) {
+    public function registerExceptionsHandler(\Application\Services\Mail\MailSMTPExceptions $plugin) {
         $this->configInstance->getSwift()->registerPlugin($plugin);
     }
 
@@ -106,11 +106,9 @@ class MailSMTPService implements InjectionAwareInterface {
      * Simply mail logger
      *
      * @param string $message
+     * @param int $level
      */
     public function log($message, $level) {
-
-        if ($this->getDi()->has('LogService') === true) {
-            $this->getDi()->get('LogService')->save($message, $level);
-        }
+        $this->getDi()->get('LogService')->save($message, $level);
     }
 }

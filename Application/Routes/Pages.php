@@ -3,6 +3,7 @@
 namespace Application\Routes;
 
 use \Phalcon\Mvc\Router\Group;
+
 /**
  * Pages. Static pages route component
  *
@@ -29,11 +30,11 @@ class Pages extends Group {
         ]);
 
         // Like a start prefix
-        $this->setPrefix('/about');
+        $this->setPrefix('/page');
 
         // Add route
         $this->add('/:params', array(
-            'controller' => 'about',
+            'controller' => 'page',
             'action' => 'resolve',
             'params' => 1
         ));

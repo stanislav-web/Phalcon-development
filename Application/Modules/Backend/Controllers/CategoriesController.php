@@ -38,9 +38,9 @@ class CategoriesController extends ControllerBase
 
         if ($this->request->isPost()) {
 
-            $categories = $this->getDI()->get('CategoriesService');
+            $category = $this->getDI()->get('CategoryMapper');
 
-            $dataTable = $this->getDI()->get('DataService', [$categories->getInstance()])->hydrate();
+            $dataTable = $this->getDI()->get('DataService', [$category->getInstance()])->hydrate();
             $dataTable->jsonFromObject();
 
             return;
@@ -59,7 +59,7 @@ class CategoriesController extends ControllerBase
             return $this->forward();
         }
 
-        $category = $this->getDI()->get('CategoriesService');
+        $category = $this->getDI()->get('CategoryMapper');
 
         if($category->delete($params['id']) === true) {
             $this->flashSession->success('The category #' . $params['id'] . ' was successfully deleted');
@@ -88,7 +88,7 @@ class CategoriesController extends ControllerBase
             return $this->forward();
         }
 
-        $category = $this->getDI()->get('CategoriesService');
+        $category = $this->getDI()->get('CategoryMapper');
 
         if($category->setVisible($params['id']) === true) {
             $this->flashSession->success('The category #'.$params['id'].' became visible');
@@ -116,7 +116,7 @@ class CategoriesController extends ControllerBase
             return $this->forward();
         }
 
-        $category = $this->getDI()->get('CategoriesService');
+        $category = $this->getDI()->get('CategoryMapper');
 
         if($category->setInvisible($params['id']) === true) {
             $this->flashSession->success('The category #'.$params['id'].' became invisible');
@@ -137,7 +137,7 @@ class CategoriesController extends ControllerBase
      */
     public function addAction() {
 
-        $category = $this->getDI()->get('CategoriesService');
+        $category = $this->getDI()->get('CategoryMapper');
 
         // handling POST data
         if ($this->request->isPost()) {
@@ -158,7 +158,7 @@ class CategoriesController extends ControllerBase
         else {
             // add crumb to chain (name, link)
             $this->setBreadcrumbs()->add(self::NAME, $this->url->get(['for' => 'dashboard-controller', 'controller' => 'categories']))->add('Add');
-            $engines = $this->getDI()->get('EngineService');
+            $engine = $this->getDI()->get('EngineMapper');
 
             // set variables output to view
             $this->view->setVars([
@@ -167,7 +167,7 @@ class CategoriesController extends ControllerBase
                     'categories' => $category->read(null, [
                         "columns" => "id, title"
                     ]),
-                    'engines'    => $engines->getListByParams([
+                    'engines'    => $engine->getListByParams([
                         "columns" => "id, name"
                     ]),
                 ])
@@ -186,7 +186,7 @@ class CategoriesController extends ControllerBase
 
             return $this->forward();
         }
-        $category = $this->getDI()->get('CategoriesService');
+        $category = $this->getDI()->get('CategoryMapper');
 
         // handling POST data
         if ($this->request->isPost()) {
@@ -208,13 +208,13 @@ class CategoriesController extends ControllerBase
         else {
             // add crumb to chain (name, link)
             $this->setBreadcrumbs()->add(self::NAME, $this->url->get(['for' => 'dashboard-controller', 'controller' => 'categories']))->add('Edit');
-            $engines = $this->getDI()->get('EngineService');
+            $engine = $this->getDI()->get('EngineMapper');
 
             // set variables output to view
             $this->view->setVars([
                 'title' => 'Edit',
                 'form' => new Forms\CategoryForm(null, [
-                    'engines'    => $engines->getListByParams([
+                    'engines'    => $engine->getListByParams([
                         "columns" => "id, name"
                     ]),
                     'categories'    => $category->read(null, [
@@ -231,9 +231,9 @@ class CategoriesController extends ControllerBase
      */
     public function rebuildAction()
     {
-        $categories = $this->getDI()->get('CategoriesService');
+        $category = $this->getDI()->get('CategoryMapper');
 
-        if($categories->rebuildTree() === true) {
+        if($category->rebuildTree() === true) {
 
             $this->flashSession->success('Categories rebuild success!');
         }

@@ -1,16 +1,18 @@
 <?php
-namespace Application\Services;
+namespace Application\Services\Mail;
+
+use \Phalcon\Exception;
 
 /**
  * Class MailSMTPExceptions. SMTP Mailer exception handler
  *
- * @package Application
- * @subpackage Services
+ * @package Application\Services
+ * @subpackage Mail
  * @since PHP >=5.4
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @copyright Stanislav WEB
- * @filesource /Application/Services/MailSMTPExceptions.php
+ * @filesource /Application/Services/Mail/MailSMTPExceptions.php
  */
 class MailSMTPExceptions
     implements \Swift_Events_TransportExceptionListener {
@@ -59,7 +61,7 @@ class MailSMTPExceptions
         }
         catch(\Swift_TransportException $e) {
 
-            throw new \Phalcon\Exception($e->getMessage(), $e->getCode());
+            throw new Exception($e->getMessage(), $e->getCode());
         }
     }
 }

@@ -35,7 +35,7 @@ class CurrenciesController extends ControllerBase
     public function indexAction() {
         $this->setBreadcrumbs()->add(self::NAME);
 
-        $currency = $this->getDI()->get('CurrencyService');
+        $currency = $this->getDI()->get('CurrencyMapper');
 
         $this->view->setVars([
             'items' => $currency->read(),
@@ -54,7 +54,7 @@ class CurrenciesController extends ControllerBase
             return $this->forward();
         }
 
-        $currency = $this->getDI()->get('CurrencyService');
+        $currency = $this->getDI()->get('CurrencyMapper');
 
         if($currency->delete($params['id']) === true) {
             $this->flashSession->success('The currency #'.$params['id'].' was successfully deleted');
@@ -75,7 +75,7 @@ class CurrenciesController extends ControllerBase
      */
     public function addAction() {
 
-        $currency = $this->getDI()->get('CurrencyService');
+        $currency = $this->getDI()->get('CurrencyMapper');
 
         // handling POST data
         if ($this->request->isPost()) {
@@ -111,7 +111,7 @@ class CurrenciesController extends ControllerBase
     public function editAction() {
 
         $params = $this->dispatcher->getParams();
-        $currency = $this->getDI()->get('CurrencyService');
+        $currency = $this->getDI()->get('CurrencyMapper');
 
         if (isset($params['id']) === false) {
 

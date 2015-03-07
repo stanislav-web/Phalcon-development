@@ -11,26 +11,26 @@ $navigation =   [
         ],
         [
             'title'     =>  'Agreement',
-            'url'       =>  '/about/agreement',
+            'url'       =>  '/page/agreement',
             'translate' =>  'AGREEMENT',
             'isAuthenticated'    =>  'false'
         ],
         [
             'title'     =>  'Help',
-            'url'       =>  '/about/help',
+            'url'       =>  '/page/help',
             'translate' =>  'HELP',
             'isAuthenticated'    =>  'false'
 
         ],
         [
             'title'     =>  'Contacts',
-            'url'       =>  '/about/contacts',
+            'url'       =>  '/page/contacts',
             'translate' =>  'CONTACTS',
             'isAuthenticated'    =>  'false'
         ],
         [
             'title'     =>  'About',
-            'url'       =>  '/about',
+            'url'       =>  '/page/about',
             'translate' =>  'ABOUT',
             'isAuthenticated'    =>  'false'
 

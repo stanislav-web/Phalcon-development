@@ -36,10 +36,10 @@ class PagesController extends ControllerBase
     public function indexAction() {
         $this->setBreadcrumbs()->add(self::NAME);
 
-        $pages = $this->getDI()->get('PageService');
+        $page = $this->getDI()->get('PageMapper');
 
         $this->view->setVars([
-            'items' => $pages->read()
+            'items' => $page->read()
         ]);
     }
 
@@ -51,7 +51,7 @@ class PagesController extends ControllerBase
         // handling POST data
         if ($this->request->isPost()) {
 
-            $page = $this->getDI()->get('PageService');
+            $page = $this->getDI()->get('PageMapper');
 
             if($page->create($this->request->getPost()) === true) {
                 $this->flashSession->success('The page was successfully added!');

@@ -1,5 +1,5 @@
 <?php
-namespace Application\Services;
+namespace Application\Services\Mappers;
 
 use \Phalcon\DI\InjectionAwareInterface;
 use \Phalcon\Mvc\Model\Exception;
@@ -9,17 +9,17 @@ use Application\Models\Engines;
 use Application\Models\Currency;
 
 /**
- * Class EngineService. Actions above application engine
+ * Class EngineMapper. Actions above application engine
  *
- * @package Application
- * @subpackage Services
+ * @package Application\Services
+ * @subpackage Mappers
  * @since PHP >=5.4
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @copyright Stanislav WEB
- * @filesource /Application/Services/EngineService.php
+ * @filesource /Application/Services/Mappers/EngineMapper.php
  */
-class EngineService implements InjectionAwareInterface, ModelCrudInterface {
+class EngineMapper implements InjectionAwareInterface, ModelCrudInterface {
 
     /**
      * Dependency injection container

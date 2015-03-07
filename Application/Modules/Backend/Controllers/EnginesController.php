@@ -35,11 +35,11 @@ class EnginesController extends ControllerBase
     public function indexAction() {
         $this->setBreadcrumbs()->add(self::NAME);
 
-        $engines = $this->getDI()->get('EngineService');
+        $engine = $this->getDI()->get('EngineMapper');
 
         $this->view->setVars([
-            'items' => $engines->read(),
-            'statuses' => $engines->getStatuses()
+            'items' => $engine->read(),
+            'statuses' => $engine->getStatuses()
         ]);
     }
 
@@ -55,7 +55,7 @@ class EnginesController extends ControllerBase
             return $this->forward();
         }
 
-        $engine = $this->getDI()->get('EngineService');
+        $engine = $this->getDI()->get('EngineMapper');
 
         if($engine->delete($params['id']) === true) {
             $this->flashSession->success('The engine #'.$params['id'].' was successfully deleted');
@@ -79,7 +79,7 @@ class EnginesController extends ControllerBase
         // handling POST data
         if ($this->request->isPost()) {
 
-            $engine = $this->getDI()->get('EngineService');
+            $engine = $this->getDI()->get('EngineMapper');
 
             if($engine->create($this->request->getPost()) === true) {
                 $this->flashSession->success('The engine was successfully added!');
@@ -97,7 +97,7 @@ class EnginesController extends ControllerBase
         else {
             // add crumb to chain (name, link)
             $this->setBreadcrumbs()->add(self::NAME, $this->url->get(['for' => 'dashboard-controller', 'controller' => 'engines']))->add('Add');
-            $currency = $this->getDI()->get('CurrencyService');
+            $currency = $this->getDI()->get('CurrencyMapper');
 
             // set variables output to view
             $this->view->setVars([
@@ -117,7 +117,7 @@ class EnginesController extends ControllerBase
     public function editAction() {
 
         $params = $this->dispatcher->getParams();
-        $engine = $this->getDI()->get('EngineService');
+        $engine = $this->getDI()->get('EngineMapper');
 
         if (isset($params['id']) === false) {
 
@@ -143,7 +143,7 @@ class EnginesController extends ControllerBase
 
             // add crumb to chain (name, link)
             $this->setBreadcrumbs()->add(self::NAME, $this->url->get(['for' => 'dashboard-controller', 'controller' => 'engines']))->add('Edit');
-            $currency = $this->getDI()->get('CurrencyService');
+            $currency = $this->getDI()->get('CurrencyMapper');
 
             // set variables output to view
             $this->view->setVars([

@@ -8,10 +8,7 @@
 
         return {
             HOME:       '/',
-            CONTACTS:   '/about/contacts',
-            HELP:       '/about/help',
-            AGREEMENT:  '/about/agreement',
-            ABOUT:      '/about',
+            PAGES:      '/page/:page',
             NOT_FOUND:  '/error/notfound',
             ACCOUNT:    '/account',
             VERIFY :    '/sign/verify',
@@ -19,17 +16,17 @@
             REGISTER :  '/sign/register',
             RESTORE :   '/sign/restore',
             LOGOUT :    '/sign/logout'
-        }
+        };
     })());
 
     app.constant('TEMPLATE', (function () {
 
         return {
-            ARTICLE:    'assets/frontend/phl/app/common/templates/index.html',
+            PAGES:    'assets/frontend/phl/app/common/templates/index.html',
             ERROR:      'assets/frontend/phl/app/common/templates/error.html',
             SIGN:       'assets/frontend/phl/app/authenticate/templates/sign.html',
             ACCOUNT:    'assets/frontend/phl/app/user/templates/account.html'
-        }
+        };
     })());
 
     // configure application's routes
@@ -40,26 +37,14 @@
         $locationProvider.html5Mode(true);
 
         $routeProvider.when(ROUTES.HOME, {
-            templateUrl: TEMPLATE.ARTICLE,
+            templateUrl: TEMPLATE.PAGES,
             controller: "IndexCtrl"
         })
-        .when(ROUTES.CONTACTS, {
-            templateUrl: TEMPLATE.ARTICLE,
+        .when(ROUTES.PAGES, {
+            templateUrl: TEMPLATE.PAGES,
             controller: "IndexCtrl"
         })
-        .when(ROUTES.HELP, {
-            templateUrl: TEMPLATE.ARTICLE,
-            controller: "IndexCtrl"
-        })
-        .when(ROUTES.AGREEMENT, {
-            templateUrl: TEMPLATE.ARTICLE,
-            controller: "IndexCtrl"
-        })
-        .when(ROUTES.ABOUT, {
-            templateUrl: TEMPLATE.ARTICLE,
-            controller: "IndexCtrl"
-        })
-        $routeProvider.when(ROUTES.LOGOUT, {
+        .when(ROUTES.LOGOUT, {
             controller: "IndexCtrl",
             redirectTo: ROUTES.LOGOUT
         })

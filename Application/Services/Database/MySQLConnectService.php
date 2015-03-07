@@ -1,19 +1,18 @@
 <?php
-namespace Application\Services;
-use Phalcon\Db\Adapter\Pdo\Mysql as AdapterGateway;
-use Phalcon\DI\InjectionAwareInterface;
-use Phalcon\Events\Manager as EventsManager;
+namespace Application\Services\Database;
+use \Phalcon\Db\Adapter\Pdo\Mysql as AdapterGateway;
+use \Phalcon\Db\Exception as DbException;
 
 /**
  * Class MySQLConnectService. Connection to Database service
  *
- * @package Application
- * @subpackage Services
+ * @package Application\Services
+ * @subpackage Database
  * @since PHP >=5.4
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @copyright Stanislav WEB
- * @filesource /Application/Services/MySQLConnectService.php
+ * @filesource /Application/Services/Database/MySQLConnectService.php
  */
 class MySQLConnectService extends AdapterGateway {
 
@@ -35,13 +34,13 @@ class MySQLConnectService extends AdapterGateway {
                 "options" => [
                     \PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES '{$dbConfig['charset']}'",
                     \PDO::ATTR_CASE => \PDO::CASE_LOWER,
-                    \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
+                    \PDO::ATTR_ERRMODE => $dbConfig['debug'],
                     \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC
                 ]
             ]);
         }
         catch(\PDOException $e) {
-            throw new \Phalcon\Db\Exception($e->getMessage());
+            throw new DbException($e->getMessage());
         }
     }
 }

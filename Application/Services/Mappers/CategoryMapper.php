@@ -1,5 +1,5 @@
 <?php
-namespace Application\Services;
+namespace Application\Services\Mappers;
 
 use \Phalcon\DI\InjectionAwareInterface;
 use \Phalcon\Db\Exception as DbException;
@@ -9,17 +9,17 @@ use Application\Models\EnginesCategoriesRel;
 use Application\Aware\ModelCrudInterface;
 
 /**
- * Class CategoriesService. Actions above application categories
+ * Class CategoryMapper. Actions above application categories
  *
- * @package Application
- * @subpackage Services
+ * @package Application\Services
+ * @subpackage Mappers
  * @since PHP >=5.4
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @copyright Stanislav WEB
- * @filesource /Application/Services/CategoriesService.php
+ * @filesource /Application/Services/Mappers/CategoryMapper.php
  */
-class CategoriesService implements InjectionAwareInterface, ModelCrudInterface {
+class CategoryMapper implements InjectionAwareInterface, ModelCrudInterface {
 
     /**
      * Dependency injection container

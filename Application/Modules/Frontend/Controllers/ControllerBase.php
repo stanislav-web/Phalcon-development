@@ -57,7 +57,7 @@ class ControllerBase extends Controller
     public function beforeExecuteRoute()
     {
         // define engine
-        $this->engine = $this->di->get("EngineService")->define($this->request->getHttpHost());
+        $this->engine = $this->di->get("EngineMapper")->define($this->request->getHttpHost());
 
         if($this->request->isAjax() === false) {
 

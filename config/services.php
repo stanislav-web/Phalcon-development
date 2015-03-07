@@ -21,7 +21,7 @@ $di->setShared('config', function () use ($config) {
 
 // Database connection is created based in the parameters defined in the configuration file
 $di->setShared('db', function () use ($config) {
-    return new \Application\Services\MySQLConnectService($config['database']);
+    return new \Application\Services\Database\MySQLConnectService($config['database']);
 });
 
 // Set routes
@@ -63,8 +63,8 @@ $di->set('crypt', function () use ($config) {
 
 // Define mailer service
 $di->setShared('MailService', function () use ($di, $config) {
-    $mailer = new Application\Services\MailSMTPService($config['mail']);
-    $mailer->registerExceptionsHandler(new Application\Services\MailSMTPExceptions($di));
+    $mailer = new Application\Services\Mail\MailSMTPService($config['mail']);
+    $mailer->registerExceptionsHandler(new Application\Services\Mail\MailSMTPExceptions($di));
 
     return $mailer;
 });
@@ -86,8 +86,6 @@ $di->setShared('LogDbService', function() use ($config) {
 
 });
 
-// Define engine service
-$di->setShared('EngineService','Application\Services\EngineService');
 
 // Define helper's service
 $di->setShared('tag', '\Application\Services\HelpersService');
@@ -98,11 +96,16 @@ $di->setShared('ErrorHttpService', 'Application\Services\ErrorHttpService');
 // Define auth service
 $di->setShared('AuthService','Application\Services\AuthService');
 
-// Define categories service
-$di->setShared('CategoriesService','Application\Services\CategoriesService');
+// MAPPERS
 
-// Define currencies service
-$di->setShared('CurrencyService','Application\Services\CurrencyService');
+// Define category mapper
+$di->setShared('CategoryMapper','Application\Services\Mappers\CategoryMapper');
 
-// Define page service
-$di->setShared('PageService','Application\Services\PageService');
+// Define currency mapper
+$di->setShared('CurrencyMapper','Application\Services\Mappers\CurrencyMapper');
+
+// Define page mapper
+$di->setShared('PageMapper','Application\Services\Mappers\PageMapper');
+
+// Define engine mapper
+$di->setShared('EngineMapper','Application\Services\Mappers\EngineMapper');
