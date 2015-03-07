@@ -1,9 +1,8 @@
 <?php
 namespace Application\Modules\Backend\Controllers;
 
-use Application\Models\UserRoles;
 use Phalcon\Mvc\Controller;
-use Application\Services\AuthService;
+
 /**
  * Class AuthController
  *
@@ -47,7 +46,7 @@ class AuthController extends Controller
             $isAuthenticate = $this->auth->authenticate($this->request->getPost());
 
             if ($isAuthenticate === true
-                && $this->auth->hasRole(UserRoles::ADMIN) === true) {
+                && $this->auth->hasRole(\Application\Models\UserRoles::ADMIN) === true) {
 
                 // send reply to client
                 $referrer = parse_url($this->request->getHTTPReferer(), PHP_URL_PATH);
