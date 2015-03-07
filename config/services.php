@@ -103,3 +103,6 @@ $di->setShared('CategoriesService','Application\Services\CategoriesService');
 
 // Define currencies service
 $di->setShared('CurrencyService','Application\Services\CurrencyService');
+
+// Define page service
+$di->setShared('PageService','Application\Services\PageService');

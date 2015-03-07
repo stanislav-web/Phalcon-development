@@ -36,10 +36,10 @@ class PagesController extends ControllerBase
     public function indexAction() {
         $this->setBreadcrumbs()->add(self::NAME);
 
-        $pages = Pages::find();
+        $pages = $this->getDI()->get('PageService');
 
         $this->view->setVars([
-            'items' => $pages
+            'items' => $pages->read()
         ]);
     }
 
@@ -51,36 +51,26 @@ class PagesController extends ControllerBase
         // handling POST data
         if ($this->request->isPost()) {
 
-            $page =
-                (new Pages())
-                    ->setTitle($this->request->getPost('title'))
-                    ->setContent($this->request->getPost('content'), null, '')
-                    ->setAlias($this->request->getPost('alias'));
+            $page = $this->getDI()->get('PageService');
 
-            if($page->save() === true) {
-
+            if($page->create($this->request->getPost()) === true) {
                 $this->flashSession->success('The page was successfully added!');
-                // forward does not working correctly with this  action type
-                // by the way this handle need to remove in another action (
-                return $this->forward();
             }
             else {
 
                 // the store failed, the following message were produced
-                foreach ($page->getMessages() as $message)
+                foreach($page->getErrors() as $message) {
                     $this->flashSession->error((string)$message);
-
-                // forward does not working correctly with this  action type
-                // by the way this handle need to remove in another action (
-                return $this->forward();
+                }
             }
+
+            return $this->forward();
         }
         else {
             // add crumb to chain (name, link)
             $this->setBreadcrumbs()->add(self::NAME, $this->url->get(['for' => 'dashboard-controller', 'controller' => 'pages']))->add('Add');
 
             // set variables output to view
-
             $this->view->setVars([
                 'title' => 'Add',
                 'form' => (new Forms\PageForm(null, [

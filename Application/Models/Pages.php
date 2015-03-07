@@ -29,19 +29,19 @@ class Pages extends \Phalcon\Mvc\Model
      *
      * @var string
      */
-    protected $title;
+    public $title;
 
     /**
      *
      * @var string
      */
-    protected $content;
+    public $content;
 
     /**
      *
      * @var string
      */
-    protected $alias;
+    public $alias;
 
     /**
      *
