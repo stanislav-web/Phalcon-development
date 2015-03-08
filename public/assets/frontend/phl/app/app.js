@@ -96,7 +96,7 @@ var splashModule;
         $rootScope.$on("$locationChangeSuccess", function(event, next, current) {
 
             if(!Authentication.isLoggedIn()) {
-                $http.defaults.headers.common['X-Token'] = $cookies.token;
+                $http.defaults.headers.common['X-Token'] = Session.get('token');
             }
         });
 

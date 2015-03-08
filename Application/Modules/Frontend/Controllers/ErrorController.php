@@ -48,7 +48,7 @@ class ErrorController extends \Phalcon\Mvc\Controller
         $this->tag->setTitle($this->http->notFoundErrorMessage());
 
         // The response is already populated with a 404 Not Found header.
-        $this->http->setStatus(404, $this->http->notFoundErrorMessage());
+        $this->http->setStatus(200, $this->http->notFoundErrorMessage());
         $this->logger->save('404 Page detected: ' .$this->request->getServer('REQUEST_URI').' from IP: '.$this->request->getClientAddress(), \Phalcon\Logger::ERROR);
 
         // return error as 404
@@ -80,7 +80,7 @@ class ErrorController extends \Phalcon\Mvc\Controller
 
         $this->tag->setTitle($this->http->internalServerErrorMessage());
 
-        $this->http->setStatus(500, $this->http->internalServerErrorMessage());
+        $this->http->setStatus(200, $this->http->internalServerErrorMessage());
 
         // return error as 500
 

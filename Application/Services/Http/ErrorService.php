@@ -18,7 +18,7 @@ class ErrorService implements InjectionAwareInterface {
 
     const NOT_FOUND_CODE                =   404;
     const UNCAUGHT_EXCEPTION_CODE       =   500;
-    const NOT_FOUND_MESSAGE             =   'Page Not Found';
+    const NOT_FOUND_MESSAGE             =   '404 Page Not Found';
     const UNCAUGHT_EXCEPTION_MESSAGE    =   'Internal Server Error';
 
     /**

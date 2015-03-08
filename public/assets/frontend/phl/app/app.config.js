@@ -10,6 +10,7 @@
             HOME:       '/',
             PAGES:      '/page/:page',
             NOT_FOUND:  '/error/notfound',
+            SERVER_ERROR:  '/error/uncaughtexception',
             ACCOUNT:    '/account',
             VERIFY :    '/sign/verify',
             LOGIN :     '/sign/login',
@@ -35,7 +36,6 @@
         }
     ]);
 
-
     // configure application's routes
 
     app.config(['$routeProvider', '$locationProvider', 'ROUTES', 'TEMPLATE', function($routeProvider, $locationProvider, ROUTES, TEMPLATE) {
@@ -54,10 +54,6 @@
         .when(ROUTES.LOGOUT, {
             controller: "IndexCtrl",
             redirectTo: ROUTES.LOGOUT
-        })
-        .when(ROUTES.NOT_FOUND, {
-            templateUrl: TEMPLATE.ERROR,
-            controller: 'IndexCtrl'
         })
         .when(ROUTES.ACCOUNT, {
             templateUrl: TEMPLATE.ACCOUNT,
@@ -83,7 +79,11 @@
                     }
                 }
             })
-        .otherwise({ redirectTo: ROUTES.HOME });
+        .otherwise({
+                templateUrl: TEMPLATE.ERROR,
+                controller: 'IndexCtrl'
+            }
+        );
     }]);
 
     // configure preload transliteration

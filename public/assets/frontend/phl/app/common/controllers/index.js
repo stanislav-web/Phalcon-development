@@ -11,8 +11,8 @@
      * @dependencies $location url service
      * @dependencies $sce sanitize HTML service
      */
-    app.controller('IndexCtrl', ['$scope', '$rootScope', '$http', '$location', '$sce', 'ROUTES',
-        function($scope, $rootScope, $http, $location, $sce, ROUTES) {
+    app.controller('IndexCtrl', ['$scope', '$rootScope', '$http', '$location', '$sce',
+        function($scope, $rootScope, $http, $location, $sce) {
 
             /**
              *	Perform a GET request on the API and pass the slug to it using $location.url()
@@ -28,17 +28,8 @@
 
                     // Inject the basic elements into the rootScope
                     $rootScope.title = data.title;
+                    $rootScope.content = data.content;
                     $rootScope.topmenu = data.topmenu;
-
-                })
-                .error(function(data) {
-
-                    $rootScope.title    = data.title;
-                    $rootScope.content  = data.content;
-
-                    // redirect to not found page
-                    $location.url(ROUTES.NOT_FOUND);
-
                 });
         }]);
 
