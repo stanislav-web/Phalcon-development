@@ -6,7 +6,7 @@ use Application\Aware\ModelCrudInterface;
 use Application\Models\Currency;
 
 /**
- * Class CurrencyMapper. Actions above application engine
+ * Class CurrencyMapper. Actions above application currencies
  *
  * @package Application\Services
  * @subpackage Mappers

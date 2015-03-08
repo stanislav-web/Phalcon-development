@@ -1,16 +1,6 @@
 # list of scanned file extensions (e.g. php5, phpt...)
 extensions: [php]
 
-# directories and files matching this file mask will not be parsed
-exclude:
-    - api/
-    - apps/config
-    - backup/
-    - build/
-    - logs/
-    - public/
-    - vendor/
-
 # character set of source files; if you use only one across your files, we recommend you name it
 charset: [UTF-8]
 
@@ -18,7 +8,7 @@ charset: [UTF-8]
 main: ApiGen
 
 # title of generated documentation
-title: Phalcon Dashboard API
+title: Phalcon Development API
 
 # base url used for sitemap (useful for public doc)
 baseUrl: http://phalcon.local
@@ -49,7 +39,7 @@ download: true
 
 #setup source
 source:
-    - apps
+    - Application
 
 # The ultimate directory (you can see the result, the relative path from the directory run apigen)
 destination: ./api

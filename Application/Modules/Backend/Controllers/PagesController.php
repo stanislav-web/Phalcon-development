@@ -86,44 +86,27 @@ class PagesController extends ControllerBase
     public function editAction() {
 
         $params = $this->dispatcher->getParams();
+        $page = $this->getDI()->get('PageMapper');
 
         if (isset($params['id']) === false) {
 
             return $this->forward();
         }
 
-        $page = Pages::findFirst($params['id']);
-
         if ($this->request->isPost()) {
 
-            $page =
-                (new Pages())
-                    ->setId($params['id'])
-                    ->setTitle($this->request->getPost('title'))
-                    ->setContent($this->request->getPost('content'), null, '')
-                    ->setAlias($this->request->getPost('alias'));
-
-            if($page->update() === true) {
-
+            if($page->update($params['id'], $this->request->getPost()) === true) {
                 $this->flashSession->success('The page was successfully modified!');
-                // forward does not working correctly with this  action type
-                // by the way this handle need to remove in another action (
-                return
-                    $this->response->redirect([
-                        'for' => 'dashboard-full',
-                        'controller' => $this->router->getControllerName(),
-                    ]);
             }
             else {
 
                 // the store failed, the following message were produced
-                foreach ($page->getMessages() as $message)
+                foreach($page->getErrors() as $message) {
                     $this->flashSession->error((string)$message);
-
-                // forward does not working correctly with this  action type
-                // by the way this handle need to remove in another action (
-                return $this->forward();
+                }
             }
+
+            return $this->forward();
         }
         else {
 
@@ -134,7 +117,7 @@ class PagesController extends ControllerBase
             $this->view->setVars([
                 'title' => 'Edit',
                 'form' => (new Forms\PageForm(null, [
-                    'default' => $page
+                    'default' => $page->read($params['id']),
                 ]))
             ]);
         }
@@ -152,20 +135,19 @@ class PagesController extends ControllerBase
             return $this->forward();
         }
 
-        $pages = (new Pages())->setId($params['id']);
+        $page = $this->getDI()->get('PageMapper');
 
-        if ($pages->delete() === false) {
+        if($page->delete($params['id']) === true) {
+            $this->flashSession->success('The page #'.$params['id'].' was successfully deleted');
+        }
+        else {
 
             // the store failed, the following message were produced
-            foreach ($pages->getMessages() as $message) {
+            foreach($page->getErrors() as $message) {
                 $this->flashSession->error((string)$message);
             }
-        } else {
-            $this->flashSession->success('The page was successfully deleted!');
         }
 
-        // forward does not working correctly with this  action type
-        // by the way this handle need to remove in another action (
         return $this->forward();
 
     }

@@ -104,6 +104,24 @@ class PageMapper implements InjectionAwareInterface, ModelCrudInterface {
      */
     public function update($id, array $data) {
 
+        $pageModel = new Pages();
+
+        $pageModel->setId($id);
+
+        foreach($data as $field => $value) {
+
+            $pageModel->{$field}   =   $value;
+        }
+
+        if($pageModel->save() === true) {
+
+            return true;
+        }
+        else {
+            $this->setErrors($pageModel->getMessages());
+
+            return false;
+        }
     }
 
     /**
@@ -114,6 +132,10 @@ class PageMapper implements InjectionAwareInterface, ModelCrudInterface {
      */
     public function delete($id) {
 
+        $pageModel = new Pages();
+
+        return $pageModel->getReadConnection()
+            ->delete($pageModel->getSource(), "id = ".(int)$id);
     }
 
     /**
