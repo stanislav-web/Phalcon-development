@@ -19,11 +19,6 @@ $di->setShared('config', function () use ($config) {
     return $configBase;
 });
 
-// Database connection is created based in the parameters defined in the configuration file
-$di->setShared('db', function () use ($config) {
-    return new \Application\Services\Database\MySQLConnectService($config['database']);
-});
-
 // Set routes
 $di->setShared('router', $router);
 
@@ -61,23 +56,6 @@ $di->set('crypt', function () use ($config) {
 
 });
 
-// Define mailer service
-$di->setShared('MailService', function () use ($di, $config) {
-    $mailer = new Application\Services\Mail\MailSMTPService($config['mail']);
-    $mailer->registerExceptionsHandler(new Application\Services\Mail\MailSMTPExceptions($di));
-
-    return $mailer;
-});
-
-// Define translate service
-$di->setShared('TranslateService',function() use ($di, $config) {
-
-    return (new Application\Services\TranslateService(
-        (new Application\Services\LanguageService())->define($di), $config['locale']['language']
-    ))->path($config['locale']['translates']);
-
-});
-
 // Define logger service
 $di->setShared('LogDbService', function() use ($config) {
 
@@ -86,15 +64,38 @@ $di->setShared('LogDbService', function() use ($config) {
 
 });
 
+// SERVICES
+
+// Define http errors service
+$di->setShared('ErrorService', 'Application\Services\Http\ErrorService');
+
+// Database connection is created based in the parameters defined in the configuration file
+$di->setShared('db', function () use ($config) {
+    return new \Application\Services\Database\MySQLConnectService($config['database']);
+});
 
 // Define helper's service
-$di->setShared('tag', '\Application\Services\HelpersService');
+$di->setShared('tag', '\Application\Services\Advanced\HelpersService');
 
-// Define language service
-$di->setShared('ErrorHttpService', 'Application\Services\ErrorHttpService');
+// Define mailer service
+$di->setShared('MailService', function () use ($di, $config) {
+    $mailer = new Application\Services\Mail\MailSMTPService($config['mail']);
+    $mailer->registerExceptionsHandler(new Application\Services\Mail\MailSMTPExceptions($di));
+
+    return $mailer;
+});
 
 // Define auth service
-$di->setShared('AuthService','Application\Services\AuthService');
+$di->setShared('AuthService','Application\Services\Security\AuthService');
+
+// Define translate service
+$di->setShared('TranslateService',function() use ($di, $config) {
+
+    return (new Application\Services\Advanced\TranslateService(
+        (new Application\Services\Advanced\LanguageService())->define($di), $config['locale']['language']
+    ))->path($config['locale']['translates']);
+
+});
 
 // MAPPERS
 

@@ -4,17 +4,17 @@ namespace Application\Services;
 use \Phalcon\DI\InjectionAwareInterface;
 
 /**
- * Class ErrorHttpService. Http exceptions handler
+ * Class ErrorService. Http exceptions handler
  *
- * @package Application
- * @subpackage Services
+ * @package Application\Services
+ * @subpackage Http
  * @since PHP >=5.4
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @copyright Stanislav WEB
- * @filesource /Application/Services/ErrorHttpService.php
+ * @filesource /Application/Services/Http/ErrorService.php
  */
-class ErrorHttpService implements InjectionAwareInterface {
+class ErrorService implements InjectionAwareInterface {
 
     const NOT_FOUND_CODE                =   404;
     const UNCAUGHT_EXCEPTION_CODE       =   500;
@@ -72,7 +72,7 @@ class ErrorHttpService implements InjectionAwareInterface {
      *
      * @param int $code response code
      * @param string $message response message
-     * @return ErrorHttpService
+     * @return ErrorService
      */
     public function setStatus($code, $message = '') {
         $this->getResponse()->setStatusCode($code, $message);

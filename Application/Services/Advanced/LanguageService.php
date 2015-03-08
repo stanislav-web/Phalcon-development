@@ -1,19 +1,19 @@
 <?php
-namespace Application\Services;
+namespace Application\Services\Advanced;
 
 use \Phalcon\DI\InjectionAwareInterface;
 use Phalcon\Http\Request;
 
 /**
- * Class LanguageService. User language definition service
+ * Class LanguageService. Language definition service
  *
- * @package Application
- * @subpackage Services
+ * @package Application\Services
+ * @subpackage Advanced
  * @since PHP >=5.4
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @copyright Stanislav WEB
- * @filesource /Application/Services/LanguageService.php
+ * @filesource /Application/Services/Advanced/LanguageService.php
  */
 class LanguageService implements InjectionAwareInterface {
 

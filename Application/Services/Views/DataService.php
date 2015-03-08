@@ -1,20 +1,21 @@
 <?php
-namespace Application\Services;
+namespace Application\Services\Views;
 
+use \Phalcon\DI\InjectionAwareInterface;
 use \DataTables\DataTable as TableService;
 
 /**
  * Class DataService. Actions above application data view
  *
- * @package Application
- * @subpackage Services
+ * @package Application\Services
+ * @subpackage Views
  * @since PHP >=5.4
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @copyright Stanislav WEB
- * @filesource /Application/Services/DataService.php
+ * @filesource /Application/Services/Views/DataService.php
  */
-class DataService {
+class DataService implements InjectionAwareInterface {
 
     /**
      * Current host

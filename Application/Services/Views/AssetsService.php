@@ -1,5 +1,5 @@
 <?php
-namespace Application\Services;
+namespace Application\Services\Views;
 
 use \Phalcon\DI\InjectionAwareInterface;
 use \Phalcon\Assets\Filters\Jsmin;
@@ -7,13 +7,13 @@ use \Phalcon\Assets\Filters\Jsmin;
 /**
  * Class AssetsService. Actions above application front content
  *
- * @package Application
- * @subpackage Services
+ * @package Application\Services
+ * @subpackage Views
  * @since PHP >=5.4
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @copyright Stanislav WEB
- * @filesource /Application/Services/AssetsService.php
+ * @filesource /Application/Services/Views/AssetsService.php
  */
 class AssetsService implements InjectionAwareInterface
 {
@@ -145,14 +145,14 @@ class AssetsService implements InjectionAwareInterface
 
                 $this->setCollection($this->getAssets()->collection($key));
 
-                if($type === 'css') { // CSS StyleSheets
+                if($type === 'css') {
 
                     array_map(function($resource) {
 
                         $this->getCollection()->addCss(strtr($resource, [':engine' => strtolower($this->getEngine()->getCode())]))->setAttributes(['media' => 'all']);
                     }, $resources);
                 }
-                else { // Javascript
+                else {
 
                     array_map(function($resource) {
 

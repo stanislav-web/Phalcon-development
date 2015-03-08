@@ -1,5 +1,5 @@
 <?php
-namespace Application\Services;
+namespace Application\Services\Views;
 
 use \Phalcon\DI\InjectionAwareInterface;
 use \Application\Plugins\Breadcrumbs\Breadcrumbs;
@@ -7,13 +7,13 @@ use \Application\Plugins\Breadcrumbs\Breadcrumbs;
 /**
  * Class MetaService. Actions above application meta view
  *
- * @package Application
- * @subpackage Services
+ * @package Application\Services
+ * @subpackage Views
  * @since PHP >=5.4
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @copyright Stanislav WEB
- * @filesource /Application/Services/MetaService.php
+ * @filesource /Application/Services/Views/MetaService.php
  */
 class MetaService implements InjectionAwareInterface
 {

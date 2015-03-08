@@ -1,5 +1,5 @@
 <?php
-namespace Application\Services;
+namespace Application\Services\Security;
 
 use \Phalcon\Text as Randomize;
 use \Phalcon\DI\InjectionAwareInterface;
@@ -11,13 +11,13 @@ use Application\Models\UserAccess;
 /**
  * Class AuthService. User authentication, reg, remind, logout, verify actions
  *
- * @package Application
- * @subpackage Services
+ * @package Application\Services
+ * @subpackage Views
  * @since PHP >=5.4
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @copyright Stanislav WEB
- * @filesource /Application/Services/AuthService.php
+ * @filesource /Application/Services/Security/AuthService.php
  */
 class AuthService implements InjectionAwareInterface {
 

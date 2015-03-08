@@ -13,12 +13,6 @@ $di->set('url', function () use ($di) {
 // Setup upload files service
 $di->set('uploader', '\Uploader\Uploader');
 
-// Meta Service Helper
-$di->set('MetaService','Application\Services\MetaService');
-
-// Data Service Helper
-$di->set('DataService','Application\Services\DataService');
-
 // Transaction manager
 $di->setShared('transactions', '\Phalcon\Mvc\Model\Transaction\Manager');
 
@@ -94,3 +88,11 @@ $di->setShared('flash', function () {
     return $flash;
 
 });
+
+// SERVICES
+
+// Meta Service Helper
+$di->set('MetaService','Application\Services\Views\MetaService');
+
+// Data Service Helper
+$di->set('DataService','Application\Services\Views\DataService');

@@ -1,18 +1,18 @@
 <?php
-namespace Application\Services;
+namespace Application\Services\Advanced;
 
 use \Translate\Translator;
 
 /**
  * Class TranslateService. Locale translate services
  *
- * @package Application
- * @subpackage Services
+ * @package Application\Services
+ * @subpackage Advanced
  * @since PHP >=5.4
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @copyright Stanislav WEB
- * @filesource /Application/Services/TranslateService.php
+ * @filesource /Application/Services/Adcanced/TranslateService.php
  */
 class TranslateService {
 

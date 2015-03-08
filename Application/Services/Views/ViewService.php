@@ -1,18 +1,18 @@
 <?php
-namespace Application\Services;
+namespace Application\Services\Views;
 
 use \Phalcon\DI\InjectionAwareInterface;
 
 /**
  * Class ViewService. Actions above application views
  *
- * @package Application
- * @subpackage Services
+ * @package Application\Services
+ * @subpackage Views
  * @since PHP >=5.4
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @copyright Stanislav WEB
- * @filesource /Application/Services/ViewService.php
+ * @filesource /Application/Services/Views/ViewService.php
  */
 class ViewService implements InjectionAwareInterface
 {
