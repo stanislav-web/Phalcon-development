@@ -42,6 +42,8 @@ try {
 
     if (APPLICATION_ENV === 'development') {
         echo $e->getMessage();
+        echo $e->getFile();
+        echo $e->getLine();
     }
     else {
 

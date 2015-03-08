@@ -22,12 +22,19 @@
     app.constant('TEMPLATE', (function () {
 
         return {
-            PAGES:    'assets/frontend/phl/app/common/templates/index.html',
+            PAGES:      'assets/frontend/phl/app/common/templates/index.html',
             ERROR:      'assets/frontend/phl/app/common/templates/error.html',
             SIGN:       'assets/frontend/phl/app/authenticate/templates/sign.html',
             ACCOUNT:    'assets/frontend/phl/app/user/templates/account.html'
         };
     })());
+
+    // configure http responses
+    app.config(['$httpProvider', function($httpProvider) {
+            $httpProvider.interceptors.push('httpRequestInterceptor');
+        }
+    ]);
+
 
     // configure application's routes
 

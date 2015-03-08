@@ -1,7 +1,6 @@
 <?php
 namespace Application\Modules\Frontend\Controllers;
 
-use Application\Services\ErrorHttpService;
 use Phalcon\Mvc\View;
 
 /**
@@ -22,17 +21,23 @@ class ErrorController extends \Phalcon\Mvc\Controller
     private $config;
 
     /**
-     * @var \Phalcon\Di > ErrorHttpService
+     * @var \Phalcon\Di > ErrorService
      */
-    private $errorHttpService;
+    private $http;
+
+    /**
+     * @var \Phalcon\Di > LogMapper
+     */
+    private $logger;
 
     /**
      * Event before route executed
      */
     public function beforeExecuteRoute() {
 
-        $this->config = $this->di->get('config');
-        $this->errorHttpService = $this->di->get('ErrorHttpService');
+        $this->config = $this->getDI()->get('config');
+        $this->logger = $this->getDi()->get('LogMapper');
+        $this->http = $this->getDI()->get('ErrorService');
         $this->view->setViewsDir($this->config['application']['viewsFront']);
     }
     /**
@@ -40,13 +45,11 @@ class ErrorController extends \Phalcon\Mvc\Controller
      */
     public function notFoundAction()
     {
-        $this->tag->setTitle(ErrorHttpService::NOT_FOUND_MESSAGE);
+        $this->tag->setTitle($this->http->notFoundErrorMessage());
 
         // The response is already populated with a 404 Not Found header.
-        $this->errorHttpService->setStatus(ErrorHttpService::NOT_FOUND_CODE, ErrorHttpService::NOT_FOUND_MESSAGE);
-        $this->errorHttpService->log(
-            '404 Page detected: ' .$this->request->getServer('REQUEST_URI').' from IP: '.$this->request->getClientAddress()
-        );
+        $this->http->setStatus(404, $this->http->notFoundErrorMessage());
+        $this->logger->save('404 Page detected: ' .$this->request->getServer('REQUEST_URI').' from IP: '.$this->request->getClientAddress(), \Phalcon\Logger::ERROR);
 
         // return error as 404
 
@@ -57,7 +60,7 @@ class ErrorController extends \Phalcon\Mvc\Controller
                 View::LEVEL_MAIN_LAYOUT => true,
             ]);
 
-            return $this->errorHttpService->setJsonContent(ErrorHttpService::NOT_FOUND_MESSAGE,
+            return $this->http->setJsonContent($this->http->notFoundErrorMessage(),
                 'Contact support please','application/json', 'UTF-8')->send();
         }
         else {
@@ -75,9 +78,9 @@ class ErrorController extends \Phalcon\Mvc\Controller
     {
         // You need to specify the response header, as it's not automatically set here.
 
-        $this->tag->setTitle(ErrorHttpService::UNCAUGHT_EXCEPTION_MESSAGE);
+        $this->tag->setTitle($this->http->internalServerErrorMessage());
 
-        $this->errorHttpService->setStatus(ErrorHttpService::UNCAUGHT_EXCEPTION_CODE, ErrorHttpService::UNCAUGHT_EXCEPTION_MESSAGE);
+        $this->http->setStatus(500, $this->http->internalServerErrorMessage());
 
         // return error as 500
 
@@ -88,7 +91,7 @@ class ErrorController extends \Phalcon\Mvc\Controller
                 View::LEVEL_MAIN_LAYOUT => true,
             ]);
 
-            return $this->errorHttpService->setJsonContent(ErrorHttpService::UNCAUGHT_EXCEPTION_MESSAGE,
+            return $this->http->setJsonContent($this->http->internalServerErrorMessage(),
                 'Contact support please','application/json', 'UTF-8')->send();
         }
         else {

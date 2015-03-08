@@ -102,6 +102,7 @@ $config = [
                 'assets/frontend/:engine/app/app.js',
                 'assets/frontend/:engine/app/app.config.js',
                 'assets/frontend/:engine/app/common/directives/spinner.js',
+                'assets/frontend/:engine/app/common/services/interceptors.js',
                 'assets/frontend/:engine/app/common/services/splash.js',
                 'assets/frontend/:engine/app/common/services/session.js',
                 'assets/frontend/:engine/app/common/controllers/menu.js',

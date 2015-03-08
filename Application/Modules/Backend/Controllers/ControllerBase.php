@@ -19,9 +19,9 @@ use Phalcon\Mvc\View;
 class ControllerBase extends Controller
 {
     /**
-     * Logger service
+     * Logger
      *
-     * @var \Application\Services\LogDbService $logger
+     * @var \Application\Services\Mappers\LogMapper $logger
      */
     protected $logger;
 
@@ -123,13 +123,13 @@ class ControllerBase extends Controller
     public function initialize()
     {
         // define logger
-        if($this->di->has('LogDbService')) {
-            $this->logger = $this->di->get('LogDbService');
+        if($this->getDI()->has('LogMapper')) {
+            $this->logger = $this->getDI()->get('LogMapper');
         }
 
         // setup navigation
 
-        $navigation = $this->di->get('navigation');
+        $navigation = $this->getDI()->get('navigation');
 
         $navigation->setActiveNode(
             $this->router->getActionName(),
@@ -169,7 +169,7 @@ class ControllerBase extends Controller
      */
     protected function getConfig() {
 
-        return $this->di->get('config');
+        return $this->getDI()->get('config');
 
     }
 

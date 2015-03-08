@@ -1,5 +1,5 @@
 <?php
-namespace Application\Services;
+namespace Application\Services\Http;
 
 use \Phalcon\DI\InjectionAwareInterface;
 
@@ -97,11 +97,20 @@ class ErrorService implements InjectionAwareInterface {
     }
 
     /**
-     * Exception logger
+     * Get message for Not Found page 404
      *
-     * @param string $message
+     * @return const NOT_FOUND_MESSAGE
      */
-    public function log($message) {
-        $this->getDi()->get('LogDbService')->save($message, \Phalcon\Logger::ERROR);
+    public function notFoundErrorMessage() {
+        return self::NOT_FOUND_MESSAGE;
+    }
+
+    /**
+     * Get message for Internal Server Error 500
+     *
+     * @return const UNCAUGHT_EXCEPTION_MESSAGE
+     */
+    public function internalServerErrorMessage() {
+        return self::UNCAUGHT_EXCEPTION_MESSAGE;
     }
 }

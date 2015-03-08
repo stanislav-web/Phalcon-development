@@ -56,18 +56,10 @@ $di->set('crypt', function () use ($config) {
 
 });
 
-// Define logger service
-$di->setShared('LogDbService', function() use ($config) {
-
-    $connection = new \Phalcon\Db\Adapter\Pdo\Mysql($config['database']);
-    return new Application\Services\LogDbService($connection);
-
-});
-
 // SERVICES
 
 // Define http errors service
-$di->setShared('ErrorService', 'Application\Services\Http\ErrorService');
+$di->set('ErrorService', 'Application\Services\Http\ErrorService');
 
 // Database connection is created based in the parameters defined in the configuration file
 $di->setShared('db', function () use ($config) {
@@ -110,3 +102,12 @@ $di->setShared('PageMapper','Application\Services\Mappers\PageMapper');
 
 // Define engine mapper
 $di->setShared('EngineMapper','Application\Services\Mappers\EngineMapper');
+
+// Define log mapper
+$di->setShared('LogMapper', function() use ($config, $di) {
+
+    return new Application\Services\Mappers\LogMapper(
+        new \Phalcon\Db\Adapter\Pdo\Mysql($config['database']), $di
+    );
+
+});
