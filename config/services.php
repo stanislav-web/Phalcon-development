@@ -103,6 +103,10 @@ $di->setShared('PageMapper','Application\Services\Mappers\PageMapper');
 // Define engine mapper
 $di->setShared('EngineMapper','Application\Services\Mappers\EngineMapper');
 
+
+// Define user mapper
+$di->setShared('UserMapper','Application\Services\Mappers\UserMapper');
+
 // Define log mapper
 $di->setShared('LogMapper', function() use ($config, $di) {
 

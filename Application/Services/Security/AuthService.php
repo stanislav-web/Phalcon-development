@@ -75,15 +75,6 @@ class AuthService implements InjectionAwareInterface {
     }
 
     /**
-     * Get translate service
-     *
-     * @return \Translate\Translator
-     */
-    public function getTranslator() {
-        return $this->getDI()->getShared('TranslateService')->assign('sign');
-    }
-
-    /**
      * Get config plugin
      *
      * @return \Phalcon\Config
@@ -93,15 +84,30 @@ class AuthService implements InjectionAwareInterface {
     }
 
     /**
+     * Get user mapper
+     *
+     * @return \Application\Services\Mappers\UserMapper
+     */
+    public function getUsers() {
+        return $this->getDi()->get('UserMapper');
+    }
+
+    /**
+     * Get translate service
+     *
+     * @return \Translate\Translator
+     */
+    public function getTranslator() {
+        return $this->getDI()->getShared('TranslateService')->assign('sign');
+    }
+
+    /**
      * Get logger service
      *
      * @return \Application\Services\LogDbService
      */
     public function getLogger() {
-        if($this->getDi()->has('LogDbService')) {
-
-            return $this->getDi()->get('LogDbService');
-        }
+        return $this->getDi()->get('LogMapper');
     }
 
     /**
@@ -110,10 +116,7 @@ class AuthService implements InjectionAwareInterface {
      * @return \Application\Services\MailSMTPService
      */
     public function getMailer() {
-        if($this->getDi()->has('MailService')) {
-
-            return $this->getDi()->get('MailService');
-        }
+        return $this->getDi()->get('MailService');
     }
 
     /**

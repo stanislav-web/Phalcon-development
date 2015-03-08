@@ -1,10 +1,11 @@
 <?php
 namespace Application\Plugins\Dispatcher;
 
-use Phalcon\Events\Event;
-use Phalcon\Http\Response;
-use Phalcon\Mvc\Dispatcher as MvcDispatcher;
-use Phalcon\Mvc\Dispatcher\Exception as DispatcherException;
+use \Phalcon\Events\Event;
+use \Phalcon\Http\Response;
+use \Phalcon\Logger;
+use \Phalcon\Mvc\Dispatcher as MvcDispatcher;
+use \Phalcon\Mvc\Dispatcher\Exception as DispatcherException;
 
 /**
  * NotFoundPlugin
@@ -48,10 +49,10 @@ class NotFoundPlugin
         }
 
         // save to log
-        \Phalcon\DI::getDefault()->get('LogDbService')->save($exception->getMessage()
+        \Phalcon\DI::getDefault()->get('LogMapper')->save($exception->getMessage()
             .' File: '.$exception->getFile()
             .' Line:'.$exception->getLine(),
-            \Phalcon\Logger::CRITICAL);
+            Logger::CRITICAL);
 
         if (APPLICATION_ENV === 'production') { // development
 
