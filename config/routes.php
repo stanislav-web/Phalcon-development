@@ -28,16 +28,6 @@ $router->add('/:controller/:action/:params', [
     'namespace' => 'Application\Modules\Frontend\Controllers',
 ])->setName('front-full');
 
-// REST Routes
-
-$router->add('/api/:controller/:action/:params', [
-    'module' => "Rest",
-    'controller' => 1,
-    'action' => 2,
-    'params' => 3,
-    'namespace' => 'Application\Modules\Rest\Controllers',
-]);
-
 // Backend routes
 
 $router->add('/dashboard', [
@@ -61,5 +51,16 @@ $router->add('/dashboard/:controller/:action/:params', [
     'params' => 3,
     'namespace' => 'Application\Modules\Backend\Controllers',
 ])->setName('dashboard-full');
+
+
+// REST Routes
+
+$router->add('/api/user/:controller/:action/:params', [
+    'module' => "Rest",
+    'controller' => 1,
+    'action' => 2,
+    'params' => 3,
+    'namespace' => 'Application\Modules\Rest\Controllers\User',
+]);
 
 $router->mount(new Application\Routes\Pages());

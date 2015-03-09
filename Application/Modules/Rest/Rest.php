@@ -80,7 +80,7 @@ class Rest
             $view = new View();
 
             // view component disabled for this module
-            //$view->disable();
+            $view->disable();
             return $view;
         });
 

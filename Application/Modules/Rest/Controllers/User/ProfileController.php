@@ -1,6 +1,8 @@
 <?php
 namespace Application\Modules\Rest\Controllers\User;
 
+use Application\Modules\Rest\Controllers\ControllerBase;
+
 /**
  * Class ProfileController
  *
@@ -11,11 +13,13 @@ namespace Application\Modules\Rest\Controllers\User;
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @filesource /Application/Modules/Rest/Controllers/User/ProfileController.php
  */
-class ProfileController {
+class ProfileController extends ControllerBase {
 
+    /**
+     * Get user profile
+     */
     public function getAction() {
 
-
-        echo 'Hello, User! Rest work fine :-)';
+        return $this->setReply(['Hello, User! Rest work fine :-D']);
     }
 }
