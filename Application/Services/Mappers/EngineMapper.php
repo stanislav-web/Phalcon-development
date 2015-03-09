@@ -64,28 +64,26 @@ class EngineMapper implements InjectionAwareInterface, ModelCrudInterface {
     /**
      * Define used engine
      *
-     * @param string $host
      * @return \Application\Models\Engines $engine
      */
-    public function define($host) {
+    public function define() {
 
         $session = $this->getDi()->getShared('session');
 
         // find current engine
-        if($session->has('engine') === false || $session->get('engine') === null) {
-
-            $engine   =   Engines::findFirst("host = '".$host."'");
+        if($session->has('engine') === true) {
+            $engine = $session->get('engine');
+        }
+        else {
+            $request = $this->getDi()->get('request');
+            $engine   =   Engines::findFirst("host = '".$request->getHttpHost()."'");
 
             if($engine === null) {
                 throw new Exception('Not found used host');
             }
-
             // collect to the session
             $session->set('engine', $engine);
-        }
-        else {
-            // get current engine
-            $engine  =   $session->get('engine');
+
         }
 
         return $engine;

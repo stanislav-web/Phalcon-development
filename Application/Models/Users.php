@@ -34,73 +34,73 @@ class Users extends \Phalcon\Mvc\Model
      *
      * @var string
      */
-    protected $login;
+    public $login;
 
     /**
      *
      * @var string
      */
-    protected $name;
+    public $name;
 
     /**
      *
      * @var string
      */
-    protected $surname;
+    public $surname;
 
     /**
      *
      * @var string
      */
-    protected $password;
+    public $password;
 
     /**
      *
      * @var string
      */
-    protected $salt;
+    public $salt;
 
     /**
      *
      * @var int
      */
-    protected $role;
+    public $role;
 
     /**
      *
      * @var string
      */
-    protected $state;
+    public $state;
 
     /**
      *
      * @var double
      */
-    protected $rating;
+    public $rating;
 
     /**
      *
      * @var string
      */
-    protected $date_registration;
+    public $date_registration;
 
     /**
      *
      * @var string
      */
-    protected $date_lastvisit;
+    public $date_lastvisit;
 
     /**
      *
      * @var integer
      */
-    protected $ip;
+    public $ip;
 
     /**
      *
      * @var string
      */
-    protected $ua;
+    public $ua;
 
     /**
      * Initialize Model
@@ -109,22 +109,21 @@ class Users extends \Phalcon\Mvc\Model
     {
         // its allow to keep empty data to my db
         $this->setup([
-            'notNullValidations' => false,
+            'notNullValidations' => true,
             'exceptionOnFailedSave' => false
         ]);
 
         // skip attributes before every IN >
         $this->skipAttributesOnCreate(['date_registration', 'date_lastvisit', 'state', 'rating', 'surname']);
-        $this->skipAttributesOnUpdate(['date_lastvisit']);
+        $this->skipAttributesOnUpdate(['date_registration']);
     }
 
-
     /**
-     * Validate that login are unique across users
+     * Validate
      *
      * @return bool
      */
-    public function validation()
+    public function beforeValidationOnCreate()
     {
 
         $this->validate(new Uniqueness([
@@ -277,7 +276,7 @@ class Users extends \Phalcon\Mvc\Model
      */
     public function setPassword($password)
     {
-        $this->password = $password;
+        $this->password = $this->getDI()->getShared('security')->hash($password);
 
         return $this;
     }
@@ -413,9 +412,18 @@ class Users extends \Phalcon\Mvc\Model
      * @param string $date_lastvisit
      * @return Users
      */
-    public function setDateLastvisit($date_lastvisit)
+    public function setDateLastvisit($date_lastvisit = null)
     {
-        $this->date_lastvisit = $date_lastvisit;
+        if($date_lastvisit === null) {
+
+            $datetime = new \Datetime('now', new \DateTimeZone(date_default_timezone_get()));
+
+            $this->date_lastvisit = $datetime->format('Y-m-d H:i:s');
+
+        }
+        else {
+            $this->date_lastvisit  =   $date_lastvisit;
+        }
 
         return $this;
     }
@@ -464,5 +472,9 @@ class Users extends \Phalcon\Mvc\Model
         $this->ua = $ua;
 
         return $this;
+    }
+
+    public function skipAttributes($attributes, $replace = null) {
+        parent::skipAttributes($attributes, $replace);
     }
 }

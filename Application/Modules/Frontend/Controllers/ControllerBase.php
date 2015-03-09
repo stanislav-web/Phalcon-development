@@ -19,21 +19,21 @@ class ControllerBase extends Controller
     /**
      * Auth user service
      *
-     * @var \Application\Services\AuthService $auth
+     * @var \Application\Services\Security\AuthService $auth
      */
     protected $auth;
 
     /**
      * Translate service
      *
-     * @var \Translate\Translator
+     * @var \Application\Services\Advanced\TranslateService $translate
      */
     protected $translate;
 
     /**
      * Engine to show
      *
-     * @var \Application\Models\Engines $engine
+     * @var \Application\Services\Mappers\EngineMapper $engine
      */
     protected $engine;
 
@@ -57,7 +57,7 @@ class ControllerBase extends Controller
     public function beforeExecuteRoute()
     {
         // define engine
-        $this->engine = $this->di->get("EngineMapper")->define($this->request->getHttpHost());
+        $this->engine = $this->di->get("EngineMapper")->define();
 
         if($this->request->isAjax() === false) {
 

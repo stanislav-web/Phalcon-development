@@ -55,10 +55,11 @@
                 // call auth service
                 Authentication.sign(credentials, ROUTES.LOGIN).then(function (response) {
 
-                    // close splash window & redirect to account
-                    $splash.close();
-                    $location.path(ROUTES.ACCOUNT);
-
+                    if(response.success) {
+                        // close splash window & redirect to account
+                        $splash.close();
+                        $location.path(ROUTES.ACCOUNT);
+                    }
                 }, function(error) {
 
                     // return error to show in sign form

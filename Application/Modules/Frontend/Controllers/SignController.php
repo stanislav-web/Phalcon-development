@@ -43,11 +43,14 @@ class SignController extends ControllerBase
     public function verifyAction()
     {
         // check user authenticate
-        $AuthService = $this->di->get("AuthService");
+        $AuthService = $this->getDI()->get("AuthService");
 
         if ($AuthService->isAuth() === true) {
 
-            $this->setReply(array_merge(['success' => true], $AuthService->getAccessToken()));
+            $this->setReply([
+                'success' => true,
+                $AuthService->getAccessToken()
+            ]);
         }
         else {
             $this->response->setStatusCode(401, 'Unauthorized')->send();
@@ -66,19 +69,9 @@ class SignController extends ControllerBase
         if ($isRegistered === true) {
 
             // Success registration
-            $user = $this->auth->getUser();
 
             $this->setReply([
-                'user' => [
-                    'id' => $user['id'],
-                    'login' => $user['login'],
-                    'name' => $user['name'],
-                    'surname' => $user['surname'],
-                    'state' => $user['state'],
-                    'rating' => $user['rating'],
-                    'date_registration' => $user['date_registration'],
-                    'date_lastvisit' => $user['date_lastvisit']
-                ],
+                'user' => $this->auth->getUser(),
                 'success' => true,
             ]);
         } else {
@@ -97,7 +90,7 @@ class SignController extends ControllerBase
     {
         // required params that to be saved by this user
 
-        $isRestored = $this->auth->restore($this->engine);
+        $isRestored = $this->auth->restore();
 
         if ($isRestored === true) {
 
@@ -119,8 +112,7 @@ class SignController extends ControllerBase
     {
         if($this->request->isDelete()) {
 
-            $loggedOut = ($this->auth->logout() === true) ? true : false;
-            $this->setReply(['success' => $loggedOut]);
+            $this->setReply(['success' => $this->auth->logout()]);
         }
         else {
             $this->response->setStatusCode(403, 'Access Forbidden')->send();

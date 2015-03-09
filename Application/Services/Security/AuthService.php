@@ -2,15 +2,12 @@
 namespace Application\Services\Security;
 
 use \Phalcon\Text as Randomize;
+use \Phalcon\Logger;
 use \Phalcon\DI\InjectionAwareInterface;
-use Application\Models\UserRoles;
-use Application\Models\Users;
-use Application\Models\UserAccess;
-
 
 /**
  * Class AuthService. User authentication, reg, remind, logout, verify actions
- *
+ * 644 Lines | Refactor
  * @package Application\Services
  * @subpackage Views
  * @since PHP >=5.4
@@ -53,158 +50,16 @@ class AuthService implements InjectionAwareInterface {
     /**
      * User auth error messages
      *
-     * @var array $error
+     * @var mixed $error
      */
-    protected $error = '';
+    protected $error;
 
     /**
      * User auth success messages
      *
-     * @var array $error
+     * @var mixed $success
      */
-    protected $success = '';
-
-    /**
-     * Set dependency container
-     *
-     * @param \Phalcon\DiInterface $di
-     */
-    public function setDi($di)
-    {
-        $this->di = $di;
-    }
-
-    /**
-     * Get config plugin
-     *
-     * @return \Phalcon\Config
-     */
-    public function getConfig() {
-        return $this->getDi()->get('config');
-    }
-
-    /**
-     * Get user mapper
-     *
-     * @return \Application\Services\Mappers\UserMapper
-     */
-    public function getUsers() {
-        return $this->getDi()->get('UserMapper');
-    }
-
-    /**
-     * Get translate service
-     *
-     * @return \Translate\Translator
-     */
-    public function getTranslator() {
-        return $this->getDI()->getShared('TranslateService')->assign('sign');
-    }
-
-    /**
-     * Get logger service
-     *
-     * @return \Application\Services\LogDbService
-     */
-    public function getLogger() {
-        return $this->getDi()->get('LogMapper');
-    }
-
-    /**
-     * Get mailer service
-     *
-     * @return \Application\Services\MailSMTPService
-     */
-    public function getMailer() {
-        return $this->getDi()->get('MailService');
-    }
-
-    /**
-     * Get security plugin
-     *
-     * @return \Phalcon\Security
-     */
-    public function getSecurity() {
-        return $this->getDi()->getShared('security');
-    }
-
-    /**
-     * Get Request data service
-     *
-     * @return \Phalcon\Http\Request
-     */
-    public function getRequest() {
-        return $this->getDi()->get('request');
-    }
-
-    /**
-     * Get Response data service
-     *
-     * @return \Phalcon\Http\Response
-     */
-    public function getResponse() {
-        return $this->getDi()->get('response');
-    }
-
-    /**
-     * Get SMS service
-     *
-     * @return \SMSFactory\Sender
-     */
-    public function getSmsService() {
-        return $this->getDi()->get('SMS');
-    }
-
-    /**
-     * Get dependency container
-     * @return \Phalcon\DiInterface
-     */
-    public function getDi()
-    {
-        return $this->di;
-    }
-
-    /**
-     * Set auth error message
-     *
-     * @param string $message
-     * @return false
-     */
-    public function setError($message) {
-        $this->error = $this->getTranslator()->translate($message);
-
-        $this->getLogger()->save($this->error. ' IP: '.$this->getRequest()->getClientAddress(), \Phalcon\Logger::WARNING);
-        return false;
-    }
-
-    /**
-     * Get auth error messages
-     *
-     * @return array
-     */
-    public function getError() {
-        return $this->error;
-    }
-
-    /**
-     * Set auth success message
-     *
-     * @param string $message
-     * @return true
-     */
-    public function setSuccess($message) {
-        $this->success = $this->getTranslator()->translate($message);
-        return true;
-    }
-
-    /**
-     * Get auth success messages
-     *
-     * @return array
-     */
-    public function getSuccess() {
-        return $this->success;
-    }
+    protected $success;
 
     /**
      * Authenticate user from credentials
@@ -218,7 +73,7 @@ class AuthService implements InjectionAwareInterface {
 
         if($this->getSecurity()->checkToken() === true) {
 
-            // get user from database
+            // get user array
             $user = $this->getUser(['login' => $credentials['login']]);
 
             if (empty($user) === false) {
@@ -226,52 +81,62 @@ class AuthService implements InjectionAwareInterface {
                 if($this->getSecurity()->checkHash($credentials['password'], $user['password'])) {
 
                     // user founded, password checked. Set auth token
-
-                    $token = $this->cryptToken($user['id'],
-                        $this->getSecurity()->getSessionToken(),
-                        $this->getRequest()->getUserAgent()
-                    );
-
-                    session_regenerate_id(true);
+                    $token = $this->cryptAccessToken($user['id'], $this->getSecurity()->getSessionToken());
 
                     // setup token to storage
+                    session_regenerate_id(true);
                     $this->setAccessToken($user['id'], $token, (time() + $this->getConfig()->cache->lifetime));
 
                     // update auth params
+                    if($this->getUserMapper()->refresh($user['id'], [
+                        'ip'    =>  $this->getRequest()->getClientAddress(),
+                        'ua'    =>  $this->getRequest()->getUserAgent(),
+                        'salt'  =>  $this->getSecurity()->getSessionToken(),
+                    ]) === true) {
 
-                    $userUpdate = new Users();
+                        // save data to session
+                        $this->getDi()->getShared('session')->set('user', [
+                            'id'        =>  $user['id'],
+                            'login'     =>  $user['login'],
+                            'name'      =>  $user['name'],
+                            'surname'   =>  $user['surname'],
+                            'role'      =>  $user['role'],
+                            'state'     =>  $user['state'],
+                            'salt'      =>  $this->getSecurity()->getSessionToken(),
+                            'rating'    =>  $user['rating'],
+                            'date_registration' => $user['date_registration'],
+                            'date_lastvisit' => $user['date_lastvisit']
+                        ]);
 
-                    $userUpdate->setIp($this->getRequest()->getClientAddress())
-                        ->setUa($this->getRequest()->getUserAgent())
-                        ->setSalt($this->getSecurity()->getSessionToken())
-                        ->save();
-
-                    // save data to session
-                    $this->getDi()->getShared('session')->set('user', [
-                        'id'        =>  $user['id'],
-                        'name'      =>  $user['name'],
-                        'surname'   =>  $user['surname'],
-                        'role'      =>  $user['role'],
-                        'state'     =>  $user['state'],
-                        'salt'      =>  $userUpdate->getSalt(),
-                        'rating'    =>  $user['rating'],
-                    ]);
-
-                    return true;
+                        return true;
+                    }
+                    return $this->setError($this->getUserMapper()->getErrors());
                 }
-                else {
+                return $this->setError('INVALID_AUTH_DATA');
+            }
+            return $this->setError('USER_NOT_FOUND');
+        }
+        return $this->setError('INVALID_REQUEST_TOKEN');
+    }
 
-                    $this->setError('INVALID_AUTH_DATA');
-                }
-            }
-            else {
-                $this->setError('USER_NOT_FOUND');
-            }
+    /**
+     * Logout. Destroy all user data
+     *
+     * @return boolean
+     */
+    public function logout() {
+
+        $session = $this->getDi()->getShared('session');
+
+        // destroy user data
+        if($session->has('user')) {
+
+            $this->deleteAccessToken(['user_id' => $session->get('user')['id']]);
+            $session->remove('user');
         }
-        else {
-            // security token invalid
-            $this->setError('INVALID_REQUEST_TOKEN');
-        }
+
+        session_regenerate_id(true);
+        return ($this->isAuth() === false) ? true : false;
     }
 
     /**
@@ -281,91 +146,76 @@ class AuthService implements InjectionAwareInterface {
      */
     public function register()
     {
-        // required params that to be saved by this user
+        if($this->getSecurity()->checkToken() === true) {
 
-        $user = new Users();
+            // required params that to be saved by this user
+            $data = $this->getRequest()->getPost();
+            $user = $this->getUserMapper()->createUser($this->getRequest()->getPost());
 
-        $register =
-            $user->setLogin($this->getRequest()->getPost('login','trim', ''))
-                ->setPassword($this->getSecurity()->hash($this->getRequest()->getPost('password', 'trim')))
-                ->setName($this->getRequest()->getPost('name', 'trim', ''))
-                ->setSalt($this->getSecurity()->getSessionToken())
-                ->setRole(UserRoles::USER)
-                ->setIp($this->getRequest()->getClientAddress())
-                ->setUa($this->getRequest()->getUserAgent());
+            if($user !== false) {
+                // register successful
+                session_regenerate_id(true);
+                $token = $this->cryptAccessToken($user->getId(), $user->getSalt());
+                $this->setAccessToken($user->getId(), $token, (time() + $this->getConfig()->cache->lifetime));
 
-        if($register->save()) {
+                // save data to session
+                $user = $this->getUser(['id' => $user->getId()]);
+                $this->getDi()->getShared('session')->set('user', [
+                    'id'        =>  $user['id'],
+                    'login'     =>  $user['login'],
+                    'name'      =>  $user['name'],
+                    'surname'   =>  $user['surname'],
+                    'role'      =>  $user['role'],
+                    'state'     =>  $user['state'],
+                    'salt'      =>  $user['salt'],
+                    'rating'    =>  $user['rating'],
+                    'date_registration' => $user['date_registration'],
+                    'date_lastvisit' => $user['date_lastvisit']
+                ]);
 
-            // register successful
+                return true;
 
-            $token = $this->cryptToken($user->getId(),
-                $user->getPassword(),
-                $this->getConfig()->application->cryptSalt
-            );
-
-            session_regenerate_id(true);
-
-            // setup token to storage
-            $this->setAccessToken($user->getId(), $token, (time() + $this->getConfig()->cache->lifetime));
-
-            // save data to session
-            $this->getDi()->getShared('session')->set('user', $user->toArray());
-
-            return true;
-        }
-        else {
-
-            // get an error
-            foreach($user->getMessages() as $message) {
-
-                $this->setError($message->getMessage());
             }
-
-            return false;
+            return $this->setError($this->getUserMapper()->getErrors());
         }
+        return $this->setError('INVALID_REQUEST_TOKEN');
     }
 
     /**
      * Restore user data
      *
-     * @param \Application\Models\Engines $engine
      * @return bool
      * @throws \Phalcon\Exception
      */
-    public function restore(\Application\Models\Engines $engine)
+    public function restore()
     {
         // required params that to be saved by this user
-
-        $login = $this->getRequest()->getPost('login', 'trim');
-
-        $user = (new Users())->findFirst([
-            "login = ?0",
-            "bind" => [$login],
+        $user = $this->getUserMapper()->getOne([
+            'login' => $this->getRequest()->getPost('login')
         ]);
 
         if (empty($user) === false) {
 
             // user founded restore access by login, generate password
-            $password = Randomize::random(Randomize::RANDOM_ALNUM, self::RECOVERY_PASS_LENGTH);
+            $password = $this->randomString();
 
             // update password in Db
+            $isUpdatePassword = $this->getUserMapper()->updatePassword($user->getId(), $password);
 
-            $updatePassword = $user->setPassword($this->getSecurity()->hash($password));
+            if($isUpdatePassword === true) {
 
-            if($updatePassword->update() === true) {
+                $engine = $this->getDi()->get('EngineMapper')->define();
 
                 if (filter_var($user->getLogin(), FILTER_VALIDATE_EMAIL) !== false) {
 
                     // restore by email
-
                     $status = $this->sendRecoveryMail($user, $password, $engine);
 
                     if ($status === 1) {
                         return $this->setSuccess('PASSWORD_RECOVERY_SUCCESS');
 
-                    } else {
-                        return $this->setError('PASSWORD_RECOVERY_FAILED');
                     }
+                    return $this->setError('PASSWORD_RECOVERY_FAILED');
                 }
                 else {
 
@@ -376,24 +226,14 @@ class AuthService implements InjectionAwareInterface {
                     if(isset($status['success']) === true) {
                         return $this->setSuccess('PASSWORD_RECOVERY_SUCCESS');
                     }
-                    else {
-                        return $this->setError('PASSWORD_RECOVERY_FAILED');
-                    }
+                    return $this->setError('PASSWORD_RECOVERY_FAILED');
                 }
             }
-            else {
 
-                // get an error
-                foreach($updatePassword->getMessages() as $message) {
-
-                    $this->setError($message->getMessage());
-                }
-                return false;
-            }
+            // get an error
+            return $this->setError($this->getUserMapper()->getErrors());
         }
-        else {
-            return $this->setError('USER_NOT_FOUND');
-        }
+        return $this->setError('USER_NOT_FOUND');
     }
 
     /**
@@ -406,21 +246,14 @@ class AuthService implements InjectionAwareInterface {
      */
     public function setAccessToken($user_id, $token, $expire_date) {
 
-        // get storage service
-        $session = $this->getDi()->getShared('session');
+        $token = $this->getUserMapper()->setAccessToken($user_id, $token, $expire_date);
 
-        $userAccess = new UserAccess();
-
-        $requestDb = $userAccess->setUserId($user_id)->setToken($token)->setExpireDate($expire_date);
-
-        if($requestDb->save() === true) {
-
-            $session->set(self::TOKEN_KEY, [
-                'user_id'       =>  $user_id,
-                'token'         =>  $token,
-                'expire_date'   =>  $expire_date
+        if($token !== false) {
+            $this->getDi()->getShared('session')->set(self::TOKEN_KEY, [
+                'user_id'       =>  $token->getUserId(),
+                'token'         =>  $token->getToken(),
+                'expire_date'   =>  $token->getExpireDate()
             ]);
-
             return true;
         }
 
@@ -428,49 +261,128 @@ class AuthService implements InjectionAwareInterface {
     }
 
     /**
-     * Get user access token
+     * Get user access token from server session
      *
+     * @return array
+     */
+    public function getAccessTokenFromSession() {
+
+        $session = $this->getDi()->getShared('session');
+        return ($session->has(self::TOKEN_KEY) === true) ? $session->get(self::TOKEN_KEY) : [];
+    }
+
+    /**
+     * Get user access token from header
+     *
+     * @return array
+     */
+    public function getAccessTokenFromHeader() {
+
+        $token = $this->getRequest()->getHeader('X_'.strtoupper(self::TOKEN_KEY));
+        if(empty($token) === false) {
+
+            $userToken = $this->getUserMapper()->getAccessTokenByCredential(['token' => base64_decode($token)]);
+            return ($userToken !== false) ? $userToken->toArray() : [];
+        }
+        return [];
+    }
+
+    /**
+     * Get user access token from request
+     *
+     * @return array
+     */
+    public function getAccessTokenFromRequest() {
+
+        $token = $this->getRequest()->get(self::TOKEN_KEY, null, '');
+
+        if(empty($token) === false) {
+
+            $userToken = $this->getUserMapper()->getAccessTokenByCredential(['token' => $token]);
+            return ($userToken !== false) ? $userToken->toArray() : [];
+        }
+        return [];
+    }
+
+    /**
+     * Get user access token by user
+     *
+     * @return array
+     */
+    public function getAccessTokenByUserId($user_id) {
+
+        $userToken = $this->getUserMapper()->getAccessTokenByCredential(['user_id' => $user_id]);
+        return ($userToken !== false) ? $userToken->toArray() : [];
+    }
+
+    /**
+     * Get actual user access token
+     *
+     * @param int $user_id
      * @return array token info
      */
-    public function getAccessToken() {
+    public function getAccessToken($user_id = null) {
 
-        // get token from session
-        if($this->getDi()->get('session')->has(self::TOKEN_KEY) === true) {
+        if(is_null($user_id) === true) {
 
-            $token =   $this->getDi()->getShared('session')->get(self::TOKEN_KEY);
+            $token = $this->getAccessTokenFromSession();
+            if(empty($token) === true) {
+                $token = $this->getAccessTokenFromRequest();
+                if(empty($token) === true) {
+                    $token = $this->getAccessTokenFromHeader();
+                }
+            }
         }
         else {
 
-            $token = base64_decode($this->getRequest()->getHeader('X_TOKEN'));
-
-            $userAccess = new UserAccess();
-            $token = $userAccess->findFirst([
-                "token = ?0",
-                "bind" => [$token],
-            ]);
-
-            $token = ($token !== false) ? $token->toArray() : [];
+            $token = $this->getAccessTokenFromSession();
+            if(empty($token) === true) {
+                $token = $this->getAccessTokenByUserId($user_id);
+            }
         }
 
         return $token;
     }
 
     /**
-     * Remove user access token
+     * Delete user access token
      *
-     * @param $user_id
-     * @return bool
+     * @param array $credential key => value
+     * @return \Phalcon\Mvc\Model
      */
-    public function removeAccessTokenByUser($user_id) {
+    public function deleteAccessToken(array $credential) {
 
-        $userAccess = new UserAccess();
-        $isDelete = $userAccess->findFirst([
-            "user_id = ?0",
-            "bind" => [$user_id],
-        ])->delete();
+        $session = $this->getDi()->getShared('session');
+
+        if($session->has(self::TOKEN_KEY)) {
+            $session->remove(self::TOKEN_KEY);
+        }
+
+        $isDelete = $this->getUserMapper()->deleteAccessTokenByCredential($credential);
 
         return $isDelete;
+    }
 
+    /**
+     * Crypt auth token
+     *
+     * @param int $id user id
+     * @param string $salt salt
+     *
+     * @return string
+     */
+    public function cryptAccessToken($id, $salt) {
+
+        return md5($id . $salt);
+    }
+
+    /**
+     * Generate random string
+     *
+     * @return string
+     */
+    public function randomString() {
+        return Randomize::random(Randomize::RANDOM_ALNUM, self::RECOVERY_PASS_LENGTH);
     }
 
     /**
@@ -489,12 +401,8 @@ class AuthService implements InjectionAwareInterface {
         }
         else {
 
-            $requestDb = (new Users())->findFirst([
-                "".key($credentials)." = ?0",
-                "bind" => [$credentials[key($credentials)]],
-            ]);
-
-            $user = ($requestDb !== false) ? $requestDb->toArray() : [];
+            $fetchUser = $this->getUserMapper()->getOne($credentials);
+            $user = ($fetchUser !== false) ? $fetchUser->toArray() : [];
         }
         return $user;
     }
@@ -507,15 +415,7 @@ class AuthService implements InjectionAwareInterface {
      */
     public function hasRole($role) {
 
-        $session = $this->getDi()->getShared('session');
-
-        if($session->has('user') === true) {
-
-            return ((int)$session->get('user')['role'] === (int)$role) ? true : false;
-        }
-        else {
-            return false;
-        }
+        return ((int)$this->getUser()['role'] === (int)$role) ? true : false;
     }
 
     /**
@@ -525,85 +425,26 @@ class AuthService implements InjectionAwareInterface {
      */
     public function isAuth() {
 
-        // access ok
-        $session = $this->getDi()->getShared('session');
+        $user   = $this->getUser();
+        $access = $this->getAccessToken();
 
-        if($session->has('user') === true) {
+        if((isset($access['token']) === true &&  isset($user['id']) === true)
+            && $access['token'] === $this->cryptAccessToken($user['id'], $user['salt'])) {
 
-            $access = $this->getAccessToken();
+            if(strtotime($access['expire_date']) > time()) {
 
-            if($access['token'] === $this->cryptToken($session->get('user')['id'], $session->get('user')['salt'],
-                    $this->getRequest()->getUserAgent())) {
-
-                if($access['expire_date'] > time()) {
-
-                    return true;
-                }
-                else {
-
-                    // remove token from database
-                    $this->removeAccessTokenByUser($session->get('user')['id']);
-                    return false;
-                }
+                return true;
             }
             else {
 
-                $this->setError('INVALID_ACCESS_TOKEN');
+                // remove token from database
+                $this->deleteAccessToken(['user_id' => $user['id']]);
 
                 return false;
             }
         }
-        else {
 
-            return false;
-        }
-    }
-
-    /**
-     * Crypt auth token
-     *
-     * @param int $id user id
-     * @param string $password user password
-     * @param string $salt salt
-     *
-     * @return string
-     */
-    public function cryptToken($id, $password, $salt) {
-
-        return md5($id . $password . $salt);
-    }
-
-    /**
-     * Logout. Destroy all user data
-     *
-     * @return boolean
-     */
-    public function logout() {
-
-        $session = $this->getDi()->getShared('session');
-        $this->getResponse()->resetHeaders();
-
-        // destroy user data
-        if($session->has('user')) {
-
-            if($session->has(self::TOKEN_KEY)) {
-
-                $this->setAccessToken($session->get('user')['id'], $session->get('token')['token'], (time() - $this->getConfig()->cache->lifetime));
-
-                $session->remove(self::TOKEN_KEY);
-            }
-
-            $session->remove('user');
-        }
-
-        session_regenerate_id(true);
-
-        if($this->isAuth() === false) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        return $this->setError('INVALID_ACCESS_TOKEN');
     }
 
     /**
@@ -648,5 +489,134 @@ class AuthService implements InjectionAwareInterface {
         $status = $this->getSmsService()->call(self::SMS_PROVIDER)->setRecipient($user->getLogin())->send($template);
 
         return $status;
+    }
+
+    /**
+     * Set dependency container
+     *
+     * @param \Phalcon\DiInterface $di
+     */
+    public function setDi($di)
+    {
+        $this->di = $di;
+    }
+
+    /**
+     * Get dependency container
+     *
+     * @return \Phalcon\DiInterface
+     */
+    public function getDi()
+    {
+        return $this->di;
+    }
+
+    /**
+     * Get config plugin
+     *
+     * @return \Phalcon\Config
+     */
+    public function getConfig() {
+        return $this->getDi()->get('config');
+    }
+
+    /**
+     * Get user mapper
+     *
+     * @return \Application\Services\Mappers\UserMapper
+     */
+    public function getUserMapper() {
+        return $this->getDi()->get('UserMapper');
+    }
+
+    /**
+     * Get translate service
+     *
+     * @return \Application\Services\Advanced\TranslateService
+     */
+    public function getTranslator() {
+        return $this->getDI()->getShared('TranslateService')->assign('sign');
+    }
+
+    /**
+     * Get mailer service
+     *
+     * @return \Application\Services\Mail\MailSMTPService
+     */
+    public function getMailer() {
+        return $this->getDi()->get('MailService');
+    }
+
+    /**
+     * Get security plugin
+     *
+     * @return \Phalcon\Security
+     */
+    public function getSecurity() {
+        return $this->getDi()->get('security');
+    }
+
+    /**
+     * Get Request data service
+     *
+     * @return \Phalcon\Http\Request
+     */
+    public function getRequest() {
+        return $this->getDi()->get('request');
+    }
+
+    /**
+     * Get SMS service
+     *
+     * @return \SMSFactory\Sender
+     */
+    public function getSmsService() {
+        return $this->getDi()->get('SMS');
+    }
+
+    /**
+     * Set auth error message
+     *
+     * @param string $message
+     * @return false
+     */
+    public function setError($message) {
+
+        $this->error = (is_array($message) === false) ? $this->getTranslator()->translate($message)
+            : implode('. '.PHP_EOL, array_map(function($message) {
+                return $this->getTranslator()->translate($message->getMessage());
+        },$message));
+
+        $this->getDi()->get('LogMapper')->save($this->error. ' IP: '.$this->getRequest()->getClientAddress(), Logger::WARNING);
+        return false;
+    }
+
+    /**
+     * Get auth error messages
+     *
+     * @return array
+     */
+    public function getError() {
+        return $this->error;
+    }
+
+    /**
+     * Set auth success message
+     *
+     * @param string $message
+     * @return true
+     */
+    public function setSuccess($message) {
+        $this->success = $this->getTranslator()->translate($message);
+        return true;
+    }
+
+    /**
+     * Get auth success messages
+     *
+     * @return array
+     */
+    public function getSuccess() {
+        return $this->success;
     }
 }

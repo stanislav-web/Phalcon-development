@@ -19,16 +19,9 @@ use Phalcon\Mvc\View;
 class ControllerBase extends Controller
 {
     /**
-     * Logger
-     *
-     * @var \Application\Services\Mappers\LogMapper $logger
-     */
-    protected $logger;
-
-    /**
      * Meta Service
      *
-     * @var \Application\Services\MetaService $metaService
+     * @var \Application\Services\Views\MetaService $metaService
      */
     protected $metaService;
 
@@ -56,7 +49,7 @@ class ControllerBase extends Controller
     public function beforeExecuteRoute($dispatcher)
     {
         // load user data
-        $this->authService = $this->di->get("AuthService");
+        $this->authService = $this->getDI()->get("AuthService");
 
         if($this->authService->isAuth() === true
             && $this->authService->hasRole(UserRoles::ADMIN) === true) {
@@ -122,11 +115,6 @@ class ControllerBase extends Controller
      */
     public function initialize()
     {
-        // define logger
-        if($this->getDI()->has('LogMapper')) {
-            $this->logger = $this->getDI()->get('LogMapper');
-        }
-
         // setup navigation
 
         $navigation = $this->getDI()->get('navigation');

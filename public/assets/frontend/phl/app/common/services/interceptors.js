@@ -18,14 +18,14 @@
             'responseError': function(rejection) {
 
                 // do something on error
-                if(rejection.status === 404){
 
+                if(rejection.status === 404){
                     $location.path(ROUTES.NOT_FOUND);
                 }
                 else if(rejection.status === 500){
-
                     $location.path(ROUTES.SERVER_ERROR);
                 }
+
                 return $q.reject(rejection);
             }
         };
