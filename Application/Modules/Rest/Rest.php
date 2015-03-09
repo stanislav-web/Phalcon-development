@@ -3,10 +3,9 @@ namespace Application\Modules;
 
 use Phalcon\Loader;
 use Phalcon\Mvc\Dispatcher;
-use Phalcon\Mvc\View;
 
 /**
- * Frontend module
+ * Rest module
  *
  * @package Application
  * @subpackage Modules
@@ -14,15 +13,15 @@ use Phalcon\Mvc\View;
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @copyright Stanilav WEB
- * @filesource /Application/Modules/Frontend.php
+ * @filesource /Application/Modules/Rest.php
  */
-class Frontend
+class Rest
 {
     /**
      * Current module name
      * @var const
      */
-    const MODULE = 'Frontend';
+    const MODULE = 'Rest';
 
     /**
      * Register the autoloader specific to the current module
