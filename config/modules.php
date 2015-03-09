@@ -13,4 +13,8 @@ $application->registerModules([
         'className' => 'Application\Modules\Backend',
         'path' => APP_PATH . '/Modules/Backend/Backend.php',
     ],
+    'Rest' => [
+        'className' => 'Application\Modules\Rest',
+        'path' => APP_PATH . '/Modules/Rest/Rest.php',
+    ],
 ])->setDefaultModule('Frontend');

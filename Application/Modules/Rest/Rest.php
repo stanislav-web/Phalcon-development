@@ -3,6 +3,7 @@ namespace Application\Modules;
 
 use Phalcon\Loader;
 use Phalcon\Mvc\Dispatcher;
+use Phalcon\Mvc\View;
 
 /**
  * Rest module
@@ -48,9 +49,6 @@ class Rest
 
             $eventsManager = $di->getShared('eventsManager');
 
-            // event before exception
-            $eventsManager->attach('dispatch:beforeException', new \Application\Plugins\Dispatcher\NotFoundPlugin());
-
             //event before dispatch loop
             $eventsManager->attach("dispatch:beforeDispatchLoop", function($event, $dispatcher) {
 
@@ -81,8 +79,8 @@ class Rest
         $di->set('view', function () {
             $view = new View();
 
-            // only layout show
-            $view->setRenderLevel(View::LEVEL_MAIN_LAYOUT);
+            // view component disabled for this module
+            //$view->disable();
             return $view;
         });
 

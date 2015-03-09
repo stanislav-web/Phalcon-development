@@ -27,6 +27,17 @@ $router->add('/:controller/:action/:params', [
     'params' => 3,
     'namespace' => 'Application\Modules\Frontend\Controllers',
 ])->setName('front-full');
+
+// REST Routes
+
+$router->add('/api/:controller/:action/:params', [
+    'module' => "Rest",
+    'controller' => 1,
+    'action' => 2,
+    'params' => 3,
+    'namespace' => 'Application\Modules\Rest\Controllers',
+]);
+
 // Backend routes
 
 $router->add('/dashboard', [
