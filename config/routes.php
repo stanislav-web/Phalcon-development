@@ -6,61 +6,8 @@
 
 $router = new \Phalcon\Mvc\Router(true);
 
-$router->removeExtraSlashes(true)
-    ->setDefaults([
-        'module' => 'Frontend',
-        'controller' => 'index',
-        'action' => 'index'
-    ]);
+$router->removeExtraSlashes(true);
 
-$router->add('/', [
-    'module' => "Frontend",
-    'controller' => 'index',
-    'action' => "index",
-    'namespace' => 'Application\Modules\Frontend\Controllers',
-])->setName('front');
-
-$router->add('/:controller/:action/:params', [
-    'module' => "Frontend",
-    'controller' => 1,
-    'action' => 2,
-    'params' => 3,
-    'namespace' => 'Application\Modules\Frontend\Controllers',
-])->setName('front-full');
-
-// Backend routes
-
-$router->add('/dashboard', [
-    'module' => "Backend",
-    'controller' => "dashboard",
-    'action' => "index",
-    'namespace' => 'Application\Modules\Backend\Controllers',
-])->setName('dashboard');
-
-$router->add('/dashboard/:controller', [
-    'module' => "Backend",
-    'controller' => 1,
-    'action' => "index",
-    'namespace' => 'Application\Modules\Backend\Controllers',
-])->setName('dashboard-controller');
-
-$router->add('/dashboard/:controller/:action/:params', [
-    'module' => "Backend",
-    'controller' => 1,
-    'action' => 2,
-    'params' => 3,
-    'namespace' => 'Application\Modules\Backend\Controllers',
-])->setName('dashboard-full');
-
-
-// REST Routes
-
-$router->add('/api/user/:controller/:action/:params', [
-    'module' => "Rest",
-    'controller' => 1,
-    'action' => 2,
-    'params' => 3,
-    'namespace' => 'Application\Modules\Rest\Controllers\User',
-]);
-
-$router->mount(new Application\Routes\Pages());
+$router->mount(new Application\Modules\Backend\Routes\Dashboard());
+$router->mount(new Application\Modules\Frontend\Routes\Pages());
+$router->mount(new Application\Modules\Rest\Routes\Api());

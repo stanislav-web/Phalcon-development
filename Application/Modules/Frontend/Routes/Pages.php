@@ -1,19 +1,18 @@
 <?php
-
-namespace Application\Routes;
+namespace Application\Modules\Frontend\Routes;
 
 use \Phalcon\Mvc\Router\Group;
 
 /**
  * Pages. Static pages route component
  *
- * @package Application
+ * @package Application\Modules\Frontend
  * @subpackage Routes
  * @since      PHP >=5.4
  * @version    1.0
  * @author     Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @copyright  Stanislav WEB
- * @filesource /Application/Routes/Pages.php
+ * @filesource /Application/Modules/Frontend/Routes/Pages.php
  */
 class Pages extends Group {
 

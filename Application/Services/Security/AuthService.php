@@ -136,7 +136,7 @@ class AuthService implements InjectionAwareInterface {
         }
 
         session_regenerate_id(true);
-        return ($this->isAuth() === false) ? true : false;
+        return true;
     }
 
     /**
