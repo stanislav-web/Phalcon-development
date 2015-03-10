@@ -7,7 +7,6 @@ use \Phalcon\DI\InjectionAwareInterface;
 
 /**
  * Class AuthService. User authentication, reg, remind, logout, verify actions
- * 644 Lines | Refactor
  * @package Application\Services
  * @subpackage Views
  * @since PHP >=5.4
@@ -295,6 +294,10 @@ class AuthService implements InjectionAwareInterface {
     public function getAccessTokenFromRequest() {
 
         $token = $this->getRequest()->get(self::TOKEN_KEY, null, '');
+
+        if(empty($token) === true) {
+            $token = $this->getDi()->get('dispatcher')->getParam(self::TOKEN_KEY);
+        }
 
         if(empty($token) === false) {
 

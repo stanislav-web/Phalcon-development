@@ -1,7 +1,8 @@
 <?php
 namespace Application\Modules\Rest\Controllers;
 
-use Phalcon\Mvc\Controller;
+use \Phalcon\Mvc\Controller;
+use \Phalcon\Http\Response\Exception as RestException;
 
 /**
  * Class ControllerBase
@@ -16,26 +17,44 @@ use Phalcon\Mvc\Controller;
 class ControllerBase extends Controller
 {
     /**
-     * Auth user service
+     * Rest service
      *
-     * @var \Application\Services\Security\AuthService $auth
+     * @var \Application\Services\Http\JsonRestService $rest
      */
-    protected $auth;
+    protected $rest;
 
     /**
-     * Json response string
+     * HTTP Allowed methods
+     * Can overload for each controller's method
      *
-     * @var array
+     * @var array $methods
      */
-    protected $reply = [];
+    protected $methods = ['GET','POST', 'PUT', 'DELETE'];
+
+    /**
+     * Required params to access for actions
+     * Can overload for each controller's method
+     *
+     * @var array $required
+     */
+    protected $required = [];
 
     /**
      * Event before routes execute
      */
     public function beforeExecuteRoute()
     {
-        // define auth service
-        $this->auth = $this->di->get("AuthService");
+        // define rest service
+        $this->rest = $this->getDI()->get("JsonRestService");
+
+        try {
+            $this->rest->setAllowedMethods($this->methods);
+            $this->rest->filterRequiredParams($this->required);
+            $this->rest->useRestrictAccess();
+        }
+        catch(RestException $e) {
+            $this->rest->setStatusMessage($e->getCode(), $e->getMessage());
+        }
     }
 
     /**
@@ -45,37 +64,6 @@ class ControllerBase extends Controller
      */
     public function afterExecuteRoute()
     {
-        die($this->getReply());
-    }
-
-    /**
-     * Set array reply content.
-     *
-     * @param array $reply
-     * @return null
-     */
-    protected function setReply(array $reply) {
-
-        foreach($reply as $k => $v)
-        {
-            $this->reply[$k]    =   $v;
-        }
-    }
-
-    /**
-     * Get array reply content. To put in to view as json string or some once else
-     *
-     * @param int $code
-     * @param string $status
-     * @param string $content
-     * @return \Phalcon\Http\ResponseInterface
-     */
-    protected function getReply($code = 200, $status = 'OK', $content = 'application/json') {
-
-        $this->response->setJsonContent($this->reply);
-        $this->response->setStatusCode($code, $status);
-        $this->response->setContentType($content, 'UTF-8');
-
-        return $this->response->getContent();
+        $this->rest->response();
     }
 }

@@ -32,11 +32,11 @@ class Api extends Group {
         $this->setPrefix('/api');
 
         // Add route
-        $this->add('/user/:controller/:action/:params', [
-            'namespace' => 'Application\Modules\Rest\Controllers\User',
+        $this->add('/:controller/:action/:params', [
+            'namespace' => 'Application\Modules\Rest\Controllers',
             'controller' => 1,
-            'action' => 2,
-            'params' => 3,
-        ]);
+            'action'    => 2,
+            'params'    => 3,
+        ])->via(['GET', 'POST', 'PUT', 'DELETE']);
     }
 }

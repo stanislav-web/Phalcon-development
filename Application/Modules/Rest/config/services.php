@@ -1,7 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: stanislav
- * Date: 09.03.15
- * Time: 23:06
- */
+// SERVICES
+
+// Define Rest service
+$di->set('JsonRestService', 'Application\Services\Http\JsonRestService');
