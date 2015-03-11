@@ -4,7 +4,7 @@ namespace Application\Modules\Rest\Exceptions;
 use \Phalcon\Http\Response\Exception;
 
 /**
- * Class UnauthorizedException. Represents an HTTP 405 error.
+ * Class MethodNotAllowedException. Represents an HTTP 405 error.
  * The method specified in the Request-Line is not allowed for the resource identified by the Request-URI.
  * The response MUST include an Allow header containing a list of valid methods for the requested resource.
  *

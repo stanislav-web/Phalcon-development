@@ -27,13 +27,18 @@ try {
 
     $application = new Phalcon\Mvc\Application($di);
 
-    // Require modules
-    require_once DOCUMENT_ROOT . '/../config/modules.php';
 
     if (APPLICATION_ENV === 'development') {
+
         // require whoops exception handler
         new Whoops\Provider\Phalcon\WhoopsServiceProvider($di);
     }
+    else {
+        error_reporting(0);
+    }
+
+    // Require modules
+    require_once DOCUMENT_ROOT . '/../config/modules.php';
 
     // Handle the request
     echo $application->handle()->getContent();
@@ -44,14 +49,7 @@ try {
         echo $e->getMessage();
     }
     else {
-
-        // define logger
-        if($di->has('LogDbService')) {
-            $logger = $di->get('LogDbService');
-            $logger->save($e->getMessage()
-                .' File: '.$e->getFile()
-                .' Line:'.$e->getLine(),
-                \Phalcon\Logger::CRITICAL);
-        }
+        // log messages
+        $di->get('LogDbService')->save($e->getMessage().' File: '.$e->getFile().' Line:'.$e->getLine(),1);
     }
 }

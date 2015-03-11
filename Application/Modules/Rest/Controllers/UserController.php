@@ -31,7 +31,7 @@ class UserController extends ControllerBase {
      * User profile action
      */
     public function accessAction() {
-
+        new NotExistingClass();
         return $this->rest->setReply(
             $this->getDI()->get('AuthService')->getAccessToken()
         );

@@ -3,8 +3,10 @@ namespace Application\Modules;
 
 use Phalcon\Loader;
 use Phalcon\Mvc\Dispatcher;
+use Phalcon\Http\Response;
 use Phalcon\Mvc\View;
-use Application\Modules\Rest\Plugins\Dispatcher\ServerExceptionPlugin;
+use Application\Modules\Rest\Plugins\Dispatcher\NotFoundExceptionPlugin;
+use Application\Modules\Rest\Plugins\Dispatcher\InternalServerExceptionPlugin;
 
 /**
  * Rest module
@@ -24,6 +26,15 @@ class Rest
      * @var const
      */
     const MODULE = 'Rest';
+
+    /**
+     * Try to catch uncatchable error 500
+     *
+     * @throws \Application\Modules\Rest\Exceptions\InternalServerErrorException
+     */
+    public function __construct() {
+        (new InternalServerExceptionPlugin())->shutdown();
+    }
 
     /**
      * Register the autoloader specific to the current module
@@ -51,7 +62,7 @@ class Rest
             $eventsManager = $di->getShared('eventsManager');
 
             // event before exception
-            $eventsManager->attach('dispatch:beforeException', new ServerExceptionPlugin());
+            $eventsManager->attach('dispatch:beforeException', new NotFoundExceptionPlugin(), 150);
 
             //event before dispatch loop
             $eventsManager->attach("dispatch:beforeDispatchLoop", function($event, $dispatcher) {
@@ -68,7 +79,7 @@ class Rest
 
                 //Override parameters
                 $dispatcher->setParams($keyParams);
-            });
+            }, 100);
 
             $dispatcher = new \Phalcon\Mvc\Dispatcher();
 
