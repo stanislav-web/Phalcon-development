@@ -24,7 +24,6 @@ class JsonRestService implements InjectionAwareInterface {
     const CREATED = 201;
     const NO_CONTENT = 204;
     const FORBIDDEN = 403;
-    const NOT_FOUND = 404;
     const SERVER_ERROR = 500;
 
     /**
@@ -72,7 +71,6 @@ class JsonRestService implements InjectionAwareInterface {
         self::CREATED => 'Created',
         self::NO_CONTENT => 'No Content',
         self::FORBIDDEN => 'Forbidden',
-        self::NOT_FOUND => 'Not Found',
         self::SERVER_ERROR => 'Internal Server Error'
     ];
 

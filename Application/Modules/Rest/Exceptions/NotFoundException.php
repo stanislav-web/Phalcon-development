@@ -5,8 +5,8 @@ use \Phalcon\Http\Response\Exception;
 
 /**
  * Class NotFoundException. Represents an HTTP 404 error.
- * The request could not be understood by the server due to malformed syntax.
- * The client SHOULD NOT repeat the request without modifications.
+ * The server has not found anything matching the Request-URI.
+ * No indication is given of whether the condition is temporary or permanent.
  *
  * @package Application\Modules\Rest
  * @subpackage    Exceptions
