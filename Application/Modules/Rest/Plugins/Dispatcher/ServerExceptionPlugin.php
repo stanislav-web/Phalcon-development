@@ -1,6 +1,7 @@
 <?php
 namespace Application\Modules\Rest\Plugins\Dispatcher;
 
+use Application\Modules\Rest\Exceptions\InternalServerErrorException;
 use \Phalcon\Events\Event;
 use \Phalcon\Mvc\Dispatcher as MvcDispatcher;
 use \Phalcon\Mvc\Dispatcher\Exception as DispatcherException;
@@ -9,8 +10,8 @@ use \Phalcon\Http\Response;
 use Application\Modules\Rest\Exceptions\NotFoundException;
 
 /**
- * NotFoundPlugin
- * Handles not-found controller/actions
+ * ServerExceptionPlugin
+ * Handles server's exceptions
  *
  * @package Application\Modules\Rest\Plugins
  * @subpackage Dispatcher
@@ -18,9 +19,9 @@ use Application\Modules\Rest\Exceptions\NotFoundException;
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @copyright Stanislav WEB
- * @filesource /Application/Modules/Rest/Plugins/Dispatcher/NotFoundPlugin.php
+ * @filesource /Application/Modules/Rest/Plugins/Dispatcher/ServerExceptionPlugin.php
  */
-class NotFoundPlugin
+class ServerExceptionPlugin
 {
     /**
      * This action is executed before execute any action in the application.
@@ -41,11 +42,25 @@ class NotFoundPlugin
             }
             catch(RestException $e) {
                 $response = new Response();
-                die($response->setContentType('application/json', 'utf-8')
+
+                $response->setContentType('application/json', 'utf-8')
                     ->setStatusCode($e->getCode(), $e->getMessage())
-                    ->setJsonContent(['code' => $e->getCode(), 'message' => $e->getMessage()])
-                    ->send());
+                    ->setJsonContent(['code' => $e->getCode(), 'message' => $e->getMessage()])->send();
+                return $event->isStopped();
+
             }
+        }
+
+        try {
+            throw new InternalServerErrorException();
+        }
+        catch(RestException $e) {
+            $response = new Response();
+
+            $response->setContentType('application/json', 'utf-8')
+                ->setStatusCode($e->getCode(), $e->getMessage())
+                ->setJsonContent(['code' => $e->getCode(), 'message' => $e->getMessage()])->send();
+            return $event->isStopped();
         }
     }
 }

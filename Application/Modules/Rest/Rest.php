@@ -4,7 +4,7 @@ namespace Application\Modules;
 use Phalcon\Loader;
 use Phalcon\Mvc\Dispatcher;
 use Phalcon\Mvc\View;
-use Application\Modules\Rest\Plugins\Dispatcher\NotFoundPlugin;
+use Application\Modules\Rest\Plugins\Dispatcher\ServerExceptionPlugin;
 
 /**
  * Rest module
@@ -51,7 +51,7 @@ class Rest
             $eventsManager = $di->getShared('eventsManager');
 
             // event before exception
-            $eventsManager->attach('dispatch:beforeException', new NotFoundPlugin());
+            $eventsManager->attach('dispatch:beforeException', new ServerExceptionPlugin());
 
             //event before dispatch loop
             $eventsManager->attach("dispatch:beforeDispatchLoop", function($event, $dispatcher) {
