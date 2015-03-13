@@ -7,7 +7,7 @@ use \Phalcon\Mvc\Router\Group;
 /**
  * Api. Api router component
  *
- * @package Application\Modules\Frontend
+ * @package Application\Modules\Rest
  * @subpackage Routes
  * @since      PHP >=5.4
  * @version    1.0

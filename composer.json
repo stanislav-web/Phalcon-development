@@ -36,7 +36,8 @@
         "swiftmailer/swiftmailer": "5.*",
         "filp/whoops": "~1.0",
         "fabfuel/prophiler": "1.*",
-        "m1ome/phalcon-datatables": "1.*"
+        "m1ome/phalcon-datatables": "1.*",
+        "vlucas/valitron": "dev-master"
     },
     "require-dev": {
         "phpunit/phpunit": "4.*",
