@@ -34,7 +34,7 @@ try {
         new Whoops\Provider\Phalcon\WhoopsServiceProvider($di);
     }
     else {
-        error_reporting(0);
+        error_reporting(7);
     }
 
     // Require modules
@@ -50,6 +50,7 @@ try {
     }
     else {
         // log messages
-        $di->get('LogDbService')->save($e->getMessage().' File: '.$e->getFile().' Line:'.$e->getLine(),1);
+
+        $di->get('LogMapper')->save($e->getMessage().' File: '.$e->getFile().' Line:'.$e->getLine(),1);
     }
 }

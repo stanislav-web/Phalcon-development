@@ -79,8 +79,10 @@ class JsonRestService implements InjectionAwareInterface {
      * Init default HTTP response status
      */
     public function __construct(\Application\Services\Http\RestValidationService $validator) {
-        $validator->validate();
+
         $this->setStatusMessage();
+
+        var_dump($validator->validate());
     }
 
     /**

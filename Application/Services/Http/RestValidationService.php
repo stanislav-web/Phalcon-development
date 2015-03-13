@@ -27,6 +27,13 @@ class RestValidationService implements InjectionAwareInterface {
     private $di;
 
     /**
+     * Request service
+     *
+     * @var \Phalcon\Http\Request $request;
+     */
+    private $request;
+
+    /**
      * Request rules
      *
      * @var array $rules;
@@ -60,7 +67,8 @@ class RestValidationService implements InjectionAwareInterface {
         }
 
         // Set request params
-        $this->setParams($rqst, $dsp);
+        $this->request = $rqst;
+        $this->setParams($this->request, $dsp);
     }
 
     /**
@@ -90,7 +98,7 @@ class RestValidationService implements InjectionAwareInterface {
      * @param \Phalcon\Mvc\Dispatcher $dispatcher
      * @return RestValidationService
      */
-    public function setParams(\Phalcon\Http\Request $request, \Phalcon\Mvc\Dispatcher $dispatcher)
+    private function setParams(\Phalcon\Http\Request $request, \Phalcon\Mvc\Dispatcher $dispatcher)
     {
         $this->params = array_merge($request->get(), $dispatcher->getParams());
 
@@ -113,7 +121,7 @@ class RestValidationService implements InjectionAwareInterface {
      * @param array $rules
      * @return RestValidationService
      */
-    public function setRules(array $rules)
+    private function setRules(array $rules)
     {
         $this->rules = $rules;
 
@@ -127,10 +135,27 @@ class RestValidationService implements InjectionAwareInterface {
      */
     public function getRules()
     {
-        return $this->rules;
+        return (object)$this->rules;
     }
 
     public function validate() {
-        
+
+        $this->isAllowMethods();
+    }
+
+    /**
+     * Check if request method is allowed by current action
+     *
+     * @return bool
+     * @throws Exceptions\MethodNotAllowedException
+     */
+    public function isAllowMethods() {
+
+        $methods = explode(',', $this->getRules()->methods);
+        if(in_array($this->request->getMethod(),$methods) === false) {
+            throw new Exceptions\MethodNotAllowedException();
+        }
+
+        return true;
     }
 }

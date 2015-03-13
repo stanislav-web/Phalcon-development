@@ -5,6 +5,7 @@
  * return [
  *      'controller' => [
  *          'action'    =>  [
+ *              'methods'    => 'GET',
  *              'param' => 'rules....'
  *          ]
  *      ]
@@ -14,7 +15,10 @@
 return [
     'user'  =>  [
         'access'    =>  [
-            'methods'    =>  'GET'
+            'methods'    => 'GET',
+            'params'     => [
+                'required' => 'access'
+            ],
         ]
     ]
 ];

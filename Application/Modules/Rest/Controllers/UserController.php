@@ -21,13 +21,6 @@ class UserController extends ControllerBase {
     protected $required = ['token'];
 
     /**
-     * HTTP Allowed methods
-     *
-     * @var array $methods
-     */
-    protected $methods = ['GET'];
-
-    /**
      * User profile action
      */
     public function accessAction() {

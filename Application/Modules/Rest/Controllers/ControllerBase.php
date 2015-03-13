@@ -24,14 +24,6 @@ class ControllerBase extends Controller
     protected $rest;
 
     /**
-     * HTTP Allowed methods
-     * Can overload for each controller's method
-     *
-     * @var array $methods
-     */
-    protected $methods = ['GET','POST', 'PUT', 'DELETE'];
-
-    /**
      * Required params to access for actions
      * Can overload for each controller's method
      *
@@ -45,16 +37,19 @@ class ControllerBase extends Controller
     public function beforeExecuteRoute()
     {
 
+        // define Rest service
+        $this->rest = $this->getDI()->get("JsonRestService");
+
+        var_dump($this->rest);
         try {
 
-            // define Rest service
-            $this->rest = $this->getDI()->get("JsonRestService");
             $this->rest->setDebug(false);
-            $this->rest->setAllowedMethods($this->methods);
             $this->rest->filterRequiredParams($this->required);
             $this->rest->useRestrictAccess();
         }
         catch(RestException $e) {
+
+            var_dump($e);
             $this->rest->setStatusMessage($e->getCode(), $e->getMessage());
         }
     }
