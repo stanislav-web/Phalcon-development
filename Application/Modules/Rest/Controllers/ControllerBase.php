@@ -44,10 +44,12 @@ class ControllerBase extends Controller
      */
     public function beforeExecuteRoute()
     {
-        // define rest service
-        $this->rest = $this->getDI()->get("JsonRestService");
 
         try {
+
+            // define Rest service
+            $this->rest = $this->getDI()->get("JsonRestService");
+            $this->rest->setDebug(false);
             $this->rest->setAllowedMethods($this->methods);
             $this->rest->filterRequiredParams($this->required);
             $this->rest->useRestrictAccess();

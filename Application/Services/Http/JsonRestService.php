@@ -1,9 +1,10 @@
 <?php
 namespace Application\Services\Http;
 
+use Application\Services\Security\AuthService;
 use \Phalcon\DI\InjectionAwareInterface;
 use Application\Modules\Rest\Exceptions;
-use Phalcon\Exception;
+use \Valitron\Validator;
 
 /**
  * Class JsonRestService. Http Rest handler
@@ -19,12 +20,11 @@ use Phalcon\Exception;
 class JsonRestService implements InjectionAwareInterface {
 
     /**
-     * @TODO Create exception follow this messages
+     * Provide response content type
+     *
+     * @var string $contentType;
      */
-    const CREATED = 201;
-    const NO_CONTENT = 204;
-    const FORBIDDEN = 403;
-    const SERVER_ERROR = 500;
+    private $debug  = false;
 
     /**
      * Provide response content type
@@ -62,19 +62,6 @@ class JsonRestService implements InjectionAwareInterface {
     private $reply = [];
 
     /**
-     * @TODO Create exception follow this messages
-     * Response statuses / messages
-     *
-     * @var array $sm
-     */
-    private $sm = [
-        self::CREATED => 'Created',
-        self::NO_CONTENT => 'No Content',
-        self::FORBIDDEN => 'Forbidden',
-        self::SERVER_ERROR => 'Internal Server Error'
-    ];
-
-    /**
      * Allowed request method
      *
      * @var array $allowedMethods;
@@ -91,8 +78,8 @@ class JsonRestService implements InjectionAwareInterface {
     /**
      * Init default HTTP response status
      */
-    public function __construct() {
-
+    public function __construct(\Application\Services\Http\RestValidationService $validator) {
+        $validator->validate();
         $this->setStatusMessage();
     }
 
@@ -123,7 +110,6 @@ class JsonRestService implements InjectionAwareInterface {
      */
     public function filterRequiredParams(array $params)
     {
-
         $intersect = array_intersect_key(array_flip($params), $this->getRequestParams());
 
         if(count($params) !== count($intersect)) {
@@ -134,14 +120,13 @@ class JsonRestService implements InjectionAwareInterface {
     }
 
     /**
-     * Get request params (Header, Requests, Routes)
+     * Get dispatcher controllers
      *
-     * @return array
+     * @return \Phalcon\Mvc\Dispatcher
      */
-    public function getRequestParams()
+    public function getDispatcher()
     {
-        return $this->getDi()->get('dispatcher')->getParams()
-            +$this->getRequestService()->get();
+        return $this->getDi()->get('dispatcher');
     }
 
     /**
@@ -185,15 +170,18 @@ class JsonRestService implements InjectionAwareInterface {
      * Get basic response service
      *
      * @uses \Application\Services\Security\AuthService
-     * @throws Exceptions\MethodNotAllowedException
+     * @throws Exceptions\UnauthorizedException
      */
     public function useRestrictAccess()
     {
         // get access token from any request
         $token = $this->getDi()->get('AuthService')->getAccessToken();
-
         if(empty($token) === true) {
             throw new Exceptions\UnauthorizedException();
+        }
+        else {
+            $this->getResponseService()->setHeader('X-'.ucfirst(AuthService::TOKEN_KEY),
+                base64_encode($token['token']));
         }
     }
 
@@ -206,13 +194,20 @@ class JsonRestService implements InjectionAwareInterface {
      */
     public function response() {
 
-        return $this->getResponseService()
+        $response = $this->getResponseService()
             ->setContentType($this->contentType, $this->contentCharset)
             ->setStatusCode($this->httpCode, $this->httpMessage)
             ->setHeader('Access-Control-Allow-Origin', 'http://'.$this->getRequestService()->getServer('HTTP_HOST'))
             ->setHeader('Access-Control-Allow-Methods', implode(',', $this->allowedMethods))
-            ->setHeader('Access-Control-Allow-Credentials', 'true')
-            ->setJsonContent($this->reply)
+            ->setHeader('Access-Control-Allow-Credentials', 'true');
+
+        if($this->debug === true) {
+            $this->reply['debug'] = [
+                'request' => $this->getRequestService()->getHeaders(),
+                'response' => $this->getResponseService()->getHeaders()->toArray(),
+            ];
+        }
+        return $response->setJsonContent($this->reply)
             ->send();
     }
 
@@ -240,7 +235,11 @@ class JsonRestService implements InjectionAwareInterface {
      */
     public function setReply($reply) {
 
-        if($this->reply['code'] > self::NO_CONTENT) {
+        if($this->reply['code'] > 204) {
+
+            $this->reply    =   ['error' =>
+                $this->reply
+            ];
             return false;
         }
         foreach((array)$reply as $k => $v)
@@ -251,4 +250,31 @@ class JsonRestService implements InjectionAwareInterface {
         return $this;
     }
 
+    /**
+     * Debugger state
+     *
+     * @param boolean $enable
+     * @return JsonRestService
+     */
+    public function setDebug($enable) {
+
+        if($enable === true) {
+            $this->debug = $enable;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Set validation rules
+     *
+     * @param array $rules
+     * @return JsonRestService
+     */
+    public function setRules(array $rules) {
+
+        $this->rules = $rules;
+
+        return $this;
+    }
 }

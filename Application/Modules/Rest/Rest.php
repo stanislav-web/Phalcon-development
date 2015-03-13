@@ -85,7 +85,7 @@ class Rest
 
             $dispatcher->setEventsManager($eventsManager);
             $dispatcher->setDefaultNamespace('Application\Modules\\' . self::MODULE . '\Controllers');
-
+            $dispatcher->setDefaultAction('index');
             return $dispatcher;
         }, true);
 
