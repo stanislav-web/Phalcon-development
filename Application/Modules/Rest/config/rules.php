@@ -14,7 +14,7 @@
 return [
     'user'  =>  [
         'access'    =>  [
-
+            'methods'    =>  'GET'
         ]
     ]
 ];
