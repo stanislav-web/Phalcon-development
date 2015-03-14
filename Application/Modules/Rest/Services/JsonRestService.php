@@ -1,21 +1,20 @@
 <?php
-namespace Application\Services\Http;
+namespace Application\Modules\Rest\Services;
 
 use Application\Services\Security\AuthService;
 use \Phalcon\DI\InjectionAwareInterface;
 use Application\Modules\Rest\Exceptions;
-use \Valitron\Validator;
 
 /**
  * Class JsonRestService. Http Rest handler
  *
- * @package Application\Services
- * @subpackage Http
+ * @package Application\Modules\Rest
+ * @subpackage Services
  * @since PHP >=5.4
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @copyright Stanislav WEB
- * @filesource /Application/Services/Http/JsonRestService.php
+ * @filesource /Application/Modules/Rest/Services/JsonRestService.php
  */
 class JsonRestService implements InjectionAwareInterface {
 
@@ -77,12 +76,12 @@ class JsonRestService implements InjectionAwareInterface {
 
     /**
      * Init default HTTP response status
+     *
+     * @param \Application\Modules\Rest\Services\RestValidationService $validator
      */
-    public function __construct(\Application\Services\Http\RestValidationService $validator) {
+    public function __construct(\Application\Modules\Rest\Services\RestValidationService $validator) {
 
         $this->setStatusMessage();
-
-        var_dump($validator->validate());
     }
 
     /**

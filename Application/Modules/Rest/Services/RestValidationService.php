@@ -1,23 +1,22 @@
 <?php
-namespace Application\Services\Http;
+namespace Application\Modules\Rest\Services;
 
 use \Phalcon\DI\InjectionAwareInterface;
+use Application\Modules\Rest\Aware\RestValidatorInterface;
 use Application\Modules\Rest\Exceptions;
-
-use \Valitron\Validator;
 
 /**
  * Class RestValidationService. Rest validator
  *
- * @package Application\Services
- * @subpackage Http
+ * @package Application\Modules\Rest
+ * @subpackage Services
  * @since PHP >=5.4
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @copyright Stanislav WEB
- * @filesource /Application/Services/Http/RestValidationService.php
+ * @filesource /Application/Modules/Rest/Services/RestValidationService.php
  */
-class RestValidationService implements InjectionAwareInterface {
+class RestValidationService implements InjectionAwareInterface, RestValidatorInterface {
 
     /**
      * Dependency injection container
@@ -66,9 +65,17 @@ class RestValidationService implements InjectionAwareInterface {
 
         }
 
-        // Set request params
-        $this->request = $rqst;
-        $this->setParams($this->request, $dsp);
+        /**
+         *
+         */
+        call_user_func($this->setRequestParams(function() use ($rqst, $dsp) {
+
+            $this->request = $rqst;
+            $this->params = array_merge($rqst->get(), $dsp->getParams());
+        }));
+
+var_dump($this->request);
+        //$this->setParams($this->request, $dsp);
     }
 
     /**
@@ -90,6 +97,7 @@ class RestValidationService implements InjectionAwareInterface {
     {
         return $this->di;
     }
+
 
     /**
      * Set possible request params

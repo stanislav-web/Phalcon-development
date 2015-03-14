@@ -24,14 +24,6 @@ class ControllerBase extends Controller
     protected $rest;
 
     /**
-     * Required params to access for actions
-     * Can overload for each controller's method
-     *
-     * @var array $required
-     */
-    protected $required = [];
-
-    /**
      * Event before routes execute
      */
     public function beforeExecuteRoute()
@@ -39,8 +31,6 @@ class ControllerBase extends Controller
 
         // define Rest service
         $this->rest = $this->getDI()->get("JsonRestService");
-
-        var_dump($this->rest);
         try {
 
             $this->rest->setDebug(false);
