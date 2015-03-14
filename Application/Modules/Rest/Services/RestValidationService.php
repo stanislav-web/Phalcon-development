@@ -1,7 +1,7 @@
 <?php
-namespace Application\Services\Http;
+namespace Application\Modules\Rest\Services;
 
-use \Phalcon\DI\InjectionAwareInterface;
+use Application\Modules\Rest\Aware\RestValidatorInterface;
 use Application\Modules\Rest\Exceptions;
 
 use \Valitron\Validator;
@@ -9,22 +9,15 @@ use \Valitron\Validator;
 /**
  * Class RestValidationService. Rest validator
  *
- * @package Application\Services
- * @subpackage Http
+ * @package Application\Modules\Rest
+ * @subpackage Services
  * @since PHP >=5.4
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @copyright Stanislav WEB
- * @filesource /Application/Services/Http/RestValidationService.php
+ * @filesource /Application/Modules/Rest/Services/RestValidationService.php
  */
-class RestValidationService implements InjectionAwareInterface {
-
-    /**
-     * Dependency injection container
-     *
-     * @var \Phalcon\DiInterface $di;
-     */
-    private $di;
+class RestValidationService implements RestValidatorInterface {
 
     /**
      * Request service
@@ -69,26 +62,6 @@ class RestValidationService implements InjectionAwareInterface {
         // Set request params
         $this->request = $rqst;
         $this->setParams($this->request, $dsp);
-    }
-
-    /**
-     * Set dependency container
-     *
-     * @param \Phalcon\DiInterface $di
-     */
-    public function setDi($di)
-    {
-        $this->di = $di;
-    }
-
-    /**
-     * Get dependency container
-     *
-     * @return \Phalcon\DiInterface
-     */
-    public function getDi()
-    {
-        return $this->di;
     }
 
     /**

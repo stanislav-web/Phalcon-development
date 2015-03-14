@@ -19,7 +19,7 @@ class ControllerBase extends Controller
     /**
      * Rest service
      *
-     * @var \Application\Services\Http\JsonRestService $rest
+     * @var \Application\Modules\Rest\Services\JsonRestService $rest
      */
     protected $rest;
 
