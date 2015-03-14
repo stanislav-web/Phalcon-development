@@ -138,24 +138,22 @@ class RestValidationService implements InjectionAwareInterface {
         return (object)$this->rules;
     }
 
-    public function validate() {
-
-        $this->isAllowMethods();
-    }
-
     /**
      * Check if request method is allowed by current action
      *
      * @return bool
      * @throws Exceptions\MethodNotAllowedException
+     * @return RestValidationService
      */
     public function isAllowMethods() {
 
         $methods = explode(',', $this->getRules()->methods);
+
         if(in_array($this->request->getMethod(),$methods) === false) {
+
             throw new Exceptions\MethodNotAllowedException();
         }
 
-        return true;
+        return $this;
     }
 }

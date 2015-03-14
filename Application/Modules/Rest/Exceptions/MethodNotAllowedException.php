@@ -34,6 +34,7 @@ class MethodNotAllowedException extends Exception {
      * @param int $code Status code, defaults to 405
      */
      public function __construct() {
+
          parent::__construct(self::MESSAGE, self::CODE);
      }
 }

@@ -50,7 +50,6 @@ try {
     }
     else {
         // log messages
-
         $di->get('LogMapper')->save($e->getMessage().' File: '.$e->getFile().' Line:'.$e->getLine(),1);
     }
 }

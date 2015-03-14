@@ -27,6 +27,13 @@ class JsonRestService implements InjectionAwareInterface {
     private $debug  = false;
 
     /**
+     * REST Validator
+     *
+     * @var \Application\Services\Http\RestValidationService $validator;
+     */
+    private $validator;
+
+    /**
      * Provide response content type
      *
      * @var string $contentType;
@@ -62,13 +69,6 @@ class JsonRestService implements InjectionAwareInterface {
     private $reply = [];
 
     /**
-     * Allowed request method
-     *
-     * @var array $allowedMethods;
-     */
-    private $allowedMethods  = ['*'];
-
-    /**
      * Dependency injection container
      *
      * @var \Phalcon\DiInterface $di;
@@ -80,9 +80,8 @@ class JsonRestService implements InjectionAwareInterface {
      */
     public function __construct(\Application\Services\Http\RestValidationService $validator) {
 
+        $this->validator = $validator;
         $this->setStatusMessage();
-
-        var_dump($validator->validate());
     }
 
     /**
@@ -129,23 +128,6 @@ class JsonRestService implements InjectionAwareInterface {
     public function getDispatcher()
     {
         return $this->getDi()->get('dispatcher');
-    }
-
-    /**
-     * Set allowed methods
-     *
-     * @param array $allowedMethods
-     * @return JsonRestService
-     * @throws Exceptions\MethodNotAllowedException
-     */
-    public function setAllowedMethods(array $allowedMethods)
-    {
-        if(in_array($this->getRequestService()->getMethod(),$allowedMethods) === false) {
-            throw new Exceptions\MethodNotAllowedException();
-        }
-        $this->allowedMethods = $allowedMethods;
-
-        return $this;
     }
 
     /**
@@ -200,7 +182,7 @@ class JsonRestService implements InjectionAwareInterface {
             ->setContentType($this->contentType, $this->contentCharset)
             ->setStatusCode($this->httpCode, $this->httpMessage)
             ->setHeader('Access-Control-Allow-Origin', 'http://'.$this->getRequestService()->getServer('HTTP_HOST'))
-            ->setHeader('Access-Control-Allow-Methods', implode(',', $this->allowedMethods))
+            ->setHeader('Access-Control-Allow-Methods', $this->validator->getRules()->methods)
             ->setHeader('Access-Control-Allow-Credentials', 'true');
 
         if($this->debug === true) {
@@ -276,6 +258,15 @@ class JsonRestService implements InjectionAwareInterface {
     public function setRules(array $rules) {
 
         $this->rules = $rules;
+
+        return $this;
+    }
+
+    /**
+     * @throws Exceptions\MethodNotAllowedException
+     */
+    public function validate() {
+        $this->validator->isAllowMethods();
 
         return $this;
     }

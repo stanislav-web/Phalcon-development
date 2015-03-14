@@ -14,13 +14,6 @@ namespace Application\Modules\Rest\Controllers;
 class UserController extends ControllerBase {
 
     /**
-     * Required params to access for actions
-     *
-     * @var array
-     */
-    protected $required = ['token'];
-
-    /**
      * User profile action
      */
     public function accessAction() {
