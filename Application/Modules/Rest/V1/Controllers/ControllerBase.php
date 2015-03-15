@@ -1,5 +1,5 @@
 <?php
-namespace Application\Modules\Rest\Controllers;
+namespace Application\Modules\Rest\V1\Controllers;
 
 use \Phalcon\Mvc\Controller;
 use \Phalcon\Http\Response\Exception as RestException;
@@ -19,7 +19,7 @@ class ControllerBase extends Controller
     /**
      * Rest service
      *
-     * @var \Application\Services\Http\JsonRestService $rest
+     * @var \Application\Modules\Rest\Services\JsonRestService $rest
      */
     protected $rest;
 
@@ -29,17 +29,14 @@ class ControllerBase extends Controller
     public function beforeExecuteRoute()
     {
 
-        // define Rest service
-        $this->rest = $this->getDI()->get("JsonRestService");
         try {
 
-            $this->rest->setDebug(false);
-            $this->rest->filterRequiredParams($this->required);
-            $this->rest->useRestrictAccess();
+            // define Rest service
+            $this->rest = $this->getDI()->get("JsonRestService");
+            $this->rest->validate()->setDebug(false)->useRestrictAccess();
         }
         catch(RestException $e) {
 
-            var_dump($e);
             $this->rest->setStatusMessage($e->getCode(), $e->getMessage());
         }
     }

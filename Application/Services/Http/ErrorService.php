@@ -40,6 +40,7 @@ class ErrorService implements InjectionAwareInterface {
 
     /**
      * Get dependency container
+     *
      * @return \Phalcon\DiInterface
      */
     public function getDi()

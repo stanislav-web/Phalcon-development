@@ -1,5 +1,5 @@
 <?php
-namespace Application\Modules\Rest\Controllers;
+namespace Application\Modules\Rest\V1\Controllers;
 
 /**
  * Class UserController

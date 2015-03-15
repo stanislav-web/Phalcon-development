@@ -5,11 +5,12 @@ use Phalcon\Loader;
 use Phalcon\Mvc\Dispatcher;
 use Phalcon\Http\Response;
 use Phalcon\Mvc\View;
-use Application\Modules\Rest\Plugins\Dispatcher\NotFoundExceptionPlugin;
-use Application\Modules\Rest\Plugins\Dispatcher\InternalServerExceptionPlugin;
+use Phalcon\Mvc\Dispatcher\Exception as DispatcherException;
+use Application\Modules\Rest\Exceptions\InternalServerErrorException;
+use Application\Modules\Rest\Exceptions\NotFoundException;
 
 /**
- * Rest module
+ * Rest module. Current provide REST API access
  *
  * @package Application
  * @subpackage Modules
@@ -33,11 +34,11 @@ class Rest
      * @throws \Application\Modules\Rest\Exceptions\InternalServerErrorException
      */
     public function __construct() {
-        (new InternalServerExceptionPlugin())->shutdown();
+        $this->catchShutdown();
     }
 
     /**
-     * Register the autoloader specific to the current module
+     * Register the autoload specific to the current module
      *
      * @access public
      * @return \Phalcon\Loader
@@ -62,7 +63,23 @@ class Rest
             $eventsManager = $di->getShared('eventsManager');
 
             // event before exception
-            $eventsManager->attach('dispatch:beforeException', new NotFoundExceptionPlugin(), 150);
+            $eventsManager->attach('dispatch:beforeException', function($event, $dispatcher, $exception) {
+
+                if ($exception instanceof DispatcherException) {
+
+                    try {
+                        throw new NotFoundException();
+                    }
+                    catch(RestException $e) {
+                        $response = new Response();
+
+                        $response->setContentType('application/json', 'utf-8')
+                            ->setStatusCode($e->getCode(), $e->getMessage())
+                            ->setJsonContent(['code' => $e->getCode(), 'message' => $e->getMessage()])->send();
+                        return $event->isStopped();
+                    }
+                }
+            }, 150);
 
             //event before dispatch loop
             $eventsManager->attach("dispatch:beforeDispatchLoop", function($event, $dispatcher) {
@@ -103,4 +120,30 @@ class Rest
 
     }
 
+    /**
+     * Shutdown application while uncatchable error founded
+     *
+     * @throws \Application\Modules\Rest\Exceptions\InternalServerErrorException
+     * return callable register_shutdown_function()
+     */
+    public function catchShutdown() {
+
+        return register_shutdown_function(function() {
+            $error = error_get_last();
+
+            if(is_null($error) === false) {
+                try {
+                    throw new InternalServerErrorException();
+                }
+                catch(\RuntimeException $e) {
+
+                    $response = new Response();
+
+                    $response->setContentType('application/json', 'utf-8')
+                        ->setStatusCode($e->getCode(), $e->getMessage())
+                        ->setJsonContent(['code' => $e->getCode(), 'message' => $e->getMessage()])->send();
+                }
+            }
+        });
+    }
 }

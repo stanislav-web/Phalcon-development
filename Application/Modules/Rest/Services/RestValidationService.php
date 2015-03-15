@@ -1,7 +1,8 @@
 <?php
 namespace Application\Modules\Rest\Services;
 
-use \Phalcon\DI\InjectionAwareInterface;
+use Phalcon\DI\InjectionAwareInterface;
+use Phalcon\Filter;
 use Application\Modules\Rest\Aware\RestValidatorInterface;
 use Application\Modules\Rest\Exceptions;
 
@@ -16,14 +17,15 @@ use Application\Modules\Rest\Exceptions;
  * @copyright Stanislav WEB
  * @filesource /Application/Modules/Rest/Services/RestValidationService.php
  */
-class RestValidationService implements InjectionAwareInterface, RestValidatorInterface {
+class RestValidationService implements
+    RestValidatorInterface, InjectionAwareInterface {
 
     /**
      * Dependency injection container
      *
      * @var \Phalcon\DiInterface $di;
      */
-    private $di;
+    protected $di;
 
     /**
      * Request service
@@ -31,6 +33,13 @@ class RestValidationService implements InjectionAwareInterface, RestValidatorInt
      * @var \Phalcon\Http\Request $request;
      */
     private $request;
+
+    /**
+     * Error messages
+     *
+     * @var array $errors ;
+     */
+    private $errors = [];
 
     /**
      * Request rules
@@ -47,35 +56,24 @@ class RestValidationService implements InjectionAwareInterface, RestValidatorInt
     private $params  = [];
 
     /**
-     * Init validator rules
+     * Initialize dispatcher
      *
-     * @param \Phalcon\Http\Request $rqst
-     * @param \Phalcon\Mvc\Dispatcher $dsp
-     * @param array $rules
+     * @return RestValidationService
      */
-    public function __construct(\Phalcon\Http\Request $rqst,
-                                \Phalcon\Mvc\Dispatcher $dsp, array $rules) {
+    public function init() {
 
-        // Checkout validation rules
+        $dispatcher = $this->getDi()->getDispatcher();
 
-        if(isset($rules[$dsp->getControllerName()]) === true
-            && isset($rules[$dsp->getControllerName()][$dsp->getActionName()]) === true) {
+        if(isset($rules[$dispatcher->getControllerName()]) === true
+            && isset($rules[$dispatcher->getControllerName()][$dispatcher->getActionName()]) === true) {
 
-            $this->setRules($rules[$dsp->getControllerName()][$dsp->getActionName()]);
-
+            $this->setRules($rules[$dispatcher->getControllerName()][$dispatcher->getActionName()]);
         }
 
-        /**
-         *
-         */
-        call_user_func($this->setRequestParams(function() use ($rqst, $dsp) {
+        $this->setParams($this->getDi()->getRequest(), $dispatcher);
+        $this->filter($this->getParams(), 'trim');
 
-            $this->request = $rqst;
-            $this->params = array_merge($rqst->get(), $dsp->getParams());
-        }));
-
-var_dump($this->request);
-        //$this->setParams($this->request, $dsp);
+        return $this;
     }
 
     /**
@@ -98,7 +96,6 @@ var_dump($this->request);
         return $this->di;
     }
 
-
     /**
      * Set possible request params
      *
@@ -106,9 +103,10 @@ var_dump($this->request);
      * @param \Phalcon\Mvc\Dispatcher $dispatcher
      * @return RestValidationService
      */
-    private function setParams(\Phalcon\Http\Request $request, \Phalcon\Mvc\Dispatcher $dispatcher)
+    public function setParams(\Phalcon\Http\Request $request, \Phalcon\Mvc\Dispatcher $dispatcher)
     {
-        $this->params = array_merge($request->get(), $dispatcher->getParams());
+        $this->request = $request;
+        $this->params = array_merge($request->get(), $request->getHeaders(), $dispatcher->getParams());
 
         return $this;
     }
@@ -129,7 +127,7 @@ var_dump($this->request);
      * @param array $rules
      * @return RestValidationService
      */
-    private function setRules(array $rules)
+    public function setRules(array $rules)
     {
         $this->rules = $rules;
 
@@ -139,31 +137,73 @@ var_dump($this->request);
     /**
      * Get validation rules
      *
-     * @return array $rules
+     * @return object
      */
     public function getRules()
     {
         return (object)$this->rules;
     }
 
-    public function validate() {
+    /**
+     * Set error message
+     *
+     * @param string $error
+     * @return RestValidationService
+     */
+    public function setError($error) {
 
-        $this->isAllowMethods();
+        $this->errors['errors'][] = $error;
     }
+
+    /**
+     * Get error messages key [errors]
+     *
+     * @return array
+     */
+    public function getError() {
+        return $this->errors;
+    }
+
+    /**
+     * Filter request params
+     *
+     * @param array $params
+     * @param string $function
+     * @example <code>
+     *              <?php $this->filter($this->getParams(), 'trim'); ?>
+     *          </code>
+     * @return RestValidationService
+     */
+    public function filter(array $params, $function) {
+
+        $filter = new Filter();
+
+        $this->params = array_map(function($value) use ($filter, $function) {
+            return $filter->sanitize($value, $function);
+        }, $params);
+
+        return $this;
+    }
+
+
+    public function validate() {}
 
     /**
      * Check if request method is allowed by current action
      *
      * @return bool
      * @throws Exceptions\MethodNotAllowedException
+     * @return RestValidationService
      */
     public function isAllowMethods() {
 
         $methods = explode(',', $this->getRules()->methods);
+
         if(in_array($this->request->getMethod(),$methods) === false) {
+
             throw new Exceptions\MethodNotAllowedException();
         }
 
-        return true;
+        return $this;
     }
 }

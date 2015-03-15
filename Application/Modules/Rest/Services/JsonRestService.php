@@ -2,8 +2,6 @@
 namespace Application\Modules\Rest\Services;
 
 use Application\Services\Security\AuthService;
-use \Phalcon\DI\InjectionAwareInterface;
-use Application\Modules\Rest\Exceptions;
 
 /**
  * Class JsonRestService. Http Rest handler
@@ -16,7 +14,7 @@ use Application\Modules\Rest\Exceptions;
  * @copyright Stanislav WEB
  * @filesource /Application/Modules/Rest/Services/JsonRestService.php
  */
-class JsonRestService implements InjectionAwareInterface {
+class JsonRestService {
 
     /**
      * Provide response content type
@@ -24,6 +22,13 @@ class JsonRestService implements InjectionAwareInterface {
      * @var string $contentType;
      */
     private $debug  = false;
+
+    /**
+     * REST Validator
+     *
+     * @var \Application\Modules\Rest\Services\RestValidationService $validator;
+     */
+    private $validator;
 
     /**
      * Provide response content type
@@ -61,47 +66,17 @@ class JsonRestService implements InjectionAwareInterface {
     private $reply = [];
 
     /**
-     * Allowed request method
-     *
-     * @var array $allowedMethods;
-     */
-    private $allowedMethods  = ['*'];
-
-    /**
-     * Dependency injection container
-     *
-     * @var \Phalcon\DiInterface $di;
-     */
-    private $di;
-
-    /**
      * Init default HTTP response status
      *
      * @param \Application\Modules\Rest\Services\RestValidationService $validator
      */
     public function __construct(\Application\Modules\Rest\Services\RestValidationService $validator) {
 
+        $this->validator = $validator;
+        var_dump($this->validator->getParams()); exit;
         $this->setStatusMessage();
     }
 
-    /**
-     * Set dependency container
-     *
-     * @param \Phalcon\DiInterface $di
-     */
-    public function setDi($di)
-    {
-        $this->di = $di;
-    }
-
-    /**
-     * Get dependency container
-     * @return \Phalcon\DiInterface
-     */
-    public function getDi()
-    {
-        return $this->di;
-    }
 
     /**
      * Filter required params
@@ -128,23 +103,6 @@ class JsonRestService implements InjectionAwareInterface {
     public function getDispatcher()
     {
         return $this->getDi()->get('dispatcher');
-    }
-
-    /**
-     * Set allowed methods
-     *
-     * @param array $allowedMethods
-     * @return JsonRestService
-     * @throws Exceptions\MethodNotAllowedException
-     */
-    public function setAllowedMethods(array $allowedMethods)
-    {
-        if(in_array($this->getRequestService()->getMethod(),$allowedMethods) === false) {
-            throw new Exceptions\MethodNotAllowedException();
-        }
-        $this->allowedMethods = $allowedMethods;
-
-        return $this;
     }
 
     /**
@@ -199,7 +157,7 @@ class JsonRestService implements InjectionAwareInterface {
             ->setContentType($this->contentType, $this->contentCharset)
             ->setStatusCode($this->httpCode, $this->httpMessage)
             ->setHeader('Access-Control-Allow-Origin', 'http://'.$this->getRequestService()->getServer('HTTP_HOST'))
-            ->setHeader('Access-Control-Allow-Methods', implode(',', $this->allowedMethods))
+            ->setHeader('Access-Control-Allow-Methods', $this->validator->getRules()->methods)
             ->setHeader('Access-Control-Allow-Credentials', 'true');
 
         if($this->debug === true) {
@@ -266,15 +224,12 @@ class JsonRestService implements InjectionAwareInterface {
         return $this;
     }
 
-    /**
-     * Set validation rules
-     *
-     * @param array $rules
-     * @return JsonRestService
-     */
-    public function setRules(array $rules) {
 
-        $this->rules = $rules;
+    /**
+     * @throws Exceptions\MethodNotAllowedException
+     */
+    public function validate() {
+        $this->validator->isAllowMethods();
 
         return $this;
     }

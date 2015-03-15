@@ -32,8 +32,8 @@ class Api extends Group {
         $this->setPrefix('/api');
 
         // Add route
-        $this->add('/:controller/:action/:params', [
-            'namespace' => 'Application\Modules\Rest\Controllers',
+        $this->add('/v1/:controller/:action/:params', [
+            'namespace' => 'Application\Modules\Rest\V1\Controllers',
             'controller' => 1,
             'action'    => 2,
             'params'    => 3,
