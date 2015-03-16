@@ -110,12 +110,16 @@ class JsonRestService implements RestServiceInterface {
      *
      * @param int $code default response code
      * @param string $message default response message
+     * @param string $resource default called resource
      * @return JsonRestService
      */
-    public function setStatusMessage($code = self::CODE_OK, $message = self::MESSAGE_OK) {
+    public function setStatusMessage($code = self::CODE_OK, $message = self::MESSAGE_OK, $resource = null) {
 
         $this->message['code'] = $code;
         $this->message['message'] = $message;
+        (is_null($resource) === false)
+            ? $this->message['resource'] = $resource
+            : $this->message['resource'] = $this->getValidator()->getRequest()->getURI();
         $this->getResponseService()->setStatusCode($code, $message);
 
         return $this;
@@ -142,9 +146,8 @@ class JsonRestService implements RestServiceInterface {
         }
         foreach((array)$message as $k => $v)
         {
-            $this->message['response'][$k]    =   $v;
+            $this->message['data'][$k]    =   $v;
         }
-
         return $this;
     }
 
@@ -190,7 +193,6 @@ class JsonRestService implements RestServiceInterface {
      * Filter required params
      *
      * @param array $params
-     * @throws Exceptions\MethodNotAllowedException
      */
 //    public function filterRequiredParams(array $params)
 //    {
@@ -207,7 +209,6 @@ class JsonRestService implements RestServiceInterface {
      * Get basic response service
      *
      * @uses \Application\Services\Security\AuthService
-     * @throws Exceptions\UnauthorizedException
      */
 //    public function useRestrictAccess()
 //    {

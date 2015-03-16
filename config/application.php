@@ -26,7 +26,7 @@ $config = [
         'dbname' => 'phalcon.local',
         'port' => 3306,
         'charset' => 'utf8',
-        'persistent' => true,
+        'persistent' => false,
         'debug' => PDO::ERRMODE_SILENT,
     ],
 

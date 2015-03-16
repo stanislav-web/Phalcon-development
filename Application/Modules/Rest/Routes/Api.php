@@ -31,12 +31,20 @@ class Api extends Group {
         // Like a start prefix
         $this->setPrefix('/api');
 
-        // Add route
+        // Add route index
+        $this->add('/v1/:controller/:params', [
+            'namespace' => 'Application\Modules\Rest\V1\Controllers',
+            'controller'    => 1,
+            'action'        => 'index',
+            'params'        => 2,
+        ])->via(['GET', 'POST', 'PUT', 'DELETE']);
+
+        // Add to routes users actions
         $this->add('/v1/:controller/:action/:params', [
             'namespace' => 'Application\Modules\Rest\V1\Controllers',
-            'controller' => 1,
-            'action'    => 2,
-            'params'    => 3,
+            'controller'    => 1,
+            'action'        => 2,
+            'params'        => 3,
         ])->via(['GET', 'POST', 'PUT', 'DELETE']);
     }
 }

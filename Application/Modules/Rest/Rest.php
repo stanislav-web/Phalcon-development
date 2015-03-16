@@ -6,6 +6,7 @@ use Phalcon\Loader;
 use Phalcon\Mvc\Dispatcher;
 use Phalcon\Http\Response;
 use Phalcon\Mvc\View;
+use Phalcon\Http\Response\Exception as RestException;
 use Phalcon\Mvc\Dispatcher\Exception as DispatcherException;
 use Application\Modules\Rest\Exceptions\InternalServerErrorException;
 use Application\Modules\Rest\Exceptions\NotFoundException;
@@ -73,11 +74,15 @@ class Rest
                         throw new NotFoundException();
                     }
                     catch(RestException $e) {
+
                         $response = new Response();
 
                         $response->setContentType('application/json', 'utf-8')
                             ->setStatusCode($e->getCode(), $e->getMessage())
-                            ->setJsonContent(['code' => $e->getCode(), 'message' => $e->getMessage()])->send();
+                            ->setJsonContent(['error' => [
+                                'code' => $e->getCode(),
+                                'message' => $e->getMessage()
+                            ]])->send();
                         return $event->isStopped();
                     }
                 }
@@ -131,8 +136,9 @@ class Rest
      */
     public function catchShutdown() {
 
-        return register_shutdown_function(function() {
+        register_shutdown_function(function() {
             $error = error_get_last();
+
             if(is_null($error) === false) {
 
                 DI::getDefault()->get('LogMapper')->save($error['message'].' File: '.$error['file'].' Line:'.$error['line'],1);
@@ -148,8 +154,10 @@ class Rest
                     return $response->resetHeaders()->setContentType('application/json', 'utf-8')
                         ->setStatusCode($e->getCode(), $e->getMessage())
 
-                        ->setJsonContent(['code' => $e->getCode(), 'message' => $e->getMessage()])->send();
-
+                        ->setJsonContent(['error' => [
+                            'code' => $e->getCode(),
+                            'message' => $e->getMessage()
+                        ]])->send();
                 }
             }
         });

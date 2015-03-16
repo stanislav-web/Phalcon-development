@@ -30,7 +30,7 @@ try {
     // Require modules
     require_once DOCUMENT_ROOT . '/../config/modules.php';
 
-    if (APPLICATION_ENV === 'production') { // replace by development
+    if (APPLICATION_ENV === 'development') { // replace by development
 
         // require whoops exception handler
         error_reporting(7);
@@ -46,7 +46,7 @@ try {
 
 } catch (\Exception $e) {
 
-    if (APPLICATION_ENV === 'production') { // replace by development
+    if (APPLICATION_ENV === 'development') { // replace by development
         echo $e->getMessage();
     }
     else {

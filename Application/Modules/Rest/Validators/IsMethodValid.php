@@ -28,7 +28,6 @@ class IsMethodValid {
         $methods = explode(',', $allowed);
 
         if(in_array($request->getMethod(),$methods) === false) {
-
             throw new MethodNotAllowedException();
         }
     }
