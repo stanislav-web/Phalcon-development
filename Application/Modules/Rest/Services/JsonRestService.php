@@ -1,7 +1,7 @@
 <?php
 namespace Application\Modules\Rest\Services;
 
-use Application\Services\Security\AuthService;
+use Application\Modules\Rest\Aware\RestServiceInterface;
 
 /**
  * Class JsonRestService. Http Rest handler
@@ -14,14 +14,7 @@ use Application\Services\Security\AuthService;
  * @copyright Stanislav WEB
  * @filesource /Application/Modules/Rest/Services/JsonRestService.php
  */
-class JsonRestService {
-
-    /**
-     * Provide response content type
-     *
-     * @var string $contentType;
-     */
-    private $debug  = false;
+class JsonRestService implements RestServiceInterface {
 
     /**
      * REST Validator
@@ -31,39 +24,22 @@ class JsonRestService {
     private $validator;
 
     /**
-     * Provide response content type
+     * Default headers send required
      *
-     * @var string $contentType;
+     * @var array $headers
      */
-    private $contentType  = 'application/json';
-
-    /**
-     * Provide response content charset
-     *
-     * @var string $contentCharset;
-     */
-    private $contentCharset  = 'utf-8';
-
-    /**
-     * Default response code
-     *
-     * @var int $code;
-     */
-    private $httpCode = 200;
-
-    /**
-     * Default response message
-     *
-     * @var string $message;
-     */
-    private $httpMessage = 'OK';
+    private $headers = [
+        'Content-Type'                      =>  'application/json; charset=utf-8',
+        'Access-Control-Allow-Origin'       =>  '*',
+        'Access-Control-Allow-Credentials'  =>  'true'
+    ];
 
     /**
      * User app message container
      *
-     * @var array $reply;
+     * @var array $message;
      */
-    private $reply = [];
+    private $message = [];
 
     /**
      * Init default HTTP response status
@@ -72,47 +48,51 @@ class JsonRestService {
      */
     public function __construct(\Application\Modules\Rest\Services\RestValidationService $validator) {
 
-        $this->validator = $validator;
-        var_dump($this->validator->getParams()); exit;
-        $this->setStatusMessage();
+        $this->setValidator($validator);
+        $this->setHeader($this->headers);
     }
 
+    /**
+     * Get dependency container
+     *
+     * @return \Phalcon\DiInterface
+     */
+    public function getDi()
+    {
+        return $this->getValidator()->getDi();
+    }
 
     /**
-     * Filter required params
+     * Set validator
+     *
+     * @param RestValidationService $validator
+     */
+    public function setValidator($validator)
+    {
+        $this->validator = $validator;
+    }
+
+    /**
+     * Get validator
+     *
+     * @return RestValidationService
+     */
+    public function getValidator()
+    {
+        return $this->validator;
+    }
+
+    /**
+     * Set response header
      *
      * @param array $params
-     * @throws Exceptions\MethodNotAllowedException
      */
-    public function filterRequiredParams(array $params)
-    {
-        $intersect = array_intersect_key(array_flip($params), $this->getRequestParams());
+    public function setHeader(array $params) {
 
-        if(count($params) !== count($intersect)) {
-            throw new Exceptions\BadRequestException();
+        $response = $this->getResponseService();
+        foreach($params as $header => $content) {
+            $response->setHeader($header,$content);
         }
-
-        return $this;
-    }
-
-    /**
-     * Get dispatcher controllers
-     *
-     * @return \Phalcon\Mvc\Dispatcher
-     */
-    public function getDispatcher()
-    {
-        return $this->getDi()->get('dispatcher');
-    }
-
-    /**
-     * Get server request
-     *
-     * @return \Phalcon\Http\Request
-     */
-    public function getRequestService()
-    {
-        return $this->getDi()->get('request');
     }
 
     /**
@@ -120,54 +100,9 @@ class JsonRestService {
      *
      * @return \Phalcon\Http\Response
      */
-    private function getResponseService()
+    public function getResponseService()
     {
         return $this->getDi()->get('response');
-    }
-
-    /**
-     * Get basic response service
-     *
-     * @uses \Application\Services\Security\AuthService
-     * @throws Exceptions\UnauthorizedException
-     */
-    public function useRestrictAccess()
-    {
-        // get access token from any request
-        $token = $this->getDi()->get('AuthService')->getAccessToken();
-        if(empty($token) === true) {
-            throw new Exceptions\UnauthorizedException();
-        }
-        else {
-            $this->getResponseService()->setHeader('X-'.ucfirst(AuthService::TOKEN_KEY),
-                base64_encode($token['token']));
-        }
-    }
-
-    /**
-     * Send response to client
-     *
-     * @param int $status
-     * @param string $message
-     * @return \Phalcon\Http\ResponseInterface
-     */
-    public function response() {
-
-        $response = $this->getResponseService()
-            ->setContentType($this->contentType, $this->contentCharset)
-            ->setStatusCode($this->httpCode, $this->httpMessage)
-            ->setHeader('Access-Control-Allow-Origin', 'http://'.$this->getRequestService()->getServer('HTTP_HOST'))
-            ->setHeader('Access-Control-Allow-Methods', $this->validator->getRules()->methods)
-            ->setHeader('Access-Control-Allow-Credentials', 'true');
-
-        if($this->debug === true) {
-            $this->reply['debug'] = [
-                'request' => $this->getRequestService()->getHeaders(),
-                'response' => $this->getResponseService()->getHeaders()->toArray(),
-            ];
-        }
-        return $response->setJsonContent($this->reply)
-            ->send();
     }
 
     /**
@@ -177,60 +112,113 @@ class JsonRestService {
      * @param string $message default response message
      * @return JsonRestService
      */
-    public function setStatusMessage($code = 200, $message = 'OK') {
+    public function setStatusMessage($code = self::CODE_OK, $message = self::MESSAGE_OK) {
 
-        $this->reply['code'] = $this->httpCode     = $code;
-        $this->reply['message'] = $this->httpMessage  = $message;
+        $this->message['code'] = $code;
+        $this->message['message'] = $message;
+        $this->getResponseService()->setStatusCode($code, $message);
 
         return $this;
     }
 
     /**
-     * Set user app reply content.
+     * Set user app messages content.
      *
-     * @param string|array $reply
-     * @param boolean $isLast block reply loop
+     * @param string|array $message
      * @return JsonRestService
      */
-    public function setReply($reply) {
+    public function setMessage($message) {
 
-        if($this->reply['code'] > 204) {
+        if(array_key_exists('code', $this->message) === false) {
+            $this->setStatusMessage(); // set by default
+        }
 
-            $this->reply    =   ['error' =>
-                $this->reply
+        if($this->message['code'] > self::CODE_CREATED) {
+
+            $this->message    =   ['error' =>
+                $this->message
             ];
             return false;
         }
-        foreach((array)$reply as $k => $v)
+        foreach((array)$message as $k => $v)
         {
-            $this->reply['response'][$k]    =   $v;
+            $this->message['response'][$k]    =   $v;
         }
 
         return $this;
     }
 
     /**
-     * Debugger state
+     * Get user app messages content.
      *
-     * @param boolean $enable
-     * @return JsonRestService
+     * @return array
      */
-    public function setDebug($enable) {
-
-        if($enable === true) {
-            $this->debug = $enable;
-        }
-
-        return $this;
+    public function getMessage() {
+        return $this->message;
     }
 
-
     /**
-     * @throws Exceptions\MethodNotAllowedException
+     * Validate request params
+     *
+     * @uses \Application\Modules\Rest\Services
+     * @return void
      */
     public function validate() {
-        $this->validator->isAllowMethods();
-
-        return $this;
+        return $this->getValidator()->isValid();
     }
+
+
+    /**
+     * Send response to client
+     *
+     * @return \Phalcon\Http\ResponseInterface
+     */
+    public function response() {
+
+        // Set rules header
+        $this->setHeader(['Access-Control-Allow-Methods' => $this->getValidator()->getRules()->methods]);
+
+        $response = $this->getResponseService();
+        if(empty($this->getMessage())  === false) {
+            $response->setJsonContent($this->getMessage());
+        }
+        return $response->send();
+    }
+
+
+    /**
+     * Filter required params
+     *
+     * @param array $params
+     * @throws Exceptions\MethodNotAllowedException
+     */
+//    public function filterRequiredParams(array $params)
+//    {
+//        $intersect = array_intersect_key(array_flip($params), $this->getRequestParams());
+//
+//        if(count($params) !== count($intersect)) {
+//            throw new Exceptions\BadRequestException();
+//        }
+//
+//        return $this;
+//    }
+
+    /**
+     * Get basic response service
+     *
+     * @uses \Application\Services\Security\AuthService
+     * @throws Exceptions\UnauthorizedException
+     */
+//    public function useRestrictAccess()
+//    {
+//        // get access token from any request
+//        $token = $this->getDi()->get('AuthService')->getAccessToken();
+//        if(empty($token) === true) {
+//            throw new Exceptions\UnauthorizedException();
+//        }
+//        else {
+//            $this->getResponseService()->setHeader('X-'.ucfirst(AuthService::TOKEN_KEY),
+//                base64_encode($token['token']));
+//        }
+//    }
 }

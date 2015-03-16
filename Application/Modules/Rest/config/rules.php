@@ -13,9 +13,9 @@
  * ]
  */
 return [
-    'user'  =>  [
+    'users'  =>  [
         'access'    =>  [
-            'methods'    => 'GET',
+            'methods'    => 'GET,PUT,DELETE',
             'params'     => [
                 'required' => 'access'
             ],

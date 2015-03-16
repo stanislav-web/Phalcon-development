@@ -14,6 +14,14 @@ namespace Application\Modules\Rest\Aware;
  */
 interface RestValidatorInterface {
 
+    /**
+     * Initialize validator params.
+     * Such as rules, request, filtering
+     *
+     * @param array $params
+     * @return void
+     */
+    public function init(array $params);
 
     /**
      * Set possible request params
@@ -33,17 +41,17 @@ interface RestValidatorInterface {
     /**
      * Set error message
      *
-     * @param string $error
+     * @param array|string $error
      * @return void
      */
-    public function setError($error);
+    public function setErrors($error);
 
     /**
      * Get error messages key [errors]
      *
      * @return array
      */
-    public function getError();
+    public function getErrors();
 
     /**
      * Set validation rules
@@ -70,5 +78,5 @@ interface RestValidatorInterface {
      */
     public function filter(array $params, $function);
 
-    public function validate();
+    public function isValid();
 }

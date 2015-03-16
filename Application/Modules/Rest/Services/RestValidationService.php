@@ -4,7 +4,7 @@ namespace Application\Modules\Rest\Services;
 use Phalcon\DI\InjectionAwareInterface;
 use Phalcon\Filter;
 use Application\Modules\Rest\Aware\RestValidatorInterface;
-use Application\Modules\Rest\Exceptions;
+use Application\Modules\Rest\Validators;
 
 /**
  * Class RestValidationService. Rest validator
@@ -25,7 +25,7 @@ class RestValidationService implements
      *
      * @var \Phalcon\DiInterface $di;
      */
-    protected $di;
+    private $di;
 
     /**
      * Request service
@@ -58,14 +58,15 @@ class RestValidationService implements
     /**
      * Initialize dispatcher
      *
+     * @param array $rules
+     * @file Modules/Rest/config/rules.php
      * @return RestValidationService
      */
-    public function init() {
+    public function init(array $rules) {
 
         $dispatcher = $this->getDi()->getDispatcher();
 
-        if(isset($rules[$dispatcher->getControllerName()]) === true
-            && isset($rules[$dispatcher->getControllerName()][$dispatcher->getActionName()]) === true) {
+        if(isset($rules[$dispatcher->getControllerName()][$dispatcher->getActionName()]) === true) {
 
             $this->setRules($rules[$dispatcher->getControllerName()][$dispatcher->getActionName()]);
         }
@@ -105,8 +106,8 @@ class RestValidationService implements
      */
     public function setParams(\Phalcon\Http\Request $request, \Phalcon\Mvc\Dispatcher $dispatcher)
     {
-        $this->request = $request;
-        $this->params = array_merge($request->get(), $request->getHeaders(), $dispatcher->getParams());
+        $this->setRequest($request);
+        $this->params = array_merge($request->get(), $dispatcher->getParams());
 
         return $this;
     }
@@ -147,12 +148,14 @@ class RestValidationService implements
     /**
      * Set error message
      *
-     * @param string $error
+     * @param array|string $errors
      * @return RestValidationService
      */
-    public function setError($error) {
+    public function setErrors($errors) {
 
-        $this->errors['errors'][] = $error;
+        $this->errors['errors'][] = $errors;
+
+        return $this;
     }
 
     /**
@@ -160,8 +163,30 @@ class RestValidationService implements
      *
      * @return array
      */
-    public function getError() {
+    public function getErrors() {
         return $this->errors;
+    }
+
+    /**
+     * Get request object
+     *
+     * @return \Phalcon\Http\Request
+     */
+    public function getRequest()
+    {
+        return $this->request;
+    }
+
+    /**
+     * Set request object
+     *
+     * @param \Phalcon\Http\Request $request
+     */
+    public function setRequest(\Phalcon\Http\Request $request)
+    {
+        $this->request = $request;
+
+        return $this;
     }
 
     /**
@@ -185,25 +210,8 @@ class RestValidationService implements
         return $this;
     }
 
+    public function isValid() {
 
-    public function validate() {}
-
-    /**
-     * Check if request method is allowed by current action
-     *
-     * @return bool
-     * @throws Exceptions\MethodNotAllowedException
-     * @return RestValidationService
-     */
-    public function isAllowMethods() {
-
-        $methods = explode(',', $this->getRules()->methods);
-
-        if(in_array($this->request->getMethod(),$methods) === false) {
-
-            throw new Exceptions\MethodNotAllowedException();
-        }
-
-        return $this;
+        new Validators\IsMethodValid($this->getRequest(), $this->getRules()->methods);
     }
 }

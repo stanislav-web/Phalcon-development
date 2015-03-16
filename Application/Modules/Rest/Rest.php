@@ -1,6 +1,7 @@
 <?php
 namespace Application\Modules;
 
+use Phalcon\DI;
 use Phalcon\Loader;
 use Phalcon\Mvc\Dispatcher;
 use Phalcon\Http\Response;
@@ -34,6 +35,7 @@ class Rest
      * @throws \Application\Modules\Rest\Exceptions\InternalServerErrorException
      */
     public function __construct() {
+
         $this->catchShutdown();
     }
 
@@ -124,26 +126,33 @@ class Rest
      * Shutdown application while uncatchable error founded
      *
      * @throws \Application\Modules\Rest\Exceptions\InternalServerErrorException
-     * return callable register_shutdown_function()
+     * @uses \Phalcon\DI
+     * @return callable register_shutdown_function()
      */
     public function catchShutdown() {
 
         return register_shutdown_function(function() {
             $error = error_get_last();
-
             if(is_null($error) === false) {
+
+                DI::getDefault()->get('LogMapper')->save($error['message'].' File: '.$error['file'].' Line:'.$error['line'],1);
+
                 try {
+
                     throw new InternalServerErrorException();
                 }
                 catch(\RuntimeException $e) {
 
                     $response = new Response();
 
-                    $response->setContentType('application/json', 'utf-8')
+                    return $response->resetHeaders()->setContentType('application/json', 'utf-8')
                         ->setStatusCode($e->getCode(), $e->getMessage())
+
                         ->setJsonContent(['code' => $e->getCode(), 'message' => $e->getMessage()])->send();
+
                 }
             }
         });
     }
+
 }

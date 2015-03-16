@@ -27,28 +27,30 @@ try {
 
     $application = new Phalcon\Mvc\Application($di);
 
+    // Require modules
+    require_once DOCUMENT_ROOT . '/../config/modules.php';
 
-    if (APPLICATION_ENV === 'development') {
+    if (APPLICATION_ENV === 'production') { // replace by development
 
         // require whoops exception handler
+        error_reporting(7);
         new Whoops\Provider\Phalcon\WhoopsServiceProvider($di);
     }
     else {
-        error_reporting(7);
-    }
 
-    // Require modules
-    require_once DOCUMENT_ROOT . '/../config/modules.php';
+        error_reporting(0);
+    }
 
     // Handle the request
     echo $application->handle()->getContent();
 
 } catch (\Exception $e) {
 
-    if (APPLICATION_ENV === 'development') {
+    if (APPLICATION_ENV === 'production') { // replace by development
         echo $e->getMessage();
     }
     else {
+
         // log messages
         $di->get('LogMapper')->save($e->getMessage().' File: '.$e->getFile().' Line:'.$e->getLine(),1);
     }

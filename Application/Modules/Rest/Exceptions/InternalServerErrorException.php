@@ -31,6 +31,7 @@ class InternalServerErrorException extends \RuntimeException {
      * @param int $code Status code, defaults to 500
      */
      public function __construct() {
+
          parent::__construct(self::MESSAGE, self::CODE);
      }
 }
