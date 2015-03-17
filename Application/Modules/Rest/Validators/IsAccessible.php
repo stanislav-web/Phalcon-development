@@ -58,7 +58,7 @@ class IsAccessible {
             if(empty($this->auth->isAuth()) === false) {
 
                 $this->request = $di->getShared('request');
-                $this->isAllowAccess();
+                $this->isAllowedAccess();
             }
             else {
                 throw new UnauthorizedException();
@@ -71,7 +71,7 @@ class IsAccessible {
      *
      * @throws ForbiddenException
      */
-    public function isAllowAccess() {
+    public function isAllowedAccess() {
 
         if(isset($this->rules->access) === true) {
 

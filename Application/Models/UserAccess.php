@@ -36,6 +36,11 @@ class UserAccess extends \Phalcon\Mvc\Model
      */
     protected $expire_date;
 
+    public function initialize()
+    {
+        $this->hasOne('user_id', Users::TABLE, 'id');
+    }
+
     /**
      * Returns the value of field user_id
      *

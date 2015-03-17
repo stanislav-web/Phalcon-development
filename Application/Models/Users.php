@@ -107,6 +107,8 @@ class Users extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
+        $this->belongsTo("id", UserAccess::TABLE, "user_id");
+
         // its allow to keep empty data to my db
         $this->setup([
             'notNullValidations' => true,
@@ -474,6 +476,12 @@ class Users extends \Phalcon\Mvc\Model
         return $this;
     }
 
+    /**
+     * Skip attributes before update
+     *
+     * @param array $attributes
+     * @param null  $replace
+     */
     public function skipAttributes($attributes, $replace = null) {
         parent::skipAttributes($attributes, $replace);
     }
