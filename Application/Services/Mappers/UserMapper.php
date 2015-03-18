@@ -54,6 +54,16 @@ class UserMapper implements InjectionAwareInterface, ModelCrudInterface {
         return $this->di;
     }
 
+
+    /**
+     * Get instance of polymorphic object
+     *
+     * @return Users
+     */
+    public function getInstance() {
+        return new Users();
+    }
+
     /**
      * Create user
      *
@@ -217,6 +227,24 @@ class UserMapper implements InjectionAwareInterface, ModelCrudInterface {
      */
     public function getErrors() {
         return $this->errors;
+    }
+
+    /**
+     * Get access model
+     *
+     * @return UserAccess
+     */
+    public function getAccess() {
+        return new UserAccess();
+    }
+
+    /**
+     * Get roles model
+     *
+     * @return UserRoles
+     */
+    public function getRoles() {
+        return new UserRoles();
     }
 
     /**

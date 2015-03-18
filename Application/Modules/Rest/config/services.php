@@ -9,6 +9,14 @@ $di->set('RestValidationService', function () use ($di) {
     return $restValidator;
 });
 
+// Define Security Service
+$di->set('RestSecurityService', function () use ($di) {
+
+    $security = new \Application\Modules\Rest\Services\SecurityService();
+
+    return $security;
+});
+
 // Define Rest service
 $di->setShared('JsonRestService', function () use ($di) {
 

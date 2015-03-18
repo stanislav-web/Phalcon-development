@@ -26,11 +26,11 @@ class IsAccessible {
     private $rules;
 
     /**
-     * Authentication service
+     * Security service
      *
-     * @var \Application\Services\Security\AuthService $auth
+     * @var \Application\Modules\Rest\Services\SecurityService $security
      */
-    private $auth;
+    private $security;
 
     /**
      * Request service
@@ -53,9 +53,9 @@ class IsAccessible {
 
         if(isset($this->rules->authentication) === true) {
 
-            $this->auth = $di->get('AuthService');
+            $this->security = $di->get('RestSecurityService');
 
-            if(empty($this->auth->isAuth()) === false) {
+            if($this->security->isAuthenticated() === true) {
 
                 $this->request = $di->getShared('request');
                 $this->isAllowedAccess();
@@ -77,7 +77,7 @@ class IsAccessible {
 
             foreach($this->rules->access as $role => $urls) {
 
-                if($this->auth->hasRole($role) === false
+                if($this->security->hasRole($role) === false
                     && in_array($this->request->getURI(), $urls)) {
 
                     throw new ForbiddenException();

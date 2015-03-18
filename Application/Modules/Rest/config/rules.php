@@ -12,13 +12,16 @@
  *      ...
  * ]
  */
+
+use Application\Models\UserRoles;
+
 return [
     'users'  =>  [
         'index'    =>  [
             'methods'   => 'GET,POST,PUT',
             'authentication'    =>  true,   // need access token ?
             'access'    =>   [  // access routes restrict for ACL
-                '1' =>  [
+                UserRoles::ADMIN =>  [
                     '/api/v1/users'
                 ],
             ]

@@ -107,8 +107,6 @@ class Users extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->belongsTo("id", UserAccess::TABLE, "user_id");
-
         // its allow to keep empty data to my db
         $this->setup([
             'notNullValidations' => true,
