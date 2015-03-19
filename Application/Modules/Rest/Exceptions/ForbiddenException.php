@@ -35,7 +35,12 @@ class ForbiddenException extends Exception {
      * @param string $message If no message is given 'Forbidden' will be the message
      * @param int $code Status code, defaults to 403
      */
-     public function __construct() {
-         parent::__construct(self::MESSAGE, self::CODE);
+     public function __construct($message = null, $code = null) {
+         if(is_null($message) === true && is_null($code) === true) {
+             parent::__construct(self::MESSAGE, self::CODE);
+         }
+         else {
+             parent::__construct($message, $code);
+         }
      }
 }
