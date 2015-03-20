@@ -69,15 +69,6 @@ abstract class RestSecurityProvider implements InjectionAwareInterface {
     }
 
     /**
-     * Get crypt plugin
-     *
-     * @return \Phalcon\Crypt
-     */
-    public function getCrypt() {
-        return $this->getDi()->get('crypt');
-    }
-
-    /**
      * Get dependency container
      *
      * @return \Phalcon\DiInterface
