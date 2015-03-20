@@ -22,14 +22,4 @@ class UsersController extends ControllerBase {
             $this->getDI()->get('UserMapper')->read()->toArray()
         );
     }
-
-    /**
-     * User profile action
-     */
-    public function accessAction() {
-        $this->rest->setMessage(
-            $this->getDI()->get('AuthService')->getAccessToken()
-        );
-    }
-
 }

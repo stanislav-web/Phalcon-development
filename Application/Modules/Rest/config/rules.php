@@ -22,7 +22,7 @@ return [
             'authentication'    =>  true,   // need access token ?
             'access'    =>   [  // access routes restrict for ACL
                 UserRoles::ADMIN =>  [
-                    '/api/v1/users'
+                    'api/v1/users'
                 ],
             ]
         ],

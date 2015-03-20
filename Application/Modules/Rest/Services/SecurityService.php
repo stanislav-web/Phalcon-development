@@ -81,7 +81,8 @@ class SecurityService extends RestSecurityProvider {
                     "bind" => [$this->token->getUserId(), $role],
                 ]
             );
-            return (empty($isHasRole) === true) ? false: true;
+
+            return ($isHasRole === false) ? false: true;
         }
 
         return false;

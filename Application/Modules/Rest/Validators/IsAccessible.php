@@ -78,7 +78,7 @@ class IsAccessible {
             foreach($this->rules->access as $role => $urls) {
 
                 if($this->security->hasRole($role) === false
-                    && in_array($this->request->getURI(), $urls)) {
+                    && in_array(trim($this->request->getURI(), '/'), $urls)) {
 
                     throw new ForbiddenException();
                 }
