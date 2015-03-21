@@ -11,6 +11,7 @@
     "angular-translate": "~2.5.2",
     "angular-translate-loader-partial": "~2.5.2",
     "select2": "latest",
-    "angular-bootstrap": "~0.12.1"
+    "angular-bootstrap": "~0.12.1",
+    "alertify.js": "~0.3.11"
   }
 }
