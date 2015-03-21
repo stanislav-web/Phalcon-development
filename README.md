@@ -41,6 +41,7 @@ Phalcon Development Boards
 + [SEXY SPLASH MODAL](http://popdevelop.com/2014/07/sexy-splash-modal-using-bootstrap-css3-and-angularjs/)
 + [REST API Tutorial](http://www.restapitutorial.com/)
 + [REST APIs with Symfony2: The Right Way](http://williamdurand.fr/2012/08/02/rest-apis-with-symfony2-the-right-way/)
++ [Rate Limits: Chart](https://dev.twitter.com/rest/public/rate-limits)
 
 ------------------------
 ![Alt text](http://dl1.joxi.net/drive/0001/0378/90490/141130/6931035855.jpg "Screen")

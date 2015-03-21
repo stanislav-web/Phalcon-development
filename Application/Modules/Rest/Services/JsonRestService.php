@@ -137,7 +137,6 @@ class JsonRestService implements RestServiceInterface {
             $this->setStatusMessage(); // set by default
         }
 
-        var_dump($this->message);
         if($this->message['code'] > self::CODE_CREATED) {
 
             $this->message    =   ['error' =>
@@ -178,8 +177,12 @@ class JsonRestService implements RestServiceInterface {
      */
     public function response() {
 
-        // Set rules header
-        $this->setHeader(['Access-Control-Allow-Methods' => $this->getValidator()->getRules()->methods]);
+        // Set rules required header
+        $this->setHeader([
+            'Access-Control-Allow-Methods' => $this->getValidator()->getRules()->methods,
+            'X-Rate-Limit'  =>  (isset($this->getValidator()->getRules()->requests) === true)
+                ? $this->getValidator()->getRules()->requests['limit'] : 'infinity',
+        ]);
 
         $response = $this->getResponseService();
         if(empty($this->getMessage())  === false) {

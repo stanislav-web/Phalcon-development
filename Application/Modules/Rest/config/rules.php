@@ -18,6 +18,10 @@ use Application\Models\UserRoles;
 return [
     'users'  =>  [
         'index'    =>  [
+            'requests'  =>  [  // limit request per seconds
+                    'limit' =>  1000,
+                    'time'  =>  1,
+                ],
             'methods'   => 'GET,POST,PUT',
             'authentication'    =>  true,   // need access token ?
             'access'    =>   [  // access routes restrict for ACL
@@ -27,7 +31,10 @@ return [
             ]
         ],
         'auth'    =>  [
-            'methods'    => 'GET',
+            'requests'  =>  [  // limit request per time
+                'limit' =>  12,
+                'time'  =>  1,
+            ],            'methods'    => 'GET',
             'params'     => [
                 'required' => 'access'
             ],

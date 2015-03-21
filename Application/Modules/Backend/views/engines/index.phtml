@@ -35,6 +35,7 @@
                         <th class="col-md-2">Name</th>
                         <th class="col-md-2">Host</th>
                         <th class="col-md-1">Code</th>
+                        <th class="col-md-1">Token</th>
                         <th class="col-md-1">Currency</th>
                         <th class="col-md-1">Status</th>
                         <th class="col-md-2">Added</th>
@@ -51,6 +52,7 @@
                             </td>
                             <td><?= $item->getHost(); ?></td>
                             <td><?= $item->getCode(); ?></td>
+                            <td><?= $item->getToken(); ?></td>
                             <td><?= $item->currencyRel->getSymbol(); ?></td>
                             <td><?= $statuses[$item->getStatus()]; ?></td>
                             <td><?= $this->tag->getFormatTime($item->getDateCreate()); ?></td>
@@ -89,7 +91,7 @@
 
             $("#table").dataTable({
                 "bSort": true,
-                "columnDefs": [{"targets": 7, "orderable": false}],
+                "columnDefs": [{"targets": 8, "orderable": false}],
                 "paginate": false,
                 "info": false,
                 "filter": false

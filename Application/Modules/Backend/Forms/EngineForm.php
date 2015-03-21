@@ -73,6 +73,13 @@ class EngineForm extends Form
             ])
         );
 
+        $this->add(new Element\Text("token", [
+                'id' => 'token',
+                'required' => 'true',
+                'value' => (isset($options['default'])) ? $options['default']->getToken() : ''
+            ])
+        );
+
         $this->add(new Element\Text("code", [
                 'id' => 'code',
                 'required' => 'true',
