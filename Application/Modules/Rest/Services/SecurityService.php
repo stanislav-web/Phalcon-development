@@ -43,7 +43,7 @@ class SecurityService extends RestSecurityProvider {
         $token = $this->getRequest()->get(self::REQUEST_KEY, null, null);
 
         if(is_null($token) === true) {
-            $token = ltrim($this->getRequest()->getHeader(self::HEADER_KEY), 'Token ');
+            $token = ltrim($this->getRequest()->getHeader(self::HEADER_KEY), 'Bearer ');
         }
         return trim($token);
     }

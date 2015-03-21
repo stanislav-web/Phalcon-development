@@ -20,12 +20,12 @@ class IsMethodValid {
      * Check if request method is allowed
      *
      * @param \Phalcon\Http\Request $request
-     * @param string $allowed
+     * @param \StdClass $rules
      * @throws MethodNotAllowedException
      */
-    public function __construct(\Phalcon\Http\Request $request, $allowed) {
+    public function __construct(\Phalcon\Http\Request $request, \StdClass $rules) {
 
-        $methods = explode(',', $allowed);
+        $methods = explode(',', $rules->methods);
 
         if(in_array($request->getMethod(),$methods) === false) {
             throw new MethodNotAllowedException();

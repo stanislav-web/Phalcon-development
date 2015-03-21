@@ -212,8 +212,9 @@ class RestValidationService implements
 
     public function isValid() {
 
-        new Validators\IsMethodValid($this->getRequest(), $this->getRules()->methods);
+        new Validators\IsMethodValid($this->getRequest(), $this->getRules());
         new Validators\IsAccessible($this->getDi(), $this->getRules());
+        new Validators\IsRequestValid($this->getParams(), $this->getRules());
 
     }
 }

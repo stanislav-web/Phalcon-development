@@ -30,8 +30,10 @@ class ControllerBase extends Controller
     {
         try {
             // define Rest service
-            $this->rest = ($this->request->getBestAccept() === '*/*')
-                ? $this->getDI()->get("JsonRestService") : null;
+            // $this->rest = ($this->request->getBestAccept() === '*/*')
+            //  ? $this->getDI()->get("JsonRestService") : null;
+
+            $this->rest =  $this->getDI()->get("JsonRestService");
 
             $this->rest->validate();
         }

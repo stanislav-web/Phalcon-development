@@ -26,8 +26,8 @@ return [
                 ],
             ]
         ],
-        'access'    =>  [
-            'methods'    => 'GET,PUT,DELETE',
+        'auth'    =>  [
+            'methods'    => 'GET',
             'params'     => [
                 'required' => 'access'
             ],

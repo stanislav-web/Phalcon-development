@@ -14,9 +14,19 @@ namespace Application\Modules\Rest\V1\Controllers;
 class UsersController extends ControllerBase {
 
     /**
-     * User profile action
+     * User's list action
      */
     public function indexAction() {
+
+        $this->rest->setMessage(
+            $this->getDI()->get('UserMapper')->read()->toArray()
+        );
+    }
+
+    /**
+     * User auth action
+     */
+    public function authAction() {
 
         $this->rest->setMessage(
             $this->getDI()->get('UserMapper')->read()->toArray()
