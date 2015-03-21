@@ -101,13 +101,12 @@ class RestValidationService implements
      * Set possible request params
      *
      * @param \Phalcon\Http\Request $request
-     * @param \Phalcon\Mvc\Dispatcher $dispatcher
      * @return RestValidationService
      */
-    public function setParams(\Phalcon\Http\Request $request, \Phalcon\Mvc\Dispatcher $dispatcher)
+    public function setParams(\Phalcon\Http\Request $request)
     {
         $this->setRequest($request);
-        $this->params = array_merge($request->get(), $dispatcher->getParams());
+        $this->params = $request->get();
 
         return $this;
     }

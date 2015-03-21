@@ -26,10 +26,9 @@ interface RestValidatorInterface {
     /**
      * Set possible request params
      *
-     * @param \Phalcon\Http\Request $request
      * @param \Phalcon\Mvc\Dispatcher $dispatcher
      */
-    public function setParams(\Phalcon\Http\Request $request, \Phalcon\Mvc\Dispatcher $dispatcher);
+    public function setParams(\Phalcon\Http\Request $request);
 
     /**
      * Return filtered params

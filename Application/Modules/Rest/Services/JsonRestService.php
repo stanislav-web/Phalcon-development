@@ -137,6 +137,7 @@ class JsonRestService implements RestServiceInterface {
             $this->setStatusMessage(); // set by default
         }
 
+        var_dump($this->message);
         if($this->message['code'] > self::CODE_CREATED) {
 
             $this->message    =   ['error' =>
@@ -169,7 +170,6 @@ class JsonRestService implements RestServiceInterface {
     public function validate() {
         return $this->getValidator()->isValid();
     }
-
 
     /**
      * Send response to client
@@ -205,21 +205,4 @@ class JsonRestService implements RestServiceInterface {
 //        return $this;
 //    }
 
-    /**
-     * Get basic response service
-     *
-     * @uses \Application\Services\Security\AuthService
-     */
-//    public function useRestrictAccess()
-//    {
-//        // get access token from any request
-//        $token = $this->getDi()->get('AuthService')->getAccessToken();
-//        if(empty($token) === true) {
-//            throw new Exceptions\UnauthorizedException();
-//        }
-//        else {
-//            $this->getResponseService()->setHeader('X-'.ucfirst(AuthService::TOKEN_KEY),
-//                base64_encode($token['token']));
-//        }
-//    }
 }

@@ -2,6 +2,7 @@
 namespace Application\Modules\Rest\Services;
 
 use Application\Modules\Rest\Aware\RestSecurityProvider;
+use Application\Modules\Rest\Exceptions\NotFoundException;
 
 /**
  * Class SecurityService. Rest security provider
@@ -86,5 +87,24 @@ class SecurityService extends RestSecurityProvider {
         }
 
         return false;
+    }
+
+    /**
+     * Authenticate user use credentials
+     *
+     * @param string $login
+     * @param string $password
+     * @return boolean
+     */
+    public function authenticate($login, $password) {
+
+        // get user array
+        $user = $this->getUserMapper()->getOne(['login' => $login]);
+        if($user !== false) {
+
+        }
+        else {
+            throw new NotFoundException('User not found', 404);
+        }
     }
 }

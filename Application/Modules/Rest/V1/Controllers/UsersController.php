@@ -28,8 +28,12 @@ class UsersController extends ControllerBase {
      */
     public function authAction() {
 
+        $params = $this->rest->getValidator()->getParams();
+
         $this->rest->setMessage(
-            $this->getDI()->get('UserMapper')->read()->toArray()
+            $this->getDI()->get('RestSecurityService')->authenticate(
+                $params['login'], $params['password']
+            )
         );
     }
 }
