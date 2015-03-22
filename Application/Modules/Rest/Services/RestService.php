@@ -4,7 +4,7 @@ namespace Application\Modules\Rest\Services;
 use Application\Modules\Rest\Aware\RestServiceInterface;
 
 /**
- * Class JsonRestService. Http Rest handler
+ * Class RestService. Http Rest handler
  *
  * @package Application\Modules\Rest
  * @subpackage Services
@@ -12,9 +12,9 @@ use Application\Modules\Rest\Aware\RestServiceInterface;
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @copyright Stanislav WEB
- * @filesource /Application/Modules/Rest/Services/JsonRestService.php
+ * @filesource /Application/Modules/Rest/Services/RestService.php
  */
-class JsonRestService implements RestServiceInterface {
+class RestService implements RestServiceInterface {
 
     /**
      * REST Validator
@@ -84,6 +84,7 @@ class JsonRestService implements RestServiceInterface {
     public function setValidator($validator)
     {
         $this->validator = $validator;
+        return $this;
     }
 
     /**
@@ -125,7 +126,7 @@ class JsonRestService implements RestServiceInterface {
      * @param int $code default response code
      * @param string $message default response message
      * @param string $resource default called resource
-     * @return JsonRestService
+     * @return RestService
      */
     public function setStatusMessage($code = self::CODE_OK, $message = self::MESSAGE_OK, $resource = null) {
 
@@ -143,7 +144,7 @@ class JsonRestService implements RestServiceInterface {
      * Set current  / created resource uri
      *
      * @param string $resourceUri
-     * @return JsonRestService
+     * @return RestService
      */
     public function setResourceUri($resourceUri = null) {
 
@@ -167,7 +168,7 @@ class JsonRestService implements RestServiceInterface {
      * Set user app messages content.
      *
      * @param string|array $message
-     * @return JsonRestService
+     * @return RestService
      */
     public function setMessage($message) {
 

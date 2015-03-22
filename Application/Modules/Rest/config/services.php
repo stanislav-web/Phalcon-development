@@ -17,10 +17,10 @@ $di->set('RestSecurityService', function () use ($di) {
     return $security;
 });
 
-// Define Rest Json Service
-$di->set('JsonRestService', function () use ($di) {
+// Define Rest Service
+$di->set('RestService', function () use ($di) {
 
-    $restService = new \Application\Modules\Rest\Services\JsonRestService(
+    $restService = new \Application\Modules\Rest\Services\RestService(
         $di->get('RestValidationService')->init(
             require(__DIR__ .DIRECTORY_SEPARATOR.'rules.php')
         )

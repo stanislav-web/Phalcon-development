@@ -41,6 +41,7 @@ interface RestServiceInterface {
      * Set validator
      *
      * @param \Application\Modules\Rest\Services\RestValidationService $validator
+     * @return \Application\Modules\Rest\Services\RestService
      */
     public function setValidator($validator);
 
@@ -62,7 +63,7 @@ interface RestServiceInterface {
      * Set user app messages content.
      *
      * @param string|array $message
-     * @return \Application\Modules\Rest\Services\JsonRestService
+     * @return \Application\Modules\Rest\Services\RestService
      */
     public function setMessage($message);
 
@@ -84,7 +85,7 @@ interface RestServiceInterface {
      * Set current  / created resource uri
      *
      * @param string $resourceUri
-     * @return JsonRestService
+     * @return \Application\Modules\Rest\Services\RestService
      */
     public function setResourceUri($resourceUri = null);
 
@@ -98,7 +99,6 @@ interface RestServiceInterface {
     /**
      * Validate request params
      *
-     * @uses \Application\Modules\Rest\Services
      * @return void
      */
     public function validate();

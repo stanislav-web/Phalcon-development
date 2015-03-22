@@ -16,6 +16,16 @@
 use Application\Models\UserRoles;
 
 return [
+
+    // global rest api configuration
+
+    'global' => [
+        'token' =>  [
+            'lifetime'  =>  604800
+        ],
+        'formats' => ['*/*', 'json']
+    ],
+
     'users'  =>  [
         'index'    =>  [
             'requests'  =>  [  // limit request per seconds

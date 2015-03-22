@@ -42,6 +42,13 @@ class RestValidationService implements
     private $errors = [];
 
     /**
+     * Rules config
+     *
+     * @var array $config;
+     */
+    private $config  = [];
+
+    /**
      * Request rules
      *
      * @var array $rules;
@@ -64,12 +71,14 @@ class RestValidationService implements
     public function init(array $rules) {
 
         $dsp = $this->getDispatcher();
+
         if(isset($rules[$dsp->getControllerName()][$dsp->getActionName()]) === true) {
 
             $this->setRules($rules[$dsp->getControllerName()][$dsp->getActionName()]);
         }
 
-        $this->setParams($this->getDi()->getShared('request'));
+        $this->setConfig($rules['global']);
+        $this->setParams($this->getDi()->get('request'));
         $this->filter($this->getParams(), 'trim');
 
         return $this;
@@ -127,6 +136,29 @@ class RestValidationService implements
     public function getParams()
     {
         return $this->params;
+    }
+
+    /**
+     * Set global configurations
+     *
+     * @param array $config
+     * @return RestValidationService
+     */
+    public function setConfig(array $config)
+    {
+        $this->config = $config;
+
+        return $this;
+    }
+
+    /**
+     * Get request params
+     *
+     * @return array $params
+     */
+    public function getConfig()
+    {
+        return $this->config;
     }
 
     /**
@@ -221,7 +253,10 @@ class RestValidationService implements
 
         new Validators\IsMethodValid($this->getRequest(), $this->getRules());
         new Validators\IsRequestsAllow($this->getDi(), $this->getDispatcher(), $this->getRules());
-        new Validators\IsAccessible($this->getDi(), $this->getRules());
+
+        new Validators\IsAcceptable($this->getRequest(), $this->getConfig());
+
+        new Validators\IsAccessible($this->getDi(), $this->getRules(), $this->getConfig());
         new Validators\IsRequestValid($this->getParams(), $this->getRules());
 
     }

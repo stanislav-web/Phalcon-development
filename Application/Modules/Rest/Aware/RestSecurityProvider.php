@@ -23,6 +23,13 @@ abstract class RestSecurityProvider implements InjectionAwareInterface {
     private $di;
 
     /**
+     * Global configuration
+     *
+     * @var array $config
+     */
+    private $config;
+
+    /**
      * System error messages
      *
      * @var mixed $error
@@ -40,12 +47,23 @@ abstract class RestSecurityProvider implements InjectionAwareInterface {
     }
 
     /**
-     * Get config plugin
+     * Set global config
      *
-     * @return \Phalcon\Config
+     * @return \Application\Modules\Rest\Services\SecurityService
+     */
+    public function setConfig(array $config) {
+
+        $this->config = $config;
+        return $this;
+    }
+
+    /**
+     * Get config
+     *
+     * @return array
      */
     public function getConfig() {
-        return $this->getDi()->get('config');
+        return $this->config;
     }
 
     /**

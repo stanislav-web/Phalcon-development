@@ -21,8 +21,7 @@ class IsFounded {
      * Check if request method is allowed
      *
      * @param \Phalcon\Http\Request $request
-     * @param string $allowed
-     * @throws MethodNotAllowedException
+     * @throws NotFoundException
      */
     public function __construct(\Phalcon\Mvc\Router $router) {
 

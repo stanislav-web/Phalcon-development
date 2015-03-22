@@ -74,6 +74,7 @@ interface RestValidatorInterface {
      */
     public function getRules();
 
+
     /**
      * Filter request params
      *
