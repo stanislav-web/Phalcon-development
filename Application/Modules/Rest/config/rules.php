@@ -23,8 +23,11 @@ return [
         'token' =>  [
             'lifetime'  =>  604800
         ],
-        'formats' => ['*/*', 'json']
+        'accept-content'    => ['*/*', 'json'],
+        'accept-language'   => ['ru', 'en', 'ua', 'de']
     ],
+
+    // configure controllers => actions
 
     'users'  =>  [
         'index'    =>  [

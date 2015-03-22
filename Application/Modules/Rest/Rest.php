@@ -139,7 +139,6 @@ class Rest
         register_shutdown_function(function() {
             $error = error_get_last();
             if(is_null($error) === false) {
-
                 DI::getDefault()->get('LogMapper')->save($error['message'].' File: '.$error['file'].' Line:'.$error['line'],1);
 
                 try {

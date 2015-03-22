@@ -3,7 +3,7 @@ namespace Application\Modules\Rest\Validators;
 use Application\Modules\Rest\Exceptions\NotAcceptableException;
 
 /**
- * Class IsAcceptable. Check if format is acceptable by api
+ * Class IsAcceptable. Check if requested data is acceptable by api
  *
  * @package Application\Modules\Rest
  * @subpackage Validators
@@ -16,7 +16,7 @@ use Application\Modules\Rest\Exceptions\NotAcceptableException;
 class IsAcceptable {
 
     /**
-     * Check if format is acceptable by api
+     * Check if requested data is acceptable by api
      *
      * @param \Phalcon\Http\Request $request
      * @param array $config
@@ -24,15 +24,49 @@ class IsAcceptable {
      */
     public function __construct(\Phalcon\Http\Request $request, array $config) {
 
+        if($this->isValidContentType($request, $config) === false) {
+            throw new NotAcceptableException();
+        }
+
+        if($this->isValidLanguage($request, $config) === false) {
+            throw new NotAcceptableException();
+        }
+    }
+
+    /**
+     * Check if requested content-type is acceptable by api
+     *
+     * @param \Phalcon\Http\Request $request
+     * @param array $config
+     * @return bool
+     */
+    private function isValidContentType(\Phalcon\Http\Request $request, array $config) {
+
         $format = $request->get('format', 'lower', null);
 
         if(is_null($format) === true) {
             $format = strtolower($request->getBestAccept());
         }
 
-        if(in_array($format, $config['formats']) === false) {
+        return in_array($format, $config['accept-content']);
+    }
 
-            throw new NotAcceptableException();
+    /**
+     * Check if requested locale (language) is acceptable by api
+     *
+     * @param \Phalcon\Http\Request $request
+     * @param array $config
+     * @return bool
+     */
+    private function isValidLanguage(\Phalcon\Http\Request $request, array $config) {
+
+        $locale = $request->get('locale', 'lower', null);
+
+        if(is_null($locale) === true) {
+
+            $locale = strtolower(substr($request->getBestLanguage(), 0, 2));
         }
+
+        return in_array($locale, $config['accept-language']);
     }
 }
