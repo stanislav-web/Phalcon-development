@@ -74,6 +74,13 @@ interface RestServiceInterface {
     public function getMessage();
 
     /**
+     * Get get user preferred / selected locale
+     *
+     * @return string
+     */
+    public function getLocale();
+
+    /**
      * Validate request params
      *
      * @uses \Application\Modules\Rest\Services

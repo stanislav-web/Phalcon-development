@@ -161,6 +161,17 @@ class JsonRestService implements RestServiceInterface {
     }
 
     /**
+     * Get get user preferred / selected locale
+     *
+     * @return string
+     */
+    public function getLocale() {
+        return strtolower(substr((array_key_exists('locale', $this->getValidator()->getParams()))
+            ? $this->getValidator()->getParams()['locale']
+            : $this->getValidator()->getRequest()->getBestLanguage(), 0, 2));
+    }
+
+    /**
      * Validate request params
      *
      * @uses \Application\Modules\Rest\Services
@@ -182,6 +193,7 @@ class JsonRestService implements RestServiceInterface {
             'Access-Control-Allow-Methods' => $this->getValidator()->getRules()->methods,
             'X-Rate-Limit'  =>  (isset($this->getValidator()->getRules()->requests) === true)
                 ? $this->getValidator()->getRules()->requests['limit'] : 'infinity',
+            'X-Locale'  =>  $this->getLocale()
         ]);
 
         $response = $this->getResponseService();
