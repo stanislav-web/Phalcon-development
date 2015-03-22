@@ -3,6 +3,9 @@ $I = new ApiTester($scenario);
 
 $I->wantTo('Get user\'s list: GET /api/v1/users');
 
+$I->setHeader('Accept', '*/*');
+$I->setHeader('Accept-Language', 'en-GB');
+
 $I->sendGET('api/v1/users/auth', ['login' => 'stanisov@gmail.com', 'password' => 'stanisov@gmail.com']);
 $auth = $I->grabDataFromJsonResponse();
 $I->amBearerAuthenticated($auth['data']['token']);
