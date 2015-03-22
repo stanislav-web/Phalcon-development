@@ -247,7 +247,7 @@ class RestService implements RestServiceInterface {
         $this->setHeader([
             'Access-Control-Allow-Methods' => $this->getValidator()->getRules()->methods,
             'X-Rate-Limit'      =>  $this->getRateLimit(),
-            'X-Locale'          =>  $this->getLocale(),
+            'Accept-Language'   =>  $this->getLocale(),
             'X-Resource'        =>  $this->getResourceUri()
         ]);
 

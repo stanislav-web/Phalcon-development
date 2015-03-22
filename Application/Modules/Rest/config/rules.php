@@ -17,16 +17,6 @@ use Application\Models\UserRoles;
 
 return [
 
-    // global rest api configuration
-
-    'global' => [
-        'token' =>  [
-            'lifetime'  =>  604800
-        ],
-        'accept-content'    => ['*/*', 'json'],
-        'accept-language'   => ['ru', 'en', 'ua', 'de']
-    ],
-
     // configure controllers => actions
 
     'users'  =>  [

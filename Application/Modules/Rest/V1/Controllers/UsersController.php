@@ -31,7 +31,7 @@ class UsersController extends ControllerBase {
         $params = $this->rest->getValidator()->getParams();
 
         $this->rest->setMessage(
-            $this->getDI()->get('RestSecurityService')->authenticate(
+            $this->rest->getDI()->get('RestSecurityService')->authenticate(
                 $params['login'], $params['password']
             )
         );
