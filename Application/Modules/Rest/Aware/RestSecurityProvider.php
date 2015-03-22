@@ -51,6 +51,15 @@ abstract class RestSecurityProvider implements InjectionAwareInterface {
     }
 
     /**
+     * Get translate service
+     *
+     * @return \Application\Services\Advanced\TranslateService
+     */
+    public function getTranslator() {
+        return $this->getDI()->get('TranslateService')->assign('sign');
+    }
+
+    /**
      * User Mapper
      *
      * @return \Application\Services\Mappers\UserMapper
@@ -76,6 +85,23 @@ abstract class RestSecurityProvider implements InjectionAwareInterface {
     public function getDi()
     {
         return $this->di;
+    }
+
+    /**
+     * Set auth error message
+     *
+     * @param string $message
+     * @return false
+     */
+    public function setError($message) {
+
+        $this->error = (is_array($message) === false) ? $this->getTranslator()->translate($message)
+            : implode('. '.PHP_EOL, array_map(function($message) {
+                return $this->getTranslator()->translate($message->getMessage());
+            },$message));
+
+        $this->getDi()->get('LogMapper')->save($this->error. ' IP: '.$this->getRequest()->getClientAddress(), Logger::WARNING);
+        return false;
     }
 
     /**

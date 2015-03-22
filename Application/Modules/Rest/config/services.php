@@ -17,8 +17,8 @@ $di->set('RestSecurityService', function () use ($di) {
     return $security;
 });
 
-// Define Rest service
-$di->setShared('JsonRestService', function () use ($di) {
+// Define Rest Json Service
+$di->set('JsonRestService', function () use ($di) {
 
     $restService = new \Application\Modules\Rest\Services\JsonRestService(
         $di->get('RestValidationService')->init(
@@ -26,5 +26,17 @@ $di->setShared('JsonRestService', function () use ($di) {
         )
     );
 
+    // Define Translate Service (inside the rest)
+    $di->set('TranslateService',function() use ($di, $restService) {
+
+        $config = $di->get('config');
+
+        return (new \Application\Modules\Rest\Services\TranslateService($restService->getLocale(),
+            $config->locale->language
+        ))->path($config->locale->translates);
+
+    });
+
     return $restService;
 });
+

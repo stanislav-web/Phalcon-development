@@ -78,9 +78,11 @@ $di->setShared('MailService', function () use ($di, $config) {
 });
 
 // Define auth service
+//@TODO Deprecated
 $di->setShared('AuthService','Application\Services\Security\AuthService');
 
 // Define translate service
+//@TODO Deprecated
 $di->setShared('TranslateService',function() use ($di, $config) {
 
     return (new Application\Services\Advanced\TranslateService(

@@ -42,6 +42,13 @@ class JsonRestService implements RestServiceInterface {
     private $message = [];
 
     /**
+     * User preferred locale
+     *
+     * @var string $locale;
+     */
+    private $locale = null;
+
+    /**
      * Init default HTTP response status
      *
      * @param \Application\Modules\Rest\Services\RestValidationService $validator
@@ -161,14 +168,30 @@ class JsonRestService implements RestServiceInterface {
     }
 
     /**
-     * Get get user preferred / selected locale
+     * Set get user preferred / selected locale
      *
-     * @return string
+     * @return string $locale
      */
     public function getLocale() {
-        return strtolower(substr((array_key_exists('locale', $this->getValidator()->getParams()))
-            ? $this->getValidator()->getParams()['locale']
-            : $this->getValidator()->getRequest()->getBestLanguage(), 0, 2));
+
+        if(is_null($this->locale)) {
+            $this->locale = strtolower(substr((array_key_exists('locale', $this->getValidator()->getParams()))
+                ? $this->getValidator()->getParams()['locale']
+                : $this->getValidator()->getRequest()->getBestLanguage(), 0, 2));
+        }
+
+        return $this->locale;
+    }
+
+    /**
+     * Get limit request for used action
+     *
+     * @return string|int
+     */
+    public function getRateLimit() {
+
+        return (isset($this->getValidator()->getRules()->requests) === true)
+            ? $this->getValidator()->getRules()->requests['limit'] : 'infinity';
     }
 
     /**
@@ -191,9 +214,8 @@ class JsonRestService implements RestServiceInterface {
         // Set rules required header
         $this->setHeader([
             'Access-Control-Allow-Methods' => $this->getValidator()->getRules()->methods,
-            'X-Rate-Limit'  =>  (isset($this->getValidator()->getRules()->requests) === true)
-                ? $this->getValidator()->getRules()->requests['limit'] : 'infinity',
-            'X-Locale'  =>  $this->getLocale()
+            'X-Rate-Limit'      =>  $this->getRateLimit(),
+            'X-Locale'          =>  $this->getLocale()
         ]);
 
         $response = $this->getResponseService();
