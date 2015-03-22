@@ -151,9 +151,8 @@ class SecurityService extends RestSecurityProvider {
                 }
             }
             else {
-
-                var_dump($this->getTranslator());
-                throw new UnauthorizedException('sss', 401);
+                $this->setError('INVALID_AUTH_DATA');
+                throw new UnauthorizedException();
             }
         }
         else {

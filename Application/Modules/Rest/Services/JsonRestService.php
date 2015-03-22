@@ -46,7 +46,14 @@ class JsonRestService implements RestServiceInterface {
      *
      * @var string $locale;
      */
-    private $locale = null;
+    private $locale;
+
+    /**
+     * Current /created resource uri
+     *
+     * @var string $resourceUri;
+     */
+    private $resourceUri;
 
     /**
      * Init default HTTP response status
@@ -122,14 +129,38 @@ class JsonRestService implements RestServiceInterface {
      */
     public function setStatusMessage($code = self::CODE_OK, $message = self::MESSAGE_OK, $resource = null) {
 
-        $this->message['code'] = $code;
-        $this->message['message'] = $message;
-        (is_null($resource) === false)
-            ? $this->message['resource'] = $resource
-            : $this->message['resource'] = $this->getValidator()->getRequest()->getURI();
+        $this->setResourceUri($resource);
         $this->getResponseService()->setStatusCode($code, $message);
 
+        $this->message['code'] = $code;
+        $this->message['message'] = $message;
+        $this->message['resource'] = $this->getResourceUri();
+
         return $this;
+    }
+
+    /**
+     * Set current  / created resource uri
+     *
+     * @param string $resourceUri
+     * @return JsonRestService
+     */
+    public function setResourceUri($resourceUri = null) {
+
+        $this->resourceUri =
+            (is_null($resourceUri) === true)
+        ? $this->getValidator()->getRequest()->getURI() : $resourceUri;
+        
+        return $this;
+    }
+
+    /**
+     * Get resource uri
+     *
+     * @return string
+     */
+    public function getResourceUri() {
+        return $this->resourceUri;
     }
 
     /**
@@ -215,7 +246,8 @@ class JsonRestService implements RestServiceInterface {
         $this->setHeader([
             'Access-Control-Allow-Methods' => $this->getValidator()->getRules()->methods,
             'X-Rate-Limit'      =>  $this->getRateLimit(),
-            'X-Locale'          =>  $this->getLocale()
+            'X-Locale'          =>  $this->getLocale(),
+            'X-Resource'        =>  $this->getResourceUri()
         ]);
 
         $response = $this->getResponseService();

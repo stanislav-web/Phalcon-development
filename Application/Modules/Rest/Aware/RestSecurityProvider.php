@@ -23,6 +23,13 @@ abstract class RestSecurityProvider implements InjectionAwareInterface {
     private $di;
 
     /**
+     * System error messages
+     *
+     * @var mixed $error
+     */
+    private $error;
+
+    /**
      * Set dependency container
      *
      * @param \Phalcon\DiInterface $di
@@ -53,7 +60,7 @@ abstract class RestSecurityProvider implements InjectionAwareInterface {
     /**
      * Get translate service
      *
-     * @return \Application\Services\Advanced\TranslateService
+     * @return \Application\Modules\Rest\Services\TranslateService
      */
     public function getTranslator() {
         return $this->getDI()->get('TranslateService')->assign('sign');
@@ -88,20 +95,26 @@ abstract class RestSecurityProvider implements InjectionAwareInterface {
     }
 
     /**
-     * Set auth error message
+     * Set error message
      *
-     * @param string $message
-     * @return false
+     * @param string|array $message
+     * @return null
      */
     public function setError($message) {
 
         $this->error = (is_array($message) === false) ? $this->getTranslator()->translate($message)
-            : implode('. '.PHP_EOL, array_map(function($message) {
-                return $this->getTranslator()->translate($message->getMessage());
-            },$message));
+            : array_map(function($message) {
+                return $this->getTranslator()->translate($message);
+            },$message);
+    }
 
-        $this->getDi()->get('LogMapper')->save($this->error. ' IP: '.$this->getRequest()->getClientAddress(), Logger::WARNING);
-        return false;
+    /**
+     * Get auth error messages
+     *
+     * @return array
+     */
+    public function getError() {
+        return $this->error;
     }
 
     /**

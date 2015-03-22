@@ -81,6 +81,21 @@ interface RestServiceInterface {
     public function getLocale();
 
     /**
+     * Set current  / created resource uri
+     *
+     * @param string $resourceUri
+     * @return JsonRestService
+     */
+    public function setResourceUri($resourceUri = null);
+
+    /**
+     * Get resource uri
+     *
+     * @return string
+     */
+    public function getResourceUri();
+
+    /**
      * Validate request params
      *
      * @uses \Application\Modules\Rest\Services
