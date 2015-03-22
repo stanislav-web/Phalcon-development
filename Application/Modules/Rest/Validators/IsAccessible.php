@@ -47,13 +47,13 @@ class IsAccessible {
      * @throws ForbiddenException
      * @throws UnauthorizedException
      */
-    public function __construct(\Phalcon\DI\FactoryDefault $di, \stdClass $rules, array $config) {
+    public function __construct(\Phalcon\DI\FactoryDefault $di, \stdClass $rules) {
 
         $this->rules = $rules;
 
         if(isset($this->rules->authentication) === true) {
 
-            $this->security = $di->get('RestSecurityService')->setConfig($config);
+            $this->security = $di->get('RestSecurityService');
 
             if($this->security->isAuthenticated() === true) {
 

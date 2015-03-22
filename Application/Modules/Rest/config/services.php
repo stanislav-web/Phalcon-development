@@ -1,6 +1,18 @@
 <?php
 // SERVICES
 
+// Overload Base config
+$di->set('RestConfig', function () use ($di) {
+
+    $configBase = $di->get('config');
+
+    $configBase->merge(
+        require('config.php')
+    );
+
+    return $configBase;
+});
+
 // Define Rest Validator
 $di->set('RestValidationService', function () use ($di) {
 

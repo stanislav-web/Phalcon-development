@@ -19,10 +19,10 @@ class IsAcceptable {
      * Check if requested data is acceptable by api
      *
      * @param \Phalcon\Http\Request $request
-     * @param array $config
+     * @param \Phalcon\Config $config
      * @throws NotAcceptableException
      */
-    public function __construct(\Phalcon\Http\Request $request, array $config) {
+    public function __construct(\Phalcon\Http\Request $request, \Phalcon\Config $config) {
 
         if($this->isValidContentType($request, $config) === false) {
             throw new NotAcceptableException();
@@ -37,10 +37,10 @@ class IsAcceptable {
      * Check if requested content-type is acceptable by api
      *
      * @param \Phalcon\Http\Request $request
-     * @param array $config
+     * @param \Phalcon\Config  $config
      * @return bool
      */
-    private function isValidContentType(\Phalcon\Http\Request $request, array $config) {
+    private function isValidContentType(\Phalcon\Http\Request $request, \Phalcon\Config $config) {
 
         $format = $request->get('format', 'lower', null);
 
@@ -48,17 +48,17 @@ class IsAcceptable {
             $format = strtolower($request->getBestAccept());
         }
 
-        return in_array($format, $config['accept-content']);
+        return in_array($format, $config->acceptContent->toArray());
     }
 
     /**
      * Check if requested locale (language) is acceptable by api
      *
      * @param \Phalcon\Http\Request $request
-     * @param array $config
+     * @param \Phalcon\Config  $config
      * @return bool
      */
-    private function isValidLanguage(\Phalcon\Http\Request $request, array $config) {
+    private function isValidLanguage(\Phalcon\Http\Request $request, \Phalcon\Config $config) {
 
         $locale = $request->get('locale', 'lower', null);
 
@@ -67,6 +67,6 @@ class IsAcceptable {
             $locale = strtolower(substr($request->getBestLanguage(), 0, 2));
         }
 
-        return in_array($locale, $config['accept-language']);
+        return in_array($locale, $config->acceptLanguage->toArray());
     }
 }

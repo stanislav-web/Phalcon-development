@@ -47,23 +47,12 @@ abstract class RestSecurityProvider implements InjectionAwareInterface {
     }
 
     /**
-     * Set global config
+     * Get api config
      *
-     * @return \Application\Modules\Rest\Services\SecurityService
-     */
-    public function setConfig(array $config) {
-
-        $this->config = $config;
-        return $this;
-    }
-
-    /**
-     * Get config
-     *
-     * @return array
+     * @return \Phalcon\Config
      */
     public function getConfig() {
-        return $this->config;
+        return $this->getDi()->get('RestConfig')->api;
     }
 
     /**

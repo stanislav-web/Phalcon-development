@@ -77,7 +77,6 @@ class RestValidationService implements
             $this->setRules($rules[$dsp->getControllerName()][$dsp->getActionName()]);
         }
 
-        $this->setConfig($rules['global']);
         $this->setParams($this->getDi()->get('request'));
         $this->filter($this->getParams(), 'trim');
 
@@ -139,26 +138,13 @@ class RestValidationService implements
     }
 
     /**
-     * Set global configurations
+     * Get api config
      *
-     * @param array $config
-     * @return RestValidationService
-     */
-    public function setConfig(array $config)
-    {
-        $this->config = $config;
-
-        return $this;
-    }
-
-    /**
-     * Get request params
-     *
-     * @return array $params
+     * @return \Phalcon\Config
      */
     public function getConfig()
     {
-        return $this->config;
+        return $this->getDi()->get('RestConfig')->api;
     }
 
     /**
@@ -253,10 +239,8 @@ class RestValidationService implements
 
         new Validators\IsMethodValid($this->getRequest(), $this->getRules());
         new Validators\IsRequestsAllow($this->getDi(), $this->getDispatcher(), $this->getRules());
-
         new Validators\IsAcceptable($this->getRequest(), $this->getConfig());
-
-        new Validators\IsAccessible($this->getDi(), $this->getRules(), $this->getConfig());
+        new Validators\IsAccessible($this->getDi(), $this->getRules());
         new Validators\IsRequestValid($this->getParams(), $this->getRules());
 
     }
