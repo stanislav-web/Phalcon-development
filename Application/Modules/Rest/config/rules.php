@@ -19,7 +19,7 @@ return [
     'users'  =>  [
         'index'    =>  [
             'requests'  =>  [  // limit request per seconds
-                    'limit' =>  1000,
+                    'limit' =>  1,
                     'time'  =>  1,
                 ],
             'methods'   => 'GET,POST,PUT',
@@ -32,7 +32,7 @@ return [
         ],
         'auth'    =>  [
             'requests'  =>  [  // limit request per time
-                'limit' =>  11,
+                'limit' =>  1,
                 'time'  =>  1,
             ],
             'methods'    => 'GET',

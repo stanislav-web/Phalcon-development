@@ -24,9 +24,16 @@ interface RestValidatorInterface {
     public function init(array $params);
 
     /**
+     * Get dispatcher instance
+     *
+     * @return \Phalcon\Mvc\Dispatcher
+     */
+    public function getDispatcher();
+
+    /**
      * Set possible request params
      *
-     * @param \Phalcon\Mvc\Dispatcher $dispatcher
+     * @param \Phalcon\Http\Request $request
      */
     public function setParams(\Phalcon\Http\Request $request);
 
@@ -66,7 +73,6 @@ interface RestValidatorInterface {
      * @return object
      */
     public function getRules();
-
 
     /**
      * Filter request params

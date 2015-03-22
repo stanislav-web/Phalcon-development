@@ -59,19 +59,17 @@ class RestValidationService implements
      * Initialize dispatcher
      *
      * @param array $rules
-     * @file Modules/Rest/config/rules.php
      * @return RestValidationService
      */
     public function init(array $rules) {
 
-        $dispatcher = $this->getDi()->getDispatcher();
+        $dsp = $this->getDispatcher();
+        if(isset($rules[$dsp->getControllerName()][$dsp->getActionName()]) === true) {
 
-        if(isset($rules[$dispatcher->getControllerName()][$dispatcher->getActionName()]) === true) {
-
-            $this->setRules($rules[$dispatcher->getControllerName()][$dispatcher->getActionName()]);
+            $this->setRules($rules[$dsp->getControllerName()][$dsp->getActionName()]);
         }
 
-        $this->setParams($this->getDi()->getRequest(), $dispatcher);
+        $this->setParams($this->getDi()->getShared('request'));
         $this->filter($this->getParams(), 'trim');
 
         return $this;
@@ -95,6 +93,16 @@ class RestValidationService implements
     public function getDi()
     {
         return $this->di;
+    }
+
+    /**
+     * Get dispatcher instance
+     *
+     * @return \Phalcon\Mvc\Dispatcher
+     */
+    public function getDispatcher()
+    {
+        return $this->getDi()->getShared('dispatcher');
     }
 
     /**
@@ -212,7 +220,7 @@ class RestValidationService implements
     public function isValid() {
 
         new Validators\IsMethodValid($this->getRequest(), $this->getRules());
-        new Validators\IsRequestsAllow($this->getDi(), $this->getRules());
+        new Validators\IsRequestsAllow($this->getDi(), $this->getDispatcher(), $this->getRules());
         new Validators\IsAccessible($this->getDi(), $this->getRules());
         new Validators\IsRequestValid($this->getParams(), $this->getRules());
 

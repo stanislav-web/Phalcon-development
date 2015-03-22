@@ -17,21 +17,46 @@ use Application\Modules\Rest\Exceptions\ToManyRequestsException;
 class IsRequestsAllow {
 
     /**
+     * Current action name
+     *
+     * @var string $action
+     */
+    private $action = '';
+
+    /**
+     * Current client IP
+     *
+     * @var string $ip
+     */
+    private $ip = '';
+
+    /**
+     * Session adapter
+     *
+     * @var \Phalcon\Session\Adapter\Memcache $session
+     */
+    private $session;
+
+    /**
      * Check if requests allow for ip
      *
      * @param \Phalcon\DI\FactoryDefault $di
+     * @param \Phalcon\Mvc\Dispatcher $dispatcher
      * @param \StdClass $rules
      * @throws ToManyRequestsException
      */
-    public function __construct(\Phalcon\DI\FactoryDefault $di, \StdClass $rules) {
+    public function __construct(\Phalcon\DI\FactoryDefault $di,
+                                \Phalcon\Mvc\Dispatcher $dispatcher,
+                                \StdClass $rules) {
 
         if(isset($rules->requests) === true) {
 
-            $session = $di->getShared('session');
-            $ip = $di->getShared('request')->getClientAddress();
+            $this->session = $di->getShared('session');
+            $this->ip = $di->getShared('request')->getClientAddress();
+            $this->action = $dispatcher->getActionName();
 
-            if($session->has('disallow')) {
-                if((int)$session->get('disallow')+(int)$rules->requests['time'] > time()) {
+            if($this->session->has($this->action)) {
+                if((int)$this->session->get($this->action)+(int)$rules->requests['time'] > time()) {
 
                     // disallow access, because to many requests per  $rules->requests['time']
 
@@ -39,41 +64,49 @@ class IsRequestsAllow {
                 }
                 else {
                     // reset user requests counter
-                    $this->reset($session, $ip);
+                    $this->reset();
                 }
             }
 
             // iterate counter
-            $this->iterate($session, $ip, $rules);
+            $this->iterate($rules);
         }
     }
 
     /**
      * Reset session requests counter
      *
-     * @param \Phalcon\Session\Adapter\Memcache $session
-     * @param $ip
+     * @return null
      */
-    private function reset($session, $ip) {
-        $session->remove('disallow');
-        $session->remove($ip);
+    private function reset() {
+        $this->session->remove($this->action);
+        $this->session->remove($this->ip);
     }
 
     /**
      * Iterate request counter
      *
-     * @param \Phalcon\Session\Adapter\Memcache $session
-     * @param $ip
      * @param \StdClass $rules
      */
-    private function iterate($session, $ip, $rules) {
+    private function iterate($rules) {
 
         // iterate request for current IP address
-        $session->set($ip, intval($session->get($ip)+1));
+        $this->session->set($this->ip, (int)$this->session->get($this->ip)+1);
 
-        if($session->get($ip) >= $rules->requests['limit']) {
+        if($this->session->get($this->ip) >= $rules->requests['limit']) {
 
-            $session->set('disallow', time());
+            $this->session->set($this->action, time());
         }
     }
+
+    /**
+     * Free params
+     */
+    public function destruct() {
+
+        unset($this->action);
+        unset($this->ip);
+
+    }
+
 }
