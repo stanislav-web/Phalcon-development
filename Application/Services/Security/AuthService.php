@@ -64,7 +64,7 @@ class AuthService implements InjectionAwareInterface {
      * Authenticate user from credentials
      *
      * @param array $credentials
-     * @return boolean
+     * @return array access token
      */
     public function authenticate(array $credentials)
     {

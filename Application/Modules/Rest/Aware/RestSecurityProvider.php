@@ -85,14 +85,24 @@ abstract class RestSecurityProvider implements InjectionAwareInterface {
      * @param string $password
      * @return boolean
      */
-    abstract protected function authenticate($login, $password);
+    abstract public function authenticate($login, $password);
 
     /**
-     * Get user request token from header or request
+     * Get user access token from header or request
      *
      * @return string $token
      */
-    abstract protected function getRequestToken();
+    abstract protected function getToken();
+
+    /**
+     * Set user access token
+     *
+     * @param int $user_id Auth user ID
+     * @param string $token Generated token
+     * @param int $expire_date Token date expiry
+     * @return bool
+     */
+    abstract protected function setToken($user_id, $token, $expire_date);
 
     /**
      * If user is authenticated?

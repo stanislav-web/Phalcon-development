@@ -56,12 +56,6 @@ class Users extends \Phalcon\Mvc\Model
 
     /**
      *
-     * @var string
-     */
-    public $salt;
-
-    /**
-     *
      * @var int
      */
     public $role;
@@ -277,29 +271,6 @@ class Users extends \Phalcon\Mvc\Model
     public function setPassword($password)
     {
         $this->password = $this->getDI()->getShared('security')->hash($password);
-
-        return $this;
-    }
-
-    /**
-     * Returns the value of field salt
-     *
-     * @return string
-     */
-    public function getSalt()
-    {
-        return $this->salt;
-    }
-
-    /**
-     * Method to set the value of field salt
-     *
-     * @param string $password
-     * @return $this
-     */
-    public function setSalt($salt)
-    {
-        $this->salt = $salt;
 
         return $this;
     }

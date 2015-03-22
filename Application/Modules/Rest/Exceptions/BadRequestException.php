@@ -33,7 +33,12 @@ class BadRequestException extends Exception {
      * @param string $message If no message is given 'Bad Request' will be the message
      * @param int $code Status code, defaults to 400
      */
-     public function __construct() {
-         parent::__construct(self::MESSAGE, self::CODE);
-     }
+    public function __construct($message = null, $code = null) {
+        if(is_null($message) === true && is_null($code) === true) {
+            parent::__construct(self::MESSAGE, self::CODE);
+        }
+        else {
+            parent::__construct($message, $code);
+        }
+    }
 }

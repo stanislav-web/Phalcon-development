@@ -1,15 +1,11 @@
-<?php 
+<?php
 $I = new ApiTester($scenario);
 
-$I->wantTo('Get user\'s list: GET /api/v1/users');
-
+$I->wantTo('Authorization: GET /api/v1/users/auth');
 $I->sendGET('api/v1/users/auth', ['login' => 'stanisov@gmail.com', 'password' => 'stanisov@gmail.com']);
-$auth = $I->grabDataFromJsonResponse();
-$I->amBearerAuthenticated($auth['data']['token']);
 
-$I->sendGET('api/v1/users');
 $I->seeResponseCodeIs(200);
-$I->seeHttpHeader('Access-Control-Allow-Methods', 'GET,POST,PUT');
+$I->seeHttpHeader('Access-Control-Allow-Methods', 'GET');
 $I->seeHttpHeader('Access-Control-Allow-Origin', '*');
 $I->seeResponseIsJson();
 $I->seeResponseJsonMatchesJsonPath('$.data');

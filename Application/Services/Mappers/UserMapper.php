@@ -85,8 +85,7 @@ class UserMapper implements InjectionAwareInterface, ModelCrudInterface {
         $userModel = new Users();
         $userModel->setRole(UserRoles::USER)
             ->setIp($this->getDi()->get('request')->getClientAddress())
-            ->setUa($this->getDi()->get('request')->getUserAgent())
-            ->setSalt($this->getDi()->getShared('security')->getSessionToken());
+            ->setUa($this->getDi()->get('request')->getUserAgent());
 
         foreach($data as $field => $value) {
 
@@ -159,7 +158,7 @@ class UserMapper implements InjectionAwareInterface, ModelCrudInterface {
 
         $user = $this->getOne(['id' => $user_id]);
         $user->skipAttributes(['surname']);
-        $refresh = $user->setUa($data['ua'])->setIp($data['ip'])->setSalt($data['salt'])->setDateLastvisit();
+        $refresh = $user->setUa($data['ua'])->setIp($data['ip'])->setDateLastvisit();
 
         if($refresh->save() === true) {
             return true;

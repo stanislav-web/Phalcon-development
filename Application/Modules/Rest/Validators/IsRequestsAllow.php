@@ -31,8 +31,10 @@ class IsRequestsAllow {
             $ip = $di->getShared('request')->getClientAddress();
 
             if($session->has('disallow')) {
-                if(intval($session->get('disallow'))+intval($rules->requests['time']) > time()) {
+                if((int)$session->get('disallow')+(int)$rules->requests['time'] > time()) {
+
                     // disallow access, because to many requests per  $rules->requests['time']
+
                     throw new ToManyRequestsException();
                 }
                 else {

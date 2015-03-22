@@ -128,5 +128,10 @@ $config = [
             'api_secret'=> 'ssss',
             'type'      => 'unicode'
         ],
+    ],
+
+    // access token config
+    'token' =>  [
+        'lifetime'  =>  604800
     ]
 ];

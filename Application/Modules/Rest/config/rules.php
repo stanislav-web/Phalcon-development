@@ -32,9 +32,10 @@ return [
         ],
         'auth'    =>  [
             'requests'  =>  [  // limit request per time
-                'limit' =>  12,
+                'limit' =>  11,
                 'time'  =>  1,
-            ],            'methods'    => 'GET',
+            ],
+            'methods'    => 'GET',
             'params'     => [
                 'required' => 'access'
             ],

@@ -2,7 +2,9 @@
 namespace Application\Modules\Rest\Services;
 
 use Application\Modules\Rest\Aware\RestSecurityProvider;
+use Application\Modules\Rest\Exceptions\BadRequestException;
 use Application\Modules\Rest\Exceptions\NotFoundException;
+use Application\Modules\Rest\Exceptions\UnauthorizedException;
 
 /**
  * Class SecurityService. Rest security provider
@@ -35,11 +37,11 @@ class SecurityService extends RestSecurityProvider {
     private $token;
 
     /**
-     * Get user request token from header or query
+     * Get user access token from header or query
      *
      * @return string $token
      */
-    protected function getRequestToken() {
+    protected function getToken() {
 
         $token = $this->getRequest()->get(self::REQUEST_KEY, null, null);
 
@@ -50,13 +52,37 @@ class SecurityService extends RestSecurityProvider {
     }
 
     /**
+     * Set user access token
+     *
+     * @param int $user_id Auth user ID
+     * @param string $token Generated token
+     * @param int $expire_date Token date expiry
+     * @return bool|array
+     */
+    protected function setToken($user_id, $token, $expire_date) {
+
+        $authData = $this->getUserMapper()->setAccessToken(
+            $user_id, $token, $expire_date
+        );
+
+        if($authData != false) {
+
+            $result = $authData->toArray();
+            $result['token'] = base64_encode($result['token']);
+
+        }
+
+        return $result;
+    }
+
+    /**
      * If user is authenticated?
      *
      * @return boolean
      */
     public function isAuthenticated() {
 
-        $token = $this->getRequestToken();
+        $token = $this->getToken();
 
         $this->token = $this->getUserMapper()->getAccess()->findFirst([
                 "token = ?0 AND expire_date > NOW()",
@@ -98,10 +124,35 @@ class SecurityService extends RestSecurityProvider {
      */
     public function authenticate($login, $password) {
 
-        // get user array
         $user = $this->getUserMapper()->getOne(['login' => $login]);
         if($user !== false) {
 
+            if($this->getSecurity()->checkHash($password, $user->getPassword())) {
+
+                $token = $this->getSecurity()->hash($this->getSecurity()->getToken());
+
+                $accessToken = $this->setToken(
+                    $user->getId(),
+                    $token,
+                    (time() + $this->getConfig()->token->lifetime)
+                );
+
+                if(is_array($accessToken) === true) {
+
+                    $this->getUserMapper()->refresh($user->getId(), [
+                        'ip'    =>  $this->getRequest()->getClientAddress(),
+                        'ua'    =>  $this->getRequest()->getUserAgent(),
+                    ]);
+
+                    return $accessToken;
+                }
+                else {
+                    throw new BadRequestException();
+                }
+            }
+            else {
+                throw new UnauthorizedException();
+            }
         }
         else {
             throw new NotFoundException('User not found', 404);
