@@ -6,7 +6,6 @@ set -e;
 
 # Define variables
 OSTYPE="`uname`"
-export SET GIT_BRANCH='Frontend';
 
 # Detect the platform (similar to $OSTYPE)
 
@@ -21,9 +20,13 @@ case "$OSTYPE" in
 esac
 
 cd ../
+read -p "Please type pulled GIT Branch: " GIT_BRANCH
 git pull origin $GIT_BRANCH
+
+read -p "Press [Enter] key to update dependencies..." DEP
 bower update
 composer update
-composer install -o
+
+#read -p "Press [Enter] key to start API tests" TEST
 vendor/bin/codecept build
-vendor/bin/codecept run
+vendor/bin/codecept run -d
