@@ -20,6 +20,11 @@ class Pages extends \Phalcon\Mvc\Model
     const TABLE = '\Application\Models\Pages';
 
     /**
+     * Set Page alias prefix when update or create
+     */
+    const PAGE_URL_PREFIX = '/pages/';
+
+    /**
      *
      * @var integer
      */
@@ -98,7 +103,7 @@ class Pages extends \Phalcon\Mvc\Model
      */
     public function setAlias($alias)
     {
-        $this->alias = $alias;
+        $this->alias = self::PAGE_URL_PREFIX.$alias;
 
         return $this;
     }
