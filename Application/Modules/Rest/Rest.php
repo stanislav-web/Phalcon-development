@@ -140,7 +140,7 @@ class Rest
             $error = error_get_last();
             if(is_null($error) === false) {
 
-                DI::getDefault()->get('LogMapper')->save($error['message'].' File: '.$error['file'].' Line:'.$error['line'],1);
+                DI::getDefault()->get('LogMapper')->save($error['message'].' File: '.$error['file'].' Line:'.$error['line'], 1);
 
                 try {
 

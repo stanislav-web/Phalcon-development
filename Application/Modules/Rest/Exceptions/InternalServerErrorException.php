@@ -40,6 +40,6 @@ class InternalServerErrorException extends \RuntimeException {
              $code = self::CODE;
          }
 
-         parent::__construct($message, $code, Logger::CRITICAL);
+         parent::__construct($message, $code);
      }
 }
