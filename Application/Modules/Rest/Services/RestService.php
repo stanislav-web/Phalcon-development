@@ -187,6 +187,7 @@ class RestService implements RestServiceInterface {
         {
             $this->message['data'][$k]    =   $v;
         }
+
         return $this;
     }
 

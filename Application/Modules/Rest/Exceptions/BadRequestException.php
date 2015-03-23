@@ -1,7 +1,7 @@
 <?php
 namespace Application\Modules\Rest\Exceptions;
 
-use \Phalcon\Http\Response\Exception;
+use \Phalcon\Logger;
 
 /**
  * Class BadRequestException. Represents an HTTP 400 error.
@@ -15,7 +15,7 @@ use \Phalcon\Http\Response\Exception;
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @filesource /Application/Modules/Rest/Exceptions/BadRequestException.php
  */
-class BadRequestException extends Exception {
+class BadRequestException extends BaseException {
 
     /**
      * @const HTTP response message
@@ -34,11 +34,13 @@ class BadRequestException extends Exception {
      * @param int $code Status code, defaults to 400
      */
     public function __construct($message = null, $code = null) {
+
         if(is_null($message) === true && is_null($code) === true) {
-            parent::__construct(self::MESSAGE, self::CODE);
+
+            $message = self::MESSAGE;
+            $code = self::CODE;
         }
-        else {
-            parent::__construct($message, $code);
-        }
+
+        parent::__construct($message, $code, Logger::NOTICE);
     }
 }

@@ -1,7 +1,7 @@
 <?php
 namespace Application\Modules\Rest\Exceptions;
 
-use \Phalcon\Http\Response\Exception;
+use \Phalcon\Logger;
 
 /**
  * Class MethodNotAllowedException. Represents an HTTP 405 error.
@@ -15,7 +15,7 @@ use \Phalcon\Http\Response\Exception;
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @filesource /Application/Modules/Rest/Exceptions/MethodNotAllowedException.php
  */
-class MethodNotAllowedException extends Exception {
+class MethodNotAllowedException extends BaseException {
 
     /**
      * @const HTTP response message
@@ -33,8 +33,14 @@ class MethodNotAllowedException extends Exception {
      * @param string $message If no message is given 'Method not allowed' will be the message
      * @param int $code Status code, defaults to 405
      */
-     public function __construct() {
+    public function __construct($message = null, $code = null) {
 
-         parent::__construct(self::MESSAGE, self::CODE);
-     }
+        if(is_null($message) === true && is_null($code) === true) {
+
+            $message = self::MESSAGE;
+            $code = self::CODE;
+        }
+
+        parent::__construct($message, $code, Logger::WARNING);
+    }
 }

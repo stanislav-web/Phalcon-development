@@ -1,7 +1,7 @@
 <?php
 namespace Application\Modules\Rest\Exceptions;
 
-use \Phalcon\Http\Response\Exception;
+use \Phalcon\Logger;
 
 /**
  * Class NotFoundException. Represents an HTTP 404 error.
@@ -15,7 +15,7 @@ use \Phalcon\Http\Response\Exception;
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @filesource /Application/Modules/Rest/Exceptions/NotFoundException.php
  */
-class NotFoundException extends Exception {
+class NotFoundException extends BaseException {
 
     /**
      * @const HTTP response message
@@ -34,11 +34,13 @@ class NotFoundException extends Exception {
      * @param int $code Status code, defaults to 404
      */
     public function __construct($message = null, $code = null) {
+
         if(is_null($message) === true && is_null($code) === true) {
-            parent::__construct(self::MESSAGE, self::CODE);
+
+            $message = self::MESSAGE;
+            $code = self::CODE;
         }
-        else {
-            parent::__construct($message, $code);
-        }
+
+        parent::__construct($message, $code, Logger::CRITICAL);
     }
 }

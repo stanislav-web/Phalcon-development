@@ -1,7 +1,7 @@
 <?php
 namespace Application\Modules\Rest\Exceptions;
 
-use \Phalcon\Http\Response\Exception;
+use \Phalcon\Logger;
 
 /**
  * Class NotAcceptableException. Represents an HTTP 406 error.
@@ -15,7 +15,7 @@ use \Phalcon\Http\Response\Exception;
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @filesource /Application/Modules/Rest/Exceptions/NotAcceptableException.php
  */
-class NotAcceptableException extends Exception {
+class NotAcceptableException extends BaseException {
 
     /**
      * @const HTTP response message
@@ -34,11 +34,13 @@ class NotAcceptableException extends Exception {
      * @param int $code Status code, defaults to 406
      */
     public function __construct($message = null, $code = null) {
+
         if(is_null($message) === true && is_null($code) === true) {
-            parent::__construct(self::MESSAGE, self::CODE);
+
+            $message = self::MESSAGE;
+            $code = self::CODE;
         }
-        else {
-            parent::__construct($message, $code);
-        }
+
+        parent::__construct($message, $code, Logger::NOTICE);
     }
 }

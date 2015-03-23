@@ -1,7 +1,7 @@
 <?php
 namespace Application\Modules\Rest\Exceptions;
 
-use \Phalcon\Http\Response\Exception;
+use \Phalcon\Logger;
 
 /**
  * Class ForbiddenException. Represents an HTTP 403 error.
@@ -17,7 +17,7 @@ use \Phalcon\Http\Response\Exception;
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @filesource /Application/Modules/Rest/Exceptions/ForbiddenException.php
  */
-class ForbiddenException extends Exception {
+class ForbiddenException extends BaseException {
 
     /**
      * @const HTTP response message
@@ -35,12 +35,14 @@ class ForbiddenException extends Exception {
      * @param string $message If no message is given 'Forbidden' will be the message
      * @param int $code Status code, defaults to 403
      */
-     public function __construct($message = null, $code = null) {
-         if(is_null($message) === true && is_null($code) === true) {
-             parent::__construct(self::MESSAGE, self::CODE);
-         }
-         else {
-             parent::__construct($message, $code);
-         }
-     }
+    public function __construct($message = null, $code = null) {
+
+        if(is_null($message) === true && is_null($code) === true) {
+
+            $message = self::MESSAGE;
+            $code = self::CODE;
+        }
+
+        parent::__construct($message, $code, Logger::ALERT);
+    }
 }

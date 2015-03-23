@@ -1,7 +1,7 @@
 <?php
 namespace Application\Modules\Rest\Exceptions;
 
-use \Phalcon\Http\Response\Exception;
+use \Phalcon\Logger;
 
 /**
  * Class UnauthorizedException. Represents an HTTP 401 error.
@@ -14,7 +14,7 @@ use \Phalcon\Http\Response\Exception;
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @filesource /Application/Modules/Rest/Exceptions/UnauthorizedException.php
  */
-class UnauthorizedException extends Exception {
+class UnauthorizedException extends BaseException {
 
     /**
      * @const HTTP response message
@@ -33,11 +33,13 @@ class UnauthorizedException extends Exception {
      * @param int $code Status code, defaults to 401
      */
     public function __construct($message = null, $code = null) {
+
         if(is_null($message) === true && is_null($code) === true) {
-            parent::__construct(self::MESSAGE, self::CODE);
+
+            $message = self::MESSAGE;
+            $code = self::CODE;
         }
-        else {
-            parent::__construct($message, $code);
-        }
+
+        parent::__construct($message, $code, Logger::ALERT);
     }
 }

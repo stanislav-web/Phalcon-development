@@ -134,7 +134,7 @@ class SecurityService extends RestSecurityProvider {
                 $accessToken = $this->setToken(
                     $user->getId(),
                     $token,
-                    (time() + $this->getConfig()->token->lifetime)
+                    (time() + $this->getConfig()->tokenLifetime)
                 );
 
                 if(is_array($accessToken) === true) {

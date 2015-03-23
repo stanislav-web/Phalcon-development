@@ -1,7 +1,7 @@
 <?php
 namespace Application\Modules\Rest\Exceptions;
 
-use \Phalcon\Http\Response\Exception;
+use \Phalcon\Logger;
 
 /**
  * Class ConflictException. Represents an HTTP 409 error.
@@ -17,7 +17,7 @@ use \Phalcon\Http\Response\Exception;
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @filesource /Application/Modules/Rest/Exceptions/ConflictException.php
  */
-class ConflictException extends Exception {
+class ConflictException extends BaseException {
 
     /**
      * @const HTTP response message
@@ -35,7 +35,14 @@ class ConflictException extends Exception {
      * @param string $message If no message is given 'Conflict' will be the message
      * @param int $code Status code, defaults to 409
      */
-     public function __construct() {
-         parent::__construct(self::MESSAGE, self::CODE);
-     }
+    public function __construct($message = null, $code = null) {
+
+        if(is_null($message) === true && is_null($code) === true) {
+
+            $message = self::MESSAGE;
+            $code = self::CODE;
+        }
+
+        parent::__construct($message, $code, Logger::NOTICE);
+    }
 }
