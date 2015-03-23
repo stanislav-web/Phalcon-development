@@ -25,8 +25,11 @@ class BaseException extends Exception {
      */
     public function __construct($message, $code, $status = Logger::CRITICAL) {
 
-        $this->getDi()->get('LogMapper')
-            ->save($this->format($code, $message), $status);
+        if($this->getDi()->get('RestConfig')->api->exceptionLog === true) {
+
+            $this->getDi()->get('LogMapper')
+                ->save($this->format($code, $message), $status);
+        }
 
         parent::__construct($message, $code);
     }
