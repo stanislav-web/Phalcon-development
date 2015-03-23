@@ -43,5 +43,15 @@ return [
                 'required' => 'access'
             ],
         ]
+    ],
+
+    'pages'  =>  [
+        'index'    =>  [
+            'requests'  =>  [  // limit request per seconds
+                'limit' =>  1,
+                'time'  =>  1,
+            ],
+            'methods'   => 'GET,POST,PUT,DELETE'
+        ]
     ]
 ];

@@ -1,7 +1,7 @@
 <?php 
 $I = new ApiTester($scenario);
 
-$I->wantTo('Get user\'s list: GET /api/v1/users');
+$I->wantTo('Get users list: GET /api/v1/users');
 
 $I->setHeader('Accept', '*/*');
 $I->setHeader('Accept-Language', 'en-GB');
