@@ -42,16 +42,10 @@ try {
 
 } catch (\Exception $e) {
 
-    if (APPLICATION_ENV === 'development') { // replace by development
-        echo $e->getMessage();
-    }
-    else {
-        $response = $di->get('response');
-        $response->setContentType('application/json', 'utf-8')
-            ->setStatusCode($e->getCode(), $e->getMessage())
-            ->setJsonContent(['error' => [
-                'code' => $e->getCode(),
-                'message' => $e->getMessage()
-            ]])->send();
-    }
+    $di->get('response')->setContentType('application/json', 'utf-8')
+        ->setStatusCode($e->getCode(), $e->getMessage())
+        ->setJsonContent(['error' => [
+            'code' => $e->getCode(),
+            'message' => $e->getMessage()
+        ]])->send();
 }

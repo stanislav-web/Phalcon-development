@@ -15,7 +15,7 @@ use \Phalcon\Logger;
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @filesource /Application/Modules/Rest/Exceptions/NotFoundException.php
  */
-class NotFoundException extends BaseException {
+class NotFoundException extends \Exception {
 
     /**
      * @const HTTP response message
@@ -41,6 +41,6 @@ class NotFoundException extends BaseException {
             $code = self::CODE;
         }
 
-        parent::__construct($message, $code, Logger::CRITICAL);
+        parent::__construct($message, $code);
     }
 }

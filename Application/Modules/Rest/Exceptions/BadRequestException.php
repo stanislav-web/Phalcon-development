@@ -15,7 +15,7 @@ use \Phalcon\Logger;
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @filesource /Application/Modules/Rest/Exceptions/BadRequestException.php
  */
-class BadRequestException extends BaseException {
+class BadRequestException extends \Exception {
 
     /**
      * @const HTTP response message
@@ -41,6 +41,6 @@ class BadRequestException extends BaseException {
             $code = self::CODE;
         }
 
-        parent::__construct($message, $code, Logger::NOTICE);
+        parent::__construct($message, $code);
     }
 }

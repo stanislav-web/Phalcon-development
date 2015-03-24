@@ -17,7 +17,7 @@ use \Phalcon\Logger;
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @filesource /Application/Modules/Rest/Exceptions/ConflictException.php
  */
-class ConflictException extends BaseException {
+class ConflictException extends \Exception {
 
     /**
      * @const HTTP response message
@@ -43,6 +43,6 @@ class ConflictException extends BaseException {
             $code = self::CODE;
         }
 
-        parent::__construct($message, $code, Logger::NOTICE);
+        parent::__construct($message, $code);
     }
 }

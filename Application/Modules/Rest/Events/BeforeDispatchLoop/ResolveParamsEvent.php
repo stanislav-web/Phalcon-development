@@ -1,5 +1,5 @@
 <?php
-namespace Application\Modules\Rest\Services\Events\BeforeDispatchLoop;
+namespace Application\Modules\Rest\Events\BeforeDispatchLoop;
 
 /**
  * ResolveParamsEvent
@@ -11,7 +11,7 @@ namespace Application\Modules\Rest\Services\Events\BeforeDispatchLoop;
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @copyright Stanislav WEB
- * @filesource /Application/Modules/Rest/Services/Events/BeforeDispatchLoop/ResolveParamsEvent.php
+ * @filesource /Application/Modules/Rest/Events/BeforeDispatchLoop/ResolveParamsEvent.php
  */
 class ResolveParamsEvent {
 

@@ -17,7 +17,6 @@ class PagesController extends ControllerBase {
      * Pages action
      */
     public function indexAction() {
-
         $this->rest->setMessage(
             $this->getDI()->get('PageMapper')->read()->toArray()
         );

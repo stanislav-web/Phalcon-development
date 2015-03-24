@@ -51,7 +51,8 @@ return [
                 'limit' =>  1,
                 'time'  =>  1,
             ],
-            'methods'   => 'GET,POST,PUT,DELETE'
+            'methods'   => 'GET,POST,PUT,DELETE',
+            'handler'   => 'PageMapper'
         ]
     ]
 ];

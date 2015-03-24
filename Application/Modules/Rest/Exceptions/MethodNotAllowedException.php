@@ -15,7 +15,7 @@ use \Phalcon\Logger;
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @filesource /Application/Modules/Rest/Exceptions/MethodNotAllowedException.php
  */
-class MethodNotAllowedException extends BaseException {
+class MethodNotAllowedException extends \Exception {
 
     /**
      * @const HTTP response message
@@ -41,6 +41,6 @@ class MethodNotAllowedException extends BaseException {
             $code = self::CODE;
         }
 
-        parent::__construct($message, $code, Logger::WARNING);
+        parent::__construct($message, $code);
     }
 }

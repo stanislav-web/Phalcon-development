@@ -18,7 +18,7 @@ use \Phalcon\Logger;
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @filesource /Application/Modules/Rest/Exceptions/ToManyRequestsException.php
  */
-class ToManyRequestsException extends BaseException {
+class ToManyRequestsException extends \Exception {
 
     /**
      * @const HTTP response message
@@ -36,14 +36,14 @@ class ToManyRequestsException extends BaseException {
      * @param string $message If no message is given 'Too Many Requests' will be the message
      * @param int $code Status code, defaults to 429
      */
-     public function __construct($message = null, $code = null) {
+    public function __construct($message = null, $code = null) {
 
-         if(is_null($message) === true && is_null($code) === true) {
+        if(is_null($message) === true && is_null($code) === true) {
 
-             $message = self::MESSAGE;
-             $code = self::CODE;
-         }
+            $message = self::MESSAGE;
+            $code = self::CODE;
+        }
 
-         parent::__construct($message, $code, Logger::EMERGENCY);
-     }
+        parent::__construct($message, $code);
+    }
 }

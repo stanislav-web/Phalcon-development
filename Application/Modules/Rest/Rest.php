@@ -61,12 +61,14 @@ class Rest
 
             $eventsManager = $di->getShared('eventsManager');
 
-            $eventsManager->attach('dispatch:beforeException', new \Application\Modules\Rest\Services\Events\BeforeException\NotFoundEvent(), 150);
-            $eventsManager->attach("dispatch:beforeDispatchLoop",  new \Application\Modules\Rest\Services\Events\BeforeDispatchLoop\ResolveParamsEvent(), 100);
+            $eventsManager->attach('dispatch:beforeException',      new \Application\Modules\Rest\Events\BeforeException\NotFoundEvent($di), 150);
+            $eventsManager->attach("dispatch:beforeDispatchLoop",   new \Application\Modules\Rest\Events\BeforeDispatchLoop\ResolveParamsEvent(), 140);
+            $eventsManager->attach("dispatch:beforeExecuteRoute",   new \Application\Modules\Rest\Events\BeforeExecuteRoute\ResolveMethodEvent($di), 130);
+            $eventsManager->attach("dispatch:beforeExecuteRoute",   new \Application\Modules\Rest\Events\BeforeExecuteRoute\ResolveRequestLimitEvent($di), 120);
+            $eventsManager->attach("dispatch:beforeExecuteRoute",   new \Application\Modules\Rest\Events\BeforeExecuteRoute\ResolveAcceptEvent($di), 110);
+            $eventsManager->attach("dispatch:beforeExecuteRoute",   new \Application\Modules\Rest\Events\BeforeExecuteRoute\ResolveAccessEvent($di), 100);
 
             $dispatcher = new \Phalcon\Mvc\Dispatcher();
-
-
             $dispatcher->setEventsManager($eventsManager);
             $dispatcher->setDefaultNamespace('Application\Modules\\' . self::MODULE . '\Controllers');
             $dispatcher->setDefaultAction('index');
@@ -95,7 +97,7 @@ class Rest
         register_shutdown_function(function() {
             $error = error_get_last();
             if(is_null($error) === false) {
-
+var_dump($error);
                 try {
                     DI::getDefault()->get('LogMapper')->save($error['message'].' File: '.$error['file'].' Line:'.$error['line'], 1);
                     throw new InternalServerErrorException();

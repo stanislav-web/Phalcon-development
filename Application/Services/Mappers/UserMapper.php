@@ -54,7 +54,6 @@ class UserMapper implements InjectionAwareInterface, ModelCrudInterface {
         return $this->di;
     }
 
-
     /**
      * Get instance of polymorphic object
      *
