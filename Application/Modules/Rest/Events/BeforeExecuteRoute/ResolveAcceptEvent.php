@@ -157,6 +157,8 @@ class ResolveAcceptEvent {
         catch(NotAcceptableException $e) {
 
             //@TODO JSON response need
+
+
             $this->getDi()->get('LogMapper')->save($e->getMessage().' File: '.$e->getFile().' Line:'.$e->getLine(), Logger::ALERT);
             throw new \Exception($e->getMessage(), $e->getCode());
         }

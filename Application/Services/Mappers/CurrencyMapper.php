@@ -78,6 +78,26 @@ class CurrencyMapper implements InjectionAwareInterface, ModelCrudInterface {
     }
 
     /**
+     * Get instance of polymorphic object
+     *
+     * @return Categories
+     */
+    public function getInstance() {
+        return new Currency();
+    }
+
+    /**
+     * Get model attributes
+     *
+     * @return array
+     */
+    public function getAttributes()
+    {
+        $metaData = $this->getInstance()->getModelsMetaData();
+        return $metaData->getAttributes($this->getInstance());
+    }
+
+    /**
      * Read currency
      *
      * @param int $id

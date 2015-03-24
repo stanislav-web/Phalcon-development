@@ -138,6 +138,26 @@ class EngineMapper implements InjectionAwareInterface, ModelCrudInterface {
     }
 
     /**
+     * Get instance of polymorphic object
+     *
+     * @return Categories
+     */
+    public function getInstance() {
+        return new Engines();
+    }
+
+    /**
+     * Get model attributes
+     *
+     * @return array
+     */
+    public function getAttributes()
+    {
+        $metaData = $this->getInstance()->getModelsMetaData();
+        return $metaData->getAttributes($this->getInstance());
+    }
+
+    /**
      * Read engines
      *
      * @param int $id

@@ -64,6 +64,17 @@ class UserMapper implements InjectionAwareInterface, ModelCrudInterface {
     }
 
     /**
+     * Get model attributes
+     *
+     * @return array
+     */
+    public function getAttributes()
+    {
+        $metaData = $this->getInstance()->getModelsMetaData();
+        return $metaData->getAttributes($this->getInstance());
+    }
+
+    /**
      * Create user
      *
      * @param array $data
