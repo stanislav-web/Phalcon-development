@@ -2,14 +2,10 @@
 namespace Application\Modules;
 
 use Phalcon\DI;
-use Phalcon\Loader;
 use Phalcon\Mvc\Dispatcher;
 use Phalcon\Http\Response;
 use Phalcon\Mvc\View;
-use Phalcon\Http\Response\Exception as RestException;
-use Phalcon\Mvc\Dispatcher\Exception as DispatcherException;
 use Application\Modules\Rest\Exceptions\InternalServerErrorException;
-use Application\Modules\Rest\Exceptions\NotFoundException;
 
 /**
  * Rest module. Current provide REST API access
@@ -44,7 +40,7 @@ class Rest
      * Register the autoload specific to the current module
      *
      * @access public
-     * @return \Phalcon\Loader
+     * @return boolean
      */
     public function registerAutoloaders()
     {
@@ -65,47 +61,11 @@ class Rest
 
             $eventsManager = $di->getShared('eventsManager');
 
-            // event before exception
-            $eventsManager->attach('dispatch:beforeException', function($event, $dispatcher, $exception) {
-
-                if ($exception instanceof DispatcherException) {
-
-                    try {
-                        throw new NotFoundException();
-                    }
-                    catch(RestException $e) {
-
-                        $response = new Response();
-
-                        $response->setContentType('application/json', 'utf-8')
-                            ->setStatusCode($e->getCode(), $e->getMessage())
-                            ->setJsonContent(['error' => [
-                                'code' => $e->getCode(),
-                                'message' => $e->getMessage()
-                            ]])->send();
-                        return $event->isStopped();
-                    }
-                }
-            }, 150);
-
-            //event before dispatch loop
-            $eventsManager->attach("dispatch:beforeDispatchLoop", function($event, $dispatcher) {
-
-                $keyParams = array();
-                $params = $dispatcher->getParams();
-
-                // use odd parameters as keys and even as values
-                foreach ($params as $number => $value) {
-                    if ($number & 1) {
-                        $keyParams[$params[$number - 1]] = $value;
-                    }
-                }
-
-                //Override parameters
-                $dispatcher->setParams($keyParams);
-            }, 100);
+            $eventsManager->attach('dispatch:beforeException', new \Application\Modules\Rest\Services\Events\BeforeException\NotFoundEvent(), 150);
+            $eventsManager->attach("dispatch:beforeDispatchLoop",  new \Application\Modules\Rest\Services\Events\BeforeDispatchLoop\ResolveParamsEvent(), 100);
 
             $dispatcher = new \Phalcon\Mvc\Dispatcher();
+
 
             $dispatcher->setEventsManager($eventsManager);
             $dispatcher->setDefaultNamespace('Application\Modules\\' . self::MODULE . '\Controllers');
@@ -116,10 +76,7 @@ class Rest
         // Registration of component representations (Views)
 
         $di->set('view', function () {
-            $view = new View();
-
-            // view component disabled for this module
-            $view->disable();
+            $view = (new View())->disable();
             return $view;
         });
 
@@ -132,7 +89,6 @@ class Rest
      *
      * @throws \Application\Modules\Rest\Exceptions\InternalServerErrorException
      * @uses \Phalcon\DI
-     * @return callable register_shutdown_function()
      */
     public function catchShutdown() {
 
@@ -140,19 +96,15 @@ class Rest
             $error = error_get_last();
             if(is_null($error) === false) {
 
-                DI::getDefault()->get('LogMapper')->save($error['message'].' File: '.$error['file'].' Line:'.$error['line'], 1);
-
                 try {
-
+                    DI::getDefault()->get('LogMapper')->save($error['message'].' File: '.$error['file'].' Line:'.$error['line'], 1);
                     throw new InternalServerErrorException();
                 }
-                catch(\RuntimeException $e) {
+                catch(InternalServerErrorException $e) {
 
-                    $response = new Response();
-
-                    return $response->resetHeaders()->setContentType('application/json', 'utf-8')
+                    $response =  DI::getDefault()->get('response');
+                    $response->setContentType('application/json', 'utf-8')
                         ->setStatusCode($e->getCode(), $e->getMessage())
-
                         ->setJsonContent(['error' => [
                             'code' => $e->getCode(),
                             'message' => $e->getMessage()
@@ -161,5 +113,4 @@ class Rest
             }
         });
     }
-
 }

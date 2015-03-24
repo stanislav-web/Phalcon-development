@@ -9,6 +9,9 @@ return [
         'tokenLifetime'     =>  604800,
         'acceptContent'     => ['*/*', 'json'],
         'acceptLanguage'    => ['ru', 'en', 'ua', 'de'],
-        'acceptCharset'     => 'utf-8'
+        'acceptCharset'     => 'utf-8',
+        'acceptFilters'    => [
+            'fields', 'offset', 'limit', 'token', 'locale'
+        ],
     ]
 ];

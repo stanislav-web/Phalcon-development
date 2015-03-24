@@ -49,52 +49,5 @@ return [
         ],
     ],
 
-    // Assets distributions
-
-    'assets'    =>  [
-        'css'   =>  [
-            'header-css'    =>  [
-                'assets/plugins/bootstrap/dist/css/bootstrap.css',
-                'assets/frontend/:engine/css/style.css',
-                'assets/frontend/:engine/css/menu.css',
-                'assets/frontend/:engine/css/splash.css'
-            ]
-        ],
-        'js'    =>  [
-            'header-js'    =>  [
-                'assets/plugins/store/store.js',
-                'assets/plugins/angular/angular.js',
-                'assets/plugins/angular-route/angular-route.js',
-                'assets/plugins/angular-sanitize/angular-sanitize.js',
-                'assets/plugins/angular-translate/angular-translate.js',
-                'assets/plugins/angular-translate-loader-partial/angular-translate-loader-partial.js',
-                'assets/plugins/angular-cookies/angular-cookies.js',
-                'assets/plugins/angular-spinner/angular-spinner.js',
-                'assets/plugins/angular-utf8-base64/angular-utf8-base64.js',
-                'assets/plugins/angular-animate/angular-animate.js',
-                'assets/plugins/jquery/dist/jquery.js',
-                'assets/plugins/bootstrap/dist/js/bootstrap.js',
-                'assets/plugins/angular-bootstrap/ui-bootstrap-tpls.js',
-                'assets/plugins/spinner/spin.js',
-            ],
-            'footer-js'    =>  [
-                'assets/frontend/:engine/app/app.js',
-                'assets/frontend/:engine/app/app.config.js',
-                'assets/frontend/:engine/app/common/directives/spinner.js',
-                'assets/frontend/:engine/app/common/services/interceptors.js',
-                'assets/frontend/:engine/app/common/services/splash.js',
-                'assets/frontend/:engine/app/common/services/session.js',
-                'assets/frontend/:engine/app/common/controllers/menu.js',
-                'assets/frontend/:engine/app/common/controllers/language.js',
-                'assets/frontend/:engine/app/common/controllers/index.js',
-                'assets/frontend/:engine/app/authenticate/services/authentication.js',
-                'assets/frontend/:engine/app/authenticate/controllers/sign.js',
-                'assets/frontend/:engine/app/user/controllers/user.js',
-                'assets/frontend/:engine/js/menu.js',
-                'assets/frontend/:engine/js/move-top.js',
-                'assets/frontend/:engine/js/easing.js',
-                'assets/frontend/:engine/js/rules.js',
-            ],
-        ]
-    ]
+    // Rest configuration
 ];

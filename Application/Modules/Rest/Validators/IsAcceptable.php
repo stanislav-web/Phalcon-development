@@ -24,6 +24,10 @@ class IsAcceptable {
      */
     public function __construct(\Phalcon\Http\Request $request, \Phalcon\Config $config) {
 
+        if($this->isValidQueryParams($request, $config) === false) {
+            throw new NotAcceptableException();
+        }
+
         if($this->isValidContentType($request, $config) === false) {
             throw new NotAcceptableException();
         }
@@ -31,6 +35,26 @@ class IsAcceptable {
         if($this->isValidLanguage($request, $config) === false) {
             throw new NotAcceptableException();
         }
+    }
+
+    /**
+     * Check query string by wrong parameters
+     *
+     * @param \Phalcon\Http\Request $request
+     * @param \Phalcon\Config  $config
+     * @return bool
+     */
+    private function isValidQueryParams(\Phalcon\Http\Request $request, \Phalcon\Config $config) {
+
+        $queryString = $request->get();
+
+        if(isset($queryString['_url'])) {
+            unset($queryString['_url']);
+        }
+
+        $undefinedValues = array_diff_key($queryString, array_flip($config->acceptFilters->toArray()));
+
+        return (empty($undefinedValues) === false)  ? false : true;
     }
 
     /**

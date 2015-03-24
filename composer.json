@@ -28,20 +28,14 @@
     "minimum-stability": "dev",
     "require": {
         "php": ">=5.4",
-        "stanislav-web/phalcon-searcher": "dev-master",
-        "stanislav-web/phalcon-uploader": "dev-master",
         "stanislav-web/phalcon-sms-factory": "1.*",
-        "stanislav-web/phalcon-ulogin": "1.0-stable",
         "stanislav-web/phalcon-translate": "1.*",
-        "swiftmailer/swiftmailer": "5.*",
-        "m1ome/phalcon-datatables": "1.*",
-        "vlucas/valitron": "dev-master"
+        "swiftmailer/swiftmailer": "5.*"
     },
     "require-dev": {
+        "phalcon/incubator": "v1.3.4",
         "phpunit/phpunit": "4.*",
         "robmorgan/phinx": "dev-master",
-        "fabfuel/prophiler": "1.*",
-        "filp/whoops": "~1.0",
         "codeception/codeception" :"*",
         "bruli/php-git-hooks": "~1.0@dev",
         "flow/jsonpath": "dev-master"
