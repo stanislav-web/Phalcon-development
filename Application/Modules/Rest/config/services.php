@@ -52,3 +52,8 @@ $di->set('RestService', function () use ($di) {
     return $restService;
 });
 
+// Define Rest Rules
+$di->set('RestRules', function () use ($di) {
+    return require_once(__DIR__ .DIRECTORY_SEPARATOR.'rules.php');
+});
+

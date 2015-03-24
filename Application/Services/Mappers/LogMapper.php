@@ -97,6 +97,17 @@ class LogMapper extends LoggerDatabase
     }
 
     /**
+     * Get model attributes
+     *
+     * @return array
+     */
+    public function getAttributes()
+    {
+        $metaData = $this->getInstance()->getModelsMetaData();
+        return $metaData->getAttributes($this->getInstance());
+    }
+
+    /**
      * Create log record
      *
      * @param array $data

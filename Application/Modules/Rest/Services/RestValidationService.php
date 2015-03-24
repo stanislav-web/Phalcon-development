@@ -42,13 +42,6 @@ class RestValidationService implements
     private $errors = [];
 
     /**
-     * Rules config
-     *
-     * @var array $config;
-     */
-    private $config  = [];
-
-    /**
      * Request rules
      *
      * @var array $rules;
@@ -237,11 +230,7 @@ class RestValidationService implements
 
     public function isValid() {
 
-        new Validators\IsMethodValid($this->getRequest(), $this->getRules());
-        new Validators\IsRequestsAllow($this->getDi(), $this->getDispatcher(), $this->getRules());
-        new Validators\IsAcceptable($this->getRequest(), $this->getConfig());
-        new Validators\IsAccessible($this->getDi(), $this->getRules());
-        new Validators\IsRequestValid($this->getParams(), $this->getRules());
+        (new Validators\IsRequestValid($this->getDi(), $this->getParams(), $this->getRules()))->handle();
 
     }
 }

@@ -14,7 +14,7 @@ use \Phalcon\Logger;
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @filesource /Application/Modules/Rest/Exceptions/UnauthorizedException.php
  */
-class UnauthorizedException extends BaseException {
+class UnauthorizedException extends \Exception {
 
     /**
      * @const HTTP response message
@@ -40,6 +40,6 @@ class UnauthorizedException extends BaseException {
             $code = self::CODE;
         }
 
-        parent::__construct($message, $code, Logger::ALERT);
+        parent::__construct($message, $code);
     }
 }

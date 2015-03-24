@@ -64,6 +64,17 @@ class CategoryMapper implements InjectionAwareInterface, ModelCrudInterface {
     }
 
     /**
+     * Get model attributes
+     *
+     * @return array
+     */
+    public function getAttributes()
+    {
+        $metaData = $this->getInstance()->getModelsMetaData();
+        return $metaData->getAttributes($this->getInstance());
+    }
+
+    /**
      * Create category
      *
      * @param array $data

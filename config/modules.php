@@ -4,17 +4,9 @@
  * This section contains the settings of loaded modules
  */
 
-$application->registerModules([
-    'Frontend' => [
-        'className' => 'Application\Modules\Frontend',
-        'path' => APP_PATH . '/Modules/Frontend/Frontend.php',
-    ],
-    'Backend' => [
-        'className' => 'Application\Modules\Backend',
-        'path' => APP_PATH . '/Modules/Backend/Backend.php',
-    ],
+$app->registerModules([
     'Rest' => [
         'className' => 'Application\Modules\Rest',
         'path' => APP_PATH . '/Modules/Rest/Rest.php',
     ],
-])->setDefaultModule('Frontend');
+])->setDefaultModule('Rest');

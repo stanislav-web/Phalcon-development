@@ -61,4 +61,11 @@ interface ModelCrudInterface {
      * @return mixed $errors
      */
     public function getErrors();
+
+    /**
+     * Get model attributes
+     *
+     * @return array
+     */
+    public function getAttributes();
 }

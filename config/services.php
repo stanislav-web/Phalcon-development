@@ -7,12 +7,14 @@
 // Create factory container
 $di = new Phalcon\DI\FactoryDefault();
 
+// BASE SERVICES
+
 // Set global configuration (merge of environment)
 $di->setShared('config', function () use ($config) {
 
     $configBase = new \Phalcon\Config($config);
 
-   (APPLICATION_ENV === 'development') ? $configBase->merge(
+    (APPLICATION_ENV === 'development') ? $configBase->merge(
         require(APPLICATION_ENV . '.php')
     ) : '';
 
@@ -36,15 +38,6 @@ $di->setShared('session', function () use ($config) {
     return $session;
 });
 
-// Component cookies
-$di->setShared('cookies', function () {
-
-    $cookies = new \Phalcon\Http\Response\Cookies();
-    $cookies->useEncryption(true);
-    return $cookies;
-
-});
-
 // Default component to crypt cookies values
 $di->set('crypt', function () use ($config) {
 
@@ -56,18 +49,12 @@ $di->set('crypt', function () use ($config) {
 
 });
 
-// SERVICES
-
-// Define http errors service
-$di->set('ErrorService', 'Application\Services\Http\ErrorService');
+// GLOBAL SERVICES
 
 // Database connection is created based in the parameters defined in the configuration file
 $di->setShared('db', function () use ($config) {
     return new \Application\Services\Database\MySQLConnectService($config['database']);
 });
-
-// Define helper's service
-$di->setShared('tag', '\Application\Services\Advanced\HelpersService');
 
 // Define mailer service
 $di->setShared('MailService', function () use ($di, $config) {
@@ -75,20 +62,6 @@ $di->setShared('MailService', function () use ($di, $config) {
     $mailer->registerExceptionsHandler(new Application\Services\Mail\MailSMTPExceptions($di));
 
     return $mailer;
-});
-
-// Define auth service
-//@TODO Deprecated
-$di->setShared('AuthService','Application\Services\Security\AuthService');
-
-// Define translate service
-//@TODO Deprecated
-$di->setShared('TranslateService',function() use ($di, $config) {
-
-    return (new Application\Services\Advanced\TranslateService(
-        (new Application\Services\Advanced\LanguageService())->define($di), $config['locale']['language']
-    ))->path($config['locale']['translates']);
-
 });
 
 // MAPPERS
@@ -104,7 +77,6 @@ $di->setShared('PageMapper','Application\Services\Mappers\PageMapper');
 
 // Define engine mapper
 $di->setShared('EngineMapper','Application\Services\Mappers\EngineMapper');
-
 
 // Define user mapper
 $di->setShared('UserMapper','Application\Services\Mappers\UserMapper');

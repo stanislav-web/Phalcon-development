@@ -5,7 +5,7 @@ namespace Application\Modules\Rest\Routes;
 use \Phalcon\Mvc\Router\Group;
 
 /**
- * Api. Api router component
+ * V1. Api router component
  *
  * @package Application\Modules\Rest
  * @subpackage Routes
@@ -13,9 +13,9 @@ use \Phalcon\Mvc\Router\Group;
  * @version    1.0
  * @author     Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @copyright  Stanislav WEB
- * @filesource /Application/Modules/Frontend/Routes/Pages.php
+ * @filesource /Application/Modules/Frontend/Routes/V1.php
  */
-class Api extends Group {
+class V1 extends Group {
 
     /**
      * Initialize routes for dynamic pages

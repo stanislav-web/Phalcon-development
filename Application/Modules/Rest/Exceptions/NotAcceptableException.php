@@ -15,7 +15,7 @@ use \Phalcon\Logger;
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @filesource /Application/Modules/Rest/Exceptions/NotAcceptableException.php
  */
-class NotAcceptableException extends BaseException {
+class NotAcceptableException extends \Exception {
 
     /**
      * @const HTTP response message
@@ -41,6 +41,6 @@ class NotAcceptableException extends BaseException {
             $code = self::CODE;
         }
 
-        parent::__construct($message, $code, Logger::NOTICE);
+        parent::__construct($message, $code);
     }
 }

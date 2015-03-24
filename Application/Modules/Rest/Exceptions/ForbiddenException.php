@@ -17,7 +17,7 @@ use \Phalcon\Logger;
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @filesource /Application/Modules/Rest/Exceptions/ForbiddenException.php
  */
-class ForbiddenException extends BaseException {
+class ForbiddenException extends \Exception {
 
     /**
      * @const HTTP response message
@@ -43,6 +43,6 @@ class ForbiddenException extends BaseException {
             $code = self::CODE;
         }
 
-        parent::__construct($message, $code, Logger::ALERT);
+        parent::__construct($message, $code);
     }
 }

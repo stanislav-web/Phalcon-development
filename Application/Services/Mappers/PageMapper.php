@@ -53,6 +53,26 @@ class PageMapper implements InjectionAwareInterface, ModelCrudInterface {
     }
 
     /**
+     * Get instance of polymorphic object
+     *
+     * @return Pages
+     */
+    public function getInstance() {
+        return new Pages();
+    }
+
+    /**
+     * Get model attributes
+     *
+     * @return array
+     */
+    public function getAttributes()
+    {
+        $metaData = $this->getInstance()->getModelsMetaData();
+        return $metaData->getAttributes($this->getInstance());
+    }
+
+    /**
      * Add page
      *
      * @param array $data
