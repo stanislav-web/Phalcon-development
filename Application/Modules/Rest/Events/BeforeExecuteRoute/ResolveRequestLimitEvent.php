@@ -100,16 +100,23 @@ class ResolveRequestLimitEvent {
     public function getRequest() {
         return $this->getDi()->getShared('request');
     }
+    /**
+     * Get shared dispatcher
+     *
+     * @return \Phalcon\Mvc\Dispatcher
+     */
+    public function getDispatcher() {
+        return $this->getDi()->getShared('dispatcher');
+    }
 
     /**
-     * This action track routes before execute any action in the application.
-     *
-     * @param \Phalcon\Events\Event   $event
-     * @param \Phalcon\Mvc\Dispatcher $dispatcher
+     * This action track input events before rest execute
+     * @throws \Exception
      */
-    public function beforeExecuteRoute(\Phalcon\Events\Event $event, \Phalcon\Mvc\Dispatcher $dispatcher) {
+    public function run() {
 
         $rules = $this->getRules();
+        $dispatcher = $this->getDispatcher();
 
         if(isset($rules[$dispatcher->getControllerName()][$dispatcher->getActionName()]) === true) {
 
@@ -189,8 +196,7 @@ class ResolveRequestLimitEvent {
         }
         catch(ToManyRequestsException $e) {
 
-            //@TODO JSON response need
-            $this->getDi()->get('LogMapper')->save($e->getMessage().' File: '.$e->getFile().' Line:'.$e->getLine(), Logger::ALERT);
+            $this->getDi()->get('LogMapper')->save($e->getMessage().' IP: '.$this->getRequest()->getClientAddress().' URI: '.$this->getRequest()->getURI(), Logger::ALERT);
             throw new \Exception($e->getMessage(), $e->getCode());
         }
     }

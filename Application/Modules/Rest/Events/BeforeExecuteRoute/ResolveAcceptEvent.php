@@ -72,13 +72,10 @@ class ResolveAcceptEvent {
     }
 
     /**
-     * This action track routes before execute any action in the application.
-     *
-     * @param \Phalcon\Events\Event   $event
-     * @param \Phalcon\Mvc\Dispatcher $dispatcher
-     * @throws NotAcceptableException
+     * This action track input events before rest execute
+     * @throws \Exception
      */
-    public function beforeExecuteRoute(\Phalcon\Events\Event $event, \Phalcon\Mvc\Dispatcher $dispatcher) {
+    public function run() {
 
         if($this->isValidQueryParams() === false) {
             $this->throwError();
@@ -159,7 +156,7 @@ class ResolveAcceptEvent {
             //@TODO JSON response need
 
 
-            $this->getDi()->get('LogMapper')->save($e->getMessage().' File: '.$e->getFile().' Line:'.$e->getLine(), Logger::ALERT);
+            $this->getDi()->get('LogMapper')->save($e->getMessage().' IP: '.$this->getRequest()->getClientAddress().' URI: '.$this->getRequest()->getURI(), Logger::ALERT);
             throw new \Exception($e->getMessage(), $e->getCode());
         }
     }

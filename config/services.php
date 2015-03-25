@@ -64,6 +64,16 @@ $di->setShared('MailService', function () use ($di, $config) {
     return $mailer;
 });
 
+// Define mailer service
+$di->setShared('eventsManager', function () use ($di) {
+
+    $eventsManager = new \Phalcon\Events\Manager();
+    $eventsManager->attach('dispatch:beforeException',      new \Application\Modules\Rest\Events\BeforeException\NotFoundEvent($di), 150);
+    $eventsManager->attach("dispatch:beforeDispatchLoop",   new \Application\Modules\Rest\Events\BeforeDispatchLoop\ResolveParamsEvent(), 140);
+
+    return $eventsManager;
+});
+
 // MAPPERS
 
 // Define category mapper

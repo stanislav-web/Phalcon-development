@@ -16,6 +16,11 @@ $di->set('RestConfig', function () use ($di) {
 // Define Rest Validator
 $di->set('RestValidationService', function () use ($di) {
 
+    (new \Application\Modules\Rest\Events\BeforeExecuteRoute\ResolveMethodEvent($di))->run();
+    (new \Application\Modules\Rest\Events\BeforeExecuteRoute\ResolveRequestLimitEvent($di))->run();
+    (new \Application\Modules\Rest\Events\BeforeExecuteRoute\ResolveAcceptEvent($di))->run();
+    (new \Application\Modules\Rest\Events\BeforeExecuteRoute\ResolveAccessEvent($di))->run();
+
     $restValidator = new \Application\Modules\Rest\Services\RestValidationService();
 
     return $restValidator;

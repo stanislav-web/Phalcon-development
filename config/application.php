@@ -5,6 +5,9 @@
  * @version PRODUCTION
  */
 
+ini_set('display_errors', 'Off');
+error_reporting(0);
+
 $config = [
 
     // Global application config

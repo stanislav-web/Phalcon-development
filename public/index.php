@@ -22,16 +22,7 @@ require_once DOCUMENT_ROOT . '/../config/routes.php';
 // Require global services
 require_once DOCUMENT_ROOT . '/../config/services.php';
 
-if (APPLICATION_ENV === 'development') {
-    ini_set('display_errors', 'On');
-    error_reporting(7);
-}
-else {
-    ini_set('display_errors', 'Off');
-    error_reporting(0);
-}
 try {
-
     $app = new Phalcon\Mvc\Application($di);
 
     // Require modules

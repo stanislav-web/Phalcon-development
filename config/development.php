@@ -6,6 +6,9 @@
  * @version DEVELOPMENT
  */
 
+ini_set('display_errors', 'On');
+error_reporting(7);
+
 return [
 
     // Configure database driver

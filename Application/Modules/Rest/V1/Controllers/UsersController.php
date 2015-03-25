@@ -29,7 +29,6 @@ class UsersController extends ControllerBase {
     public function authAction() {
 
         $params = $this->rest->getValidator()->getParams();
-
         $this->rest->setMessage(
             $this->rest->getDI()->get('RestSecurityService')->authenticate(
                 $params['login'], $params['password']

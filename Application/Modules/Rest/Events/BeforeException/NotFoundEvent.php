@@ -65,7 +65,6 @@ class NotFoundEvent {
     public function beforeException(\Phalcon\Events\Event $event, \Phalcon\Mvc\Dispatcher $dispatcher, $exception) {
 
         if ($exception instanceof \Phalcon\Mvc\Dispatcher\Exception) {
-
             $this->throwError($exception);
         }
     }

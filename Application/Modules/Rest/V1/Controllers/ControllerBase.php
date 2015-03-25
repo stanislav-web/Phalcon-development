@@ -2,7 +2,6 @@
 namespace Application\Modules\Rest\V1\Controllers;
 
 use \Phalcon\Mvc\Controller;
-use \Phalcon\Http\Response\Exception as RestException;
 
 /**
  * Class ControllerBase
@@ -28,14 +27,8 @@ class ControllerBase extends Controller
      */
     public function beforeExecuteRoute()
     {
-        try {
-
-            $this->rest =  $this->getDI()->get("RestService");
-            $this->rest->validate();
-        }
-        catch(RestException $e) {
-            $this->rest->setStatusMessage($e->getCode(), $e->getMessage());
-        }
+        $this->rest =  $this->getDI()->get("RestService");
+        $this->rest->validate();
     }
 
     /**

@@ -31,7 +31,8 @@ return [
                 UserRoles::ADMIN =>  [
                     'api/v1/users'
                 ],
-            ]
+            ],
+            'handler'   => 'PageMapper'
         ],
         'auth'    =>  [
             'requests'  =>  [  // limit request per time
@@ -42,6 +43,7 @@ return [
             'params'     => [
                 'required' => 'access'
             ],
+            'handler'   => 'PageMapper'
         ]
     ],
 

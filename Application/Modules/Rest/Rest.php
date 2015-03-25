@@ -27,53 +27,31 @@ class Rest
     const MODULE = 'Rest';
 
     /**
-     * Try to catch uncatchable error 500
-     *
-     * @throws \Application\Modules\Rest\Exceptions\InternalServerErrorException
-     */
-    public function __construct() {
-
-        $this->catchShutdown();
-    }
-
-    /**
      * Register the autoload specific to the current module
-     *
-     * @access public
-     * @return boolean
      */
-    public function registerAutoloaders()
-    {
-        return true;
+    public function registerAutoloaders($di)  {
+
+        register_shutdown_function([$this, 'catchShutdown'], $di);
     }
 
     /**
      * Registration services for specific module
      *
-     * @param \Phalcon\DI $di
-     * @access public
-     * @return mixed
+     * @param \Phalcon\DI\FactoryDefault $di
      */
-    public function registerServices($di)
+    public function registerServices(\Phalcon\DI\FactoryDefault $di)
     {
         // Dispatch register
-        $di->set('dispatcher', function () use ($di) {
+
+        $di->setShared('dispatcher', function () use ($di) {
 
             $eventsManager = $di->getShared('eventsManager');
-
-            $eventsManager->attach('dispatch:beforeException',      new \Application\Modules\Rest\Events\BeforeException\NotFoundEvent($di), 150);
-            $eventsManager->attach("dispatch:beforeDispatchLoop",   new \Application\Modules\Rest\Events\BeforeDispatchLoop\ResolveParamsEvent(), 140);
-            $eventsManager->attach("dispatch:beforeExecuteRoute",   new \Application\Modules\Rest\Events\BeforeExecuteRoute\ResolveMethodEvent($di), 130);
-            $eventsManager->attach("dispatch:beforeExecuteRoute",   new \Application\Modules\Rest\Events\BeforeExecuteRoute\ResolveRequestLimitEvent($di), 120);
-            $eventsManager->attach("dispatch:beforeExecuteRoute",   new \Application\Modules\Rest\Events\BeforeExecuteRoute\ResolveAcceptEvent($di), 110);
-            $eventsManager->attach("dispatch:beforeExecuteRoute",   new \Application\Modules\Rest\Events\BeforeExecuteRoute\ResolveAccessEvent($di), 100);
-
             $dispatcher = new \Phalcon\Mvc\Dispatcher();
             $dispatcher->setEventsManager($eventsManager);
             $dispatcher->setDefaultNamespace('Application\Modules\\' . self::MODULE . '\Controllers');
             $dispatcher->setDefaultAction('index');
             return $dispatcher;
-        }, true);
+        });
 
         // Registration of component representations (Views)
 
@@ -89,29 +67,24 @@ class Rest
     /**
      * Shutdown application while uncatchable error founded
      *
+     * @param \Phalcon\DI\FactoryDefault $di
      * @throws \Application\Modules\Rest\Exceptions\InternalServerErrorException
-     * @uses \Phalcon\DI
      */
-    public function catchShutdown() {
+    public function catchShutdown($di) {
 
-        register_shutdown_function(function() {
-            $error = error_get_last();
-            if(is_null($error) === false) {
-                try {
-                    DI::getDefault()->get('LogMapper')->save($error['message'].' File: '.$error['file'].' Line:'.$error['line'], 1);
-                    throw new InternalServerErrorException();
-                }
-                catch(InternalServerErrorException $e) {
+        $di->getShared('dispatcher');
+        if((is_null($error = error_get_last()) === false)) {
+            try {
 
-                    $response =  DI::getDefault()->get('response');
-                    $response->setContentType('application/json', 'utf-8')
-                        ->setStatusCode($e->getCode(), $e->getMessage())
-                        ->setJsonContent(['error' => [
-                            'code' => $e->getCode(),
-                            'message' => $e->getMessage()
-                        ]])->send();
-                }
+                $di->get('LogMapper')
+                    ->save($error['message'].' File: '.$error['file'].' Line:'.$error['line'], 1);
+
+                throw new InternalServerErrorException();
             }
-        });
+            catch(InternalServerErrorException $e) {
+
+                throw new \Exception($e->getMessage(), $e->getCode());
+            }
+        }
     }
 }

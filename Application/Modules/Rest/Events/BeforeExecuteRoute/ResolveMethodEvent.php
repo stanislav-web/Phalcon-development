@@ -30,6 +30,7 @@ class ResolveMethodEvent {
      * @param \Phalcon\DI\FactoryDefault $di
      */
     public function __construct(\Phalcon\DI\FactoryDefault $di) {
+
         $this->setDi($di);
     }
 
@@ -72,21 +73,30 @@ class ResolveMethodEvent {
     }
 
     /**
-     * This action track routes before execute any action in the application.
+     * Get shared dispatcher
      *
-     * @param \Phalcon\Events\Event   $event
-     * @param \Phalcon\Mvc\Dispatcher $dispatcher
+     * @return \Phalcon\Mvc\Dispatcher
      */
-    public function beforeExecuteRoute(\Phalcon\Events\Event $event, \Phalcon\Mvc\Dispatcher $dispatcher) {
+    public function getDispatcher() {
+        return $this->getDi()->getShared('dispatcher');
+    }
+
+    /**
+     * This action track input events before rest execute
+     * @throws \Exception
+     */
+    public function run() {
 
         $rules = $this->getRules();
+        $dispatcher = $this->getDispatcher();
+
         if(isset($rules[$dispatcher->getControllerName()][$dispatcher->getActionName()]) === true) {
 
             $methods = explode(',', $rules[$dispatcher->getControllerName()][$dispatcher->getActionName()]['methods']);
 
             if(in_array($this->getRequest()->getMethod(), $methods) === false) {
 
-                $this->throwError();
+                $this->throwError($this->getRequest());
             }
         }
     }
@@ -94,18 +104,18 @@ class ResolveMethodEvent {
     /**
      * Throw exception errors
      *
+     * @param \Phalcon\Http\Request $request
      * @throws \Application\Modules\Rest\Exceptions\MethodNotAllowedException
      * @throws \Exception
      */
-    private function throwError() {
+    private function throwError($request) {
 
         try {
             throw new MethodNotAllowedException();
         }
         catch(MethodNotAllowedException $e) {
 
-            //@TODO JSON response need
-            $this->getDi()->get('LogMapper')->save($e->getMessage().' File: '.$e->getFile().' Line:'.$e->getLine(), Logger::ALERT);
+            $this->getDi()->get('LogMapper')->save($e->getMessage().' IP: '.$request->getClientAddress().' URI: '.$request->getURI(), Logger::ALERT);
             throw new \Exception($e->getMessage(), $e->getCode());
         }
     }
