@@ -74,6 +74,7 @@ class Rest
 
         $di->getShared('dispatcher');
         if((is_null($error = error_get_last()) === false)) {
+
             try {
 
                 $di->get('LogMapper')

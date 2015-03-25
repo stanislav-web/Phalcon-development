@@ -7,7 +7,7 @@ use Application\Modules\Rest\Aware\RestValidatorInterface;
 use Application\Modules\Rest\Validators;
 
 /**
- * Class RestValidationService. Rest validator
+ * Class RestValidatorCollectionService. Rest validator's collections
  *
  * @package Application\Modules\Rest
  * @subpackage Services
@@ -15,9 +15,9 @@ use Application\Modules\Rest\Validators;
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @copyright Stanislav WEB
- * @filesource /Application/Modules/Rest/Services/RestValidationService.php
+ * @filesource /Application/Modules/Rest/Services/RestValidatorCollectionService.php
  */
-class RestValidationService implements
+class RestValidatorCollectionService implements
     RestValidatorInterface, InjectionAwareInterface {
 
     /**
@@ -42,6 +42,13 @@ class RestValidationService implements
     private $errors = [];
 
     /**
+     * Request validators
+     *
+     * @var array $validators;
+     */
+    private $validators  = [];
+
+    /**
      * Request rules
      *
      * @var array $rules;
@@ -56,14 +63,28 @@ class RestValidationService implements
     private $params  = [];
 
     /**
+     * Setup validators
+     *
+     * @param array $validators
+     */
+    public function __construct(array $validators) {
+        $this->setValidators($validators);
+    }
+
+    /**
      * Initialize dispatcher
      *
      * @param array $rules
      * @return RestValidationService
      */
-    public function init(array $rules) {
+    public function init() {
+
+        foreach($this->getValidators() as $v) {
+            $v->run($this->getDi());
+        }
 
         $dsp = $this->getDispatcher();
+        $rules = $this->getDi()->getShared('RestRules');
 
         if(isset($rules[$dsp->getControllerName()][$dsp->getActionName()]) === true) {
 
@@ -138,6 +159,29 @@ class RestValidationService implements
     public function getConfig()
     {
         return $this->getDi()->get('RestConfig')->api;
+    }
+
+    /**
+     * Set validators
+     *
+     * @param array $validators
+     * @return RestValidationService
+     */
+    public function setValidators(array $validators)
+    {
+        $this->validators = $validators;
+
+        return $this;
+    }
+
+    /**
+     * Get validators
+     *
+     * @return array
+     */
+    public function getValidators()
+    {
+        return $this->validators;
     }
 
     /**

@@ -44,7 +44,9 @@ class ResolveAccessEvent extends RestValidatorProvider {
      * This action track input events before rest execute
      * @throws \Exception
      */
-    public function run() {
+    public function run(\Phalcon\DI\FactoryDefault $di) {
+
+        $this->setDi($di);
 
         $rules = $this->getRules();
         $dispatcher = $this->getDispatcher();
@@ -63,12 +65,14 @@ class ResolveAccessEvent extends RestValidatorProvider {
                     $this->isAllowedAccess();
                 }
                 else {
+
                     try {
                         throw new UnauthorizedException();
                     }
                     catch(UnauthorizedException $e) {
+                        $this->getDi()->get('LogMapper')
+                            ->save($e->getMessage().' IP: '.$this->getRequest()->getClientAddress().' URI: '.$this->getRequest()->getURI(), Logger::ALERT);
 
-                        $this->getDi()->get('LogMapper')->save($e->getMessage().' IP: '.$this->getRequest()->getClientAddress().' URI: '.$this->getRequest()->getURI(), Logger::ALERT);
                         throw new \Exception($e->getMessage(), $e->getCode());
                     }
                 }

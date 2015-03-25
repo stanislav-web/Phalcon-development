@@ -18,10 +18,9 @@ interface RestValidatorInterface {
      * Initialize validator params.
      * Such as rules, request, filtering
      *
-     * @param array $params
      * @return void
      */
-    public function init(array $params);
+    public function init();
 
     /**
      * Get dispatcher instance

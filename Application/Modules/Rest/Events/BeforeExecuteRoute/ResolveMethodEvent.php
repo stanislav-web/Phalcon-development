@@ -22,7 +22,9 @@ class ResolveMethodEvent extends RestValidatorProvider {
      * This action track input events before rest execute
      * @throws \Exception
      */
-    public function run() {
+    public function run(\Phalcon\DI\FactoryDefault $di) {
+
+        $this->setDi($di);
 
         $rules = $this->getRules();
         $dispatcher = $this->getDispatcher();

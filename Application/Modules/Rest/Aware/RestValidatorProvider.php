@@ -1,6 +1,5 @@
 <?php
 namespace Application\Modules\Rest\Aware;
-use Phalcon\DI\InjectionAwareInterface;
 
 /**
  * RestValidatorProvider. Rest API Provide validation services
@@ -21,16 +20,6 @@ abstract class RestValidatorProvider {
      * @var \Phalcon\DI\FactoryDefault $di;
      */
     private $di;
-
-    /**
-     * Setup Dependency container
-     *
-     * @param \Phalcon\DI\FactoryDefault $di
-     */
-    public function __construct(\Phalcon\DI\FactoryDefault $di) {
-        $this->setDi($di);
-    }
-
 
     /**
      * Set dependency container
@@ -98,10 +87,10 @@ abstract class RestValidatorProvider {
     }
 
     /**
-     * If user has role?
+     * Run validator
      *
-     * @param int $role
+     * @param \Phalcon\DI\FactoryDefault $di
      * @return boolean
      */
-    abstract protected function run();
+    abstract protected function run(\Phalcon\DI\FactoryDefault $di);
 }

@@ -14,20 +14,21 @@ $di->set('RestConfig', function () use ($di) {
 });
 
 // Define Rest Validator
-$di->set('RestValidationService', function () use ($di) {
+$di->set('RestValidationService', function () {
 
-    (new \Application\Modules\Rest\Events\BeforeExecuteRoute\ResolveMethodEvent($di))->run();
-    (new \Application\Modules\Rest\Events\BeforeExecuteRoute\ResolveRequestLimitEvent($di))->run();
-    (new \Application\Modules\Rest\Events\BeforeExecuteRoute\ResolveAcceptEvent($di))->run();
-    (new \Application\Modules\Rest\Events\BeforeExecuteRoute\ResolveAccessEvent($di))->run();
-
-    $restValidator = new \Application\Modules\Rest\Services\RestValidationService();
+    $restValidator = new \Application\Modules\Rest\Services\RestValidatorCollectionService([
+        new \Application\Modules\Rest\Events\BeforeExecuteRoute\ResolveMethodEvent(),
+        new \Application\Modules\Rest\Events\BeforeExecuteRoute\ResolveRequestLimitEvent(),
+        new \Application\Modules\Rest\Events\BeforeExecuteRoute\ResolveAcceptEvent(),
+        new \Application\Modules\Rest\Events\BeforeExecuteRoute\ResolveAccessEvent()
+        ]
+    );
 
     return $restValidator;
 });
 
 // Define Security Service
-$di->set('RestSecurityService', function () use ($di) {
+$di->set('RestSecurityService', function () {
 
     $security = new \Application\Modules\Rest\Services\SecurityService();
 
@@ -38,9 +39,7 @@ $di->set('RestSecurityService', function () use ($di) {
 $di->set('RestService', function () use ($di) {
 
     $restService = new \Application\Modules\Rest\Services\RestService(
-        $di->get('RestValidationService')->init(
-            require(__DIR__ .DIRECTORY_SEPARATOR.'rules.php')
-        )
+        $di->get('RestValidationService')->init()
     );
 
     // Define Translate Service (inside the rest)
@@ -58,7 +57,7 @@ $di->set('RestService', function () use ($di) {
 });
 
 // Define Rest Rules
-$di->set('RestRules', function () use ($di) {
+$di->set('RestRules', function () {
     return require_once(__DIR__ .DIRECTORY_SEPARATOR.'rules.php');
 });
 
