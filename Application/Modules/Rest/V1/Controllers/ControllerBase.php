@@ -28,7 +28,6 @@ class ControllerBase extends Controller
     public function beforeExecuteRoute()
     {
         $this->rest =  $this->getDI()->get("RestService");
-        $this->rest->validate();
     }
 
     /**

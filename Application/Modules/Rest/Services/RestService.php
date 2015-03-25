@@ -17,11 +17,11 @@ use Application\Modules\Rest\Aware\RestServiceInterface;
 class RestService implements RestServiceInterface {
 
     /**
-     * REST Validator
+     * Validator service
      *
-     * @var \Application\Modules\Rest\Services\RestValidationService $validator;
+     * @var \Application\Modules\Rest\Services\RestValidatorCollectionService $validator
      */
-    private $validator;
+    private $resolver;
 
     /**
      * Default headers send required
@@ -56,45 +56,38 @@ class RestService implements RestServiceInterface {
     private $resourceUri;
 
     /**
-     * Init default HTTP response status
+     * Init default HTTP headers
+     * Attach validator collections
      *
-     * @param \Application\Modules\Rest\Services\RestValidationService $validator
+     * @param \Application\Modules\Rest\Services\RestValidatorCollectionService $validator
      */
-    public function __construct(\Application\Modules\Rest\Services\RestValidationService $validator) {
+    public function __construct(\Application\Modules\Rest\Services\RestValidatorCollectionService $validator) {
 
-        $this->setValidator($validator);
-        $this->setHeader($this->headers);
-    }
+        $validator->init();
 
-    /**
-     * Get dependency container
-     *
-     * @return \Phalcon\DiInterface
-     */
-    public function getDi()
-    {
-        return $this->getValidator()->getDi();
+        $this->setResolver($validator)->setHeader($this->headers);
     }
 
     /**
      * Set validator
      *
-     * @param RestValidationService $validator
+     * @param \Application\Modules\Rest\Services\RestValidatorCollectionService $validator
      */
-    public function setValidator($validator)
+    private function setResolver($validator)
     {
-        $this->validator = $validator;
+        $this->resolver = $validator;
+
         return $this;
     }
 
     /**
      * Get validator
      *
-     * @return RestValidationService
+     * @return \Application\Modules\Rest\Services\RestValidatorCollectionService
      */
-    public function getValidator()
+    private function getResolver()
     {
-        return $this->validator;
+        return $this->resolver;
     }
 
     /**
@@ -115,9 +108,9 @@ class RestService implements RestServiceInterface {
      *
      * @return \Phalcon\Http\Response
      */
-    public function getResponseService()
+    private function getResponseService()
     {
-        return $this->getDi()->get('response');
+        return $this->getResolver()->getDi()->get('response');
     }
 
     /**
@@ -150,7 +143,7 @@ class RestService implements RestServiceInterface {
 
         $this->resourceUri =
             (is_null($resourceUri) === true)
-        ? $this->getValidator()->getRequest()->getURI() : $resourceUri;
+        ? $this->getResolver()->getRequest()->getURI() : $resourceUri;
         
         return $this;
     }
@@ -208,12 +201,21 @@ class RestService implements RestServiceInterface {
     public function getLocale() {
 
         if(is_null($this->locale)) {
-            $this->locale = strtolower(substr((array_key_exists('locale', $this->getValidator()->getParams()))
-                ? $this->getValidator()->getParams()['locale']
-                : $this->getValidator()->getRequest()->getBestLanguage(), 0, 2));
+            $this->locale = strtolower(substr((array_key_exists('locale', $this->getResolver()->getParams()))
+                ? $this->getResolver()->getParams()['locale']
+                : $this->getResolver()->getRequest()->getBestLanguage(), 0, 2));
         }
 
         return $this->locale;
+    }
+
+    /**
+     * Set request params
+     *
+     * @return array
+     */
+    public function getParams() {
+        return $this->getResolver()->getParams();
     }
 
     /**
@@ -221,20 +223,10 @@ class RestService implements RestServiceInterface {
      *
      * @return string|int
      */
-    public function getRateLimit() {
+    private function getRateLimit() {
 
-        return (isset($this->getValidator()->getRules()->requests) === true)
-            ? $this->getValidator()->getRules()->requests['limit'] : 'infinity';
-    }
-
-    /**
-     * Validate request params
-     *
-     * @uses \Application\Modules\Rest\Services
-     * @return void
-     */
-    public function validate() {
-        return $this->getValidator()->isValid();
+        return (isset($this->getResolver()->getRules()->requests) === true)
+            ? $this->getResolver()->getRules()->requests['limit'] : 'infinity';
     }
 
     /**
@@ -246,7 +238,7 @@ class RestService implements RestServiceInterface {
 
         // Set rules required header
         $this->setHeader([
-            'Access-Control-Allow-Methods' => $this->getValidator()->getRules()->methods,
+            'Access-Control-Allow-Methods' => $this->getResolver()->getRules()->methods,
             'X-Rate-Limit'      =>  $this->getRateLimit(),
             'Accept-Language'   =>  $this->getLocale(),
             'X-Resource'        =>  $this->getResourceUri()

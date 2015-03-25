@@ -6,7 +6,7 @@ use Application\Modules\Rest\Exceptions\MethodNotAllowedException;
 use Application\Modules\Rest\Aware\RestValidatorProvider;
 
 /**
- * ResolveMethodEvent. Watch allowed methods
+ * ResolveMethod. Watch allowed methods
  *
  * @package Application\Modules\Rest\Services
  * @subpackage Events\BeforeExecuteRoute
@@ -14,24 +14,25 @@ use Application\Modules\Rest\Aware\RestValidatorProvider;
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @copyright Stanislav WEB
- * @filesource /Application/Modules/Rest/Events/BeforeExecuteRoute/ResolveMethodEvent.php
+ * @filesource /Application/Modules/Rest/Events/BeforeExecuteRoute/ResolveMethod.php
  */
-class ResolveMethodEvent extends RestValidatorProvider {
+class ResolveMethod extends RestValidatorProvider {
 
     /**
      * This action track input events before rest execute
+     *
+     * @param \Phalcon\DI\FactoryDefault $di
+     * @param \StdClass                  $rules
+     * @return bool|void
      * @throws \Exception
      */
-    public function run(\Phalcon\DI\FactoryDefault $di) {
+    public function run(\Phalcon\DI\FactoryDefault $di, \StdClass $rules) {
 
         $this->setDi($di);
 
-        $rules = $this->getRules();
-        $dispatcher = $this->getDispatcher();
+        if(is_null($rules->methods) === false) {
 
-        if(isset($rules[$dispatcher->getControllerName()][$dispatcher->getActionName()]) === true) {
-
-            $methods = explode(',', $rules[$dispatcher->getControllerName()][$dispatcher->getActionName()]['methods']);
+            $methods = explode(',', $rules->methods);
 
             if(in_array($this->getRequest()->getMethod(), $methods) === false) {
 

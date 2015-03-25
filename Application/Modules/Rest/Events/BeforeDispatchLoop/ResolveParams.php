@@ -2,7 +2,7 @@
 namespace Application\Modules\Rest\Events\BeforeDispatchLoop;
 
 /**
- * ResolveParamsEvent
+ * ResolveParams
  * Resolve dispatcher params to key => value
  *
  * @package Application\Modules\Rest\Services
@@ -11,9 +11,9 @@ namespace Application\Modules\Rest\Events\BeforeDispatchLoop;
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @copyright Stanislav WEB
- * @filesource /Application/Modules/Rest/Events/BeforeDispatchLoop/ResolveParamsEvent.php
+ * @filesource /Application/Modules/Rest/Events/BeforeDispatchLoop/ResolveParams.php
  */
-class ResolveParamsEvent {
+class ResolveParams {
 
     /**
      * This action track routes before execute any action in the application.

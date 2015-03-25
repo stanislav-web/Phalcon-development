@@ -26,31 +26,9 @@ interface RestServiceInterface {
     /**
      * Initialize validator to this service
      *
-     * @param \Application\Modules\Rest\Services\RestValidationService $validator
+     * @param \Application\Modules\Rest\Services\RestValidatorCollectionService $validator
      */
-    public function __construct(\Application\Modules\Rest\Services\RestValidationService $validator);
-
-    /**
-     * Get dependency container
-     *
-     * @return \Phalcon\DiInterface
-     */
-    public function getDi();
-
-    /**
-     * Set validator
-     *
-     * @param \Application\Modules\Rest\Services\RestValidationService $validator
-     * @return \Application\Modules\Rest\Services\RestService
-     */
-    public function setValidator($validator);
-
-    /**
-     * Get validator
-     *
-     * @return \Application\Modules\Rest\Services\RestValidationService
-     */
-    public function getValidator();
+    public function __construct(\Application\Modules\Rest\Services\RestValidatorCollectionService $validator);
 
     /**
      * Set response header
@@ -97,11 +75,11 @@ interface RestServiceInterface {
     public function getResourceUri();
 
     /**
-     * Validate request params
+     * Get request params
      *
-     * @return void
+     * @return array
      */
-    public function validate();
+    public function getParams();
 
     /**
      * Send response to client

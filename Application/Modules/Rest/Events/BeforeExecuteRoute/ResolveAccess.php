@@ -7,7 +7,7 @@ use Application\Modules\Rest\Exceptions\UnauthorizedException;
 use Application\Modules\Rest\Aware\RestValidatorProvider;
 
 /**
- * ResolveAccessEvent. Watch access
+ * ResolveAccess. Watch access
  *
  * @package Application\Modules\Rest\Services
  * @subpackage Events\BeforeExecuteRoute
@@ -15,16 +15,9 @@ use Application\Modules\Rest\Aware\RestValidatorProvider;
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @copyright Stanislav WEB
- * @filesource /Application/Modules/Rest/Events/BeforeExecuteRoute/ResolveAccessEvent.php
+ * @filesource /Application/Modules/Rest/Events/BeforeExecuteRoute/ResolveAccess.php
  */
-class ResolveAccessEvent extends RestValidatorProvider {
-
-    /**
-     * Access rules to current action
-     *
-     * @var array $rules
-     */
-    private $rules;
+class ResolveAccess extends RestValidatorProvider {
 
     /**
      * Security service
@@ -42,39 +35,35 @@ class ResolveAccessEvent extends RestValidatorProvider {
 
     /**
      * This action track input events before rest execute
+     *
+     * @param \Phalcon\DI\FactoryDefault $di
+     * @param \StdClass                  $rules
+     * @return bool|void
      * @throws \Exception
      */
-    public function run(\Phalcon\DI\FactoryDefault $di) {
+    public function run(\Phalcon\DI\FactoryDefault $di, \StdClass $rules) {
 
         $this->setDi($di);
 
-        $rules = $this->getRules();
-        $dispatcher = $this->getDispatcher();
+        if(isset($rules->authentication) === true) {
 
-        if(isset($rules[$dispatcher->getControllerName()][$dispatcher->getActionName()]) === true) {
+            $this->security = $this->getDi()->get('RestSecurityService');
 
-            $this->rules = $rules[$dispatcher->getControllerName()][$dispatcher->getActionName()];
+            if($this->security->isAuthenticated() === true) {
 
-            if(isset($this->rules['authentication']) === true) {
+                $this->request = $this->getRequest();
+                $this->isAllowedAccess($rules);
+            }
+            else {
 
-                $this->security = $this->getDi()->get('RestSecurityService');
-
-                if($this->security->isAuthenticated() === true) {
-
-                    $this->request = $this->getRequest();
-                    $this->isAllowedAccess();
+                try {
+                    throw new UnauthorizedException();
                 }
-                else {
+                catch(UnauthorizedException $e) {
+                    $this->getDi()->get('LogMapper')
+                        ->save($e->getMessage().' IP: '.$this->getRequest()->getClientAddress().' URI: '.$this->getRequest()->getURI(), Logger::ALERT);
 
-                    try {
-                        throw new UnauthorizedException();
-                    }
-                    catch(UnauthorizedException $e) {
-                        $this->getDi()->get('LogMapper')
-                            ->save($e->getMessage().' IP: '.$this->getRequest()->getClientAddress().' URI: '.$this->getRequest()->getURI(), Logger::ALERT);
-
-                        throw new \Exception($e->getMessage(), $e->getCode());
-                    }
+                    throw new \Exception($e->getMessage(), $e->getCode());
                 }
             }
         }
@@ -83,13 +72,14 @@ class ResolveAccessEvent extends RestValidatorProvider {
     /**
      * Check access by role
      *
+     * @param \StdClass $rules
      * @throws ForbiddenException
      */
-    public function isAllowedAccess() {
+    public function isAllowedAccess(\StdClass $rules) {
 
-        if(isset($this->rules['access']) === true) {
+        if(isset($rules->access) === true) {
 
-            foreach($this->rules['access'] as $role => $urls) {
+            foreach($rules->access as $role => $urls) {
 
                 if($this->security->hasRole($role) === false
                     && in_array(trim($this->request->getURI(), '/'), $urls)) {

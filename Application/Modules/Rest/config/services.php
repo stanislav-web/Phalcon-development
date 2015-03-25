@@ -13,18 +13,9 @@ $di->set('RestConfig', function () use ($di) {
     return $configBase;
 });
 
-// Define Rest Validator
-$di->set('RestValidationService', function () {
-
-    $restValidator = new \Application\Modules\Rest\Services\RestValidatorCollectionService([
-        new \Application\Modules\Rest\Events\BeforeExecuteRoute\ResolveMethodEvent(),
-        new \Application\Modules\Rest\Events\BeforeExecuteRoute\ResolveRequestLimitEvent(),
-        new \Application\Modules\Rest\Events\BeforeExecuteRoute\ResolveAcceptEvent(),
-        new \Application\Modules\Rest\Events\BeforeExecuteRoute\ResolveAccessEvent()
-        ]
-    );
-
-    return $restValidator;
+// Define Rest Rules
+$di->set('RestRules', function () {
+    return require_once(__DIR__ .DIRECTORY_SEPARATOR.'rules.php');
 });
 
 // Define Security Service
@@ -35,11 +26,26 @@ $di->set('RestSecurityService', function () {
     return $security;
 });
 
+// Define Rest Validator
+$di->setShared('RestValidationService', function () use ($di) {
+
+    $restValidator = new \Application\Modules\Rest\Services\RestValidatorCollectionService([
+            '\Application\Modules\Rest\Events\BeforeExecuteRoute\ResolveMethod',
+            '\Application\Modules\Rest\Events\BeforeExecuteRoute\ResolveRequestLimit',
+            '\Application\Modules\Rest\Events\BeforeExecuteRoute\ResolveAccept',
+            '\Application\Modules\Rest\Events\BeforeExecuteRoute\ResolveAccess'
+        ], $di
+    );
+
+    return $restValidator;
+});
+
+
 // Define Rest Service
 $di->set('RestService', function () use ($di) {
 
     $restService = new \Application\Modules\Rest\Services\RestService(
-        $di->get('RestValidationService')->init()
+        $di->get('RestValidationService')
     );
 
     // Define Translate Service (inside the rest)
@@ -56,8 +62,4 @@ $di->set('RestService', function () use ($di) {
     return $restService;
 });
 
-// Define Rest Rules
-$di->set('RestRules', function () {
-    return require_once(__DIR__ .DIRECTORY_SEPARATOR.'rules.php');
-});
 

@@ -60,15 +60,6 @@ abstract class RestValidatorProvider {
     }
 
     /**
-     * Get api rules
-     *
-     * @return \Phalcon\Config
-     */
-    public function getRules() {
-        return $this->getDi()->getShared('RestRules');
-    }
-
-    /**
      * Get request plugin
      *
      * @return \Phalcon\Http\Request
@@ -90,7 +81,8 @@ abstract class RestValidatorProvider {
      * Run validator
      *
      * @param \Phalcon\DI\FactoryDefault $di
+     * @param \StdClass $rules
      * @return boolean
      */
-    abstract protected function run(\Phalcon\DI\FactoryDefault $di);
+    abstract protected function run(\Phalcon\DI\FactoryDefault $di, \StdClass $rules);
 }

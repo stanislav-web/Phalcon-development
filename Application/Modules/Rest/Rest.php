@@ -76,7 +76,6 @@ class Rest
         if((is_null($error = error_get_last()) === false)) {
 
             try {
-
                 $di->get('LogMapper')
                     ->save($error['message'].' File: '.$error['file'].' Line:'.$error['line'], 1);
 
@@ -84,7 +83,12 @@ class Rest
             }
             catch(InternalServerErrorException $e) {
 
-                throw new \Exception($e->getMessage(), $e->getCode());
+                $di->get('response')->setContentType('application/json', 'utf-8')
+                    ->setStatusCode($e->getCode(), $e->getMessage())
+                    ->setJsonContent(['error' => [
+                        'code' => $e->getCode(),
+                        'message' => $e->getMessage()
+                    ]])->send();
             }
         }
     }

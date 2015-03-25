@@ -14,9 +14,9 @@ use Application\Modules\Rest\Aware\RestValidatorProvider;
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @copyright Stanislav WEB
- * @filesource /Application/Modules/Rest/Events/BeforeExecuteRoute/ResolveRequestLimitEvent.php
+ * @filesource /Application/Modules/Rest/Events/BeforeExecuteRoute/ResolveRequestLimit.php
  */
-class ResolveRequestLimitEvent extends RestValidatorProvider  {
+class ResolveRequestLimit extends RestValidatorProvider  {
 
     /**
      * Current action name
@@ -41,41 +41,40 @@ class ResolveRequestLimitEvent extends RestValidatorProvider  {
 
     /**
      * This action track input events before rest execute
+     *
+     * @param \Phalcon\DI\FactoryDefault $di
+     * @param \StdClass                  $rules
+     * @return bool|void
      * @throws \Exception
      */
-    public function run(\Phalcon\DI\FactoryDefault $di) {
+    public function run(\Phalcon\DI\FactoryDefault $di, \StdClass $rules) {
 
         $this->setDi($di);
 
-        $rules = $this->getRules();
         $dispatcher = $this->getDispatcher();
 
-        if(isset($rules[$dispatcher->getControllerName()][$dispatcher->getActionName()]) === true) {
 
-            $rule = $rules[$dispatcher->getControllerName()][$dispatcher->getActionName()];
+        if(isset($rules->requests) === true) {
 
-            if(isset($rule['requests']) === true) {
+            $this->session  = $this->getDi()->getShared('session');
+            $this->ip       = $this->getRequest()->getClientAddress();
+            $this->action   = $dispatcher->getActionName();
 
-                $this->session  = $this->getDi()->getShared('session');
-                $this->ip       = $this->getRequest()->getClientAddress();
-                $this->action   = $dispatcher->getActionName();
+            if($this->session->has($this->action)) {
+                if((int)$this->session->get($this->action)+(int)$rules->requests['time'] > time()) {
 
-                if($this->session->has($this->action)) {
-                    if((int)$this->session->get($this->action)+(int)$rule['requests']['time'] > time()) {
+                    // disallow access, because to many requests per  $rules->requests['time']
 
-                        // disallow access, because to many requests per  $rules->requests['time']
-
-                        $this->throwError();
-                    }
-                    else {
-                        // reset user requests counter
-                        $this->reset();
-                    }
+                    $this->throwError();
                 }
-
-                // iterate counter
-                $this->iterate($rule);
+                else {
+                    // reset user requests counter
+                    $this->reset();
+                }
             }
+
+            // iterate counter
+            $this->iterate($rules);
         }
     }
 
@@ -92,14 +91,14 @@ class ResolveRequestLimitEvent extends RestValidatorProvider  {
     /**
      * Iterate request counter
      *
-     * @param array $rule
+     * @param \StdClass $rules
      */
-    private function iterate(array $rule) {
+    private function iterate(\StdClass $rules) {
 
         // iterate request for current IP address
         $this->session->set($this->ip, (int)$this->session->get($this->ip)+1);
 
-        if($this->session->get($this->ip) >= $rule['requests']['limit']) {
+        if($this->session->get($this->ip) >= $rules->requests['limit']) {
 
             $this->session->set($this->action, time());
         }

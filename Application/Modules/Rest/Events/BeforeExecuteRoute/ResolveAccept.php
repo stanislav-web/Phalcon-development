@@ -6,7 +6,7 @@ use Application\Modules\Rest\Aware\RestValidatorProvider;
 use Application\Modules\Rest\Exceptions\NotAcceptableException;
 
 /**
- * ResolveAcceptEvent. Watch allowed methods
+ * ResolveAccept. Watch allowed parameters
  *
  * @package Application\Modules\Rest\Services
  * @subpackage Events\BeforeExecuteRoute
@@ -14,15 +14,19 @@ use Application\Modules\Rest\Exceptions\NotAcceptableException;
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @copyright Stanislav WEB
- * @filesource /Application/Modules/Rest/Events/BeforeExecuteRoute/ResolveAcceptEvent.php
+ * @filesource /Application/Modules/Rest/Events/BeforeExecuteRoute/ResolveAccept.php
  */
-class ResolveAcceptEvent extends RestValidatorProvider {
+class ResolveAccept extends RestValidatorProvider {
 
     /**
      * This action track input events before rest execute
+     *
+     * @param \Phalcon\DI\FactoryDefault $di
+     * @param \StdClass                  $rules
+     * @return bool|void
      * @throws \Exception
      */
-    public function run(\Phalcon\DI\FactoryDefault $di) {
+    public function run(\Phalcon\DI\FactoryDefault $di, \StdClass $rules) {
 
         $this->setDi($di);
 
@@ -101,9 +105,6 @@ class ResolveAcceptEvent extends RestValidatorProvider {
             throw new NotAcceptableException();
         }
         catch(NotAcceptableException $e) {
-
-            //@TODO JSON response need
-
 
             $this->getDi()->get('LogMapper')->save($e->getMessage().' IP: '.$this->getRequest()->getClientAddress().' URI: '.$this->getRequest()->getURI(), Logger::ALERT);
             throw new \Exception($e->getMessage(), $e->getCode());
