@@ -3,6 +3,7 @@ namespace Application\Modules\Rest\Events\BeforeExecuteRoute;
 
 use Phalcon\Logger;
 use Application\Modules\Rest\Exceptions\ToManyRequestsException;
+use Application\Modules\Rest\Aware\RestValidatorProvider;
 
 /**
  * ResolveRequestEvent. Monitors the limit of requests
@@ -15,14 +16,7 @@ use Application\Modules\Rest\Exceptions\ToManyRequestsException;
  * @copyright Stanislav WEB
  * @filesource /Application/Modules/Rest/Events/BeforeExecuteRoute/ResolveRequestLimitEvent.php
  */
-class ResolveRequestLimitEvent {
-
-    /**
-     * Dependency injection container
-     *
-     * @var \Phalcon\DiInterface $di;
-     */
-    private $di;
+class ResolveRequestLimitEvent extends RestValidatorProvider  {
 
     /**
      * Current action name
@@ -44,70 +38,6 @@ class ResolveRequestLimitEvent {
      * @var \Phalcon\Session\Adapter\Memcache $session
      */
     private $session;
-
-    /**
-     * Setup Dependency container
-     *
-     * @param \Phalcon\DI\FactoryDefault $di
-     */
-    public function __construct(\Phalcon\DI\FactoryDefault $di) {
-        $this->setDi($di);
-    }
-
-    /**
-     * Set dependency container
-     *
-     * @param \Phalcon\DI\FactoryDefault $di
-     */
-    public function setDi(\Phalcon\DI\FactoryDefault $di)
-    {
-        $this->di = $di;
-    }
-
-    /**
-     * Get dependency container
-     *
-     * @return \Phalcon\DiInterface
-     */
-    public function getDi()
-    {
-        return $this->di;
-    }
-
-    /**
-     * Get api rules
-     *
-     * @return \Phalcon\Config
-     */
-    public function getRules() {
-        return $this->getDi()->getShared('RestRules');
-    }
-
-    /**
-     * Get session
-     *
-     * @return \Phalcon\Session\Adapter\Memcache
-     */
-    public function getSession() {
-        return $this->getDi()->getShared('session');
-    }
-
-    /**
-     * Get shared request
-     *
-     * @return \Phalcon\Http\Request
-     */
-    public function getRequest() {
-        return $this->getDi()->getShared('request');
-    }
-    /**
-     * Get shared dispatcher
-     *
-     * @return \Phalcon\Mvc\Dispatcher
-     */
-    public function getDispatcher() {
-        return $this->getDi()->getShared('dispatcher');
-    }
 
     /**
      * This action track input events before rest execute

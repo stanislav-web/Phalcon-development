@@ -4,6 +4,7 @@ namespace Application\Modules\Rest\Events\BeforeExecuteRoute;
 use Phalcon\Logger;
 use Application\Modules\Rest\Exceptions\ForbiddenException;
 use Application\Modules\Rest\Exceptions\UnauthorizedException;
+use Application\Modules\Rest\Aware\RestValidatorProvider;
 
 /**
  * ResolveAccessEvent. Watch access
@@ -16,14 +17,7 @@ use Application\Modules\Rest\Exceptions\UnauthorizedException;
  * @copyright Stanislav WEB
  * @filesource /Application/Modules/Rest/Events/BeforeExecuteRoute/ResolveAccessEvent.php
  */
-class ResolveAccessEvent {
-
-    /**
-     * Dependency injection container
-     *
-     * @var \Phalcon\DiInterface $di;
-     */
-    private $di;
+class ResolveAccessEvent extends RestValidatorProvider {
 
     /**
      * Access rules to current action
@@ -45,61 +39,6 @@ class ResolveAccessEvent {
      * @var \Phalcon\Http\Request $request
      */
     private $request;
-
-    /**
-     * Setup Dependency container
-     *
-     * @param \Phalcon\DI\FactoryDefault $di
-     */
-    public function __construct(\Phalcon\DI\FactoryDefault $di) {
-        $this->setDi($di);
-    }
-
-    /**
-     * Set dependency container
-     *
-     * @param \Phalcon\DI\FactoryDefault $di
-     */
-    public function setDi(\Phalcon\DI\FactoryDefault $di)
-    {
-        $this->di = $di;
-    }
-
-    /**
-     * Get dependency container
-     *
-     * @return \Phalcon\DiInterface
-     */
-    public function getDi()
-    {
-        return $this->di;
-    }
-
-    /**
-     * Get api rules
-     *
-     * @return array
-     */
-    public function getRules() {
-        return $this->getDi()->getShared('RestRules');
-    }
-
-    /**
-     * Get shared request
-     *
-     * @return \Phalcon\Http\Request
-     */
-    public function getRequest() {
-        return $this->getDi()->getShared('request');
-    }
-    /**
-     * Get shared dispatcher
-     *
-     * @return \Phalcon\Mvc\Dispatcher
-     */
-    public function getDispatcher() {
-        return $this->getDi()->getShared('dispatcher');
-    }
 
     /**
      * This action track input events before rest execute

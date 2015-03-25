@@ -3,7 +3,7 @@ namespace Application\Modules\Rest\Aware;
 use Phalcon\DI\InjectionAwareInterface;
 
 /**
- * RestSecurityProvider. Rest AI Security rules provider
+ * RestSecurityProvider. Rest API Security rules provider
  *
  * @package Application\Modules\Rest
  * @subpackage Aware
@@ -21,13 +21,6 @@ abstract class RestSecurityProvider implements InjectionAwareInterface {
      * @var \Phalcon\DiInterface $di;
      */
     private $di;
-
-    /**
-     * Global configuration
-     *
-     * @var array $config
-     */
-    private $config;
 
     /**
      * System error messages

@@ -2,6 +2,7 @@
 namespace Application\Modules\Rest\Events\BeforeExecuteRoute;
 
 use Phalcon\Logger;
+use Application\Modules\Rest\Aware\RestValidatorProvider;
 use Application\Modules\Rest\Exceptions\NotAcceptableException;
 
 /**
@@ -15,61 +16,7 @@ use Application\Modules\Rest\Exceptions\NotAcceptableException;
  * @copyright Stanislav WEB
  * @filesource /Application/Modules/Rest/Events/BeforeExecuteRoute/ResolveAcceptEvent.php
  */
-class ResolveAcceptEvent {
-
-    /**
-     * Dependency injection container
-     *
-     * @var \Phalcon\DiInterface $di;
-     */
-    private $di;
-
-    /**
-     * Setup Dependency container
-     *
-     * @param \Phalcon\DI\FactoryDefault $di
-     */
-    public function __construct(\Phalcon\DI\FactoryDefault $di) {
-        $this->setDi($di);
-    }
-
-    /**
-     * Set dependency container
-     *
-     * @param \Phalcon\DI\FactoryDefault $di
-     */
-    public function setDi(\Phalcon\DI\FactoryDefault $di)
-    {
-        $this->di = $di;
-    }
-
-    /**
-     * Get dependency container
-     *
-     * @return \Phalcon\DiInterface
-     */
-    public function getDi()
-    {
-        return $this->di;
-    }
-
-    /**
-     * Get api config
-     *
-     * @return \Phalcon\Config
-     */
-    public function getConfig() {
-        return $this->getDi()->getShared('RestConfig')->api;
-    }
-
-    /**
-     * Get shared request
-     *
-     * @return \Phalcon\Http\Request
-     */
-    public function getRequest() {
-        return $this->getDi()->getShared('request');
-    }
+class ResolveAcceptEvent extends RestValidatorProvider {
 
     /**
      * This action track input events before rest execute
