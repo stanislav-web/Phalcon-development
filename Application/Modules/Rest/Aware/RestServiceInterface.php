@@ -24,6 +24,7 @@ interface RestServiceInterface {
     const MESSAGE_OK            = '0K';
     const MESSAGE_CREATED       = 'Created';
     const MESSAGE_NOT_MODIFIED  = 'Not Modified';
+
     /**
      * Initialize validator to this service
      *
@@ -83,9 +84,29 @@ interface RestServiceInterface {
     public function getParams();
 
     /**
+     * Set response content length
+     *
+     * @param string $content
+     */
+    public function setContentLength($content);
+
+    /**
+     * Get REST Cache Service
+     *
+     * @return \Application\Modules\Rest\Services\RestCacheService
+     */
+    public function getCacheService();
+
+    /**
+     * Set configured cache header
+     */
+    public function setCacheHeader();
+
+    /**
      * Send response to client
      *
+     * @param boolean $modified
      * @return \Phalcon\Http\ResponseInterface
      */
-    public function response();
+    public function response($modified);
 }

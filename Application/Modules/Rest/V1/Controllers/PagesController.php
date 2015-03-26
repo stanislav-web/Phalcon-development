@@ -49,7 +49,6 @@ class PagesController extends ControllerBase {
                 true
             );
 
-
         $this->notModified = $this->cache->isCached();
         $this->rest->setMessage($responseData);
     }

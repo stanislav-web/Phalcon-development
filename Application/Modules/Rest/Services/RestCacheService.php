@@ -32,6 +32,13 @@ class RestCacheService {
     private $cached = false;
 
     /**
+     * Cache data key
+     *
+     * @var string
+     */
+    private $key = '';
+
+    /**
      * Init configurations
      *
      * @param \Phalcon\Config $config
@@ -79,7 +86,10 @@ class RestCacheService {
             && $this->getConfig()->enable === true
             && $cached === true) {
 
-            $this->getStorage()->save(md5($key), $value);
+            $this->key = $key;
+
+            $this->getStorage()->save(md5($this->key), $value);
+
         }
 
         return $value;
@@ -102,11 +112,14 @@ class RestCacheService {
 
     /**
      * Get value from cache storage
+     *
      * @param string $key
      * @return mixed
      */
     public function get($key) {
-        return $this->getStorage()->get(md5($key));
+
+        $this->key = $key;
+        return $this->getStorage()->get($this->getKey());
     }
 
     /**
@@ -126,12 +139,29 @@ class RestCacheService {
     }
 
     /**
+     * Return cache lifetime
+     *
+     * @return int
+     */
+    public function getLifetime() {
+        return $this->getConfig()->lifetime;
+    }
+
+    /**
+     * Return cache hot key
+     *
+     * @return string
+     */
+    public function getKey() {
+        return md5($this->key);
+    }
+
+    /**
      * Return cache data state
      *
      * @return boolean
      */
     public function isCached() {
-
         return $this->cached;
     }
 }

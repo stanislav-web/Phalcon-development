@@ -24,7 +24,7 @@ class RestService implements RestServiceInterface {
     private $resolver;
 
     /**
-     * Default headers send required
+     * Default response headers send required
      *
      * @var array $headers
      */
@@ -44,14 +44,14 @@ class RestService implements RestServiceInterface {
     /**
      * User preferred locale
      *
-     * @var string $locale;
+     * @var string $locale
      */
     private $locale;
 
     /**
      * Current /created resource uri
      *
-     * @var string $resourceUri;
+     * @var string $resourceUri
      */
     private $resourceUri;
 
@@ -114,6 +114,15 @@ class RestService implements RestServiceInterface {
     }
 
     /**
+     * Get REST Cache Service
+     *
+     * @return \Application\Modules\Rest\Services\RestCacheService
+     */
+    public function getCacheService() {
+        return  $this->getResolver()->getDi()->getShared('RestCache');
+    }
+
+    /**
      * Set HTTP Status Message
      *
      * @param int $code default response code
@@ -146,6 +155,29 @@ class RestService implements RestServiceInterface {
         ? $this->getResolver()->getRequest()->getURI() : $resourceUri;
         
         return $this;
+    }
+
+    /**
+     * Set response content length
+     *
+     * @param string $content
+     * @return RestService
+     */
+    public function setContentLength($content) {
+        return strlen(json_encode($content));
+    }
+
+    /**
+     * Set configured cache header
+     */
+    public function setCacheHeader() {
+
+        $this->getResponseService()->setEtag($this->getCacheService()->getKey());
+
+        $this->setHeader([
+            'Cache-Control' =>  'max-age='.$this->getCacheService()->getLifetime().' must-revalidate',
+            'Expires'       => gmdate('D, d M Y H:i:s T', time()+$this->getCacheService()->getLifetime())
+        ]);
     }
 
     /**
@@ -232,17 +264,24 @@ class RestService implements RestServiceInterface {
     /**
      * Send response to client
      *
+     * @param boolean $modified
      * @return \Phalcon\Http\ResponseInterface
      */
-    public function response() {
+    public function response($modified) {
 
         // Set rules required header
         $this->setHeader([
             'Access-Control-Allow-Methods' => $this->getResolver()->getRules()->methods,
             'X-Rate-Limit'      =>  $this->getRateLimit(),
-            'Accept-Language'   =>  $this->getLocale(),
-            'X-Resource'        =>  $this->getResourceUri()
+            'Content-Language'  =>  $this->getLocale(),
+            'Content-Length'    =>  $this->setContentLength($this->getMessage()),
+            'X-Resource'        =>  $this->getResourceUri(),
         ]);
+
+        if($modified === true) {
+
+            $this->setCacheHeader();
+        }
 
         $response = $this->getResponseService();
         if(empty($this->getMessage())  === false) {
@@ -250,7 +289,6 @@ class RestService implements RestServiceInterface {
         }
         return $response->send();
     }
-
 
     /**
      * Filter required params

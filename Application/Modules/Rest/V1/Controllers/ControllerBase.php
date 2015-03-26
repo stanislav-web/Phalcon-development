@@ -44,10 +44,10 @@ class ControllerBase extends Controller
      */
     public function afterExecuteRoute()
     {
-        $this->rest->response();
-
         //@TODO Set Cache Header and response status with E-Tag
+
         //$this->rest->setStatusMessage(304, 'Not Modified');
+        $this->rest->response($this->notModified);
     }
 
     /**
