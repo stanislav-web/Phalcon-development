@@ -1,7 +1,7 @@
 <?php
 $I = new ApiTester($scenario);
 
-$I->wantTo('Get 401 Unauthorized: GET /api/v1/users');
+$I->wantTo('GET 401 Unauthorized: /api/v1/users');
 
 $I->setHeader('Accept', '*/*');
 $I->setHeader('Accept-Language', 'en-GB');

@@ -1,7 +1,7 @@
 <?php 
 $I = new ApiTester($scenario);
 
-$I->wantTo('Get 406 Not Acceptable: GET /api/v1/users');
+$I->wantTo('GET 406 Not Acceptable: /api/v1/users');
 
 $I->setHeader('Accept', 'application/xml');
 $I->setHeader('Accept-Language', 'en-GB');

@@ -1,7 +1,7 @@
 <?php 
 $I = new ApiTester($scenario);
 
-$I->wantTo('Get 404 NotFound: GET /api/v1/undefined/page');
+$I->wantTo('GET 404 NotFound: /api/v1/undefined/page');
 
 $I->setHeader('Accept', '*/*');
 $I->setHeader('Accept-Language', 'en-GB');

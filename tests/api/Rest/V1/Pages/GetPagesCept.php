@@ -1,7 +1,7 @@
 <?php 
 $I = new ApiTester($scenario);
 
-$I->wantTo('Get static pages list: GET /api/v1/pages');
+$I->wantTo('GET static pages list: /api/v1/pages');
 
 $I->setHeader('Accept', '*/*');
 $I->setHeader('Accept-Language', 'en-GB');

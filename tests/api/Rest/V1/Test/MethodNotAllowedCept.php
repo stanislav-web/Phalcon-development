@@ -1,7 +1,7 @@
 <?php 
 $I = new ApiTester($scenario);
 
-$I->wantTo('Get 405 Method not allowed: DELETE /api/v1/users');
+$I->wantTo('DELETE 405 Method not allowed: /api/v1/users');
 
 $I->setHeader('Accept', '*/*');
 $I->setHeader('Accept-Language', 'en-GB');

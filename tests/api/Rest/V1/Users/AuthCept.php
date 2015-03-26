@@ -1,7 +1,7 @@
 <?php
 $I = new ApiTester($scenario);
 
-$I->wantTo('Get Authorization: GET /api/v1/users/auth');
+$I->wantTo('GET Authorization: /api/v1/users/auth');
 
 $I->setHeader('Accept', '*/*');
 $I->setHeader('Accept-Language', 'en-GB');
