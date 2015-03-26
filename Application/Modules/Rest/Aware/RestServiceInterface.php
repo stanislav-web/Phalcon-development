@@ -18,11 +18,12 @@ interface RestServiceInterface {
      * Success operations
      */
 
-    const CODE_OK           = 200;
-    const CODE_CREATED      = 201;
-    const MESSAGE_OK        = '0K';
-    const MESSAGE_CREATED   = 'Created';
-
+    const CODE_OK               = 200;
+    const CODE_CREATED          = 201;
+    const CODE_NOT_MODIFIED     = 304;
+    const MESSAGE_OK            = '0K';
+    const MESSAGE_CREATED       = 'Created';
+    const MESSAGE_NOT_MODIFIED  = 'Not Modified';
     /**
      * Initialize validator to this service
      *

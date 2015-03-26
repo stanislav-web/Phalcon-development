@@ -105,16 +105,6 @@ class ResolveRequestLimit extends RestValidatorProvider  {
     }
 
     /**
-     * Free params
-     */
-    public function __destruct() {
-
-        unset($this->action);
-        unset($this->ip);
-
-    }
-
-    /**
      * Throw exception errors
      *
      * @throws \Application\Modules\Rest\Exceptions\ToManyRequestsException
@@ -130,5 +120,14 @@ class ResolveRequestLimit extends RestValidatorProvider  {
             $this->getDi()->get('LogMapper')->save($e->getMessage().' IP: '.$this->getRequest()->getClientAddress().' URI: '.$this->getRequest()->getURI(), Logger::ALERT);
             throw new \Exception($e->getMessage(), $e->getCode());
         }
+    }
+
+
+    /**
+     * Free params
+     */
+    public function __destruct() {
+
+        unset($this->ip, $this->action);
     }
 }

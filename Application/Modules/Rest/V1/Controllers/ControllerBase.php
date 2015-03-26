@@ -23,6 +23,13 @@ class ControllerBase extends Controller
     protected $rest;
 
     /**
+     * Is request data has been modified ?
+     *
+     * @var boolean
+     */
+    protected $notModified = false;
+
+    /**
      * Event before routes execute
      */
     public function beforeExecuteRoute()
@@ -38,5 +45,15 @@ class ControllerBase extends Controller
     public function afterExecuteRoute()
     {
         $this->rest->response();
+
+        //@TODO Set Cache Header and response status with E-Tag
+        //$this->rest->setStatusMessage(304, 'Not Modified');
+    }
+
+    /**
+     * Garbage clean
+     */
+    public function afterDispatch() {
+        unset($this->rest, $this->notModified);
     }
 }

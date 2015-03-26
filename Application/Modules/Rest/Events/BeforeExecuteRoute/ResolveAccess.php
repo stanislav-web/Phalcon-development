@@ -101,9 +101,7 @@ class ResolveAccess extends RestValidatorProvider {
      */
     public function __destruct() {
 
-        unset($this->rules);
-        unset($this->request);
-        unset($this->security);
+        unset($this->rules, $this->request, $this->security);
 
     }
 }

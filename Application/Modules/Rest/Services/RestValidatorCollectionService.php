@@ -54,7 +54,7 @@ class RestValidatorCollectionService extends RestValidatorCollectionsProvider {
      */
     public function setParams(\Phalcon\Http\Request $request)
     {
-        $this->params = $this->filterParams($request->get(), ['trim']);
+        $this->params = $this->filterParams($request->get(), ['trim', 'lower']);
 
         return $this;
     }
@@ -111,8 +111,10 @@ class RestValidatorCollectionService extends RestValidatorCollectionsProvider {
         return array_map(function ($value) use ($filter, $filters) {
 
             foreach ($filters as $func) {
-                return $filter->sanitize($value, $func);
+                $value = $filter->sanitize($value, $func);
             }
+
+            return $value;
         }, $params);
     }
 

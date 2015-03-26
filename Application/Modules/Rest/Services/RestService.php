@@ -169,7 +169,7 @@ class RestService implements RestServiceInterface {
             $this->setStatusMessage(); // set by default
         }
 
-        if($this->message['code'] > self::CODE_CREATED) {
+        if($this->message['code'] > self::CODE_NOT_MODIFIED) {
 
             $this->message    =   ['error' =>
                 $this->message

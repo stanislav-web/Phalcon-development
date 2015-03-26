@@ -14,12 +14,43 @@ namespace Application\Modules\Rest\V1\Controllers;
 class PagesController extends ControllerBase {
 
     /**
+     * REST cache container
+     *
+     * @var \Application\Modules\Rest\Services\RestCacheService $cache
+     */
+    protected $cache;
+
+    /**
+     * Cache key
+     *
+     * @var string $key
+     */
+    protected $key;
+
+    /**
+     * Initialize cache service
+     */
+    public function initialize() {
+
+        $this->cache = $this->di->get('RestCache');
+        $this->key   = ($this->request->isGet()) ? $this->request->getUri() : null;
+    }
+
+    /**
      * Pages action
      */
     public function indexAction() {
 
-        $this->rest->setMessage(
-            $this->getDI()->get('PageMapper')->read()->toArray()
-        );
+        $responseData = $this->cache->exists($this->key)
+            ? $this->cache->get($this->key)
+            : $this->cache->set(
+                $this->getDI()->get('PageMapper')->read()->toArray(),
+                $this->key,
+                true
+            );
+
+
+        $this->notModified = $this->cache->isCached();
+        $this->rest->setMessage($responseData);
     }
 }

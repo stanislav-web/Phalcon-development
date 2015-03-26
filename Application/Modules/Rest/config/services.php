@@ -62,4 +62,10 @@ $di->set('RestService', function () use ($di) {
     return $restService;
 });
 
+// Define Rest Cache Service
+$di->set('RestCache', function () use ($di) {
+
+    return new \Application\Modules\Rest\Services\RestCacheService($di->get('RestConfig'));
+});
+
 
