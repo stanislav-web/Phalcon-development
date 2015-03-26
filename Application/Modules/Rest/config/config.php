@@ -12,6 +12,6 @@ return [
         'acceptFilters'    => [
             'fields', 'offset', 'limit', 'token', 'locale', 'login', 'password'
         ],
-        'cache'
+        'acceptQueryLength'    => 100,
     ]
 ];

@@ -33,7 +33,8 @@ $di->setShared('RestValidationService', function () use ($di) {
             '\Application\Modules\Rest\Events\BeforeExecuteRoute\ResolveMethod',
             '\Application\Modules\Rest\Events\BeforeExecuteRoute\ResolveRequestLimit',
             '\Application\Modules\Rest\Events\BeforeExecuteRoute\ResolveAccept',
-            '\Application\Modules\Rest\Events\BeforeExecuteRoute\ResolveAccess'
+            '\Application\Modules\Rest\Events\BeforeExecuteRoute\ResolveAccess',
+            '\Application\Modules\Rest\Events\BeforeExecuteRoute\ResolveRequestLength',
         ], $di
     );
 
