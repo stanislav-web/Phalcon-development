@@ -38,12 +38,12 @@ class RestValidatorCollectionService extends RestValidatorCollectionsProvider {
     public function init() {
 
         $collection = $this->getCollection();
+        $this->setParams($this->getRequest());
 
         foreach($collection as $valid) {
-            (new $valid())->run($this->getDi(), $this->getRules());
+            (new $valid())->run($this->getDi(), $this->getRules(), $this->getParams());
         }
-        // setup and filtering input params
-        $this->setParams($this->getRequest());
+
     }
 
     /**
@@ -116,11 +116,5 @@ class RestValidatorCollectionService extends RestValidatorCollectionsProvider {
 
             return $value;
         }, $params);
-    }
-
-    public function isValid() {
-
-        //(new Validators\IsRequestValid($this->getDi(), $this->getParams(), $this->getRules()))->handle();
-
     }
 }

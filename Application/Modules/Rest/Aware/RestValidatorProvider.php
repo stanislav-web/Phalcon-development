@@ -81,7 +81,7 @@ abstract class RestValidatorProvider {
      * Run validator
      *
      * @param \Phalcon\DI\FactoryDefault $di
-     * @param \StdClass $rules
+     * @param \StdClass $rules Validation rules
      * @return boolean
      */
     abstract protected function run(\Phalcon\DI\FactoryDefault $di, \StdClass $rules);

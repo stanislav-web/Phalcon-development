@@ -21,26 +21,18 @@ $di->set('RestRules', function () {
 // Define Security Service
 $di->set('RestSecurityService', function () {
 
-    $security = new \Application\Modules\Rest\Services\SecurityService();
-
-    return $security;
+    return new \Application\Modules\Rest\Services\SecurityService();
 });
 
 // Define Rest Validator
 $di->setShared('RestValidationService', function () use ($di) {
-
-    $restValidator = new \Application\Modules\Rest\Services\RestValidatorCollectionService([
-            '\Application\Modules\Rest\Events\BeforeExecuteRoute\ResolveMethod',
-            '\Application\Modules\Rest\Events\BeforeExecuteRoute\ResolveRequestLimit',
-            '\Application\Modules\Rest\Events\BeforeExecuteRoute\ResolveAccept',
-            '\Application\Modules\Rest\Events\BeforeExecuteRoute\ResolveAccess',
-            '\Application\Modules\Rest\Events\BeforeExecuteRoute\ResolveRequestLength',
-        ], $di
-    );
-
-    return $restValidator;
+    return new \Application\Modules\Rest\Services\RestValidatorCollectionService($di);
 });
 
+// Define Rest Cache Service
+$di->set('RestCache', function () use ($di) {
+    return new \Application\Modules\Rest\Services\RestCacheService($di->get('RestConfig'));
+});
 
 // Define Rest Service
 $di->set('RestService', function () use ($di) {
@@ -63,10 +55,6 @@ $di->set('RestService', function () use ($di) {
     return $restService;
 });
 
-// Define Rest Cache Service
-$di->set('RestCache', function () use ($di) {
 
-    return new \Application\Modules\Rest\Services\RestCacheService($di->get('RestConfig'));
-});
 
 

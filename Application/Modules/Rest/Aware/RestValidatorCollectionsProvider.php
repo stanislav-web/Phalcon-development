@@ -41,12 +41,11 @@ abstract class RestValidatorCollectionsProvider
     /**
      * Setup validators
      *
-     * @param array                      $validators
      * @param \Phalcon\DI\FactoryDefault $di
      */
-    public function __construct(array $validators, \Phalcon\DI\FactoryDefault $di) {
+    public function __construct(\Phalcon\DI\FactoryDefault $di) {
 
-        $this->setCollection($validators)
+        $this->setCollection($di->get('RestConfig')->api->validators->toArray())
             ->setDi($di)
             ->setRules($di->get('RestRules'));
     }

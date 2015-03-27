@@ -289,21 +289,4 @@ class RestService implements RestServiceInterface {
         }
         return $response->send();
     }
-
-    /**
-     * Filter required params
-     *
-     * @param array $params
-     */
-//    public function filterRequiredParams(array $params)
-//    {
-//        $intersect = array_intersect_key(array_flip($params), $this->getRequestParams());
-//
-//        if(count($params) !== count($intersect)) {
-//            throw new Exceptions\BadRequestException();
-//        }
-//
-//        return $this;
-//    }
-
 }
