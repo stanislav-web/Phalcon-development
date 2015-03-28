@@ -17,7 +17,8 @@ use Application\Modules\Rest\Exceptions\InternalServerErrorException;
  */
 class QueryStringValidator {
 
-    const INVALID_FIELDS = 'The fields: %s does not provide by this filter';
+    const EMPTY_PARAMETER_IN_URI = 'Empty parameter in URI';
+    const INVALID_COLUMNS = 'The columns: `%s` does not provide by this filter';
 
     /**
      * Dependency injection container
@@ -41,11 +42,11 @@ class QueryStringValidator {
     private $errors = [];
 
     /**
-     * Requested fields
+     * Requested columns
      *
-     * @var array $fields
+     * @var array $columns
      */
-    private $fields = [];
+    private $columns = [];
 
     /**
      * Setup definition
@@ -103,25 +104,25 @@ class QueryStringValidator {
     }
 
     /**
-     * Get parsed requested fields
+     * Get parsed requested columns
      *
      * @return array
      */
-    public function getFields()
+    public function getColumns()
     {
-        return $this->fields;
+        return $this->columns;
     }
 
     /**
-     * Set requested fields
+     * Set requested columns
      *
      * @param array $params
      * @return QueryStringValidator
      */
-    public function setFields(array $params)
+    public function setColumns(array $params)
     {
-        if(isset($params['fields']) === true) {
-            $this->fields = explode(',', $params['fields']);
+        if(isset($params['columns']) === true) {
+            $this->columns = explode(',', $params['columns']);
         }
         return $this;
     }
@@ -174,7 +175,7 @@ class QueryStringValidator {
 
         if($this->getDi()->has($rules->mapper) === true) {
 
-            $this->setMapper($rules->mapper)->setFields($params)->resolve();
+            $this->setMapper($rules->mapper)->setColumns($params)->resolve();
 
             return $this;
         }
@@ -189,9 +190,14 @@ class QueryStringValidator {
      */
     public function resolve()
     {
-        if (empty($fields = array_diff($this->getFields(), $this->getMapper()->getAttributes())) === false) {
+        if(count(array_filter($this->getColumns())) !== count($this->getColumns())) {
+            $this->setErrors(sprintf(self::EMPTY_PARAMETER_IN_URI));
+            return;
+        }
 
-            $this->setErrors(sprintf(self::INVALID_FIELDS, implode(',', $fields)));
+        if (empty($columns = array_diff($this->getColumns(), $this->getMapper()->getAttributes())) === false) {
+            $this->setErrors(sprintf(self::INVALID_COLUMNS, implode(',', $columns)));
+            return;
         }
     }
 }

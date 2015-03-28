@@ -119,17 +119,14 @@ class UserMapper implements InjectionAwareInterface, ModelCrudInterface {
     }
 
     /**
-     * Read user
+     * Read users
      *
-     * @param int $id
-     * @param array $data
+     * @param array $credentials credentials
      * @return mixed
      */
-    public function read($id = null, array $data = []) {
+    public function read(array $credentials = []) {
 
-        $result = (empty($id) === true) ? $this->getList() : $this->getOne($id);
-
-        return $result;
+        return Users::find($credentials);
     }
 
     /**

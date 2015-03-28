@@ -120,11 +120,10 @@ class LogMapper extends LoggerDatabase
     /**
      * Read logs
      *
-     * @param int $id
-     * @param array $data
+     * @param array $credentials
      * @return mixed
      */
-    public function read($id = null, array $data = []) {
+    public function read(array $credentials = []) {
 
     }
 

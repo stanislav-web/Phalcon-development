@@ -32,7 +32,7 @@ return [
                     'api/v1/users'
                 ],
             ],
-            'mapper'   => 'PageMapper'
+            'mapper'   => 'UserMapper'
         ],
         'auth'    =>  [
             'requests'  =>  [  // limit request per time

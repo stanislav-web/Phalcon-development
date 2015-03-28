@@ -100,19 +100,12 @@ class PageMapper implements InjectionAwareInterface, ModelCrudInterface {
     /**
      * Read pages
      *
-     * @param int $id get by id
-     * @param array $data conditions
-     * @param int $limit conditions
+     * @param array $credentials credentials
      * @return mixed
      */
-    public function read($id = null, array $data = [], $limit = null) {
+    public function read(array $credentials = []) {
 
-        $result = (empty($id) === true)
-            ? (is_null($limit) === true ? $this->getList($data)
-                : $this->getOne(null, $data))
-        :  $this->getOne($id);
-
-        return $result;
+        return Pages::find($credentials);
     }
 
     /**
@@ -174,30 +167,5 @@ class PageMapper implements InjectionAwareInterface, ModelCrudInterface {
      */
     public function getErrors() {
         return $this->errors;
-    }
-
-    /**
-     * Get page by Id
-     *
-     * @param int $id
-     * @param array $params
-     * @return \Phalcon\Mvc\Model
-     */
-    public function getOne($id = null, array $params = [])
-    {
-        return (is_null($id) === false)
-            ? Pages::findFirst($id)
-            : Pages::findFirst($params);
-    }
-
-    /**
-     * Get pages by condition
-     *
-     * @param array $params
-     * @return \Phalcon\Mvc\Model
-     */
-    public function getList(array $params = [])
-    {
-        return Pages::find($params);
     }
 }

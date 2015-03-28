@@ -26,10 +26,10 @@ interface ModelCrudInterface {
      * Read record(s)
      *
      * @param int $id
-     * @param array $data
+     * @param array $credentials
      * @return boolean
      */
-    public function read($id, array $data);
+    public function read(array $credentials);
 
     /**
      * Update record

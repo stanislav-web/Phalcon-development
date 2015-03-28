@@ -23,6 +23,13 @@ class ControllerBase extends Controller
     protected $rest;
 
     /**
+     * Response data
+     *
+     * @var array $responseData
+     */
+    protected $responseData = [];
+
+    /**
      * Is request data has been modified ?
      *
      * @var boolean
@@ -45,6 +52,7 @@ class ControllerBase extends Controller
      */
     public function afterExecuteRoute()
     {
+        $this->rest->setMessage($this->responseData);
         $this->rest->response($this->notModified);
     }
 

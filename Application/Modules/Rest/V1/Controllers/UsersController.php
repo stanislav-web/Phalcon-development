@@ -41,17 +41,17 @@ class UsersController extends ControllerBase {
      */
     public function indexAction() {
 
+        if($this->rest->getResolver()->hasErrors() === false)  {
 
-        $responseData = $this->cache->exists($this->key)
-            ? $this->cache->get($this->key)
-            : $this->cache->set(
-                $this->getDI()->get('UserMapper')->read()->toArray(),
-                $this->key,
-                true
-            );
-
-        $this->notModified = $this->cache->isCached();
-        $this->rest->setMessage($responseData);
+            $this->responseData = $this->cache->exists($this->key)
+                ? $this->cache->get($this->key)
+                : $this->cache->set(
+                    $this->getDI()->get('UserMapper')->read($this->rest->getParams())->toArray(),
+                    $this->key,
+                    true
+                );
+            $this->notModified = $this->cache->isCached();
+        }
     }
 
     /**
