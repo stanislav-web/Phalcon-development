@@ -22,7 +22,7 @@ return [
     'users'  =>  [
         'index'    =>  [
             'requests'  =>  [  // limit request per seconds
-                    'limit' =>  1,
+                    'limit' =>  10,
                     'time'  =>  1,
                 ],
             'methods'   => 'GET,POST,PUT',
@@ -32,29 +32,29 @@ return [
                     'api/v1/users'
                 ],
             ],
-            'handler'   => 'PageMapper'
+            'mapper'   => 'PageMapper'
         ],
         'auth'    =>  [
             'requests'  =>  [  // limit request per time
-                'limit' =>  1,
+                'limit' =>  10,
                 'time'  =>  1,
             ],
             'methods'    => 'GET',
             'params'     => [
                 'required' => 'access'
             ],
-            'handler'   => 'PageMapper'
+            'mapper'   => 'PageMapper'
         ]
     ],
 
     'pages'  =>  [
         'index'    =>  [
             'requests'  =>  [  // limit request per seconds
-                'limit' =>  1,
+                'limit' =>  10,
                 'time'  =>  1,
             ],
             'methods'   => 'GET,POST,PUT,DELETE',
-            'handler'   => 'PageMapper'
+            'mapper'   => 'PageMapper'
         ]
     ]
 ];

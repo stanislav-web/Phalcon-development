@@ -14,13 +14,12 @@ return [
         ],
         'acceptQueryLength'    => 121,
 
-        'validators' => [
+        'requestResolvers' => [
             '\Application\Modules\Rest\Events\BeforeExecuteRoute\ResolveMethod',
             '\Application\Modules\Rest\Events\BeforeExecuteRoute\ResolveRequestLimit',
             '\Application\Modules\Rest\Events\BeforeExecuteRoute\ResolveAccept',
             '\Application\Modules\Rest\Events\BeforeExecuteRoute\ResolveAccess',
             '\Application\Modules\Rest\Events\BeforeExecuteRoute\ResolveRequestLength',
-            //'\Application\Modules\Rest\Events\BeforeExecuteRoute\ResolveValidRequest'
         ]
     ]
 ];

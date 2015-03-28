@@ -3,7 +3,7 @@ namespace Application\Modules\Rest\Services;
 
 use Phalcon\Filter;
 use Application\Modules\Rest\Aware\RestValidatorCollectionsProvider;
-
+use Application\Modules\Rest\Validators\QueryStringValidator;
 /**
  * Class RestValidatorCollectionService. Rest validator's collections
  *
@@ -32,18 +32,24 @@ class RestValidatorCollectionService extends RestValidatorCollectionsProvider {
     private $params  = [];
 
     /**
-     * Initialize validators
+     * Initialize filter
+     * Setup request input parameters
+     * Valid all level request by collections
      *
+     * @param \Phalcon\Http\Request $request
+     * @return RestValidatorCollectionService
      */
-    public function init() {
+    public function filter(\Phalcon\Http\Request $request) {
+
 
         $collection = $this->getCollection();
-        $this->setParams($this->getRequest());
+        $this->setParams($request)->setRequest($request);
 
         foreach($collection as $valid) {
             (new $valid())->run($this->getDi(), $this->getRules(), $this->getParams());
         }
 
+        return $this;
     }
 
     /**
@@ -70,6 +76,16 @@ class RestValidatorCollectionService extends RestValidatorCollectionsProvider {
     }
 
     /**
+     * Check if errors exist
+     *
+     * @return boolean
+     */
+    public function hasErrors() {
+
+        return (!empty($this->errors));
+    }
+
+    /**
      * Set error message
      *
      * @param array|string $errors
@@ -77,7 +93,7 @@ class RestValidatorCollectionService extends RestValidatorCollectionsProvider {
      */
     public function setErrors($errors) {
 
-        $this->errors['errors'][] = $errors;
+        $this->errors = $errors;
 
         return $this;
     }
@@ -116,5 +132,24 @@ class RestValidatorCollectionService extends RestValidatorCollectionsProvider {
 
             return $value;
         }, $params);
+    }
+
+    /**
+     * Validate client requests
+     *
+     * @throws \Application\Modules\Rest\Exceptions\InternalServerErrorException
+     */
+    public function validate() {
+
+        if(empty($this->params) === false) {
+
+            $query = (new QueryStringValidator($this->getDi()))
+                ->validate($this->getRules(), $this->getParams());
+
+            if($query->hasErrors() === true) {
+
+                $this->setErrors($query->getErrors());
+            }
+        }
     }
 }

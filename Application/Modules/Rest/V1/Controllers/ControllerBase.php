@@ -35,6 +35,7 @@ class ControllerBase extends Controller
     public function beforeExecuteRoute()
     {
         $this->rest =  $this->getDI()->get("RestService");
+        $this->rest->getResolver()->filter($this->request)->validate();
     }
 
     /**
@@ -44,9 +45,6 @@ class ControllerBase extends Controller
      */
     public function afterExecuteRoute()
     {
-        //@TODO Set Cache Header and response status with E-Tag
-
-        //$this->rest->setStatusMessage(304, 'Not Modified');
         $this->rest->response($this->notModified);
     }
 

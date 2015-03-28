@@ -63,8 +63,6 @@ class RestService implements RestServiceInterface {
      */
     public function __construct(\Application\Modules\Rest\Services\RestValidatorCollectionService $validator) {
 
-        $validator->init();
-
         $this->setResolver($validator)->setHeader($this->headers);
     }
 
@@ -85,7 +83,7 @@ class RestService implements RestServiceInterface {
      *
      * @return \Application\Modules\Rest\Services\RestValidatorCollectionService
      */
-    private function getResolver()
+    public function getResolver()
     {
         return $this->resolver;
     }
@@ -118,7 +116,7 @@ class RestService implements RestServiceInterface {
      *
      * @return \Application\Modules\Rest\Services\RestCacheService
      */
-    public function getCacheService() {
+    private function getCacheService() {
         return  $this->getResolver()->getDi()->getShared('RestCache');
     }
 
@@ -199,6 +197,11 @@ class RestService implements RestServiceInterface {
 
         if(array_key_exists('code', $this->message) === false) {
             $this->setStatusMessage(); // set by default
+        }
+
+        if($this->getResolver()->hasErrors() === true) {
+            $this->message = $this->getResolver()->getErrors();
+            $this->setStatusMessage($this->message['code'], $this->message['message']);
         }
 
         if($this->message['code'] > self::CODE_NOT_MODIFIED) {

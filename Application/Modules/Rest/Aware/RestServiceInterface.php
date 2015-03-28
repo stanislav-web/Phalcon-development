@@ -91,13 +91,6 @@ interface RestServiceInterface {
     public function setContentLength($content);
 
     /**
-     * Get REST Cache Service
-     *
-     * @return \Application\Modules\Rest\Services\RestCacheService
-     */
-    public function getCacheService();
-
-    /**
      * Set configured cache header
      */
     public function setCacheHeader();

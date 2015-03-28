@@ -36,7 +36,14 @@ abstract class RestValidatorCollectionsProvider
      *
      * @var \StdClass $rules
      */
-    protected $rules = null;
+    protected $rules;
+
+    /**
+     * Request service
+     *
+     * @var \Phalcon\Http\Request $request
+     */
+    protected $request;
 
     /**
      * Setup validators
@@ -45,7 +52,7 @@ abstract class RestValidatorCollectionsProvider
      */
     public function __construct(\Phalcon\DI\FactoryDefault $di) {
 
-        $this->setCollection($di->get('RestConfig')->api->validators->toArray())
+        $this->setCollection($di->get('RestConfig')->api->requestResolvers->toArray())
             ->setDi($di)
             ->setRules($di->get('RestRules'));
     }
@@ -90,7 +97,17 @@ abstract class RestValidatorCollectionsProvider
      */
     public function getRequest()
     {
-        return $this->getDi()->getShared('request');
+        return $this->request;
+    }
+
+    /**
+     * Set request instance
+     *
+     * @return \Phalcon\Http\Request
+     */
+    public function setRequest(\Phalcon\Http\Request $request)
+    {
+        return $this->request = $request;
     }
 
     /**
@@ -184,9 +201,21 @@ abstract class RestValidatorCollectionsProvider
     abstract protected function setErrors($errors);
 
     /**
+     * Check if errors exist
+     *
+     * @return boolean
+     */
+    abstract protected function hasErrors();
+
+    /**
      * Get error messages
      *
      * @return array
      */
     abstract protected function getErrors();
+
+    /**
+     * Client request validator
+     */
+    abstract protected function validate();
 }
