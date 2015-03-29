@@ -5,6 +5,7 @@ use Application\Modules\Rest\Aware\RestSecurityProvider;
 use Application\Modules\Rest\Exceptions\BadRequestException;
 use Application\Modules\Rest\Exceptions\NotFoundException;
 use Application\Modules\Rest\Exceptions\UnauthorizedException;
+use Phalcon\Mvc\Model\Resultset\Simple as ResultSet;
 
 /**
  * Class SecurityService. Rest security provider
@@ -57,22 +58,15 @@ class SecurityService extends RestSecurityProvider {
      * @param int $user_id Auth user ID
      * @param string $token Generated token
      * @param int $expire_date Token date expiry
-     * @return bool|array
+     * @return ResultSet
      */
     protected function setToken($user_id, $token, $expire_date) {
 
-        $authData = $this->getUserMapper()->setAccessToken(
+        $model = $this->getUserMapper()->setAccessToken(
             $user_id, $token, $expire_date
         );
 
-        if($authData != false) {
-
-            $result = $authData->toArray();
-            $result['token'] = base64_encode($result['token']);
-
-        }
-
-        return $result;
+        return $model->find(['user_id ='. $user_id]);
     }
 
     /**
@@ -83,10 +77,9 @@ class SecurityService extends RestSecurityProvider {
     public function isAuthenticated() {
 
         $token = $this->getToken();
-
         $this->token = $this->getUserMapper()->getAccess()->findFirst([
                 "token = ?0 AND expire_date > NOW()",
-                "bind" => [base64_decode($token)],
+                "bind" => [$token],
             ]
         );
 
@@ -120,7 +113,7 @@ class SecurityService extends RestSecurityProvider {
      *
      * @param string $login
      * @param string $password
-     * @return boolean
+     * @return ResultSet
      */
     public function authenticate($login, $password) {
 
@@ -137,22 +130,15 @@ class SecurityService extends RestSecurityProvider {
                     (time() + $this->getConfig()->tokenLifetime)
                 );
 
-                if(is_array($accessToken) === true) {
+                $this->getUserMapper()->refresh($user->getId(), [
+                    'ip' => $this->getRequest()->getClientAddress(),
+                    'ua' => $this->getRequest()->getUserAgent(),
+                ]);
 
-                    $this->getUserMapper()->refresh($user->getId(), [
-                        'ip'    =>  $this->getRequest()->getClientAddress(),
-                        'ua'    =>  $this->getRequest()->getUserAgent(),
-                    ]);
-
-                    return $accessToken;
-                }
-                else {
-                    throw new BadRequestException();
-                }
+                return $accessToken;
             }
             else {
-                $this->setError('INVALID_AUTH_DATA');
-                throw new UnauthorizedException();
+                throw new UnauthorizedException('Unauthorized', 401);
             }
         }
         else {

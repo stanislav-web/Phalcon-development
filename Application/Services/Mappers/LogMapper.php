@@ -4,7 +4,6 @@ namespace Application\Services\Mappers;
 use \Phalcon\DI\InjectionAwareInterface;
 use \Phalcon\Logger;
 use \Phalcon\Logger\Adapter\Database as LoggerDatabase;
-use Application\Aware\ModelCrudInterface;
 use Application\Models\Logs;
 
 /**
@@ -19,7 +18,7 @@ use Application\Models\Logs;
  * @filesource /Application/Services/Mappers/LogMapper.php
  */
 class LogMapper extends LoggerDatabase
-    implements InjectionAwareInterface, ModelCrudInterface {
+    implements InjectionAwareInterface {
 
     /**
      * Available log code
@@ -97,6 +96,18 @@ class LogMapper extends LoggerDatabase
     }
 
     /**
+     * Read logs
+     *
+     * @param array $credentials credentials
+     * @return mixed
+     */
+    public function read(array $credentials = []) {
+
+        $result = $this->getInstance()->find($credentials);
+        return $result;
+    }
+
+    /**
      * Get model attributes
      *
      * @return array
@@ -107,6 +118,15 @@ class LogMapper extends LoggerDatabase
         return $metaData->getAttributes($this->getInstance());
     }
 
+
+
+
+
+
+
+
+
+
     /**
      * Create log record
      *
@@ -114,16 +134,6 @@ class LogMapper extends LoggerDatabase
      * return boolean
      */
     public function create(array $data) {
-
-    }
-
-    /**
-     * Read logs
-     *
-     * @param array $credentials
-     * @return mixed
-     */
-    public function read(array $credentials = []) {
 
     }
 
@@ -163,26 +173,6 @@ class LogMapper extends LoggerDatabase
      */
     public function getErrors() {
         return $this->errors;
-    }
-
-    /**
-     * Get log record by Id
-     *
-     * @param int $id
-     * @return \Phalcon\Mvc\Model
-     */
-    public function getOne($id)
-    {
-    }
-
-    /**
-     * Get log record by condition
-     *
-     * @param array $params
-     * @return \Phalcon\Mvc\Model
-     */
-    public function getList(array $params = [])
-    {
     }
 
     /**

@@ -42,7 +42,7 @@ class PagesController extends ControllerBase {
     public function getAction() {
 
         if($this->rest->getResolver()->hasErrors() === false)  {
-            $this->responseData = $this->cache->exists($this->key) ? $this->cache->get($this->key)
+            $this->response = $this->cache->exists($this->key) ? $this->cache->get($this->key)
                 : $this->cache->set(
                     $this->getDI()->get('PageMapper')->read($this->rest->getParams()),
                     $this->key,

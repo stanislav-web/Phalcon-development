@@ -42,7 +42,7 @@ class CategoriesController extends ControllerBase {
     public function getAction() {
 
         if($this->rest->getResolver()->hasErrors() === false)  {
-            $this->responseData = $this->cache->exists($this->key) ? $this->cache->get($this->key)
+            $this->response = $this->cache->exists($this->key) ? $this->cache->get($this->key)
                 : $this->cache->set(
                     $this->getDI()->get('CategoryMapper')->read($this->rest->getParams()),
                     $this->key,

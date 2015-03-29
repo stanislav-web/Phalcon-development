@@ -135,12 +135,12 @@ class QueryValidator {
      */
     public function setErrors($errors) {
 
-        if(empty($this->errors['info']) === true) {
+        if(empty($this->errors['data']) === true) {
             $this->errors['code']       = BadRequestException::CODE;
             $this->errors['message']    = BadRequestException::MESSAGE;
         }
-        $this->errors['info'][]  = $errors;
-
+        $this->errors['data'][]  = $errors;
+        $this->errors['resource'] = $this->getDi()->get('request')->getUri();
         return $this;
     }
 
@@ -196,12 +196,12 @@ class QueryValidator {
             $this->setErrors([
                 'EMPTY_PARAMETER_IN_URI' => sprintf(self::EMPTY_PARAMETER_IN_URI)
             ]);
-            return;
         }
 
         if (empty($columns = array_diff($this->getColumns(), $this->getMapper()->getAttributes())) === false) {
-            $this->setErrors(['INVALID_COLUMNS' => sprintf(self::INVALID_COLUMNS, implode(',', $columns))]);
-            return;
+            $this->setErrors([
+                'INVALID_COLUMNS' => sprintf(self::INVALID_COLUMNS, implode(',', $columns))
+            ]);
         }
     }
 }

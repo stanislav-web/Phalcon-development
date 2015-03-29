@@ -46,6 +46,13 @@ abstract class RestValidatorCollectionsProvider
     protected $request;
 
     /**
+     * Response data
+     *
+     * @var array $response
+     */
+    protected $response;
+
+    /**
      * Setup validators
      *
      * @param \Phalcon\DI\FactoryDefault $di
@@ -98,6 +105,26 @@ abstract class RestValidatorCollectionsProvider
     public function getRequest()
     {
         return $this->request;
+    }
+
+    /**
+     * Get response
+     *
+     * @return array
+     */
+    public function getResponse()
+    {
+        return $this->response;
+    }
+
+    /**
+     * Set response data
+     *
+     * @return array $response
+     */
+    public function setResponse(array $response)
+    {
+        return $this->response = $response;
     }
 
     /**
@@ -215,7 +242,14 @@ abstract class RestValidatorCollectionsProvider
     abstract protected function getErrors();
 
     /**
-     * Pre validate client request
+     * Request validate
      */
-    abstract protected function validate();
+    abstract protected function requestValidate();
+
+    /**
+     * Response validate
+     *
+     * @param mixed $responseData
+     */
+    abstract protected function responseValidate($responseData);
 }

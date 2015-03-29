@@ -49,6 +49,23 @@ return [
         ],
     ],
 
+    'logs'  =>  [
+        'get'    =>  [
+            'requests'  =>  [  // limit request per seconds
+                'limit' =>  10,
+                'time'  =>  1,
+            ],
+            'methods'   => 'GET',
+            'authentication'    =>  true,   // need access token ?
+            'access'    =>   [  // access routes restrict for ACL
+                UserRoles::ADMIN =>  [
+                    'api/v1/logs'
+                ],
+            ],
+            'mapper'   => 'LogMapper'
+        ],
+    ],
+
     'pages'  =>  [
         'get'    =>  [
             'requests'  =>  [  // limit request per seconds

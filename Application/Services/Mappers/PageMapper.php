@@ -1,10 +1,8 @@
 <?php
 namespace Application\Services\Mappers;
 
-use \Phalcon\DI\InjectionAwareInterface;
-use Application\Aware\ModelCrudInterface;
+use Application\Aware\ModelCrudAbstract;
 use Application\Models\Pages;
-use Application\Modules\Rest\Validators\ResultSetValidator;
 
 /**
  * Class PageMapper. Actions above application pages
@@ -17,40 +15,7 @@ use Application\Modules\Rest\Validators\ResultSetValidator;
  * @copyright Stanislav WEB
  * @filesource /Application/Services/Mappers/PageMapper.php
  */
-class PageMapper implements InjectionAwareInterface, ModelCrudInterface {
-
-    /**
-     * Dependency injection container
-     *
-     * @var \Phalcon\DiInterface $di;
-     */
-    private $di;
-
-    /**
-     * Errors array
-     *
-     * @var array $errors;
-     */
-    private $errors = [];
-
-    /**
-     * Set dependency container
-     *
-     * @param \Phalcon\DiInterface $di
-     */
-    public function setDi($di)
-    {
-        $this->di = $di;
-    }
-
-    /**
-     * Get dependency container
-     * @return \Phalcon\DiInterface
-     */
-    public function getDi()
-    {
-        return $this->di;
-    }
+class PageMapper extends ModelCrudAbstract {
 
     /**
      * Get instance of polymorphic object
@@ -61,29 +26,6 @@ class PageMapper implements InjectionAwareInterface, ModelCrudInterface {
         return new Pages();
     }
 
-    /**
-     * Get model attributes
-     *
-     * @return array
-     */
-    public function getAttributes()
-    {
-        $metaData = $this->getInstance()->getModelsMetaData();
-        return $metaData->getAttributes($this->getInstance());
-    }
-
-    /**
-     * Read pages
-     *
-     * @param array $credentials credentials
-     * @return mixed
-     */
-    public function read(array $credentials = []) {
-
-        $result = $this->getInstance()->find($credentials);
-
-        return (new ResultSetValidator($result))->resolve();
-    }
 
 
 

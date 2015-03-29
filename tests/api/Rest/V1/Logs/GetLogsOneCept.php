@@ -1,7 +1,7 @@
 <?php 
 $I = new ApiTester($scenario);
 
-$I->wantTo('GET users list: /api/v1/users');
+$I->wantTo('GET logs by id: /api/v1/logs/1');
 
 $I->setHeader('Accept', '*/*');
 $I->setHeader('Accept-Language', 'en-GB');
@@ -11,11 +11,8 @@ $auth = $I->grabDataFromJsonResponse();
 
 $I->amBearerAuthenticated($auth['data'][0]['token']);
 
-$I->sendGET('api/v1/users');
+$I->sendGET('api/v1/logs/1');
 $I->seeResponseCodeIs(200);
-$I->seeHttpHeader('Access-Control-Allow-Methods', 'GET,POST,PUT');
+$I->seeHttpHeader('Access-Control-Allow-Methods', 'GET');
 $I->seeHttpHeader('Access-Control-Allow-Origin', '*');
 $I->seeResponseIsJson();
-$I->seeResponseJsonMatchesJsonPath('$.data[0]user_id');
-$I->seeResponseJsonMatchesJsonPath('$.data[0]token');
-$I->seeResponseJsonMatchesJsonPath('$.data[0]expire_date');

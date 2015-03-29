@@ -1,12 +1,8 @@
 <?php
 namespace Application\Services\Mappers;
 
-use \Phalcon\DI\InjectionAwareInterface;
-use \Phalcon\Db\Exception as DbException;
-use \Phalcon\Mvc\Model\Transaction\Failed as TransactionException;
+use Application\Aware\ModelCrudAbstract;
 use Application\Models\Categories;
-use Application\Models\EnginesCategoriesRel;
-use Application\Aware\ModelCrudInterface;
 
 /**
  * Class CategoryMapper. Actions above application categories
@@ -19,40 +15,7 @@ use Application\Aware\ModelCrudInterface;
  * @copyright Stanislav WEB
  * @filesource /Application/Services/Mappers/CategoryMapper.php
  */
-class CategoryMapper implements InjectionAwareInterface, ModelCrudInterface {
-
-    /**
-     * Dependency injection container
-     *
-     * @var \Phalcon\DiInterface $di;
-     */
-    private $di;
-
-    /**
-     * Errors array
-     *
-     * @var array $errors;
-     */
-    private $errors = [];
-
-    /**
-     * Set dependency container
-     *
-     * @param \Phalcon\DiInterface $di
-     */
-    public function setDi($di)
-    {
-        $this->di = $di;
-    }
-
-    /**
-     * Get dependency container
-     * @return \Phalcon\DiInterface
-     */
-    public function getDi()
-    {
-        return $this->di;
-    }
+class CategoryMapper extends ModelCrudAbstract {
 
     /**
      * Get instance of polymorphic object
@@ -63,16 +26,46 @@ class CategoryMapper implements InjectionAwareInterface, ModelCrudInterface {
         return new Categories();
     }
 
-    /**
-     * Get model attributes
-     *
-     * @return array
-     */
-    public function getAttributes()
-    {
-        $metaData = $this->getInstance()->getModelsMetaData();
-        return $metaData->getAttributes($this->getInstance());
-    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      * Create category
@@ -130,16 +123,7 @@ class CategoryMapper implements InjectionAwareInterface, ModelCrudInterface {
         }
     }
 
-    /**
-     * Read categories
-     *
-     * @param array $credentials credentials
-     * @return mixed
-     */
-    public function read(array $credentials = []) {
 
-        return Categories::find($credentials);
-    }
 
     /**
      * Update category

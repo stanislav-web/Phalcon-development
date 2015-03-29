@@ -3,6 +3,7 @@ namespace Application\Modules\Rest\Validators;
 
 use Application\Modules\Rest\Exceptions\BadRequestException;
 use Application\Modules\Rest\Exceptions\NotFoundException;
+use Phalcon\Mvc\Model\Resultset\Simple as ResultSet;
 
 /**
  * Class ResultSetValidator. Checking response
@@ -17,14 +18,27 @@ use Application\Modules\Rest\Exceptions\NotFoundException;
  */
 class ResultSetValidator {
 
+    const CODE_OK               = 200;
+    const CODE_CREATED          = 201;
+    const CODE_NOT_MODIFIED     = 304;
+    const MESSAGE_OK            = '0K';
+    const MESSAGE_CREATED       = 'Created';
+    const MESSAGE_NOT_MODIFIED  = 'Not Modified';
     const RECORDS_NOT_FOUND  = 'The records not found';
 
     /**
-     * Resultset definition
+     * Resultset response definition
      *
-     * @var \Phalcon\Mvc\Model\Resultset\Simple $result
+     * @var \Phalcon\Mvc\Model\Resultset\Simple $response
      */
-    private $result;
+    private $response;
+
+    /**
+     * Result definition
+     *
+     * @var array $result
+     */
+    private $result = [];
 
     /**
      * Error messages
@@ -36,30 +50,61 @@ class ResultSetValidator {
     /**
      * Setup definition
      *
-     * @param \Phalcon\Mvc\Model\Resultset\Simple $result
+     * @param mixed $response
      */
-    public function __construct(\Phalcon\Mvc\Model\Resultset\Simple $result) {
+    public function __construct($response) {
 
-        $this->setResult($result);
+        $this->setResponse($response);
     }
 
     /**
-     * Set result set
+     * Set response set
      *
-     * @param \Phalcon\Mvc\Model\Resultset\Simple $result
+     * @param \Phalcon\Mvc\Model\Resultset\Simple $response
      * @return ResultSetValidator
      */
-    public function setResult($result)
+    private function setResponse($response)
     {
-        $this->result = $result;
+        $this->response = $response;
 
         return $this;
     }
 
     /**
-     * Get hydrated result object
+     * Get hydrated response object
      *
-     * @return \Phalcon\Mvc\Model\Resultset\Simple $result
+     * @return \Phalcon\Mvc\Model\Resultset\Simple
+     */
+    private function getResponse()
+    {
+        return $this->response;
+    }
+
+    /**
+     * Set result set
+     *
+     * @return ResultSetValidator
+     */
+    private function setResult()
+    {
+        if($this->hasErrors() === false) {
+
+            $result = [];
+            $result['code'] = self::CODE_OK;
+            $result['message'] = self::MESSAGE_OK;
+            $this->result = (array_merge($result, ['data' => $this->getResponse()->toArray()]));
+        }
+        else {
+            $this->result = $this->getErrors();
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get result data
+     *
+     * @return array
      */
     public function getResult()
     {
@@ -72,13 +117,13 @@ class ResultSetValidator {
      * @param array|string $errors
      * @return ResultSetValidator
      */
-    public function notFoundRecords() {
+    private function notFoundRecords() {
 
-        if(empty($this->errors['info']) === true) {
+        if(empty($this->errors['data']) === true) {
             $this->errors['code']       = NotFoundException::CODE;
             $this->errors['message']    = NotFoundException::MESSAGE;
         }
-        $this->errors['info'][]  = [
+        $this->errors['data'][]  = [
             'RECORDS_NOT_FOUND' => self::RECORDS_NOT_FOUND
         ];
     }
@@ -89,14 +134,14 @@ class ResultSetValidator {
      * @param array|string $errors
      * @return ResultSetValidator
      */
-    public function invalidResult($messages) {
+    private function invalidResponse($messages) {
 
-        if(empty($this->errors['info']) === true) {
+        if(empty($this->errors['data']) === true) {
             $this->errors['code']       = BadRequestException::CODE;
             $this->errors['message']    = BadRequestException::MESSAGE;
         }
-        $this->errors['info'][]  = [
-            'INVALID_RESULT' => $messages
+        $this->errors['data'][]  = [
+            'INVALID_RESPONSE' => $messages
         ];
     }
 
@@ -120,26 +165,27 @@ class ResultSetValidator {
     }
 
     /**
-     * Resolve response message
+     * Validate response
+     * @return ResultSetValidator
      */
-    public function resolve()
+    public function validate()
     {
-        if($this->getResult()->valid() === true) {
+        if($this->getResponse() instanceof ResultSet) {
 
-            // result fine
-            return $this->getResult()->toArray();
-        }
-        else {
+            if($this->getResponse()->valid() === false) {
 
-            // error handling
-            if(is_null($this->getResult()->getMessages()) === true) {
-                $this->notFoundRecords($this->getResult());
+                // error handling
+                if(is_null($this->getResponse()->getMessages()) === true) {
+                    $this->notFoundRecords();
+                }
+                else {
+                    $this->invalidResponse($this->getResponse()->getMessages());
+                }
             }
-            else {
-                $this->invalidResult($this->getResult()->getMessages());
-            }
+
+            $this->setResult();
         }
 
-        return $this->getErrors();
+        return $this;
     }
 }

@@ -1,12 +1,10 @@
 <?php
 namespace Application\Services\Mappers;
 
-use \Phalcon\DI\InjectionAwareInterface;
-use Application\Aware\ModelCrudInterface;
+use Application\Aware\ModelCrudAbstract;
 use Application\Models\Users;
 use Application\Models\UserRoles;
 use Application\Models\UserAccess;
-use Application\Modules\Rest\Validators\ResultSetValidator;
 
 /**
  * Class UserMapper. Actions above users
@@ -19,41 +17,7 @@ use Application\Modules\Rest\Validators\ResultSetValidator;
  * @copyright Stanislav WEB
  * @filesource /Application/Services/Mappers/UserMapper.php
  */
-class UserMapper implements InjectionAwareInterface, ModelCrudInterface {
-
-    /**
-     * Dependency injection container
-     *
-     * @var \Phalcon\DiInterface $di;
-     */
-    protected $di;
-
-    /**
-     * Errors array
-     *
-     * @var array $errors;
-     */
-    private $errors = [];
-
-    /**
-     * Set dependency container
-     *
-     * @param \Phalcon\DiInterface $di
-     */
-    public function setDi($di)
-    {
-        $this->di = $di;
-    }
-
-    /**
-     * Get dependency container
-     *
-     * @return \Phalcon\DiInterface
-     */
-    public function getDi()
-    {
-        return $this->di;
-    }
+class UserMapper extends ModelCrudAbstract {
 
     /**
      * Get instance of polymorphic object
@@ -64,7 +28,6 @@ class UserMapper implements InjectionAwareInterface, ModelCrudInterface {
         return new Users();
     }
 
-
     /**
      * Read users
      *
@@ -74,8 +37,29 @@ class UserMapper implements InjectionAwareInterface, ModelCrudInterface {
     public function read(array $credentials = []) {
 
         $result = $this->getInstance()->find($credentials);
+        return $result;
+    }
 
-        return (new ResultSetValidator($result))->resolve();
+
+
+
+
+
+
+    /**
+     * Set user access token
+     *
+     * @param int $user_id Auth user ID
+     * @param string $token Generated token
+     * @param int $expire_date Token date expiry
+     * @return UserAccess|bool
+     */
+    public function setAccessToken($user_id, $token, $expire_date)
+    {
+        $userAccess = new UserAccess();
+        $userAccess->setUserId($user_id)->setToken($token)->setExpireDate($expire_date);
+        $userAccess->save();
+        return $userAccess;
     }
 
     /**
@@ -286,30 +270,6 @@ class UserMapper implements InjectionAwareInterface, ModelCrudInterface {
     public function getList(array $params = [])
     {
         return Users::find($params);
-    }
-
-    /**
-     * Set user access token
-     *
-     * @param int $user_id Auth user ID
-     * @param string $token Generated token
-     * @param int $expire_date Token date expiry
-     * @return UserAccess|bool
-     */
-    public function setAccessToken($user_id, $token, $expire_date)
-    {
-        $userAccess = new UserAccess();
-        $userAccess->setUserId($user_id)->setToken($token)->setExpireDate($expire_date);
-
-        if($userAccess->save() === true) {
-
-            return $userAccess;
-        }
-        else {
-            $this->setErrors($userAccess->getMessages());
-
-            return false;
-        }
     }
 
     /**

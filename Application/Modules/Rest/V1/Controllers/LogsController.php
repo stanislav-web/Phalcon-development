@@ -2,16 +2,16 @@
 namespace Application\Modules\Rest\V1\Controllers;
 
 /**
- * Class UsersController
+ * Class LogsController
  *
  * @package    Application\Modules\Rest
  * @subpackage    Controllers
  * @since PHP >=5.4
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
- * @filesource /Application/Modules/Rest/Controllers/UsersController.php
+ * @filesource /Application/Modules/Rest/Controllers/LogsController.php
  */
-class UsersController extends ControllerBase {
+class LogsController extends ControllerBase {
 
     /**
      * REST cache container
@@ -37,16 +37,14 @@ class UsersController extends ControllerBase {
     }
 
     /**
-     * GET User's list action
+     * GET Pages action
      */
     public function getAction() {
 
         if($this->rest->getResolver()->hasErrors() === false)  {
-
-            $this->response = $this->cache->exists($this->key)
-                ? $this->cache->get($this->key)
+            $this->response = $this->cache->exists($this->key) ? $this->cache->get($this->key)
                 : $this->cache->set(
-                    $this->getDI()->get('UserMapper')->read($this->rest->getParams()),
+                    $this->getDI()->get('LogMapper')->read($this->rest->getParams()),
                     $this->key,
                     true
                 );

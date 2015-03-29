@@ -19,10 +19,9 @@ class AuthController extends ControllerBase {
     public function getAction() {
 
         $params = $this->rest->getParams();
-        $this->rest->setMessage(
+        $this->response =
             $this->getDI()->get('RestSecurityService')->authenticate(
                 $params['login'], $params['password']
-            )
         );
     }
 }

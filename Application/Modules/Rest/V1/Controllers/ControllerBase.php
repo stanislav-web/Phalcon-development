@@ -23,11 +23,11 @@ class ControllerBase extends Controller
     protected $rest;
 
     /**
-     * Response data
+     * Response data (override)
      *
-     * @var array $responseData
+     * @var array $response
      */
-    protected $responseData = [];
+    protected $response = [];
 
     /**
      * Is request data has been modified ?
@@ -42,7 +42,7 @@ class ControllerBase extends Controller
     public function beforeExecuteRoute()
     {
         $this->rest =  $this->getDI()->get("RestService");
-        $this->rest->getResolver()->filter($this->request)->validate();
+        $this->rest->getResolver()->filter($this->request)->requestValidate();
     }
 
     /**
@@ -52,8 +52,8 @@ class ControllerBase extends Controller
      */
     public function afterExecuteRoute()
     {
-        $this->rest->setMessage($this->responseData);
-        $this->rest->response($this->notModified);
+        $this->rest->getResolver()->responseValidate($this->response);
+        $this->rest->response($this->notModified)->send();
     }
 
     /**

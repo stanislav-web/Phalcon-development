@@ -1,0 +1,74 @@
+<?php
+namespace Application\Aware;
+use Phalcon\DI\InjectionAwareInterface;
+
+/**
+ * ModelCrudAbstract. Implementing rules necessary intended for service's models
+ *
+ * @package Application
+ * @subpackage Aware
+ * @since      PHP >=5.4
+ * @version    1.0
+ * @author     Stanislav WEB | Lugansk <stanisov@gmail.com>
+ * @copyright  Stanislav WEB
+ * @filesource /Application/Aware/ModelCrudAbstract.php
+ */
+abstract class ModelCrudAbstract implements InjectionAwareInterface {
+
+    /**
+     * Dependency injection container
+     *
+     * @var \Phalcon\DiInterface $di;
+     */
+    private $di;
+
+    /**
+     * Set dependency container
+     *
+     * @param \Phalcon\DiInterface $di
+     */
+    public function setDi($di)
+    {
+        $this->di = $di;
+    }
+
+    /**
+     * Get dependency container
+     *
+     * @return \Phalcon\DiInterface
+     */
+    public function getDi()
+    {
+        return $this->di;
+    }
+
+    /**
+     * Get model attributes
+     *
+     * @return array
+     */
+    public function getAttributes()
+    {
+        $metaData = $this->getInstance()->getModelsMetaData();
+        return $metaData->getAttributes($this->getInstance());
+    }
+
+    /**
+     * Read pages
+     *
+     * @param array $credentials credentials
+     * @return mixed
+     */
+    public function read(array $credentials = []) {
+
+        $result = $this->getInstance()->find($credentials);
+        return $result;
+    }
+
+    /**
+     * Get instance of polymorphic Model
+     *
+     * @return Model
+     */
+    abstract public function getInstance();
+}
