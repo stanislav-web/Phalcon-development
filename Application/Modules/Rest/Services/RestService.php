@@ -195,6 +195,7 @@ class RestService implements RestServiceInterface {
      */
     public function setMessage($message) {
 
+        //@TODO POST Response after return from model repair data
         if(array_key_exists('code', $this->message) === false) {
             $this->setStatusMessage();
         }

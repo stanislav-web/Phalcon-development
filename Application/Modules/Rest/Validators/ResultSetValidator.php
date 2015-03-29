@@ -17,7 +17,7 @@ use Application\Modules\Rest\Exceptions\NotFoundException;
  */
 class ResultSetValidator {
 
-    const RECORD_NOT_FOUND  = 'The record not found in `%s`';
+    const RECORDS_NOT_FOUND  = 'The records not found';
 
     /**
      * Resultset definition
@@ -36,9 +36,9 @@ class ResultSetValidator {
     /**
      * Setup definition
      *
-     * @param mixed $result
+     * @param \Phalcon\Mvc\Model\Resultset\Simple $result
      */
-    public function __construct($result) {
+    public function __construct(\Phalcon\Mvc\Model\Resultset\Simple $result) {
 
         $this->setResult($result);
     }
@@ -46,7 +46,7 @@ class ResultSetValidator {
     /**
      * Set result set
      *
-     * @param mixed $result
+     * @param \Phalcon\Mvc\Model\Resultset\Simple $result
      * @return ResultSetValidator
      */
     public function setResult($result)
@@ -79,10 +79,25 @@ class ResultSetValidator {
             $this->errors['message']    = NotFoundException::MESSAGE;
         }
         $this->errors['info'][]  = [
-            'RECORD_NOT_FOUND' => sprintf(self::RECORD_NOT_FOUND)
+            'RECORDS_NOT_FOUND' => self::RECORDS_NOT_FOUND
         ];
+    }
 
-        return $this;
+    /**
+     * Set response as Bad Request
+     *
+     * @param array|string $errors
+     * @return ResultSetValidator
+     */
+    public function invalidResult($messages) {
+
+        if(empty($this->errors['info']) === true) {
+            $this->errors['code']       = BadRequestException::CODE;
+            $this->errors['message']    = BadRequestException::MESSAGE;
+        }
+        $this->errors['info'][]  = [
+            'INVALID_RESULT' => $messages
+        ];
     }
 
     /**
@@ -109,11 +124,22 @@ class ResultSetValidator {
      */
     public function resolve()
     {
-        if($this->getResult()->count() > 0) {
+        if($this->getResult()->valid() === true) {
+
+            // result fine
             return $this->getResult()->toArray();
         }
         else {
-            return $this->notFoundRecords();
+
+            // error handling
+            if(is_null($this->getResult()->getMessages()) === true) {
+                $this->notFoundRecords($this->getResult());
+            }
+            else {
+                $this->invalidResult($this->getResult()->getMessages());
+            }
         }
+
+        return $this->getErrors();
     }
 }

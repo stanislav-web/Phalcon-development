@@ -80,7 +80,7 @@ class PageMapper implements InjectionAwareInterface, ModelCrudInterface {
      */
     public function read(array $credentials = []) {
 
-        $result = Pages::find($credentials);
+        $result = $this->getInstance()->find($credentials);
 
         return (new ResultSetValidator($result))->resolve();
     }
