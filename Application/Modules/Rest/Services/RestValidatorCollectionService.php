@@ -155,8 +155,6 @@ class RestValidatorCollectionService extends RestValidatorCollectionsProvider {
      */
     public function requestValidate() {
 
-        if(empty($this->params) === false) {
-
             $request = (new QueryValidator($this->getDi()))
                 ->validate($this->getRules(), $this->getParams());
 
@@ -164,7 +162,6 @@ class RestValidatorCollectionService extends RestValidatorCollectionsProvider {
 
                 $this->setErrors($request->getErrors());
             }
-        }
     }
 
     /**

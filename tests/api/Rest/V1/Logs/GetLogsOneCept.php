@@ -6,7 +6,7 @@ $I->wantTo('GET logs by id: /api/v1/logs/1');
 $I->setHeader('Accept', '*/*');
 $I->setHeader('Accept-Language', 'en-GB');
 
-$I->sendGET('api/v1/auth', ['login' => 'stanisov@gmail.com', 'password' => 'stanisov@gmail.com']);
+$I->sendGET('api/v1/sign', ['login' => 'stanisov@gmail.com', 'password' => 'stanisov@gmail.com']);
 $auth = $I->grabDataFromJsonResponse();
 
 $I->amBearerAuthenticated($auth['data'][0]['token']);

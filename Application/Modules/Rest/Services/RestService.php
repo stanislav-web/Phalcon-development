@@ -175,7 +175,6 @@ class RestService implements RestServiceInterface {
      */
     public function setMessage($message) {
 
-        if($this->getResolver()->hasErrors());
         if($message['code'] > self::CODE_NOT_MODIFIED) {
 
             $this->message    =   ['error' => [
@@ -185,9 +184,12 @@ class RestService implements RestServiceInterface {
             ];
         }
         else {
+
             $this->message    =   [
                 'code'      => $message['code'],
-                'message'   => $message['message']
+                'message'   => $message['message'],
+                'limit'     => $message['limit'],
+                'offset'    => (isset($this->getParams()['offset'])) ? (int)$this->getParams()['offset'] : 0
             ];
         }
 
@@ -297,7 +299,6 @@ class RestService implements RestServiceInterface {
         else {
             $message = $this->getResolver()->getResponse();
         }
-
         $this->setMessage($message);
 
         // Set rules required header

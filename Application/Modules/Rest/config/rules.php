@@ -19,7 +19,7 @@ return [
 
     // configure controllers => actions
 
-    'auth'    =>  [
+    'sign'    =>  [
         'get' => [
             'requests'  =>  [  // limit request per time
                 'limit' =>  10,
@@ -27,7 +27,7 @@ return [
             ],
             'methods'    => 'GET',
             'params'     => [
-                'required' => 'access'
+                'required' => 'login,password'
             ],
             'mapper'   => 'UserMapper'
         ]

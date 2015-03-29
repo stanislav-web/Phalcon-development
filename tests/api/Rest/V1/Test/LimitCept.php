@@ -1,7 +1,7 @@
-<?php 
+<?php
 $I = new ApiTester($scenario);
 
-$I->wantTo('GET logs list: /api/v1/logs');
+$I->wantTo('GET limit records: /api/v1/logs?limit=5');
 
 $I->setHeader('Accept', '*/*');
 $I->setHeader('Accept-Language', 'en-GB');
@@ -11,9 +11,9 @@ $auth = $I->grabDataFromJsonResponse();
 
 $I->amBearerAuthenticated($auth['data'][0]['token']);
 
-$I->sendGET('api/v1/logs');
+
+$I->sendGET('/api/v1/logs?limit=5');
+
 $I->seeResponseCodeIs(200);
-$I->seeHttpHeader('Access-Control-Allow-Methods', 'GET');
-$I->seeHttpHeader('Access-Control-Allow-Origin', '*');
 $I->seeResponseIsJson();
-$I->seeResponseJsonMatchesJsonPath('$.data');
+$I->seeResponseContainsJson(array('limit' => 5));

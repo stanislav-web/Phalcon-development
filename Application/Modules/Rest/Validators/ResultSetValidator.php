@@ -92,6 +92,8 @@ class ResultSetValidator {
             $result = [];
             $result['code'] = self::CODE_OK;
             $result['message'] = self::MESSAGE_OK;
+            $result['limit']   = $this->getResponse()->count();
+
             $this->result = (array_merge($result, ['data' => $this->getResponse()->toArray()]));
         }
         else {

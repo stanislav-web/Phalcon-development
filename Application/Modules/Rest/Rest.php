@@ -75,6 +75,8 @@ class Rest
         $di->getShared('dispatcher');
         if((is_null($error = error_get_last()) === false)) {
             try {
+var_dump($error);
+                exit;
                 $di->get('LogMapper')
                     ->save($error['message'].' File: '.$error['file'].' Line:'.$error['line'], 1);
 

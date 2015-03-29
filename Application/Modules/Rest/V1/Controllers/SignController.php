@@ -2,7 +2,7 @@
 namespace Application\Modules\Rest\V1\Controllers;
 
 /**
- * Class AuthController
+ * Class SignController
  *
  * @package    Application\Modules\Rest
  * @subpackage    Controllers
@@ -11,7 +11,7 @@ namespace Application\Modules\Rest\V1\Controllers;
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @filesource /Application/Modules/Rest/Controllers/AuthController.php
  */
-class AuthController extends ControllerBase {
+class SignController extends ControllerBase {
 
     /**
      * GET Authentication
@@ -23,5 +23,19 @@ class AuthController extends ControllerBase {
             $this->getDI()->get('RestSecurityService')->authenticate(
                 $params['login'], $params['password']
         );
+    }
+
+    /**
+     * POST Registration
+     */
+    public function postAction() {
+
+
+        exit('POST');
+        $params = $this->rest->getParams();
+        $this->response =
+            $this->getDI()->get('RestSecurityService')->authenticate(
+                $params['login'], $params['password']
+            );
     }
 }

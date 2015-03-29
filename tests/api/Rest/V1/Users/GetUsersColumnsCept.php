@@ -6,7 +6,7 @@ $I->wantTo('GET users list columns: /api/v1/users?columns=id,login,name');
 $I->setHeader('Accept', '*/*');
 $I->setHeader('Accept-Language', 'en-GB');
 
-$I->sendGET('api/v1/auth', ['login' => 'stanisov@gmail.com', 'password' => 'stanisov@gmail.com']);
+$I->sendGET('api/v1/sign', ['login' => 'stanisov@gmail.com', 'password' => 'stanisov@gmail.com']);
 $auth = $I->grabDataFromJsonResponse();
 $I->amBearerAuthenticated($auth['data'][0]['token']);
 
