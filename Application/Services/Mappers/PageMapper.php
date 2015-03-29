@@ -2,9 +2,9 @@
 namespace Application\Services\Mappers;
 
 use \Phalcon\DI\InjectionAwareInterface;
-use Phalcon\Db\Exception as DbException;
 use Application\Aware\ModelCrudInterface;
 use Application\Models\Pages;
+use Application\Modules\Rest\Validators\ResultSetValidator;
 
 /**
  * Class PageMapper. Actions above application pages
@@ -73,6 +73,42 @@ class PageMapper implements InjectionAwareInterface, ModelCrudInterface {
     }
 
     /**
+     * Read pages
+     *
+     * @param array $credentials credentials
+     * @return mixed
+     */
+    public function read(array $credentials = []) {
+
+        $result = Pages::find($credentials);
+
+        return (new ResultSetValidator($result))->resolve();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
      * Add page
      *
      * @param array $data
@@ -97,16 +133,7 @@ class PageMapper implements InjectionAwareInterface, ModelCrudInterface {
         }
     }
 
-    /**
-     * Read pages
-     *
-     * @param array $credentials credentials
-     * @return mixed
-     */
-    public function read(array $credentials = []) {
 
-        return Pages::find($credentials);
-    }
 
     /**
      * Edit page

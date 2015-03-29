@@ -16,7 +16,7 @@ class TestController extends ControllerBase {
     /**
      * Pages action
      */
-    public function show500Action() {
+    public function getAction() {
 
         $this->rest->getUndefinedMethod();
     }

@@ -25,7 +25,6 @@ interface ModelCrudInterface {
     /**
      * Read record(s)
      *
-     * @param int $id
      * @param array $credentials
      * @return boolean
      */

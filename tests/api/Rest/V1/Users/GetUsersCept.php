@@ -6,7 +6,7 @@ $I->wantTo('GET users list: /api/v1/users');
 $I->setHeader('Accept', '*/*');
 $I->setHeader('Accept-Language', 'en-GB');
 
-$I->sendGET('api/v1/users/auth', ['login' => 'stanisov@gmail.com', 'password' => 'stanisov@gmail.com']);
+$I->sendGET('api/v1/auth', ['login' => 'stanisov@gmail.com', 'password' => 'stanisov@gmail.com']);
 $auth = $I->grabDataFromJsonResponse();
 $I->amBearerAuthenticated($auth['data']['token']);
 

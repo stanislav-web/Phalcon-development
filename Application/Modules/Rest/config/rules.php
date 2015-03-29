@@ -19,8 +19,21 @@ return [
 
     // configure controllers => actions
 
+    'auth'    =>  [
+        'get' => [
+            'requests'  =>  [  // limit request per time
+                'limit' =>  10,
+                'time'  =>  1,
+            ],
+            'methods'    => 'GET',
+            'params'     => [
+                'required' => 'access'
+            ],
+            'mapper'   => 'UserMapper'
+        ]
+    ],
     'users'  =>  [
-        'index'    =>  [
+        'get'    =>  [
             'requests'  =>  [  // limit request per seconds
                     'limit' =>  10,
                     'time'  =>  1,
@@ -34,27 +47,26 @@ return [
             ],
             'mapper'   => 'UserMapper'
         ],
-        'auth'    =>  [
-            'requests'  =>  [  // limit request per time
-                'limit' =>  10,
-                'time'  =>  1,
-            ],
-            'methods'    => 'GET',
-            'params'     => [
-                'required' => 'access'
-            ],
-            'mapper'   => 'PageMapper'
-        ]
     ],
 
     'pages'  =>  [
-        'index'    =>  [
+        'get'    =>  [
             'requests'  =>  [  // limit request per seconds
-                'limit' =>  10,
-                'time'  =>  1,
+                'limit' =>  5,
+                'time'  =>  10,
             ],
             'methods'   => 'GET,POST,PUT,DELETE',
             'mapper'   => 'PageMapper'
+        ]
+    ],
+    'categories'  =>  [
+        'get'    =>  [
+            'requests'  =>  [  // limit request per seconds
+                'limit' =>  5,
+                'time'  =>  10,
+            ],
+            'methods'   => 'GET,POST,PUT,DELETE',
+            'mapper'   => 'CategoryMapper'
         ]
     ]
 ];

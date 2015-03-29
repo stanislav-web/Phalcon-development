@@ -1,12 +1,12 @@
 <?php
 $I = new ApiTester($scenario);
 
-$I->wantTo('GET Authorization: /api/v1/users/auth');
+$I->wantTo('GET Authorization: /api/v1/auth');
 
 $I->setHeader('Accept', '*/*');
 $I->setHeader('Accept-Language', 'en-GB');
 
-$I->sendGET('api/v1/users/auth', ['login' => 'stanisov@gmail.com', 'password' => 'stanisov@gmail.com']);
+$I->sendGET('api/v1/auth', ['login' => 'stanisov@gmail.com', 'password' => 'stanisov@gmail.com']);
 
 $I->seeResponseCodeIs(200);
 $I->seeHttpHeader('Access-Control-Allow-Methods', 'GET');

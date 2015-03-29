@@ -131,17 +131,14 @@ class CategoryMapper implements InjectionAwareInterface, ModelCrudInterface {
     }
 
     /**
-     * Read category(ies)
+     * Read categories
      *
-     * @param int $id
-     * @param array $data
-     * @return boolean
+     * @param array $credentials credentials
+     * @return mixed
      */
-    public function read($id = null, array $data = []) {
+    public function read(array $credentials = []) {
 
-        $result = (empty($id) === true) ? $this->getList($data) : $this->getOne($id);
-
-        return $result;
+        return Categories::find($credentials);
     }
 
     /**

@@ -6,6 +6,7 @@ use Application\Aware\ModelCrudInterface;
 use Application\Models\Users;
 use Application\Models\UserRoles;
 use Application\Models\UserAccess;
+use Application\Modules\Rest\Validators\ResultSetValidator;
 
 /**
  * Class UserMapper. Actions above users
@@ -63,6 +64,20 @@ class UserMapper implements InjectionAwareInterface, ModelCrudInterface {
         return new Users();
     }
 
+
+    /**
+     * Read users
+     *
+     * @param array $credentials credentials
+     * @return mixed
+     */
+    public function read(array $credentials = []) {
+
+        $result = $this->getInstance()->find($credentials);
+
+        return (new ResultSetValidator($result))->resolve();
+    }
+
     /**
      * Get model attributes
      *
@@ -116,17 +131,6 @@ class UserMapper implements InjectionAwareInterface, ModelCrudInterface {
             $this->setErrors($userModel->getMessages());
             return false;
         }
-    }
-
-    /**
-     * Read users
-     *
-     * @param array $credentials credentials
-     * @return mixed
-     */
-    public function read(array $credentials = []) {
-
-        return Users::find($credentials);
     }
 
     /**

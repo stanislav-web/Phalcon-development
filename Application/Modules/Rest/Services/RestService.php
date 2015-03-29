@@ -196,7 +196,7 @@ class RestService implements RestServiceInterface {
     public function setMessage($message) {
 
         if(array_key_exists('code', $this->message) === false) {
-            $this->setStatusMessage(); // set by default
+            $this->setStatusMessage();
         }
 
         if($this->getResolver()->hasErrors() === true) {
@@ -265,6 +265,40 @@ class RestService implements RestServiceInterface {
     }
 
     /**
+     * Get limit request for used action
+     *
+     * @return string|int
+     */
+    private function getRateLimitReset() {
+
+        $resolver = $this->getResolver();
+        $action = $resolver->getDispatcher()->getActionName();
+
+        if(isset($resolver->getRules()->requests['limit']) === true) {
+            return (time()-$resolver->getDi()->getShared('session')->get($action));
+        }
+        return false;
+    }
+
+    /**
+     * Get remaining from limited request
+     *
+     * @return string|int
+     */
+    private function getRateRemaining() {
+
+        $resolver = $this->getResolver();
+
+        if(isset($resolver->getRules()->requests['limit']) === true) {
+            return ($resolver->getRules()->requests['limit']
+                -$resolver->getDi()->getShared('session')->get($resolver->getRequest()->getClientAddress())
+            );
+        }
+
+        return false;
+    }
+
+    /**
      * Send response to client
      *
      * @param boolean $modified
@@ -276,6 +310,8 @@ class RestService implements RestServiceInterface {
         $this->setHeader([
             'Access-Control-Allow-Methods' => $this->getResolver()->getRules()->methods,
             'X-Rate-Limit'      =>  $this->getRateLimit(),
+            'X-RateLimit-Remaining' => $this->getRateRemaining(),
+            'X-Rate-Limit-Reset'    => $this->getRateLimitReset(),
             'Content-Language'  =>  $this->getLocale(),
             'Content-Length'    =>  $this->setContentLength($this->getMessage()),
             'X-Resource'        =>  $this->getResourceUri(),

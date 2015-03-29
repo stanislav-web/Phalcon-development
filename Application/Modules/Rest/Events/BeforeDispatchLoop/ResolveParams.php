@@ -23,13 +23,17 @@ class ResolveParams {
      */
     public function beforeDispatchLoop(\Phalcon\Events\Event $event, $dispatcher) {
 
-        $keyParams = array();
+        $keyParams = [];
         $params = $dispatcher->getParams();
 
-        // use odd parameters as keys and even as values
-        foreach ($params as $number => $value) {
-            if ($number & 1) {
-                $keyParams[$params[$number - 1]] = $value;
+        if(empty($params) === false) {
+            $keyParams['id'] = array_shift($params);
+
+            // use odd parameters as keys and even as values
+            foreach ($params as $number => $value) {
+                if ($number & 1) {
+                    $keyParams[$params[$number - 1]] = $value;
+                }
             }
         }
 

@@ -5,7 +5,7 @@ use Application\Modules\Rest\Exceptions\BadRequestException;
 use Application\Modules\Rest\Exceptions\InternalServerErrorException;
 
 /**
- * Class QueryStringValidator. Check query string
+ * Class QueryValidator. Check query string
  *
  * @package Application\Modules\Rest
  * @subpackage Validators
@@ -13,9 +13,9 @@ use Application\Modules\Rest\Exceptions\InternalServerErrorException;
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @copyright Stanislav WEB
- * @filesource /Application/Modules/Rest/Validators/QueryStringValidator.php
+ * @filesource /Application/Modules/Rest/Validators/QueryValidator.php
  */
-class QueryStringValidator {
+class QueryValidator {
 
     const EMPTY_PARAMETER_IN_URI = 'Empty parameter in URI';
     const INVALID_COLUMNS = 'The columns: `%s` does not provide by this filter';
@@ -62,7 +62,7 @@ class QueryStringValidator {
      * Set dependency container
      *
      * @param \Phalcon\DiInterface $di
-     * @return QueryStringValidator
+     * @return QueryValidator
      */
     public function setDi($di)
     {
@@ -95,7 +95,7 @@ class QueryStringValidator {
      * Set handle mapper
      *
      * @param string $mapper
-     * @return QueryStringValidator
+     * @return QueryValidator
      */
     public function setMapper($mapper)
     {
@@ -117,7 +117,7 @@ class QueryStringValidator {
      * Set requested columns
      *
      * @param array $params
-     * @return QueryStringValidator
+     * @return QueryValidator
      */
     public function setColumns(array $params)
     {
@@ -131,7 +131,7 @@ class QueryStringValidator {
      * Set error message
      *
      * @param array|string $errors
-     * @return QueryStringValidator
+     * @return QueryValidator
      */
     public function setErrors($errors) {
 
@@ -175,7 +175,8 @@ class QueryStringValidator {
 
         if($this->getDi()->has($rules->mapper) === true) {
 
-            $this->setMapper($rules->mapper)->setColumns($params)->resolve();
+            $this->setMapper($rules->mapper)
+                ->setColumns($params)->resolve();
 
             return $this;
         }
@@ -190,13 +191,16 @@ class QueryStringValidator {
      */
     public function resolve()
     {
+
         if(count(array_filter($this->getColumns())) !== count($this->getColumns())) {
-            $this->setErrors(sprintf(self::EMPTY_PARAMETER_IN_URI));
+            $this->setErrors([
+                'EMPTY_PARAMETER_IN_URI' => sprintf(self::EMPTY_PARAMETER_IN_URI)
+            ]);
             return;
         }
 
         if (empty($columns = array_diff($this->getColumns(), $this->getMapper()->getAttributes())) === false) {
-            $this->setErrors(sprintf(self::INVALID_COLUMNS, implode(',', $columns)));
+            $this->setErrors(['INVALID_COLUMNS' => sprintf(self::INVALID_COLUMNS, implode(',', $columns))]);
             return;
         }
     }

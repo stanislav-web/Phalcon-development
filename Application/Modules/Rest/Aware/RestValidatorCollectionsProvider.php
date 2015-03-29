@@ -85,7 +85,7 @@ abstract class RestValidatorCollectionsProvider
      *
      * @return \Phalcon\Mvc\Dispatcher
      */
-    protected function getDispatcher()
+    public function getDispatcher()
     {
         return $this->getDi()->getShared('dispatcher');
     }
@@ -215,7 +215,7 @@ abstract class RestValidatorCollectionsProvider
     abstract protected function getErrors();
 
     /**
-     * Client request validator
+     * Pre validate client request
      */
     abstract protected function validate();
 }

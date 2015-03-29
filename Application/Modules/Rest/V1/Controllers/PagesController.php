@@ -37,17 +37,17 @@ class PagesController extends ControllerBase {
     }
 
     /**
-     * Pages action
+     * GET Pages action
      */
-    public function indexAction() {
+    public function getAction() {
 
         if($this->rest->getResolver()->hasErrors() === false)  {
             $this->responseData = $this->cache->exists($this->key) ? $this->cache->get($this->key)
                 : $this->cache->set(
-                $this->getDI()->get('PageMapper')->read($this->rest->getParams())->toArray(),
-                $this->key,
-                true
-            );
+                    $this->getDI()->get('PageMapper')->read($this->rest->getParams()),
+                    $this->key,
+                    true
+                );
             $this->notModified = $this->cache->isCached();
         }
     }
