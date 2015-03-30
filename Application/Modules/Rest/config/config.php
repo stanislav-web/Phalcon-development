@@ -20,7 +20,6 @@ return [
             '\Application\Modules\Rest\Events\BeforeExecuteRoute\ResolveAccept',
             '\Application\Modules\Rest\Events\BeforeExecuteRoute\ResolveAccess',
             '\Application\Modules\Rest\Events\BeforeExecuteRoute\ResolveRequestLength',
-            //'\Application\Modules\Rest\Events\BeforeExecuteRoute\ResolveValidRequest'
         ]
     ]
 ];

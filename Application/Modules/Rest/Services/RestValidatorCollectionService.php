@@ -34,6 +34,7 @@ class RestValidatorCollectionService extends RestValidatorCollectionsProvider {
     /**
      * Initialize validators
      *
+     * @return RestValidatorCollectionService
      */
     public function init() {
 
@@ -44,6 +45,7 @@ class RestValidatorCollectionService extends RestValidatorCollectionsProvider {
             (new $valid())->run($this->getDi(), $this->getRules(), $this->getParams());
         }
 
+        return $this;
     }
 
     /**
@@ -117,4 +119,6 @@ class RestValidatorCollectionService extends RestValidatorCollectionsProvider {
             return $value;
         }, $params);
     }
+
+    public function validate() {}
 }

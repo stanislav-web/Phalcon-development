@@ -25,10 +25,13 @@ abstract class RestValidatorProvider {
      * Set dependency container
      *
      * @param \Phalcon\DI\FactoryDefault $di
+     * @return RestValidatorProvider
      */
     public function setDi($di)
     {
         $this->di = $di;
+
+        return $this;
     }
 
     /**

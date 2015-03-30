@@ -3,6 +3,8 @@ namespace Application\Modules\Rest\Events\BeforeExecuteRoute;
 
 use Phalcon\Logger;
 use Application\Modules\Rest\Aware\RestValidatorProvider;
+use Application\Modules\Rest\Exceptions\InternalServerErrorException;
+use Application\Modules\Rest\Exceptions\BadRequestException;
 
 /**
  * ResolveValidRequest. Validate request params
@@ -43,22 +45,52 @@ class ResolveValidRequest extends RestValidatorProvider  {
      *
      * @param \Phalcon\DI\FactoryDefault $di
      * @param \StdClass                  $rules
-     * @return bool|void
      * @throws \Exception
      */
     public function run(\Phalcon\DI\FactoryDefault $di, \StdClass $rules) {
 
-        $this->setDi($di);
+        // set request params and handle mapper
+        $this->setDi($di)->setParams(func_get_arg(2))->setMapper($rules->handler);
 
-        if($this->isValidFields(func_get_args()) === false) {
-            $this->throwError();
+        if(isset($this->getParams()->fields) === true) {
+           $this->setFields($this->getParams()->fields)->isValidFields();
         }
     }
 
-    public function isValidFields($a) {
+    /**
+     * Get request params
+     *
+     * @return array
+     */
+    public function getParams()
+    {
+        return (object)$this->params;
+    }
 
-        var_dump($a); exit;
-        return true;
+    /**
+     * Set request params
+     *
+     * @param array $params
+     * @return ResolveValidRequest
+     */
+    public function setParams($params)
+    {
+        $this->params = $params;
+
+        return $this;
+    }
+
+    /**
+     * Set requested `fields`
+     *
+     * @param string fields
+     * @return ResolveValidRequest
+     */
+    public function setFields($fields)
+    {
+        $this->fields = explode(',', $fields);
+
+        return $this;
     }
 
     /**
@@ -71,18 +103,6 @@ class ResolveValidRequest extends RestValidatorProvider  {
         return $this->fields;
     }
 
-    /**
-     * Set requested fields
-     *
-     * @return IsRequestValid
-     */
-    public function setFields()
-    {
-        if(isset($this->params['fields'])) {
-            $this->fields = explode(',', $this->params['fields']);
-        }
-        return $this;
-    }
 
     /**
      * Handle mapper
@@ -116,7 +136,7 @@ class ResolveValidRequest extends RestValidatorProvider  {
      *
      * @param string $mapper
      */
-    public function handle()
+    public function isValidFields()
     {
         if (empty($not = array_diff($this->getFields(), $this->getMapper()->getAttributes())) === false) {
             throw new BadRequestException();
