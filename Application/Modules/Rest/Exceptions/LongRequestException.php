@@ -15,7 +15,7 @@ use \Phalcon\Logger;
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @filesource /Application/Modules/Rest/Exceptions/LongRequestException.php
  */
-class LongRequestException extends \Exception {
+class LongRequestException extends BaseException {
 
     /**
      * @const HTTP response message
@@ -30,10 +30,11 @@ class LongRequestException extends \Exception {
     /**
      * Constructor
      *
+     * @param array $data additional info
      * @param string $message If no message is given 'Request URI Too Long' will be the message
      * @param int $code Status code, defaults to 414
      */
-    public function __construct($message = null, $code = null) {
+    public function __construct(array $data = [], $message = null, $code = null) {
 
         if(is_null($message) === true && is_null($code) === true) {
 
@@ -41,6 +42,6 @@ class LongRequestException extends \Exception {
             $code = self::CODE;
         }
 
-        parent::__construct($message, $code);
+        parent::__construct($message, $code, $data);
     }
 }

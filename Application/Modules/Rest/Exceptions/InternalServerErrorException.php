@@ -14,7 +14,7 @@ use Phalcon\Logger;
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @filesource /Application/Modules/Rest/Exceptions/InternalServerErrorException.php
  */
-class InternalServerErrorException extends \Exception {
+class InternalServerErrorException extends \RuntimeException {
 
     /**
      * @const HTTP response message

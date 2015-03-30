@@ -14,7 +14,7 @@ use \Phalcon\Logger;
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @filesource /Application/Modules/Rest/Exceptions/UnauthorizedException.php
  */
-class UnauthorizedException extends \Exception {
+class UnauthorizedException extends BaseException {
 
     /**
      * @const HTTP response message
@@ -29,10 +29,11 @@ class UnauthorizedException extends \Exception {
     /**
      * Constructor
      *
+     * @param array $data additional info
      * @param string $message If no message is given 'Unauthorized' will be the message
      * @param int $code Status code, defaults to 401
      */
-    public function __construct($message = null, $code = null) {
+    public function __construct(array $data = [], $message = null, $code = null) {
 
         if(is_null($message) === true && is_null($code) === true) {
 
@@ -40,6 +41,6 @@ class UnauthorizedException extends \Exception {
             $code = self::CODE;
         }
 
-        parent::__construct($message, $code);
+        parent::__construct($message, $code, $data);
     }
 }

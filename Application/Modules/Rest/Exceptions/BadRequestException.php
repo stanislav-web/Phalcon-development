@@ -15,7 +15,7 @@ use \Phalcon\Logger;
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @filesource /Application/Modules/Rest/Exceptions/BadRequestException.php
  */
-class BadRequestException extends \Exception {
+class BadRequestException extends BaseException {
 
     /**
      * @const HTTP response message
@@ -30,10 +30,11 @@ class BadRequestException extends \Exception {
     /**
      * Constructor
      *
+     * @param array $data additional info
      * @param string $message If no message is given 'Bad Request' will be the message
      * @param int $code Status code, defaults to 400
      */
-    public function __construct($message = null, $code = null) {
+    public function __construct(array $data = [], $message = null, $code = null) {
 
         if(is_null($message) === true && is_null($code) === true) {
 
@@ -41,6 +42,6 @@ class BadRequestException extends \Exception {
             $code = self::CODE;
         }
 
-        parent::__construct($message, $code);
+        parent::__construct($message, $code, $data);
     }
 }

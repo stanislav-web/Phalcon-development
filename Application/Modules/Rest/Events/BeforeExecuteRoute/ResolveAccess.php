@@ -55,16 +55,9 @@ class ResolveAccess extends RestValidatorProvider {
                 $this->isAllowedAccess($rules);
             }
             else {
-
-                try {
-                    throw new UnauthorizedException();
-                }
-                catch(UnauthorizedException $e) {
-                    $this->getDi()->get('LogMapper')
-                        ->save($e->getMessage().' IP: '.$this->getRequest()->getClientAddress().' URI: '.$this->getRequest()->getURI(), Logger::ALERT);
-
-                    throw new \Exception($e->getMessage(), $e->getCode());
-                }
+                throw new UnauthorizedException([
+                    'AUTH_ACCESS_REQUIRED' => 'Only for authenticated users'
+                ]);
             }
         }
     }
@@ -84,13 +77,9 @@ class ResolveAccess extends RestValidatorProvider {
                 if($this->security->hasRole($role) === false
                     && in_array(trim($this->request->getURI(), '/'), $urls)) {
 
-                    try {
-                        throw new ForbiddenException();
-                    }
-                    catch(ForbiddenException $e) {
-                        $this->getDi()->get('LogMapper')->save($e->getMessage().' IP: '.$this->getRequest()->getClientAddress().' URI: '.$this->getRequest()->getURI(), Logger::ALERT);
-                        throw new \Exception($e->getMessage(), $e->getCode());
-                    }
+                    throw new ForbiddenException([
+                        'ACCESS_DENIED' => 'Here you access denied'
+                    ]);
                 }
             }
         }

@@ -1,6 +1,8 @@
 <?php
 namespace Application\Modules\Rest\Services;
 
+use \Phalcon\Logger;
+
 /**
  * Class RestService. Http Rest handler
  *
@@ -93,7 +95,7 @@ class RestExceptionHandler {
      *
      * @return \Application\Services\Mappers\LogMapper
      */
-    private function getLogger() {
+    private function getLogMapper() {
         return $this->getDi()->get('LogMapper');
     }
 
@@ -110,7 +112,6 @@ class RestExceptionHandler {
      * Set exception data
      *
      * @param \Exception $exception
-     * @return RestExceptionHandler
      */
     private function setException(\Exception $exception)
     {
@@ -124,25 +125,36 @@ class RestExceptionHandler {
 
             $exception = json_decode($exception->getMessage(), true);
             $this->exception['message'] = $exception['data']['message'];
-            if(isset($exception['data']['exception']) === true) {
+            if(isset($exception['data']) === true) {
 
-                //@TODO can be translated
-                $this->exception['data'] = $exception['data']['exception'];
+                unset($exception['data']['message']);
+                $this->exception['data'] = $exception['data'];
             }
         }
         else
         {
             $this->exception['message'] = $exception->getMessage();
         }
-        return $this;
+
+        $this->logMessage();
     }
 
+    /**
+     * Check if message has a json format
+     *
+     * @param $string
+     * @return bool
+     */
     private function isJson($string) {
-            return ((is_string($string) &&
-                (is_object(json_decode($string)) ||
-                    is_array(json_decode($string))))) ? true : false;
+        return ((is_string($string) &&
+            (is_object(json_decode($string)) ||
+                is_array(json_decode($string))))) ? true : false;
     }
 
+
+    /**
+     * Send response with error message
+     */
     public function send() {
 
         $e = $this->getException();
@@ -150,5 +162,19 @@ class RestExceptionHandler {
         $this->getResponse()->setContentType('application/json', 'utf-8')
             ->setStatusCode($e['code'], $e['message'])
             ->setJsonContent(['error' => $e])->send();
+    }
+
+    /**
+     * Log exceptions
+     */
+    public function logMessage() {
+
+        if($this->getException()['code'] != 500) {
+
+            $this->getLogMapper()->save($this->getException()['message'].'
+              IP: '.$this->getRequest()->getClientAddress().'
+              URI: '.$this->getException()['resource'],
+                Logger::ALERT);
+        }
     }
 }

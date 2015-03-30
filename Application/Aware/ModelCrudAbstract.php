@@ -22,7 +22,7 @@ abstract class ModelCrudAbstract implements InjectionAwareInterface {
      * @var array $exceptions
      */
     protected $exceptions = [
-        '404' => [
+        'NOT_FOUND' => [
             'RECORDS_NOT_FOUND'  =>  'The records not found'
         ]
     ];
@@ -79,7 +79,7 @@ abstract class ModelCrudAbstract implements InjectionAwareInterface {
             return $result;
         }
         else {
-            throw new NotFoundException(null, null, ['exception' => $this->getException(404)]);
+            throw new NotFoundException($this->getException('NOT_FOUND'));
         }
     }
 

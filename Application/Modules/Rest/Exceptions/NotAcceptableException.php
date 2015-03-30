@@ -30,10 +30,11 @@ class NotAcceptableException extends BaseException {
     /**
      * Constructor
      *
+     * @param array $data additional info
      * @param string $message If no message is given 'Not Acceptable' will be the message
      * @param int $code Status code, defaults to 406
      */
-    public function __construct($message = null, $code = null, array $data = []) {
+    public function __construct(array $data = [], $message = null, $code = null) {
 
         if(is_null($message) === true && is_null($code) === true) {
 

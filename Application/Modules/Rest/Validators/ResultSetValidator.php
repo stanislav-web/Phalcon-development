@@ -87,17 +87,13 @@ class ResultSetValidator {
      */
     private function setResult()
     {
-        if($this->hasErrors() === false) {
+        $result = [];
+        $result['code'] = self::CODE_OK;
+        $result['message'] = self::MESSAGE_OK;
+        $result['limit']   = $this->getResponse()->count();
 
-            $result = [];
-            $result['code'] = self::CODE_OK;
-            $result['message'] = self::MESSAGE_OK;
-            $result['limit']   = $this->getResponse()->count();
-
+        if($this->getResponse() instanceof ResultSet) {
             $this->result = (array_merge($result, ['data' => $this->getResponse()->toArray()]));
-        }
-        else {
-            $this->result = $this->getErrors();
         }
 
         return $this;
@@ -113,58 +109,6 @@ class ResultSetValidator {
         return $this->result;
     }
 
-    /**
-     * Set response as Not Found
-     *
-     * @param array|string $errors
-     * @return ResultSetValidator
-     */
-    private function notFoundRecords() {
-
-        if(empty($this->errors['data']) === true) {
-            $this->errors['code']       = NotFoundException::CODE;
-            $this->errors['message']    = NotFoundException::MESSAGE;
-        }
-        $this->errors['data'][]  = [
-            'RECORDS_NOT_FOUND' => self::RECORDS_NOT_FOUND
-        ];
-    }
-
-    /**
-     * Set response as Bad Request
-     *
-     * @param array|string $errors
-     * @return ResultSetValidator
-     */
-    private function invalidResponse($messages) {
-
-        if(empty($this->errors['data']) === true) {
-            $this->errors['code']       = BadRequestException::CODE;
-            $this->errors['message']    = BadRequestException::MESSAGE;
-        }
-        $this->errors['data'][]  = [
-            'INVALID_RESPONSE' => $messages
-        ];
-    }
-
-    /**
-     * Get error messages key [errors]
-     *
-     * @return array
-     */
-    public function getErrors() {
-        return $this->errors;
-    }
-
-    /**
-     * Check if errors exist
-     *
-     * @return boolean
-     */
-    public function hasErrors() {
-
-        return (!empty($this->errors));
-    }
 
     /**
      * Validate response
@@ -172,22 +116,6 @@ class ResultSetValidator {
      */
     public function validate()
     {
-        if($this->getResponse() instanceof ResultSet) {
-
-            if($this->getResponse()->valid() === false) {
-
-                // error handling
-                if(is_null($this->getResponse()->getMessages()) === true) {
-                    $this->notFoundRecords();
-                }
-                else {
-                    $this->invalidResponse($this->getResponse()->getMessages());
-                }
-            }
-
-            $this->setResult();
-        }
-
-        return $this;
+        $this->setResult();
     }
 }

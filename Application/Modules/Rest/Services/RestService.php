@@ -293,13 +293,7 @@ class RestService implements RestServiceInterface {
      */
     public function response($modified) {
 
-        if($this->getResolver()->hasErrors()) {
-            $message = $this->getResolver()->getErrors();
-        }
-        else {
-            $message = $this->getResolver()->getResponse();
-        }
-        $this->setMessage($message);
+        $this->setMessage($this->getResolver()->getResponse());
 
         // Set rules required header
         $this->setHeader([

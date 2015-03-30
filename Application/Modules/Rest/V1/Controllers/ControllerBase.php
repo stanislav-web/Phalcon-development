@@ -42,7 +42,7 @@ class ControllerBase extends Controller
     public function beforeExecuteRoute()
     {
         $this->rest =  $this->getDI()->get("RestService");
-        $this->rest->getResolver()->filter($this->request)->requestValidate();
+        $this->rest->getResolver()->filter($this->request)->validate();
     }
 
     /**
@@ -52,7 +52,7 @@ class ControllerBase extends Controller
      */
     public function afterExecuteRoute()
     {
-        $this->rest->getResolver()->responseValidate($this->response);
+        $this->rest->getResolver()->resolve($this->response);
         $this->rest->response($this->notModified)->send();
     }
 

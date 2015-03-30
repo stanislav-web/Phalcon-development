@@ -31,15 +31,21 @@ class ResolveAccept extends RestValidatorProvider {
         $this->setDi($di);
 
         if($this->isValidQueryParams() === false) {
-            $this->throwError();
+            throw new NotAcceptableException([
+                'FILTERS_IS_NOT_SUPPORT'  =>  'This filters is not support'
+            ]);
         }
 
         if($this->isValidContentType() === false) {
-            $this->throwError();
+            throw new NotAcceptableException([
+                'CONTENT_IS_NOT_SUPPORT'  =>  'This content type is not support'
+            ]);
         }
 
         if($this->isValidLanguage() === false) {
-            $this->throwError();
+            throw new NotAcceptableException([
+                'LANGUAGE_IS_NOT_SUPPORT'  =>  'This language is not support'
+            ]);
         }
     }
 
@@ -91,23 +97,5 @@ class ResolveAccept extends RestValidatorProvider {
         }
 
         return in_array($locale, $this->getConfig()->acceptLanguage->toArray());
-    }
-
-    /**
-     * Throw exception errors
-     *
-     * @throws \Application\Modules\Rest\Exceptions\NotAcceptableException
-     * @throws \Exception
-     */
-    private function throwError() {
-
-        try {
-            throw new NotAcceptableException();
-        }
-        catch(NotAcceptableException $e) {
-
-            $this->getDi()->get('LogMapper')->save($e->getMessage().' IP: '.$this->getRequest()->getClientAddress().' URI: '.$this->getRequest()->getURI(), Logger::ALERT);
-            throw new \Exception($e->getMessage(), $e->getCode());
-        }
     }
 }

@@ -26,6 +26,13 @@ class ResolveRequestLimit extends RestValidatorProvider  {
     private $action = '';
 
     /**
+     * Current action rules
+     *
+     * @var string $rules
+     */
+    private $rules = '';
+
+    /**
      * Current client IP
      *
      * @var string $ip
@@ -59,13 +66,15 @@ class ResolveRequestLimit extends RestValidatorProvider  {
             $this->session  = $this->getDi()->getShared('session');
             $this->ip       = $this->getRequest()->getClientAddress();
             $this->action   = $dispatcher->getActionName();
+            $this->rules    = $rules;
 
             if($this->session->has($this->action)) {
-                if((int)$this->session->get($this->action)+(int)$rules->requests['time'] > time()) {
+                if((int)$this->session->get($this->action)+(int)$this->rules->requests['time'] > time()) {
 
                     // disallow access, because to many requests per  $rules->requests['time']
-
-                    $this->throwError();
+                    throw new ToManyRequestsException([
+                        'TO_MANY_REQUESTS'  =>  'Too many requests for this action'
+                    ]);
                 }
                 else {
                     // reset user requests counter
@@ -104,29 +113,10 @@ class ResolveRequestLimit extends RestValidatorProvider  {
     }
 
     /**
-     * Throw exception errors
-     *
-     * @throws \Application\Modules\Rest\Exceptions\ToManyRequestsException
-     * @throws \Exception
-     */
-    private function throwError() {
-
-        try {
-            throw new ToManyRequestsException();
-        }
-        catch(ToManyRequestsException $e) {
-
-            $this->getDi()->get('LogMapper')->save($e->getMessage().' IP: '.$this->getRequest()->getClientAddress().' URI: '.$this->getRequest()->getURI(), Logger::ALERT);
-            throw new \Exception($e->getMessage(), $e->getCode());
-        }
-    }
-
-
-    /**
      * Free params
      */
     public function __destruct() {
 
-        unset($this->ip, $this->action);
+        unset($this->ip, $this->action, $this->rules);
     }
 }

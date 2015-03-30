@@ -1,6 +1,7 @@
 <?php
 namespace Application\Services\Mappers;
 
+use Application\Modules\Rest\Exceptions\NotFoundException;
 use \Phalcon\DI\InjectionAwareInterface;
 use \Phalcon\Logger;
 use \Phalcon\Logger\Adapter\Database as LoggerDatabase;
@@ -188,7 +189,9 @@ class LogMapper extends LoggerDatabase
             $this->log($message, $code);
         }
         else {
-            throw new \Exception('Logger code not found');
+            throw new NotFoundException([
+                'LOG_CODE_NOT_FOUND' => 'Logger code not found'
+            ]);
         }
 
     }

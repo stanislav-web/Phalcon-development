@@ -36,13 +36,6 @@ class QueryValidator {
     private $mapper;
 
     /**
-     * Error messages
-     *
-     * @var array $errors
-     */
-    private $errors = [];
-
-    /**
      * Requested columns
      *
      * @var array $columns
@@ -143,42 +136,6 @@ class QueryValidator {
     }
 
     /**
-     * Set error message
-     *
-     * @param array|string $errors
-     * @return QueryValidator
-     */
-    public function setErrors($errors) {
-
-        if(empty($this->errors['data']) === true) {
-            $this->errors['code']       = BadRequestException::CODE;
-            $this->errors['message']    = BadRequestException::MESSAGE;
-            $this->errors['data']  = $errors;
-            $this->errors['resource'] = $this->getDi()->get('request')->getUri();
-        }
-        return $this;
-    }
-
-    /**
-     * Get error messages key [errors]
-     *
-     * @return array
-     */
-    public function getErrors() {
-        return $this->errors;
-    }
-
-    /**
-     * Check if errors exist
-     *
-     * @return boolean
-     */
-    public function hasErrors() {
-
-        return (!empty($this->errors));
-    }
-
-    /**
      * Get params for this action
      *
      * @return array
@@ -263,7 +220,8 @@ class QueryValidator {
             $exchange = array_diff_key($required, $this->getParams());
 
             if(empty($exchange) === false) {
-                $this->setErrors([
+
+                throw new BadRequestException([
                     'INVALID_REQUIRED_FIELDS' => sprintf(self::INVALID_REQUIRED_FIELDS, implode(',', array_flip($exchange)))
                 ]);
             }
@@ -276,7 +234,8 @@ class QueryValidator {
     public function isEmptyParam() {
 
         if(count(array_filter($this->getColumns())) !== count($this->getColumns())) {
-            $this->setErrors([
+
+            throw new BadRequestException([
                 'EMPTY_PARAMETER_IN_URI' => sprintf(self::EMPTY_PARAMETER_IN_URI)
             ]);
         }
@@ -290,10 +249,9 @@ class QueryValidator {
         $columns = array_diff($this->getColumns(), $this->getMapper()->getAttributes());
         if (empty($columns) === false) {
 
-            $this->setErrors([
+            throw new BadRequestException([
                 'INVALID_COLUMNS' => sprintf(self::INVALID_COLUMNS, implode(',', $columns))
             ]);
-
         }
     }
 

@@ -41,14 +41,12 @@ class LogsController extends ControllerBase {
      */
     public function getAction() {
 
-        if($this->rest->getResolver()->hasErrors() === false)  {
-            $this->response = $this->cache->exists($this->key) ? $this->cache->get($this->key)
-                : $this->cache->set(
-                    $this->getDI()->get('LogMapper')->read($this->rest->getParams()),
-                    $this->key,
-                    true
-                );
-            $this->notModified = $this->cache->isCached();
-        }
+        $this->response = $this->cache->exists($this->key) ? $this->cache->get($this->key)
+            : $this->cache->set(
+                $this->getDI()->get('LogMapper')->read($this->rest->getParams()),
+                $this->key,
+                true
+            );
+        $this->notModified = $this->cache->isCached();
     }
 }

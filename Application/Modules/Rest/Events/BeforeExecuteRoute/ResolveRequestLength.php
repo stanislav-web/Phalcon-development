@@ -31,7 +31,9 @@ class ResolveRequestLength extends RestValidatorProvider {
         $this->setDi($di);
 
         if($this->isValidQuery() === false) {
-            $this->throwError();
+            throw new LongRequestException([
+                'LONG_REQUEST'  =>  'Too many parameters in the query string'
+            ]);
         }
     }
 
@@ -51,24 +53,6 @@ class ResolveRequestLength extends RestValidatorProvider {
 
         if(mb_strlen($queryString, '8bit') > $this->getConfig()->acceptQueryLength) {
             return false;
-        }
-    }
-
-    /**
-     * Throw exception errors
-     *
-     * @throws \Application\Modules\Rest\Exceptions\LongRequestException
-     * @throws \Exception
-     */
-    private function throwError() {
-
-        try {
-            throw new LongRequestException();
-        }
-        catch(LongRequestException $e) {
-
-            $this->getDi()->get('LogMapper')->save($e->getMessage().' IP: '.$this->getRequest()->getClientAddress().' URI: '.$this->getRequest()->getURI(), Logger::ALERT);
-            throw new \Exception($e->getMessage(), $e->getCode());
         }
     }
 }

@@ -10,7 +10,7 @@ return [
         'acceptLanguage'    => ['ru', 'en', 'ua', 'de'],
         'acceptCharset'     => 'utf-8',
         'acceptFilters'    => [
-            'columns', 'offset', 'limit', 'token', 'locale', 'login', 'password', 'order', 'name'
+            'columns', 'offset', 'limit', 'token', 'locale', 'login', 'password', 'order', 'name', 'format'
         ],
         'acceptQueryLength'    => 121,
 

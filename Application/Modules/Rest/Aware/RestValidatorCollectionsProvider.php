@@ -221,35 +221,14 @@ abstract class RestValidatorCollectionsProvider
     abstract protected function getParams();
 
     /**
-     * Set error message(s)
-     *
-     * @param array|string $errors
+     * Request validator
      */
-    abstract protected function setErrors($errors);
+    abstract protected function validate();
 
     /**
-     * Check if errors exist
-     *
-     * @return boolean
-     */
-    abstract protected function hasErrors();
-
-    /**
-     * Get error messages
-     *
-     * @return array
-     */
-    abstract protected function getErrors();
-
-    /**
-     * Request validate
-     */
-    abstract protected function requestValidate();
-
-    /**
-     * Response validate
+     * Response resolver (validator)
      *
      * @param mixed $responseData
      */
-    abstract protected function responseValidate($responseData);
+    abstract protected function resolve($responseData);
 }

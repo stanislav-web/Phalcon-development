@@ -20,13 +20,6 @@ use Application\Modules\Rest\Validators\ResultSetValidator;
 class RestValidatorCollectionService extends RestValidatorCollectionsProvider {
 
     /**
-     * Error messages
-     *
-     * @var array $errors
-     */
-    private $errors = [];
-
-    /**
      * Request rules
      *
      * @var array $params;
@@ -90,38 +83,6 @@ class RestValidatorCollectionService extends RestValidatorCollectionsProvider {
     }
 
     /**
-     * Check if errors exist
-     *
-     * @return boolean
-     */
-    public function hasErrors() {
-
-        return (!empty($this->errors));
-    }
-
-    /**
-     * Set error message
-     *
-     * @param array|string $errors
-     * @return RestValidatorCollectionService
-     */
-    public function setErrors($errors) {
-
-        $this->errors = $errors;
-
-        return $this;
-    }
-
-    /**
-     * Get error messages key [errors]
-     *
-     * @return array
-     */
-    public function getErrors() {
-        return $this->errors;
-    }
-
-    /**
      * Filter request params
      *
      * @param array $params
@@ -153,26 +114,21 @@ class RestValidatorCollectionService extends RestValidatorCollectionsProvider {
      *
      * @throws \Application\Modules\Rest\Exceptions\InternalServerErrorException
      */
-    public function requestValidate() {
+    public function validate() {
 
-        $request = (new QueryValidator($this->getDi()))
-            ->validate($this->getRules(), $this->getParams());
-
-        if($request->hasErrors() === true) {
-
-            $this->setErrors($request->getErrors());
-        }
+        $qv = new QueryValidator($this->getDi());
+        $qv->validate($this->getRules(), $this->getParams());
     }
 
     /**
-     * Response validate
+     * Response resolver
      *
      * @param mixed $responseData
      */
-    public function responseValidate($responseData) {
+    public function resolve($responseData) {
 
-        $response = (new ResultSetValidator($responseData))->validate();
-
-        $this->setResponse($response->getResult());
+        $rs = new ResultSetValidator($responseData);
+        $rs->validate();
+        $this->setResponse($rs->getResult());
     }
 }

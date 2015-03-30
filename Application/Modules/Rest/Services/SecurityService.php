@@ -138,11 +138,15 @@ class SecurityService extends RestSecurityProvider {
                 return $accessToken;
             }
             else {
-                throw new UnauthorizedException('Unauthorized', 401);
+                throw new UnauthorizedException([
+                    'UNAUTHORIZED_REQUEST' => 'You are not logged in'
+                ]);
             }
         }
         else {
-            throw new NotFoundException('User not found', 404);
+            throw new NotFoundException([
+                'USER_NOT_FOUND' => 'User not found'
+            ]);
         }
     }
 

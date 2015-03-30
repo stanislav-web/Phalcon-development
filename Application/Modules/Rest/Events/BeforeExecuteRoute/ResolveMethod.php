@@ -36,27 +36,10 @@ class ResolveMethod extends RestValidatorProvider {
 
             if(in_array($this->getRequest()->getMethod(), $methods) === false) {
 
-                $this->throwError($this->getRequest());
+                throw new MethodNotAllowedException([
+                    'METHOD_NOT_ALLOWED'  =>  'Request method not allowed for this action'
+                ]);
             }
-        }
-    }
-
-    /**
-     * Throw exception errors
-     *
-     * @param \Phalcon\Http\Request $request
-     * @throws \Application\Modules\Rest\Exceptions\MethodNotAllowedException
-     * @throws \Exception
-     */
-    private function throwError($request) {
-
-        try {
-            throw new MethodNotAllowedException();
-        }
-        catch(MethodNotAllowedException $e) {
-
-            $this->getDi()->get('LogMapper')->save($e->getMessage().' IP: '.$request->getClientAddress().' URI: '.$request->getURI(), Logger::ALERT);
-            throw new \Exception($e->getMessage(), $e->getCode());
         }
     }
 }

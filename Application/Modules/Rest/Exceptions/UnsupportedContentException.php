@@ -17,7 +17,7 @@ use Phalcon\Logger;
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @filesource /Application/Modules/Rest/Exceptions/UnsupportedContentException.php
  */
-class UnsupportedContentException extends \Exception {
+class UnsupportedContentException extends BaseException {
 
     /**
      * @const HTTP response message
@@ -32,10 +32,11 @@ class UnsupportedContentException extends \Exception {
     /**
      * Constructor
      *
-     * @param string $message If no message is given 'Internal Server Error' will be the message
+     * @param array $data additional info
+     * @param string $message If no message is given 'Unsupported Media Content-Type' will be the message
      * @param int $code Status code, defaults to 415
      */
-    public function __construct($message = null, $code = null) {
+    public function __construct(array $data = [], $message = null, $code = null) {
 
         if(is_null($message) === true && is_null($code) === true) {
 
@@ -43,6 +44,6 @@ class UnsupportedContentException extends \Exception {
             $code = self::CODE;
         }
 
-        parent::__construct($message, $code);
+        parent::__construct($message, $code, $data);
     }
 }
