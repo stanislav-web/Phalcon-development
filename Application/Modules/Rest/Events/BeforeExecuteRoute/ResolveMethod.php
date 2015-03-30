@@ -30,7 +30,7 @@ class ResolveMethod extends RestValidatorProvider {
 
         $this->setDi($di);
 
-        if(is_null($rules->methods) === false) {
+        if(isset($rules->methods) === true && is_null($rules->methods) === false) {
 
             $methods = explode(',', $rules->methods);
 

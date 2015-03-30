@@ -36,7 +36,21 @@ abstract class RestValidatorCollectionsProvider
      *
      * @var \StdClass $rules
      */
-    protected $rules = null;
+    protected $rules;
+
+    /**
+     * Request service
+     *
+     * @var \Phalcon\Http\Request $request
+     */
+    protected $request;
+
+    /**
+     * Response data
+     *
+     * @var array $response
+     */
+    protected $response;
 
     /**
      * Setup validators
@@ -45,7 +59,7 @@ abstract class RestValidatorCollectionsProvider
      */
     public function __construct(\Phalcon\DI\FactoryDefault $di) {
 
-        $this->setCollection($di->get('RestConfig')->api->validators->toArray())
+        $this->setCollection($di->get('RestConfig')->api->requestResolvers->toArray())
             ->setDi($di)
             ->setRules($di->get('RestRules'));
     }
@@ -78,7 +92,7 @@ abstract class RestValidatorCollectionsProvider
      *
      * @return \Phalcon\Mvc\Dispatcher
      */
-    protected function getDispatcher()
+    public function getDispatcher()
     {
         return $this->getDi()->getShared('dispatcher');
     }
@@ -90,7 +104,37 @@ abstract class RestValidatorCollectionsProvider
      */
     public function getRequest()
     {
-        return $this->getDi()->getShared('request');
+        return $this->request;
+    }
+
+    /**
+     * Get response
+     *
+     * @return array
+     */
+    public function getResponse()
+    {
+        return $this->response;
+    }
+
+    /**
+     * Set response data
+     *
+     * @return array $response
+     */
+    public function setResponse(array $response)
+    {
+        return $this->response = $response;
+    }
+
+    /**
+     * Set request instance
+     *
+     * @return \Phalcon\Http\Request
+     */
+    public function setRequest(\Phalcon\Http\Request $request)
+    {
+        return $this->request = $request;
     }
 
     /**
@@ -184,9 +228,28 @@ abstract class RestValidatorCollectionsProvider
     abstract protected function setErrors($errors);
 
     /**
+     * Check if errors exist
+     *
+     * @return boolean
+     */
+    abstract protected function hasErrors();
+
+    /**
      * Get error messages
      *
      * @return array
      */
     abstract protected function getErrors();
+
+    /**
+     * Request validate
+     */
+    abstract protected function requestValidate();
+
+    /**
+     * Response validate
+     *
+     * @param mixed $responseData
+     */
+    abstract protected function responseValidate($responseData);
 }

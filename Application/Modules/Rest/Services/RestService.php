@@ -63,8 +63,6 @@ class RestService implements RestServiceInterface {
      */
     public function __construct(\Application\Modules\Rest\Services\RestValidatorCollectionService $validator) {
 
-        $validator->init();
-
         $this->setResolver($validator)->setHeader($this->headers);
     }
 
@@ -85,7 +83,7 @@ class RestService implements RestServiceInterface {
      *
      * @return \Application\Modules\Rest\Services\RestValidatorCollectionService
      */
-    private function getResolver()
+    public function getResolver()
     {
         return $this->resolver;
     }
@@ -110,7 +108,7 @@ class RestService implements RestServiceInterface {
      */
     private function getResponseService()
     {
-        return $this->getResolver()->getDi()->get('response');
+        return $this->getResolver()->getDi()->getShared('response');
     }
 
     /**
@@ -118,41 +116,21 @@ class RestService implements RestServiceInterface {
      *
      * @return \Application\Modules\Rest\Services\RestCacheService
      */
-    public function getCacheService() {
+    private function getCacheService() {
         return  $this->getResolver()->getDi()->getShared('RestCache');
-    }
-
-    /**
-     * Set HTTP Status Message
-     *
-     * @param int $code default response code
-     * @param string $message default response message
-     * @param string $resource default called resource
-     * @return RestService
-     */
-    public function setStatusMessage($code = self::CODE_OK, $message = self::MESSAGE_OK, $resource = null) {
-
-        $this->setResourceUri($resource);
-        $this->getResponseService()->setStatusCode($code, $message);
-
-        $this->message['code'] = $code;
-        $this->message['message'] = $message;
-        $this->message['resource'] = $this->getResourceUri();
-
-        return $this;
     }
 
     /**
      * Set current  / created resource uri
      *
-     * @param string $resourceUri
+     * @param array $response
      * @return RestService
      */
-    public function setResourceUri($resourceUri = null) {
+    public function setResourceUri(array $response) {
 
         $this->resourceUri =
-            (is_null($resourceUri) === true)
-        ? $this->getResolver()->getRequest()->getURI() : $resourceUri;
+            (isset($uri['resource']) === false)
+        ? $this->getResolver()->getRequest()->getURI() : $uri['resource'];
         
         return $this;
     }
@@ -197,32 +175,44 @@ class RestService implements RestServiceInterface {
      */
     public function setMessage($message) {
 
-        if(array_key_exists('code', $this->message) === false) {
-            $this->setStatusMessage(); // set by default
-        }
+        if($message['code'] > self::CODE_NOT_MODIFIED) {
 
-        if($this->message['code'] > self::CODE_NOT_MODIFIED) {
-
-            $this->message    =   ['error' =>
-                $this->message
+            $this->message    =   ['error' => [
+                'code'      => $message['code'],
+                'message'   => $message['message']
+                ]
             ];
-            return false;
         }
-        foreach((array)$message as $k => $v)
-        {
-            $this->message['data'][$k]    =   $v;
+        else {
+
+            $this->message    =   [
+                'code'      => $message['code'],
+                'message'   => $message['message'],
+                'limit'     => $message['limit'],
+                'offset'    => (isset($this->getParams()['offset'])) ? (int)$this->getParams()['offset'] : 0
+            ];
         }
 
+        if(isset($message['data']) === true) {
+            foreach($message['data'] as $k => $v)
+            {
+                $this->message['data'][$k]    =   $v;
+            }
+        }
+
+        $this->getResponseService()->setStatusCode($message['code'], $message['message']);
+        $this->setResourceUri($message);
+        $this->message['resource'] = $this->getResourceUri();
         return $this;
     }
 
     /**
      * Get user app messages content.
      *
-     * @return array
+     * @return \StdClass
      */
     public function getMessage() {
-        return $this->message;
+        return (object)$this->message;
     }
 
     /**
@@ -262,6 +252,40 @@ class RestService implements RestServiceInterface {
     }
 
     /**
+     * Get limit request for used action
+     *
+     * @return string|int
+     */
+    private function getRateLimitReset() {
+
+        $resolver = $this->getResolver();
+        $action = $resolver->getDispatcher()->getActionName();
+
+        if(isset($resolver->getRules()->requests['limit']) === true) {
+            return (time()-$resolver->getDi()->getShared('session')->get($action));
+        }
+        return false;
+    }
+
+    /**
+     * Get remaining from limited request
+     *
+     * @return string|int
+     */
+    private function getRateRemaining() {
+
+        $resolver = $this->getResolver();
+
+        if(isset($resolver->getRules()->requests['limit']) === true) {
+            return ($resolver->getRules()->requests['limit']
+                -$resolver->getDi()->getShared('session')->get($resolver->getRequest()->getClientAddress())
+            );
+        }
+
+        return false;
+    }
+
+    /**
      * Send response to client
      *
      * @param boolean $modified
@@ -269,24 +293,30 @@ class RestService implements RestServiceInterface {
      */
     public function response($modified) {
 
+        if($this->getResolver()->hasErrors()) {
+            $message = $this->getResolver()->getErrors();
+        }
+        else {
+            $message = $this->getResolver()->getResponse();
+        }
+        $this->setMessage($message);
+
         // Set rules required header
         $this->setHeader([
-            'Access-Control-Allow-Methods' => $this->getResolver()->getRules()->methods,
-            'X-Rate-Limit'      =>  $this->getRateLimit(),
-            'Content-Language'  =>  $this->getLocale(),
-            'Content-Length'    =>  $this->setContentLength($this->getMessage()),
-            'X-Resource'        =>  $this->getResourceUri(),
+            'Access-Control-Allow-Methods'  =>  $this->getResolver()->getRules()->methods,
+            'X-Rate-Limit'                  =>  $this->getRateLimit(),
+            'X-RateLimit-Remaining'         =>  $this->getRateRemaining(),
+            'X-Rate-Limit-Reset'            =>  $this->getRateLimitReset(),
+            'Content-Language'              =>  $this->getLocale(),
+            'Content-Length'                =>  $this->setContentLength($this->getMessage()),
+            'X-Resource'                    =>  $this->getResourceUri(),
         ]);
 
         if($modified === true) {
 
             $this->setCacheHeader();
         }
-
-        $response = $this->getResponseService();
-        if(empty($this->getMessage())  === false) {
-            $response->setJsonContent($this->getMessage());
-        }
-        return $response->send();
+        $this->getResponseService()->setJsonContent($this->getMessage());
+        return $this->getResponseService();
     }
 }

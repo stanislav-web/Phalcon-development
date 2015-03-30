@@ -1,15 +1,14 @@
-<?php
+<?php 
 $I = new ApiTester($scenario);
 
-$I->wantTo('GET Authorization: /api/v1/users/auth');
+$I->wantTo('GET categories list: /api/v1/categories');
 
 $I->setHeader('Accept', '*/*');
 $I->setHeader('Accept-Language', 'en-GB');
 
-$I->sendGET('api/v1/users/auth', ['login' => 'stanisov@gmail.com', 'password' => 'stanisov@gmail.com']);
-
+$I->sendGET('api/v1/categories');
 $I->seeResponseCodeIs(200);
-$I->seeHttpHeader('Access-Control-Allow-Methods', 'GET');
+$I->seeHttpHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE');
 $I->seeHttpHeader('Access-Control-Allow-Origin', '*');
 $I->seeResponseIsJson();
 $I->seeResponseJsonMatchesJsonPath('$.data');

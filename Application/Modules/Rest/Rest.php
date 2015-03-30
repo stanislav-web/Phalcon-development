@@ -5,6 +5,7 @@ use Phalcon\DI;
 use Phalcon\Mvc\Dispatcher;
 use Phalcon\Http\Response;
 use Phalcon\Mvc\View;
+use Application\Modules\Rest\Services\RestExceptionHandler;
 use Application\Modules\Rest\Exceptions\InternalServerErrorException;
 
 /**
@@ -82,6 +83,9 @@ class Rest
                 throw new InternalServerErrorException();
             }
             catch(InternalServerErrorException $e) {
+
+                //$exception = new RestExceptionHandler($di);
+                //$exception->handle($e)->send();
 
                 $di->get('response')->setContentType('application/json', 'utf-8')
                     ->setStatusCode($e->getCode(), $e->getMessage())

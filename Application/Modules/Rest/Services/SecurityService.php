@@ -5,6 +5,7 @@ use Application\Modules\Rest\Aware\RestSecurityProvider;
 use Application\Modules\Rest\Exceptions\BadRequestException;
 use Application\Modules\Rest\Exceptions\NotFoundException;
 use Application\Modules\Rest\Exceptions\UnauthorizedException;
+use Phalcon\Mvc\Model\Resultset\Simple as ResultSet;
 
 /**
  * Class SecurityService. Rest security provider
@@ -57,22 +58,15 @@ class SecurityService extends RestSecurityProvider {
      * @param int $user_id Auth user ID
      * @param string $token Generated token
      * @param int $expire_date Token date expiry
-     * @return bool|array
+     * @return ResultSet
      */
     protected function setToken($user_id, $token, $expire_date) {
 
-        $authData = $this->getUserMapper()->setAccessToken(
+        $model = $this->getUserMapper()->setAccessToken(
             $user_id, $token, $expire_date
         );
 
-        if($authData != false) {
-
-            $result = $authData->toArray();
-            $result['token'] = base64_encode($result['token']);
-
-        }
-
-        return $result;
+        return $model->find(['user_id ='. $user_id]);
     }
 
     /**
@@ -86,7 +80,7 @@ class SecurityService extends RestSecurityProvider {
 
         $this->token = $this->getUserMapper()->getAccess()->findFirst([
                 "token = ?0 AND expire_date > NOW()",
-                "bind" => [base64_decode($token)],
+                "bind" => [$token],
             ]
         );
 
@@ -118,16 +112,15 @@ class SecurityService extends RestSecurityProvider {
     /**
      * Authenticate user use credentials
      *
-     * @param string $login
-     * @param string $password
-     * @return boolean
+     * @param array $credentials
+     * @return ResultSet
      */
-    public function authenticate($login, $password) {
+    public function authenticate(array $credentials) {
 
-        $user = $this->getUserMapper()->getOne(['login' => $login]);
+        $user = $this->getUserMapper()->getOne(['login' => $credentials['login']]);
         if($user !== false) {
 
-            if($this->getSecurity()->checkHash($password, $user->getPassword())) {
+            if($this->getSecurity()->checkHash($credentials['password'], $user->getPassword())) {
 
                 $token = $this->getSecurity()->hash($this->getSecurity()->getToken());
 
@@ -137,26 +130,64 @@ class SecurityService extends RestSecurityProvider {
                     (time() + $this->getConfig()->tokenLifetime)
                 );
 
-                if(is_array($accessToken) === true) {
+                $this->getUserMapper()->refresh($user->getId(), [
+                    'ip' => $this->getRequest()->getClientAddress(),
+                    'ua' => $this->getRequest()->getUserAgent(),
+                ]);
 
-                    $this->getUserMapper()->refresh($user->getId(), [
-                        'ip'    =>  $this->getRequest()->getClientAddress(),
-                        'ua'    =>  $this->getRequest()->getUserAgent(),
-                    ]);
-
-                    return $accessToken;
-                }
-                else {
-                    throw new BadRequestException();
-                }
+                return $accessToken;
             }
             else {
-                $this->setError('INVALID_AUTH_DATA');
-                throw new UnauthorizedException();
+                throw new UnauthorizedException('Unauthorized', 401);
             }
         }
         else {
             throw new NotFoundException('User not found', 404);
         }
+    }
+
+    /**
+     * Register new user from credentials
+     *
+     * @param array $credentials
+     * @return ResultSet
+     */
+    public function register(array $credentials)
+    {
+
+
+        $user = $this->getUserMapper()->createUser($credentials);
+
+        var_dump($user);
+        exit('POST');
+
+        // required params that to be saved by this user
+            $data = $this->getRequest()->getPost();
+
+            if($user !== false) {
+                // register successful
+                session_regenerate_id(true);
+                $token = $this->cryptAccessToken($user->getId(), $user->getSalt());
+                $this->setAccessToken($user->getId(), $token, (time() + $this->getConfig()->cache->lifetime));
+
+                // save data to session
+                $user = $this->getUser(['id' => $user->getId()]);
+                $this->getDi()->getShared('session')->set('user', [
+                    'id'        =>  $user['id'],
+                    'login'     =>  $user['login'],
+                    'name'      =>  $user['name'],
+                    'surname'   =>  $user['surname'],
+                    'role'      =>  $user['role'],
+                    'state'     =>  $user['state'],
+                    'salt'      =>  $user['salt'],
+                    'rating'    =>  $user['rating'],
+                    'date_registration' => $user['date_registration'],
+                    'date_lastvisit' => $user['date_lastvisit']
+                ]);
+
+                return true;
+
+            }
+            return $this->setError($this->getUserMapper()->getErrors());
     }
 }

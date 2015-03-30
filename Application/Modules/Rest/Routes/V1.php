@@ -18,33 +18,40 @@ use \Phalcon\Mvc\Router\Group;
 class V1 extends Group {
 
     /**
-     * Initialize routes for dynamic pages
+     * Initialize routes Rest V1
      */
     public function initialize()
     {
-        // Default parameters
-
         $this->setPaths([
             'module'    => 'Rest',
         ]);
 
-        // Like a start prefix
         $this->setPrefix('/api');
 
         // Add route index
-        $this->add('/v1/:controller/:params', [
+        $this->addGet('/v1/:controller/:params', [
             'namespace' => 'Application\Modules\Rest\V1\Controllers',
             'controller'    => 1,
-            'action'        => 'index',
+            'action'        => 'get',
             'params'        => 2,
-        ])->via(['GET', 'POST', 'PUT', 'DELETE']);
-
-        // Add to routes users actions
-        $this->add('/v1/:controller/:action/:params', [
+        ]);
+        $this->addPost('/v1/:controller/:params', [
             'namespace' => 'Application\Modules\Rest\V1\Controllers',
             'controller'    => 1,
-            'action'        => 2,
-            'params'        => 3,
-        ])->via(['GET', 'POST', 'PUT', 'DELETE']);
+            'action'        => 'post',
+            'params'        => 2,
+        ]);
+        $this->addPut('/v1/:controller/:params', [
+            'namespace' => 'Application\Modules\Rest\V1\Controllers',
+            'controller'    => 1,
+            'action'        => 'put',
+            'params'        => 2,
+        ]);
+        $this->addDelete('/v1/:controller/:params', [
+            'namespace' => 'Application\Modules\Rest\V1\Controllers',
+            'controller'    => 1,
+            'action'        => 'delete',
+            'params'        => 2,
+        ]);
     }
 }

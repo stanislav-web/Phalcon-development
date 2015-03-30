@@ -1,9 +1,7 @@
 <?php
 namespace Application\Services\Mappers;
 
-use \Phalcon\DI\InjectionAwareInterface;
-use Phalcon\Db\Exception as DbException;
-use Application\Aware\ModelCrudInterface;
+use Application\Aware\ModelCrudAbstract;
 use Application\Models\Pages;
 
 /**
@@ -17,40 +15,7 @@ use Application\Models\Pages;
  * @copyright Stanislav WEB
  * @filesource /Application/Services/Mappers/PageMapper.php
  */
-class PageMapper implements InjectionAwareInterface, ModelCrudInterface {
-
-    /**
-     * Dependency injection container
-     *
-     * @var \Phalcon\DiInterface $di;
-     */
-    private $di;
-
-    /**
-     * Errors array
-     *
-     * @var array $errors;
-     */
-    private $errors = [];
-
-    /**
-     * Set dependency container
-     *
-     * @param \Phalcon\DiInterface $di
-     */
-    public function setDi($di)
-    {
-        $this->di = $di;
-    }
-
-    /**
-     * Get dependency container
-     * @return \Phalcon\DiInterface
-     */
-    public function getDi()
-    {
-        return $this->di;
-    }
+class PageMapper extends ModelCrudAbstract {
 
     /**
      * Get instance of polymorphic object
@@ -61,16 +26,29 @@ class PageMapper implements InjectionAwareInterface, ModelCrudInterface {
         return new Pages();
     }
 
-    /**
-     * Get model attributes
-     *
-     * @return array
-     */
-    public function getAttributes()
-    {
-        $metaData = $this->getInstance()->getModelsMetaData();
-        return $metaData->getAttributes($this->getInstance());
-    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      * Add page
@@ -97,23 +75,7 @@ class PageMapper implements InjectionAwareInterface, ModelCrudInterface {
         }
     }
 
-    /**
-     * Read pages
-     *
-     * @param int $id get by id
-     * @param array $data conditions
-     * @param int $limit conditions
-     * @return mixed
-     */
-    public function read($id = null, array $data = [], $limit = null) {
 
-        $result = (empty($id) === true)
-            ? (is_null($limit) === true ? $this->getList($data)
-                : $this->getOne(null, $data))
-        :  $this->getOne($id);
-
-        return $result;
-    }
 
     /**
      * Edit page
@@ -174,30 +136,5 @@ class PageMapper implements InjectionAwareInterface, ModelCrudInterface {
      */
     public function getErrors() {
         return $this->errors;
-    }
-
-    /**
-     * Get page by Id
-     *
-     * @param int $id
-     * @param array $params
-     * @return \Phalcon\Mvc\Model
-     */
-    public function getOne($id = null, array $params = [])
-    {
-        return (is_null($id) === false)
-            ? Pages::findFirst($id)
-            : Pages::findFirst($params);
-    }
-
-    /**
-     * Get pages by condition
-     *
-     * @param array $params
-     * @return \Phalcon\Mvc\Model
-     */
-    public function getList(array $params = [])
-    {
-        return Pages::find($params);
     }
 }

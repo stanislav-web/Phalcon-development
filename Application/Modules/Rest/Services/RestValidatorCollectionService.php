@@ -3,6 +3,8 @@ namespace Application\Modules\Rest\Services;
 
 use Phalcon\Filter;
 use Application\Modules\Rest\Aware\RestValidatorCollectionsProvider;
+use Application\Modules\Rest\Validators\QueryValidator;
+use Application\Modules\Rest\Validators\ResultSetValidator;
 
 /**
  * Class RestValidatorCollectionService. Rest validator's collections
@@ -32,14 +34,18 @@ class RestValidatorCollectionService extends RestValidatorCollectionsProvider {
     private $params  = [];
 
     /**
-     * Initialize validators
+     * Initialize filter
+     * Setup request input parameters
+     * Valid all level request by collections
      *
+     * @param \Phalcon\Http\Request $request
      * @return RestValidatorCollectionService
      */
-    public function init() {
+    public function filter(\Phalcon\Http\Request $request) {
+
 
         $collection = $this->getCollection();
-        $this->setParams($this->getRequest());
+        $this->setParams($request)->setRequest($request);
 
         foreach($collection as $valid) {
             (new $valid())->run($this->getDi(), $this->getRules(), $this->getParams());
@@ -56,7 +62,19 @@ class RestValidatorCollectionService extends RestValidatorCollectionsProvider {
      */
     public function setParams(\Phalcon\Http\Request $request)
     {
-        $this->params = $this->filterParams($request->get(), ['trim', 'lower']);
+        // find primary
+        $primary= [];
+
+        if(array_key_exists('id', $this->getDispatcher()->getParams())) {
+            $primary = [
+                "id = ?0",
+                "bind" => [$this->getDispatcher()->getParam('id')],
+            ];
+        }
+
+        $this->params = $this->filterParams(array_merge(
+            $primary,
+            $request->get()), ['trim', 'lower']);
 
         return $this;
     }
@@ -72,6 +90,16 @@ class RestValidatorCollectionService extends RestValidatorCollectionsProvider {
     }
 
     /**
+     * Check if errors exist
+     *
+     * @return boolean
+     */
+    public function hasErrors() {
+
+        return (!empty($this->errors));
+    }
+
+    /**
      * Set error message
      *
      * @param array|string $errors
@@ -79,7 +107,7 @@ class RestValidatorCollectionService extends RestValidatorCollectionsProvider {
      */
     public function setErrors($errors) {
 
-        $this->errors['errors'][] = $errors;
+        $this->errors = $errors;
 
         return $this;
     }
@@ -120,5 +148,31 @@ class RestValidatorCollectionService extends RestValidatorCollectionsProvider {
         }, $params);
     }
 
-    public function validate() {}
+    /**
+     * Request validator
+     *
+     * @throws \Application\Modules\Rest\Exceptions\InternalServerErrorException
+     */
+    public function requestValidate() {
+
+        $request = (new QueryValidator($this->getDi()))
+            ->validate($this->getRules(), $this->getParams());
+
+        if($request->hasErrors() === true) {
+
+            $this->setErrors($request->getErrors());
+        }
+    }
+
+    /**
+     * Response validate
+     *
+     * @param mixed $responseData
+     */
+    public function responseValidate($responseData) {
+
+        $response = (new ResultSetValidator($responseData))->validate();
+
+        $this->setResponse($response->getResult());
+    }
 }

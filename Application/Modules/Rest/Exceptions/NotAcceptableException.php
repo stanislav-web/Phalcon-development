@@ -15,7 +15,7 @@ use \Phalcon\Logger;
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @filesource /Application/Modules/Rest/Exceptions/NotAcceptableException.php
  */
-class NotAcceptableException extends \Exception {
+class NotAcceptableException extends BaseException {
 
     /**
      * @const HTTP response message
@@ -33,7 +33,7 @@ class NotAcceptableException extends \Exception {
      * @param string $message If no message is given 'Not Acceptable' will be the message
      * @param int $code Status code, defaults to 406
      */
-    public function __construct($message = null, $code = null) {
+    public function __construct($message = null, $code = null, array $data = []) {
 
         if(is_null($message) === true && is_null($code) === true) {
 
@@ -41,6 +41,6 @@ class NotAcceptableException extends \Exception {
             $code = self::CODE;
         }
 
-        parent::__construct($message, $code);
+        parent::__construct($message, $code, $data);
     }
 }

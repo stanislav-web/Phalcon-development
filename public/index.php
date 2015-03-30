@@ -9,6 +9,8 @@ defined('APP_PATH') || define('APP_PATH', DOCUMENT_ROOT . '/../Application');
 defined('APPLICATION_ENV') ||
 define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production'));
 
+use Application\Modules\Rest\Services\RestExceptionHandler;
+
 // Require composite libraries
 require_once DOCUMENT_ROOT . ' /../vendor/autoload.php';
 
@@ -32,10 +34,6 @@ try {
 
 } catch (\Exception $e) {
 
-    $di->get('response')->setContentType('application/json', 'utf-8')
-        ->setStatusCode($e->getCode(), $e->getMessage())
-        ->setJsonContent(['error' => [
-            'code' => $e->getCode(),
-            'message' => $e->getMessage()
-        ]])->send();
+    $exception = new RestExceptionHandler($di);
+    $exception->handle($e)->send();
 }

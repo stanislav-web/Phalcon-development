@@ -19,10 +19,34 @@ return [
 
     // configure controllers => actions
 
+    'sign'    =>  [
+        'get' => [
+            'requests'  =>  [  // limit request per time
+                'limit' =>  10,
+                'time'  =>  1,
+            ],
+            'methods'    => 'GET',
+            'params'     => [
+                'required' => 'login,password'
+            ],
+            'mapper'   => 'UserMapper'
+        ],
+        'post' => [
+            'requests'  =>  [  // limit request per time
+                'limit' =>  10,
+                'time'  =>  1,
+            ],
+            'methods'    => 'POST',
+            'params'     => [
+                'required' => 'login,password,name,'
+            ],
+            'mapper'   => 'UserMapper'
+        ],
+    ],
     'users'  =>  [
-        'index'    =>  [
+        'get'    =>  [
             'requests'  =>  [  // limit request per seconds
-                    'limit' =>  1,
+                    'limit' =>  10,
                     'time'  =>  1,
                 ],
             'methods'   => 'GET,POST,PUT',
@@ -32,29 +56,45 @@ return [
                     'api/v1/users'
                 ],
             ],
-            'handler'   => 'PageMapper'
+            'mapper'   => 'UserMapper'
         ],
-        'auth'    =>  [
-            'requests'  =>  [  // limit request per time
-                'limit' =>  1,
+    ],
+
+    'logs'  =>  [
+        'get'    =>  [
+            'requests'  =>  [  // limit request per seconds
+                'limit' =>  10,
                 'time'  =>  1,
             ],
-            'methods'    => 'GET',
-            'params'     => [
-                'required' => 'access'
+            'methods'   => 'GET',
+            'authentication'    =>  true,   // need access token ?
+            'access'    =>   [  // access routes restrict for ACL
+                UserRoles::ADMIN =>  [
+                    'api/v1/logs'
+                ],
             ],
-            'handler'   => 'PageMapper'
-        ]
+            'mapper'   => 'LogMapper'
+        ],
     ],
 
     'pages'  =>  [
-        'index'    =>  [
+        'get'    =>  [
             'requests'  =>  [  // limit request per seconds
-                'limit' =>  1,
-                'time'  =>  1,
+                'limit' =>  5,
+                'time'  =>  10,
             ],
             'methods'   => 'GET,POST,PUT,DELETE',
-            'handler'   => 'PageMapper'
+            'mapper'   => 'PageMapper'
+        ]
+    ],
+    'categories'  =>  [
+        'get'    =>  [
+            'requests'  =>  [  // limit request per seconds
+                'limit' =>  5,
+                'time'  =>  10,
+            ],
+            'methods'   => 'GET,POST,PUT,DELETE',
+            'mapper'   => 'CategoryMapper'
         ]
     ]
 ];

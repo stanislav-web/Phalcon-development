@@ -23,6 +23,13 @@ class ControllerBase extends Controller
     protected $rest;
 
     /**
+     * Response data (override)
+     *
+     * @var array $response
+     */
+    protected $response = [];
+
+    /**
      * Is request data has been modified ?
      *
      * @var boolean
@@ -35,6 +42,7 @@ class ControllerBase extends Controller
     public function beforeExecuteRoute()
     {
         $this->rest =  $this->getDI()->get("RestService");
+        $this->rest->getResolver()->filter($this->request)->requestValidate();
     }
 
     /**
@@ -44,10 +52,8 @@ class ControllerBase extends Controller
      */
     public function afterExecuteRoute()
     {
-        //@TODO Set Cache Header and response status with E-Tag
-
-        //$this->rest->setStatusMessage(304, 'Not Modified');
-        $this->rest->response($this->notModified);
+        $this->rest->getResolver()->responseValidate($this->response);
+        $this->rest->response($this->notModified)->send();
     }
 
     /**

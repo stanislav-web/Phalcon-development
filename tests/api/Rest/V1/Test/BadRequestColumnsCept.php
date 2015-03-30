@@ -1,12 +1,12 @@
 <?php 
 $I = new ApiTester($scenario);
 
-$I->wantTo('DELETE 405 Method not allowed: /api/v1/users');
+$I->wantTo('GET 400 Bad Request: /api/v1/pages?columns=id,title,wrong');
 
 $I->setHeader('Accept', '*/*');
 $I->setHeader('Accept-Language', 'en-GB');
 
-$I->sendDELETE('/api/v1/users');
-$I->seeResponseCodeIs(405);
+$I->sendGET('/api/v1/pages?columns=id,title,wrong');
+$I->seeResponseCodeIs(400);
 $I->seeResponseIsJson();
 $I->seeResponseJsonMatchesJsonPath('$.error');

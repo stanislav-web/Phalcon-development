@@ -10,11 +10,11 @@ return [
         'acceptLanguage'    => ['ru', 'en', 'ua', 'de'],
         'acceptCharset'     => 'utf-8',
         'acceptFilters'    => [
-            'fields', 'offset', 'limit', 'token', 'locale', 'login', 'password'
+            'columns', 'offset', 'limit', 'token', 'locale', 'login', 'password', 'order', 'name'
         ],
         'acceptQueryLength'    => 121,
 
-        'validators' => [
+        'requestResolvers' => [
             '\Application\Modules\Rest\Events\BeforeExecuteRoute\ResolveMethod',
             '\Application\Modules\Rest\Events\BeforeExecuteRoute\ResolveRequestLimit',
             '\Application\Modules\Rest\Events\BeforeExecuteRoute\ResolveAccept',

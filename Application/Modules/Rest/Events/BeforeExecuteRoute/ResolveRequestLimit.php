@@ -99,7 +99,6 @@ class ResolveRequestLimit extends RestValidatorProvider  {
         $this->session->set($this->ip, (int)$this->session->get($this->ip)+1);
 
         if($this->session->get($this->ip) >= $rules->requests['limit']) {
-
             $this->session->set($this->action, time());
         }
     }
