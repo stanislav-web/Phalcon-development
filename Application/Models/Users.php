@@ -122,39 +122,39 @@ class Users extends \Phalcon\Mvc\Model
 
         $this->validate(new Uniqueness([
             "field"     => "login",
-            "message"   => 'USER_EXIST'
+            "message"   => ['USER_EXIST' => 'This user is already registered']
         ]));
 
         $this->validate(new PresenceOf([
             'field'     => 'login',
-            'message'   => 'LOGIN_REQUIRED'
+            'message'   => ['LOGIN_REQUIRED' => 'The login is required']
         ]));
 
         $this->validate(new PresenceOf([
             'field'     => 'password',
-            'message'   => 'PASSWORD_REQUIRED'
+            'message'   => ['PASSWORD_REQUIRED' => 'The password is required']
         ]));
 
         $this->validate(new StringLengthValidator([
             'field'     => 'login',
             'max'       => 30,
             'min'       => 3,
-            'messageMaximum' => 'LOGIN_MAX_INVALID',
-            'messageMinimum' => 'LOGIN_MIN_INVALID'
+            'messageMaximum' => ['LOGIN_MAX_INVALID' => 'The login is too long'],
+            'messageMinimum' => ['LOGIN_MAX_INVALID' => 'The login is too short']
         ]));
 
         $this->validate(new StringLengthValidator([
             'field'     => 'name',
             'max'       => 30,
             'min'       => 2,
-            'messageMaximum' => 'NAME_MAX_INVALID',
-            'messageMinimum' => 'NAME_MIN_INVALID'
+            'messageMaximum' => ['NAME_MAX_INVALID' => 'The name is too long'],
+            'messageMinimum' => ['NAME_MAX_INVALID' => 'The name is too short']
         ]));
 
         $this->validate(new RegexValidator([
             'field'     => 'login',
             'pattern'   => "/^((\+)|(\d[\s-]?)?[\(\[\s-]{0,2}?\d{3}[\)\]\s-]{0,2}?\d{3}[\s-]?\d{4,5}|([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+)$/",
-            'message'   => 'LOGIN_FORMAT_INVALID'
+            'message'   => ['LOGIN_FORMAT_INVALID' => 'The login should be your email or phone number']
         ]));
 
         return $this->validationHasFailed() != true;

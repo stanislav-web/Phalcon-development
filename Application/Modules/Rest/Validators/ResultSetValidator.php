@@ -1,9 +1,9 @@
 <?php
 namespace Application\Modules\Rest\Validators;
 
-use Application\Modules\Rest\Exceptions\BadRequestException;
-use Application\Modules\Rest\Exceptions\NotFoundException;
+use Phalcon\Http\Request;
 use Phalcon\Mvc\Model\Resultset\Simple as ResultSet;
+use Phalcon\Mvc\Model\MetaData\Apc as MetaData;
 
 /**
  * Class ResultSetValidator. Checking response
@@ -24,7 +24,6 @@ class ResultSetValidator {
     const MESSAGE_OK            = '0K';
     const MESSAGE_CREATED       = 'Created';
     const MESSAGE_NOT_MODIFIED  = 'Not Modified';
-    const RECORDS_NOT_FOUND  = 'The records not found';
 
     /**
      * Resultset response definition
@@ -39,13 +38,6 @@ class ResultSetValidator {
      * @var array $result
      */
     private $result = [];
-
-    /**
-     * Error messages
-     *
-     * @var array $errors
-     */
-    private $errors = [];
 
     /**
      * Setup definition
@@ -71,6 +63,19 @@ class ResultSetValidator {
     }
 
     /**
+     * Return Primary key of result
+     *
+     * @return mixed
+     */
+    public function getPrimaryKey() {
+        $meta = new MetaData();
+
+        $key = $meta->getPrimaryKeyAttributes($this->getResponse()->getFirst());
+        $value = $this->getResponse()->getFirst()->readAttribute(reset($key));
+        return $value;
+    }
+
+    /**
      * Get hydrated response object
      *
      * @return \Phalcon\Mvc\Model\Resultset\Simple
@@ -88,8 +93,17 @@ class ResultSetValidator {
     private function setResult()
     {
         $result = [];
-        $result['code'] = self::CODE_OK;
-        $result['message'] = self::MESSAGE_OK;
+
+        if((new Request())->isPost()) {
+            $result['code'] = self::CODE_CREATED;
+            $result['message'] = self::MESSAGE_CREATED;
+            $result['resource'] = (new Request())->getURI().DIRECTORY_SEPARATOR.$this->getPrimaryKey();
+        }
+        else {
+            $result['code'] = self::CODE_OK;
+            $result['message'] = self::MESSAGE_OK;
+        }
+
         $result['limit']   = $this->getResponse()->count();
 
         if($this->getResponse() instanceof ResultSet) {

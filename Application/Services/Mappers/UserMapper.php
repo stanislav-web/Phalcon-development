@@ -5,6 +5,8 @@ use Application\Aware\ModelCrudAbstract;
 use Application\Models\Users;
 use Application\Models\UserRoles;
 use Application\Models\UserAccess;
+use Application\Modules\Rest\Exceptions\BadRequestException;
+use Application\Modules\Rest\Exceptions\ConflictException;
 
 /**
  * Class UserMapper. Actions above users
@@ -29,21 +31,63 @@ class UserMapper extends ModelCrudAbstract {
     }
 
     /**
-     * Read users
+     * Get access model
      *
-     * @param array $credentials credentials
-     * @return mixed
+     * @return UserAccess
      */
-    public function read(array $credentials = []) {
-
-        $result = $this->getInstance()->find($credentials);
-        return $result;
+    public function getAccess() {
+        return new UserAccess();
     }
 
+    /**
+     * Get roles model
+     *
+     * @return UserRoles
+     */
+    public function getRoles() {
+        return new UserRoles();
+    }
 
+    /**
+     * Create user
+     *
+     * @param array $data
+     * @return Users
+     * @throws BadRequestException
+     * @throws ConflictException
+     */
+    public function createUser(array $data) {
 
+        $userModel = new Users();
+        $userModel->setRole(UserRoles::USER)
+            ->setIp($this->getDi()->get('request')->getClientAddress())
+            ->setUa($this->getDi()->get('request')->getUserAgent());
 
+        foreach($data as $field => $value) {
 
+            if($field === 'password') {
+                $userModel->setPassword($value);
+            }
+            else {
+                $userModel->{$field}   =   $value;
+            }
+        }
+
+        if($userModel->save() === true) {
+
+            return $userModel;
+        }
+        else {
+            foreach($userModel->getMessages() as $message) {
+                if($message->getType() == 'Unique') {
+                    throw new ConflictException($message->getMessage());
+                }
+                else {
+                    throw new BadRequestException($message->getMessage());
+                }
+            }
+        }
+    }
 
 
     /**
@@ -83,39 +127,7 @@ class UserMapper extends ModelCrudAbstract {
 
     }
 
-    /**
-     * Create simple user
-     *
-     * @param array $data
-     * @return Users|bool
-     */
-    public function createUser(array $data) {
 
-        $userModel = new Users();
-        $userModel->setRole(UserRoles::USER)
-            ->setIp($this->getDi()->get('request')->getClientAddress())
-            ->setUa($this->getDi()->get('request')->getUserAgent());
-
-        foreach($data as $field => $value) {
-
-            if($field === 'password') {
-                $userModel->setPassword($value);
-            }
-            else {
-                $userModel->{$field}   =   $value;
-            }
-        }
-
-        if($userModel->save() === true) {
-
-            return $userModel;
-        }
-        else {
-
-            $this->setErrors($userModel->getMessages());
-            return false;
-        }
-    }
 
     /**
      * Edit user
@@ -203,42 +215,6 @@ class UserMapper extends ModelCrudAbstract {
 
         return $userModel->getReadConnection()
             ->delete($userModel->getSource(), "id = ".(int)$id);
-    }
-
-    /**
-     * Set errors message
-     *
-     * @param mixed $errors
-     */
-    public function setErrors($errors) {
-        $this->errors = $errors;
-    }
-
-    /**
-     * Get error messages
-     *
-     * @return mixed $errors
-     */
-    public function getErrors() {
-        return $this->errors;
-    }
-
-    /**
-     * Get access model
-     *
-     * @return UserAccess
-     */
-    public function getAccess() {
-        return new UserAccess();
-    }
-
-    /**
-     * Get roles model
-     *
-     * @return UserRoles
-     */
-    public function getRoles() {
-        return new UserRoles();
     }
 
     /**

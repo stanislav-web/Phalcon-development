@@ -218,7 +218,6 @@ class QueryValidator {
 
             $required = array_flip($this->getRules()->required);
             $exchange = array_diff_key($required, $this->getParams());
-
             if(empty($exchange) === false) {
 
                 throw new BadRequestException([

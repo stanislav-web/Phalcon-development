@@ -6,8 +6,8 @@
  * @version DEVELOPMENT
  */
 
-ini_set('display_errors', 'Off');
-error_reporting(0);
+ini_set('display_errors', 'On');
+error_reporting(7);
 
 return [
 
@@ -27,7 +27,7 @@ return [
     // Configure backend and frontend data caching
 
     'cache' => [
-        'enable' => true,
+        'enable' => false,
         'metadata' => false,
         'annotations' => false,
 

@@ -38,6 +38,16 @@ $di->setShared('session', function () use ($config) {
     return $session;
 });
 
+$di->setShared('modelsMetadata', function() use ($config) {
+
+    $metaData = new \Phalcon\Mvc\Model\MetaData\Memory([
+        'lifetime'      => $config['cache']['lifetime'], // optional (standard: 8600)
+        'prefix'        => $config['cache']['prefix']   // optional (standard: false)
+    ]);
+
+    return $metaData;
+});
+
 // Default component to crypt cookies values
 $di->set('crypt', function () use ($config) {
 

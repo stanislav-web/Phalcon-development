@@ -155,43 +155,23 @@ class SecurityService extends RestSecurityProvider {
      *
      * @param array $credentials
      * @return ResultSet
+     * @throws \Application\Modules\Rest\Exceptions\BadRequestException
+     * @throws \Application\Modules\Rest\Exceptions\ConflictException
      */
     public function register(array $credentials)
     {
-
-
         $user = $this->getUserMapper()->createUser($credentials);
 
-        var_dump($user);
-        exit('POST');
+        session_regenerate_id(true);
 
-        // required params that to be saved by this user
-            $data = $this->getRequest()->getPost();
+        $token = $this->getSecurity()->hash($this->getSecurity()->getToken());
 
-            if($user !== false) {
-                // register successful
-                session_regenerate_id(true);
-                $token = $this->cryptAccessToken($user->getId(), $user->getSalt());
-                $this->setAccessToken($user->getId(), $token, (time() + $this->getConfig()->cache->lifetime));
+        $accessToken = $this->setToken(
+            $user->getId(),
+            $token,
+            (time() + $this->getConfig()->tokenLifetime)
+        );
 
-                // save data to session
-                $user = $this->getUser(['id' => $user->getId()]);
-                $this->getDi()->getShared('session')->set('user', [
-                    'id'        =>  $user['id'],
-                    'login'     =>  $user['login'],
-                    'name'      =>  $user['name'],
-                    'surname'   =>  $user['surname'],
-                    'role'      =>  $user['role'],
-                    'state'     =>  $user['state'],
-                    'salt'      =>  $user['salt'],
-                    'rating'    =>  $user['rating'],
-                    'date_registration' => $user['date_registration'],
-                    'date_lastvisit' => $user['date_lastvisit']
-                ]);
-
-                return true;
-
-            }
-            return $this->setError($this->getUserMapper()->getErrors());
+        return $accessToken;
     }
 }

@@ -129,8 +129,8 @@ class RestService implements RestServiceInterface {
     public function setResourceUri(array $response) {
 
         $this->resourceUri =
-            (isset($uri['resource']) === false)
-        ? $this->getResolver()->getRequest()->getURI() : $uri['resource'];
+            (isset($response['resource']) === false)
+        ? $this->getResolver()->getRequest()->getURI() : $response['resource'];
         
         return $this;
     }
@@ -175,23 +175,12 @@ class RestService implements RestServiceInterface {
      */
     public function setMessage($message) {
 
-        if($message['code'] > self::CODE_NOT_MODIFIED) {
-
-            $this->message    =   ['error' => [
-                'code'      => $message['code'],
-                'message'   => $message['message']
-                ]
-            ];
-        }
-        else {
-
-            $this->message    =   [
-                'code'      => $message['code'],
-                'message'   => $message['message'],
-                'limit'     => $message['limit'],
-                'offset'    => (isset($this->getParams()['offset'])) ? (int)$this->getParams()['offset'] : 0
-            ];
-        }
+        $this->message    =   [
+            'code'      => $message['code'],
+            'message'   => $message['message'],
+            'limit'     => $message['limit'],
+            'offset'    => (isset($this->getParams()['offset'])) ? (int)$this->getParams()['offset'] : 0
+        ];
 
         if(isset($message['data']) === true) {
             foreach($message['data'] as $k => $v)

@@ -38,7 +38,7 @@ return [
             ],
             'methods'    => 'POST',
             'params'     => [
-                'required' => 'login,password,name,'
+                'required' => 'login,password,name'
             ],
             'mapper'   => 'UserMapper'
         ],
