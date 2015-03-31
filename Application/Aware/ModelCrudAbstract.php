@@ -18,16 +18,6 @@ use Phalcon\DI\InjectionAwareInterface;
 abstract class ModelCrudAbstract implements InjectionAwareInterface {
 
     /**
-     * Exception info
-     * @var array $exceptions
-     */
-    protected $exceptions = [
-        'NOT_FOUND' => [
-            'RECORDS_NOT_FOUND'  =>  'The records not found'
-        ]
-    ];
-
-    /**
      * Dependency injection container
      *
      * @var \Phalcon\DiInterface $di;
@@ -78,32 +68,16 @@ abstract class ModelCrudAbstract implements InjectionAwareInterface {
         if($result->count() > 0) {
             return $result;
         }
-        else {
-            throw new NotFoundException($this->getException('NOT_FOUND'));
-        }
-    }
 
-    /**
-     * Get exception info
-     *
-     * @param int $code
-     * @return mixed
-     * @throws InternalServerErrorException
-     */
-    private function getException($code) {
-
-        if(isset($this->exceptions[$code]) === true) {
-            return $this->exceptions[$code];
-        }
-        else {
-            throw new InternalServerErrorException();
-        }
+        throw new NotFoundException([
+            'RECORDS_NOT_FOUND'  =>  'The records not found'
+        ]);
     }
 
     /**
      * Get instance of polymorphic Model
      *
-     * @return Model
+     * @return \Phalcon\Mvc\Model
      */
     abstract public function getInstance();
 }

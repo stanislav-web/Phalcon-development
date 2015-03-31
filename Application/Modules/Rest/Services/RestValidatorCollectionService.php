@@ -67,7 +67,7 @@ class RestValidatorCollectionService extends RestValidatorCollectionsProvider {
 
         $this->params = $this->filterParams(array_merge(
             $primary,
-            $request->get()), ['trim', 'lower']);
+            $request->get()), ['trim']);
 
         return $this;
     }

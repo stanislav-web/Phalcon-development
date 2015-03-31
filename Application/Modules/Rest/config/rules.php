@@ -76,7 +76,16 @@ return [
             'mapper'   => 'LogMapper'
         ],
     ],
-
+    'errors'  =>  [
+        'get'    =>  [
+            'requests'  =>  [  // limit request per seconds
+                'limit' =>  10,
+                'time'  =>  1,
+            ],
+            'methods'   => 'GET',
+            'mapper'   => 'ErrorMapper'
+        ],
+    ],
     'pages'  =>  [
         'get'    =>  [
             'requests'  =>  [  // limit request per seconds

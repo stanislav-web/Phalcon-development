@@ -128,9 +128,11 @@ class RestService implements RestServiceInterface {
      */
     public function setResourceUri(array $response) {
 
+        $request = $this->getResolver()->getRequest();
+
         $this->resourceUri =
             (isset($response['resource']) === false)
-        ? $this->getResolver()->getRequest()->getURI() : $response['resource'];
+        ? $request->getScheme().'://'.$request->getHttpHost().$request->getURI() : $response['resource'];
         
         return $this;
     }
