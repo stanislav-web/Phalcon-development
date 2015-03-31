@@ -21,7 +21,7 @@ trait Format
      * @param int $precision after comma numbers
      * @return string
      */
-    public function formatBytes($bytes, $precision = 2)
+    public static function formatBytes($bytes, $precision = 2)
     {
         $size = array('bytes', 'kb', 'mb', 'gb', 'tb', 'pb', 'eb', 'zb', 'yb');
         $factor = floor((strlen($bytes) - 1) / 3);

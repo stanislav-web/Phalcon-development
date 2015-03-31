@@ -20,6 +20,10 @@ return [
             '\Application\Modules\Rest\Events\BeforeExecuteRoute\ResolveAccept',
             '\Application\Modules\Rest\Events\BeforeExecuteRoute\ResolveAccess',
             '\Application\Modules\Rest\Events\BeforeExecuteRoute\ResolveRequestLength',
+        ],
+        // POST 304 Redirects
+        'redirects' => [
+            '/api/v1/sign' => '/api/v1/users',
         ]
     ]
 ];

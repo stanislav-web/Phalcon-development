@@ -33,4 +33,15 @@ class SignController extends ControllerBase {
         $this->response =
             $this->getDI()->get('RestSecurityService')->register($params);
     }
+
+    /**
+     * PUT Restore access
+     */
+    public function putAction() {
+
+        $params = $this->rest->getParams();
+
+        $this->response =
+            $this->getDI()->get('RestSecurityService')->restore($params);
+    }
 }

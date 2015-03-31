@@ -65,9 +65,10 @@ class RestValidatorCollectionService extends RestValidatorCollectionsProvider {
             ];
         }
 
+        $data = ($request->isPut()) ? array_merge($request->getPut(), $request->get()) : $request->get();
+
         $this->params = $this->filterParams(array_merge(
-            $primary,
-            $request->get()), ['trim']);
+            $primary, $data), ['trim']);
 
         return $this;
     }
@@ -127,8 +128,8 @@ class RestValidatorCollectionService extends RestValidatorCollectionsProvider {
      */
     public function resolve($responseData) {
 
-        $rs = new ResultSetValidator($responseData);
-        $rs->validate();
+        $rs = new ResultSetValidator($this->getDi());
+        $rs->validate($responseData);
         $this->setResponse($rs->getResult());
     }
 }

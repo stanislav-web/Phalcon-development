@@ -1,10 +1,9 @@
 <?php
 namespace Application\Services\Mappers;
 
-use \Phalcon\DI\InjectionAwareInterface;
+use Application\Aware\ModelCrudAbstract;
 use \Phalcon\Mvc\Model\Exception;
 use \Phalcon\Http\Request;
-use Application\Aware\ModelCrudInterface;
 use Application\Models\Engines;
 use Application\Models\Currency;
 
@@ -19,14 +18,7 @@ use Application\Models\Currency;
  * @copyright Stanislav WEB
  * @filesource /Application/Services/Mappers/EngineMapper.php
  */
-class EngineMapper implements InjectionAwareInterface, ModelCrudInterface {
-
-    /**
-     * Dependency injection container
-     *
-     * @var \Phalcon\DiInterface $di;
-     */
-    protected $di;
+class EngineMapper extends ModelCrudAbstract {
 
     /**
      * Upload logo directory
@@ -36,29 +28,12 @@ class EngineMapper implements InjectionAwareInterface, ModelCrudInterface {
     private $logoDirectory = 'files/logo';
 
     /**
-     * Errors array
+     * Get instance of polymorphic object
      *
-     * @var array $errors;
+     * @return Engines
      */
-    private $errors = [];
-
-    /**
-     * Set dependency container
-     *
-     * @param \Phalcon\DiInterface $di
-     */
-    public function setDi($di)
-    {
-        $this->di = $di;
-    }
-
-    /**
-     * Get dependency container
-     * @return \Phalcon\DiInterface
-     */
-    public function getDi()
-    {
-        return $this->di;
+    public function getInstance() {
+        return new Engines();
     }
 
     /**
@@ -137,39 +112,7 @@ class EngineMapper implements InjectionAwareInterface, ModelCrudInterface {
         }
     }
 
-    /**
-     * Get instance of polymorphic object
-     *
-     * @return Categories
-     */
-    public function getInstance() {
-        return new Engines();
-    }
 
-    /**
-     * Get model attributes
-     *
-     * @return array
-     */
-    public function getAttributes()
-    {
-        $metaData = $this->getInstance()->getModelsMetaData();
-        return $metaData->getAttributes($this->getInstance());
-    }
-
-    /**
-     * Read engines
-     *
-     * @param int $id
-     * @param array $data
-     * @return mixed
-     */
-    public function read($id = null, array $data = []) {
-
-        $result = (empty($id) === true) ? $this->getList() : $this->getOne($id);
-
-        return $result;
-    }
 
     /**
      * Edit category

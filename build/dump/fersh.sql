@@ -7,7 +7,7 @@
 #
 # Адрес: 127.0.0.1 (MySQL 5.6.22)
 # Схема: phalcon.local
-# Время создания: 2015-03-31 11:23:55 +0000
+# Время создания: 2015-03-31 17:29:38 +0000
 # ************************************************************
 
 
@@ -312,7 +312,75 @@ VALUES
 	(102,'Rest',2,'Not Found\n              IP: 127.0.0.1\n              URI: http://phalcon.local//api/v1/undefined/page',1427800804),
 	(103,'Rest',2,'Bad Request\n              IP: 127.0.0.1\n              URI: http://phalcon.local//api/v1/sign',1427800804),
 	(104,'Rest',2,'Unauthorized\n              IP: 127.0.0.1\n              URI: http://phalcon.local//api/v1/users',1427800804),
-	(105,'Rest',1,'Argument 1 passed to Application\\Modules\\Rest\\Exceptions\\BadRequestException::__construct() must be of the type array, string given, called in /Users/stanislavmenshykh/phalcon.local/Application/Services/Mappers/UserMapper.php on line 86 and defined File: /Users/stanislavmenshykh/phalcon.local/Application/Modules/Rest/Exceptions/BadRequestException.php Line:37',1427800828);
+	(105,'Rest',1,'Argument 1 passed to Application\\Modules\\Rest\\Exceptions\\BadRequestException::__construct() must be of the type array, string given, called in /Users/stanislavmenshykh/phalcon.local/Application/Services/Mappers/UserMapper.php on line 86 and defined File: /Users/stanislavmenshykh/phalcon.local/Application/Modules/Rest/Exceptions/BadRequestException.php Line:37',1427800828),
+	(106,'Rest',2,'Bad Request\n              IP: 127.0.0.1\n              URI: http://phalcon.local//api/v1/pages?columns=id%2Ctitle%2Cwrong',1427801046),
+	(107,'Rest',2,'Forbidden\n              IP: 127.0.0.1\n              URI: http://phalcon.local//api/v1/users',1427801047),
+	(108,'Rest',2,'Request URI Too Long\n              IP: 127.0.0.1\n              URI: http://phalcon.local//api/v1/pages?columns=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',1427801047),
+	(109,'Rest',2,'Not Acceptable\n              IP: 127.0.0.1\n              URI: http://phalcon.local//api/v1/users',1427801047),
+	(110,'Rest',2,'Not Found\n              IP: 127.0.0.1\n              URI: http://phalcon.local//api/v1/undefined/page',1427801047),
+	(111,'Rest',2,'Bad Request\n              IP: 127.0.0.1\n              URI: http://phalcon.local//api/v1/sign',1427801047),
+	(112,'Rest',2,'Unauthorized\n              IP: 127.0.0.1\n              URI: http://phalcon.local//api/v1/users',1427801047),
+	(113,'Rest',2,'Conflict\n              IP: 127.0.0.1\n              URI: http://phalcon.local/api/v1/sign',1427801329),
+	(114,'Rest',2,'Bad Request\n              IP: 127.0.0.1\n              URI: http://phalcon.local/api/v1/sign',1427804468),
+	(115,'Rest',2,'Bad Request\n              IP: 127.0.0.1\n              URI: http://phalcon.local/api/v1/sign/37',1427804663),
+	(116,'Rest',2,'Bad Request\n              IP: 127.0.0.1\n              URI: http://phalcon.local/api/v1/sign/37',1427805690),
+	(117,'Rest',2,'Unauthorized\n              IP: 127.0.0.1\n              URI: http://phalcon.local/api/v1/users',1427805696),
+	(118,'Rest',2,'Conflict\n              IP: 127.0.0.1\n              URI: http://phalcon.local/api/v1/sign',1427805884),
+	(119,'Rest',2,'Conflict\n              IP: 127.0.0.1\n              URI: http://phalcon.local/api/v1/sign',1427806026),
+	(120,'Rest',1,'Call to a member function count() on a non-object File: /Users/stanislavmenshykh/phalcon.local/Application/Services/Mappers/ErrorMapper.php Line:39',1427806042),
+	(121,'Rest',1,'Call to a member function count() on a non-object File: /Users/stanislavmenshykh/phalcon.local/Application/Services/Mappers/ErrorMapper.php Line:39',1427806045),
+	(122,'Rest',1,'Undefined index: /api/v1/pages File: /Users/stanislavmenshykh/phalcon.local/Application/Modules/Rest/Validators/ResultSetValidator.php Line:131',1427806239),
+	(123,'Rest',2,'Unauthorized\n              IP: 127.0.0.1\n              URI: http://phalcon.local/api/v1/users/45',1427812259),
+	(124,'Rest',2,'Bad Request\n              IP: 127.0.0.1\n              URI: http://phalcon.local//api/v1/pages?columns=id%2Ctitle%2Cwrong',1427816585),
+	(125,'Rest',2,'Forbidden\n              IP: 127.0.0.1\n              URI: http://phalcon.local//api/v1/users',1427816585),
+	(126,'Rest',2,'Request URI Too Long\n              IP: 127.0.0.1\n              URI: http://phalcon.local//api/v1/pages?columns=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',1427816586),
+	(127,'Rest',2,'Not Acceptable\n              IP: 127.0.0.1\n              URI: http://phalcon.local//api/v1/users',1427816586),
+	(128,'Rest',2,'Not Found\n              IP: 127.0.0.1\n              URI: http://phalcon.local//api/v1/undefined/page',1427816586),
+	(129,'Rest',2,'Bad Request\n              IP: 127.0.0.1\n              URI: http://phalcon.local//api/v1/sign',1427816586),
+	(130,'Rest',2,'Unauthorized\n              IP: 127.0.0.1\n              URI: http://phalcon.local//api/v1/users',1427816586),
+	(131,'Rest',1,'Cannot redeclare Application\\Services\\Mappers\\EngineMapper::getInstance() File: /Users/stanislavmenshykh/phalcon.local/Application/Services/Mappers/EngineMapper.php Line:123',1427816883),
+	(132,'Rest',2,'Bad Request\n              IP: 127.0.0.1\n              URI: http://phalcon.local/api/v1/sign',1427817091),
+	(133,'Rest',2,'Bad Request\n              IP: 127.0.0.1\n              URI: http://phalcon.local/api/v1/sign',1427817146),
+	(134,'Rest',2,'Bad Request\n              IP: 127.0.0.1\n              URI: http://phalcon.local//api/v1/pages?columns=id%2Ctitle%2Cwrong',1427817157),
+	(135,'Rest',2,'Forbidden\n              IP: 127.0.0.1\n              URI: http://phalcon.local//api/v1/users',1427817157),
+	(136,'Rest',2,'Request URI Too Long\n              IP: 127.0.0.1\n              URI: http://phalcon.local//api/v1/pages?columns=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',1427817157),
+	(137,'Rest',2,'Not Acceptable\n              IP: 127.0.0.1\n              URI: http://phalcon.local//api/v1/users',1427817157),
+	(138,'Rest',2,'Not Found\n              IP: 127.0.0.1\n              URI: http://phalcon.local//api/v1/undefined/page',1427817157),
+	(139,'Rest',2,'Bad Request\n              IP: 127.0.0.1\n              URI: http://phalcon.local//api/v1/sign',1427817157),
+	(140,'Rest',2,'Unauthorized\n              IP: 127.0.0.1\n              URI: http://phalcon.local//api/v1/users',1427817157),
+	(141,'Rest',2,'Bad Request\n              IP: 127.0.0.1\n              URI: http://phalcon.local/api/v1/sign',1427817242),
+	(142,'Rest',2,'Bad Request\n              IP: 127.0.0.1\n              URI: http://phalcon.local/api/v1/sign',1427817264),
+	(143,'Rest',2,'Bad Request\n              IP: 127.0.0.1\n              URI: http://phalcon.local/api/v1/sign',1427817274),
+	(144,'Rest',2,'Bad Request\n              IP: 127.0.0.1\n              URI: http://phalcon.local/api/v1/sign',1427817280),
+	(145,'Rest',2,'Bad Request\n              IP: 127.0.0.1\n              URI: http://phalcon.local/api/v1/sign',1427817291),
+	(146,'Rest',2,'Bad Request\n              IP: 127.0.0.1\n              URI: http://phalcon.local/api/v1/sign',1427817342),
+	(147,'Rest',1,'Undefined index: message File: /Users/stanislavmenshykh/phalcon.local/Application/Modules/Rest/Services/RestService.php Line:195',1427821561),
+	(148,'Rest',1,'Undefined index: message File: /Users/stanislavmenshykh/phalcon.local/Application/Modules/Rest/Services/RestService.php Line:195',1427821563),
+	(149,'Rest',1,'Undefined index: message File: /Users/stanislavmenshykh/phalcon.local/Application/Modules/Rest/Services/RestService.php Line:195',1427821564),
+	(150,'Rest',1,'Undefined index: message File: /Users/stanislavmenshykh/phalcon.local/Application/Modules/Rest/Services/RestService.php Line:195',1427821564),
+	(151,'Rest',1,'Maximum function nesting level of \'100\' reached, aborting! File: /Users/stanislavmenshykh/phalcon.local/Application/Modules/Rest/Services/RestService.php Line:87',1427822007),
+	(152,'Rest',1,'Call to a member function count() on a non-object File: /Users/stanislavmenshykh/phalcon.local/Application/Services/Mappers/ErrorMapper.php Line:39',1427822324),
+	(153,'Rest',1,'Call to a member function count() on a non-object File: /Users/stanislavmenshykh/phalcon.local/Application/Services/Mappers/ErrorMapper.php Line:39',1427822604),
+	(154,'Rest',1,'Call to a member function count() on a non-object File: /Users/stanislavmenshykh/phalcon.local/Application/Services/Mappers/ErrorMapper.php Line:39',1427822606),
+	(155,'Rest',1,'Call to a member function count() on a non-object File: /Users/stanislavmenshykh/phalcon.local/Application/Services/Mappers/ErrorMapper.php Line:39',1427822608),
+	(156,'Rest',1,'Call to a member function count() on a non-object File: /Users/stanislavmenshykh/phalcon.local/Application/Services/Mappers/ErrorMapper.php Line:39',1427822608),
+	(157,'Rest',1,'Call to a member function count() on a non-object File: /Users/stanislavmenshykh/phalcon.local/Application/Services/Mappers/ErrorMapper.php Line:39',1427822609),
+	(158,'Rest',1,'Call to a member function count() on a non-object File: /Users/stanislavmenshykh/phalcon.local/Application/Services/Mappers/ErrorMapper.php Line:39',1427822609),
+	(159,'Rest',1,'Call to a member function count() on a non-object File: /Users/stanislavmenshykh/phalcon.local/Application/Services/Mappers/ErrorMapper.php Line:39',1427822609),
+	(160,'Rest',2,'Bad Request\n              IP: 127.0.0.1\n              URI: http://phalcon.local/api/v1/sign',1427822654),
+	(161,'Rest',2,'Bad Request\n              IP: 127.0.0.1\n              URI: http://phalcon.local/api/v1/sign',1427822775),
+	(162,'Rest',1,'Argument 1 passed to Application\\Modules\\Rest\\Services\\RestValidatorCollectionService::filterParams() must be of the type array, null given, called in /Users/stanislavmenshykh/phalcon.local/Application/Modules/Rest/Services/RestValidatorCollectionService.php on line 70 and defined File: /Users/stanislavmenshykh/phalcon.local/Application/Modules/Rest/Services/RestValidatorCollectionService.php Line:94',1427822784),
+	(163,'Rest',1,'Argument 1 passed to Application\\Modules\\Rest\\Services\\RestValidatorCollectionService::filterParams() must be of the type array, null given, called in /Users/stanislavmenshykh/phalcon.local/Application/Modules/Rest/Services/RestValidatorCollectionService.php on line 70 and defined File: /Users/stanislavmenshykh/phalcon.local/Application/Modules/Rest/Services/RestValidatorCollectionService.php Line:94',1427822786),
+	(164,'Rest',1,'Argument 1 passed to Application\\Modules\\Rest\\Services\\RestValidatorCollectionService::filterParams() must be of the type array, null given, called in /Users/stanislavmenshykh/phalcon.local/Application/Modules/Rest/Services/RestValidatorCollectionService.php on line 70 and defined File: /Users/stanislavmenshykh/phalcon.local/Application/Modules/Rest/Services/RestValidatorCollectionService.php Line:94',1427822787),
+	(165,'Rest',1,'Argument 1 passed to Application\\Modules\\Rest\\Services\\RestValidatorCollectionService::filterParams() must be of the type array, null given, called in /Users/stanislavmenshykh/phalcon.local/Application/Modules/Rest/Services/RestValidatorCollectionService.php on line 70 and defined File: /Users/stanislavmenshykh/phalcon.local/Application/Modules/Rest/Services/RestValidatorCollectionService.php Line:94',1427822802),
+	(166,'Rest',2,'Bad Request\n              IP: 127.0.0.1\n              URI: http://phalcon.local/api/v1/sign',1427822912),
+	(167,'Rest',2,'Bad Request\n              IP: 127.0.0.1\n              URI: http://phalcon.local//api/v1/pages?columns=id%2Ctitle%2Cwrong',1427822953),
+	(168,'Rest',2,'Forbidden\n              IP: 127.0.0.1\n              URI: http://phalcon.local//api/v1/users',1427822953),
+	(169,'Rest',2,'Request URI Too Long\n              IP: 127.0.0.1\n              URI: http://phalcon.local//api/v1/pages?columns=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',1427822953),
+	(170,'Rest',2,'Not Acceptable\n              IP: 127.0.0.1\n              URI: http://phalcon.local//api/v1/users',1427822953),
+	(171,'Rest',2,'Not Found\n              IP: 127.0.0.1\n              URI: http://phalcon.local//api/v1/undefined/page',1427822953),
+	(172,'Rest',2,'Bad Request\n              IP: 127.0.0.1\n              URI: http://phalcon.local//api/v1/sign',1427822953),
+	(173,'Rest',2,'Unauthorized\n              IP: 127.0.0.1\n              URI: http://phalcon.local//api/v1/users',1427822953);
 
 /*!40000 ALTER TABLE `logs` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -366,8 +434,8 @@ LOCK TABLES `user_access` WRITE;
 
 INSERT INTO `user_access` (`user_id`, `token`, `expire_date`)
 VALUES
-	(10,'$2a$08$3KyhOFzhsg112aOh71J1cOt5P3gPB6j7MohfPdZMG37BYM19ZkqWu','2015-04-07 11:20:05'),
-	(11,'$2a$08$oEx.iBew5rPmb8PKuArgseqSzVEBCnmu2dzkT9Gtm1owrFEfyPo5m','2015-04-07 11:20:04'),
+	(10,'$2a$08$92O2QYDuGCXoKtUz2Pf8mOiq0aYDLRBGteX2m7S.uraQ1VgQdIehi','2015-04-07 17:29:13'),
+	(11,'$2a$08$pvwjzQ.5C2L3ZLAjpZaldu7XMaSpoyQ.anlai/b/SHwslujzUAFNG','2015-04-07 17:29:13'),
 	(12,'78df0928b91ec774abb2a651d8c1ffab','2015-03-01 13:37:59'),
 	(13,'c26e866b05c4b60b48968a55154187da','2015-02-15 14:36:58'),
 	(14,'e95b8b637146bc43325c9df2fd1a0ab4','2015-03-16 05:45:43'),
@@ -387,7 +455,21 @@ VALUES
 	(31,'3fe372c2f39619966384ab84f6894518','2015-03-16 07:43:18'),
 	(32,'210056b2ac1fc6071520c0c0b2b5f979','2015-03-19 02:13:37'),
 	(33,'d2516319f860cd17283f8ffae47d47f6','2015-03-16 21:57:41'),
-	(34,'$2a$08$PbKDhDPHitTnswhak8W//exO4CLiefSt3aR72pNWKXO0WJ.jFfpni','2015-04-07 11:23:17');
+	(34,'$2a$08$PbKDhDPHitTnswhak8W//exO4CLiefSt3aR72pNWKXO0WJ.jFfpni','2015-04-07 11:23:17'),
+	(35,'$2a$08$/PFLE8I5mYUj.HIoGfs6luEiVn9zTrPmUYgHiqqnUWmwXzEmgDAxy','2015-04-07 11:24:06'),
+	(36,'$2a$08$6EupB84BZeBK6BZLQSjTXecMQ/Eg.dYNo962d9eYn7zrpxibK85/O','2015-04-07 12:21:21'),
+	(37,'$2a$08$wN//uhFgWnchQAdiKOp9eO7pM5GlNm2x3pZHgBNT7yYPnkWZcAepS','2015-04-07 12:24:12'),
+	(38,'$2a$08$aLsi3TaKmFFJc5Y4VCmwbe4esiRRwtYRhEfDyYg3SPw9qXnd9U/b2','2015-04-07 14:27:55'),
+	(39,'$2a$08$MLfJr8pGzNos5CrzDrrDeusE5ZH.11BsQbM7AhOcwZ/Qo3bL3Wt4.','2015-04-07 14:28:30'),
+	(40,'$2a$08$qnFlgvZtNBy..anoepICP.9QygytLA81CvQxbbg5Yji/qq01ONDn2','2015-04-07 14:28:54'),
+	(41,'$2a$08$jaDg1uGBGroRkSI17umX8.Ua.gbEIsgDMbmGNd4Bm4rv/XDwXAZ9W','2015-04-07 14:29:12'),
+	(42,'$2a$08$9CUJ6aCg7rn9kDAOF/vmje/VhnpnkbKzyGKKsd2hjFUa1VOG5l3Km','2015-04-07 14:29:46'),
+	(43,'$2a$08$iwFwFqt4HefevArgr8lJNev1Zx8tE8idLs96p8VDi9G5Sa3ORU8cu','2015-04-07 14:30:15'),
+	(44,'$2a$08$d8kuBcJHjU/ZeMcD.0ln8utB4t2nJD09kW65pBnejn1nml69DLX1O','2015-04-07 14:30:47'),
+	(45,'$2a$08$1iONIkKmmbz63VktW3O4nOpm/szsn682DH39qPRE8SwkAyPh92Zbu','2015-04-07 14:30:53'),
+	(46,'$2a$08$JofjRtUGBnSvd6OyJRFdF.Eh764wWyFNCEuaFKxmgy9XzmRaetFJu','2015-04-07 15:43:05'),
+	(47,'$2a$08$HgQqN2FJfaifmm2HhiCmV.ZCyABm5yqqLVCFyXMjtVBU43c6tmOVy','2015-04-07 15:52:37'),
+	(48,'$2a$08$/12JHmfWhs9IZJQu9BMiEOukEFxabPNifRhmbTr7A667MLR/F3t/y','2015-04-07 17:29:13');
 
 /*!40000 ALTER TABLE `user_access` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -446,8 +528,8 @@ LOCK TABLES `users` WRITE;
 
 INSERT INTO `users` (`id`, `login`, `name`, `surname`, `password`, `role`, `state`, `rating`, `ip`, `ua`, `date_registration`, `date_lastvisit`)
 VALUES
-	(10,'stanisov@gmail.com','Stanislav','','$2a$08$.8XBgae/T/KbIstUv9eYI.2lOTcAlOxiLtoQAw6dAuMgsTKZsPhCK',1,'0',0,2130706433,'Symfony2 BrowserKit','2015-02-02 12:30:28','2015-03-31 11:20:05'),
-	(11,'user@gmail.com','stanisovw@gmail.com','','$2a$08$n9WNEktlDCbVqPZ8faZzVOvPuoi4XZr2beSusccYt6GKpatmPsTT2',0,'0',0,2130706433,'Symfony2 BrowserKit','2015-02-21 04:31:14','2015-03-31 11:20:04'),
+	(10,'stanisov@gmail.com','Stanislav','','$2a$08$.8XBgae/T/KbIstUv9eYI.2lOTcAlOxiLtoQAw6dAuMgsTKZsPhCK',1,'0',0,2130706433,'Symfony2 BrowserKit','2015-02-02 12:30:28','2015-03-31 17:29:13'),
+	(11,'user@gmail.com','stanisovw@gmail.com','','$2a$08$n9WNEktlDCbVqPZ8faZzVOvPuoi4XZr2beSusccYt6GKpatmPsTT2',0,'0',0,2130706433,'Symfony2 BrowserKit','2015-02-21 04:31:14','2015-03-31 17:29:13'),
 	(12,'stanisov2@gmail.com','stanisov2@gmail.com','','$2a$08$WLHJJKcAFndE7mtuqcEYeOaIIjcGikfK1zNjGAGcmDiWEU.ya9mSy',0,'0',0,2130706433,'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.111 Safari/537.36','2015-02-22 13:37:59','2015-02-22 13:37:59'),
 	(13,'stanisov3@gmail.com','stanisov3@gmail.com','','$2a$08$ffWFo.DHPzZC1El/tlDfb.e4v6eG1/UgtacL/adtjCAf0wXcRqbNK',0,'0',0,2130706433,'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.111 Safari/537.36','2015-02-22 14:36:52','2015-02-22 14:36:52'),
 	(14,'stanisov4@gmail.com','dcdcdcdcdc','','wwwwww',0,'0',0,2130706433,'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.76 Safari/537.36','2015-03-09 05:45:43','2015-03-09 05:45:43'),
@@ -470,7 +552,21 @@ VALUES
 	(31,'ddffff@mail.ru','ddffff@mail.ru','','$2a$08$vzeuVMFudlFKdi/wERuR4Ov4Dy6BH8Zn2Qf1IDnGburGzsLWQaYUe',0,'0',0,2130706433,'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.76 Safari/537.36','2015-03-09 07:22:46','2015-03-09 07:22:46'),
 	(32,'ddffff@mail.ru2','ddffff@mail.ru2','','$2a$08$G1DYLGCUb14lr5hNy/e83uOPYK3VlRmpAXPDiDcSXNUi1VLjdPQJe',0,'0',0,2130706433,'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.76 Safari/537.36','2015-03-09 07:43:32','2015-03-12 02:13:37'),
 	(33,'ddffff@mail.ru22','ddffff@mail.ru22','','$2a$08$V.SUyESC46HEmOtvmEXRLeiX.6TLxYcClLR93x42KkNT/m2AQy8rS',0,'0',0,2130706433,'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.76 Safari/537.36','2015-03-09 07:45:37','2015-03-09 07:45:37'),
-	(34,'stanisovwewwew@gmail.com','stanisov@gmail.com','','$2a$08$M.NVYcQeTbp7NBNwR4qTdOKmg.0KYBriIvmhpT/M2Aiz52aEP1.7C',0,'0',0,2130706433,'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.104 Safari/537.36','2015-03-31 14:23:17','2015-03-31 14:23:17');
+	(34,'stanisovwewwew@gmail.com','stanisov@gmail.com','','$2a$08$M.NVYcQeTbp7NBNwR4qTdOKmg.0KYBriIvmhpT/M2Aiz52aEP1.7C',0,'0',0,2130706433,'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.104 Safari/537.36','2015-03-31 14:23:17','2015-03-31 14:23:17'),
+	(35,'1980634175@1469152825.com','CodeceptionTester','','$2a$08$I1Mq.lVWgM7ScFnLIdSnTOR4qq0xw.EOUX1PYqWIy.MSBg.UDa5Om',0,'0',0,2130706433,'Symfony2 BrowserKit','2015-03-31 14:24:06','2015-03-31 14:24:06'),
+	(36,'stanisov2@wewgmail.com','stanisov@gmail.com','','$2a$08$7JjHP0/vp9zGGDbKnl3dZOGA9l3syPjR1nm0KTvL.bYc5EpjLltqq',0,'0',0,2130706433,'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.104 Safari/537.36','2015-03-31 15:21:21','2015-03-31 15:21:21'),
+	(37,'stanis2ov2@wewgmail.com','stanisov@gmail.com','','$2a$08$J0UJFK2p9ZHpJPLYRIjHTO68LtqoTUuXxrojOf92HlCYDR1ru.wCS',0,'0',0,2130706433,'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.104 Safari/537.36','2015-03-31 15:24:12','2015-03-31 15:24:12'),
+	(38,'stanisov232@wewgmail.com','stanisov@gmail.com','','$2a$08$e7wSzmRRlAIs.9SIWuuMr.TaPJ8wgF09dtwdFLPaoboqb7C1OwSIK',0,'0',0,2130706433,'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.104 Safari/537.36','2015-03-31 17:27:55','2015-03-31 17:27:55'),
+	(39,'stanisov2232@wewgmail.com','stanisov@gmail.com','','$2a$08$gsPEBHk0HJH/meaJgdE2keAL/rgXwfWZLvK2g5nWAKI4kEYWtfzXG',0,'0',0,2130706433,'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.104 Safari/537.36','2015-03-31 17:28:30','2015-03-31 17:28:30'),
+	(40,'stanisov22232@wewgmail.com','stanisov@gmail.com','','$2a$08$ydcK5r5tWRE967qyGcmjDeFGJHdyPOMlVFJaVknqcuz6J0OpZ25Am',0,'0',0,2130706433,'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.104 Safari/537.36','2015-03-31 17:28:54','2015-03-31 17:28:54'),
+	(41,'stanis1ov22232@wewgmail.com','stanisov@gmail.com','','$2a$08$Ixua.kzkRevn5/9nqOLwXeYNOohodv3QthiolVYU3vJ5qy2Xu2B/W',0,'0',0,2130706433,'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.104 Safari/537.36','2015-03-31 17:29:12','2015-03-31 17:29:12'),
+	(42,'stanis1ov22232@we3wgmail.com','stanisov@gmail.com','','$2a$08$zRmkBEq5mZYBPLcUlgHxZeE3jMt8HkYr7rzEJPk10L3dAtR8YJuWO',0,'0',0,2130706433,'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.104 Safari/537.36','2015-03-31 17:29:46','2015-03-31 17:29:46'),
+	(43,'stnis1ov22232@we3wgmail.com','stanisov@gmail.com','','$2a$08$5LdfVKXBdATLpQHVzwt4JO95oK/4LaWAGjBD1QQS7TwODChbQUZZO',0,'0',0,2130706433,'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.104 Safari/537.36','2015-03-31 17:30:15','2015-03-31 17:30:15'),
+	(44,'stnis1ov222332@we3wgmail.com','stanisov@gmail.com','','$2a$08$2BJmgPcoKaIL31sgGYAgXuiWqr4qrgtEHXFm1sD0qauyQh2EirgY.',0,'0',0,2130706433,'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.104 Safari/537.36','2015-03-31 17:30:47','2015-03-31 17:30:47'),
+	(45,'stnis12ov222332@we3wgmail.com','stanisov@gmail.com','','$2a$08$dCRUlbFlG0u7bP6gH7MTm.mDHo/nArE.ZkeSYx3PbVMDRsKSPfLD6',0,'0',0,2130706433,'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.104 Safari/537.36','2015-03-31 17:30:53','2015-03-31 17:30:53'),
+	(46,'1356546924@38359461.com','CodeceptionTester','','$2a$08$bk3I53NsgEcl8cHhaovcZukQNXDrduPsXkhKnrytuTA9gDmBUTfNC',0,'0',0,2130706433,'Symfony2 BrowserKit','2015-03-31 18:43:05','2015-03-31 18:43:05'),
+	(47,'1503413079@1472169146.com','CodeceptionTester','','$2a$08$ex20i7n9dS8vu2UrNNkDieTRFB47VLZo.n/Eu7igaqJQ.8Q3vvKPC',0,'0',0,2130706433,'Symfony2 BrowserKit','2015-03-31 18:52:37','2015-03-31 18:52:37'),
+	(48,'151669929@625129123.com','CodeceptionTester','','$2a$08$Qn7JisY1iboqIFO7BPH.gOo4DbaggKld0nFe.jcdJTSid.B1fjGoK',0,'0',0,2130706433,'Symfony2 BrowserKit','2015-03-31 20:29:13','2015-03-31 20:29:13');
 
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;

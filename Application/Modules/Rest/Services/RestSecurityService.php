@@ -8,7 +8,7 @@ use Application\Modules\Rest\Exceptions\UnauthorizedException;
 use Phalcon\Mvc\Model\Resultset\Simple as ResultSet;
 
 /**
- * Class SecurityService. Rest security provider
+ * Class RestSecurityService. Rest security provider
  *
  * @package Application\Modules\Rest
  * @subpackage Services
@@ -16,9 +16,9 @@ use Phalcon\Mvc\Model\Resultset\Simple as ResultSet;
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @copyright Stanislav WEB
- * @filesource /Application/Modules/Rest/Services/SecurityService.php
+ * @filesource /Application/Modules/Rest/Services/RestSecurityService.php
  */
-class SecurityService extends RestSecurityProvider {
+class RestSecurityService extends RestSecurityProvider {
 
     /**
      * User access request key name
@@ -173,5 +173,11 @@ class SecurityService extends RestSecurityProvider {
         );
 
         return $accessToken;
+    }
+
+    public function restore(array $credentials) {
+
+
+        var_dump($credentials); exit;
     }
 }

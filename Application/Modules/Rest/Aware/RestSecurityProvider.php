@@ -131,7 +131,15 @@ abstract class RestSecurityProvider implements InjectionAwareInterface {
      * @param array $credentials
      * @return ResultSet
      */
-    abstract public  function register(array $credentials);
+    abstract public function register(array $credentials);
+
+    /**
+     * Restore user access from credentials
+     *
+     * @param array $credentials
+     * @return ResultSet
+     */
+    abstract public function restore(array $credentials);
 
     /**
      * Get user access token from header or request

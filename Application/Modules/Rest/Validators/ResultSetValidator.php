@@ -26,6 +26,13 @@ class ResultSetValidator {
     const MESSAGE_NOT_MODIFIED  = 'Not Modified';
 
     /**
+     * Dependency injection container
+     *
+     * @var \Phalcon\DiInterface $di;
+     */
+    private $di;
+
+    /**
      * Resultset response definition
      *
      * @var \Phalcon\Mvc\Model\Resultset\Simple $response
@@ -42,11 +49,34 @@ class ResultSetValidator {
     /**
      * Setup definition
      *
-     * @param mixed $response
+     * @param \Phalcon\Di\FactoryDefault $di
      */
-    public function __construct($response) {
+    public function __construct(\Phalcon\Di\FactoryDefault $di) {
 
-        $this->setResponse($response);
+        $this->setDi($di);
+    }
+
+    /**
+     * Set dependency container
+     *
+     * @param \Phalcon\DiInterface $di
+     * @return QueryValidator
+     */
+    public function setDi($di)
+    {
+        $this->di = $di;
+
+        return $this;
+    }
+
+    /**
+     * Get dependency container
+     *
+     * @return \Phalcon\DiInterface
+     */
+    public function getDi()
+    {
+        return $this->di;
     }
 
     /**
@@ -68,8 +98,8 @@ class ResultSetValidator {
      * @return mixed
      */
     public function getPrimaryKey() {
-        $meta = new MetaData();
 
+        $meta = new MetaData();
         $key = $meta->getPrimaryKeyAttributes($this->getResponse()->getFirst());
         $value = $this->getResponse()->getFirst()->readAttribute(reset($key));
         return $value;
@@ -94,10 +124,23 @@ class ResultSetValidator {
     {
         $result = [];
 
-        if((new Request())->isPost()) {
+        $request = new Request();
+
+
+        if($request->isPost()) {
             $result['code'] = self::CODE_CREATED;
             $result['message'] = self::MESSAGE_CREATED;
-            $result['resource'] = (new Request())->getURI().DIRECTORY_SEPARATOR.$this->getPrimaryKey();
+
+            // make replace url form config redirects
+
+            if(in_array($this->getRequestUri(), array_keys($this->getRedirects())) === true) {
+
+                $result['resource'] = $request->getScheme().'://'.
+                    $request->getHttpHost().$this->getRedirects()[$this->getRequestUri()].DIRECTORY_SEPARATOR.$this->getPrimaryKey();
+            }
+            else {
+                $result['resource'] = $request->getScheme().'://'.$request->getHttpHost().$request->getURI().DIRECTORY_SEPARATOR.$this->getPrimaryKey();
+            }
         }
         else {
             $result['code'] = self::CODE_OK;
@@ -126,10 +169,30 @@ class ResultSetValidator {
 
     /**
      * Validate response
+     * @param mixed $response
      * @return ResultSetValidator
      */
-    public function validate()
+    public function validate($response)
     {
-        $this->setResult();
+        $this->setResponse($response)->setResult();
+    }
+
+
+    /**
+     * Get redirects params
+     *
+     * @return \Phalcon\Config
+     */
+    private function getRedirects() {
+        return $this->getDI()->get('RestConfig')->api->redirects->toArray();
+    }
+
+    /**
+     * Get requested Uri
+     *
+     * @return string uri
+     */
+    private function getRequestUri() {
+        return $this->getDI()->get('request')->getUri();
     }
 }
