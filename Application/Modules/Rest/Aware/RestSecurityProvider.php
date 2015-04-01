@@ -74,6 +74,15 @@ abstract class RestSecurityProvider implements InjectionAwareInterface {
     }
 
     /**
+     * Get mailer service
+     *
+     * @return \Application\Services\Mail\MailSMTPService
+     */
+    public function getMailer() {
+        return $this->getDi()->get('MailService');
+    }
+
+    /**
      * User Mapper
      *
      * @return \Application\Services\Mappers\UserMapper
@@ -89,6 +98,15 @@ abstract class RestSecurityProvider implements InjectionAwareInterface {
      */
     public function getSecurity() {
         return $this->getDi()->getShared('security');
+    }
+
+    /**
+     * Get logger plugin
+     *
+     * @return \Application\Services\Mappers\LogMapper
+     */
+    public function getLogger() {
+        return $this->getDi()->getShared('LogMapper');
     }
 
     /**

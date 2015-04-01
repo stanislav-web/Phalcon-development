@@ -28,11 +28,3 @@ $di->set('SMS', function () use ($di) {
 
     return new SMSFactory\Sender($di);
 });
-
-// SERVICES
-
-// Define assets service
-$di->setShared('AssetsService', 'Application\Services\Views\AssetsService');
-
-// Define view service
-$di->setShared('ViewService', 'Application\Services\Views\ViewService');

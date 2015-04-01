@@ -38,78 +38,6 @@ class RestSecurityService extends RestSecurityProvider {
     private $token;
 
     /**
-     * Get user access token from header or query
-     *
-     * @return string $token
-     */
-    protected function getToken() {
-
-        $token = $this->getRequest()->get(self::REQUEST_KEY, null, null);
-
-        if(is_null($token) === true) {
-            $token = ltrim($this->getRequest()->getHeader(self::HEADER_KEY), 'Bearer ');
-        }
-        return trim($token);
-    }
-
-    /**
-     * Set user access token
-     *
-     * @param int $user_id Auth user ID
-     * @param string $token Generated token
-     * @param int $expire_date Token date expiry
-     * @return ResultSet
-     */
-    protected function setToken($user_id, $token, $expire_date) {
-
-        $model = $this->getUserMapper()->setAccessToken(
-            $user_id, $token, $expire_date
-        );
-
-        return $model->find(['user_id ='. $user_id]);
-    }
-
-    /**
-     * If user is authenticated?
-     *
-     * @return boolean
-     */
-    public function isAuthenticated() {
-
-        $token = $this->getToken();
-
-        $this->token = $this->getUserMapper()->getAccess()->findFirst([
-                "token = ?0 AND expire_date > NOW()",
-                "bind" => [$token],
-            ]
-        );
-
-        return (empty($this->token) === true) ? false : true;
-    }
-
-    /**
-     * If user has role?
-     *
-     * @param int $role
-     * @return boolean
-     */
-    public function hasRole($role) {
-
-        if($this->token instanceof \Application\Models\UserAccess) {
-
-            $isHasRole = $this->getUserMapper()->getInstance()->findFirst([
-                    "id = ?0 AND role = ?1",
-                    "bind" => [$this->token->getUserId(), $role],
-                ]
-            );
-
-            return ($isHasRole === false) ? false: true;
-        }
-
-        return false;
-    }
-
-    /**
      * Authenticate user use credentials
      *
      * @param array $credentials
@@ -185,12 +113,10 @@ class RestSecurityService extends RestSecurityProvider {
             // user founded restore access by login, generate password
             $password = $this->randomString();
 
+            $this->recoverySend($user, $password);
+
             // update password in Db
             $this->getUserMapper()->update($user, ['password' => $password], ['surname']);
-
-            $engine = $this->getDi()->get('EngineMapper')->define();
-
-//            if (filter_var($user->getLogin(), FILTER_VALIDATE_EMAIL) !== false) {
 //
 //                // restore by email
 //                $status = $this->sendRecoveryMail($user, $password, $engine);
@@ -221,4 +147,126 @@ class RestSecurityService extends RestSecurityProvider {
             ]);
         }
     }
+
+    /**
+     * Get user access token from header or query
+     *
+     * @return string $token
+     */
+    protected function getToken() {
+
+        $token = $this->getRequest()->get(self::REQUEST_KEY, null, null);
+
+        if(is_null($token) === true) {
+            $token = ltrim($this->getRequest()->getHeader(self::HEADER_KEY), 'Bearer ');
+        }
+        return trim($token);
+    }
+
+    /**
+     * Set user access token
+     *
+     * @param int $user_id Auth user ID
+     * @param string $token Generated token
+     * @param int $expire_date Token date expiry
+     * @return ResultSet
+     */
+    protected function setToken($user_id, $token, $expire_date) {
+
+        $model = $this->getUserMapper()->setAccessToken(
+            $user_id, $token, $expire_date
+        );
+
+        return $model->find(['user_id ='. $user_id]);
+    }
+
+    /**
+     * If user is authenticated?
+     *
+     * @return boolean
+     */
+    public function isAuthenticated() {
+
+        $token = $this->getToken();
+
+        $this->token = $this->getUserMapper()->getAccess()->findFirst([
+                "token = ?0 AND expire_date > NOW()",
+                "bind" => [$token],
+            ]
+        );
+
+        return (empty($this->token) === true) ? false : true;
+    }
+
+    /**
+     * If user has role?
+     *
+     * @param int $role
+     * @return boolean
+     */
+    public function hasRole($role) {
+
+        if($this->token instanceof \Application\Models\UserAccess) {
+
+            $isHasRole = $this->getUserMapper()->getInstance()->findFirst([
+                    "id = ?0 AND role = ?1",
+                    "bind" => [$this->token->getUserId(), $role],
+                ]
+            );
+
+            return ($isHasRole === false) ? false: true;
+        }
+
+        return false;
+    }
+
+
+    /**
+     * Send recovery email
+     *
+     * @param \Application\Models\Users $user
+     * @param string $password
+     * @param \Application\Models\Engines $engine
+     * @return int
+     * @throws \Phalcon\Exception
+     */
+    private function mail(\Application\Models\Users $user, $password, \Application\Models\Engines $engine) {
+
+        $mailer = $this->getMailer();
+
+        $this->getDi()->getShared('ViewService',[$engine])->define();
+
+        $status = $mailer->createMessageFromView('emails/restore_password_email', [
+            'login'     => $user->getLogin(),
+            'name'      => $user->getName(),
+            'password'  => $password,
+            'site'      => $engine->getHost(),
+            'sitename'  => $engine->getName()
+        ])->priority(1)->to($user->getLogin(), $user->getName())
+            ->subject(sprintf($this->getTranslator()->translate('PASSWORD_RECOVERY_SUBJECT'), $engine->getHost()))->send();
+
+        return $status;
+    }
+
+    private function recoverySend(\Application\Models\Users $user, $password) {
+
+        $engine = $this->getDi()->get('EngineMapper')->define();
+        //$this->getDi()->getShared('ViewService',[$engine])->define();
+
+        if(filter_var($user->getLogin(), FILTER_VALIDATE_EMAIL) !== false) {
+
+            // email send
+            $mailer = $this->getMailer()->getSwift()->getTransport();
+
+            var_dump($mailer);
+        }
+        else {
+
+            // sms send
+        }
+
+        exit('Exit');
+
+    }
+
 }

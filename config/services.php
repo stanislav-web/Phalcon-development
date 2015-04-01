@@ -69,7 +69,7 @@ $di->setShared('db', function () use ($config) {
 // Define mailer service
 $di->setShared('MailService', function () use ($di, $config) {
     $mailer = new Application\Services\Mail\MailSMTPService($config['mail']);
-    $mailer->registerExceptionsHandler(new Application\Services\Mail\MailSMTPExceptions($di));
+    $mailer->registerPlugin(new Application\Services\Mail\MailSMTPExceptions($di));
 
     return $mailer;
 });

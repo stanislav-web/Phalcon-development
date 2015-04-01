@@ -94,21 +94,20 @@ class MailSMTPService implements InjectionAwareInterface {
     }
 
     /**
+     * Get Swift Mailer instance
+     *
+     * @return \Swift_Mailer
+     */
+    public function getSwift() {
+        return $this->configInstance->getSwift();
+    }
+
+    /**
      * Register exceptions SWIFT plugins
      *
      * @param MailSMTPExceptions $plugin
      */
-    public function registerExceptionsHandler(\Application\Services\Mail\MailSMTPExceptions $plugin) {
+    public function registerPlugin(\Application\Services\Mail\MailSMTPExceptions $plugin) {
         $this->configInstance->getSwift()->registerPlugin($plugin);
-    }
-
-    /**
-     * Simply mail logger
-     *
-     * @param string $message
-     * @param int $level
-     */
-    public function log($message, $level) {
-        $this->getDi()->get('LogMapper')->save($message, $level);
     }
 }

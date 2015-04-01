@@ -192,11 +192,11 @@ class RestService implements RestServiceInterface {
             }
         }
 
-        $this->message = (APPLICATION_ENV === 'development') ?  $this->debug() : $this->message;
-
         $this->getResponseService()->setStatusCode($message['code'], $message['message']);
         $this->setResourceUri($message);
         $this->message['resource'] = $this->getResourceUri();
+        $this->message = (APPLICATION_ENV === 'development') ?  $this->debug() : $this->message;
+
         return $this;
     }
 

@@ -34,6 +34,7 @@ trait Format
      * @param array $stacktrace
      */
     public static function callStack($stacktrace) {
+
         $i = 1;
         $result = [];
         foreach($stacktrace as $node) {
