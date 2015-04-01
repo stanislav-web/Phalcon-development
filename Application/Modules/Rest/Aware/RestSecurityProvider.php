@@ -1,6 +1,8 @@
 <?php
 namespace Application\Modules\Rest\Aware;
+
 use Phalcon\DI\InjectionAwareInterface;
+use \Phalcon\Text as Randomize;
 
 /**
  * RestSecurityProvider. Rest API Security rules provider
@@ -14,6 +16,11 @@ use Phalcon\DI\InjectionAwareInterface;
  * @filesource /Application/Modules/Rest/Aware/RestSecurityProvider.php
  */
 abstract class RestSecurityProvider implements InjectionAwareInterface {
+
+    /**
+     * @const Max pass length while recovery
+     */
+    const RECOVERY_PASS_LENGTH = 10;
 
     /**
      * Dependency injection container
@@ -109,6 +116,15 @@ abstract class RestSecurityProvider implements InjectionAwareInterface {
     }
 
     /**
+     * Generate random string
+     *
+     * @return string
+     */
+    public function randomString() {
+        return Randomize::random(Randomize::RANDOM_ALNUM, self::RECOVERY_PASS_LENGTH);
+    }
+
+    /**
      * Get auth error messages
      *
      * @return array
@@ -131,7 +147,15 @@ abstract class RestSecurityProvider implements InjectionAwareInterface {
      * @param array $credentials
      * @return ResultSet
      */
-    abstract public  function register(array $credentials);
+    abstract public function register(array $credentials);
+
+    /**
+     * Restore user access from credentials
+     *
+     * @param array $credentials
+     * @return ResultSet
+     */
+    abstract public function restore(array $credentials);
 
     /**
      * Get user access token from header or request

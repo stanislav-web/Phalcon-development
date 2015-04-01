@@ -28,25 +28,27 @@ class V1 extends Group {
 
         $this->setPrefix('/api');
 
-        // Add route index
         $this->addGet('/v1/:controller/:params', [
             'namespace' => 'Application\Modules\Rest\V1\Controllers',
             'controller'    => 1,
             'action'        => 'get',
             'params'        => 2,
         ]);
+
         $this->addPost('/v1/:controller/:params', [
             'namespace' => 'Application\Modules\Rest\V1\Controllers',
             'controller'    => 1,
             'action'        => 'post',
             'params'        => 2,
         ]);
+
         $this->addPut('/v1/:controller/:params', [
             'namespace' => 'Application\Modules\Rest\V1\Controllers',
             'controller'    => 1,
             'action'        => 'put',
             'params'        => 2,
         ]);
+
         $this->addDelete('/v1/:controller/:params', [
             'namespace' => 'Application\Modules\Rest\V1\Controllers',
             'controller'    => 1,

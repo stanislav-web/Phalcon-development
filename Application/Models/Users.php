@@ -140,7 +140,7 @@ class Users extends \Phalcon\Mvc\Model
             'max'       => 30,
             'min'       => 3,
             'messageMaximum' => ['LOGIN_MAX_INVALID' => 'The login is too long'],
-            'messageMinimum' => ['LOGIN_MAX_INVALID' => 'The login is too short']
+            'messageMinimum' => ['LOGIN_MIX_INVALID' => 'The login is too short']
         ]));
 
         $this->validate(new StringLengthValidator([
@@ -148,7 +148,7 @@ class Users extends \Phalcon\Mvc\Model
             'max'       => 30,
             'min'       => 2,
             'messageMaximum' => ['NAME_MAX_INVALID' => 'The name is too long'],
-            'messageMinimum' => ['NAME_MAX_INVALID' => 'The name is too short']
+            'messageMinimum' => ['NAME_MIX_INVALID' => 'The name is too short']
         ]));
 
         $this->validate(new RegexValidator([

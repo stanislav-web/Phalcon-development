@@ -21,7 +21,7 @@ $di->set('RestRules', function () {
 // Define Security Service
 $di->set('RestSecurityService', function () {
 
-    return new \Application\Modules\Rest\Services\SecurityService();
+    return new \Application\Modules\Rest\Services\RestSecurityService();
 });
 
 // Define Rest Validator

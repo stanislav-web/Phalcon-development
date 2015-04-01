@@ -100,6 +100,15 @@ class RestExceptionHandler {
     }
 
     /**
+     * Get ErrorMapper
+     *
+     * @return \Application\Services\Mappers\ErrorMapper
+     */
+    private function getErrorMapper() {
+        return $this->getDi()->get('ErrorMapper');
+    }
+
+    /**
      * Get exception data
      * @return array
      */
@@ -119,7 +128,7 @@ class RestExceptionHandler {
         $this->exception['code'] = $exception->getCode();
 
         // set resource
-        $this->exception['resource'] = $this->getRequest()->getURI();
+        $this->exception['resource'] = $this->getRequest()->getScheme().'://'.$this->getRequest()->getHttpHost().$this->getRequest()->getURI();
 
         if($this->isJson($exception->getMessage())) {
 
@@ -128,7 +137,9 @@ class RestExceptionHandler {
             if(isset($exception['data']) === true) {
 
                 unset($exception['data']['message']);
+                $error = $this->getErrorMapper()->getError(key($exception['data']));
                 $this->exception['data'] = $exception['data'];
+                $this->exception['data']['developer'] = $this->getRequest()->getScheme().'://'.$this->getRequest()->getHttpHost().'/api/v1/errors/'.$error->id;
             }
         }
         else
@@ -174,7 +185,7 @@ class RestExceptionHandler {
             $this->getLogMapper()->save($this->getException()['message'].'
               IP: '.$this->getRequest()->getClientAddress().'
               URI: '.$this->getException()['resource'],
-                Logger::ALERT);
+              Logger::ALERT);
         }
     }
 }

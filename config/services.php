@@ -78,7 +78,7 @@ $di->setShared('MailService', function () use ($di, $config) {
 $di->setShared('eventsManager', function () use ($di) {
 
     $eventsManager = new \Phalcon\Events\Manager();
-    $eventsManager->attach('dispatch:beforeException',      new \Application\Modules\Rest\Events\BeforeException\NotFoundEvent($di), 150);
+    $eventsManager->attach('dispatch:beforeException',      new \Application\Modules\Rest\Events\BeforeException\NotFoundEvent(), 150);
     $eventsManager->attach("dispatch:beforeDispatchLoop",   new \Application\Modules\Rest\Events\BeforeDispatchLoop\ResolveParams(), 140);
 
     return $eventsManager;
@@ -94,6 +94,9 @@ $di->setShared('CurrencyMapper','Application\Services\Mappers\CurrencyMapper');
 
 // Define page mapper
 $di->setShared('PageMapper','Application\Services\Mappers\PageMapper');
+
+// Define error mapper
+$di->setShared('ErrorMapper','Application\Services\Mappers\ErrorMapper');
 
 // Define engine mapper
 $di->setShared('EngineMapper','Application\Services\Mappers\EngineMapper');

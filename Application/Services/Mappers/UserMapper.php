@@ -107,17 +107,6 @@ class UserMapper extends ModelCrudAbstract {
     }
 
     /**
-     * Get model attributes
-     *
-     * @return array
-     */
-    public function getAttributes()
-    {
-        $metaData = $this->getInstance()->getModelsMetaData();
-        return $metaData->getAttributes($this->getInstance());
-    }
-
-    /**
      * Create user
      *
      * @param array $data
@@ -127,33 +116,6 @@ class UserMapper extends ModelCrudAbstract {
 
     }
 
-
-
-    /**
-     * Edit user
-     *
-     * @param int $user_id
-     * @param array $data
-     */
-    public function update($user_id, array $data) {
-
-        $userModel = new Users();
-        $userModel->setId($user_id);
-        foreach($data as $field => $value) {
-
-            $userModel->{$field}   =   $value;
-        }
-
-        if($userModel->update() === true) {
-
-            return true;
-        }
-        else {
-            $this->setErrors($userModel->getMessages());
-
-            return false;
-        }
-    }
 
     /**
      * Refresh coming user
@@ -176,31 +138,6 @@ class UserMapper extends ModelCrudAbstract {
         }
 
 
-    }
-
-    /**
-     * Update user password
-     *
-     * @param int $user_id
-     * @param string $password
-     */
-    public function updatePassword($user_id, $password) {
-
-        $userModel = new Users();
-
-        $update =  $userModel->getReadConnection()
-            ->update($userModel->getSource(), ['password'], [
-                $this->getDi()->getShared('security')->hash($password)
-            ], "id = ".(int)$user_id);
-
-        if($update === true) {
-            return true;
-        }
-        else {
-            $this->setErrors($userModel->getMessages());
-
-            return false;
-        }
     }
 
     /**

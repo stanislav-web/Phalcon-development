@@ -10,7 +10,7 @@ return [
         'acceptLanguage'    => ['ru', 'en', 'ua', 'de'],
         'acceptCharset'     => 'utf-8',
         'acceptFilters'    => [
-            'columns', 'offset', 'limit', 'token', 'locale', 'login', 'password', 'order', 'name', 'format'
+            'columns', 'offset', 'limit', 'token', 'locale', 'login', 'password', 'order', 'name', 'format', 'code'
         ],
         'acceptQueryLength'    => 121,
 
@@ -20,6 +20,10 @@ return [
             '\Application\Modules\Rest\Events\BeforeExecuteRoute\ResolveAccept',
             '\Application\Modules\Rest\Events\BeforeExecuteRoute\ResolveAccess',
             '\Application\Modules\Rest\Events\BeforeExecuteRoute\ResolveRequestLength',
+        ],
+        // POST 304 Redirects
+        'redirects' => [
+            '/api/v1/sign' => '/api/v1/users',
         ]
     ]
 ];

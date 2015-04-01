@@ -2,6 +2,7 @@
 namespace Application\Modules\Rest\Services;
 
 use Application\Modules\Rest\Aware\RestServiceInterface;
+use Phalcon\Tag;
 
 /**
  * Class RestService. Http Rest handler
@@ -128,9 +129,11 @@ class RestService implements RestServiceInterface {
      */
     public function setResourceUri(array $response) {
 
+        $request = $this->getResolver()->getRequest();
+
         $this->resourceUri =
             (isset($response['resource']) === false)
-        ? $this->getResolver()->getRequest()->getURI() : $response['resource'];
+        ? $request->getScheme().'://'.$request->getHttpHost().$request->getURI() : $response['resource'];
         
         return $this;
     }
@@ -188,6 +191,8 @@ class RestService implements RestServiceInterface {
                 $this->message['data'][$k]    =   $v;
             }
         }
+
+        $this->message = (APPLICATION_ENV === 'development') ?  $this->debug() : $this->message;
 
         $this->getResponseService()->setStatusCode($message['code'], $message['message']);
         $this->setResourceUri($message);
@@ -272,6 +277,25 @@ class RestService implements RestServiceInterface {
         }
 
         return false;
+    }
+
+    /**
+     * Get developers info
+     *
+     * @return array
+     */
+    private function debug() {
+
+        return array_merge(
+            $this->message, [
+                'debug' => [
+                    'memory_use'    => \Application\Helpers\Format::formatBytes(memory_get_usage(true)),
+                    'memory_limit'  => ini_get('memory_limit'),
+                    'cpu_load'      => round(sys_getloadavg()[0], 1, PHP_ROUND_HALF_ODD).'%',
+                    'stack'         => \Application\Helpers\Format::callStack(debug_backtrace())
+                ]
+            ]
+        );
     }
 
     /**

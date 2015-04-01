@@ -1,6 +1,6 @@
 <?php
 namespace Application\Aware;
-use Application\Modules\Rest\Exceptions\InternalServerErrorException;
+use Application\Modules\Rest\Exceptions\BadRequestException;
 use Application\Modules\Rest\Exceptions\NotFoundException;
 use Phalcon\DI\InjectionAwareInterface;
 
@@ -16,16 +16,6 @@ use Phalcon\DI\InjectionAwareInterface;
  * @filesource /Application/Aware/ModelCrudAbstract.php
  */
 abstract class ModelCrudAbstract implements InjectionAwareInterface {
-
-    /**
-     * Exception info
-     * @var array $exceptions
-     */
-    protected $exceptions = [
-        'NOT_FOUND' => [
-            'RECORDS_NOT_FOUND'  =>  'The records not found'
-        ]
-    ];
 
     /**
      * Dependency injection container
@@ -66,7 +56,7 @@ abstract class ModelCrudAbstract implements InjectionAwareInterface {
     }
 
     /**
-     * Read pages
+     * Read records
      *
      * @param array $credentials credentials
      * @return mixed
@@ -78,32 +68,47 @@ abstract class ModelCrudAbstract implements InjectionAwareInterface {
         if($result->count() > 0) {
             return $result;
         }
-        else {
-            throw new NotFoundException($this->getException('NOT_FOUND'));
-        }
+
+        throw new NotFoundException([
+            'RECORDS_NOT_FOUND'  =>  'The records not found'
+        ]);
     }
 
     /**
-     * Get exception info
+    /**
+     * Edit record
      *
-     * @param int $code
-     * @return mixed
-     * @throws InternalServerErrorException
+     * @param \Phalcon\Mvc\Model $model
+     * @param array $credentials
+     * @return boolean
+     * @throws BadRequestException
      */
-    private function getException($code) {
+    public function update(\Phalcon\Mvc\Model $model, array $credentials, array $skip = []) {
 
-        if(isset($this->exceptions[$code]) === true) {
-            return $this->exceptions[$code];
+        if(empty($skip) === false) {
+            $model->skipAttributes($skip);
         }
-        else {
-            throw new InternalServerErrorException();
+
+        $result = $model->update($credentials);
+
+        if($result === false) {
+
+            foreach($model->getMessages() as $message) {
+                if($message->getType() == 'PresenceOf') {
+                    throw new BadRequestException([
+                        'FIELD_IS_REQUIRED' => $message->getMessage()
+                    ]);
+                }
+            }
         }
+
+        return true;
     }
 
     /**
      * Get instance of polymorphic Model
      *
-     * @return Model
+     * @return \Phalcon\Mvc\Model
      */
     abstract public function getInstance();
 }

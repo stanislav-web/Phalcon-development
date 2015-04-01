@@ -61,6 +61,10 @@ class LogMapper extends LoggerDatabase
         $this->setDi($di);
         $dispatcher = $di->get('dispatcher');
 
+        if(empty($dispatcher->getModuleName()) === true) {
+            $dispatcher->setModuleName('Global');
+        }
+
         parent::__construct($dispatcher->getModuleName(), [
             'db'    => $connection,
             'table' => (new Logs())->getSource()
@@ -119,6 +123,25 @@ class LogMapper extends LoggerDatabase
         return $metaData->getAttributes($this->getInstance());
     }
 
+    /**
+     * Log save handler
+     *
+     * @param string $message
+     * @param int $code
+     */
+    public function save($message, $code) {
+
+        if(array_key_exists($code, $this->codes) === true) {
+
+            $this->log($message, $code);
+        }
+        else {
+            throw new NotFoundException([
+                'LOG_CODE_NOT_FOUND' => 'Logger code not found'
+            ]);
+        }
+    }
+
 
 
 
@@ -174,25 +197,5 @@ class LogMapper extends LoggerDatabase
      */
     public function getErrors() {
         return $this->errors;
-    }
-
-    /**
-     * Log save handler
-     *
-     * @param string $message
-     * @param int $code
-     */
-    public function save($message, $code) {
-
-        if(array_key_exists($code, $this->codes) === true) {
-
-            $this->log($message, $code);
-        }
-        else {
-            throw new NotFoundException([
-                'LOG_CODE_NOT_FOUND' => 'Logger code not found'
-            ]);
-        }
-
     }
 }

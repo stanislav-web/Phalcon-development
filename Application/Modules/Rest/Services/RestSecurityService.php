@@ -8,7 +8,7 @@ use Application\Modules\Rest\Exceptions\UnauthorizedException;
 use Phalcon\Mvc\Model\Resultset\Simple as ResultSet;
 
 /**
- * Class SecurityService. Rest security provider
+ * Class RestSecurityService. Rest security provider
  *
  * @package Application\Modules\Rest
  * @subpackage Services
@@ -16,9 +16,9 @@ use Phalcon\Mvc\Model\Resultset\Simple as ResultSet;
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @copyright Stanislav WEB
- * @filesource /Application/Modules/Rest/Services/SecurityService.php
+ * @filesource /Application/Modules/Rest/Services/RestSecurityService.php
  */
-class SecurityService extends RestSecurityProvider {
+class RestSecurityService extends RestSecurityProvider {
 
     /**
      * User access request key name
@@ -113,6 +113,8 @@ class SecurityService extends RestSecurityProvider {
      * Authenticate user use credentials
      *
      * @param array $credentials
+     * @throws \Application\Modules\Rest\Exceptions\UnauthorizedException
+     * @throws \Application\Modules\Rest\Exceptions\NotFoundException
      * @return ResultSet
      */
     public function authenticate(array $credentials) {
@@ -173,5 +175,50 @@ class SecurityService extends RestSecurityProvider {
         );
 
         return $accessToken;
+    }
+
+    public function restore(array $credentials) {
+
+        $user = $this->getUserMapper()->getOne(['login' => $credentials['login']]);
+        if($user !== false) {
+
+            // user founded restore access by login, generate password
+            $password = $this->randomString();
+
+            // update password in Db
+            $this->getUserMapper()->update($user, ['password' => $password], ['surname']);
+
+            $engine = $this->getDi()->get('EngineMapper')->define();
+
+//            if (filter_var($user->getLogin(), FILTER_VALIDATE_EMAIL) !== false) {
+//
+//                // restore by email
+//                $status = $this->sendRecoveryMail($user, $password, $engine);
+//
+//                if ($status === 1) {
+//                    return $this->setSuccess('PASSWORD_RECOVERY_SUCCESS');
+//
+//                }
+//                return $this->setError('PASSWORD_RECOVERY_FAILED');
+//            }
+//            else {
+//
+//                // restore by SMS
+//
+//                $status = $this->sendRecoverySMS($user, $password, $engine);
+//
+//                if(isset($status['success']) === true) {
+//                    return $this->setSuccess('PASSWORD_RECOVERY_SUCCESS');
+//                }
+//                return $this->setError('PASSWORD_RECOVERY_FAILED');
+//            }
+
+            var_dump($engine); exit;
+        }
+        else {
+            throw new NotFoundException([
+                'USER_NOT_FOUND' => 'User not found'
+            ]);
+        }
     }
 }

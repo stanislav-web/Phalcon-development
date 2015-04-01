@@ -42,6 +42,17 @@ return [
             ],
             'mapper'   => 'UserMapper'
         ],
+        'put' => [
+            'requests'  =>  [  // limit request per time
+                'limit' =>  10,
+                'time'  =>  1,
+            ],
+            'methods'    => 'PUT',
+            'params'     => [
+                'required' => 'login'
+            ],
+            'mapper'   => 'UserMapper'
+        ],
     ],
     'users'  =>  [
         'get'    =>  [
@@ -77,6 +88,27 @@ return [
         ],
     ],
 
+    'engines'  =>  [
+        'get'    =>  [
+            'requests'  =>  [  // limit request per seconds
+                'limit' =>  10,
+                'time'  =>  1,
+            ],
+            'methods'   => 'GET',
+            'mapper'   => 'EngineMapper'
+        ],
+    ],
+
+    'errors'  =>  [
+        'get'    =>  [
+            'requests'  =>  [  // limit request per seconds
+                'limit' =>  10,
+                'time'  =>  1,
+            ],
+            'methods'   => 'GET',
+            'mapper'   => 'ErrorMapper'
+        ],
+    ],
     'pages'  =>  [
         'get'    =>  [
             'requests'  =>  [  // limit request per seconds
