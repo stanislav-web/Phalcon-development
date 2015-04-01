@@ -34,7 +34,7 @@ $config = [
     // Configure backend and frontend data caching
 
     'cache' => [
-        'enable' => false,
+        'enable' => true,
         'lifetime' => 604800,
         'prefix' => 'cache_',
         'adapter' => 'memcached',
