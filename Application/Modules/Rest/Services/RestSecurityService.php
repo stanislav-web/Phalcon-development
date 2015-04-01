@@ -246,4 +246,21 @@ class RestSecurityService extends RestSecurityProvider {
             // sms send
         }
     }
+
+//    /**
+//     * Send recovery SMS
+//     *
+//     * @param \Application\Models\Users $user
+//     * @param string $password
+//     * @param \Application\Models\Engines $engine
+//     * @return mixed
+//     * @throws \Phalcon\Exception
+//     */
+//    private function sendRecoverySMS(\Application\Models\Users $user, $password, \Application\Models\Engines $engine) {
+//
+//        $template =  "Hello, ".$user->getName()."! Your temporary generated password is: ".$password.". Best regards, ".ucfirst($engine->getName());
+//        $status = $this->getSmsService()->call(self::SMS_PROVIDER)->setRecipient($user->getLogin())->send($template);
+//
+//        return $status;
+//    }
 }

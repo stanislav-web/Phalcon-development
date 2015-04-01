@@ -46,7 +46,7 @@ $di->set('RestService', function () use ($di) {
 
         $config = $di->get('config');
 
-        return (new \Application\Modules\Rest\Services\TranslateService($restService->getLocale(),
+        return (new \Application\Services\Advanced\TranslateService($restService->getLocale(),
             $config->locale->language
         ))->path($config->locale->translates);
 

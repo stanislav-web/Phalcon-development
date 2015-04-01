@@ -5,6 +5,7 @@
     "keywords": [
         "framework",
         "phalcon",
+        "phalcon rest",
         "phalcon development",
         "phalcon board",
         "phalcon admin tools",
@@ -25,7 +26,8 @@
         "Application\\": "Application/"
       }
     },
-    "minimum-stability": "dev",
+  "prefer-stable": true,
+  "minimum-stability": "dev",
     "require": {
         "php": ">=5.4",
         "stanislav-web/phalcon-sms-factory": "1.*",
