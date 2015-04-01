@@ -1,11 +1,13 @@
 <?php
 namespace Application\Modules\Rest\Services;
 
+use Application\Modules\Rest;
 use Application\Modules\Rest\Aware\RestSecurityProvider;
-use Application\Modules\Rest\Exceptions\BadRequestException;
+use Application\Modules\Rest\Exceptions\UnprocessableEntityException;
 use Application\Modules\Rest\Exceptions\NotFoundException;
 use Application\Modules\Rest\Exceptions\UnauthorizedException;
 use Phalcon\Mvc\Model\Resultset\Simple as ResultSet;
+use Phalcon\Logger;
 
 /**
  * Class RestSecurityService. Rest security provider
@@ -105,6 +107,14 @@ class RestSecurityService extends RestSecurityProvider {
         return $accessToken;
     }
 
+    /**
+     * Restore user access by credentials
+     *
+     * @param array $credentials
+     * @throws NotFoundException
+     * @throws Rest\Exceptions\BadRequestException
+     * @throws UnprocessableEntityException
+     */
     public function restore(array $credentials) {
 
         $user = $this->getUserMapper()->getOne(['login' => $credentials['login']]);
@@ -117,29 +127,6 @@ class RestSecurityService extends RestSecurityProvider {
 
             // update password in Db
             $this->getUserMapper()->update($user, ['password' => $password], ['surname']);
-//
-//                // restore by email
-//                $status = $this->sendRecoveryMail($user, $password, $engine);
-//
-//                if ($status === 1) {
-//                    return $this->setSuccess('PASSWORD_RECOVERY_SUCCESS');
-//
-//                }
-//                return $this->setError('PASSWORD_RECOVERY_FAILED');
-//            }
-//            else {
-//
-//                // restore by SMS
-//
-//                $status = $this->sendRecoverySMS($user, $password, $engine);
-//
-//                if(isset($status['success']) === true) {
-//                    return $this->setSuccess('PASSWORD_RECOVERY_SUCCESS');
-//                }
-//                return $this->setError('PASSWORD_RECOVERY_FAILED');
-//            }
-
-            var_dump($engine); exit;
         }
         else {
             throw new NotFoundException([
@@ -220,53 +207,43 @@ class RestSecurityService extends RestSecurityProvider {
         return false;
     }
 
-
     /**
-     * Send recovery email
+     * Send recovery message
      *
      * @param \Application\Models\Users $user
-     * @param string $password
-     * @param \Application\Models\Engines $engine
-     * @return int
-     * @throws \Phalcon\Exception
+     * @param $password
+     * @throws UnprocessableEntityException
      */
-    private function mail(\Application\Models\Users $user, $password, \Application\Models\Engines $engine) {
-
-        $mailer = $this->getMailer();
-
-        $this->getDi()->getShared('ViewService',[$engine])->define();
-
-        $status = $mailer->createMessageFromView('emails/restore_password_email', [
-            'login'     => $user->getLogin(),
-            'name'      => $user->getName(),
-            'password'  => $password,
-            'site'      => $engine->getHost(),
-            'sitename'  => $engine->getName()
-        ])->priority(1)->to($user->getLogin(), $user->getName())
-            ->subject(sprintf($this->getTranslator()->translate('PASSWORD_RECOVERY_SUBJECT'), $engine->getHost()))->send();
-
-        return $status;
-    }
-
     private function recoverySend(\Application\Models\Users $user, $password) {
 
         $engine = $this->getDi()->get('EngineMapper')->define();
-        //$this->getDi()->getShared('ViewService',[$engine])->define();
 
         if(filter_var($user->getLogin(), FILTER_VALIDATE_EMAIL) !== false) {
 
-            // email send
-            $mailer = $this->getMailer()->getSwift()->getTransport();
+            $this->getView()->setViewsDir(APP_PATH. '/Modules/' . Rest::MODULE . '/views');
+            $message = $this->getMailer()->createMessageFromView($engine->getCode().'/emails/restore_password_email', [
+                'login'     => $user->getLogin(),
+                'name'      => $user->getName(),
+                'password'  => $password,
+                'site'      => $engine->getHost(),
+                'sitename'  => $engine->getName()
+            ])->priority(1)->to($user->getLogin(), $user->getName())->subject(sprintf($this->getTranslator()->translate('PASSWORD_RECOVERY_SUBJECT'), $engine->getHost()));
 
-            var_dump($mailer);
+                try {
+                    $message->send();
+                }
+                catch(\Exception $e) {
+
+                    $this->getLogger()->save($e->getMessage(), Logger::CRITICAL);
+
+                    throw new UnprocessableEntityException([
+                        'RECOVERY_ACCESS_FAILED' => 'Recovery access failed'
+                    ]);
+                }
         }
         else {
 
             // sms send
         }
-
-        exit('Exit');
-
     }
-
 }

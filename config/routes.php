@@ -7,4 +7,4 @@ use \Phalcon\Mvc\Router;
 
 $router = new Router(true);
 $router->removeExtraSlashes(true);
-$router->mount(new Application\Modules\Rest\Routes\V1());
+$router->mount(new Application\Modules\Rest\Routes());

@@ -57,12 +57,12 @@ class Rest
         // Registration of component representations (Views)
 
         $di->set('view', function () {
-            $view = (new View())->disable();
+            $view = new View();
+            $view->disable();
             return $view;
         });
 
         require_once APP_PATH . '/Modules/' . self::MODULE . '/config/services.php';
-
     }
 
     /**

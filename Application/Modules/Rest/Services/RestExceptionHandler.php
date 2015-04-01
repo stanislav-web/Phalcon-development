@@ -184,6 +184,8 @@ class RestExceptionHandler {
 
             $this->getLogMapper()->save($this->getException()['message'].'
               IP: '.$this->getRequest()->getClientAddress().'
+              Refer: '.$this->getRequest()->getHTTPReferer().'
+              Method: '.$this->getRequest()->getMethod().'
               URI: '.$this->getException()['resource'],
               Logger::ALERT);
         }

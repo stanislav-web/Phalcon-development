@@ -30,13 +30,6 @@ abstract class RestSecurityProvider implements InjectionAwareInterface {
     private $di;
 
     /**
-     * System error messages
-     *
-     * @var mixed $error
-     */
-    private $error;
-
-    /**
      * Set dependency container
      *
      * @param \Phalcon\DiInterface $di
@@ -110,6 +103,15 @@ abstract class RestSecurityProvider implements InjectionAwareInterface {
     }
 
     /**
+     * Get view plugin
+     *
+     * @return \Phalcon\Mvc\View
+     */
+    public function getView() {
+        return $this->getDi()->getShared('view');
+    }
+
+    /**
      * Get dependency container
      *
      * @return \Phalcon\DiInterface
@@ -120,35 +122,12 @@ abstract class RestSecurityProvider implements InjectionAwareInterface {
     }
 
     /**
-     * Set error message
-     *
-     * @param string|array $message
-     * @return null
-     */
-    public function setError($message) {
-
-        $this->error = (is_array($message) === false) ? $this->getTranslator()->translate($message)
-            : array_map(function($message) {
-                return $this->getTranslator()->translate($message);
-            },$message);
-    }
-
-    /**
      * Generate random string
      *
      * @return string
      */
     public function randomString() {
         return Randomize::random(Randomize::RANDOM_ALNUM, self::RECOVERY_PASS_LENGTH);
-    }
-
-    /**
-     * Get auth error messages
-     *
-     * @return array
-     */
-    public function getError() {
-        return $this->error;
     }
 
     /**
