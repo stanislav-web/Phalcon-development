@@ -53,6 +53,14 @@ return [
             ],
             'mapper'   => 'UserMapper'
         ],
+        'delete' => [
+            'requests'  =>  [  // limit request per time
+                'limit' =>  10,
+                'time'  =>  1,
+            ],
+            'methods'    => 'DELETE',
+            'mapper'   => 'UserMapper'
+        ],
     ],
     'users'  =>  [
         'get'    =>  [

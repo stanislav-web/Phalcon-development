@@ -139,6 +139,27 @@ class RestSecurityService extends RestSecurityProvider {
     }
 
     /**
+     * Logout user (clear token)
+     *
+     * @param array $credentials
+     * @return Rest\Aware\ResultSet|void
+     * @throws NotFoundException
+     */
+    public function logout(array $credentials) {
+
+        $credentials[0] = str_replace('id', 'user_id',$credentials[0]);
+        $user = $this->getUserMapper()->getAccess()->findFirst($credentials);
+        if($user !== false) {
+            $user->delete();
+        }
+        else {
+            throw new NotFoundException([
+                'USER_NOT_FOUND' => 'User not found'
+            ]);
+        }
+    }
+
+    /**
      * Get user access token from header or query
      *
      * @return string $token

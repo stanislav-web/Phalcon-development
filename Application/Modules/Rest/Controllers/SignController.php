@@ -44,4 +44,15 @@ class SignController extends ControllerBase {
         $this->response =
             $this->getDI()->get('RestSecurityService')->restore($params);
     }
+
+    /**
+     * DELETE Logout
+     */
+    public function deleteAction() {
+
+        $params = $this->rest->getParams();
+
+        $this->response =
+            $this->getDI()->get('RestSecurityService')->logout($params);
+    }
 }

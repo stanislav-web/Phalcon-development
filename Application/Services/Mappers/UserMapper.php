@@ -136,8 +136,6 @@ class UserMapper extends ModelCrudAbstract {
             $this->setErrors($user->getMessages());
             return false;
         }
-
-
     }
 
     /**
@@ -204,18 +202,15 @@ class UserMapper extends ModelCrudAbstract {
 
     /**
      *
-     * Remove access token by credential
+     * Delete access token by credential
      *
      * @param array $credential key => value
      * @return \Phalcon\Mvc\Model
      */
-    public function deleteAccessTokenByCredential(array $credential)
+    public function deleteToken(array $credential)
     {
         $userAccess = new UserAccess();
 
-        return $userAccess->findFirst([
-            "".key($credential)." = ?0",
-            "bind" => [$credential[key($credential)]],
-        ])->delete();
+        return $userAccess->findFirst($credential)->delete();
     }
 }

@@ -20,9 +20,11 @@ class ResultSetValidator {
 
     const CODE_OK               = 200;
     const CODE_CREATED          = 201;
+    const CODE_NO_CONTENT       = 204;
     const CODE_NOT_MODIFIED     = 304;
     const MESSAGE_OK            = '0K';
     const MESSAGE_CREATED       = 'Created';
+    const MESSAGE_NO_CONTENT    = 'No Content';
     const MESSAGE_NOT_MODIFIED  = 'Not Modified';
 
     /**
@@ -142,9 +144,13 @@ class ResultSetValidator {
                 $result['resource'] = $request->getScheme().'://'.$request->getHttpHost().$request->getURI().DIRECTORY_SEPARATOR.$this->getPrimaryKey();
             }
         }
-        else {
+        elseif($request->isGet() || $request->isPut()) {
             $result['code'] = self::CODE_OK;
             $result['message'] = self::MESSAGE_OK;
+        }
+        else {
+            $result['code'] = self::CODE_NO_CONTENT;
+            $result['message'] = self::MESSAGE_NO_CONTENT;
         }
 
         if($this->getResponse() instanceof ResultSet) {
@@ -155,7 +161,6 @@ class ResultSetValidator {
             $this->result = (array_merge($result, ['data' => $response]));
         }
         else {
-            // service PUT
             $this->result = $result;
         }
 

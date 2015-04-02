@@ -116,7 +116,6 @@ class RestValidatorCollectionService extends RestValidatorCollectionsProvider {
      * @throws \Application\Modules\Rest\Exceptions\InternalServerErrorException
      */
     public function validate() {
-
         $qv = new QueryValidator($this->getDi());
         $qv->validate($this->getRules(), $this->getParams());
     }
