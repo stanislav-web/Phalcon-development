@@ -126,9 +126,10 @@ class RestSecurityService extends RestSecurityProvider {
             // send new password to user
             $this->recoverySend($user, $password);
 
-            return ResultSet::HYDRATE_OBJECTS;
             // update password in Db
-            $this->getUserMapper()->update($user, ['password' => $password], ['surname']);
+            $result = $this->getUserMapper()->update($user, ['password' => $password], ['surname']);
+
+            return $result;
         }
         else {
             throw new NotFoundException([
@@ -222,7 +223,7 @@ class RestSecurityService extends RestSecurityProvider {
 
         if(filter_var($user->getLogin(), FILTER_VALIDATE_EMAIL) !== false) {
 
-            $this->getView()->setViewsDir(APP_PATH. '/Modules/Rest/views');
+            $this->getView()->setViewsDir(APP_PATH.'/Modules/Rest/views');
             $message = $this->getMailer()->createMessageFromView($engine->getCode().'/emails/restore_password_email', [
                 'login'     => $user->getLogin(),
                 'name'      => $user->getName(),

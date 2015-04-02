@@ -147,10 +147,16 @@ class ResultSetValidator {
             $result['message'] = self::MESSAGE_OK;
         }
 
-        $result['limit']   = $this->getResponse()->count();
-
         if($this->getResponse() instanceof ResultSet) {
-            $this->result = (array_merge($result, ['data' => $this->getResponse()->toArray()]));
+
+            // result Set from GET, POST
+            $result['limit']   = $this->getResponse()->count();
+            $response = $this->getResponse()->toArray();
+            $this->result = (array_merge($result, ['data' => $response]));
+        }
+        else {
+            // service PUT
+            $this->result = $result;
         }
 
         return $this;

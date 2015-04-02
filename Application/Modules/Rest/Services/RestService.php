@@ -181,7 +181,7 @@ class RestService implements RestServiceInterface {
         $this->message    =   [
             'code'      => $message['code'],
             'message'   => $message['message'],
-            'limit'     => $message['limit'],
+            'limit'     => (isset($message['limit'])) ? $message['limit'] : 0,
             'offset'    => (isset($this->getParams()['offset'])) ? (int)$this->getParams()['offset'] : 0
         ];
 
