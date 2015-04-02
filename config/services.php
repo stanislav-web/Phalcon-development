@@ -70,6 +70,7 @@ $di->setShared('db', function () use ($config) {
 $di->setShared('MailService', function () use ($di, $config) {
     $mailer = new Application\Services\Mail\MailSMTPService($config['mail']);
     $mailer->registerPlugin(new Application\Services\Mail\MailSMTPExceptions($di));
+    $mailer->registerPlugin(new \Swift_Plugins_ThrottlerPlugin(100, \Swift_Plugins_ThrottlerPlugin::MESSAGES_PER_MINUTE));
 
     return $mailer;
 });

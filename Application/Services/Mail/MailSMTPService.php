@@ -103,11 +103,11 @@ class MailSMTPService implements InjectionAwareInterface {
     }
 
     /**
-     * Register exceptions SWIFT plugins
+     * Register SWIFT plugins
      *
-     * @param MailSMTPExceptions $plugin
+     * @param mixed $plugin
      */
-    public function registerPlugin(\Application\Services\Mail\MailSMTPExceptions $plugin) {
+    public function registerPlugin($plugin) {
         $this->configInstance->getSwift()->registerPlugin($plugin);
     }
 }

@@ -52,5 +52,14 @@ return [
         ],
     ],
 
-    // Rest configuration
+    // sms api configurations
+
+    'sms'   =>  [
+        'Nexmo'         =>  [
+            'from'      => 'Phalcon Dev',
+            'api_key'   => 'ssss',
+            'api_secret'=> 'ssss',
+            'type'      => 'unicode'
+        ],
+    ]
 ];
