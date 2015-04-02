@@ -51,3 +51,4 @@ vendor/
 phinx.yml
 config/application.php
 tests/_output/*
+config/development.php
