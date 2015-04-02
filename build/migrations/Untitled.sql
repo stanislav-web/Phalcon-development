@@ -185,7 +185,7 @@ CREATE TABLE `logs` (
   `content` varchar(512) NOT NULL,
   `created_at` int(11) unsigned NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=ARCHIVE AUTO_INCREMENT=95 DEFAULT CHARSET=utf8;
+) ENGINE=ARCHIVE DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
