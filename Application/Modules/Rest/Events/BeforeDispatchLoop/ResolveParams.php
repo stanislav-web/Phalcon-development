@@ -21,21 +21,29 @@ class ResolveParams {
      * @param \Phalcon\Events\Event   $event
      * @param \Phalcon\Mvc\Dispatcher $dispatcher
      */
-    public function beforeDispatchLoop(\Phalcon\Events\Event $event, $dispatcher) {
+    public function beforeDispatchLoop(\Phalcon\Events\Event $event = null, $dispatcher)
+    {
 
         $keyParams = [];
         $params = $dispatcher->getParams();
 
-        if(empty($params) === false) {
+        if (count($params) > 0) {
             $keyParams['id'] = array_shift($params);
+
+            if (count($params) === 1) {
+                $params[$params[0]] = [];
+            }
 
             // use odd parameters as keys and even as values
             foreach ($params as $number => $value) {
                 if ($number & 1) {
                     $keyParams[$params[$number - 1]] = $value;
+                } else {
+                    $keyParams[$params[0]] = $value;
                 }
             }
         }
+        $event->setType('params');
 
         //Override parameters
         $dispatcher->setParams($keyParams);

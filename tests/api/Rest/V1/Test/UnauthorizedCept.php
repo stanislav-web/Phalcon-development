@@ -1,4 +1,6 @@
 <?php
+$scenario = (null !== $scenario) ? $scenario : new \StdClass();
+
 $I = new ApiTester($scenario);
 
 $I->wantTo('GET 401 Unauthorized: /api/v1/users');

@@ -32,10 +32,11 @@
         "php": ">=5.4",
         "stanislav-web/phalcon-sms-factory": "1.*",
         "stanislav-web/phalcon-translate": "1.*",
-        "swiftmailer/swiftmailer": "5.*"
+      "swiftmailer/swiftmailer": "5.*",
+      "phalcon/incubator": "v1.3.4"
+
     },
     "require-dev": {
-        "phalcon/incubator": "v1.3.4",
         "phpunit/phpunit": "4.*",
         "robmorgan/phinx": "dev-master",
         "codeception/codeception" :"*",

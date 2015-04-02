@@ -1,6 +1,5 @@
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm
 .phalcon
-*.iml
 
 ## Directory-based project format:
 .idea/
@@ -48,7 +47,6 @@ crashlytics-build.properties
 # My ignored directives
 logs
 vendor/
-phinx.yml
 config/application.php
-tests/_output/*
 config/development.php
+tests

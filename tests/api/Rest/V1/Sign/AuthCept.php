@@ -1,4 +1,6 @@
 <?php
+$scenario = (null !== $scenario) ? $scenario : new \StdClass();
+
 $I = new ApiTester($scenario);
 
 $I->wantTo('GET Authorization: /api/v1/sign');
@@ -6,7 +8,7 @@ $I->wantTo('GET Authorization: /api/v1/sign');
 $I->setHeader('Accept', '*/*');
 $I->setHeader('Accept-Language', 'en-GB');
 
-$I->sendGET('api/v1/sign', ['login' => 'stanisov@gmail.com', 'password' => 'stanisov@gmail.com']);
+$I->sendGET('api/v1/sign', ['login' => 'stanisov@gmail.com', 'password' => 'baJeTtbceI']);
 
 $I->seeResponseCodeIs(200);
 $I->seeHttpHeader('Access-Control-Allow-Methods', 'GET');

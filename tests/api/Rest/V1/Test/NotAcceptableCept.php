@@ -1,4 +1,6 @@
-<?php 
+<?php
+$scenario = (null !== $scenario) ? $scenario : new \StdClass();
+
 $I = new ApiTester($scenario);
 
 $I->wantTo('GET 406 Not Acceptable: /api/v1/users');

@@ -1,4 +1,6 @@
-<?php 
+<?php
+$scenario = (null !== $scenario) ? $scenario : new \StdClass();
+
 $I = new ApiTester($scenario);
 
 $I->wantTo('GET categories by id: /api/v1/categories/103');

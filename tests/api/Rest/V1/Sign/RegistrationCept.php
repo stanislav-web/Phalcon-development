@@ -1,4 +1,6 @@
 <?php
+$scenario = (null !== $scenario) ? $scenario : new \StdClass();
+
 $I = new ApiTester($scenario);
 
 $I->wantTo('POST Registration: /api/v1/sign');

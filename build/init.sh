@@ -24,7 +24,6 @@ read -p "Please type pulled GIT Branch: " GIT_BRANCH
 git pull origin $GIT_BRANCH
 
 read -p "Press [Enter] key to update dependencies..." DEP
-bower update
 composer update
 
 #read -p "Press [Enter] key to start API tests" TEST

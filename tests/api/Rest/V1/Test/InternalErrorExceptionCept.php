@@ -1,4 +1,6 @@
-<?php 
+<?php
+$scenario = (null !== $scenario) ? $scenario : new \StdClass();
+
 $I = new ApiTester($scenario);
 
 $I->wantTo('GET 500 Internal Server Error: /api/v1/test');

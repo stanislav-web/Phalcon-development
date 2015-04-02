@@ -41,24 +41,25 @@ return [
     // Mailing and subscribe configuration
 
     'mail' => [
-        'fromName' => 'Admin',
-        'fromEmail' => 'email@gmail.com',
-        'smtp' => [
-            'server' => 'smtp.gmail.com',
-            'port' => 587,
-            'security' => 'tls',
-            'username' => 'Admin',
-            'password' => '',
+        'driver' => 'smtp',
+        'host'   => 'smtp.gmail.com',
+        'port'   => 587,
+        'encryption' => 'tls',
+        'from'   => [
+            'email' => 'stanisov@gmail.com',
+            'name'    => 'Admin'
         ],
+        'username'   => 'stanisov@gmail.com',
+        'password'   => '04d7019c',
     ],
 
-    // sms api configurations
+    // SMS api configurations
 
     'sms'   =>  [
         'Nexmo'         =>  [
             'from'      => 'Phalcon Dev',
-            'api_key'   => 'ssss',
-            'api_secret'=> 'ssss',
+            'api_key'   => '90c8f84',
+            'api_secret'=> 'e7e15653',
             'type'      => 'unicode'
         ],
     ]

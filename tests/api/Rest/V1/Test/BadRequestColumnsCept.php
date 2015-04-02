@@ -1,4 +1,6 @@
-<?php 
+<?php
+$scenario = (null !== $scenario) ? $scenario : new \StdClass();
+
 $I = new ApiTester($scenario);
 
 $I->wantTo('GET 400 Bad Request: /api/v1/pages?columns=id,title,wrong');
