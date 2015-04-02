@@ -76,6 +76,15 @@ abstract class RestSecurityProvider implements InjectionAwareInterface {
     }
 
     /**
+     * Get sms service
+     *
+     * @return \SMSFactory\Sender
+     */
+    public function getSmsService() {
+        return $this->getDi()->get('SmsService');
+    }
+
+    /**
      * User Mapper
      *
      * @return \Application\Services\Mappers\UserMapper

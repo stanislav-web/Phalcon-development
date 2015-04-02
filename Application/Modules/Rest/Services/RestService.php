@@ -2,7 +2,6 @@
 namespace Application\Modules\Rest\Services;
 
 use Application\Modules\Rest\Aware\RestServiceInterface;
-use Phalcon\Tag;
 
 /**
  * Class RestService. Http Rest handler
@@ -90,6 +89,16 @@ class RestService implements RestServiceInterface {
     }
 
     /**
+     * Get helpers
+     *
+     * @return \Application\Services\Advanced\HelpersService
+     */
+    public function getHelperService()
+    {
+        return $this->getResolver()->getDi()->get('tag');
+    }
+
+    /**
      * Set response header
      *
      * @param array $params
@@ -157,7 +166,7 @@ class RestService implements RestServiceInterface {
 
         $this->setHeader([
             'Cache-Control' =>  'max-age='.$this->getCacheService()->getLifetime().' must-revalidate',
-            'Expires'       => gmdate('D, d M Y H:i:s T', time()+$this->getCacheService()->getLifetime())
+            'Expires'       =>  gmdate('D, d M Y H:i:s T', time()+$this->getCacheService()->getLifetime())
         ]);
     }
 
@@ -246,22 +255,6 @@ class RestService implements RestServiceInterface {
     }
 
     /**
-     * Get limit request for used action
-     *
-     * @return string|int
-     */
-    private function getRateLimitReset() {
-
-        $resolver = $this->getResolver();
-        $action = $resolver->getDispatcher()->getActionName();
-
-        if(isset($resolver->getRules()->requests['limit']) === true) {
-            return (time()-$resolver->getDi()->getShared('session')->get($action));
-        }
-        return false;
-    }
-
-    /**
      * Get remaining from limited request
      *
      * @return string|int
@@ -289,10 +282,10 @@ class RestService implements RestServiceInterface {
         return array_merge(
             $this->message, [
                 'debug' => [
-                    'memory_use'    => \Application\Helpers\Format::formatBytes(memory_get_usage(true)),
+                    'memory_use'    => $this->getHelperService()->formatBytes(memory_get_usage(true)),
                     'memory_limit'  => ini_get('memory_limit'),
                     'cpu_load'      => round(sys_getloadavg()[0], 1, PHP_ROUND_HALF_ODD).'%',
-                    'stack'         => \Application\Helpers\Format::callStack(debug_backtrace())
+                    'stack'         => $this->getHelperService()->callStack(debug_backtrace())
                 ]
             ]
         );
@@ -313,7 +306,6 @@ class RestService implements RestServiceInterface {
             'Access-Control-Allow-Methods'  =>  $this->getResolver()->getRules()->methods,
             'X-Rate-Limit'                  =>  $this->getRateLimit(),
             'X-RateLimit-Remaining'         =>  $this->getRateRemaining(),
-            'X-Rate-Limit-Reset'            =>  $this->getRateLimitReset(),
             'Content-Language'              =>  $this->getLocale(),
             'Content-Length'                =>  $this->setContentLength($this->getMessage()),
             'X-Resource'                    =>  $this->getResourceUri(),

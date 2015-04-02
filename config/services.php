@@ -75,6 +75,11 @@ $di->setShared('MailService', function () use ($di, $config) {
     return $mailer;
 });
 
+// Define SMS sender service
+$di->set('SmsService', function () use ($di) {
+    return new SMSFactory\Sender($di);
+});
+
 // Define mailer service
 $di->setShared('eventsManager', function () use ($di) {
 
@@ -84,6 +89,9 @@ $di->setShared('eventsManager', function () use ($di) {
 
     return $eventsManager;
 });
+
+// Define helper's service
+$di->setShared('tag', '\Application\Services\Advanced\HelpersService');
 
 // MAPPERS
 

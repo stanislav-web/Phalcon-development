@@ -33,6 +33,11 @@ class RestSecurityService extends RestSecurityProvider {
     const HEADER_KEY = 'AUTHORIZATION';
 
     /**
+     * Templates for restore views
+     */
+    const RESTORE_VIEW_DIR = ':engine/notifies/';
+
+    /**
      * User token info
      *
      * @var \Application\Models\UserAccess $token
@@ -241,17 +246,22 @@ class RestSecurityService extends RestSecurityProvider {
     private function recoverySend(\Application\Models\Users $user, $password) {
 
         $engine = $this->getDi()->get('EngineMapper')->define();
+        $this->getView()->setViewsDir(APP_PATH.'/Modules/Rest/views');
+
+        $params = [
+            'login'     => $user->getLogin(),
+            'name'      => $user->getName(),
+            'password'  => $password,
+            'site'      => $engine->getHost(),
+            'sitename'  => $engine->getName()
+        ];
 
         if(filter_var($user->getLogin(), FILTER_VALIDATE_EMAIL) !== false) {
 
-            $this->getView()->setViewsDir(APP_PATH.'/Modules/Rest/views');
-            $message = $this->getMailer()->createMessageFromView($engine->getCode().'/emails/restore_password_email', [
-                'login'     => $user->getLogin(),
-                'name'      => $user->getName(),
-                'password'  => $password,
-                'site'      => $engine->getHost(),
-                'sitename'  => $engine->getName()
-            ])->priority(1)->to($user->getLogin(), $user->getName())->subject(sprintf($this->getTranslator()->translate('PASSWORD_RECOVERY_SUBJECT'), $engine->getHost()));
+            $message = $this->getMailer()->createMessageFromView(strtr(self::RESTORE_VIEW_DIR, [':engine' => $engine->getCode()]).'restore_password_email', $params)
+                ->to($user->getLogin(), $user->getName())
+                ->subject(sprintf($this->getTranslator()->translate('PASSWORD_RECOVERY_SUBJECT'), $engine->getHost()))
+                ->priority(1);
 
                 try {
                     $message->send();
@@ -267,24 +277,10 @@ class RestSecurityService extends RestSecurityProvider {
         }
         else {
 
-            // sms send
+            $content = $this->getView()->getRender(strtr(self::RESTORE_VIEW_DIR, [':engine' => $engine->getCode()]), 'restore_password_sms', $params);
+
+            $message = $this->getSmsService()->call('Nexmo')->setRecipient($user->getLogin());
+            $message->send(trim($content));
         }
     }
-
-//    /**
-//     * Send recovery SMS
-//     *
-//     * @param \Application\Models\Users $user
-//     * @param string $password
-//     * @param \Application\Models\Engines $engine
-//     * @return mixed
-//     * @throws \Phalcon\Exception
-//     */
-//    private function sendRecoverySMS(\Application\Models\Users $user, $password, \Application\Models\Engines $engine) {
-//
-//        $template =  "Hello, ".$user->getName()."! Your temporary generated password is: ".$password.". Best regards, ".ucfirst($engine->getName());
-//        $status = $this->getSmsService()->call(self::SMS_PROVIDER)->setRecipient($user->getLogin())->send($template);
-//
-//        return $status;
-//    }
 }
