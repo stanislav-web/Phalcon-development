@@ -16,6 +16,6 @@
     "gulp-uglifyjs": "^0.6.1"
   },
   "scripts": {
-    "postinstall": "bower install"
+        "postinstall": "bower install"
   }
 }

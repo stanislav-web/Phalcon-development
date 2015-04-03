@@ -3,7 +3,8 @@ var gulp        = require('gulp'),
     minify      = require('gulp-minify-css'),
     notify      = require('gulp-notify'),
     rename      = require('gulp-rename'),
-    uglify      = require('gulp-uglifyjs');
+    uglify      = require('gulp-uglifyjs'),
+    browserSync = require('browser-sync');
 
 gulp.task('default', ['css', 'js']);
 

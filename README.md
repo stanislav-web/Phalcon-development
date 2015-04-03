@@ -4,7 +4,12 @@ Development Board
 ![Alt text](http://mgcrea.github.io/angular-7min/images/angularjs.png "Angular")
 
 #### Preface
-* AngularJS v1.34, Twitter Bootstrap
+* Frontend
+
+#### Implemented
+* AngularJS v1.34
+* Twitter Bootstrap
+* Gulp
 
 #### Documents
 + [Creating a useful AngularJS project structure and toolchain] (http://manuel.kiessling.net/2014/06/09/creating-a-useful-angularjs-project-structure-and-toolchain/)
