@@ -1,8 +1,0 @@
-class_name: ApiTester
-modules:
-    enabled: [PhpBrowser, REST]
-    config:
-      PhpBrowser:
-          url: http://phalcon.local/
-      REST:
-          url: http://phalcon.local/

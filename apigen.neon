@@ -11,7 +11,7 @@ main: ApiGen
 title: Phalcon Development API
 
 # base url used for sitemap (useful for public doc)
-baseUrl: http://phalcon.local
+baseUrl: http://api.phalcon.local
 
 # the way elements are grouped in menu
 groups: auto # also: namespace, packages, none; auto will detect namespace first, than packages
