@@ -12,7 +12,8 @@ use \Phalcon\Logger;
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @filesource /Application/Modules/Rest/Exceptions/NotFoundException.php
  */
-class BaseException extends \Exception {
+abstract class BaseException extends \Exception
+{
 
     /**
      * Constructor
@@ -23,11 +24,9 @@ class BaseException extends \Exception {
      */
     public function __construct($message = null, $code = null, array $data) {
 
-        if(empty($data) === false) {
+        if (count($data) === 0) {
             parent::__construct(json_encode(['data' => array_merge(['message' => $message], $data)]), $code);
         }
-        else {
-            parent::__construct($message, $code);
-        }
+        parent::__construct($message, $code);
     }
 }

@@ -31,7 +31,7 @@
     "require": {
         "php": ">=5.4",
         "stanislav-web/phalcon-sms-factory": "1.*",
-        "stanislav-web/phalcon-translate": "1.*",
+      "stanislav-web/phalcon-translate": "1.2-stable",
       "swiftmailer/swiftmailer": "5.*",
       "phalcon/incubator": "v1.3.4"
 

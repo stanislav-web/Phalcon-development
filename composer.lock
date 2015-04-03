@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0b16b3e54256c72c8260306c6864c909",
+    "hash": "f923199a9bdc6c27ad42996917387fd8",
     "packages": [
         {
             "name": "phalcon/incubator",
@@ -280,16 +280,16 @@
         },
         {
             "name": "codeception/codeception",
-            "version": "2.0.11",
+            "version": "2.0.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/Codeception.git",
-                "reference": "9c7f23eff3e607225e9f43277c6d9cdb03d30b84"
+                "reference": "6e29668921182d6b90cd021033002be85382c6f9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/9c7f23eff3e607225e9f43277c6d9cdb03d30b84",
-                "reference": "9c7f23eff3e607225e9f43277c6d9cdb03d30b84",
+                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/6e29668921182d6b90cd021033002be85382c6f9",
+                "reference": "6e29668921182d6b90cd021033002be85382c6f9",
                 "shasum": ""
             },
             "require": {
@@ -356,7 +356,7 @@
                 "functional testing",
                 "unit testing"
             ],
-            "time": "2015-02-23 23:10:03"
+            "time": "2015-04-02 23:50:20"
         },
         {
             "name": "doctrine/instantiator",
