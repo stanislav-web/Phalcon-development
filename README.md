@@ -1,21 +1,21 @@
 Phalcon Development Boards
 -----------------------
-###### An example development of the administrative part of the application by Phalcon Framework.
+###### An example development of the REST application by Phalcon Framework.
 
-[![Build Status](https://travis-ci.org/stanislav-web/Phalcon-development.svg)](https://travis-ci.org/stanislav-web/Phalcon-development) [![Dependency Status](https://www.versioneye.com/user/projects/551dd61652984430c9000004/badge.svg?style=flat)](https://www.versioneye.com/user/projects/551dd61652984430c9000004) [![Latest Stable Version](https://poser.pugx.org/stanislav-web/phalcon-development/v/stable.svg)](https://packagist.org/packages/stanislav-web/phalcon-development) [![Total Downloads](https://poser.pugx.org/stanislav-web/phalcon-development/downloads.svg)](https://packagist.org/packages/stanislav-web/phalcon-development) [![License](https://poser.pugx.org/stanislav-web/phalcon-development/license.svg)](https://packagist.org/packages/stanislav-web/phalcon-development)
+[![Dependency Status](https://www.versioneye.com/user/projects/551dd61652984430c9000004/badge.svg?style=flat)](https://www.versioneye.com/user/projects/551dd61652984430c9000004) [![Latest Stable Version](https://poser.pugx.org/stanislav-web/phalcon-development/v/stable.svg)](https://packagist.org/packages/stanislav-web/phalcon-development) [![Total Downloads](https://poser.pugx.org/stanislav-web/phalcon-development/downloads.svg)](https://packagist.org/packages/stanislav-web/phalcon-development) [![License](https://poser.pugx.org/stanislav-web/phalcon-development/license.svg)](https://packagist.org/packages/stanislav-web/phalcon-development)
 -----------------------
-![Alt text](http://hsto.org/storage2/f65/3fa/800/f653fa800c35d29e02253b3ab578b99c.png "Phalcon") ![Alt text](http://mgcrea.github.io/angular-7min/images/angularjs.png "Angular") 
+![Alt text](http://hsto.org/storage2/f65/3fa/800/f653fa800c35d29e02253b3ab578b99c.png "Phalcon")
 
 #### Preface
-* Backend (Phalcon, jQuery, Twitter Bootstrap)
-* Frontend (Phalcon, jQuery, AngularJS, Twitter Bootstrap)
+* Backend (Phalcon Framework)
 
 #### Implemented
 * Staging development
 * Service layer
-* Phalcon Crypt / Decrypt cookies
-* REST Service
-* Phalcon + Angular JS token
+* REST Full Service
+* Codeception API Testing
+* Git Hooks
+* API Class Documentation
 
 #### Requirements 
 * Requires PHP 5.4
@@ -32,19 +32,7 @@ Phalcon Development Boards
 
 #### Documents
 + [Документация Phalcon 1.3.0](http://docs.phalconphp.com/ru/latest/index.html)
-+ [Guide to AngularJS Documentation](https://docs.angularjs.org/guide)
-+ [Защита веб-приложения на Phalcon + AngularJS от CSRF атак](http://habrahabr.ru/post/245467/)
-+ [Combinar Angular y Phalcon](http://uno-de-piera.com/combinar-angular-y-phalcon/)
-+ [The Basics of JavaScript Framework SEO in AngularJS](http://builtvisible.com/javascript-framework-seo/)
-+ [Angular Translate](http://angular-translate.github.io/)
-+ [Languages for Bootstrap 3](http://usrz.github.io/bootstrap-languages/)
-+ [SEXY SPLASH MODAL](http://popdevelop.com/2014/07/sexy-splash-modal-using-bootstrap-css3-and-angularjs/)
 + [REST API Tutorial](http://www.restapitutorial.com/)
-+ [REST APIs with Symfony2: The Right Way](http://williamdurand.fr/2012/08/02/rest-apis-with-symfony2-the-right-way/)
-+ [Rate Limits: Chart](https://dev.twitter.com/rest/public/rate-limits)
-
-------------------------
-![Alt text](http://dl1.joxi.net/drive/0001/0378/90490/141130/6931035855.jpg "Screen")
-![Angular + Phalcon routing](http://dl1.joxi.net/drive/0001/0378/90490/150110/32cfed48dd.jpg "Angular + Phalcon routing")
-![Angular + Phalcon routing](http://dl2.joxi.net/drive/0004/0211/323795/150114/fe9907631e.jpg "Angular + Phalcon routing")
-![Angular + Splash auth](http://dl1.joxi.net/drive/0004/0211/323795/150117/650a8c8cc1.jpg "Angular + Phalcon routing")
++ [Codeception. Modern PHP testing for everyone](http://codeception.com)
++ [Git hooks for PHP projects](https://github.com/bruli/php-git-hooks)
++ [Smart and Readable Documentation. ApiGen](http://www.apigen.org)
