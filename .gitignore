@@ -46,10 +46,4 @@ crashlytics.properties
 crashlytics-build.properties
 
 # My ignored directives
-composer.lock
-logs
 vendor/
-phinx.yml
-config/application.php
-tests/_output/*
-codeception.yml
