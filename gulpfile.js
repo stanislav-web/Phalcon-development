@@ -4,9 +4,9 @@ var gulp        = require('gulp'),
     notify      = require('gulp-notify'),
     rename      = require('gulp-rename'),
     uglify      = require('gulp-uglifyjs'),
-    browserSync = require('browser-sync');
+    jscpd = require('gulp-jscpd');
 
-gulp.task('default', ['css', 'js']);
+gulp.task('default', ['css', 'js', 'jscpd']);
 
 gulp.task('css', function () {
     return gulp.src('assets/**/*.css')
@@ -24,6 +24,14 @@ gulp.task('js', function () {
         }))
         .pipe(gulp.dest('assets/phl/'))
         .pipe(notify('Done!'));
+});
+
+gulp.task('jscpd', function() {
+    return gulp.src(['assets/phl/js/*.js', 'assets/phl/app/*.js'])
+        .pipe(jscpd({
+            'min-lines': 10,
+            verbose    : true
+        }));
 });
 
 gulp.task('watch', function () {

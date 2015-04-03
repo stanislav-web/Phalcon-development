@@ -1,0 +1,12 @@
+path:
+  - .
+files:
+  - 'assets/phl/js/*.js'
+  - 'assets/phl/app/*.js'
+languages:
+  - javascript
+  - js
+exclude:
+  - "build/**"
+  - "node_modules/**"
+  - "test/**"
