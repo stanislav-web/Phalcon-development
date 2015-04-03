@@ -10,3 +10,5 @@ git pull origin $GIT_BRANCH
 
 read -p "Press [Enter] key to run package manager..." DEP
 npm run postinstall
+read -p "Press [Enter] key to run gulp..." PUP
+gulp
