@@ -11,5 +11,6 @@
     "angular-translate": "~2.5.2",
     "angular-translate-loader-partial": "~2.5.2",
     "angular-bootstrap": "~0.12.1"
-  }
+  },
+  "analytics": false
 }

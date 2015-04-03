@@ -47,3 +47,7 @@ crashlytics-build.properties
 
 # My ignored directives
 vendor/
+
+npm-debug.log
+node_modules/
+vendor
