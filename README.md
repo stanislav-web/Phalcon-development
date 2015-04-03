@@ -1,7 +1,7 @@
 Development Board
 -----------------------
 ###### An example development of the Frontend Part basic on AngularJS.
------------------------
+![Alt text](http://mgcrea.github.io/angular-7min/images/angularjs.png "Angular")
 
 #### Preface
 * AngularJS v1.34, Twitter Bootstrap
