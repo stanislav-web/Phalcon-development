@@ -279,7 +279,7 @@ class RestSecurityService extends RestSecurityProvider {
 
             $content = $this->getView()->getRender(strtr(self::RESTORE_VIEW_DIR, [':engine' => $engine->getCode()]), 'restore_password_sms', $params);
 
-            $message = $this->getSmsService()->call('Nexmo')->setRecipient($user->getLogin());
+            $message = $this->getSmsService()->call('SMSC')->setRecipient($user->getLogin());
             $message->send(trim($content));
         }
     }
