@@ -9,7 +9,7 @@ defined('APP_PATH') || define('APP_PATH', DOCUMENT_ROOT . '/../Application');
 defined('APPLICATION_ENV') ||
 define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production'));
 
-use Application\Modules\Rest\Services\RestExceptionHandler;
+xhprof_enable(XHPROF_FLAGS_CPU + XHPROF_FLAGS_MEMORY);
 
 // Require composite libraries
 require_once DOCUMENT_ROOT . ' /../vendor/autoload.php';
@@ -32,8 +32,12 @@ try {
     // Handle the request
     echo $app->handle()->getContent();
 
+    $xhprof_data = xhprof_disable();
+    $xhprof_runs = new XHProfRuns_Default();
+    $run_id = $xhprof_runs->save_run($xhprof_data, "test");
+
 } catch (\Exception $e) {
 
-    $exception = new RestExceptionHandler($di);
+    $exception = new Application\Modules\Rest\Services\RestExceptionHandler($di);
     $exception->handle($e)->send();
 }

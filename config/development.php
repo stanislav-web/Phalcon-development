@@ -11,6 +11,8 @@ error_reporting(7);
 
 return [
 
+    'profiling' =>  true,
+
     // Configure database driver
 
     'database' => [
