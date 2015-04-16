@@ -40,6 +40,7 @@
         "robmorgan/phinx": "dev-master",
         "codeception/codeception" :"*",
         "bruli/php-git-hooks": "~1.0@dev",
-        "flow/jsonpath": "dev-master"
+        "flow/jsonpath": "dev-master",
+        "facebook/xhprof": "dev-master"
     }
 }
