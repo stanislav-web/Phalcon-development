@@ -27,7 +27,7 @@
       }
     },
   "prefer-stable": true,
-  "minimum-stability": "dev",
+  "minimum-stability": "stable",
     "require": {
         "php": ">=5.4",
         "stanislav-web/phalcon-sms-factory": "1.2.*@stable",
