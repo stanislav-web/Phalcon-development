@@ -30,7 +30,7 @@
   "minimum-stability": "stable",
     "require": {
         "php": ">=5.4",
-        "stanislav-web/phalcon-sms-factory": "1.2.*@stable",
+        "stanislav-web/phalcon-sms-factory": "1.2.3-stable",
         "stanislav-web/phalcon-translate": "1.2-stable",
         "swiftmailer/swiftmailer": "5.*",
         "phalcon/incubator": "v1.3.4"

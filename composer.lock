@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "edebb487429b97713e4592db181ca293",
+    "hash": "4660f2d1e97cab8b991dd6813a5fbe26",
     "packages": [
         {
             "name": "phalcon/incubator",
@@ -2687,7 +2687,6 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "stanislav-web/phalcon-sms-factory": 0,
         "robmorgan/phinx": 20,
         "bruli/php-git-hooks": 20,
         "flow/jsonpath": 20,
