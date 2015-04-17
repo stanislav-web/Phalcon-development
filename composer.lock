@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4660f2d1e97cab8b991dd6813a5fbe26",
+    "hash": "73f7a63817080c297911932e6c90f1af",
     "packages": [
         {
             "name": "phalcon/incubator",
@@ -515,42 +515,6 @@
                 "webdriver"
             ],
             "time": "2014-11-05 20:53:09"
-        },
-        {
-            "name": "facebook/xhprof",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/lox/xhprof.git",
-                "reference": "6bf00728827fc1e2a639dff6f94f1618396bffc5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/lox/xhprof/zipball/6bf00728827fc1e2a639dff6f94f1618396bffc5",
-                "reference": "6bf00728827fc1e2a639dff6f94f1618396bffc5",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.2.0"
-            },
-            "type": "library",
-            "autoload": {
-                "files": [
-                    "xhprof_lib/utils/xhprof_lib.php",
-                    "xhprof_lib/utils/xhprof_runs.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "Apache-2.0"
-            ],
-            "description": "XHProf: A Hierarchical Profiler for PHP",
-            "homepage": "http://pecl.php.net/package/xhprof",
-            "keywords": [
-                "performance",
-                "profiling"
-            ],
-            "time": "2014-08-29 01:48:15"
         },
         {
             "name": "flow/jsonpath",
@@ -2685,8 +2649,7 @@
     "stability-flags": {
         "robmorgan/phinx": 20,
         "bruli/php-git-hooks": 20,
-        "flow/jsonpath": 20,
-        "facebook/xhprof": 20
+        "flow/jsonpath": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

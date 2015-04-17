@@ -38,10 +38,11 @@ trait Format
         $i = 1;
         $result = [];
         foreach($stacktrace as $node) {
-            $result[] = "$i. ".basename($node['file']) .":" .$node['function'] ."(" .$node['line'].")";
+            if(isset($node['line']) === true) {
+                $result[] = "$i. ".basename($node['file']) .":" .$node['function'] ."(" .$node['line'].")";
+            }
             $i++;
         }
-
         return $result;
     }
 

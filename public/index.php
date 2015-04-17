@@ -10,7 +10,11 @@ defined('APPLICATION_ENV') ||
 define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production'));
 
 if(APPLICATION_ENV === 'development') {
-    xhprof_enable(XHPROF_FLAGS_CPU + XHPROF_FLAGS_MEMORY);
+
+    if (!defined('XHPROF_LIB_ROOT')) {
+        define('XHPROF_LIB_ROOT', '/var/www/profiler.local/xhprof_lib/');
+    }
+    require_once '/var/www/profiler.local/external/header.php';
 }
 
 // Require composite libraries
@@ -27,18 +31,14 @@ require_once DOCUMENT_ROOT . '/../config/services.php';
 
 try {
     $app = new Phalcon\Mvc\Application($di);
-
     // Require modules
     require_once DOCUMENT_ROOT . '/../config/modules.php';
 
+    if(APPLICATION_ENV === 'development') {
+        require_once '/var/www/profiler.local/external/footer.php';
+    }
     // Handle the request
     echo $app->handle()->getContent();
-
-    if(APPLICATION_ENV === 'development') {
-        $xhprof_data = xhprof_disable();
-        $xhprof_runs = new XHProfRuns_Default();
-        $run_id = $xhprof_runs->save_run($xhprof_data, "test");
-    }
 
 } catch (\Exception $e) {
 
