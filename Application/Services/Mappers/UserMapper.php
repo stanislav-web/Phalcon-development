@@ -1,7 +1,7 @@
 <?php
 namespace Application\Services\Mappers;
 
-use Application\Aware\ModelCrudAbstract;
+use Application\Aware\AbstractModelCrud;
 use Application\Models\Users;
 use Application\Models\UserRoles;
 use Application\Models\UserAccess;
@@ -19,7 +19,7 @@ use Application\Modules\Rest\Exceptions\ConflictException;
  * @copyright Stanislav WEB
  * @filesource /Application/Services/Mappers/UserMapper.php
  */
-class UserMapper extends ModelCrudAbstract {
+class UserMapper extends AbstractModelCrud {
 
     /**
      * Get instance of polymorphic object

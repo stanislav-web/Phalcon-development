@@ -43,7 +43,7 @@ class EnginesController extends ControllerBase {
 
         $this->response = $this->cache->exists($this->key) ? $this->cache->get($this->key)
             : $this->cache->set(
-                $this->getDI()->get('EngineMapper')->read($this->rest->getParams()),
+                $this->getDI()->get('EngineMapper')->read($this->rest->getParams(), $this->rest->getRelations()),
                 $this->key,
                 true
             );

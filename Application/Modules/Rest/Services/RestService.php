@@ -235,7 +235,28 @@ class RestService implements RestServiceInterface {
     }
 
     /**
-     * Set request params
+     * Get related mappers
+     *
+     * @return array
+     */
+    public function getRelations() {
+
+        $relations = [];
+        $rules = $this->getResolver()->getRules();
+
+        if(isset($rules->relations) === true) {
+            foreach($rules->relations as $key => $mapper) {
+                if(isset($this->getParams()[$key]) === true) {
+                    $relations[$mapper] = (int)$this->getParams()[$key];
+                }
+            }
+        }
+
+        return $relations;
+    }
+
+    /**
+     * Get request params
      *
      * @return array
      */

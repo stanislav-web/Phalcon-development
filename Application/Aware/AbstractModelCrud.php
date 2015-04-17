@@ -5,7 +5,7 @@ use Application\Modules\Rest\Exceptions\NotFoundException;
 use Phalcon\DI\InjectionAwareInterface;
 
 /**
- * ModelCrudAbstract. Implementing rules necessary intended for service's models
+ * AbstractModelCrud. Implementing rules necessary intended for service's models
  *
  * @package Application
  * @subpackage Aware
@@ -13,9 +13,9 @@ use Phalcon\DI\InjectionAwareInterface;
  * @version    1.0
  * @author     Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @copyright  Stanislav WEB
- * @filesource /Application/Aware/ModelCrudAbstract.php
+ * @filesource /Application/Aware/AbstractModelCrud.php
  */
-abstract class ModelCrudAbstract implements InjectionAwareInterface {
+abstract class AbstractModelCrud implements InjectionAwareInterface {
 
     /**
      * Dependency injection container
@@ -59,9 +59,12 @@ abstract class ModelCrudAbstract implements InjectionAwareInterface {
      * Read records
      *
      * @param array $credentials credentials
+     * @param array $relations related models
      * @return mixed
      */
-    public function read(array $credentials = []) {
+    public function read(array $credentials = [], array $relations = []) {
+
+        var_dump($relations); exit;
 
         $result = $this->getInstance()->find($credentials);
 

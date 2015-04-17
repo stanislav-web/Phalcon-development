@@ -57,18 +57,20 @@ class RestValidatorCollectionService extends RestValidatorCollectionsProvider {
     {
         // find primary
         $primary= [];
-
-        if(array_key_exists('id', $this->getDispatcher()->getParams())) {
+        $dispatchParams = $this->getDispatcher()->getParams();
+        if(array_key_exists('id', $dispatchParams)) {
             $primary = [
                 "id = ?0",
-                "bind" => [$this->getDispatcher()->getParam('id')],
+                "bind" => [$dispatchParams['id']],
             ];
+
+            unset($dispatchParams['id']);
         }
 
         $data = ($request->isPut()) ? array_merge($request->getPut(), $request->get()) : $request->get();
 
         $this->params = $this->filterParams(array_merge(
-            $primary, $data), ['trim']);
+            $primary, $dispatchParams, $data), ['trim']);
 
         return $this;
     }

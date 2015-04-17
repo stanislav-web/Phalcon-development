@@ -1,7 +1,7 @@
 <?php
 namespace Application\Services\Mappers;
 
-use Application\Aware\ModelCrudAbstract;
+use Application\Aware\AbstractModelCrud;
 use Application\Models\Errors;
 use Application\Modules\Rest\Exceptions\NotFoundException;
 
@@ -16,7 +16,7 @@ use Application\Modules\Rest\Exceptions\NotFoundException;
  * @copyright Stanislav WEB
  * @filesource /Application/Services/Mappers/ErrorMapper.php
  */
-class ErrorMapper extends ModelCrudAbstract {
+class ErrorMapper extends AbstractModelCrud {
 
     /**
      * Get instance of polymorphic object

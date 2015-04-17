@@ -78,6 +78,13 @@ interface RestServiceInterface {
     public function getParams();
 
     /**
+     * Get related mappers
+     *
+     * @return array
+     */
+    public function getRelations();
+
+    /**
      * Set response content length
      *
      * @param string $content

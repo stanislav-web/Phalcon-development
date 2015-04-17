@@ -24,7 +24,7 @@ read -p "Please type pulled GIT Branch: " GIT_BRANCH
 git pull origin $GIT_BRANCH
 
 read -p "Press [Enter] key to update dependencies..." DEP
-composer update
+ composer update --optimize-autoloader
 
 #read -p "Press [Enter] key to start API tests" TEST
 vendor/bin/codecept build

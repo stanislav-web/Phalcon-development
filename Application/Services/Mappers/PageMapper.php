@@ -1,7 +1,7 @@
 <?php
 namespace Application\Services\Mappers;
 
-use Application\Aware\ModelCrudAbstract;
+use Application\Aware\AbstractModelCrud;
 use Application\Models\Pages;
 
 /**
@@ -15,7 +15,7 @@ use Application\Models\Pages;
  * @copyright Stanislav WEB
  * @filesource /Application/Services/Mappers/PageMapper.php
  */
-class PageMapper extends ModelCrudAbstract {
+class PageMapper extends AbstractModelCrud {
 
     /**
      * Get instance of polymorphic object

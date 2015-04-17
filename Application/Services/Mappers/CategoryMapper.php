@@ -1,7 +1,7 @@
 <?php
 namespace Application\Services\Mappers;
 
-use Application\Aware\ModelCrudAbstract;
+use Application\Aware\AbstractModelCrud;
 use Application\Models\Categories;
 
 /**
@@ -15,7 +15,7 @@ use Application\Models\Categories;
  * @copyright Stanislav WEB
  * @filesource /Application/Services/Mappers/CategoryMapper.php
  */
-class CategoryMapper extends ModelCrudAbstract {
+class CategoryMapper extends AbstractModelCrud {
 
     /**
      * Get instance of polymorphic object

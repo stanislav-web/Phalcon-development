@@ -78,7 +78,6 @@ return [
             'mapper'   => 'UserMapper'
         ],
     ],
-
     'logs'  =>  [
         'get'    =>  [
             'requests'  =>  [  // limit request per seconds
@@ -95,18 +94,19 @@ return [
             'mapper'   => 'LogMapper'
         ],
     ],
-
     'engines'  =>  [
         'get'    =>  [
             'requests'  =>  [  // limit request per seconds
                 'limit' =>  10,
                 'time'  =>  1,
             ],
-            'methods'   => 'GET',
-            'mapper'   => 'EngineMapper'
+            'methods'   =>  'GET',
+            'mapper'    =>  'EngineMapper',
+            'relations' =>  [
+                'categories'  =>  'CategoriesMapper',
+            ]
         ],
     ],
-
     'errors'  =>  [
         'get'    =>  [
             'requests'  =>  [  // limit request per seconds

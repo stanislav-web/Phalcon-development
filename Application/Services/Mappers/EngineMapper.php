@@ -1,7 +1,7 @@
 <?php
 namespace Application\Services\Mappers;
 
-use Application\Aware\ModelCrudAbstract;
+use Application\Aware\AbstractModelCrud;
 use \Phalcon\Mvc\Model\Exception;
 use \Phalcon\Http\Request;
 use Application\Models\Engines;
@@ -18,7 +18,7 @@ use Application\Models\Currency;
  * @copyright Stanislav WEB
  * @filesource /Application/Services/Mappers/EngineMapper.php
  */
-class EngineMapper extends ModelCrudAbstract {
+class EngineMapper extends AbstractModelCrud {
 
     /**
      * Upload logo directory
