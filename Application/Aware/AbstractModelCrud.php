@@ -56,6 +56,24 @@ abstract class AbstractModelCrud implements InjectionAwareInterface {
     }
 
     /**
+     * Read related records
+     *
+     * @param array $credentials credentials
+     * @param array $relations related models
+     * @return mixed
+     */
+    public function readRelatedRecords(array $credentials = [], array $relations = [])
+    {
+
+        var_dump($relations);
+
+        $builder = $this->getInstance()->getModelsManager()->createBuilder();
+
+        exit('exit: readRelatedRecords ');
+        //$this->getInstance();
+    }
+
+    /**
      * Read records
      *
      * @param array $credentials credentials
@@ -64,9 +82,13 @@ abstract class AbstractModelCrud implements InjectionAwareInterface {
      */
     public function read(array $credentials = [], array $relations = []) {
 
-        var_dump($relations); exit;
+        if(empty($relations) === false) {
 
-        $result = $this->getInstance()->find($credentials);
+            $result = $this->readRelatedRecords($credentials, $relations);
+        }
+        else {
+            $result = $this->getInstance()->find($credentials);
+        }
 
         if($result->count() > 0) {
             return $result;
