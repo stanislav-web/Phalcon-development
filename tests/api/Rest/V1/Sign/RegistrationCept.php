@@ -19,3 +19,8 @@ $I->seeHttpHeader('Access-Control-Allow-Methods', 'POST');
 $I->seeHttpHeader('Access-Control-Allow-Origin', '*');
 $I->seeResponseIsJson();
 $I->seeResponseJsonMatchesJsonPath('$.data');
+
+$auth = $I->grabDataFromJsonResponse();
+$user_id = $auth['data'][0]['user_id'];
+
+$I->sendDELETE('api/v1/sign/'.$user_id);

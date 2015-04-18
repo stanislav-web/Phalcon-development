@@ -120,12 +120,6 @@ class Engines extends \Phalcon\Mvc\Model
                 'format' => 'Y-m-d H:i:s'
             )
         )));
-
-        // create relations between Engines => EnginesCategoriesRel
-
-        $this->hasManyToMany("id", EnginesCategoriesRel::TABLE, "engine_id", "category_id", Categories::TABLE, "id",
-            ['alias' => 'categories']
-        );
     }
 
     /**

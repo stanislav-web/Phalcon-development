@@ -6,6 +6,20 @@ set -e;
 
 # Define variables
 OSTYPE="`uname`"
+ENV=""
+
+
+# Select environment
+
+read -p "Please type build [production or development]: " ENV
+
+case "$ENV" in
+    production) ;;
+    development);;
+    *) echo "Invalid input"
+    exit 1
+    ;;
+esac;
 
 # Detect the platform (similar to $OSTYPE)
 
@@ -24,8 +38,17 @@ read -p "Please type pulled GIT Branch: " GIT_BRANCH
 git pull origin $GIT_BRANCH
 
 read -p "Press [Enter] key to update dependencies..." DEP
- composer update --optimize-autoloader
 
-#read -p "Press [Enter] key to start API tests" TEST
+if [ "$ENV" == "production" ]; then
+composer update --optimize-autoloader
+else
+    composer update --profile
+fi
+
+sleep 5
+
+read -p "Press [Enter] key to start API tests..." TEST
+if [ "$ENV" == "development" ]; then
 vendor/bin/codecept build
-vendor/bin/codecept run -d
+fi
+vendor/bin/codecept run --coverage --xml --html

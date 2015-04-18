@@ -87,12 +87,6 @@ class Categories extends \Phalcon\Mvc\Model
 
         //Skips fields/columns on both INSERT/UPDATE operations
         $this->skipAttributes(['date_create', 'date_update']);
-
-        // create relations between Categories => EnginesCategoriesRel
-
-        $this->hasManyToMany("id", EnginesCategoriesRel::TABLE, "category_id", "engine_id", Engines::TABLE, "id",
-            ['alias' => 'engines']
-        );
     }
 
     /**

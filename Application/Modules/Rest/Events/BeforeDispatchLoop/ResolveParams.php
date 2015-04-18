@@ -31,14 +31,20 @@ class ResolveParams {
             $keyParams['id'] = array_shift($params);
 
             foreach($params as $value) {
-                if(is_numeric($value) === false) {
+
+                if(empty($value) === false && is_numeric($value) === false) {
                     $keyParams[$value] = (is_numeric(current($params)) === true ) ? current($params) : [];
                 }
+                else {
+                    $keyParams[] = end($params);
+                }
+            }
+            foreach($keyParams as $key => $value){
+                if(is_numeric($key)) unset($keyParams[$key]);
             }
         }
-        $event->setType('params');
 
-        //Override parameters
+        // Override parameters
         $dispatcher->setParams($keyParams);
     }
 }
