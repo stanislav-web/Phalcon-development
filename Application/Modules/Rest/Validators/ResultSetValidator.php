@@ -155,6 +155,9 @@ class ResultSetValidator {
 
         if($this->getResponse() instanceof ResultSet) {
 
+            //@TODO Resolve response from relations
+            //var_dump($this->getResponse()->toArray()); exit;
+
             // result Set from GET, POST
             $result['limit']   = $this->getResponse()->count();
             $response = $this->getResponse()->toArray();

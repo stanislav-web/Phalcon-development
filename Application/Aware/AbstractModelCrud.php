@@ -1,8 +1,10 @@
 <?php
 namespace Application\Aware;
+
 use Application\Modules\Rest\Exceptions\BadRequestException;
 use Application\Modules\Rest\Exceptions\NotFoundException;
 use Phalcon\DI\InjectionAwareInterface;
+use Phalcon\Mvc\Model\Resultset\Simple as ResultSet;
 
 /**
  * AbstractModelCrud. Implementing rules necessary intended for service's models
@@ -58,19 +60,28 @@ abstract class AbstractModelCrud implements InjectionAwareInterface {
     /**
      * Read related records
      *
-     * @param array $credentials credentials
+     * @param ResultSet $resultSet
      * @param array $relations related models
-     * @return mixed
+     * @return \Phalcon\Mvc\ModelInterface
      */
-    public function readRelatedRecords(array $credentials = [], array $relations = [])
+    public function readRelatedRecords(Resultset $resultSet, array $relations = [])
     {
+        foreach($relations as $rel => $credentials) {
 
-        var_dump($relations);
+            if(is_null($resultSet->getFirst()->$rel) === true) {
 
-        $builder = $this->getInstance()->getModelsManager()->createBuilder();
+                $key = key(current($credentials['rule']));
 
-        exit('exit: readRelatedRecords ');
-        //$this->getInstance();
+                $find = $this->getDi()->get(key($credentials['rule']))
+                    ->getInstance()->find([
+                        current($credentials['rule'])[$key]." = ?0",
+                        "bind" => [$resultSet->getFirst()->$key],
+                    ]);
+                $resultSet->getFirst()->$rel = $find->toArray();
+            }
+        }
+
+        return $resultSet;
     }
 
     /**
@@ -82,12 +93,10 @@ abstract class AbstractModelCrud implements InjectionAwareInterface {
      */
     public function read(array $credentials = [], array $relations = []) {
 
-        if(empty($relations) === false) {
+        $result = $this->getInstance()->find($credentials);
 
-            $result = $this->readRelatedRecords($credentials, $relations);
-        }
-        else {
-            $result = $this->getInstance()->find($credentials);
+        if(empty($relations) === false) {
+            $result = $this->readRelatedRecords($result, $relations);
         }
 
         if($result->count() > 0) {

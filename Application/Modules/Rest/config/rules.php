@@ -103,8 +103,11 @@ return [
             'methods'   =>  'GET',
             'mapper'    =>  'EngineMapper',
             'relations' =>  [
-                'categories'  =>  'Categories', // request => Model relation
-                'files'  =>  'Files',
+                'categories' => [
+                    'CategoryMapper' => [
+                        'id' => 'engine_id'
+                    ]
+                ]
             ]
         ],
     ],

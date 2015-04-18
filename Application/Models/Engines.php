@@ -39,7 +39,7 @@ class Engines extends \Phalcon\Mvc\Model
      *
      * @var integer
      */
-    protected $id;
+    public $id;
 
     /**
      * @var string
@@ -94,6 +94,11 @@ class Engines extends \Phalcon\Mvc\Model
      * @var timestamp
      */
     protected $date_update;
+
+    /**
+     * @var Categories
+     */
+    public $categories;
 
     /**
      * Initialize Model
