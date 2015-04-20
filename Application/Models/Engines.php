@@ -49,11 +49,6 @@ class Engines extends \Phalcon\Mvc\Model
     /**
      * @var string
      */
-    public $token;
-
-    /**
-     * @var string
-     */
     public $name;
 
     /**
@@ -143,11 +138,6 @@ class Engines extends \Phalcon\Mvc\Model
             "message"   => 'This code already exist in list'
         ]));
 
-        $this->validate(new Uniqueness([
-            "field"     => "token",
-            "message"   => 'This token already exist in list'
-        ]));
-
         $this->validate(new PresenceOf([
             'field'     => 'name',
             'message'   => 'The engine name is required'
@@ -156,11 +146,6 @@ class Engines extends \Phalcon\Mvc\Model
         $this->validate(new PresenceOf([
             'field'     => 'host',
             'message'   => 'The engine host is required'
-        ]));
-
-        $this->validate(new PresenceOf([
-            'field'     => 'token',
-            'message'   => 'The engine token is required'
         ]));
 
         $this->validate(new PresenceOf([
@@ -199,11 +184,6 @@ class Engines extends \Phalcon\Mvc\Model
         $this->validate(new PresenceOf([
             'field'     => 'code',
             'message'   => 'The engine code is required'
-        ]));
-
-        $this->validate(new PresenceOf([
-            'field'     => 'token',
-            'message'   => 'The engine token is required'
         ]));
 
         $this->validate(new StringLength([
@@ -248,19 +228,6 @@ class Engines extends \Phalcon\Mvc\Model
     public function setHost($host)
     {
         $this->host = $host;
-
-        return $this;
-    }
-
-    /**
-     * Method to set the value of field token
-     *
-     * @param string $host
-     * @return Engines
-     */
-    public function setToken($token)
-    {
-        $this->token = $token;
 
         return $this;
     }
@@ -333,7 +300,7 @@ class Engines extends \Phalcon\Mvc\Model
     /**
      * Method to set the value of field status
      *
-     * @param integer $status
+     * @param int $status
      * @return Engines
      */
     public function setStatus($status)
@@ -374,16 +341,6 @@ class Engines extends \Phalcon\Mvc\Model
     public function getHost()
     {
         return $this->host;
-    }
-
-    /**
-     * Returns the value of field token
-     *
-     * @return string
-     */
-    public function getToken()
-    {
-        return $this->token;
     }
 
     /**

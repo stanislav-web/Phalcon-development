@@ -70,17 +70,38 @@ abstract class AbstractModelCrud implements InjectionAwareInterface {
 
             if(is_null($resultSet->getFirst()->$rel) === true) {
 
-                $key = key(current($credentials['rule']));
+                $rules  = $credentials['rule'];
+                $mapper = key($rules);
+                $service = $this->getDi()->get($mapper);
+                $modelKey = array_keys($rules[$mapper])[0];
+                $relKey = current($rules[$mapper]);
+                unset($credentials['rule']);
 
-                $find = $this->getDi()->get(key($credentials['rule']))
-                    ->getInstance()->find([
-                        current($credentials['rule'])[$key]." = ?0",
-                        "bind" => [$resultSet->getFirst()->$key],
+                if(empty($credentials) === true) {
+
+                    $conditions = [
+                        $relKey .' = '.(int)$resultSet->getFirst()->$modelKey
+                    ];
+                }
+                else {
+                    $conditions = [
+                        $relKey .' = '.(int)$resultSet->getFirst()->$modelKey. ' AND '
+                                .$modelKey. ' = '.(int)current($credentials)
+                    ];
+                }
+
+                $find = $service->getInstance()->find($conditions);
+
+                if($find->count() > 0) {
+                    $resultSet->getFirst()->$rel = $find->toArray();
+                }
+                else {
+                    throw new NotFoundException([
+                        'RECORDS_NOT_FOUND'  =>  'The records not found'
                     ]);
-                $resultSet->getFirst()->$rel = $find->toArray();
+                }
             }
         }
-
         return $resultSet;
     }
 
@@ -137,6 +158,10 @@ abstract class AbstractModelCrud implements InjectionAwareInterface {
         }
 
         return true;
+    }
+
+    private function getRelatedKeys() {
+
     }
 
     /**

@@ -251,8 +251,7 @@ class RestService implements RestServiceInterface {
                     if(is_numeric($this->getParams()[$relation])) {
 
                         $relations[$relation] = [
-                            "id = ?0",
-                            "bind" => [$this->getParams()[$relation]],
+                            "id" => $this->getParams()[$relation],
                         ];
                     }
                     else {

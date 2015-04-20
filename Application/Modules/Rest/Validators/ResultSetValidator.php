@@ -155,12 +155,15 @@ class ResultSetValidator {
 
         if($this->getResponse() instanceof ResultSet) {
 
-            //@TODO Resolve response from relations
-            //var_dump($this->getResponse()->toArray()); exit;
+            if(is_null($this->getResponse()->current()) === false) {
+                $response = get_object_vars($this->getResponse()->current());
+            }
+            else {
+                $result['limit']   = $this->getResponse()->count();
+                $response = $this->getResponse()->toArray();
+            }
 
             // result Set from GET, POST
-            $result['limit']   = $this->getResponse()->count();
-            $response = $this->getResponse()->toArray();
             $this->result = (array_merge($result, ['data' => $response]));
         }
         else {
