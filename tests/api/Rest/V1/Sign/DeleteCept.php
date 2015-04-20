@@ -2,6 +2,10 @@
 $scenario = (null !== $scenario) ? $scenario : new \StdClass();
 
 $I = new ApiTester($scenario);
+$login = mt_rand().'@'.mt_rand().'.com';
+$password = mt_rand();
+$name = 'CodeceptionTester';
+
 
 $I->wantTo('DELETE Logout: /api/v1/sign');
 
@@ -9,11 +13,11 @@ $I->setHeader('Accept', '*/*');
 $I->setHeader('Accept-Language', 'en-GB');
 
 $I->sendPOST('api/v1/sign', [
-    'login' => mt_rand().'@'.mt_rand().'.com',
-    'name'  => 'CodeceptionTester',
-    'password' => mt_rand()
+    'login' => $login,
+    'name'  => $name,
+    'password' => $password
 ]);
-
+$I->sendGET('api/v1/sign', ['login' => $login, 'password' => $password]);
 $auth = $I->grabDataFromJsonResponse();
 $user_id = $auth['data'][0]['user_id'];
 

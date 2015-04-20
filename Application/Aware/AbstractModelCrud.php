@@ -1,8 +1,10 @@
 <?php
 namespace Application\Aware;
+
 use Application\Modules\Rest\Exceptions\BadRequestException;
 use Application\Modules\Rest\Exceptions\NotFoundException;
 use Phalcon\DI\InjectionAwareInterface;
+use Phalcon\Mvc\Model\Resultset\Simple as ResultSet;
 
 /**
  * AbstractModelCrud. Implementing rules necessary intended for service's models
@@ -58,19 +60,49 @@ abstract class AbstractModelCrud implements InjectionAwareInterface {
     /**
      * Read related records
      *
-     * @param array $credentials credentials
+     * @param ResultSet $resultSet
      * @param array $relations related models
-     * @return mixed
+     * @return \Phalcon\Mvc\ModelInterface
      */
-    public function readRelatedRecords(array $credentials = [], array $relations = [])
+    public function readRelatedRecords(Resultset $resultSet, array $relations = [])
     {
+        foreach($relations as $rel => $credentials) {
 
-        var_dump($relations);
+            if(is_null($resultSet->getFirst()->$rel) === true) {
 
-        $builder = $this->getInstance()->getModelsManager()->createBuilder();
+                $rules  = $credentials['rule'];
+                $mapper = key($rules);
+                $service = $this->getDi()->get($mapper);
+                $modelKey = array_keys($rules[$mapper])[0];
+                $relKey = current($rules[$mapper]);
+                unset($credentials['rule']);
 
-        exit('exit: readRelatedRecords ');
-        //$this->getInstance();
+                if(empty($credentials) === true) {
+
+                    $conditions = [
+                        $relKey .' = '.(int)$resultSet->getFirst()->$modelKey
+                    ];
+                }
+                else {
+                    $conditions = [
+                        $relKey .' = '.(int)$resultSet->getFirst()->$modelKey. ' AND '
+                                .$modelKey. ' = '.(int)current($credentials)
+                    ];
+                }
+
+                $find = $service->getInstance()->find($conditions);
+
+                if($find->count() > 0) {
+                    $resultSet->getFirst()->$rel = $find->toArray();
+                }
+                else {
+                    throw new NotFoundException([
+                        'RECORDS_NOT_FOUND'  =>  'The records not found'
+                    ]);
+                }
+            }
+        }
+        return $resultSet;
     }
 
     /**
@@ -82,12 +114,10 @@ abstract class AbstractModelCrud implements InjectionAwareInterface {
      */
     public function read(array $credentials = [], array $relations = []) {
 
-        if(empty($relations) === false) {
+        $result = $this->getInstance()->find($credentials);
 
-            $result = $this->readRelatedRecords($credentials, $relations);
-        }
-        else {
-            $result = $this->getInstance()->find($credentials);
+        if(empty($relations) === false) {
+            $result = $this->readRelatedRecords($result, $relations);
         }
 
         if($result->count() > 0) {
@@ -128,6 +158,10 @@ abstract class AbstractModelCrud implements InjectionAwareInterface {
         }
 
         return true;
+    }
+
+    private function getRelatedKeys() {
+
     }
 
     /**

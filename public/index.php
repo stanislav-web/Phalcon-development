@@ -37,6 +37,7 @@ try {
     if(APPLICATION_ENV === 'development') {
         require_once '/var/www/profiler.local/external/footer.php';
     }
+
     // Handle the request
     echo $app->handle()->getContent();
 

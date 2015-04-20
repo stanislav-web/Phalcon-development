@@ -1,0 +1,14 @@
+<?php
+$coverage = new PHP_CodeCoverage;
+$coverage->setData(array (
+));
+$coverage->setTests(array (
+));
+
+$filter = $coverage->filter();
+$filter->setBlacklistedFiles(array (
+));
+$filter->setWhitelistedFiles(array (
+));
+
+return $coverage;

@@ -10,7 +10,7 @@ use \Phalcon\Logger;
  * @since PHP >=5.4
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
- * @filesource /Application/Modules/Rest/Exceptions/NotFoundException.php
+ * @filesource /Application/Modules/Rest/Exceptions/BaseException.php
  */
 abstract class BaseException extends \Exception
 {
@@ -24,8 +24,9 @@ abstract class BaseException extends \Exception
      */
     public function __construct($message = null, $code = null, array $data) {
 
-        if (count($data) === 0) {
+        if (count($data) > 0) {
             parent::__construct(json_encode(['data' => array_merge(['message' => $message], $data)]), $code);
+            return;
         }
         parent::__construct($message, $code);
     }

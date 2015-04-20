@@ -245,9 +245,19 @@ class RestService implements RestServiceInterface {
         $rules = $this->getResolver()->getRules();
 
         if(isset($rules->relations) === true) {
-            foreach($rules->relations as $key => $mapper) {
-                if(isset($this->getParams()[$key]) === true) {
-                    $relations[$mapper] = (int)$this->getParams()[$key];
+            foreach($rules->relations as $relation => $rule) {
+                if(isset($this->getParams()[$relation]) === true) {
+
+                    if(is_numeric($this->getParams()[$relation])) {
+
+                        $relations[$relation] = [
+                            "id" => $this->getParams()[$relation],
+                        ];
+                    }
+                    else {
+                        $relations[$relation] = [];
+                    }
+                    $relations[$relation]['rule'] = $rule;
                 }
             }
         }

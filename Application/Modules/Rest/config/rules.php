@@ -103,10 +103,11 @@ return [
             'methods'   =>  'GET',
             'mapper'    =>  'EngineMapper',
             'relations' =>  [
-                'categories'  =>  [
-                    'EnginesCategoriesRel',
-                    'Categories',
-                ],
+                'categories' => [
+                    'CategoryMapper' => [
+                        'id' => 'engine_id'
+                    ]
+                ]
             ]
         ],
     ],
