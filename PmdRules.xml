@@ -1,18 +1,18 @@
 <?xml version="1.0"?>
-
-<ruleset name="Atrapalo Rules"
+<ruleset name="Phalcon REST PHPMD rule set"
          xmlns="http://pmd.sf.net/ruleset/1.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd"
-         xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
-
+         xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0
+                     http://pmd.sf.net/ruleset_xml_schema.xsd"
+         xsi:noNamespaceSchemaLocation="
+                     http://pmd.sf.net/ruleset_xml_schema.xsd">
     <description>
-        This ruleset contains a collection of rules.
+        Check Phalcon REST API
     </description>
 
-    <rule ref="rulesets/controversial.xml" />
+    <rule ref="./vendor/phpmd/phpmd/src/main/resources/rulesets/controversial.xml" />
 
-    <rule ref="rulesets/codesize.xml">
+    <rule ref="./vendor/phpmd/phpmd/src/main/resources/rulesets/codesize.xml">
         <exclude name="TooManyMethods" />
         <exclude name="CyclomaticComplexity" />
         <exclude name="ExcessiveParameterList" />
@@ -20,48 +20,41 @@
 
     <rule ref="rulesets/codesize.xml/TooManyMethods">
         <properties>
-            <property name="maxmethods" value="20" /><!-- Default: 10 -->
+            <property name="maxmethods" value="10" /><!-- Default: 10 -->
         </properties>
     </rule>
 
-    <rule ref="rulesets/codesize.xml/CyclomaticComplexity">
+    <!-- Import the entire unused code rule set -->
+    <rule ref="./vendor/phpmd/phpmd/src/main/resources/rulesets/unusedcode.xml" />
+    <!--
+        Import the entire cyclomatic complexity rule and
+        customize the rule configuration.
+    -->
+    <rule ref="./vendor/phpmd/phpmd/src/main/resources/rulesets/codesize.xml/CyclomaticComplexity">
+        <priority>1</priority>
         <properties>
-            <property name="reportLevel" value="15" /><!-- Default: 10 -->
+            <property name="reportLevel" value="5" />
         </properties>
     </rule>
 
-    <rule ref="rulesets/unusedcode.xml">
-        <exclude name="UnusedFormalParameter" />
-        <!-- Priority 1 -->
-        <exclude name="UnusedPrivateField" />
-        <exclude name="UnusedLocalVariable" />
-        <exclude name="UnusedPrivateMethod" />
-    </rule>
-
-    <rule ref="rulesets/unusedcode.xml/UnusedPrivateField"><priority>1</priority></rule>
-    <rule ref="rulesets/unusedcode.xml/UnusedLocalVariable"><priority>1</priority></rule>
-    <rule ref="rulesets/unusedcode.xml/UnusedPrivateMethod"><priority>1</priority></rule>
-
-
-    <rule ref="rulesets/design.xml" />
-
-    <rule ref="rulesets/naming.xml">
+    <!-- Import entire naming rule set and exclude rules -->
+    <rule ref="./vendor/phpmd/phpmd/src/main/resources/rulesets/naming.xml">
         <exclude name="LongVariable" />
         <exclude name="ShortVariable" />
         <exclude name="ShortMethodName" />
     </rule>
 
-    <rule ref="rulesets/naming.xml/ShortVariable">
+    <rule ref="./vendor/phpmd/phpmd/src/main/resources/rulesets/naming.xml/ShortVariable">
         <priority>1</priority>
         <properties>
             <property name="minimum" value="2" /><!-- Default: 3 -->
         </properties>
     </rule>
 
-    <rule ref="rulesets/naming.xml/LongVariable">
+    <rule ref="./vendor/phpmd/phpmd/src/main/resources/rulesets/naming.xml/LongVariable">
         <priority>2</priority>
         <properties>
-            <property name="maximum" value="50" /><!-- Default: 20 -->
+            <property name="maximum" value="30" /><!-- Default: 20 -->
         </properties>
     </rule>
 </ruleset>

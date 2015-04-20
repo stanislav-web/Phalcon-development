@@ -41,5 +41,8 @@
         "codeception/codeception" :"*",
         "bruli/php-git-hooks": "~1.0@dev",
         "flow/jsonpath": "dev-master"
+    },
+    "config": {
+        "bin-dir": "./vendor/bin"
     }
 }
