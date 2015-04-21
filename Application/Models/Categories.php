@@ -58,11 +58,6 @@ class Categories extends \Phalcon\Mvc\Model
     public $sort;
 
     /**
-     * @var integer
-     */
-    public $visibility;
-
-    /**
      * Datetime create
      * @var datetime
      */
@@ -193,20 +188,6 @@ class Categories extends \Phalcon\Mvc\Model
     }
 
     /**
-     * Method to set the value of field visibility
-     *
-     * @param int $visibility
-     * @return Categories
-     */
-    public function setVisibility($visibility)
-    {
-        $this->skipAttributesOnUpdate(['title', 'description','parent_id', 'alias', 'sort']);
-        $this->visibility = $visibility;
-
-        return $this;
-    }
-
-    /**
      * Method to set the value of field sort
      *
      * @param int $sort
@@ -294,16 +275,6 @@ class Categories extends \Phalcon\Mvc\Model
     }
 
     /**
-     * Returns the value of field visibility
-     *
-     * @return integer
-     */
-    public function getVisibility()
-    {
-        return $this->visibility;
-    }
-
-    /**
      * Returns the value of field date_create
      *
      * @return integer
@@ -330,10 +301,6 @@ class Categories extends \Phalcon\Mvc\Model
     {
         if(empty($this->alias)) {
             $this->setAlias();
-        }
-
-        if(empty($this->visibility)) {
-            $this->setVisibility(0);
         }
 
         if(empty($this->parent_id)) {

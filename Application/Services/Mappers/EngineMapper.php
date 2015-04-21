@@ -21,11 +21,11 @@ use Application\Models\Currency;
 class EngineMapper extends AbstractModelCrud {
 
     /**
-     * Upload logo directory
+     * Logo directory
      *
-     * @var string $logoDirectory;
+     * @const
      */
-    private $logoDirectory = 'files/logo';
+    const LOGO_DIR = 'files/logo';
 
     /**
      * Get instance of polymorphic object
@@ -36,6 +36,7 @@ class EngineMapper extends AbstractModelCrud {
         return new Engines();
     }
 
+
     /**
      * Define used engine
      *
@@ -43,25 +44,45 @@ class EngineMapper extends AbstractModelCrud {
      */
     public function define() {
 
-        $session = $this->getDi()->getShared('session');
+        $request = $this->getDi()->get('request');
+        $engine   =   Engines::findFirst("host = '".$request->getHttpHost()."'");
 
-        // find current engine
-        if($session->has('engine') === true) {
-            $engine = $session->get('engine');
-        }
-        else {
-            $request = $this->getDi()->get('request');
-            $engine   =   Engines::findFirst("host = '".$request->getHttpHost()."'");
-
-            if($engine === null) {
-                throw new Exception('Not found used host');
-            }
-            // collect to the session
-            $session->set('engine', $engine);
-
+        if($engine === null) {
+            throw new Exception('Not found used host');
         }
 
         return $engine;
+    }
+
+    /**
+     * Read records
+     *
+     * @param array $credentials credentials
+     * @param array $relations related models
+     * @return mixed
+     */
+    public function read(array $credentials = [], array $relations = []) {
+
+        $result = $this->getInstance()->find($credentials);
+
+        if(empty($relations) === false) {
+            $result = $this->readRelatedRecords($result, $relations);
+        }
+
+        if($result->count() > 0) {
+
+            if($result->count() === 1) {
+                $first = $result->getFirst();
+                if(isset($first->logo) === true) {
+                    $result->getFirst()->logo = $first->host.'/'.self::LOGO_DIR.'/'.$first->logo;
+                }
+            }
+            return $result;
+        }
+
+        throw new NotFoundException([
+            'RECORDS_NOT_FOUND'  =>  'The records not found'
+        ]);
     }
 
     /**
