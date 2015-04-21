@@ -68,29 +68,10 @@ abstract class AbstractModelCrud implements InjectionAwareInterface {
     {
         foreach($relations as $rel => $credentials) {
 
-            if(is_null($resultSet->getFirst()->$rel) === true) {
+            if(isset($resultSet->getFirst()->$rel) === false) {
 
-                $rules  = $credentials['rule'];
-                $mapper = key($rules);
-                $service = $this->getDi()->get($mapper);
-                $modelKey = array_keys($rules[$mapper])[0];
-                $relKey = current($rules[$mapper]);
-                unset($credentials['rule']);
-
-                if(empty($credentials) === true) {
-
-                    $conditions = [
-                        $relKey .' = '.(int)$resultSet->getFirst()->$modelKey
-                    ];
-                }
-                else {
-                    $conditions = [
-                        $relKey .' = '.(int)$resultSet->getFirst()->$modelKey. ' AND '
-                                .$modelKey. ' = '.(int)current($credentials)
-                    ];
-                }
-
-                $find = $service->getInstance()->find($conditions);
+                $conditions = $this->prepareRelatedConditions($resultSet, $credentials);
+                $find = $this->getDi()->get(key($credentials['rule']))->getInstance()->find($conditions);
 
                 if($find->count() > 0) {
                     $resultSet->getFirst()->$rel = $find->toArray();
@@ -100,6 +81,11 @@ abstract class AbstractModelCrud implements InjectionAwareInterface {
                         'RECORDS_NOT_FOUND'  =>  'The records not found'
                     ]);
                 }
+            }
+            else {
+                throw new NotFoundException([
+                    'RECORDS_NOT_FOUND'  =>  'The records not found'
+                ]);
             }
         }
         return $resultSet;
@@ -160,8 +146,35 @@ abstract class AbstractModelCrud implements InjectionAwareInterface {
         return true;
     }
 
-    private function getRelatedKeys() {
+    /**
+     * Prepare related query conditions
+     *
+     * @param Resultset $resultSet
+     * @param array $credentials
+     * @return array
+     */
+    private function prepareRelatedConditions(Resultset $resultSet, array $credentials) {
 
+        $rules  = $credentials['rule'];
+        $mapper = key($rules);
+        $modelKey = array_keys($rules[$mapper])[0];
+        $relKey = current($rules[$mapper]);
+        unset($credentials['rule']);
+
+        if(empty($credentials) === true) {
+
+            $conditions = [
+                $relKey .' = '.(int)$resultSet->getFirst()->$modelKey
+            ];
+        }
+        else {
+            $conditions = [
+                $relKey .' = '.(int)$resultSet->getFirst()->$modelKey. ' AND '
+                .$modelKey. ' = '.(int)current($credentials)
+            ];
+        }
+
+        return $conditions;
     }
 
     /**
