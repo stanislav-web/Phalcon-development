@@ -3,23 +3,10 @@
 # Define variables
 export SET OSTYPE="`uname`"
 export SET ENV=""
-export SET DUMPFILE="./migrations/dump.sql"
+export SET DUMPFILE="migrations/dump.sql"
 export SET DATABASE='phalcon.local';
 export SET USER='root';
 export SET PASSWORD='root';
-export SET SP="/-\|"
-export SET SC=0
-
-spin() {
-   # Process spinner
-   printf "\b${SP:SC++:1}"
-   ((SC == ${#SP})) && SC=0
-}
-
-endspin() {
-    # End script
-    echo "\033[0;32m MySQL backup created. \033[0m"
-}
 
 rebootUnix() {
     # Reboot unix web servers
@@ -47,11 +34,7 @@ dbExport() {
     # Export MySQL dump file (if exist)
     if [ -f "$1" ]
     then
-        until mysql -u $3 -p $4 $2 < $1; do
-        spin
-        echo "\033[0;37m Export  data from $1 file, please wait... \033[0m"
-            done
-        endspin
+        "mysql -u $3 -p $4 $2 < $1"
     else
     	echo "$1 file not found."
     	exit 1;
