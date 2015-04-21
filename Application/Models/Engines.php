@@ -96,27 +96,6 @@ class Engines extends \Phalcon\Mvc\Model
     public $categories;
 
     /**
-     * Set undefined property
-     *
-     * @param string $property
-     * @return \Phalcon\Mvc\Model\Resultset
-     */
-    public function __get($property) {
-
-        return $this->$property;
-    }
-
-    /**
-     * Get undefined property
-     *
-     * @param string $property
-     * @param mixed $val
-     */
-    public function __set($property, $val) {
-        $this->$property = $val;
-    }
-
-    /**
      * Initialize Model
      */
     public function initialize()
