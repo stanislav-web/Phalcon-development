@@ -16,15 +16,8 @@ var app;
         'angularSpinner',
         'pascalprecht.translate',
         'ngCookies',
-        'ui.splash', function($httpProvider) {
-
-            delete $httpProvider.defaults.headers.common['X-Requested-With'];
-            $httpProvider.defaults.headers.post['Accept'] = 'application/json, text/javascript';
-            $httpProvider.defaults.headers.post['Content-Type'] = 'application/json; charset=utf-8';
-            $httpProvider.defaults.headers.common['Accept'] = 'application/json, text/javascript';
-            $httpProvider.defaults.headers.common['Content-Type'] = 'application/json; charset=utf-8';
-            $httpProvider.defaults.useXDomain = true;
-        }
+        'restangular',
+        'ui.splash', function() {}
     ]);
 
     // setup global scope variables

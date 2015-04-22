@@ -2,11 +2,28 @@
 
 (function(angular) {
 
-    // configure http responses
-    app.config(['$httpProvider', function($httpProvider) {
-        $httpProvider.interceptors.push('httpRequestInterceptor');
-    }
-    ]);
+    // set base constants
+    app.constant('BASE', (function () {
+
+        return {
+            URL:       'http://api.phalcon.local/api/v1',
+            CATCHED_ERRORS : []
+        };
+    })());
+
+    // configure base rest loader
+    app.config(['RestangularProvider', 'BASE', function(RestangularProvider, BASE) {
+        RestangularProvider.setBaseUrl(BASE.URL);
+        RestangularProvider.setDefaultHttpFields({timeout: 60*60*24});
+        RestangularProvider.setDefaultHttpFields({cache: true});
+
+        RestangularProvider.setErrorInterceptor(function(response, deferred, responseHandler) {
+            if(response.status === 403) {
+                return false; // error handled
+            }
+            return true; // error not handled
+        });
+    }]);
 
     // configure preload transliteration
 
