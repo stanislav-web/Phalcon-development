@@ -36,6 +36,6 @@ gulp.task('jscpd', function() {
 
 gulp.task('watch', function () {
     // watch files inside and run default
-    gulp.watch('assets/**/*.css', ['css']);
-    gulp.watch(['assets/phl/js/*.js', 'assets/phl/app/*.js'], ['js']);
+//    gulp.watch('assets/**/*.css', ['css']);
+//    gulp.watch(['assets/phl/js/*.js', 'assets/phl/app/*.js'], ['js']);
 });

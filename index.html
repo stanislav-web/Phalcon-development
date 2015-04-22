@@ -5,17 +5,16 @@
     <!-- Get meta -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge; chrome=1">
-    <meta name="description" content="{{ Meta.metaDescription() }}">
-    <meta name="keywords" content="{{ Meta.metaKeywords() }}">
+    <meta name="description" content="{{ meta.desctiption() }}">
+    <meta name="keywords" content="{{ meta.keywords() }}">
     <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="/assets/favicon.ico"/>
     <!-- /Get meta -->
 
     <!-- Append Stylesheet -->
     <!-- /Append Stylesheet -->
 
-    <!-- Javascript area content -->
-    <!-- /Javascript area content -->
-    <title ng-bind="title">Frontend</title>
+
+    <title ng-bind="title">{{meta.title()}}</title>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -68,5 +67,7 @@
 <a href="#" id="toTop" style="display: block;"><span id="toTopHover" style="opacity: 1;"></span></a>
 <span us-spinner="{radius:30, width:8, length: 16}"></span>
 <span id="system"></span>
+<!-- Javascript area content -->
+<!-- /Javascript area content -->
 </body>
 </html>

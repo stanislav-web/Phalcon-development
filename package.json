@@ -2,21 +2,27 @@
   "name": "development-board",
   "version": "0.1.0",
   "description": "Frontend AngularJS project",
+  "author": "Stanislav WEB <stanisov@gmail.com>",
   "readme": "README.md",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/stanislav-web/Phalcon-development/tree/Frontend"
   },
   "devDependencies": {
-    "gulp": "^3.8.11",
+    "gulp": "~3.8.11",
     "gulp-concat-css": "^2.2.0",
     "gulp-jscpd": "0.0.3",
     "gulp-minify-css": "^1.0.0",
     "gulp-notify": "^2.2.0",
     "gulp-rename": "^1.2.2",
-    "gulp-uglifyjs": "^0.6.1"
+    "gulp-uglifyjs": "^0.6.1",
+    "karma": "~0.12.31",
+    "karma-chrome-launcher": "~0.1.7",
+    "jasmine-core": "~2.2.0",
+    "karma-jasmine": "~0.3.5"
   },
   "scripts": {
-    "postinstall": "bower install"
+    "postinstall": "bower update"
   }
 }
