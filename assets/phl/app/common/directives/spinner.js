@@ -1,30 +1,27 @@
 "use strict";
 
-(function(){
+(function(angular) {
 
-    // ngLoadingSpinner directive
+    app.directive('usSpinner', ['$http', '$rootScope' ,function ($http, $rootScope) {
+        return {
+            link: function (scope, elm, attrs)
+            {
+                $rootScope.spinnerActive = false;
+                scope.isLoading = function () {
+                    return $http.pendingRequests.length > 0;
+                };
 
-    spinnerModule.directive('usSpinner',   ['$http', '$rootScope' ,function ($http, $rootScope){
-            return {
-                link: function (scope, elm, attrs)
+                scope.$watch(scope.isLoading, function (loading)
                 {
-                    $rootScope.spinnerActive = false;
-                    scope.isLoading = function () {
-                        return $http.pendingRequests.length > 0;
-                    };
+                    $rootScope.spinnerActive = loading;
+                    if(loading){
+                        elm.removeClass('ng-hide');
+                    } else {
+                        elm.addClass('ng-hide');
+                    }
+                });
+            }
+        };
+    }]);
 
-                    scope.$watch(scope.isLoading, function (loading)
-                    {
-                        $rootScope.spinnerActive = loading;
-                        if(loading){
-                            elm.removeClass('ng-hide');
-                        }else{
-                            elm.addClass('ng-hide');
-                        }
-                    });
-                }
-            };
-
-        }]);
-
-}).call(this);
+})(angular);

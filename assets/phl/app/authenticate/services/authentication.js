@@ -5,8 +5,8 @@
     /**
      * User Authentication service
      */
-    app.service('Authentication',  ['$rootScope', '$q', '$http', 'base64', 'Session',
-        function($rootScope, $q, $http, base64, Session) {
+    app.service('Authentication',  ['$rootScope', '$q', '$http', 'Session',
+        function($rootScope, $q, $http, Session) {
 
         /**
          * User authentication state
@@ -41,7 +41,7 @@
                         $rootScope.isAuthenticated = isAuthenticated = true;
 
                         // update auth token
-                        Session.set('token', base64.encode(response.token));
+                        Session.set('token', response.token);
 
                     }
                     deferred.resolve(user);
@@ -90,7 +90,7 @@
                         $rootScope.isAuthenticated = isAuthenticated = true;
 
                         // set auth token
-                        Session.set('token', base64.encode(response.token));
+                        Session.set('token', response.token);
 
                         deferred.resolve(response);
                     }

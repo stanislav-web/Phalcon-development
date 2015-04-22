@@ -5,7 +5,7 @@
     /**
      * Splash window service
      */
-    splashModule.service('$splash', ['$modal', '$rootScope', 'TEMPLATE',
+    app.service('$splash', ['$modal', '$rootScope', 'TEMPLATE',
         function($modal, $rootScope, TEMPLATE) {
 
             var modalInstance;

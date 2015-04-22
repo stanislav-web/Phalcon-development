@@ -17,7 +17,7 @@
              * @returns {*}
              */
             set: function (key, value) {
-                return store.set(key, value);
+                return localStorage.setItem(key, value);
             },
 
             /**
@@ -28,7 +28,7 @@
              * @returns {*}
              */
             get: function (key) {
-                return store.get(key);
+                return localStorage.getItem(key);
             },
 
             /**
@@ -38,7 +38,7 @@
              * @returns {*}
              */
             remove: function (key) {
-                return store.remove(key);
+                return localStorage.removeItem(key);
             },
 
             /**
@@ -47,7 +47,7 @@
              * @returns {*}
              */
             destroy: function () {
-                return store.clear();
+                return localStorage.clear();
             }
         };
     });

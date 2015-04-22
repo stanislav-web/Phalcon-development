@@ -4,7 +4,7 @@ var gulp        = require('gulp'),
     notify      = require('gulp-notify'),
     rename      = require('gulp-rename'),
     uglify      = require('gulp-uglifyjs'),
-    jscpd = require('gulp-jscpd');
+    jscpd       = require('gulp-jscpd');
 
 gulp.task('default', ['css', 'js', 'jscpd']);
 
