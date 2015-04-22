@@ -6,7 +6,6 @@
  * @dependencies $scope global variables
  *
  */
-"use strict";
 
 (function(angular){
 

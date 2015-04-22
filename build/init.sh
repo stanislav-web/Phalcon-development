@@ -10,5 +10,3 @@ git pull origin $GIT_BRANCH
 npm-outdated
 read -p "Press [Enter] key to run package manager..." DEP
 npm-update-outdated
-read -p "Press [Enter] key to run gulp..." PUP
-gulp
