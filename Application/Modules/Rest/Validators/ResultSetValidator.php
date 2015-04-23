@@ -130,27 +130,27 @@ class ResultSetValidator {
 
 
         if($request->isPost()) {
-            $result['code'] = self::CODE_CREATED;
-            $result['message'] = self::MESSAGE_CREATED;
+            $result['meta']['code'] = self::CODE_CREATED;
+            $result['meta']['message'] = self::MESSAGE_CREATED;
 
             // make replace url form config redirects
 
             if(isset($this->getRedirects()[$this->getRequestUri()]) === true) {
 
-                $result['resource'] = $request->getScheme().'://'.
+                $result['meta']['resource'] = $request->getScheme().'://'.
                     $request->getHttpHost().$this->getRedirects()[$this->getRequestUri()].DIRECTORY_SEPARATOR.$this->getPrimaryKey();
             }
             else {
-                $result['resource'] = $request->getScheme().'://'.$request->getHttpHost().$request->getURI().DIRECTORY_SEPARATOR.$this->getPrimaryKey();
+                $result['meta']['resource'] = $request->getScheme().'://'.$request->getHttpHost().$request->getURI().DIRECTORY_SEPARATOR.$this->getPrimaryKey();
             }
         }
         elseif($request->isGet() || $request->isPut()) {
-            $result['code'] = self::CODE_OK;
-            $result['message'] = self::MESSAGE_OK;
+            $result['meta']['code'] = self::CODE_OK;
+            $result['meta']['message'] = self::MESSAGE_OK;
         }
         else {
-            $result['code'] = self::CODE_NO_CONTENT;
-            $result['message'] = self::MESSAGE_NO_CONTENT;
+            $result['meta']['code'] = self::CODE_NO_CONTENT;
+            $result['meta']['message'] = self::MESSAGE_NO_CONTENT;
         }
 
         if($this->getResponse() instanceof ResultSet) {
@@ -159,8 +159,17 @@ class ResultSetValidator {
                 $response = get_object_vars($this->getResponse()->current());
             }
             else {
-                $result['limit']   = $this->getResponse()->count();
+                $result['meta']['limit']   = $this->getResponse()->count();
                 $response = $this->getResponse()->toArray();
+            }
+
+            $model = $this->getResponse();
+
+            if($model->getFirst() !== false) {
+                $result['meta']['count'] = (int)$model->getFirst()->count();
+            }
+            else {
+                $result['meta']['count'] = (int)$model->getLast()->count();
             }
 
             // result Set from GET, POST

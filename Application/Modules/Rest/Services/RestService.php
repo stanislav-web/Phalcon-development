@@ -142,8 +142,8 @@ class RestService implements RestServiceInterface {
         $request = $this->getResolver()->getRequest();
 
         $this->resourceUri =
-            (isset($response['resource']) === false)
-        ? $request->getScheme().'://'.$request->getHttpHost().$request->getURI() : $response['resource'];
+            (isset($response['meta']['resource']) === false)
+        ? $request->getScheme().'://'.$request->getHttpHost().$request->getURI() : $response['meta']['resource'];
         
         return $this;
     }
@@ -189,10 +189,13 @@ class RestService implements RestServiceInterface {
     public function setMessage($message) {
 
         $this->message    =   [
-            'code'      => $message['code'],
-            'message'   => $message['message'],
-            'limit'     => (isset($message['limit'])) ? $message['limit'] : 0,
-            'offset'    => (isset($this->getParams()['offset'])) ? (int)$this->getParams()['offset'] : 0
+            'meta'      => [
+                'code'      => $message['meta']['code'],
+                'message'   => $message['meta']['message'],
+                'limit'     => (isset($message['meta']['limit'])) ? $message['meta']['limit'] : 0,
+                'all'       => (isset($message['meta']['count'])) ? $message['meta']['count'] : 0,
+                'offset'    => (isset($this->getParams()['offset'])) ? (int)$this->getParams()['offset'] : 0
+            ]
         ];
 
         if(isset($message['data']) === true) {
@@ -202,9 +205,9 @@ class RestService implements RestServiceInterface {
             }
         }
 
-        $this->getResponseService()->setStatusCode($message['code'], $message['message']);
+        $this->getResponseService()->setStatusCode($message['meta']['code'], $message['meta']['message']);
         $this->setResourceUri($message);
-        $this->message['resource'] = $this->getResourceUri();
+        $this->message['meta']['resource'] = $this->getResourceUri();
         $this->message = (APPLICATION_ENV === 'development') ?  $this->debug() : $this->message;
 
         return $this;

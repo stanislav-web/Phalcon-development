@@ -6,6 +6,7 @@ use \Phalcon\Mvc\Model\Exception;
 use \Phalcon\Http\Request;
 use Application\Models\Engines;
 use Application\Models\Currency;
+use Application\Modules\Rest\Exceptions\NotFoundException;
 
 /**
  * Class EngineMapper. Actions above application engine

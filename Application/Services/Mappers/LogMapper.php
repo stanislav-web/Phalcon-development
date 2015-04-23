@@ -109,7 +109,14 @@ class LogMapper extends LoggerDatabase
     public function read(array $credentials = []) {
 
         $result = $this->getInstance()->find($credentials);
-        return $result;
+
+        if($result->count() > 0) {
+            return $result;
+        }
+
+        throw new NotFoundException([
+            'RECORDS_NOT_FOUND'  =>  'The records not found'
+        ]);
     }
 
     /**
