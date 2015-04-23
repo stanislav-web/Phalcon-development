@@ -32,7 +32,7 @@ class RestService implements RestServiceInterface {
         'Content-Type'                      =>  'application/json; charset=utf-8',
         'Access-Control-Allow-Origin'       =>  '*',
         'Access-Control-Allow-Credentials'  =>  'true',
-        'Access-Control-Allow-Headers'      =>  '*'
+        'Access-Control-Allow-Headers'      =>  'Accept, X-Requested-With, Content-Type, Accept-Language'
     ];
 
     /**

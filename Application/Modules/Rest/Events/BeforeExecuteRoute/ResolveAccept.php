@@ -78,7 +78,6 @@ class ResolveAccept extends RestValidatorProvider {
         if(is_null($format) === true) {
             $format = strtolower($this->getRequest()->getBestAccept());
         }
-
         return in_array($format, $this->getConfig()->acceptContent->toArray());
     }
 
