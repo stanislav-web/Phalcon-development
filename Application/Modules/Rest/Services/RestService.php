@@ -31,7 +31,8 @@ class RestService implements RestServiceInterface {
     private $headers = [
         'Content-Type'                      =>  'application/json; charset=utf-8',
         'Access-Control-Allow-Origin'       =>  '*',
-        'Access-Control-Allow-Credentials'  =>  'true'
+        'Access-Control-Allow-Credentials'  =>  'true',
+        'Access-Control-Allow-Headers'      =>  '*'
     ];
 
     /**

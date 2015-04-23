@@ -25,7 +25,7 @@ return [
                 'limit' =>  10,
                 'time'  =>  1,
             ],
-            'methods'    => 'GET',
+            'methods'    => 'GET,OPTIONS',
             'params'     => [
                 'required' => 'login,password'
             ],
@@ -36,7 +36,7 @@ return [
                 'limit' =>  10,
                 'time'  =>  1,
             ],
-            'methods'    => 'POST',
+            'methods'    => 'POST,OPTIONS',
             'params'     => [
                 'required' => 'login,password,name'
             ],
@@ -47,7 +47,7 @@ return [
                 'limit' =>  10,
                 'time'  =>  1,
             ],
-            'methods'    => 'PUT',
+            'methods'    => 'PUT,OPTIONS',
             'params'     => [
                 'required' => 'login'
             ],
@@ -58,7 +58,7 @@ return [
                 'limit' =>  10,
                 'time'  =>  1,
             ],
-            'methods'    => 'DELETE',
+            'methods'    => 'DELETE,OPTIONS',
             'mapper'   => 'UserMapper'
         ],
     ],
@@ -68,7 +68,7 @@ return [
                     'limit' =>  10,
                     'time'  =>  1,
                 ],
-            'methods'   => 'GET,POST,PUT',
+            'methods'   => 'GET,POST,PUT,OPTIONS',
             'authentication'    =>  true,   // need access token ?
             'access'    =>   [  // access routes restrict for ACL
                 UserRoles::ADMIN =>  [
@@ -84,7 +84,7 @@ return [
                 'limit' =>  10,
                 'time'  =>  1,
             ],
-            'methods'   => 'GET',
+            'methods'   => 'GET,OPTIONS',
             'authentication'    =>  true,   // need access token ?
             'access'    =>   [  // access routes restrict for ACL
                 UserRoles::ADMIN =>  [
@@ -100,7 +100,7 @@ return [
                 'limit' =>  10,
                 'time'  =>  1,
             ],
-            'methods'   =>  'GET',
+            'methods'   =>  'GET,OPTIONS',
             'mapper'    =>  'EngineMapper',
             'relations' =>  [
                 'categories' => [
@@ -117,7 +117,7 @@ return [
                 'limit' =>  10,
                 'time'  =>  1,
             ],
-            'methods'   => 'GET',
+            'methods'   => 'GET,OPTIONS',
             'mapper'   => 'ErrorMapper'
         ],
     ],
@@ -127,7 +127,7 @@ return [
                 'limit' =>  5,
                 'time'  =>  10,
             ],
-            'methods'   => 'GET,POST,PUT,DELETE',
+            'methods'   => 'GET,POST,PUT,DELETE,OPTIONS',
             'mapper'   => 'PageMapper'
         ]
     ],
@@ -137,7 +137,7 @@ return [
                 'limit' =>  5,
                 'time'  =>  10,
             ],
-            'methods'   => 'GET,POST,PUT,DELETE',
+            'methods'   => 'GET,POST,PUT,DELETE,OPTIONS',
             'mapper'   => 'CategoryMapper'
         ]
     ]
