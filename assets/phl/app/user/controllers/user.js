@@ -18,15 +18,15 @@
      * @dependencies $location url service
      * @dependencies $sce sanitize HTML service
      */
-    app.controller('UserCtrl', ['$scope', '$rootScope', '$http', '$location', 'ROUTES', '$cookies',
-        function($scope, $rootScope, $http, $location, ROUTES, $cookies) {
+    app.controller('UserCtrl', ['$scope', '$rootScope', '$http', '$location', 'ROUTES',
+        function($scope, $rootScope, $http, $location, ROUTES) {
 
             /**
              *	Perform a GET request on the API and pass the slug to it using $location.url()
              *	On success, pass the data to the view through $scope.trusty
              */
             $http.get($location.url(), {headers : {
-                'X-Token':   $cookies.token
+                'X-Token':   1
             }})
                 .success(function(data){
 

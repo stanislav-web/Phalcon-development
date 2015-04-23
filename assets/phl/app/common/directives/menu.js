@@ -6,11 +6,7 @@
 
         return {
             restrict: "E",
-            templateUrl: TEMPLATE.MENU,
-            transclude: true,
-            scope: {
-                isAuthentificated: "="
-            }
+            templateUrl: TEMPLATE.MENU
         }
     }]);
 

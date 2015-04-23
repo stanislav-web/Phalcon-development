@@ -5,12 +5,10 @@
     /**
      * Controller "LanguageController"
      *
-     * @dependencies $translate angular-translater
-     * @dependencies $scope global variables
-     * @dependencies $cookies angular-cookies
+     * Control of a switching translation.
      */
-    app.controller('LanguageCtrl', ['$translate', '$scope', '$cookies',
-        function ($translate, $scope, $cookies) {
+    app.controller('LanguageCtrl', ['$translate', '$scope', 'Session', 'BASE',
+        function ($translate, $scope, Session, BASE) {
 
             // set up language switcher
 
@@ -19,17 +17,8 @@
                 // change quickly
                 $translate.use(langKey);
 
-                if($cookies) {
-
-                    // create cookie
-                    $cookies.NG_TRANSLATE_LANG_KEY = langKey;
-
-                }
-                else {
-                    // send to storage
-                    store.set('NG_TRANSLATE_LANG_KEY',   langKey);
-                }
-
+                // send to storage
+                Session.set(BASE.LANGUAGES.PREFIX, langKey);
                 $scope.currentLanguage  =   langKey;
             };
         }]);

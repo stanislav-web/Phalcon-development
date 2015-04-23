@@ -1,0 +1,33 @@
+[
+    {
+        "title": "Home",
+        "url": "/",
+        "translate": "HOME"
+    },
+    {
+        "title": "Agreement",
+        "url": "/page/agreement",
+        "translate": "AGREEMENT"
+    },
+    {
+        "title": "Help",
+        "url": "/page/help",
+        "translate": "HELP"
+    },
+    {
+        "title": "Contacts",
+        "url": "/page/contacts",
+        "translate": "CONTACTS"
+    },
+    {
+        "title": "About",
+        "url": "/page/about",
+        "translate": "ABOUT"
+    },
+    {
+        "title": "Sign In",
+        "url": "#",
+        "translate": "SIGN IN",
+        "onclick": "openSplash()"
+    }
+]

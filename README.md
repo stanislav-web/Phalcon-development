@@ -1,5 +1,6 @@
 Development Board
 -----------------------
+[![Code Climate](https://codeclimate.com/github/stanislav-web/Phalcon-development/badges/gpa.svg)](https://codeclimate.com/github/stanislav-web/Phalcon-development)
 ###### An example development of the Frontend Part basic on AngularJS.
 ![Alt text](http://mgcrea.github.io/angular-7min/images/angularjs.png "Angular")
 

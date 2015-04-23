@@ -10,6 +10,7 @@ var app;
     // application module
     app = angular.module('app', [
         //'oc.lazyLoad',
+        'angular-debug-bar',
         'ngRoute',
         'ngAnimate',
         'ngSanitize',
@@ -22,21 +23,16 @@ var app;
 
     // setup global scope variables
 
-    app.run(['$rootScope', 'ROUTES', '$translate', '$cookies', 'Authentication', 'Session', '$http',
-        function ($rootScope, ROUTES, $translate, $cookies, Authentication, Session, $http) {
+    app.run(['$rootScope', 'ROUTES', '$translate', 'Authentication', 'Session', 'Restangular', 'BASE',
+        function ($rootScope, ROUTES, $translate, Authentication, Session, Restangular, BASE) {
+
+            $rootScope.engine = Restangular.all("engines/" +BASE.ENGINE_ID+"/categories").customGET("").$object;
 
             // set global scope for routes & template
             $rootScope.ROUTES = ROUTES;
 
-            if($cookies) {
-
-                // getting from cookies
-                $rootScope.currentLanguage = $cookies.NG_TRANSLATE_LANG_KEY || 'ru';
-            }
-            else {
-                // getting from storage
-                $rootScope.currentLanguage = Session.get('NG_TRANSLATE_LANG_KEY') || 'ru';
-            }
+            // getting store locale
+            $rootScope.currentLanguage = Session.get(BASE.LANGUAGES.PREFIX) || BASE.LANGUAGES.DEFAULT;
 
             // update languages global
             $rootScope.$on('$translatePartialLoaderStructureChanged', function () {
@@ -47,9 +43,7 @@ var app;
 
             $rootScope.$on("$locationChangeSuccess", function(event, next, current) {
 
-                if(!Authentication.isLoggedIn()) {
-                    $http.defaults.headers.common['X-Token'] = Session.get('token');
-                }
+                if(!Authentication.isLoggedIn()) {}
             });
         }
     ]);

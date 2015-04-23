@@ -5,28 +5,25 @@
     /**
      * Controller "TopMenuController"
      *
-     * @dependencies $scope global variables
-     * @dependencies $location window location
-     * @dependencies $translate angular-translate.min.js
-     * @dependencies $translatePartialLoader angular-translate-loader-partial.min.js
-     * @dependencies $anchorScroll hash scroll support
-     *
+     * Controls the display of the main menu of the consumer.
      */
-    app.controller('TopMenuCtrl', ['$scope', '$location', '$translatePartialLoader', '$splash', '$http', '$sce', '$rootScope', '$anchorScroll',
-        function($scope, $location, $translatePartialLoader, $splash, $http, $sce, $rootScope, $anchorScroll) {
+    app.controller('TopMenuCtrl', ['$scope', '$location', '$translatePartialLoader', '$translate', '$splash', '$http', '$anchorScroll', 'BASE',
+        function($scope, $location, $translatePartialLoader, $translate, $splash, $http, $anchorScroll, BASE) {
 
             // add language support to this controller
             $translatePartialLoader.addPart('menu');
 
+            // load customer menu
+            $http.get(BASE.LOCAL.CUSTOMER_MENU).success(function(response) {
+                $scope.items = response;
+            });
+
             $scope.isActive = function (route) {
                 if($location.hash() != '') {
-
                     // scroller to hash name
                     $anchorScroll();
                     return route === $location.url() + '#' + $location.hash();
-
                 }
-
                 return route === $location.url();
             }
 
@@ -36,13 +33,6 @@
 
                 // add language support to this action
                 $translatePartialLoader.addPart('sign');
-
-                // add token
-
-                var token = $('meta[name=token]');
-
-                $rootScope.token_id = token.attr('title');
-                $rootScope.token_val = token.attr('content');
 
                 $splash.open();
             };

@@ -1,0 +1,39 @@
+[
+    {
+        "title": "My Account",
+        "url": "/account",
+        "translate": "ACCOUNT"
+    },
+    {
+        "title": "My Purchases",
+        "url": "/transactions/purchases",
+        "translate": "PURCHASES"
+    },
+    {
+        "title": "My Observations",
+        "url": "/transactions/observations",
+        "translate": "OBSERVATIONS"
+    },
+    {
+        "title": "My Bets",
+        "url": "/transactions/bets",
+        "translate": "BETS"
+    },
+    {
+        "title": "Sell",
+        "url": "/transactions/sell",
+        "translate": "SELL"
+    },
+    {
+        "title": "Sold Out",
+        "url": "/transactions/sold",
+        "translate": "SOLD_OUT"
+    },
+    {
+        "title": "Logout",
+        "url": "#",
+        "translate": "LOGOUT",
+        "onclick": "logout()",
+        "controller": "SignCtrl"
+    }
+]

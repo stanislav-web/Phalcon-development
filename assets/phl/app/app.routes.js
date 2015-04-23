@@ -2,8 +2,7 @@
 
 (function(angular) {
 
-    // create config constants
-
+    // set routes config constants
     app.constant('ROUTES', (function () {
 
         return {
@@ -20,6 +19,7 @@
         };
     })());
 
+    // set routes config template paths
     app.constant('TEMPLATE', (function () {
 
         return {

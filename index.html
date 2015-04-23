@@ -5,22 +5,23 @@
     <!-- Get meta -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge; chrome=1">
-    <meta name="description" content="{{ Meta.metaDescription() }}">
-    <meta name="keywords" content="{{ Meta.metaKeywords() }}">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
     <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="/assets/favicon.ico"/>
     <!-- /Get meta -->
 
     <!-- Append Stylesheet -->
-    <link href="assets/plugins/bootstrap/dist/css/bootstrap.css" media="all" rel="stylesheet" />
-    <link href="assets/phl/styles/style.css" media="all" rel="stylesheet" />
-    <link href="assets/phl/styles/menu.css" media="all" rel="stylesheet" />
-    <link href="assets/phl/styles/splash.css" media="all" rel="stylesheet" />
+    <link rel="stylesheet" href="/assets/plugins/angular-debug-bar/dist/css/angular-debug-bar.css" />
+    <link href="/assets/plugins/bootstrap/dist/css/bootstrap.css" media="all" rel="stylesheet" />
+    <link href="/assets/plugins/bootstrap-language/languages.css" media="all" rel="stylesheet" />
+    <link href="/assets/phl/styles/style.css" media="all" rel="stylesheet" />
+    <link href="/assets/phl/styles/menu.css" media="all" rel="stylesheet" />
+    <link href="/assets/phl/styles/splash.css" media="all" rel="stylesheet" />
     <!-- /Append Stylesheet -->
 
-    <title ng-bind="title">Frontend</title>
+    <title ng-bind="engine.name">Phalcon Shop</title>
 </head>
 <body>
-
 <!-- Checkout bar -->
 <header class="header-top">
     <div class="wrap">
@@ -28,7 +29,7 @@
             <a href="/"></a>
         </div>
         <!-- Top navigation menu -->
-        <menu></menu>
+        <menu ng-controller="TopMenuCtrl"></menu>
         <!-- /Top navigation menu -->
 
         <!-- Mini cart -->
@@ -50,7 +51,24 @@
 
 <!-- Footer -->
 <footer class="footer navbar" class="view-animate">
+
     <!-- Language switcher -->
+    <div id="footer_language_list">
+        <ul ng-controller="LanguageCtrl" ng-init="changeLanguage(currentLanguage)">
+            <li ng-class="{'active':currentLanguage === 'en'}">
+                <span ng-click="changeLanguage('en')" class="lang-sm lang-lbl" lang="en"></span>&nbsp;
+            </li>
+            <li ng-class="{'active':currentLanguage === 'ru'}">
+                <span ng-click="changeLanguage('ru')" class="lang-sm lang-lbl" lang="ru"></span>&nbsp;
+            </li>
+            <li ng-class="{'active':currentLanguage === 'de'}">
+                <span ng-click="changeLanguage('de')" class="lang-sm lang-lbl" lang="de"></span>&nbsp;
+            </li>
+            <li ng-class="{'active':currentLanguage === 'uk'}">
+                <span ng-click="changeLanguage('uk')" class="lang-sm lang-lbl" lang="uk"></span>&nbsp;
+            </li>
+        </ul>
+    </div>
     <!-- /Language switcher -->
     <a href="#" id="toTop" style="display: block;"><span id="toTopHover" style="opacity: 1;"></span></a>
     <span us-spinner="{radius:30, width:8, length: 16}"></span>
@@ -73,6 +91,7 @@
 <script src="/assets/plugins/angular-cookies/angular-cookies.js"></script>
 <script src="/assets/plugins/angular-spinner/angular-spinner.js"></script>
 <script src="/assets/plugins/angular-animate/angular-animate.js"></script>
+<script type="text/javascript" src="/assets/plugins/angular-debug-bar/dist/js/angular-debug-bar.min.js"></script>
 <script src="/assets/plugins/angular-bootstrap/ui-bootstrap-tpls.js"></script>
 <!-- /Plugins -->
 
@@ -105,6 +124,6 @@
 <script src="/assets/phl/app/authenticate/controllers/sign.js"></script>
 <script src="/assets/phl/app/user/controllers/user.js"></script>
 <!-- /Controllers -->
-
+<angular-debug-bar></angular-debug-bar>
 </body>
 </html>

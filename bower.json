@@ -14,7 +14,8 @@
     "lodash": "~3.6.0",
     "oclazyload": "~0.6.3",
     "bootstrap": "~3.3.4",
-    "restangular": "~1.5.1"
+    "restangular": "~1.5.1",
+    "angular-debug-bar": "~0.4.2"
   },
   "analytics": false
 }

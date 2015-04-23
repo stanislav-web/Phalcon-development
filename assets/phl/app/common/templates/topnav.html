@@ -1,7 +1,7 @@
-<nav ng-controller="TopMenuCtrl" class="cssmenu">
+<nav class="cssmenu">
     <ul class="top-menu">
-        <li ng-class="{ active:isActive('/')}">
-            <a href="/" translate="TEST">TEST</a>
+        <li ng-repeat="item in items" ng-class="{ active:isActive(item.url)}">
+            <a href="{{item.url}}">{{ item.translate | translate : 'item.translate' }}</a>
         </li>
     </ul>
 </nav>
