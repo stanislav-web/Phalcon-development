@@ -26,6 +26,7 @@ var app;
     app.run(['$rootScope', 'ROUTES', '$translate', 'Authentication', 'Session', 'Restangular', 'BASE',
         function ($rootScope, ROUTES, $translate, Authentication, Session, Restangular, BASE) {
 
+            // get engine -> categories
             $rootScope.engine = Restangular.all("engines/" +BASE.ENGINE_ID+"/categories").customGET("").$object;
 
             // set global scope for routes & template
@@ -40,7 +41,6 @@ var app;
             });
 
             // Every time the route in our app changes check auth status
-
             $rootScope.$on("$locationChangeSuccess", function(event, next, current) {
 
                 if(!Authentication.isLoggedIn()) {}

@@ -50,7 +50,7 @@
         RestangularProvider.setResponseExtractor(function(response, operation, what, url) {
             var extractedData;
             if (operation === "getList") {
-                extractedData = response.data.data;
+                extractedData = response.data;
             } else {
                 extractedData = response.data;
             }
