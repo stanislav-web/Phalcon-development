@@ -45,6 +45,11 @@ class Categories extends \Phalcon\Mvc\Model
     /**
      * @var string
      */
+    public $translate;
+
+    /**
+     * @var string
+     */
     public $alias;
 
     /**
