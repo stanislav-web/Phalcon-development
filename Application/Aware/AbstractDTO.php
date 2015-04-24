@@ -89,4 +89,12 @@ abstract class AbstractDTO {
      * @return array
      */
     abstract public function toArray();
+
+    /**
+     * Reverse object to real array for all public properties
+     *
+     * @param object $object
+     * @return mixed
+     */
+    abstract public function asRealArray($object);
 }

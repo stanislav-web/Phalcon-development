@@ -70,10 +70,12 @@ abstract class AbstractModelCrud implements InjectionAwareInterface {
             if(isset($resultSet->getFirst()->$rel) === false) {
 
                 $conditions = $this->prepareRelatedConditions($resultSet, $credentials);
-                $find = $this->getDi()->get(key($credentials['rule']))->getInstance()->find($conditions);
+                $mapper = $this->getDi()->get(key($credentials['rule']));
+                $find = $mapper->getInstance()->find($conditions);
 
                 if($find->count() > 0) {
-                    $resultSet->getFirst()->$rel = $find->toArray();
+
+                    $resultSet->getFirst()->$rel = $mapper->categoriesToTree($find->toArray());
                 }
                 else {
                     throw new NotFoundException([
@@ -119,37 +121,6 @@ abstract class AbstractModelCrud implements InjectionAwareInterface {
         }
 
         return true;
-    }
-
-    /**
-     * Prepare related query conditions
-     *
-     * @param Resultset $resultSet
-     * @param array $credentials
-     * @return array
-     */
-    private function prepareRelatedConditions(Resultset $resultSet, array $credentials) {
-
-        $rules  = $credentials['rule'];
-        $mapper = key($rules);
-        $modelKey = array_keys($rules[$mapper])[0];
-        $relKey = current($rules[$mapper]);
-        unset($credentials['rule']);
-
-        if(empty($credentials) === true) {
-
-            $conditions = [
-                $relKey .' = '.(int)$resultSet->getFirst()->$modelKey
-            ];
-        }
-        else {
-            $conditions = [
-                $relKey .' = '.(int)$resultSet->getFirst()->$modelKey. ' AND '
-                .$modelKey. ' = '.(int)current($credentials)
-            ];
-        }
-
-        return $conditions;
     }
 
     /**

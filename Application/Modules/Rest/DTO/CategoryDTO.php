@@ -43,8 +43,23 @@ class CategoryDTO extends AbstractDTO
      *
      * @return array
      */
+    public function asRealArray($obj) {
+        $_arr = is_object($obj) ? get_object_vars($obj) : $obj;
+        foreach ($_arr as $key => $val) {
+            $val = (is_array($val) || is_object($val)) ? $this->asRealArray($val) : $val;
+            $arr[$key] = $val;
+        }
+        return $arr;
+    }
+
+    /**
+     * Reverse object to real array for all public properties
+     *
+     * @param object $object
+     * @return mixed
+     */
     public function toArray() {
-        return get_object_vars($this);
+        return  get_object_vars($this);
     }
 
 }

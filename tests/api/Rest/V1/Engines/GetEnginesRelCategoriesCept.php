@@ -13,4 +13,4 @@ $I->seeResponseCodeIs(200);
 $I->seeHttpHeader('Access-Control-Allow-Methods', 'GET');
 $I->seeHttpHeader('Access-Control-Allow-Origin', '*');
 $I->seeResponseIsJson();
-$I->seeResponseJsonMatchesJsonPath('$.data.categories[*]');
+$I->seeResponseJsonMatchesJsonPath('$.data.engines.categories');

@@ -47,4 +47,27 @@ class CategoryMapper extends AbstractModelCrud {
             'RECORDS_NOT_FOUND'  =>  'The records not found'
         ]);
     }
+
+    /**
+     * Categories to tree revert
+     *
+     * @param array $array
+     * @param int   $parent_id
+     * @return array
+     */
+    public function categoriesToTree(array $elements)
+    {
+        $branch = array();
+        foreach($elements as $element) {
+
+            if (is_null($element['parent_id']) === true) {
+                $branch[$element['id']] = $element;
+                $id = $element['id'];
+                continue;
+            }
+            $branch[$id]['childs'][] = $element;
+        }
+
+        return $branch;
+    }
 }

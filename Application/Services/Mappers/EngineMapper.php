@@ -3,7 +3,6 @@ namespace Application\Services\Mappers;
 
 use Application\Aware\AbstractModelCrud;
 use Application\Models\Engines;
-use Application\Models\Currency;
 use Application\Modules\Rest\Exceptions\NotFoundException;
 use Application\Modules\Rest\DTO\EngineDTO;
 use Phalcon\Http\Request;
@@ -77,8 +76,8 @@ class EngineMapper extends AbstractModelCrud {
 
             if($result->count() === 1) {
 
-                if(isset($result->getFirst()->currencyRel) === true) {
-                    $transfer->setCurrencies($result->getFirst()->currencyRel);
+                if(isset($result->getFirst()->currency) === true) {
+                    $transfer->setCurrencies($result->getFirst()->currency);
                 }
             }
 
@@ -88,5 +87,38 @@ class EngineMapper extends AbstractModelCrud {
         throw new NotFoundException([
             'RECORDS_NOT_FOUND'  =>  'The records not found'
         ]);
+    }
+
+    /**
+     * Prepare related query conditions
+     *
+     * @param Resultset $resultSet
+     * @param array $credentials
+     * @return array
+     */
+    public function prepareRelatedConditions(\Phalcon\Mvc\Model\Resultset\Simple $resultSet, array $credentials) {
+
+        $rules  = $credentials['rule'];
+        $mapper = key($rules);
+        $modelKey = array_keys($rules[$mapper])[0];
+        $relKey = current($rules[$mapper]);
+        unset($credentials['rule']);
+
+        if(empty($credentials) === true) {
+
+            $conditions = [
+                $relKey .' = '.(int)$resultSet->getFirst()->$modelKey
+            ];
+        }
+        else {
+            $conditions = [
+                $relKey .' = '.(int)$resultSet->getFirst()->$modelKey. ' AND '
+                .$modelKey. ' = '.(int)current($credentials)
+            ];
+        }
+
+        $conditions[0] .= ' ORDER BY lft, sort';
+
+        return $conditions;
     }
 }

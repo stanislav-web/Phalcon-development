@@ -111,7 +111,7 @@ class Engines extends \Phalcon\Mvc\Model
         $this->skipAttributesOnUpdate(['date_create', 'date_update']);
 
         $this->belongsTo('currency_id', Currency::TABLE, 'id', [
-            'alias' => 'currencyRel',
+            'alias' => 'currency',
         ]);
 
         $this->addBehavior(new Timestampable(array(

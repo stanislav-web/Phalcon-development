@@ -15,4 +15,4 @@ $I->seeHttpHeader('Access-Control-Allow-Origin', '*');
 $I->seeResponseIsJson();
 $I->seeResponseJsonMatchesJsonPath('$.meta');
 $I->seeResponseJsonMatchesJsonPath('$.data.engines');
-$I->seeResponseJsonMatchesJsonPath('$.data.currencies');
+$I->seeResponseJsonMatchesJsonPath('$.data.currency');
