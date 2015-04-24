@@ -17,10 +17,10 @@ abstract class AbstractDTO {
     /**
      * Setup total records
      *
-     * @param \Phalcon\Mvc\Model\Resultset\Simple $result
+     * @param mixed $result
      * @return int
      */
-    public function total(\Phalcon\Mvc\Model\Resultset\Simple $result) {
+    public function total($result) {
 
         if($result->getFirst() !== false) {
             return (int)$result->getFirst()->count();
@@ -33,7 +33,6 @@ abstract class AbstractDTO {
     /**
      * Setup offset records
      *
-     * @param \Phalcon\Mvc\Model\Resultset\Simple $result
      * @return int
      */
     public function offset() {
@@ -44,10 +43,10 @@ abstract class AbstractDTO {
     /**
      * Setup limit records
      *
-     * @param \Phalcon\Mvc\Model\Resultset\Simple $result
+     * @param mixed $result
      * @return int
      */
-    public function limit(\Phalcon\Mvc\Model\Resultset\Simple $result) {
+    public function limit($result) {
         return $result->count();
     }
 
@@ -59,6 +58,29 @@ abstract class AbstractDTO {
      */
     public function serialize(\Phalcon\Mvc\Model\Resultset\Simple $result) {
         return $result->serialize();
+    }
+
+    /**
+     * Get primary identifier
+     *
+     * @return int
+     */
+    public function getPrimary() {
+
+        $result = $this->toArray();
+        $first = array_shift($result);
+        if(is_array($first) === true) {
+            $sub = array_shift($first);
+            if(is_array($sub) === true) {
+                return (int)array_shift($sub);
+            }
+            else {
+                return (int)$sub;
+            }
+        }
+        else {
+            return (int)$first;
+        }
     }
 
     /**

@@ -6,6 +6,7 @@ use Application\Modules\Rest\Aware\RestSecurityProvider;
 use Application\Modules\Rest\Exceptions\UnprocessableEntityException;
 use Application\Modules\Rest\Exceptions\NotFoundException;
 use Application\Modules\Rest\Exceptions\UnauthorizedException;
+use Application\Modules\Rest\DTO\UserDTO;
 use Phalcon\Mvc\Model\Resultset\Simple as ResultSet;
 use Phalcon\Logger;
 
@@ -72,7 +73,7 @@ class RestSecurityService extends RestSecurityProvider {
                     'ua' => $this->getRequest()->getUserAgent(),
                 ]);
 
-                return $accessToken;
+                return (new UserDTO())->setAccess($accessToken);
             }
             else {
                 throw new UnauthorizedException([
@@ -108,8 +109,11 @@ class RestSecurityService extends RestSecurityProvider {
             $token,
             (time() + $this->getConfig()->tokenLifetime)
         );
-
-        return $accessToken;
+        return (new UserDTO())->setAccess($accessToken)
+            ->setUsers($this->getUserMapper()->getList([
+                "id = ?0",
+                "bind" => [$user->getId()],
+            ]));
     }
 
     /**
@@ -278,8 +282,7 @@ class RestSecurityService extends RestSecurityProvider {
         else {
 
             $content = $this->getView()->getRender(strtr(self::RESTORE_VIEW_DIR, [':engine' => $engine->getCode()]), 'restore_password_sms', $params);
-
-            $message = $this->getSmsService()->call('SmsUkraine')->setRecipient($user->getLogin());
+            $message = $this->getSmsService()->call('Clickatell')->setRecipient($user->getLogin());
             $message->send(trim($content));
         }
     }

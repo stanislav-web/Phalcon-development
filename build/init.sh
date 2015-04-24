@@ -54,7 +54,7 @@ runTests() {
 read -p "Please type build [production or development]: " ENV
 
 case "$ENV" in
-    production) ;;
+    production);;
     development);;
     *) echo "Invalid input"
     exit 1

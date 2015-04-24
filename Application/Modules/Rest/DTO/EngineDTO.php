@@ -37,7 +37,7 @@ class EngineDTO extends AbstractDTO
     public $categories = [];
 
     /**
-     * Setup engines
+     * Setup engines (main)
      *
      * @param \Phalcon\Mvc\Model\Resultset\Simple $engines
      * @return $this
@@ -48,22 +48,19 @@ class EngineDTO extends AbstractDTO
         $this->engines['total'] = $this->total($engines);
         $this->engines['limit'] = $this->limit($engines);
         $this->engines['offset'] = $this->offset();
+
         return $this;
     }
 
     /**
      * Setup currencies
      *
-     * @param \Phalcon\Mvc\Model\Resultset\Simple $currencies
+     * @param \Application\Models\Currency  $currencies
      * @return $this
      */
-    public function setCurrencies(\Phalcon\Mvc\Model\Resultset\Simple $currencies) {
+    public function setCurrencies(\Application\Models\Currency $currencies) {
 
-        $this->currencies = $currencies->toArray();
-        $this->currencies['total'] = $this->total($currencies);
-        $this->currencies['limit'] = $this->limit($currencies);
-        $this->currencies['offset'] = $this->offset();
-
+        $this->currencies[] = $currencies->toArray();
         return $this;
     }
 
@@ -73,13 +70,9 @@ class EngineDTO extends AbstractDTO
      * @param \Phalcon\Mvc\Model\Resultset\Simple $categories
      * @return $this
      */
-    public function setCategories(\Phalcon\Mvc\Model\Resultset\Simple $categories) {
+    public function setCategories(\Application\Models\Categories $categories) {
 
-        $this->categories = $categories->toArray();
-        $this->categories['total'] = $this->total($categories);
-        $this->categories['limit'] = $this->limit($categories);
-        $this->categories['offset'] = $this->offset();
-
+        $this->categories[] = $categories->toArray();
 
         return $this;
     }

@@ -2,7 +2,6 @@
 namespace Application\Aware;
 
 use Application\Modules\Rest\Exceptions\BadRequestException;
-use Application\Modules\Rest\Exceptions\NotFoundException;
 use Phalcon\DI\InjectionAwareInterface;
 use Phalcon\Mvc\Model\Resultset\Simple as ResultSet;
 
@@ -92,30 +91,6 @@ abstract class AbstractModelCrud implements InjectionAwareInterface {
     }
 
     /**
-     * Read records
-     *
-     * @param array $credentials credentials
-     * @param array $relations related models
-     * @return mixed
-     */
-    public function read(array $credentials = [], array $relations = []) {
-
-        $result = $this->getInstance()->find($credentials);
-
-        if(empty($relations) === false) {
-            $result = $this->readRelatedRecords($result, $relations);
-        }
-
-        if($result->count() > 0) {
-            return $result;
-        }
-
-        throw new NotFoundException([
-            'RECORDS_NOT_FOUND'  =>  'The records not found'
-        ]);
-    }
-
-    /**
     /**
      * Edit record
      *
@@ -183,4 +158,13 @@ abstract class AbstractModelCrud implements InjectionAwareInterface {
      * @return \Phalcon\Mvc\Model
      */
     abstract public function getInstance();
+
+    /**
+     * Read records
+     *
+     * @param array $credentials credentials
+     * @param array $relations related models
+     * @return mixed
+     */
+    abstract public function read();
 }

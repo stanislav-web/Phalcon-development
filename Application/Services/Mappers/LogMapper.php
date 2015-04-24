@@ -1,10 +1,10 @@
 <?php
 namespace Application\Services\Mappers;
 
+use Application\Modules\Rest\DTO\LogDTO;
 use Application\Modules\Rest\Exceptions\NotFoundException;
-use \Phalcon\DI\InjectionAwareInterface;
-use \Phalcon\Logger;
-use \Phalcon\Logger\Adapter\Database as LoggerDatabase;
+use Phalcon\Logger;
+use Phalcon\Logger\Adapter\Database as LoggerDatabase;
 use Application\Models\Logs;
 
 /**
@@ -18,8 +18,7 @@ use Application\Models\Logs;
  * @copyright Stanislav WEB
  * @filesource /Application/Services/Mappers/LogMapper.php
  */
-class LogMapper extends LoggerDatabase
-    implements InjectionAwareInterface {
+class LogMapper extends LoggerDatabase {
 
     /**
      * Available log code
@@ -44,22 +43,12 @@ class LogMapper extends LoggerDatabase
     protected $di;
 
     /**
-     * Errors array
-     *
-     * @var array $errors;
-     */
-    private $errors = [];
-
-    /**
      * Init logger connector
      *
      * @param \Phalcon\Db\Adapter\Pdo\Mysql $connection
      * @throws \Phalcon\Logger\Exception
      */
-    public function __construct(\Phalcon\Db\Adapter\Pdo\Mysql $connection, \Phalcon\DiInterface $di) {
-
-        $this->setDi($di);
-        $dispatcher = $di->get('dispatcher');
+    public function __construct(\Phalcon\Db\Adapter\Pdo\Mysql $connection, \Phalcon\Mvc\Dispatcher $dispatcher) {
 
         if(empty($dispatcher->getModuleName()) === true) {
             $dispatcher->setModuleName('Global');
@@ -67,29 +56,10 @@ class LogMapper extends LoggerDatabase
 
         parent::__construct($dispatcher->getModuleName(), [
             'db'    => $connection,
-            'table' => (new Logs())->getSource()
+            'table' => $this->getInstance()->getSource()
         ]);
     }
 
-    /**
-     * Set dependency container
-     *
-     * @param \Phalcon\DiInterface $di
-     */
-    public function setDi($di)
-    {
-        $this->di = $di;
-    }
-
-    /**
-     * Get dependency container
-     *
-     * @return \Phalcon\DiInterface
-     */
-    public function getDi()
-    {
-        return $this->di;
-    }
 
     /**
      * Get instance of polymorphic object
@@ -111,7 +81,7 @@ class LogMapper extends LoggerDatabase
         $result = $this->getInstance()->find($credentials);
 
         if($result->count() > 0) {
-            return $result;
+            return (new LogDTO())->setLogs($result);
         }
 
         throw new NotFoundException([
@@ -147,62 +117,5 @@ class LogMapper extends LoggerDatabase
                 'LOG_CODE_NOT_FOUND' => 'Logger code not found'
             ]);
         }
-    }
-
-
-
-
-
-
-
-
-
-
-    /**
-     * Create log record
-     *
-     * @param array $data
-     * return boolean
-     */
-    public function create(array $data) {
-
-    }
-
-    /**
-     * Edit log record
-     *
-     * @param int $id
-     * @param array $data
-     */
-    public function update($id, array $data) {
-
-    }
-
-    /**
-     * Delete log record
-     *
-     * @param int      $id
-     * @return boolean
-     */
-    public function delete($id) {
-
-    }
-
-    /**
-     * Set errors message
-     *
-     * @param mixed $errors
-     */
-    public function setErrors($errors) {
-        $this->errors = $errors;
-    }
-
-    /**
-     * Get error messages
-     *
-     * @return mixed $errors
-     */
-    public function getErrors() {
-        return $this->errors;
     }
 }

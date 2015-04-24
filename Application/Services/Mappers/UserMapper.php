@@ -5,6 +5,7 @@ use Application\Aware\AbstractModelCrud;
 use Application\Models\Users;
 use Application\Models\UserRoles;
 use Application\Models\UserAccess;
+use Application\Modules\Rest\DTO\UserDTO;
 use Application\Modules\Rest\Exceptions\BadRequestException;
 use Application\Modules\Rest\Exceptions\ConflictException;
 
@@ -40,12 +41,23 @@ class UserMapper extends AbstractModelCrud {
     }
 
     /**
-     * Get roles model
+     * Read records
      *
-     * @return UserRoles
+     * @param array $credentials credentials
+     * @param array $relations related models
+     * @return mixed
      */
-    public function getRoles() {
-        return new UserRoles();
+    public function read(array $credentials = [], array $relations = []) {
+
+        $result = $this->getInstance()->find($credentials);
+
+        if($result->count() > 0) {
+            return (new UserDTO())->setUsers($result);
+        }
+
+        throw new NotFoundException([
+            'RECORDS_NOT_FOUND'  =>  'The records not found'
+        ]);
     }
 
     /**
@@ -88,7 +100,6 @@ class UserMapper extends AbstractModelCrud {
             }
         }
     }
-
 
     /**
      * Set user access token

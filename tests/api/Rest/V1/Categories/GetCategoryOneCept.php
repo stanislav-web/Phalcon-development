@@ -13,3 +13,5 @@ $I->seeResponseCodeIs(200);
 $I->seeHttpHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE');
 $I->seeHttpHeader('Access-Control-Allow-Origin', '*');
 $I->seeResponseIsJson();
+$I->seeResponseJsonMatchesJsonPath('$.data.id');
+

@@ -13,6 +13,7 @@ Phalcon Development Boards
 * Staging development
 * Service layer
 * REST Full Service
+* DTO (Data Transfer Objects) for relate results
 * Codeception API Testing
 * Git Hooks
 * API Class Documentation
@@ -33,6 +34,7 @@ Phalcon Development Boards
 #### Documents
 + [Документация Phalcon 1.3.0](http://docs.phalconphp.com/ru/latest/index.html)
 + [REST API Tutorial](http://www.restapitutorial.com/)
++ [Practical PHP Patterns: Data Transfer Object](http://css.dzone.com/books/practical-php/practical-php-patterns-data) 
 + [Codeception. Modern PHP testing for everyone](http://codeception.com)
 + [Git hooks for PHP projects](https://github.com/bruli/php-git-hooks)
 + [Smart and Readable Documentation. ApiGen](http://www.apigen.org)

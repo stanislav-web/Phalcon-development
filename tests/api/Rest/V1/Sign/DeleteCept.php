@@ -6,7 +6,6 @@ $login = mt_rand().'@'.mt_rand().'.com';
 $password = mt_rand();
 $name = 'CodeceptionTester';
 
-
 $I->wantTo('DELETE Logout: /api/v1/sign');
 
 $I->setHeader('Accept', '*/*');
@@ -19,7 +18,7 @@ $I->sendPOST('api/v1/sign', [
 ]);
 $I->sendGET('api/v1/sign', ['login' => $login, 'password' => $password]);
 $auth = $I->grabDataFromJsonResponse();
-$user_id = $auth['data'][0]['user_id'];
+$user_id = $auth['data']['user_id'];
 
 $I->sendDELETE('api/v1/sign/'.$user_id);
 

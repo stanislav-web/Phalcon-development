@@ -3,6 +3,7 @@ namespace Application\Services\Mappers;
 
 use Application\Aware\AbstractModelCrud;
 use Application\Models\Errors;
+use Application\Modules\Rest\DTO\ErrorDTO;
 use Application\Modules\Rest\Exceptions\NotFoundException;
 
 /**
@@ -25,6 +26,26 @@ class ErrorMapper extends AbstractModelCrud {
      */
     public function getInstance() {
         return new Errors();
+    }
+
+    /**
+     * Read records
+     *
+     * @param array $credentials credentials
+     * @param array $relations related models
+     * @return mixed
+     */
+    public function read(array $credentials = [], array $relations = []) {
+
+        $result = $this->getInstance()->find($credentials);
+
+        if($result->count() > 0) {
+            return (new ErrorDTO())->setErrors($result);
+        }
+
+        throw new NotFoundException([
+            'RECORDS_NOT_FOUND'  =>  'The records not found'
+        ]);
     }
 
     /**

@@ -129,7 +129,7 @@ class RestValidatorCollectionService extends RestValidatorCollectionsProvider {
      */
     public function resolve($responseData) {
 
-        $rs = new ResultSetValidator($this->getDi());
+        $rs = new ResultSetValidator($this->getDi()->get('RestConfig'));
         $rs->validate($responseData);
         $this->setResponse($rs->getResult());
     }

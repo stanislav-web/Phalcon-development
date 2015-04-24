@@ -3,20 +3,16 @@ $scenario = (null !== $scenario) ? $scenario : new \StdClass();
 
 $I = new ApiTester($scenario);
 
-$I->wantTo('GET logs list: /api/v1/logs');
+$I->wantTo('GET engine by id: /api/v1/engines/1');
 
 $I->setHeader('Accept', '*/*');
 $I->setHeader('Accept-Language', 'en-GB');
 
-$I->sendGET('api/v1/sign', ['login' => 'admin@admin.ua', 'password' => 'admin@admin.ua']);
-$auth = $I->grabDataFromJsonResponse();
-
-$I->amBearerAuthenticated($auth['data']['token']);
-
-$I->sendGET('api/v1/logs');
-
+$I->sendGET('api/v1/engines/1');
 $I->seeResponseCodeIs(200);
 $I->seeHttpHeader('Access-Control-Allow-Methods', 'GET');
 $I->seeHttpHeader('Access-Control-Allow-Origin', '*');
 $I->seeResponseIsJson();
-$I->seeResponseJsonMatchesJsonPath('$.data');
+$I->seeResponseJsonMatchesJsonPath('$.meta');
+$I->seeResponseJsonMatchesJsonPath('$.data.engines');
+$I->seeResponseJsonMatchesJsonPath('$.data.currencies');

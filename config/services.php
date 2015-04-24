@@ -117,7 +117,7 @@ $di->setShared('UserMapper','Application\Services\Mappers\UserMapper');
 $di->setShared('LogMapper', function() use ($config, $di) {
 
     return new Application\Services\Mappers\LogMapper(
-        new \Phalcon\Db\Adapter\Pdo\Mysql($config['database']), $di
+        new \Phalcon\Db\Adapter\Pdo\Mysql($config['database']), $di->get('dispatcher')
     );
 
 });

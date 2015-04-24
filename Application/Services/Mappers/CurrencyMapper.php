@@ -16,7 +16,7 @@ use Application\Models\Currency;
  * @copyright Stanislav WEB
  * @filesource /Application/Services/Mappers/CurrencyMapper.php
  */
-class CurrencyMapper implements InjectionAwareInterface, ModelCrudInterface {
+class CurrencyMapper extends AbstractModelCrud {
 
     /**
      * Dependency injection container

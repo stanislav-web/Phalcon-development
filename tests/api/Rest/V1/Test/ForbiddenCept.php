@@ -11,7 +11,7 @@ $I->setHeader('Accept-Language', 'en-GB');
 $I->sendGET('api/v1/sign', ['login' => 'user@gmail.com', 'password' => 'user@gmail.com']);
 $auth = $I->grabDataFromJsonResponse();
 
-$I->amBearerAuthenticated($auth['data'][0]['token']);
+$I->amBearerAuthenticated($auth['data']['token']);
 
 $I->sendGET('/api/v1/users');
 

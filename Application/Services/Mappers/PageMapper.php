@@ -3,6 +3,8 @@ namespace Application\Services\Mappers;
 
 use Application\Aware\AbstractModelCrud;
 use Application\Models\Pages;
+use Application\Modules\Rest\DTO\PageDTO;
+use Application\Modules\Rest\Exceptions\NotFoundException;
 
 /**
  * Class PageMapper. Actions above application pages
@@ -26,115 +28,23 @@ class PageMapper extends AbstractModelCrud {
         return new Pages();
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     /**
-     * Add page
+     * Read records
      *
-     * @param array $data
+     * @param array $credentials credentials
+     * @param array $relations related models
+     * @return mixed
      */
-    public function create(array $data) {
+    public function read(array $credentials = [], array $relations = []) {
 
-        $pageModel = new Pages();
+        $result = $this->getInstance()->find($credentials);
 
-        foreach($data as $field => $value) {
-
-            $pageModel->{$field}   =   $value;
+        if($result->count() > 0) {
+            return (new PageDTO())->setPages($result);
         }
 
-        if($pageModel->save() === true) {
-
-            return true;
-        }
-        else {
-
-            $this->setErrors($pageModel->getMessages());
-            return false;
-        }
-    }
-
-
-
-    /**
-     * Edit page
-     *
-     * @param int      $id
-     * @param array $data
-     * @throws DbException
-     */
-    public function update($id, array $data) {
-
-        $pageModel = new Pages();
-
-        $pageModel->setId($id);
-
-        foreach($data as $field => $value) {
-
-            $pageModel->{$field}   =   $value;
-        }
-
-        if($pageModel->save() === true) {
-
-            return true;
-        }
-        else {
-            $this->setErrors($pageModel->getMessages());
-
-            return false;
-        }
-    }
-
-    /**
-     * Delete page
-     *
-     * @param int      $id
-     * @return boolean
-     */
-    public function delete($id) {
-
-        $pageModel = new Pages();
-
-        return $pageModel->getReadConnection()
-            ->delete($pageModel->getSource(), "id = ".(int)$id);
-    }
-
-    /**
-     * Set errors message
-     *
-     * @param mixed $errors
-     */
-    public function setErrors($errors) {
-        $this->errors = $errors;
-    }
-
-    /**
-     * Get error messages
-     *
-     * @return mixed $errors
-     */
-    public function getErrors() {
-        return $this->errors;
+        throw new NotFoundException([
+            'RECORDS_NOT_FOUND'  =>  'The records not found'
+        ]);
     }
 }

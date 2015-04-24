@@ -2,8 +2,6 @@
 namespace Application\Modules\Rest\Validators;
 
 use Phalcon\Http\Request;
-use Phalcon\Mvc\Model\Resultset\Simple as ResultSet;
-use Phalcon\Mvc\Model\MetaData\Apc as MetaData;
 
 /**
  * Class ResultSetValidator. Checking response
@@ -28,16 +26,16 @@ class ResultSetValidator {
     const MESSAGE_NOT_MODIFIED  = 'Not Modified';
 
     /**
-     * Dependency injection container
+     * Rest config container
      *
-     * @var \Phalcon\DiInterface $di;
+     * @var \Phalcon\Config $config;
      */
-    private $di;
+    private $config;
 
     /**
      * Resultset response definition
      *
-     * @var \Phalcon\Mvc\Model\Resultset\Simple $response
+     * @var \Application\Aware\AbstractDTO|null $response
      */
     private $response;
 
@@ -51,43 +49,43 @@ class ResultSetValidator {
     /**
      * Setup definition
      *
-     * @param \Phalcon\Di\FactoryDefault $di
+     * @param \Phalcon\Config $config
      */
-    public function __construct(\Phalcon\Di\FactoryDefault $di) {
+    public function __construct(\Phalcon\Config $config) {
 
-        $this->setDi($di);
+        $this->setConfig($config);
     }
 
     /**
-     * Set dependency container
+     * Set config container
      *
-     * @param \Phalcon\DiInterface $di
-     * @return QueryValidator
+     * @param \Phalcon\Config $config
+     * @return ResultSetValidator
      */
-    public function setDi($di)
+    public function setConfig(\Phalcon\Config $config)
     {
-        $this->di = $di;
+        $this->config = $config;
 
         return $this;
     }
 
     /**
-     * Get dependency container
+     * Get config container
      *
-     * @return \Phalcon\DiInterface
+     * @param \Phalcon\Config
      */
-    public function getDi()
+    public function getConfig()
     {
-        return $this->di;
+        return $this->config;
     }
 
     /**
      * Set response set
      *
-     * @param \Phalcon\Mvc\Model\Resultset\Simple $response
+     * @param \Application\Aware\AbstractDTO|null $response
      * @return ResultSetValidator
      */
-    private function setResponse($response)
+    private function setResponse($response = null)
     {
         $this->response = $response;
 
@@ -95,22 +93,9 @@ class ResultSetValidator {
     }
 
     /**
-     * Return Primary key of result
-     *
-     * @return mixed
-     */
-    public function getPrimaryKey() {
-
-        $meta = new MetaData();
-        $key = $meta->getPrimaryKeyAttributes($this->getResponse()->getFirst());
-        $value = $this->getResponse()->getFirst()->readAttribute(reset($key));
-        return $value;
-    }
-
-    /**
      * Get hydrated response object
      *
-     * @return \Phalcon\Mvc\Model\Resultset\Simple
+     * @return \Application\Aware\AbstractDTO
      */
     private function getResponse()
     {
@@ -124,82 +109,12 @@ class ResultSetValidator {
      */
     private function setResult()
     {
-        $result = [];
+        $request = $this->getRequest();
 
-        $request = new Request();
-
-        if($request->isPost()) {
-            $result['meta']['code'] = self::CODE_CREATED;
-            $result['meta']['message'] = self::MESSAGE_CREATED;
-
-            // make replace url form config redirects
-
-            if(isset($this->getRedirects()[$this->getRequestUri()]) === true) {
-
-                $result['meta']['resource'] = $request->getScheme().'://'.
-                    $request->getHttpHost().$this->getRedirects()[$this->getRequestUri()].DIRECTORY_SEPARATOR.$this->getPrimaryKey();
-            }
-            else {
-                $result['meta']['resource'] = $request->getScheme().'://'.$request->getHttpHost().$request->getURI().DIRECTORY_SEPARATOR.$this->getPrimaryKey();
-            }
-        }
-        elseif($request->isGet() || $request->isPut()) {
-            $result['meta']['code'] = self::CODE_OK;
-            $result['meta']['message'] = self::MESSAGE_OK;
-        }
-        else {
-            $result['meta']['code'] = self::CODE_NO_CONTENT;
-            $result['meta']['message'] = self::MESSAGE_NO_CONTENT;
-        }
-
-
-
-        if($this->getResponse() instanceof ResultSet) {
-
-            if(is_null($this->getResponse()->current()) === false) {
-                $response = get_object_vars($this->getResponse()->current());
-            }
-            else {
-                $result['meta']['limit']   = $this->getResponse()->count();
-                $response = $this->getResponse()->toArray();
-            }
-
-            $model = $this->getResponse();
-
-            if($model->getFirst() !== false) {
-                $result['meta']['count'] = (int)$model->getFirst()->count();
-            }
-            else {
-                $result['meta']['count'] = (int)$model->getLast()->count();
-            }
-
-            // result Set from GET, POST
-            $this->result = (array_merge($result, ['data' => $response]));
-        }
-        else {
-
-            $response = array_filter($this->getResponse()->toArray());
-
-            if(count($response) > 1) {
-                foreach($response as $entity => &$data) {
-                    $result['meta'][$entity]['limit'] = $data['limit'];
-                    $result['meta'][$entity]['total'] = $data['total'];
-                    $result['meta'][$entity]['offset'] = $data['offset'];
-                    unset($data['limit'], $data['total'], $data['offset']);
-                }
-            }
-            else {
-
-                $response = array_shift($response);
-                $result['meta']['limit'] = $response['limit'];
-                $result['meta']['total'] = $response['total'];
-                $result['meta']['offset'] = $response['offset'];
-                unset($response['limit'], $response['total'], $response['offset']);
-            }
-
-            // result Set from GET, POST
-            $this->result = (array_merge($result, ['data' => $response]));
-        }
+        ($request->isGet()) ? $this->getResolver() : null;
+        ($request->isPost()) ? $this->postResolver($request) : null;
+        ($request->isPut()) ? $this->putResolver() : null;
+        ($request->isDelete()) ? $this->deleteResolver() : null;
 
         return $this;
     }
@@ -214,7 +129,6 @@ class ResultSetValidator {
         return $this->result;
     }
 
-
     /**
      * Validate response
      * @param mixed $response
@@ -225,22 +139,127 @@ class ResultSetValidator {
         $this->setResponse($response)->setResult();
     }
 
-
     /**
      * Get redirects params
      *
-     * @return \Phalcon\Config
+     * @return array
      */
     private function getRedirects() {
-        return $this->getDI()->get('RestConfig')->api->redirects->toArray();
+        return $this->getConfig()->api->redirects->toArray();
     }
 
     /**
-     * Get requested Uri
+     * Get Request object
      *
-     * @return string uri
+     * @return \Phalcon\Http\Request
      */
-    private function getRequestUri() {
-        return $this->getDI()->get('request')->getUri();
+    private function getRequest() {
+        return new Request();
+    }
+
+    /**
+     * Resolve & parse GET Response
+     *
+     * @param \Phalcon\Http\Request $request
+     */
+    private function getResolver() {
+
+        $result = [];
+        $result['meta']['code'] = self::CODE_OK;
+        $result['meta']['message'] = self::MESSAGE_OK;
+
+        $response = array_filter($this->getResponse()->toArray());
+
+        if(count($response) > 1) {
+
+            foreach($response as $entity => &$data) {
+
+                if(isset($data['limit']) === true) $result['meta'][$entity]['limit'] = $data['limit'];
+                if(isset($data['total']) === true) $result['meta'][$entity]['total'] = $data['total'];
+                if(isset($data['offset']) === true) $result['meta'][$entity]['offset'] = $data['offset'];
+
+                unset($data['limit'], $data['total'], $data['offset']);
+
+                if(count($response[$entity]) === 1) {
+                    $response[$entity] = array_shift($response[$entity]);
+                }
+            }
+        }
+        else {
+
+            $response = array_shift($response);
+
+            $result['meta']['limit'] = $response['limit'];
+            $result['meta']['total'] = $response['total'];
+            $result['meta']['offset'] = $response['offset'];
+            unset($response['limit'], $response['total'], $response['offset']);
+            if(count($response) === 1) {
+                $response = array_shift($response);
+            }
+        }
+
+        $this->result = (array_merge($result, ['data' => $response]));
+    }
+
+    /**
+     * Resolve & parse POST Response
+     *
+     * @param \Phalcon\Http\Request $request
+     */
+    private function postResolver(\Phalcon\Http\Request $request) {
+
+        $result = [];
+        $result['meta']['code'] = self::CODE_CREATED;
+        $result['meta']['message'] = self::MESSAGE_CREATED;
+
+        // make replace url form config redirects
+
+        if(isset($this->getRedirects()[$request->getURI()]) === true) {
+
+            $result['meta']['resource'] = $request->getScheme().'://'.
+                $request->getHttpHost().$this->getRedirects()[$request->getURI()].DIRECTORY_SEPARATOR.$this->getResponse()->getPrimary();
+        }
+        else {
+            $result['meta']['resource'] = $request->getScheme().'://'.$request->getHttpHost().
+                $request->getURI().DIRECTORY_SEPARATOR.$this->getResponse()->getPrimary();
+        }
+
+        $response = array_filter($this->getResponse()->toArray());
+
+        $data = [];
+
+        foreach($response as $entity => $params) {
+            $data[$entity] = array_shift($params);
+        }
+
+        $this->result = (array_merge($result, ['data' => $data]));
+    }
+
+    /**
+     * Resolve & parse PUT Response
+     */
+    private function putResolver() {
+
+        $result = [];
+        $result['meta']['code'] = self::CODE_OK;
+        $result['meta']['message'] = self::MESSAGE_OK;
+
+        if(is_bool($this->getResponse()) === true) {
+            $this->result = $result;
+        }
+        else {
+            $response = array_filter($this->getResponse()->toArray());
+            $this->result = (array_merge($result, ['data' => $response]));
+        }
+    }
+
+    /**
+     * Resolve & parse DELETE Response
+     */
+    private function deleteResolver() {
+        $result = [];
+        $result['meta']['code'] = self::CODE_NO_CONTENT;
+        $result['meta']['message'] = self::MESSAGE_NO_CONTENT;
+        $this->result = $result;
     }
 }
