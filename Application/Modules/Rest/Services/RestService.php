@@ -188,23 +188,7 @@ class RestService implements RestServiceInterface {
      */
     public function setMessage($message) {
 
-        $this->message    =   [
-            'meta'      => [
-                'code'      => $message['meta']['code'],
-                'message'   => $message['meta']['message'],
-                'limit'     => (isset($message['meta']['limit'])) ? $message['meta']['limit'] : 0,
-                'all'       => (isset($message['meta']['count'])) ? $message['meta']['count'] : 0,
-                'offset'    => (isset($this->getParams()['offset'])) ? (int)$this->getParams()['offset'] : 0
-            ]
-        ];
-
-        if(isset($message['data']) === true) {
-            foreach($message['data'] as $k => $v)
-            {
-                $this->message['data'][$k]    =   $v;
-            }
-        }
-
+        $this->message    =   $message;
         $this->getResponseService()->setStatusCode($message['meta']['code'], $message['meta']['message']);
         $this->setResourceUri($message);
         $this->message['meta']['resource'] = $this->getResourceUri();

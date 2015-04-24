@@ -128,7 +128,6 @@ class ResultSetValidator {
 
         $request = new Request();
 
-
         if($request->isPost()) {
             $result['meta']['code'] = self::CODE_CREATED;
             $result['meta']['message'] = self::MESSAGE_CREATED;
@@ -153,6 +152,8 @@ class ResultSetValidator {
             $result['meta']['message'] = self::MESSAGE_NO_CONTENT;
         }
 
+
+
         if($this->getResponse() instanceof ResultSet) {
 
             if(is_null($this->getResponse()->current()) === false) {
@@ -176,7 +177,28 @@ class ResultSetValidator {
             $this->result = (array_merge($result, ['data' => $response]));
         }
         else {
-            $this->result = $result;
+
+            $response = array_filter($this->getResponse()->toArray());
+
+            if(count($response) > 1) {
+                foreach($response as $entity => &$data) {
+                    $result['meta'][$entity]['limit'] = $data['limit'];
+                    $result['meta'][$entity]['total'] = $data['total'];
+                    $result['meta'][$entity]['offset'] = $data['offset'];
+                    unset($data['limit'], $data['total'], $data['offset']);
+                }
+            }
+            else {
+
+                $response = array_shift($response);
+                $result['meta']['limit'] = $response['limit'];
+                $result['meta']['total'] = $response['total'];
+                $result['meta']['offset'] = $response['offset'];
+                unset($response['limit'], $response['total'], $response['offset']);
+            }
+
+            // result Set from GET, POST
+            $this->result = (array_merge($result, ['data' => $response]));
         }
 
         return $this;

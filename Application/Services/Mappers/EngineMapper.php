@@ -2,11 +2,12 @@
 namespace Application\Services\Mappers;
 
 use Application\Aware\AbstractModelCrud;
-use \Phalcon\Mvc\Model\Exception;
-use \Phalcon\Http\Request;
 use Application\Models\Engines;
 use Application\Models\Currency;
 use Application\Modules\Rest\Exceptions\NotFoundException;
+use Application\Modules\Rest\DTO\EngineDTO;
+use Phalcon\Mvc\Model\Exception;
+use Phalcon\Http\Request;
 
 /**
  * Class EngineMapper. Actions above application engine
@@ -72,13 +73,7 @@ class EngineMapper extends AbstractModelCrud {
 
         if($result->count() > 0) {
 
-            if($result->count() === 1) {
-                $first = $result->getFirst();
-                if(isset($first->logo) === true) {
-                    $result->getFirst()->logo = $first->host.'/'.self::LOGO_DIR.'/'.$first->logo;
-                }
-            }
-            return $result;
+            return (new EngineDTO())->setEngines($result);
         }
 
         throw new NotFoundException([
