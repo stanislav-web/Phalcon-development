@@ -34,6 +34,6 @@
         "url": "#",
         "translate": "LOGOUT",
         "onclick": "logout()",
-        "controller": "SignCtrl"
+        "controller": "SignController"
     }
 ]

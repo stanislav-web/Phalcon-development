@@ -11,7 +11,7 @@
      * @dependencies $location url service
      * @dependencies $sce sanitize HTML service
      */
-    app.controller('IndexCtrl', ['$scope', '$rootScope', '$http', '$location', '$sce',
+    app.controller('IndexController', ['$scope', '$rootScope', '$http', '$location', '$sce',
         function($scope, $rootScope, $http, $location, $sce) {
 
             /**

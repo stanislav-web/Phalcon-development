@@ -45,10 +45,7 @@ body{
     background:#fff;
     padding: 10px 0;
 }
-.logo{
-    float:left;
-    margin-right: 10.5%;
-}
+
 .cssmenu {
     float:left;
     margin-top:11px;
@@ -3157,6 +3154,10 @@ p.cart a:hover {
 }*/
 
 /** Users style */
+
+.logo {
+    margin-right: 12.5%;
+}
 
 ul li.active {
     text-decoration: underline;

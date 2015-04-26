@@ -7,7 +7,7 @@
      *
      * Controls the display of the main menu of the consumer.
      */
-    app.controller('TopMenuCtrl', ['$scope', '$location', '$translatePartialLoader', '$translate', '$splash', '$http', '$anchorScroll', 'BASE',
+    app.controller('TopMenuController', ['$scope', '$location', '$translatePartialLoader', '$translate', '$splash', '$http', '$anchorScroll', 'BASE',
         function($scope, $location, $translatePartialLoader, $translate, $splash, $http, $anchorScroll, BASE) {
 
             // add language support to this controller
@@ -26,7 +26,6 @@
                 }
                 return route === $location.url();
             }
-
 
             // open splash modal
             $scope.openSplash = function() {

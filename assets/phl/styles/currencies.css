@@ -1,0 +1,41 @@
+/* Positions in our sprite for sm-sized currencies */
+.currencySelector {
+    font-family: 'Open Sans', sans-serif !important;
+    font-size: 13px;
+    font-weight: 300;
+}
+.currencySelector button {
+    display: block;
+    border: 1px solid #ccc;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    border-radius: initial;
+    font-size: inherit;
+    padding: 1px 8px;
+    min-height: inherit !important;
+}
+.currencySelector button .buttonLabel img {
+    position: relative;
+    top: -1px;
+}
+.currencySelector .multiSelect .checkboxLayer {
+    color: #777;
+    letter-spacing: 0px;
+    font-size: 1.0em;
+}
+.currencySelector .multiSelect .checkboxLayer .checkBoxContainer {
+    padding: 3px;
+    font-size: 16px;
+}
+.currencySelector .multiSelect .checkboxLayer .checkBoxContainer .multiSelectItem {
+     outline: none;
+     min-width: inherit;
+     min-height: inherit;
+}
+
+.lang-sm[lang=usd] { background-position: 0px  -596px; }
+.lang-sm[lang=gbp] { background-position: 0px  -676px; }
+.lang-sm[lang=jpy] { background-position: 0px  -804px; }
+.lang-sm[lang=rur] { background-position: 0px  -996px; }
+.lang-sm[lang=uah] { background-position: 0px -1124px; }

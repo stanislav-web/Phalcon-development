@@ -9,7 +9,7 @@
      * @dependencies $translate angular-translater
      * @dependencies $cookies angular-cookies
      */
-    app.controller('SignCtrl', ['$scope', '$rootScope', '$location', 'Authentication', '$translatePartialLoader', '$splash', 'ROUTES',
+    app.controller('SignController', ['$scope', '$rootScope', '$location', 'Authentication', '$translatePartialLoader', '$splash', 'ROUTES',
         function ($scope, $rootScope, $location, Authentication, $translatePartialLoader, $splash, ROUTES) {
 
             $scope.loginForm = true;

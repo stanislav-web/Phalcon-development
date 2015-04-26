@@ -7,7 +7,7 @@
      *
      * Control of a switching translation.
      */
-    app.controller('LanguageCtrl', ['$translate', '$scope', 'Session', 'BASE',
+    app.controller('LanguageController', ['$translate', '$scope', 'Session', 'BASE',
         function ($translate, $scope, Session, BASE) {
 
             // set up language switcher

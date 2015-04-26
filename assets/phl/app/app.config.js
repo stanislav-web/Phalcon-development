@@ -8,6 +8,9 @@
         return {
             URL:       'http://api.phalcon.local/api/v1',
             ENGINE_ID: 1,
+            REQUEST_TIMEOUT  : 3000,
+            DEFAULT_CURRENCY : 'UAH',
+            ACCEPT_ENCODING : 'application/json; charset=utf-8',
             LOCAL: {
                 CUSTOMER_AUTH_MENU :    '/assets/phl/app/data/menu/customer-auth.json',
                 CUSTOMER_MENU :         '/assets/phl/app/data/menu/customer.json'
@@ -25,18 +28,22 @@
                 PREFIX  : 'locale',
                 TEMPLATE: 'assets/phl/app/languages/{lang}/{part}.json'
             },
+            LIST : {
+                PARTS : 3
+            },
             CATCHED_ERRORS : [400, 401, 403, 404, 405, 406, 409, 414, 415, 422, 429, 500]
         };
     })());
 
     // configure base rest loader
-    app.config(['RestangularProvider', '$httpProvider', 'BASE', function(RestangularProvider, $httpProvider, BASE) {
+    app.config(['RestangularProvider', 'BASE', function(RestangularProvider, BASE) {
+
 
         RestangularProvider.setBaseUrl(BASE.URL);
-        RestangularProvider.setDefaultHttpFields({cache: true});
+        RestangularProvider.setDefaultHttpFields({cache: true, timeout: BASE.REQUEST_TIMEOUT});
+        RestangularProvider.setDefaultRequestParams('get', {locale: localStorage.getItem(BASE.LANGUAGES.PREFIX)});
         RestangularProvider.setDefaultHeaders(
-            { "Accept": 'application/json; charset=utf-8'},
-            { "Content-Type": "application/json; charset=utf-8" }
+            { "Accept": BASE.ACCEPT_ENCODING}
         );
 
         RestangularProvider.setErrorInterceptor(function(response, deferred, responseHandler) {
@@ -48,27 +55,18 @@
         });
 
         RestangularProvider.setResponseExtractor(function(response, operation, what, url) {
-            var extractedData;
-            if (operation === "getList") {
-                extractedData = response.data;
-            } else {
-                extractedData = response.data;
+            var newResponse = {};
+            if(operation === 'getList') {
+                newResponse = response.data;
+                newResponse.meta = response.meta;
+                if(response.debug) {
+                    newResponse.debug = response.debug;
+                }
             }
-            return extractedData;
-        });
-
-        RestangularProvider.setRequestInterceptor(function(request, operation, route) {
-
-            if (operation === 'put') {
-                if (request.links)
-                    delete request.links;
+            else {
+                newResponse = response.data
             }
-            return request;
-        });
-
-        // Using self link for self reference resources
-        RestangularProvider.setRestangularFields({
-            selfLink: 'self.link'
+            return newResponse;
         });
     }]);
 

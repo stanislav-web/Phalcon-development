@@ -17,6 +17,10 @@
              * @returns {*}
              */
             set: function (key, value) {
+
+                if (typeof value == 'object') {
+                    value = JSON.stringify(value);
+                }
                 return localStorage.setItem(key, value);
             },
 
@@ -28,7 +32,14 @@
              * @returns {*}
              */
             get: function (key) {
-                return localStorage.getItem(key);
+
+                var data = localStorage.getItem(key);
+                try {
+                    return JSON.parse(data);
+                }
+                catch(e) {
+                   return data;
+                }
             },
 
             /**

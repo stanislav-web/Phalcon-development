@@ -10,7 +10,7 @@
 (function(angular){
 
     /**
-     * Controller "IndexController"
+     * Controller "UserController"
      *
      * @dependencies $scope global controller variables
      * @dependencies $rootScope global variables
@@ -18,7 +18,7 @@
      * @dependencies $location url service
      * @dependencies $sce sanitize HTML service
      */
-    app.controller('UserCtrl', ['$scope', '$rootScope', '$http', '$location', 'ROUTES',
+    app.controller('UserController', ['$scope', '$rootScope', '$http', '$location', 'ROUTES',
         function($scope, $rootScope, $http, $location, ROUTES) {
 
             /**

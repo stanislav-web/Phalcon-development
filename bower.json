@@ -15,7 +15,10 @@
     "oclazyload": "~0.6.3",
     "bootstrap": "~3.3.4",
     "restangular": "~1.5.1",
-    "angular-debug-bar": "~0.4.2"
+    "angular-debug-bar": "~0.4.2",
+    "isteven-angular-multiselect": "~4.0.0",
+    "moment": "~2.10.2",
+    "angular-scroll": "~0.7.0"
   },
   "analytics": false
 }

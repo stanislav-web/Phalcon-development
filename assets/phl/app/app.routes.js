@@ -23,7 +23,8 @@
     app.constant('TEMPLATE', (function () {
 
         return {
-            MENU:       'assets/phl/app/common/templates/topnav.html',
+            MENU_TOP:           'assets/phl/app/common/templates/menu_top.html',
+            MENU_CATEGORIES:    'assets/phl/app/common/templates/menu_categories.html',
             PAGES:      'assets/phl/app/common/templates/index.html',
             ERROR:      'assets/phl/app/common/templates/error.html',
             SIGN:       'assets/phl/app/authenticate/templates/sign.html',
@@ -40,14 +41,14 @@
 
         $routeProvider.when(ROUTES.HOME, {
             templateUrl: TEMPLATE.PAGES,
-            controller: "IndexCtrl"
+            controller: "IndexController"
         })
             .when(ROUTES.PAGES, {
                 templateUrl: TEMPLATE.PAGES,
-                controller: "IndexCtrl"
+                controller: "IndexController"
             })
             .when(ROUTES.LOGOUT, {
-                controller: "IndexCtrl",
+                controller: "IndexController",
                 redirectTo: ROUTES.LOGOUT
             })
             .when(ROUTES.ACCOUNT, {
@@ -76,7 +77,7 @@
             })
             .otherwise({
                 templateUrl: TEMPLATE.ERROR,
-                controller: 'IndexCtrl'
+                controller: 'IndexController'
             }
         );
     }]);

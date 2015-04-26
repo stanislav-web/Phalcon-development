@@ -18,16 +18,33 @@ var app;
         'pascalprecht.translate',
         'ngCookies',
         'restangular',
+        'ui.bootstrap',
+        'duScroll',
+        'isteven-multi-select',
         'ui.splash', function() {}
     ]);
 
     // setup global scope variables
 
-    app.run(['$rootScope', 'ROUTES', '$translate', 'Authentication', 'Session', 'Restangular', 'BASE',
-        function ($rootScope, ROUTES, $translate, Authentication, Session, Restangular, BASE) {
+    app.run(['$rootScope', 'ROUTES', '$translate', 'Authentication', 'Session', 'Restangular', 'Engines', 'BASE',
+        function ($rootScope, ROUTES, $translate, Authentication, Session, Restangular, Engines, BASE) {
 
             // get engine -> categories
-            $rootScope.engine = Restangular.all("engines/" +BASE.ENGINE_ID+"/categories").customGET("").$object;
+            $rootScope.root = Engines.getOne(BASE.ENGINE_ID);
+
+            Restangular.all("currencies").getList().then(function(response) {
+
+                $rootScope.currencies = [];
+
+                response.forEach(function(value) {
+                    $rootScope.currencies.push({
+                        icon : '<img class="lang-sm lang-lbl" lang="' +value.code.toLowerCase()+ '">',
+                        name : value.name,
+                        maker : value.symbol,
+                        ticked : (value.code === BASE.DEFAULT_CURRENCY) ? true : false
+                    });
+                });
+            });
 
             // set global scope for routes & template
             $rootScope.ROUTES = ROUTES;
