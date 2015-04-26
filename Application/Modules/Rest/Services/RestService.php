@@ -166,7 +166,7 @@ class RestService implements RestServiceInterface {
         $this->getResponseService()->setEtag($this->getCacheService()->getKey());
 
         $this->setHeader([
-            'Cache-Control' =>  'max-age='.$this->getCacheService()->getLifetime().' must-revalidate',
+            'Cache-Control' =>  'max-age='.$this->getCacheService()->getLifetime().', must-revalidate',
             'Expires'       =>  gmdate('D, d M Y H:i:s T', time()+$this->getCacheService()->getLifetime())
         ]);
     }
@@ -304,7 +304,7 @@ class RestService implements RestServiceInterface {
                     'memory_use'    => $this->getHelperService()->formatBytes(memory_get_usage(true)),
                     'memory_limit'  => ini_get('memory_limit'),
                     'cpu_load'      => round(sys_getloadavg()[0], 1, PHP_ROUND_HALF_ODD).'%',
-                    'stack'         => $this->getHelperService()->callStack(debug_backtrace())
+                    'stack'         => $this->getHelperService()->callStack(xdebug_get_function_stack())
                 ]
             ]
         );
