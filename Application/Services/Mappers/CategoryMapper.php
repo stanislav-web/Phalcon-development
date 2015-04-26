@@ -70,6 +70,6 @@ class CategoryMapper extends AbstractModelCrud {
             $branch[$id]['childs'][] = $element;
         }
 
-        return $branch;
+        return array_values($branch);
     }
 }
