@@ -5,7 +5,7 @@ use Application\Modules\Rest\Exceptions\BadRequestException;
 use Application\Modules\Rest\Exceptions\InternalServerErrorException;
 
 /**
- * Class QueryValidator. Check query string
+ * Class InputValidator. Check query string
  *
  * @package Application\Modules\Rest
  * @subpackage Validators
@@ -13,9 +13,9 @@ use Application\Modules\Rest\Exceptions\InternalServerErrorException;
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @copyright Stanislav WEB
- * @filesource /Application/Modules/Rest/Validators/QueryValidator.php
+ * @filesource /Application/Modules/Rest/Validators/InputValidator.php
  */
-class QueryValidator {
+class InputValidator {
 
     const EMPTY_PARAMETER_IN_URI = 'Empty parameter in URI';
     const INVALID_COLUMNS = 'The columns: `%s` does not provide by this filter';
@@ -70,7 +70,7 @@ class QueryValidator {
      * Set dependency container
      *
      * @param \Phalcon\DiInterface $di
-     * @return QueryValidator
+     * @return InputValidator
      */
     public function setDi($di)
     {
@@ -103,7 +103,7 @@ class QueryValidator {
      * Set handle mapper
      *
      * @param string $mapper
-     * @return QueryValidator
+     * @return InputValidator
      */
     public function setMapper($mapper)
     {
@@ -125,7 +125,7 @@ class QueryValidator {
      * Set requested columns
      *
      * @param array $params
-     * @return QueryValidator
+     * @return InputValidator
      */
     public function setColumns(array $params)
     {
@@ -149,7 +149,7 @@ class QueryValidator {
      * Set params for this action
      *
      * @param array $params
-     * @return QueryValidator
+     * @return InputValidator
      */
     public function setParams(array $params = [])
     {
@@ -172,7 +172,7 @@ class QueryValidator {
      * Set rules for this action
      *
      * @param \StdClass $rules
-     * @return QueryValidator
+     * @return InputValidator
      */
     public function setRules(\StdClass $rules)
     {
@@ -190,7 +190,7 @@ class QueryValidator {
      *
      * @param \StdClass $rules
      * @param array $params
-     * @return QueryValidator
+     * @return InputValidator
      * @throws InternalServerErrorException
      */
     public function validate(\StdClass $rules, array $params) {

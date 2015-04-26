@@ -27,7 +27,7 @@
       }
     },
   "prefer-stable": true,
-  "minimum-stability": "stable",
+  "minimum-stability": "dev",
     "require": {
         "php": ">=5.4",
         "stanislav-web/phalcon-sms-factory": "1.2.3-stable",
@@ -36,12 +36,11 @@
         "phalcon/incubator": "v1.3.4"
     },
     "require-dev": {
-        "phpunit/phpunit": "4.*",
         "robmorgan/phinx": "dev-master",
         "codeception/codeception" :"*",
         "bruli/php-git-hooks": "~1.0@dev",
-        "flow/jsonpath": "dev-master",
-        "deployer/deployer": "~2.0"
+        "psecio/versionscan": "~1.4",
+        "psecio/iniscan": "~3.6"
     },
     "config": {
         "bin-dir": "./vendor/bin"

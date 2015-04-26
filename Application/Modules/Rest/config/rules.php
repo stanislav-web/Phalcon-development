@@ -111,6 +111,16 @@ return [
             ]
         ],
     ],
+    'currencies'  =>  [
+        'get'    =>  [
+            'requests'  =>  [  // limit request per seconds
+                'limit' =>  10,
+                'time'  =>  1,
+            ],
+            'methods'   =>  'GET',
+            'mapper'    =>  'CurrencyMapper',
+        ],
+    ],
     'errors'  =>  [
         'get'    =>  [
             'requests'  =>  [  // limit request per seconds

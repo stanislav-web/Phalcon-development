@@ -1,8 +1,6 @@
 <?php
 namespace Application\Modules\Rest\Exceptions;
 
-use \Phalcon\Logger;
-
 /**
  * Class MethodNotAllowedException. Represents an HTTP 405 error.
  * The method specified in the Request-Line is not allowed for the resource identified by the Request-URI.

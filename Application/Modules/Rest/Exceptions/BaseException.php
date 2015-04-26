@@ -1,6 +1,5 @@
 <?php
 namespace Application\Modules\Rest\Exceptions;
-use \Phalcon\Logger;
 
 /**
  * Class BaseException.

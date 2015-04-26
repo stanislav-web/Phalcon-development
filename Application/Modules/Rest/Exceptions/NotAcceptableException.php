@@ -1,8 +1,6 @@
 <?php
 namespace Application\Modules\Rest\Exceptions;
 
-use \Phalcon\Logger;
-
 /**
  * Class NotAcceptableException. Represents an HTTP 406 error.
  * The resource identified by the request is only capable of generating response entities

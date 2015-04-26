@@ -4,7 +4,7 @@ namespace Application\Modules\Rest\Validators;
 use Phalcon\Http\Request;
 
 /**
- * Class ResultSetValidator. Checking response
+ * Class OutputValidator. Checking response
  *
  * @package Application\Modules\Rest
  * @subpackage Validators
@@ -12,9 +12,9 @@ use Phalcon\Http\Request;
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @copyright Stanislav WEB
- * @filesource /Application/Modules/Rest/Validators/ResultSetValidator.php
+ * @filesource /Application/Modules/Rest/Validators/OutputValidator.php
  */
-class ResultSetValidator {
+class OutputValidator {
 
     const CODE_OK               = 200;
     const CODE_CREATED          = 201;
@@ -60,7 +60,7 @@ class ResultSetValidator {
      * Set config container
      *
      * @param \Phalcon\Config $config
-     * @return ResultSetValidator
+     * @return OutputValidator
      */
     public function setConfig(\Phalcon\Config $config)
     {
@@ -83,7 +83,7 @@ class ResultSetValidator {
      * Set response set
      *
      * @param \Application\Aware\AbstractDTO|null $response
-     * @return ResultSetValidator
+     * @return OutputValidator
      */
     private function setResponse($response = null)
     {
@@ -105,7 +105,7 @@ class ResultSetValidator {
     /**
      * Set result set
      *
-     * @return ResultSetValidator
+     * @return OutputValidator
      */
     private function setResult()
     {
@@ -132,7 +132,7 @@ class ResultSetValidator {
     /**
      * Validate response
      * @param mixed $response
-     * @return ResultSetValidator
+     * @return OutputValidator
      */
     public function validate($response)
     {
@@ -167,10 +167,13 @@ class ResultSetValidator {
         $result = [];
         $result['meta']['code'] = self::CODE_OK;
         $result['meta']['message'] = self::MESSAGE_OK;
+        $result['meta']['request_time'] = time();
 
         $response = array_filter($this->getResponse()->toArray());
 
         if(count($response) > 1) {
+
+            $entities = array_keys($response);
 
             foreach($response as $entity => &$data) {
 
@@ -211,6 +214,7 @@ class ResultSetValidator {
         $result = [];
         $result['meta']['code'] = self::CODE_CREATED;
         $result['meta']['message'] = self::MESSAGE_CREATED;
+        $result['meta']['request_time'] = time();
 
         // make replace url form config redirects
 
@@ -243,6 +247,7 @@ class ResultSetValidator {
         $result = [];
         $result['meta']['code'] = self::CODE_OK;
         $result['meta']['message'] = self::MESSAGE_OK;
+        $result['meta']['request_time'] = time();
 
         if(is_bool($this->getResponse()) === true) {
             $this->result = $result;

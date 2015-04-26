@@ -36,7 +36,6 @@ class EngineMapper extends AbstractModelCrud {
         return new Engines();
     }
 
-
     /**
      * Define used engine
      *
@@ -76,8 +75,14 @@ class EngineMapper extends AbstractModelCrud {
 
             if($result->count() === 1) {
 
-                if(isset($result->getFirst()->currency) === true) {
-                    $transfer->setCurrencies($result->getFirst()->currency);
+                $result->getFirst()->logo = $this->setLogoDir($result->getFirst()->logo);
+
+                $row = $result->getFirst();
+                if(!$row instanceof \Phalcon\Mvc\Model\Row) {
+                    $currency = $row->getCurrency();
+                    if(isset($currency) === true) {
+                        $transfer->setCurrencies($currency);
+                    }
                 }
             }
 
@@ -90,13 +95,66 @@ class EngineMapper extends AbstractModelCrud {
     }
 
     /**
+     * Setup logo full path
+     *
+     * @param string $logo
+     * @return string
+     */
+    private function setLogoDir($logo) {
+
+        $request = $this->getDi()->get('request');
+
+        return
+            $request->getScheme().'://'.$request->getHttpHost().DIRECTORY_SEPARATOR.
+            self::LOGO_DIR.DIRECTORY_SEPARATOR.$logo;
+    }
+
+    /**
+     * Read related records
+     *
+     * @param \Phalcon\Mvc\Model\Resultset\Simple $resultSet
+     * @param array $relations related models
+     * @return \Phalcon\Mvc\ModelInterface
+     */
+    public function readRelatedRecords(\Phalcon\Mvc\Model\Resultset\Simple $resultSet,
+                                       array $relations = [])
+    {
+        foreach($relations as $rel => $credentials) {
+
+            if(isset($resultSet->getFirst()->$rel) === false) {
+
+                $conditions = $this->prepareRelatedConditions($resultSet, $credentials);
+                $mapper = $this->getDi()->get(key($credentials['rule']));
+                $find = $mapper->getInstance()->find($conditions);
+
+                if($find->count() > 0) {
+
+                    $resultSet->getFirst()->$rel = $mapper->setNestedTree($find->toArray(), 'parent_id');
+                }
+                else {
+                    throw new NotFoundException([
+                        'RECORDS_NOT_FOUND'  =>  'The records not found'
+                    ]);
+                }
+            }
+            else {
+                throw new NotFoundException([
+                    'RECORDS_NOT_FOUND'  =>  'The records not found'
+                ]);
+            }
+        }
+        return $resultSet;
+    }
+
+    /**
      * Prepare related query conditions
      *
-     * @param Resultset $resultSet
+     * @param \Phalcon\Mvc\Model\Resultset\Simple $resultSet
      * @param array $credentials
      * @return array
      */
-    public function prepareRelatedConditions(\Phalcon\Mvc\Model\Resultset\Simple $resultSet, array $credentials) {
+    public function prepareRelatedConditions(\Phalcon\Mvc\Model\Resultset\Simple $resultSet,
+                                             array $credentials) {
 
         $rules  = $credentials['rule'];
         $mapper = key($rules);

@@ -18,6 +18,5 @@ $I->seeResponseCodeIs(200);
 $I->seeHttpHeader('Access-Control-Allow-Methods', 'GET,POST,PUT');
 $I->seeHttpHeader('Access-Control-Allow-Origin', '*');
 $I->seeResponseIsJson();
-$I->seeResponseJsonMatchesJsonPath('$.data.user_id');
-$I->seeResponseJsonMatchesJsonPath('$.data.token');
-$I->seeResponseJsonMatchesJsonPath('$.data.expire_date');
+$I->seeResponseJsonMatchesJsonPath('$.meta');
+$I->seeResponseJsonMatchesJsonPath('$.data');

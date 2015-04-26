@@ -1,8 +1,6 @@
 <?php
 namespace Application\Modules\Rest\Exceptions;
 
-use Phalcon\Logger;
-
 /**
  * Class InternalServerErrorException. Represents an HTTP 500 error.
  * The server encountered an unexpected condition which prevented it from fulfilling the request.

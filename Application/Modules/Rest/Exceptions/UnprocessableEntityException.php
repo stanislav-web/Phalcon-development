@@ -1,8 +1,6 @@
 <?php
 namespace Application\Modules\Rest\Exceptions;
 
-use \Phalcon\Logger;
-
 /**
  * Class UnprocessableEntityException. Represents an HTTP 422 error.
  * The request was well-formed but was unable to be followed due to semantic errors.

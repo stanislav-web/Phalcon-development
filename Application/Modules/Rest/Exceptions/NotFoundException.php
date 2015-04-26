@@ -1,8 +1,6 @@
 <?php
 namespace Application\Modules\Rest\Exceptions;
 
-use \Phalcon\Logger;
-
 /**
  * Class NotFoundException. Represents an HTTP 404 error.
  * The server has not found anything matching the Request-URI.

@@ -1,8 +1,6 @@
 <?php
 namespace Application\Modules\Rest\Exceptions;
 
-use \Phalcon\Logger;
-
 /**
  * Class ConflictException. Represents an HTTP 409 error.
  * The Web server (running the Web site) thinks that the request submitted by the client

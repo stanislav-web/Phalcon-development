@@ -1,8 +1,6 @@
 <?php
 namespace Application\Modules\Rest\Exceptions;
 
-use \Phalcon\Logger;
-
 /**
  * Class ForbiddenException. Represents an HTTP 403 error.
  * Similar to 403 Forbidden,

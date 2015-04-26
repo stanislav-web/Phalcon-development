@@ -1,8 +1,6 @@
 <?php
 namespace Application\Modules\Rest\Exceptions;
 
-use \Phalcon\Logger;
-
 /**
  * Class BadRequestException. Represents an HTTP 400 error.
  * The request could not be understood by the server due to malformed syntax.

@@ -1,6 +1,7 @@
 <?php
 namespace Application\Modules;
 
+use Application\Modules\Rest\Exceptions\RequestTimeoutException;
 use Phalcon\DI;
 use Phalcon\Mvc\Dispatcher;
 use Phalcon\Http\Response;
@@ -31,7 +32,6 @@ class Rest
      * Register the autoload specific to the current module
      */
     public function registerAutoloaders($di)  {
-
         register_shutdown_function([$this, 'catchShutdown'], $di);
     }
 
@@ -73,7 +73,6 @@ class Rest
      */
     public function catchShutdown($di) {
 
-        $di->getShared('dispatcher');
         if((is_null($error = error_get_last()) === false)) {
             try {
                 (APPLICATION_ENV === 'development') ? var_dump($error) : '';
@@ -87,6 +86,23 @@ class Rest
                 $exception = new RestExceptionHandler($di);
                 $exception->handle($e)->send();
             }
+        }
+    }
+
+    /**
+     * Shutdown application while uncatchable error founded
+     *
+     * @param \Phalcon\DI\FactoryDefault $di
+     * @throws \Application\Modules\Rest\Exceptions\InternalServerErrorException
+     */
+    public function catchLimit($di) {
+
+        try {
+            throw new RequestTimeoutException();
+        }
+        catch(RequestTimeoutException $e) {
+            $exception = new RestExceptionHandler($di);
+            $exception->handle($e)->send();
         }
     }
 }

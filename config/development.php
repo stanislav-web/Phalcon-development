@@ -16,7 +16,6 @@ return [
     // Configure database driver
 
     'database' => [
-        'adapter' => 'Mysql',     // Mysql, Postgres, Sqlite
         'username' => 'root',
         'password' => 'root',
         'dbname' => 'phalcon.local',

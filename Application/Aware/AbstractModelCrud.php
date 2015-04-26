@@ -3,7 +3,6 @@ namespace Application\Aware;
 
 use Application\Modules\Rest\Exceptions\BadRequestException;
 use Phalcon\DI\InjectionAwareInterface;
-use Phalcon\Mvc\Model\Resultset\Simple as ResultSet;
 
 /**
  * AbstractModelCrud. Implementing rules necessary intended for service's models
@@ -54,42 +53,6 @@ abstract class AbstractModelCrud implements InjectionAwareInterface {
     {
         $metaData = $this->getInstance()->getModelsMetaData();
         return $metaData->getAttributes($this->getInstance());
-    }
-
-    /**
-     * Read related records
-     *
-     * @param ResultSet $resultSet
-     * @param array $relations related models
-     * @return \Phalcon\Mvc\ModelInterface
-     */
-    public function readRelatedRecords(Resultset $resultSet, array $relations = [])
-    {
-        foreach($relations as $rel => $credentials) {
-
-            if(isset($resultSet->getFirst()->$rel) === false) {
-
-                $conditions = $this->prepareRelatedConditions($resultSet, $credentials);
-                $mapper = $this->getDi()->get(key($credentials['rule']));
-                $find = $mapper->getInstance()->find($conditions);
-
-                if($find->count() > 0) {
-
-                    $resultSet->getFirst()->$rel = $mapper->categoriesToTree($find->toArray());
-                }
-                else {
-                    throw new NotFoundException([
-                        'RECORDS_NOT_FOUND'  =>  'The records not found'
-                    ]);
-                }
-            }
-            else {
-                throw new NotFoundException([
-                    'RECORDS_NOT_FOUND'  =>  'The records not found'
-                ]);
-            }
-        }
-        return $resultSet;
     }
 
     /**

@@ -1,8 +1,6 @@
 <?php
 namespace Application\Modules\Rest\Exceptions;
 
-use \Phalcon\Logger;
-
 /**
  * Class LongRequestException. Represents an HTTP 414 error.
  * The Web server (running the Web site) thinks that the HTTP data stream sent by the client

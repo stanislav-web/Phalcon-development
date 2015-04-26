@@ -25,17 +25,6 @@ class Engines extends \Phalcon\Mvc\Model
     const TABLE = '\Application\Models\Engines';
 
     /**
-     * Engine statuses
-     *
-     * @var array $statuses
-     */
-    public static $statuses = [
-        0 => 'Off',
-        1 => 'On',
-        2 => 'Pending'
-    ];
-
-    /**
      *
      * @var integer
      */
@@ -72,11 +61,6 @@ class Engines extends \Phalcon\Mvc\Model
     public $currency_id;
 
     /**
-     * @var integer
-     */
-    public $status;
-
-    /**
      * Datetime create
      *
      * @var datetime
@@ -110,9 +94,7 @@ class Engines extends \Phalcon\Mvc\Model
         $this->skipAttributesOnCreate(['date_update']);
         $this->skipAttributesOnUpdate(['date_create', 'date_update']);
 
-        $this->belongsTo('currency_id', Currency::TABLE, 'id', [
-            'alias' => 'currency',
-        ]);
+        $this->belongsTo('currency_id', Currency::TABLE, 'id');
 
         $this->addBehavior(new Timestampable(array(
             'beforeValidationOnCreate' => array(
@@ -120,6 +102,16 @@ class Engines extends \Phalcon\Mvc\Model
                 'format' => 'Y-m-d H:i:s'
             )
         )));
+    }
+
+    /**
+     * Get currency related records
+     *
+     * @return \Application\Models\Currency
+     */
+    public function getCurrency($parameters=null)
+    {
+        return $this->getRelated(Currency::TABLE, $parameters);
     }
 
     /**
@@ -200,7 +192,7 @@ class Engines extends \Phalcon\Mvc\Model
     /**
      * Method to set the value of field date_create
      *
-     * @param integer $status
+     * @param mixed $date_create
      * @return Engines
      */
     public function setDateCreate($date_create = null)
@@ -298,19 +290,6 @@ class Engines extends \Phalcon\Mvc\Model
     }
 
     /**
-     * Method to set the value of field status
-     *
-     * @param int $status
-     * @return Engines
-     */
-    public function setStatus($status)
-    {
-        $this->status = (int)$status;
-
-        return $this;
-    }
-
-    /**
      * Returns the value of field id
      *
      * @return integer
@@ -391,16 +370,6 @@ class Engines extends \Phalcon\Mvc\Model
     public function getCurrencyId()
     {
         return $this->currency_id;
-    }
-
-    /**
-     * Returns the value of field status
-     *
-     * @return integer
-     */
-    public function getStatus()
-    {
-        return $this->status;
     }
 
     /**

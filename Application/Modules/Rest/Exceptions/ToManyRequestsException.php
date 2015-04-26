@@ -1,8 +1,6 @@
 <?php
 namespace Application\Modules\Rest\Exceptions;
 
-use \Phalcon\Logger;
-
 /**
  * Class ToManyRequestsException. Represents an HTTP 429 error.
  * The 429 status code indicates that the user has sent too many

@@ -7,6 +7,14 @@ export SET DUMPFILE="migrations/dump.sql"
 export SET DATABASE='phalcon.local';
 export SET USER='root';
 export SET PASSWORD='root';
+export SET INI_PATH='/etc/php5/fpm/php.ini';
+
+checkTool() {
+    # PHP Setup checking...
+    ../vendor/bin/iniscan scan --path=$1 --context=$3 --fail-only
+    ../vendor/bin/iniscan scan --path=$1 --format=html --output=$2 --context=$3
+    composer diagnose
+}
 
 rebootUnix() {
     # Reboot unix web servers
@@ -30,6 +38,12 @@ composerUpdate() {
     fi
 };
 
+composerProductionUpdate() {
+    # Update composer dependencies for peoduction
+    composer update --no-dev
+    composer dump-autoload --optimize-autoloader
+};
+
 dbExport() {
     # Export MySQL dump file (if exist)
     if [ -f "$1" ]
@@ -43,23 +57,29 @@ dbExport() {
 
 runTests() {
     # Run API tests
-    if [ "$1" == "development" ]; then
+    if [ "$1" == "dev" ]; then
         vendor/bin/codecept build
     fi
     vendor/bin/codecept run --coverage --xml --html
 };
 
+prepare
 
 # Select environment
-read -p "Please type build [production or development]: " ENV
+read -p "Please type build [production or dev]: " ENV
 
 case "$ENV" in
     production);;
-    development);;
+    dev);;
     *) echo "Invalid input"
     exit 1
     ;;
 esac;
+
+# Checking php configurations
+checkTool $INI_PATH $INI_SCAN_REPORT_DIR $ENV
+
+read -p "Press [Enter] key to reboot servers" REBOOT
 
 # Detect the platform (similar to $OSTYPE)
 
@@ -82,3 +102,14 @@ sleep 5
 
 read -p "Press [Enter] key to start API tests..." TEST
 runTests $ENV
+
+# Select environment
+read -p "Do you wish to prepare dependencies for production [yes or no]: " ANSWER
+case "ANSWER" in
+    yes*)
+        composerProductionUpdate
+    ;;
+    *)
+    exit 1
+    ;;
+esac;

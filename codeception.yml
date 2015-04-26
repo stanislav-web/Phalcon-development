@@ -1,7 +1,7 @@
 actor: Tester
 paths:
     tests: tests
-    log: tests/_output
+    log: logs/codeception
     data: tests/_data
     helpers: tests/_support
 settings:

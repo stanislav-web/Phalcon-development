@@ -1,8 +1,6 @@
 <?php
 namespace Application\Modules\Rest\Exceptions;
 
-use Phalcon\Logger;
-
 /**
  * Class UnsupportedContentException. Represents an HTTP 415 error.
  * The server (running the Web site) thinks that the HTTP data stream sent by the client

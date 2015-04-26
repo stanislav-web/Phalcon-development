@@ -3,8 +3,8 @@ namespace Application\Modules\Rest\Services;
 
 use Phalcon\Filter;
 use Application\Modules\Rest\Aware\RestValidatorCollectionsProvider;
-use Application\Modules\Rest\Validators\QueryValidator;
-use Application\Modules\Rest\Validators\ResultSetValidator;
+use Application\Modules\Rest\Validators\InputValidator;
+use Application\Modules\Rest\Validators\OutputValidator;
 
 /**
  * Class RestValidatorCollectionService. Rest validator's collections
@@ -118,7 +118,7 @@ class RestValidatorCollectionService extends RestValidatorCollectionsProvider {
      * @throws \Application\Modules\Rest\Exceptions\InternalServerErrorException
      */
     public function validate() {
-        $qv = new QueryValidator($this->getDi());
+        $qv = new InputValidator($this->getDi());
         $qv->validate($this->getRules(), $this->getParams());
     }
 
@@ -129,7 +129,7 @@ class RestValidatorCollectionService extends RestValidatorCollectionsProvider {
      */
     public function resolve($responseData) {
 
-        $rs = new ResultSetValidator($this->getDi()->get('RestConfig'));
+        $rs = new OutputValidator($this->getDi()->get('RestConfig'));
         $rs->validate($responseData);
         $this->setResponse($rs->getResult());
     }

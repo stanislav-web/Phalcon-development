@@ -1,8 +1,6 @@
 <?php
 namespace Application\Modules\Rest\Exceptions;
 
-use \Phalcon\Logger;
-
 /**
  * Class UnauthorizedException. Represents an HTTP 401 error.
  * The request requires user authentication.

@@ -1,10 +1,10 @@
 <?php
 namespace Application\Services\Mappers;
 
-use \Phalcon\DI\InjectionAwareInterface;
-use Application\Aware\ModelCrudInterface;
+use Application\Aware\AbstractModelCrud;
 use Application\Models\Currency;
-
+use Application\Modules\Rest\DTO\CurrencyDTO;
+use Application\Modules\Rest\Exceptions\NotFoundException;
 /**
  * Class CurrencyMapper. Actions above application currencies
  *
@@ -19,177 +19,31 @@ use Application\Models\Currency;
 class CurrencyMapper extends AbstractModelCrud {
 
     /**
-     * Dependency injection container
-     *
-     * @var \Phalcon\DiInterface $di;
-     */
-    protected $di;
-
-    /**
-     * Errors array
-     *
-     * @var array $errors;
-     */
-    private $errors = [];
-
-    /**
-     * Set dependency container
-     *
-     * @param \Phalcon\DiInterface $di
-     */
-    public function setDi($di)
-    {
-        $this->di = $di;
-    }
-
-    /**
-     * Get dependency container
-     * @return \Phalcon\DiInterface
-     */
-    public function getDi()
-    {
-        return $this->di;
-    }
-
-    /**
-     * Create currency
-     *
-     * @param array $data
-     * return boolean
-     */
-    public function create(array $data) {
-
-        $currencyModel = new Currency();
-
-        foreach($data as $field => $value) {
-
-            $currencyModel->{$field}   =   $value;
-        }
-
-        if($currencyModel->save() === true) {
-
-            return true;
-        }
-        else {
-
-            $this->setErrors($currencyModel->getMessages());
-            return false;
-        }
-    }
-
-    /**
      * Get instance of polymorphic object
      *
-     * @return Categories
+     * @return Currency
      */
     public function getInstance() {
         return new Currency();
     }
 
     /**
-     * Get model attributes
+     * Read records
      *
-     * @return array
-     */
-    public function getAttributes()
-    {
-        $metaData = $this->getInstance()->getModelsMetaData();
-        return $metaData->getAttributes($this->getInstance());
-    }
-
-    /**
-     * Read currency
-     *
-     * @param int $id
-     * @param array $data
+     * @param array $credentials credentials
+     * @param array $relations related models
      * @return mixed
      */
-    public function read($id = null, array $data = []) {
+    public function read(array $credentials = [], array $relations = []) {
 
-        $result = (empty($id) === true) ? $this->getList($data) : $this->getOne($id);
+        $result = $this->getInstance()->find($credentials);
 
-        return $result;
-    }
-
-    /**
-     * Edit currency
-     *
-     * @param int $id
-     * @param array $data
-     */
-    public function update($id, array $data) {
-
-        $currencyModel = new Currency();
-
-        $currencyModel->setId($id);
-
-        foreach($data as $field => $value) {
-
-            $currencyModel->{$field}   =   $value;
+        if($result->count() > 0) {
+            return (new CurrencyDTO())->setCurrencies($result);
         }
 
-        if($currencyModel->save() === true) {
-
-            return true;
-        }
-        else {
-            $this->setErrors($currencyModel->getMessages());
-
-            return false;
-        }
-    }
-
-    /**
-     * Delete currency
-     *
-     * @param int      $id
-     * @return boolean
-     */
-    public function delete($id) {
-
-        $currencyModel = new Currency();
-
-        return $currencyModel->getReadConnection()
-            ->delete($currencyModel->getSource(), "id = ".(int)$id);
-    }
-
-    /**
-     * Set errors message
-     *
-     * @param mixed $errors
-     */
-    public function setErrors($errors) {
-        $this->errors = $errors;
-    }
-
-    /**
-     * Get error messages
-     *
-     * @return mixed $errors
-     */
-    public function getErrors() {
-        return $this->errors;
-    }
-
-    /**
-     * Get currency by Id
-     *
-     * @param int $id
-     * @return \Phalcon\Mvc\Model
-     */
-    public function getOne($id)
-    {
-        return Currency::findFirst($id);
-    }
-
-    /**
-     * Get currencies by condition
-     *
-     * @param array $params
-     * @return \Phalcon\Mvc\Model
-     */
-    public function getList(array $params = [])
-    {
-        return Currency::find($params);
+        throw new NotFoundException([
+            'RECORDS_NOT_FOUND'  =>  'The records not found'
+        ]);
     }
 }

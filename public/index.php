@@ -4,6 +4,8 @@
  * @define Application path
  * @define Staging development environment
  */
+set_time_limit(1);
+
 defined('DOCUMENT_ROOT') || define('DOCUMENT_ROOT', $_SERVER["DOCUMENT_ROOT"]);
 defined('APP_PATH') || define('APP_PATH', DOCUMENT_ROOT . '/../Application');
 defined('APPLICATION_ENV') ||
