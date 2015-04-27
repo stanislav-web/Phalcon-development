@@ -38,7 +38,6 @@
     // configure base rest loader
     app.config(['RestangularProvider', 'BASE', function(RestangularProvider, BASE) {
 
-
         RestangularProvider.setBaseUrl(BASE.URL);
         RestangularProvider.setDefaultHttpFields({cache: true, timeout: BASE.REQUEST_TIMEOUT});
         RestangularProvider.setDefaultRequestParams('get', {locale: localStorage.getItem(BASE.LANGUAGES.PREFIX)});

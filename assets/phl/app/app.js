@@ -30,6 +30,7 @@ var app;
         function ($rootScope, ROUTES, $translate, Authentication, Session, Restangular, Engines, BASE) {
 
             // get engine -> categories
+
             $rootScope.root = Engines.getOne(BASE.ENGINE_ID);
 
             Restangular.all("currencies").getList().then(function(response) {
@@ -51,6 +52,7 @@ var app;
 
             // getting store locale
             $rootScope.currentLanguage = Session.get(BASE.LANGUAGES.PREFIX) || BASE.LANGUAGES.DEFAULT;
+            moment.locale($rootScope.currentLanguage);
 
             // update languages global
             $rootScope.$on('$translatePartialLoaderStructureChanged', function () {

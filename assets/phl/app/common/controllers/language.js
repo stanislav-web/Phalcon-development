@@ -20,6 +20,7 @@
                 // send to storage
                 Session.set(BASE.LANGUAGES.PREFIX, langKey);
                 $scope.currentLanguage  =   langKey;
+                moment.locale(langKey);
             };
         }]);
 
