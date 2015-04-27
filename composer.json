@@ -39,8 +39,8 @@
         "robmorgan/phinx": "dev-master",
         "codeception/codeception" :"*",
         "bruli/php-git-hooks": "~1.0@dev",
-        "psecio/versionscan": "~1.4",
-        "psecio/iniscan": "~3.6"
+        "psecio/iniscan": "~3.6",
+        "flow/jsonpath": "dev-master"
     },
     "config": {
         "bin-dir": "./vendor/bin"

@@ -3,7 +3,7 @@ $scenario = (null !== $scenario) ? $scenario : new \StdClass();
 
 $I = new ApiTester($scenario);
 
-$I->wantTo('GET logs by id: /api/v1/logs/60');
+$I->wantTo('GET logs by id: /api/v1/logs/100');
 
 $I->setHeader('Accept', '*/*');
 $I->setHeader('Accept-Language', 'en-GB');
@@ -13,7 +13,7 @@ $auth = $I->grabDataFromJsonResponse();
 
 $I->amBearerAuthenticated($auth['data']['token']);
 
-$I->sendGET('api/v1/logs/60');
+$I->sendGET('api/v1/logs/100');
 $I->seeResponseCodeIs(200);
 $I->seeHttpHeader('Access-Control-Allow-Methods', 'GET');
 $I->seeHttpHeader('Access-Control-Allow-Origin', '*');

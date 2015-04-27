@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "dd6fc401e9aaa015f96a06f1d9ca3001",
+    "hash": "9aae35e35a1bfe96140ab6bd46e3f587",
     "packages": [
         {
             "name": "phalcon/incubator",
@@ -515,6 +515,44 @@
                 "webdriver"
             ],
             "time": "2014-11-05 20:53:09"
+        },
+        {
+            "name": "flow/jsonpath",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/FlowCommunications/JSONPath.git",
+                "reference": "c0ca6a388ff3b1da784de059b948fa5874c26050"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/FlowCommunications/JSONPath/zipball/c0ca6a388ff3b1da784de059b948fa5874c26050",
+                "reference": "c0ca6a388ff3b1da784de059b948fa5874c26050",
+                "shasum": ""
+            },
+            "require-dev": {
+                "peekmo/jsonpath": "dev-master",
+                "phpunit/phpunit": "dev-master"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Flow\\JSONPath": "src/",
+                    "Flow\\JSONPath\\Test": "tests/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Stephen Frank",
+                    "email": "stephen@flowsa.com"
+                }
+            ],
+            "description": "JSONPath implementation for parsing, searching and flattening arrays",
+            "time": "2015-02-26 07:26:33"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -1461,58 +1499,6 @@
                 "scanner"
             ],
             "time": "2014-09-12 20:56:21"
-        },
-        {
-            "name": "psecio/versionscan",
-            "version": "1.4.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/psecio/versionscan.git",
-                "reference": "35d2f44a0468e3251e26e7a45c5f81d6baa1dcbf"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/psecio/versionscan/zipball/35d2f44a0468e3251e26e7a45c5f81d6baa1dcbf",
-                "reference": "35d2f44a0468e3251e26e7a45c5f81d6baa1dcbf",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.1",
-                "symfony/console": "~2.1"
-            },
-            "require-dev": {
-                "kherge/box": "~2.4",
-                "phpunit/phpunit": "4.2.*"
-            },
-            "bin": [
-                "bin/versionscan"
-            ],
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Psecio": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Chris Cornutt",
-                    "email": "ccornutt@phpdeveloper.org",
-                    "homepage": "http://www.phpdeveloper.org/"
-                }
-            ],
-            "description": "A PHP version scanner for reporting possible vulnerabilities",
-            "homepage": "https://github.com/psecio/versionscan.git",
-            "keywords": [
-                "scanner",
-                "security",
-                "version",
-                "vulnerability"
-            ],
-            "time": "2015-02-22 13:31:09"
         },
         {
             "name": "react/promise",
@@ -2713,7 +2699,8 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "robmorgan/phinx": 20,
-        "bruli/php-git-hooks": 20
+        "bruli/php-git-hooks": 20,
+        "flow/jsonpath": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
