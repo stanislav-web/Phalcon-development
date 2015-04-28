@@ -29,7 +29,7 @@
                 TEMPLATE: 'assets/phl/app/languages/{lang}/{part}.json'
             },
             LIST : {
-                PARTS : 3
+                PARTS : 5
             },
             CATCHED_ERRORS : [400, 401, 403, 404, 405, 406, 409, 414, 415, 422, 429, 500]
         };

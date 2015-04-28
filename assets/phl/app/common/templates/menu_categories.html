@@ -5,8 +5,8 @@
                 <li ng-repeat="category in categories">
                     <a href="/category/{{category.alias}}">{{category.title}}</a>
                     <div ng-if="category.childs" id="mega">
-                        <ul>
-                            <li ng-repeat="child in category.childs | limitTo : step : 0">
+                        <ul ng-repeat="chunk in category.childs">
+                            <li ng-repeat="child in chunk">
                                 <a href="/category/{{category.alias}}/{{child.alias}}">{{child.title}}</a>
                             </li>
                         </ul>

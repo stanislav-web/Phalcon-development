@@ -18,7 +18,7 @@ nav ul#menu li a {
 }
 
 nav ul#menu li a:hover, nav ul#menu li:hover > a {
-    background: #666;
+    background: #333;
 }
 
 nav ul#menu li:hover > #mega {
