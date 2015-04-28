@@ -1,0 +1,27 @@
+{
+  "author": {
+    "name": "https://github.com/Derekries"
+  },
+  "name": "angular-notify",
+  "version": "0.1.1",
+  "main": "notification.js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components"
+  ],
+  "dependencies": {
+    "angular": "~1.0.7"
+  },
+  "homepage": "https://github.com/DerekRies/angular-notifications",
+  "_release": "0.1.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.1.1",
+    "commit": "cf668f1b62d16a9ae68bde4c669427fc8e4a2d46"
+  },
+  "_source": "git://github.com/DerekRies/angular-notifications.git",
+  "_target": "~0.1.1",
+  "_originalSource": "angular-notifications",
+  "_direct": true
+}

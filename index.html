@@ -15,6 +15,7 @@
     <link href="/assets/plugins/bootstrap/dist/css/bootstrap.css" media="all" rel="stylesheet" />
     <link href="/assets/plugins/bootstrap-language/languages.css" media="all" rel="stylesheet" />
     <link href="/assets/plugins/isteven-angular-multiselect/isteven-multi-select.css" media="all" rel="stylesheet" />
+    <link href="/assets/plugins/angular-notifications/notification.css" media="all" rel="stylesheet" />
     <link href="/assets/phl/styles/style.css" media="all" rel="stylesheet" />
     <link href="/assets/phl/styles/currencies.css" media="all" rel="stylesheet" />
     <link href="/assets/phl/styles/menu.css" media="all" rel="stylesheet" />
@@ -117,6 +118,8 @@
 <script src="/assets/plugins/angular-animate/angular-animate.js"></script>
 <script src="/assets/plugins/angular-debug-bar/dist/js/angular-debug-bar.min.js"></script>
 <script src="/assets/plugins/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<script src="/assets/plugins/angular-notifications/notification.js"></script>
+
 <!-- /Plugins -->
 
 <!-- Libraries -->
@@ -147,6 +150,10 @@
 <script src="/assets/phl/app/authenticate/services/authentication.js"></script>
 <!-- /Services -->
 
+<!-- Providers -->
+<script src="/assets/phl/app/common/providers/notification.js"></script>
+<!-- /Providers -->
+
 <!-- Controllers -->
 <script src="/assets/phl/app/common/controllers/top-menu.js"></script>
 <script src="/assets/phl/app/common/controllers/language.js"></script>
@@ -154,7 +161,8 @@
 <script src="/assets/phl/app/authenticate/controllers/sign.js"></script>
 <script src="/assets/phl/app/user/controllers/user.js"></script>
 <!-- /Controllers -->
-<locales></locales>
+
+<div notifications="bottom right"></div>
 <angular-debug-bar></angular-debug-bar>
 </body>
 </html>

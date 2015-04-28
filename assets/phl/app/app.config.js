@@ -36,7 +36,7 @@
     })());
 
     // configure base rest loader
-    app.config(['RestangularProvider', 'BASE', function(RestangularProvider, BASE) {
+    app.config(['RestangularProvider', 'BASE', 'NotifierProvider', function(RestangularProvider, BASE, NotifierProvider) {
 
         RestangularProvider.setBaseUrl(BASE.URL);
         RestangularProvider.setDefaultHttpFields({cache: true, timeout: BASE.REQUEST_TIMEOUT});
@@ -47,7 +47,8 @@
 
         RestangularProvider.setErrorInterceptor(function(response, deferred, responseHandler) {
             if(BASE.CATCHED_ERRORS.indexOf(response.status) != -1) {
-                console.log('Error', response);
+
+                //NotifierProvider.error('Error', 'Description', 'MyData');
                 return false; // error handled
             }
             return true; // error not handled

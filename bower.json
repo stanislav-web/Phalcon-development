@@ -18,7 +18,9 @@
     "angular-debug-bar": "~0.4.2",
     "isteven-angular-multiselect": "~4.0.0",
     "moment": "~2.10.2",
-    "angular-scroll": "~0.7.0"
+    "angular-scroll": "~0.7.0",
+    "angular-ui-notification": "~0.0.5",
+    "angular-notifications": "~0.1.1"
   },
   "analytics": false
 }

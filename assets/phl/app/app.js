@@ -21,6 +21,7 @@ var app;
         'ui.bootstrap',
         'duScroll',
         'isteven-multi-select',
+        'providers',
         'ui.splash', function() {}
     ]);
 
