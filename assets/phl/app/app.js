@@ -26,12 +26,22 @@ var app;
 
     // setup global scope variables
 
-    app.run(['$rootScope', 'ROUTES', '$translate', 'Authentication', 'Session', 'Restangular', 'Engines', 'BASE',
-        function ($rootScope, ROUTES, $translate, Authentication, Session, Restangular, Engines, BASE) {
+    app.run(['$rootScope', 'ROUTES', '$translate', 'Authentication', 'Session', 'Restangular', 'BASE',
+        function ($rootScope, ROUTES, $translate, Authentication, Session, Restangular, BASE) {
 
             // get engine -> categories
+            Restangular.one("engines", BASE.ENGINE_ID).customGET("categories").then(function(response) {
 
-            $rootScope.root = Engines.getOne(BASE.ENGINE_ID);
+                response.engines.categories.map(function(category) {
+                    if(category.hasOwnProperty('childs')) {
+                        // partition array by fixed chunk
+                        category.childs = _.chunk(category.childs, BASE.LIST.PARTS);
+                    }
+                });
+                $rootScope.categories   = response.engines.categories;
+                $rootScope.engines      = response.engines;
+                $rootScope.title        = response.engines.name;
+            });
 
             Restangular.all("currencies").getList().then(function(response) {
 

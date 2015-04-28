@@ -11,26 +11,10 @@
      * @dependencies $location url service
      * @dependencies $sce sanitize HTML service
      */
-    app.controller('IndexController', ['$scope', '$rootScope', '$http', '$location', '$sce',
-        function($scope, $rootScope, $http, $location, $sce) {
+    app.controller('IndexController', ['$scope', '$http', '$location', '$sce',
+        function($scope, $http, $location, $sce) {
 
-            /**
-             *	Perform a GET request on the API and pass the slug to it using $location.url()
-             *	On success, pass the data to the view through $scope.trusty
-             */
-            $http.get($location.url())
-                .success(function(data){
 
-                    $scope.trusty = function() {
-
-                        return $sce.trustAsHtml(data.content);
-                    }
-
-                    // Inject the basic elements into the rootScope
-                    $rootScope.title = data.title;
-                    $rootScope.content = data.content;
-                    $rootScope.topmenu = data.topmenu;
-                });
         }]);
 
 })(angular);

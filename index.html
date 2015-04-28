@@ -5,7 +5,7 @@
     <!-- Get meta -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge; chrome=1">
-    <meta name="description" content="{{root.engines.description}}">
+    <meta name="description" content="{{engines.description | stripTags}}">
     <meta name="keywords" content="">
     <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="/assets/phl/images/favicon.ico"/>
     <!-- /Get meta -->
@@ -21,7 +21,7 @@
     <link href="/assets/phl/styles/splash.css" media="all" rel="stylesheet" />
     <!-- /Append Stylesheet -->
 
-    <title ng-bind="root.engines.name">Phalcon Shop</title>
+    <title>{{title}}</title>
 </head>
 <body>
 <!-- Checkout bar -->
@@ -31,11 +31,10 @@
         <!-- Logo -->
         <div class="col-md-2 logo">
             <a href="/">
-                <img ng-src="{{root.engines.logo}}">
+                <img ng-src="{{engines.logo}}">
             </a>
         </div>
         <!-- /Logo -->
-
         <!-- Top navigation menu -->
         <menu-top ng-controller="TopMenuController"></menu-top>
         <!-- /Top navigation menu -->
@@ -48,9 +47,10 @@
              item-label="icon name maker"
              tick-property="ticked"
              selection-mode="single"
-             helper-elements=""
-                ></div>
+             helper-elements="">
+        </div>
         <!-- /Currency  selector -->
+
         <!-- Mini cart -->
         <ul class="icon2 sub-icon2 mini-cart">
             <li><a class="active-icon c2" href="#"> </a>
@@ -69,6 +69,12 @@
         <menu-categories></menu-categories>
         <!-- /Category menu -->
     </section>
+
+    <section class="line3">
+        <!-- Banners slideshow -->
+        <banners-slideshow></banners-slideshow>
+        <!-- /Banners slideshow -->
+    </section>
 </header>
 <!-- /Checkout bar -->
 
@@ -82,24 +88,8 @@
 
 <!-- Footer -->
 <footer class="footer navbar" class="view-animate">
-
     <!-- Language switcher -->
-    <div id="footer_language_list">
-        <ul ng-controller="LanguageController" ng-init="changeLanguage(currentLanguage)">
-            <li ng-class="{'active':currentLanguage === 'en'}">
-                <span ng-click="changeLanguage('en')" class="lang-sm lang-lbl" lang="en"></span>&nbsp;
-            </li>
-            <li ng-class="{'active':currentLanguage === 'ru'}">
-                <span ng-click="changeLanguage('ru')" class="lang-sm lang-lbl" lang="ru"></span>&nbsp;
-            </li>
-            <li ng-class="{'active':currentLanguage === 'de'}">
-                <span ng-click="changeLanguage('de')" class="lang-sm lang-lbl" lang="de"></span>&nbsp;
-            </li>
-            <li ng-class="{'active':currentLanguage === 'uk'}">
-                <span ng-click="changeLanguage('uk')" class="lang-sm lang-lbl" lang="uk"></span>&nbsp;
-            </li>
-        </ul>
-    </div>
+    <language-switcher id="footer_language_list"></language-switcher>
     <!-- /Language switcher -->
     <a href="#header" offset="30" du-smooth-scroll du-scrollspy id="toTop" style="display: block;"><span id="toTopHover" style="opacity: 1;"></span></a>
     <span us-spinner="{radius:30, width:8, length: 16}"></span>
@@ -109,8 +99,7 @@
 
 <!-- Common -->
 <script src="/assets/plugins/lodash/lodash.js"></script>
-<script src="/assets/plugins/moment/moment.js"></script>
-<script src="/assets/plugins/moment/min/locales.js"></script>
+<script src="/assets/plugins/moment/min/moment-with-locales.js"></script>
 <script src="/assets/plugins/angular/angular.js"></script>
 <!-- /Common -->
 
@@ -143,13 +132,18 @@
 <!-- Directives -->
 <script src="/assets/phl/app/common/directives/spinner.js"></script>
 <script src="/assets/phl/app/common/directives/menu.js"></script>
+<script src="/assets/phl/app/common/directives/banners.js"></script>
+<script src="/assets/phl/app/common/directives/language-switcher.js"></script>
 <!-- /Directives -->
+
+<!-- Filters -->
+<script src="/assets/phl/app/common/filters/common.js"></script>
+<!-- /Filters -->
 
 <!-- Services -->
 <script src="/assets/phl/app/common/directives/spinner.js"></script>
 <script src="/assets/phl/app/common/services/splash.js"></script>
 <script src="/assets/phl/app/common/services/session.js"></script>
-<script src="/assets/phl/app/common/services/engines.js"></script>
 <script src="/assets/phl/app/authenticate/services/authentication.js"></script>
 <!-- /Services -->
 
