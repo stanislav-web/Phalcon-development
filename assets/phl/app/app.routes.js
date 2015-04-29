@@ -25,6 +25,7 @@
         return {
             MENU_TOP:           'assets/phl/app/common/templates/menu_top.html',
             MENU_CATEGORIES:    'assets/phl/app/common/templates/menu_categories.html',
+            MENU_SIDEBAR  :    'assets/phl/app/common/templates/sidebar.html',
             PAGES:      'assets/phl/app/common/templates/index.html',
             ERROR:      'assets/phl/app/common/templates/error.html',
             SIGN:       'assets/phl/app/authenticate/templates/sign.html',

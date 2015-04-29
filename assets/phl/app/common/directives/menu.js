@@ -15,6 +15,12 @@
                 restrict: "AE",
                 templateUrl: TEMPLATE.MENU_CATEGORIES
             }
+        }])
+        .directive('sidebar', ['TEMPLATE', function (TEMPLATE) {
+            return {
+                restrict: "AE",
+                templateUrl: TEMPLATE.MENU_SIDEBAR
+            }
         }]);
 })(angular);
 

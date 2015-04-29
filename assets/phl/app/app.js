@@ -22,13 +22,14 @@ var app;
         'duScroll',
         'isteven-multi-select',
         'providers',
+        'angularMoment',
         'ui.splash', function() {}
     ]);
 
     // setup global scope variables
 
-    app.run(['$rootScope', 'ROUTES', '$translate', 'Authentication', 'Session', 'Restangular', 'BASE',
-        function ($rootScope, ROUTES, $translate, Authentication, Session, Restangular, BASE) {
+    app.run(['$rootScope', 'ROUTES', '$translate', 'Authentication', 'Session', 'Restangular', 'amMoment', 'BASE',
+        function ($rootScope, ROUTES, $translate, Authentication, Session, Restangular, amMoment, BASE) {
 
             // get engine -> categories
             Restangular.one("engines", BASE.ENGINE_ID).customGET("categories").then(function(response) {
@@ -63,7 +64,8 @@ var app;
 
             // getting store locale
             $rootScope.currentLanguage = Session.get(BASE.LANGUAGES.PREFIX) || BASE.LANGUAGES.DEFAULT;
-            moment.locale($rootScope.currentLanguage);
+
+            amMoment.changeLocale($rootScope.currentLanguage);
 
             // update languages global
             $rootScope.$on('$translatePartialLoaderStructureChanged', function () {

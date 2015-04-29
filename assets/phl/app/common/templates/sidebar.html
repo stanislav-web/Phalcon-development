@@ -1,0 +1,9 @@
+<accordion close-others="oneAtATime">
+    <accordion-group ng-repeat="category in categories" ng-init="show == category.hasOwnProperty('childs')" heading="{{category.title}}" is-open="show">
+        <ul ng-if="category.childs" ng-repeat="chunk in category.childs">
+            <li ng-repeat="child in chunk">
+                <a href="/category/{{category.alias}}/{{child.alias}}">{{child.title}}</a>
+            </li>
+        </ul>
+    </accordion-group>
+</accordion>
