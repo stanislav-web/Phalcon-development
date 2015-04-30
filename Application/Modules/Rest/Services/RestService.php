@@ -159,19 +159,6 @@ class RestService implements RestServiceInterface {
     }
 
     /**
-     * Set configured cache header
-     */
-    public function setCacheHeader() {
-
-        $this->getResponseService()->setEtag($this->getCacheService()->getKey());
-
-        $this->setHeader([
-            'Cache-Control' =>  'max-age='.$this->getCacheService()->getLifetime().', must-revalidate',
-            'Expires'       =>  gmdate('D, d M Y H:i:s T', time()+$this->getCacheService()->getLifetime())
-        ]);
-    }
-
-    /**
      * Get resource uri
      *
      * @return string
@@ -316,7 +303,7 @@ class RestService implements RestServiceInterface {
      * @param boolean $modified
      * @return \Phalcon\Http\ResponseInterface
      */
-    public function response($modified) {
+    public function response() {
 
         $this->setMessage($this->getResolver()->getResponse());
 
@@ -328,13 +315,14 @@ class RestService implements RestServiceInterface {
             'Content-Language'              =>  $this->getLocale(),
             'Content-Length'                =>  $this->setContentLength($this->getMessage()),
             'X-Resource'                    =>  $this->getResourceUri(),
+            'Cache-Control' =>  'max-age='.$this->getCacheService()->getLifetime().', must-revalidate',
+            'Expires'       =>  gmdate('D, d M Y H:i:s T', time()+$this->getCacheService()->getLifetime())
         ]);
 
-        if($modified === true) {
+        $this->getResponseService()
+            ->setEtag($this->getCacheService()->getKey())
+            ->setJsonContent($this->getMessage());
 
-            $this->setCacheHeader();
-        }
-        $this->getResponseService()->setJsonContent($this->getMessage());
         return $this->getResponseService();
     }
 }

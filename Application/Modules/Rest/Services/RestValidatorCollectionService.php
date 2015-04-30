@@ -43,7 +43,6 @@ class RestValidatorCollectionService extends RestValidatorCollectionsProvider {
         foreach($collection as $valid) {
             (new $valid())->run($this->getDi(), $this->getRules(), $this->getParams());
         }
-
         return $this;
     }
 

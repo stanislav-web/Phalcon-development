@@ -47,6 +47,5 @@ class LogsController extends ControllerBase {
                 $this->key,
                 true
             );
-        $this->notModified = $this->cache->isCached();
     }
 }

@@ -65,14 +65,14 @@ class Engines extends \Phalcon\Mvc\Model
      *
      * @var datetime
      */
-    protected $date_create;
+    public $date_create;
 
     /**
      * Timestamp add
      *
      * @var timestamp
      */
-    protected $date_update;
+    public $date_update;
 
     /**
      * @var Categories
@@ -96,6 +96,9 @@ class Engines extends \Phalcon\Mvc\Model
 
         $this->belongsTo('currency_id', Currency::TABLE, 'id');
 
+        // local_filed, reference Model, referenced_field
+        $this->hasMany('id', Banners::TABLE, 'engine_id');
+
         $this->addBehavior(new Timestampable(array(
             'beforeValidationOnCreate' => array(
                 'field' => 'date_create',
@@ -112,6 +115,16 @@ class Engines extends \Phalcon\Mvc\Model
     public function getCurrency($parameters=null)
     {
         return $this->getRelated(Currency::TABLE, $parameters);
+    }
+
+    /**
+     * Get banners related records
+     *
+     * @return \Application\Models\Banners
+     */
+    public function getBanners($parameters=null)
+    {
+        return $this->getRelated(Banners::TABLE, $parameters);
     }
 
     /**
@@ -187,208 +200,5 @@ class Engines extends \Phalcon\Mvc\Model
         ]));
 
         return $this->validationHasFailed() != true;
-    }
-
-    /**
-     * Method to set the value of field date_create
-     *
-     * @param mixed $date_create
-     * @return Engines
-     */
-    public function setDateCreate($date_create = null)
-    {
-        if($date_create === null) {
-
-            $datetime = new \Datetime('now', new \DateTimeZone(date_default_timezone_get()));
-
-            $this->date_create = $datetime->format('Y-m-d H:i:s');
-
-        }
-        else {
-            $this->date_create  =   $date_create;
-        }
-
-        return $this;
-    }
-
-    /**
-     * Method to set the value of field host
-     *
-     * @param string $host
-     * @return Engines
-     */
-    public function setHost($host)
-    {
-        $this->host = $host;
-
-        return $this;
-    }
-
-    /**
-     * Method to set the value of field name
-     *
-     * @param string $name
-     * @return Engines
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * Method to set the value of field description
-     *
-     * @param string $description
-     * @return Engines
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-
-        return $this;
-    }
-
-    /**
-     * Method to set the value of field code
-     *
-     * @param string $code
-     * @return Engines
-     */
-    public function setCode($code)
-    {
-        $this->code = strtoupper($code);
-
-        return $this;
-    }
-
-    /**
-     * Method to set the value of field logo
-     *
-     * @param string $logo
-     * @return Engines
-     */
-    public function setLogo($logo)
-    {
-        $this->logo = $logo;
-
-        return $this;
-    }
-
-    /**
-     * Method to set the value of field currency_id
-     *
-     * @param integer $currency_id
-     * @return Engines
-     */
-    public function setCurrencyId($currency_id)
-    {
-        $this->currency_id = (int)$currency_id;
-
-        return $this;
-    }
-
-    /**
-     * Returns the value of field id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Method to set the value of field id
-     *
-     * @param integer $id
-     * @return Engines
-     */
-    public function setId($id)
-    {
-        $this->id = (int)$id;
-
-        return $this;
-    }
-
-    /**
-     * Returns the value of field host
-     *
-     * @return string
-     */
-    public function getHost()
-    {
-        return $this->host;
-    }
-
-    /**
-     * Returns the value of field name
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * Returns the value of field description
-     *
-     * @return string
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    /**
-     * Returns the value of field code
-     *
-     * @return string
-     */
-    public function getCode()
-    {
-        return $this->code;
-    }
-
-    /**
-     * Returns the value of field logo
-     *
-     * @return string
-     */
-    public function getLogo()
-    {
-        return $this->logo;
-    }
-
-    /**
-     * Returns the value of field currency_id
-     *
-     * @return integer
-     */
-    public function getCurrencyId()
-    {
-        return $this->currency_id;
-    }
-
-    /**
-     * Returns the value of field date_create
-     *
-     * @return integer
-     */
-    public function getDateCreate()
-    {
-        return $this->date_create;
-    }
-
-    /**
-     * Returns the value of field date_create
-     *
-     * @return integer
-     */
-    public function getDateUpdate()
-    {
-        return $this->date_update;
     }
 }

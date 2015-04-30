@@ -30,17 +30,11 @@ class ControllerBase extends Controller
     protected $response = [];
 
     /**
-     * Is request data has been modified ?
-     *
-     * @var boolean
-     */
-    protected $notModified = false;
-
-    /**
      * Event before routes execute
      */
     public function beforeExecuteRoute()
     {
+
         $this->rest =  $this->getDI()->get("RestService");
         $this->rest->getResolver()->filter($this->request)->validate();
     }
@@ -53,13 +47,13 @@ class ControllerBase extends Controller
     public function afterExecuteRoute()
     {
         $this->rest->getResolver()->resolve($this->response);
-        $this->rest->response($this->notModified)->send();
+        $this->rest->response()->send();
     }
 
     /**
      * Garbage clean
      */
     public function afterDispatch() {
-        unset($this->rest, $this->notModified);
+        unset($this->rest);
     }
 }

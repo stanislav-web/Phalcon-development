@@ -6,7 +6,6 @@ use Phalcon\Mvc\Model\Validator\PresenceOf;
 use Phalcon\Mvc\Model\Validator\StringLength;
 use Phalcon\Mvc\Model\Exception;
 use Phalcon\Mvc\Model\Resultset\Simple as Resultset;
-use Phalcon\Db\RawValue;
 use Phalcon\Tag;
 
 /**
@@ -30,7 +29,7 @@ class Categories extends \Phalcon\Mvc\Model
     /**
      * @var integer
      */
-    private $id;
+    public $id;
 
     /**
      * @var string
@@ -66,13 +65,13 @@ class Categories extends \Phalcon\Mvc\Model
      * Datetime create
      * @var datetime
      */
-    private $date_create;
+    public $date_create;
 
     /**
      * Timestamp add
      * @var timestamp
      */
-    private $date_update;
+    public $date_update;
 
     /**
      * Initialize Model
@@ -116,200 +115,16 @@ class Categories extends \Phalcon\Mvc\Model
     }
 
     /**
-     * Method to set the value of field date_create
-     *
-     * @param integer $date_create
-     * @return Categories
-     */
-    public function setDateCreate($date_create = null)
-    {
-        if($date_create === null) {
-
-            $datetime = new \Datetime('now', new \DateTimeZone(date_default_timezone_get()));
-
-            $this->date_create = $datetime->format('Y-m-d H:i:s');
-
-        }
-        else {
-            $this->date_create  =   $date_create;
-        }
-
-        return $this;
-    }
-
-    /**
-     * Method to set the value of field title
-     *
-     * @param string $host
-     * @return Categories
-     */
-    public function setTitle($title)
-    {
-        $this->title = $title;
-
-        return $this;
-    }
-
-    /**
-     * Method to set the value of field description
-     *
-     * @param string $host
-     * @return Categories
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-
-        return $this;
-    }
-
-    /**
-     * Method to set the value of field alias
-     *
-     * @param string $name
-     * @return Categories
-     */
-    public function setAlias($alias = '')
-    {
-        $this->alias = (empty($alias))
-            ? Tag::friendlyTitle($this->getTitle(), '-', true)
-            : strtolower(trim($alias));
-
-        return $this;
-    }
-
-    /**
-     * Method to set the value of field parent_id
-     *
-     * @param string $description
-     * @return Categories
-     */
-    public function setParentId($parent_id)
-    {
-        $this->parent_id = (isset($parent_id) === true)
-            ? (int)$parent_id : new RawValue('default');
-
-        return $this;
-    }
-
-    /**
-     * Method to set the value of field sort
-     *
-     * @param int $sort
-     * @return Categories
-     */
-    public function setSort($sort)
-    {
-        $this->sort = (isset($sort) === true)
-            ? (int)$sort : new RawValue('default');
-
-        return $this;
-    }
-
-    /**
-     * Returns the value of field id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Method to set the value of field id
-     *
-     * @param integer $id
-     * @return Categories
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-
-        return $this;
-    }
-
-    /**
-     * Returns the value of field title
-     *
-     * @return string
-     */
-    public function getTitle()
-    {
-        return $this->title;
-    }
-
-    /**
-     * Returns the value of field description
-     *
-     * @return string
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    /**
-     * Returns the value of field alias
-     *
-     * @return string
-     */
-    public function getAlias()
-    {
-        return $this->alias;
-    }
-
-    /**
-     * Returns the value of field parent_id
-     *
-     * @return string
-     */
-    public function getParentId()
-    {
-        return $this->parent_id;
-    }
-
-    /**
-     * Returns the value of field sort
-     *
-     * @return string
-     */
-    public function getSort()
-    {
-        return $this->sort;
-    }
-
-    /**
-     * Returns the value of field date_create
-     *
-     * @return integer
-     */
-    public function getDateCreate()
-    {
-        return $this->date_create;
-    }
-
-    /**
-     * Returns the value of field date_create
-     *
-     * @return integer
-     */
-    public function getDateUpdate()
-    {
-        return $this->date_update;
-    }
-
-    /**
      * @return bool
      */
     public function beforeValidation()
     {
         if(empty($this->alias)) {
-            $this->setAlias();
+            $this->alias = Tag::friendlyTitle($this->title);
         }
 
         if(empty($this->parent_id)) {
-            $this->setParentId(null);
+            $this->parent_id = null;
         }
 
         //Do the validations

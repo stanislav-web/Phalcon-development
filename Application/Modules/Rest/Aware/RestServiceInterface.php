@@ -92,15 +92,9 @@ interface RestServiceInterface {
     public function setContentLength($content);
 
     /**
-     * Set configured cache header
-     */
-    public function setCacheHeader();
-
-    /**
      * Send response to client
      *
-     * @param boolean $modified
      * @return \Phalcon\Http\ResponseInterface
      */
-    public function response($modified);
+    public function response();
 }

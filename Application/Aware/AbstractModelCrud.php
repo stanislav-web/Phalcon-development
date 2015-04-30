@@ -2,6 +2,7 @@
 namespace Application\Aware;
 
 use Application\Modules\Rest\Exceptions\BadRequestException;
+use Application\Modules\Rest\Exceptions\ConflictException;
 use Phalcon\DI\InjectionAwareInterface;
 
 /**
@@ -56,6 +57,35 @@ abstract class AbstractModelCrud implements InjectionAwareInterface {
     }
 
     /**
+     * Create record row
+     *
+     * @param array $data
+     * @throws BadRequestException
+     * @throws ConflictException
+     *
+     * @return \Phalcon\Mvc\Model
+     */
+    public function create(array $data) {
+
+        $model = $this->getInstance();
+
+        foreach($data as $field => $value) {
+            $model->{$field}   =   $value;
+        }
+        if($model->save() === true) {
+            return $model;
+        }
+
+        foreach($model->getMessages() as $message) {
+            if($message->getType() == 'Unique') {
+                throw new ConflictException($message->getMessage());
+            }
+
+            throw new BadRequestException($message->getMessage());
+        }
+    }
+
+    /**
     /**
      * Edit record
      *
@@ -84,6 +114,23 @@ abstract class AbstractModelCrud implements InjectionAwareInterface {
         }
 
         return true;
+    }
+
+
+    /**
+     * Method to set the value of field datetime
+     *
+     * @param string $expire_date
+     * @return string
+     */
+    public function setSqlDatetime($expire_date)
+    {
+        $datetime = new \Datetime();
+
+        $datetime->setTimestamp($expire_date);
+        $datetime->setTimezone(new \DateTimeZone(date_default_timezone_get()));
+
+        return $datetime->format('Y-m-d H:i:s');
     }
 
     /**

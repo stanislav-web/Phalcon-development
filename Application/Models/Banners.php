@@ -2,22 +2,22 @@
 namespace Application\Models;
 
 /**
- * Class Currency `currency`
+ * Class Banners `banners`
  *
  * @package    Application
  * @subpackage    Models
  * @since PHP >=5.4
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
- * @filesource /Application/Models/Currency.php
+ * @filesource /Application/Models/Banners.php
  */
-class Currency extends \Phalcon\Mvc\Model
+class Banners extends \Phalcon\Mvc\Model
 {
     /**
      * Absolute model name
      * @const
      */
-    const TABLE = '\Application\Models\Currency';
+    const TABLE = '\Application\Models\Banners';
 
     /**
      *
@@ -27,21 +27,34 @@ class Currency extends \Phalcon\Mvc\Model
 
     /**
      *
-     * @var string
+     * @var integer
      */
-    public $code;
+    public $engine_id;
 
     /**
      *
      * @var string
      */
-    public $name;
+    public $image;
 
     /**
      *
      * @var string
      */
-    public $symbol;
+    public $link;
+
+    /**
+     *
+     * @var string
+     */
+    public $delay;
+
+    /**
+     *
+     * @var string
+     */
+    public $description;
+
 
     /**
      * Initialize Model
@@ -54,7 +67,10 @@ class Currency extends \Phalcon\Mvc\Model
             'exceptionOnFailedSave' => false
         ]);
 
-        // local_filed, reference Model, referenced_field
-        $this->hasMany('id', Engines::TABLE, 'currency_id');
+        // skip attributes before every IN >
+        $this->skipAttributesOnCreate(['date_update']);
+        $this->skipAttributesOnUpdate(['date_create', 'date_update']);
+
+        $this->belongsTo('engine_id', Engines::TABLE, 'id');
     }
 }

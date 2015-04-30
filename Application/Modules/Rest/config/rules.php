@@ -141,6 +141,16 @@ return [
             'mapper'   => 'PageMapper'
         ]
     ],
+    'banners'  =>  [
+        'get'    =>  [
+            'requests'  =>  [  // limit request per seconds
+                'limit' =>  5,
+                'time'  =>  10,
+            ],
+            'methods'   => 'GET,POST,PUT,DELETE',
+            'mapper'   => 'BannersMapper'
+        ]
+    ],
     'categories'  =>  [
         'get'    =>  [
             'requests'  =>  [  // limit request per seconds

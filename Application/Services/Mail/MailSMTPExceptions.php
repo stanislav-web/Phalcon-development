@@ -1,7 +1,7 @@
 <?php
 namespace Application\Services\Mail;
 
-use \Phalcon\Exception;
+use Application\Modules\Rest\Exceptions\UnprocessableEntityException;
 
 /**
  * Class MailSMTPExceptions. SMTP Mailer exception handler
@@ -16,33 +16,6 @@ use \Phalcon\Exception;
  */
 class MailSMTPExceptions
     implements \Swift_Events_TransportExceptionListener {
-
-    /**
-     * Dependency injection container
-     *
-     * @var \Phalcon\DiInterface $di;
-     */
-    protected $di;
-
-    /**
-     * Set dependency container thought constructor
-     *
-     * @param \Phalcon\DiInterface $di
-     */
-    public function __construct(\Phalcon\DiInterface $di)
-    {
-        $this->di = $di;
-    }
-
-    /**
-     * Get dependency container
-     *
-     * @return \Phalcon\DiInterface
-     */
-    public function getDi()
-    {
-        return $this->di;
-    }
 
     /**
      * Invoked as a TransportException is thrown in the Transport system.
@@ -61,7 +34,7 @@ class MailSMTPExceptions
         }
         catch(\Swift_TransportException $e) {
 
-            throw new Exception($e->getMessage(), $e->getCode());
+            throw new UnprocessableEntityException([], $e->getMessage(), $e->getCode());
         }
     }
 }

@@ -18,7 +18,7 @@ use Application\Models\Logs;
  * @copyright Stanislav WEB
  * @filesource /Application/Services/Mappers/LogMapper.php
  */
-class LogMapper extends LoggerDatabase {
+class LogMapper {
 
     /**
      * Available log code
@@ -38,9 +38,9 @@ class LogMapper extends LoggerDatabase {
     /**
      * Dependency injection container
      *
-     * @var \Phalcon\DiInterface $di;
+     * @var \Phalcon\Logger\Adapter\Database $loggerDatabase;
      */
-    protected $di;
+    protected $loggerDatabase;
 
     /**
      * Init logger connector
@@ -54,12 +54,11 @@ class LogMapper extends LoggerDatabase {
             $dispatcher->setModuleName('Global');
         }
 
-        parent::__construct($dispatcher->getModuleName(), [
+        $this->loggerDatabase = new LoggerDatabase($dispatcher->getModuleName(), [
             'db'    => $connection,
             'table' => $this->getInstance()->getSource()
         ]);
     }
-
 
     /**
      * Get instance of polymorphic object
@@ -110,7 +109,7 @@ class LogMapper extends LoggerDatabase {
 
         if(array_key_exists($code, $this->codes) === true) {
 
-            $this->log($message, $code);
+            $this->loggerDatabase->log($message, $code);
         }
         else {
             throw new NotFoundException([

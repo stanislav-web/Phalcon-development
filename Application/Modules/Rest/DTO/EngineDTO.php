@@ -37,6 +37,13 @@ class EngineDTO extends AbstractDTO
     public $categories = [];
 
     /**
+     * Banners collection
+     *
+     * @var array
+     */
+    public $banners = [];
+
+    /**
      * Setup engines (main)
      *
      * @param \Phalcon\Mvc\Model\Resultset\Simple $engines
@@ -55,6 +62,18 @@ class EngineDTO extends AbstractDTO
         $this->engines['limit'] = $this->limit($engines);
         $this->engines['offset'] = $this->offset();
 
+        return $this;
+    }
+
+    /**
+     * Setup banners
+     *
+     * @param \Phalcon\Mvc\Model\Resultset\Simple $banners
+     * @return $this
+     */
+    public function setBanners(\Phalcon\Mvc\Model\Resultset\Simple $banners) {
+
+        $this->banners[] = $banners->toArray();
         return $this;
     }
 

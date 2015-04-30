@@ -47,6 +47,5 @@ class CurrenciesController extends ControllerBase {
                 $this->key,
                 true
             );
-        $this->notModified = $this->cache->isCached();
     }
 }

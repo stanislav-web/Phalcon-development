@@ -2,12 +2,11 @@
 namespace Application\Services\Mappers;
 
 use Application\Aware\AbstractModelCrud;
-use Application\Models\Errors;
-use Application\Modules\Rest\DTO\ErrorDTO;
+use Application\Models\Banners;
+use Application\Modules\Rest\DTO\BannersDTO;
 use Application\Modules\Rest\Exceptions\NotFoundException;
-
 /**
- * Class ErrorMapper. Actions above application pages
+ * Class BannersMapper. Actions above application banners
  *
  * @package Application\Services
  * @subpackage Mappers
@@ -15,17 +14,17 @@ use Application\Modules\Rest\Exceptions\NotFoundException;
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @copyright Stanislav WEB
- * @filesource /Application/Services/Mappers/ErrorMapper.php
+ * @filesource /Application/Services/Mappers/BannersMapper.php
  */
-class ErrorMapper extends AbstractModelCrud {
+class BannersMapper extends AbstractModelCrud {
 
     /**
      * Get instance of polymorphic object
      *
-     * @return Errors
+     * @return Banners
      */
     public function getInstance() {
-        return new Errors();
+        return new Banners();
     }
 
     /**
@@ -40,26 +39,7 @@ class ErrorMapper extends AbstractModelCrud {
         $result = $this->getInstance()->find($credentials);
 
         if($result->count() > 0) {
-            return (new ErrorDTO())->setErrors($result);
-        }
-
-        throw new NotFoundException([
-            'RECORDS_NOT_FOUND'  =>  'The records not found'
-        ]);
-    }
-
-    /**
-     * Get error by code
-     *
-     * @param array $code
-     * @throws NotFoundException
-     */
-    public function getError($code) {
-
-        $result = $this->getInstance()->findFirst(["code = '".$code."'"]);
-
-        if($result->count() > 0) {
-            return $result;
+            return (new BannersDTO())->setBanners($result);
         }
 
         throw new NotFoundException([

@@ -5,6 +5,9 @@
 return [
 
     'api' => [
+        'tokenKey'          => 'token',
+        'authHeader'        => 'AUTHORIZATION',
+        'notifyDir'         => ':engine/notifies/',
         'tokenLifetime'     =>  604800,
         'acceptContent'     => ['*/*', 'json', 'application/json'],
         'acceptLanguage'    => ['ru', 'en', 'ua', 'de'],

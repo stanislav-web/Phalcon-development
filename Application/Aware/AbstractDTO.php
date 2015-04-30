@@ -74,13 +74,9 @@ abstract class AbstractDTO {
             if(is_array($sub) === true) {
                 return (int)array_shift($sub);
             }
-            else {
-                return (int)$sub;
-            }
+            return (int)$sub;
         }
-        else {
-            return (int)$first;
-        }
+        return (int)$first;
     }
 
     /**

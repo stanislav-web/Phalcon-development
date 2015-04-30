@@ -83,6 +83,13 @@ class EngineMapper extends AbstractModelCrud {
                     if(isset($currency) === true) {
                         $transfer->setCurrencies($currency);
                     }
+                    $banners = $row->getBanners();
+
+                    if(isset($banners) === true) {
+                        $transfer->setBanners($banners);
+                    }
+
+
                 }
             }
 

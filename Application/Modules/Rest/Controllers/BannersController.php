@@ -2,16 +2,16 @@
 namespace Application\Modules\Rest\Controllers;
 
 /**
- * Class PagesController
+ * Class BannersController
  *
  * @package    Application\Modules\Rest
  * @subpackage    Controllers
  * @since PHP >=5.4
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
- * @filesource /Application/Modules/Rest/Controllers/PagesController.php
+ * @filesource /Application/Modules/Rest/Controllers/BannersController.php
  */
-class PagesController extends ControllerBase {
+class BannersController extends ControllerBase {
 
     /**
      * REST cache container
@@ -37,13 +37,13 @@ class PagesController extends ControllerBase {
     }
 
     /**
-     * GET Pages action
+     * GET Engines action
      */
     public function getAction() {
 
         $this->response = $this->cache->exists($this->key) ? $this->cache->get($this->key)
             : $this->cache->set(
-                $this->getDI()->get('PageMapper')->read($this->rest->getParams()),
+                $this->getDI()->get('BannersMapper')->read($this->rest->getParams()),
                 $this->key,
                 true
             );

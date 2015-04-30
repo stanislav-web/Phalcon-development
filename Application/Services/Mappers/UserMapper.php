@@ -7,7 +7,6 @@ use Application\Models\UserRoles;
 use Application\Models\UserAccess;
 use Application\Modules\Rest\DTO\UserDTO;
 use Application\Modules\Rest\Exceptions\BadRequestException;
-use Application\Modules\Rest\Exceptions\ConflictException;
 
 /**
  * Class UserMapper. Actions above users
@@ -40,6 +39,16 @@ class UserMapper extends AbstractModelCrud {
         return new UserAccess();
     }
 
+
+    /**
+     * Get roles model
+     *
+     * @return UserRoles
+     */
+    public function getRoles() {
+        return new UserRoles();
+    }
+
     /**
      * Read records
      *
@@ -61,47 +70,6 @@ class UserMapper extends AbstractModelCrud {
     }
 
     /**
-     * Create user
-     *
-     * @param array $data
-     * @return Users
-     * @throws BadRequestException
-     * @throws ConflictException
-     */
-    public function createUser(array $data) {
-
-        $userModel = new Users();
-        $userModel->setRole(UserRoles::USER)
-            ->setIp($this->getDi()->get('request')->getClientAddress())
-            ->setUa($this->getDi()->get('request')->getUserAgent());
-
-        foreach($data as $field => $value) {
-
-            if($field === 'password') {
-                $userModel->setPassword($value);
-            }
-            else {
-                $userModel->{$field}   =   $value;
-            }
-        }
-
-        if($userModel->save() === true) {
-
-            return $userModel;
-        }
-        else {
-            foreach($userModel->getMessages() as $message) {
-                if($message->getType() == 'Unique') {
-                    throw new ConflictException($message->getMessage());
-                }
-                else {
-                    throw new BadRequestException($message->getMessage());
-                }
-            }
-        }
-    }
-
-    /**
      * Set user access token
      *
      * @param int $user_id Auth user ID
@@ -112,21 +80,19 @@ class UserMapper extends AbstractModelCrud {
     public function setAccessToken($user_id, $token, $expire_date)
     {
         $userAccess = new UserAccess();
-        $userAccess->setUserId($user_id)->setToken($token)->setExpireDate($expire_date);
+        $userAccess->user_id        = $user_id;
+        $userAccess->token          = $token;
+        $userAccess->expire_date    = $this->setSqlDatetime($expire_date);
         $userAccess->save();
-        return $userAccess;
+
+        if($userAccess->save() === true) {
+
+            return $userAccess;
+        }
+        foreach($userAccess->getMessages() as $message) {
+            throw new BadRequestException($message->getMessage());
+        }
     }
-
-    /**
-     * Create user
-     *
-     * @param array $data
-     * return boolean
-     */
-    public function create(array $data) {
-
-    }
-
 
     /**
      * Refresh coming user
@@ -138,15 +104,17 @@ class UserMapper extends AbstractModelCrud {
 
         $user = $this->getOne(['id' => $user_id]);
         $user->skipAttributes(['surname']);
-        $refresh = $user->setUa($data['ua'])->setIp($data['ip'])->setDateLastvisit();
 
-        if($refresh->save() === true) {
+        $user->ua = $data['ua'];
+        $user->ip = ip2long($data['ip']);
+        $user->date_lastvisit = $this->setSqlDatetime(time());
+
+        if($user->save() === true) {
+
             return true;
         }
-        else {
-            $this->setErrors($user->getMessages());
-            return false;
-        }
+
+        throw new BadRequestException($user->getMessages());
     }
 
     /**

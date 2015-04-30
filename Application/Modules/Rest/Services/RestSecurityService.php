@@ -24,21 +24,6 @@ use Phalcon\Logger;
 class RestSecurityService extends RestSecurityProvider {
 
     /**
-     * User access request key name
-     */
-    const REQUEST_KEY = 'token';
-
-    /**
-     * User access header key name
-     */
-    const HEADER_KEY = 'AUTHORIZATION';
-
-    /**
-     * Templates for restore views
-     */
-    const RESTORE_VIEW_DIR = ':engine/notifies/';
-
-    /**
      * User token info
      *
      * @var \Application\Models\UserAccess $token
@@ -57,18 +42,17 @@ class RestSecurityService extends RestSecurityProvider {
 
         $user = $this->getUserMapper()->getOne(['login' => $credentials['login']]);
         if($user !== false) {
-
-            if($this->getSecurity()->checkHash($credentials['password'], $user->getPassword())) {
+            if($this->getSecurity()->checkHash($credentials['password'], $user->password)) {
 
                 $token = $this->getSecurity()->hash($this->getSecurity()->getToken());
 
                 $accessToken = $this->setToken(
-                    $user->getId(),
+                    $user->id,
                     $token,
                     (time() + $this->getConfig()->tokenLifetime)
                 );
 
-                $this->getUserMapper()->refresh($user->getId(), [
+                $this->getUserMapper()->refresh($user->id, [
                     'ip' => $this->getRequest()->getClientAddress(),
                     'ua' => $this->getRequest()->getUserAgent(),
                 ]);
@@ -98,21 +82,28 @@ class RestSecurityService extends RestSecurityProvider {
      */
     public function register(array $credentials)
     {
-        $user = $this->getUserMapper()->createUser($credentials);
-
+        $role = $this->getUserMapper()->getRoles();
+        $user = $this->getUserMapper()->create([
+            'role'      => $role::USER,
+            'ip'        => ip2long($this->getDi()->get('request')->getClientAddress()),
+            'ua'        => $this->getDi()->get('request')->getUserAgent(),
+            'login'     => $credentials['login'],
+            'name'      => $credentials['name'],
+            'password'  => (empty($credentials['password']) === false) ? $this->getSecurity()->hash($credentials['password']) : null
+        ]);
         session_regenerate_id(true);
 
         $token = $this->getSecurity()->hash($this->getSecurity()->getToken());
 
         $accessToken = $this->setToken(
-            $user->getId(),
+            $user->id,
             $token,
             (time() + $this->getConfig()->tokenLifetime)
         );
         return (new UserDTO())->setAccess($accessToken)
             ->setUsers($this->getUserMapper()->getList([
                 "id = ?0",
-                "bind" => [$user->getId()],
+                "bind" => [$user->id],
             ]));
     }
 
@@ -156,7 +147,7 @@ class RestSecurityService extends RestSecurityProvider {
      */
     public function logout(array $credentials) {
 
-        $credentials[0] = str_replace('id', 'user_id',$credentials[0]);
+        $credentials[0] = str_replace('id', 'user_id', $credentials[0]);
         $user = $this->getUserMapper()->getAccess()->findFirst($credentials);
         if($user !== false) {
             $user->delete();
@@ -175,10 +166,10 @@ class RestSecurityService extends RestSecurityProvider {
      */
     protected function getToken() {
 
-        $token = $this->getRequest()->get(self::REQUEST_KEY, null, null);
+        $token = $this->getRequest()->get($this->getConfig()->tokenKey, null, null);
 
         if(is_null($token) === true) {
-            $token = ltrim($this->getRequest()->getHeader(self::HEADER_KEY), 'Bearer ');
+            $token = ltrim($this->getRequest()->getHeader($this->getConfig()->authHeader), 'Bearer ');
         }
         return trim($token);
     }
@@ -230,7 +221,7 @@ class RestSecurityService extends RestSecurityProvider {
 
             $isHasRole = $this->getUserMapper()->getInstance()->findFirst([
                     "id = ?0 AND role = ?1",
-                    "bind" => [$this->token->getUserId(), $role],
+                    "bind" => [$this->token->user_id, $role],
                 ]
             );
 
@@ -253,18 +244,18 @@ class RestSecurityService extends RestSecurityProvider {
         $this->getView()->setViewsDir(APP_PATH.'/Modules/Rest/views');
 
         $params = [
-            'login'     => $user->getLogin(),
-            'name'      => $user->getName(),
+            'login'     => $user->login,
+            'name'      => $user->name,
             'password'  => $password,
-            'site'      => $engine->getHost(),
-            'sitename'  => $engine->getName()
+            'site'      => $engine->host,
+            'sitename'  => $engine->name
         ];
 
-        if(filter_var($user->getLogin(), FILTER_VALIDATE_EMAIL) !== false) {
+        if(filter_var($user->login, FILTER_VALIDATE_EMAIL) !== false) {
 
-            $message = $this->getMailer()->createMessageFromView(strtr(self::RESTORE_VIEW_DIR, [':engine' => $engine->getCode()]).'restore_password_email', $params)
-                ->to($user->getLogin(), $user->getName())
-                ->subject(sprintf($this->getTranslator()->translate('PASSWORD_RECOVERY_SUBJECT'), $engine->getHost()))
+            $message = $this->getMailer()->createMessageFromView(strtr($this->getConfig()->notifyDir, [':engine' => $engine->code]).'restore_password_email', $params)
+                ->to($user->login, $user->name)
+                ->subject(sprintf($this->getTranslator()->translate('PASSWORD_RECOVERY_SUBJECT'), $engine->host))
                 ->priority(1);
 
                 try {
@@ -281,8 +272,8 @@ class RestSecurityService extends RestSecurityProvider {
         }
         else {
 
-            $content = $this->getView()->getRender(strtr(self::RESTORE_VIEW_DIR, [':engine' => $engine->getCode()]), 'restore_password_sms', $params);
-            $message = $this->getSmsService()->call('Clickatell')->setRecipient($user->getLogin());
+            $content = $this->getView()->getRender(strtr($this->getConfig()->notifyDir, [':engine' => $engine->code]), 'restore_password_sms', $params);
+            $message = $this->getSmsService()->call('Clickatell')->setRecipient($user->login);
             $message->send(trim($content));
         }
     }
