@@ -125,8 +125,7 @@ abstract class RestSecurityProvider implements InjectionAwareInterface {
      *
      * @return \Phalcon\DiInterface
      */
-    public function getDi()
-    {
+    public function getDi() {
         return $this->di;
     }
 
@@ -184,7 +183,7 @@ abstract class RestSecurityProvider implements InjectionAwareInterface {
      * @param int $user_id Auth user ID
      * @param string $token Generated token
      * @param int $expire_date Token date expiry
-     * @return bool
+     * @return boolean
      */
     abstract protected function setToken($user_id, $token, $expire_date);
 

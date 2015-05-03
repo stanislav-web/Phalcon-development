@@ -4,8 +4,6 @@
  * @define Application path
  * @define Staging development environment
  */
-set_time_limit(1);
-
 defined('DOCUMENT_ROOT') || define('DOCUMENT_ROOT', $_SERVER["DOCUMENT_ROOT"]);
 defined('APP_PATH') || define('APP_PATH', DOCUMENT_ROOT . '/../Application');
 defined('APPLICATION_ENV') ||
@@ -18,6 +16,7 @@ if(APPLICATION_ENV === 'development') {
     }
     require_once '/var/www/profiler.local/external/header.php';
 }
+
 
 // Require composite libraries
 require_once DOCUMENT_ROOT . ' /../vendor/autoload.php';

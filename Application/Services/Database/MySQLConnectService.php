@@ -1,7 +1,7 @@
 <?php
 namespace Application\Services\Database;
-use \Phalcon\Db\Adapter\Pdo\Mysql as AdapterGateway;
-use \Phalcon\Db\Exception as DbException;
+use Phalcon\Db\Adapter\Pdo\Mysql as AdapterGateway;
+use Phalcon\Db\Exception as DbException;
 
 /**
  * Class MySQLConnectService. Connection to Database service
@@ -19,25 +19,27 @@ class MySQLConnectService extends AdapterGateway {
     /**
      * Init MySQL Connect
      *
-     * @param array $dbConfig
-     * @param \Phalcon\DI\FactoryDefault $di
+     * @param \Phalcon\Config $dbConfig
      */
-    public function __construct(array $dbConfig) {
+    public function __construct(\Phalcon\Config $dbConfig) {
 
         try {
-            parent::__construct([
-                "host"          => $dbConfig['host'],
-                "username"      => $dbConfig['username'],
-                "password"      => $dbConfig['password'],
-                "dbname"        => $dbConfig['dbname'],
-                "persistent"    => $dbConfig['persistent'],
+
+            $setup = [
+                "host"          => $dbConfig->host,
+                "username"      => $dbConfig->username,
+                "password"      => $dbConfig->password,
+                "dbname"        => $dbConfig->dbname,
+                "persistent"    => $dbConfig->persistent,
                 "options" => [
-                    \PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES '{$dbConfig['charset']}'",
+                    \PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES '".$dbConfig->charset."'",
                     \PDO::ATTR_CASE => \PDO::CASE_LOWER,
-                    \PDO::ATTR_ERRMODE => $dbConfig['debug'],
-                    \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC
+                    \PDO::ATTR_ERRMODE => $dbConfig->debug,
+                    \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC,
                 ]
-            ]);
+            ];
+
+            parent::__construct($setup);
         }
         catch(\PDOException $e) {
             throw new DbException($e->getMessage());

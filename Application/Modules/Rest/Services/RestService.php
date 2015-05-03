@@ -144,7 +144,7 @@ class RestService implements RestServiceInterface {
         $this->resourceUri =
             (isset($response['meta']['resource']) === false)
         ? $request->getScheme().'://'.$request->getHttpHost().$request->getURI() : $response['meta']['resource'];
-        
+
         return $this;
     }
 
@@ -291,7 +291,8 @@ class RestService implements RestServiceInterface {
                     'memory_use'    => $this->getHelperService()->formatBytes(memory_get_usage(true)),
                     'memory_limit'  => ini_get('memory_limit'),
                     'cpu_load'      => round(sys_getloadavg()[0], 1, PHP_ROUND_HALF_ODD).'%',
-                    'stack'         => $this->getHelperService()->callStack(xdebug_get_function_stack())
+                    'stack'         => $this->getHelperService()->callStack(xdebug_get_function_stack()),
+                    'sql'           => $this->getResolver()->getDi()->get('DbListener')->getProfileData()
                 ]
             ]
         );

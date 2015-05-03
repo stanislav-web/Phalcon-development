@@ -251,24 +251,25 @@ class RestSecurityService extends RestSecurityProvider {
             'sitename'  => $engine->name
         ];
 
+
         if(filter_var($user->login, FILTER_VALIDATE_EMAIL) !== false) {
 
+            try {
             $message = $this->getMailer()->createMessageFromView(strtr($this->getConfig()->notifyDir, [':engine' => $engine->code]).'restore_password_email', $params)
                 ->to($user->login, $user->name)
                 ->subject(sprintf($this->getTranslator()->translate('PASSWORD_RECOVERY_SUBJECT'), $engine->host))
                 ->priority(1);
 
-                try {
-                    $message->send();
-                }
-                catch(\Exception $e) {
+                $message->send();
+             }
+             catch(\Exception $e) {
 
-                    $this->getLogger()->save($e->getMessage(), Logger::CRITICAL);
+                $this->getLogger()->save($e->getMessage(), Logger::CRITICAL);
 
-                    throw new UnprocessableEntityException([
-                        'RECOVERY_ACCESS_FAILED' => 'Recovery access failed'
-                    ]);
-                }
+                throw new UnprocessableEntityException([
+                    'RECOVERY_ACCESS_FAILED' => 'Recovery access failed'
+                ]);
+             }
         }
         else {
 

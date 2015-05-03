@@ -2,7 +2,7 @@
 namespace Application\Modules\Rest\Services;
 
 use \Phalcon\Cache\Frontend\Data;
-use \Phalcon\Cache\Backend\Memcache;
+use \Phalcon\Cache\Backend\Memcache as Storage;
 
 /**
  * Class RestCacheService. Rest module cache service
@@ -129,7 +129,7 @@ class RestCacheService {
      */
     public function getStorage() {
 
-        return new Memcache(new Data(["lifetime" => $this->getConfig()->lifetime]),
+        return new Storage(new Data(["lifetime" => $this->getConfig()->lifetime]),
             [
                 "prefix"    =>  $this->getConfig()->prefix,
                 "host"      =>  $this->getConfig()->memcached->host,

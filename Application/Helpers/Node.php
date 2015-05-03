@@ -52,7 +52,6 @@ trait Node
         return $result;
     }
 
-
     /**
      * Set key for multidimensional array
      *

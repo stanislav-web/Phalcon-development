@@ -47,14 +47,19 @@ class Banners extends \Phalcon\Mvc\Model
      *
      * @var string
      */
-    public $delay;
-
-    /**
-     *
-     * @var string
-     */
     public $description;
 
+    /**
+     * Datetime create
+     * @var datetime
+     */
+    public $date_create;
+
+    /**
+     * Timestamp add
+     * @var timestamp
+     */
+    public $date_update;
 
     /**
      * Initialize Model

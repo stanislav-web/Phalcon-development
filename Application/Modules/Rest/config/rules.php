@@ -22,8 +22,8 @@ return [
     'sign'    =>  [
         'get' => [
             'requests'  =>  [  // limit request per time
-                'limit' =>  10,
-                'time'  =>  1,
+                'limit' =>  2500,
+                'time'  =>  60,
             ],
             'methods'    => 'GET',
             'params'     => [
@@ -33,8 +33,8 @@ return [
         ],
         'post' => [
             'requests'  =>  [  // limit request per time
-                'limit' =>  10,
-                'time'  =>  1,
+                'limit' =>  2500,
+                'time'  =>  60,
             ],
             'methods'    => 'POST',
             'params'     => [
@@ -44,8 +44,8 @@ return [
         ],
         'put' => [
             'requests'  =>  [  // limit request per time
-                'limit' =>  10,
-                'time'  =>  1,
+                'limit' =>  2500,
+                'time'  =>  60,
             ],
             'methods'    => 'PUT',
             'params'     => [
@@ -55,8 +55,8 @@ return [
         ],
         'delete' => [
             'requests'  =>  [  // limit request per time
-                'limit' =>  10,
-                'time'  =>  1,
+                'limit' =>  2500,
+                'time'  =>  60,
             ],
             'methods'    => 'DELETE',
             'mapper'   => 'UserMapper'
@@ -65,8 +65,8 @@ return [
     'users'  =>  [
         'get'    =>  [
             'requests'  =>  [  // limit request per seconds
-                    'limit' =>  10,
-                    'time'  =>  1,
+                'limit' =>  2500,
+                'time'  =>  60,
                 ],
             'methods'   => 'GET,POST,PUT',
             'authentication'    =>  true,   // need access token ?
@@ -81,8 +81,8 @@ return [
     'logs'  =>  [
         'get'    =>  [
             'requests'  =>  [  // limit request per seconds
-                'limit' =>  10,
-                'time'  =>  1,
+                'limit' =>  2500,
+                'time'  =>  60,
             ],
             'methods'   => 'GET',
             'authentication'    =>  true,   // need access token ?
@@ -97,8 +97,8 @@ return [
     'engines'  =>  [
         'get'    =>  [
             'requests'  =>  [  // limit request per seconds
-                'limit' =>  10,
-                'time'  =>  1,
+                'limit' =>  2500,
+                'time'  =>  60,
             ],
             'methods'   =>  'GET',
             'mapper'    =>  'EngineMapper',
@@ -114,8 +114,8 @@ return [
     'currencies'  =>  [
         'get'    =>  [
             'requests'  =>  [  // limit request per seconds
-                'limit' =>  10,
-                'time'  =>  1,
+                'limit' =>  2500,
+                'time'  =>  60,
             ],
             'methods'   =>  'GET',
             'mapper'    =>  'CurrencyMapper',
@@ -124,8 +124,8 @@ return [
     'errors'  =>  [
         'get'    =>  [
             'requests'  =>  [  // limit request per seconds
-                'limit' =>  10,
-                'time'  =>  1,
+                'limit' =>  2500,
+                'time'  =>  60,
             ],
             'methods'   => 'GET',
             'mapper'   => 'ErrorMapper'
@@ -134,8 +134,8 @@ return [
     'pages'  =>  [
         'get'    =>  [
             'requests'  =>  [  // limit request per seconds
-                'limit' =>  5,
-                'time'  =>  10,
+                'limit' =>  2500,
+                'time'  =>  60,
             ],
             'methods'   => 'GET,POST,PUT,DELETE',
             'mapper'   => 'PageMapper'
@@ -144,8 +144,8 @@ return [
     'banners'  =>  [
         'get'    =>  [
             'requests'  =>  [  // limit request per seconds
-                'limit' =>  5,
-                'time'  =>  10,
+                'limit' =>  2500,
+                'time'  =>  60,
             ],
             'methods'   => 'GET,POST,PUT,DELETE',
             'mapper'   => 'BannersMapper'
@@ -154,8 +154,8 @@ return [
     'categories'  =>  [
         'get'    =>  [
             'requests'  =>  [  // limit request per seconds
-                'limit' =>  5,
-                'time'  =>  10,
+                'limit' =>  2500,
+                'time'  =>  60,
             ],
             'methods'   => 'GET,POST,PUT,DELETE',
             'mapper'   => 'CategoryMapper'

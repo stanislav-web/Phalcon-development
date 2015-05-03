@@ -62,8 +62,40 @@ $di->set('crypt', function () use ($config) {
 // GLOBAL SERVICES
 
 // Database connection is created based in the parameters defined in the configuration file
-$di->setShared('db', function () use ($config) {
-    return new \Application\Services\Database\MySQLConnectService($config['database']);
+$di->setShared('db', function () use ($di) {
+
+    $config = $di->get('config')->database;
+    $connect = new \Application\Services\Database\MySQLConnectService(
+        $config
+    );
+
+    if($config->profiling === true) {
+
+        $eventManager = new Phalcon\Events\Manager();
+
+        $dbListener = $di->getShared('DbListener');
+        $eventManager->attach('db', function($event, Application\Services\Database\MySQLConnectService $connect)
+        use ($dbListener) {
+
+            if($event->getType() == 'beforeQuery') {
+                $dbListener->getProfiler()->startProfile($connect->getSQLStatement());
+            }
+            if ($event->getType() == 'afterQuery') {
+                $dbListener->getProfiler()->stopProfile();
+                $dbListener->setProfileData([
+                    $connect->getRealSQLStatement()   => $dbListener->getProfiler()->getTotalElapsedSeconds(),
+                ]);
+            }
+        });
+        $connect->setEventsManager($eventManager);
+
+        return $connect;
+    }
+});
+
+// Database profiler
+$di->setShared('DbListener', function () {
+    return new \Application\Services\Database\MySQLDbListener();
 });
 
 // Define mailer service
