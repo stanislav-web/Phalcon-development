@@ -161,9 +161,7 @@ angular.module('notifications', []).
 
         if(settings.html5Mode){
           html5Notify(image, title, content, function(){
-            console.log("inner on display function");
           }, function(){
-            console.log("inner on close function");
           });
         }
         else{
@@ -211,7 +209,6 @@ angular.module('notifications', []).
      * Finally, the directive should have its own controller for
      * handling all of the notifications from the notification service
      */
-    console.log('this is a new directive');
     var html =
       '<div class="dr-notification-wrapper" ng-repeat="noti in queue">' +
         '<div class="dr-notification-close-btn" ng-click="removeNotification(noti)">' +

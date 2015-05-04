@@ -19,7 +19,6 @@
     "isteven-angular-multiselect": "~4.0.0",
     "moment": "~2.10.2",
     "angular-scroll": "~0.7.0",
-    "angular-ui-notification": "~0.0.5",
     "angular-notifications": "~0.1.1",
     "angular-moment": "~0.10.0"
   },

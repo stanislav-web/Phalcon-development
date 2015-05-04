@@ -21,11 +21,11 @@ nav ul#menu li a:hover, nav ul#menu li:hover > a {
     background: #333;
 }
 
-nav ul#menu li:hover > #mega {
+nav ul#menu li:hover > .mega {
     display: block;
 }
 
-#mega {
+.mega {
     position: absolute;
     top: 100%;
     left: 0;
@@ -176,7 +176,7 @@ nav ul:after {
         padding-left: 40px !important
     }
 
-    .megamenu > li > .megapanel {
+    .megamenu li .mega.megapanel {
         position: static;
         margin-top: 50px
     }

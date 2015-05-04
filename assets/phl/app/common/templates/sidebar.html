@@ -1,9 +1,16 @@
-<accordion close-others="oneAtATime">
-    <accordion-group ng-repeat="category in categories" ng-init="show == category.hasOwnProperty('childs')" heading="{{category.title}}" is-open="show">
-        <ul ng-if="category.childs" ng-repeat="chunk in category.childs">
-            <li ng-repeat="child in chunk">
-                <a href="/category/{{category.alias}}/{{child.alias}}">{{child.title}}</a>
-            </li>
-        </ul>
-    </accordion-group>
-</accordion>
+<div class="rsidebar span_1_of_left">
+    <section class="sky-form" ng-repeat="category in categories">
+        <h4>{{category.title}}</h4>
+            <div class="row1 scroll-pane">
+                <div class="jspContainer">
+                    <div class="jspPane">
+                        <div ng-if="category.childs" class="col col-4" ng-repeat="chunk in category.childs">
+                            <label class="checkbox" ng-repeat="child in chunk">
+                                <input ng-href="/category/{{category.alias}}/{{child.alias}}" type="checkbox" name="checkbox"><i></i>{{child.title}}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
+</div>

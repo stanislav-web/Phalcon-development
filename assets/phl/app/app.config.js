@@ -15,6 +15,9 @@
                 CUSTOMER_AUTH_MENU :    '/assets/phl/app/data/menu/customer-auth.json',
                 CUSTOMER_MENU :         '/assets/phl/app/data/menu/customer.json'
             },
+            SLIDER : {
+                TIMEOUT : 5000
+            },
             LANGUAGES: {
                 ACCEPT: ['en', 'ru', 'de', 'uk'],
                 ALIASES : {
@@ -36,7 +39,7 @@
     })());
 
     // configure base rest loader
-    app.config(['RestangularProvider', 'BASE', 'NotifierProvider', function(RestangularProvider, BASE, NotifierProvider) {
+    app.config(['RestangularProvider', 'BASE', '$notificationProvider', function(RestangularProvider, BASE, $notificationProvider) {
 
         RestangularProvider.setBaseUrl(BASE.URL);
         RestangularProvider.setDefaultHttpFields({cache: true, timeout: BASE.REQUEST_TIMEOUT});
@@ -48,10 +51,11 @@
         RestangularProvider.setErrorInterceptor(function(response, deferred, responseHandler) {
             if(BASE.CATCHED_ERRORS.indexOf(response.status) != -1) {
 
-                //NotifierProvider.error('Error', 'Description', 'MyData');
-                return false; // error handled
+                var error = response.data.error;
+
+                $notificationProvider.$get()
+                    .error(error.code +' ' +error.message, error.data[Object.keys(error.data)[0]])
             }
-            return true; // error not handled
         });
 
         RestangularProvider.setResponseExtractor(function(response, operation, what, url) {

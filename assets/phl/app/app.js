@@ -21,7 +21,7 @@ var app;
         'ui.bootstrap',
         'duScroll',
         'isteven-multi-select',
-        'providers',
+        'notifications',
         'angularMoment',
         'ui.splash', function() {}
     ]);
@@ -34,15 +34,18 @@ var app;
             // get engine -> categories
             Restangular.one("engines", BASE.ENGINE_ID).customGET("categories").then(function(response) {
 
-                response.engines.categories.map(function(category) {
+                response.categories.map(function(category) {
                     if(category.hasOwnProperty('childs')) {
                         // partition array by fixed chunk
                         category.childs = _.chunk(category.childs, BASE.LIST.PARTS);
                     }
                 });
-                $rootScope.categories   = response.engines.categories;
+                $rootScope.categories   = response.categories;
                 $rootScope.engines      = response.engines;
+                $rootScope.banners      = response.banners;
                 $rootScope.title        = response.engines.name;
+
+                console.log($rootScope.categories);
             });
 
             Restangular.all("currencies").getList().then(function(response) {

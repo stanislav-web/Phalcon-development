@@ -14,7 +14,6 @@
     app.controller('IndexController', ['$scope', '$http', '$location', '$sce',
         function($scope, $http, $location, $sce) {
 
-
         }]);
 
 })(angular);
