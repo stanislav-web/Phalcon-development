@@ -88,15 +88,18 @@ $di->setShared('db', function () use ($di) {
             }
         });
         $connect->setEventsManager($eventManager);
-
-        return $connect;
     }
+
+    return $connect;
 });
 
-// Database profiler
+// Define database listener
 $di->setShared('DbListener', function () {
-    return new \Application\Services\Database\MySQLDbListener();
+    return new \Application\Services\Develop\MySQLDbListener();
 });
+
+// Define Profiler
+$di->setShared('ProfilerService', '\Application\Services\Develop\ProfilerService');
 
 // Define mailer service
 $di->setShared('MailService', function () use ($config) {
@@ -150,6 +153,12 @@ $di->setShared('BannersMapper','Application\Services\Mappers\BannersMapper');
 
 // Define items mapper
 $di->setShared('ItemsMapper','Application\Services\Mappers\ItemsMapper');
+
+// Define item attributes mapper
+$di->setShared('ItemAttributesMapper','Application\Services\Mappers\ItemAttributesMapper');
+
+// Define item attribute values mapper
+$di->setShared('ItemAttributeValuesMapper','Application\Services\Mappers\ItemAttributeValuesMapper');
 
 // Define log mapper
 $di->setShared('LogMapper', function() use ($config, $di) {

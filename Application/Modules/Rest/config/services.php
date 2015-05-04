@@ -30,7 +30,7 @@ $di->setShared('RestValidationService', function () use ($di) {
 });
 
 // Define Rest Cache Service
-$di->set('RestCache', function () use ($di) {
+$di->setShared('RestCache', function () use ($di) {
     return new \Application\Modules\Rest\Services\RestCacheService($di->get('RestConfig'));
 });
 

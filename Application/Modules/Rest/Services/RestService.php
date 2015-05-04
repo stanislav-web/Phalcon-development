@@ -90,13 +90,13 @@ class RestService implements RestServiceInterface {
     }
 
     /**
-     * Get helpers
+     * Get profiler
      *
-     * @return \Application\Services\Advanced\HelpersService
+     * @return \Application\Services\Develop\ProfilerService
      */
-    public function getHelperService()
+    public function getProfilerService()
     {
-        return $this->getResolver()->getDi()->get('tag');
+        return $this->getResolver()->getDi()->get('ProfilerService');
     }
 
     /**
@@ -287,11 +287,11 @@ class RestService implements RestServiceInterface {
         return array_merge(
             $this->message, [
                 'debug' => [
-                    'memory_use'    => $this->getHelperService()->formatBytes(memory_get_usage(true)),
-                    'memory_limit'  => ini_get('memory_limit'),
-                    'cpu_load'      => round(sys_getloadavg()[0], 1, PHP_ROUND_HALF_ODD).'%',
-                    'stack'         => $this->getHelperService()->callStack(xdebug_get_function_stack()),
-                    'sql'           => $this->getResolver()->getDi()->get('DbListener')->getProfileData()
+                    'memory_use'    => $this->getProfilerService()->getMemoryUsage(),
+                    'memory_limit'  => $this->getProfilerService()->getMemoryLimit(),
+                    'cpu_load'      => $this->getProfilerService()->getUsageCPU(),
+                    'stack'         => $this->getProfilerService()->getStackCalls(),
+                    'sql'           => $this->getProfilerService()->getDbProfiler()
                 ]
             ]
         );
@@ -318,12 +318,14 @@ class RestService implements RestServiceInterface {
             'Expires'       =>  gmdate('D, d M Y H:i:s T', time()+$this->getCacheService()->getLifetime()),
         ]);
 
-        $response = $this->getResponseService()->setJsonContent($this->getMessage());
+
+        $response = $this->getResponseService();
         $eTag = $this->getCacheService()->getKey();
 
         if(is_null($eTag) === false) {
-            $response->setEtag($this->getCacheService()->getKey());
+            $response->setEtag($eTag);
         }
+        $response->setJsonContent($this->getMessage());
 
         return $response;
     }

@@ -1,5 +1,5 @@
 <?php
-namespace Application\Services\Database;
+namespace Application\Services\Develop;
 
 use Phalcon\Db\Profiler;
 
@@ -12,7 +12,7 @@ use Phalcon\Db\Profiler;
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @copyright Stanislav WEB
- * @filesource /Application/Services/Database/MySQLDbListener.php
+ * @filesource /Application/Services/Develop/MySQLDbListener.php
  */
 class MySQLDbListener
 {
@@ -60,6 +60,24 @@ class MySQLDbListener
      * @return array
      */
     public function getProfileData() {
+        return $this->profileData;
+    }
+
+    /**
+     * Get profile data
+     *
+     * @return array
+     */
+    public function getDataSizes() {
+        return $this->profileData;
+    }
+
+    /**
+     * Get profile data
+     *
+     * @return array
+     */
+    public function getIndexSizes() {
         return $this->profileData;
     }
 }

@@ -1,24 +1,27 @@
 <?php
 namespace Application\Models;
 
+
+
+
 /**
- * Class Banners `banners`
+ * Class ItemAttributes `item_attributes`
  *
  * @package    Application
  * @subpackage    Models
  * @since PHP >=5.4
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
- * @filesource /Application/Models/Banners.php
+ * @filesource /Application/Models/ItemAttributes.php
  */
-class Banners extends \Phalcon\Mvc\Model
+class ItemAttributes extends \Phalcon\Mvc\Model
 {
     /**
      * Absolute model name
      *
      * @const
      */
-    const TABLE = '\Application\Models\Banners';
+    const TABLE = '\Application\Models\ItemAttributes';
 
     /**
      *
@@ -28,36 +31,49 @@ class Banners extends \Phalcon\Mvc\Model
 
     /**
      *
+     * @var string
+     */
+    public $name;
+
+    /**
+     * @var string
+     */
+    public $translate;
+
+    /**
+     *
      * @var integer
      */
-    public $engine_id;
+    public $integer;
 
     /**
      *
      * @var string
      */
-    public $image;
+    public $decimal;
+
+    /**
+     *
+     * @var integer
+     */
+    public $varchar;
 
     /**
      *
      * @var string
      */
-    public $link;
-
-    /**
-     *
-     * @var string
-     */
-    public $description;
+    public $date;
 
     /**
      * Datetime create
+     *
      * @var datetime
      */
     public $date_create;
 
     /**
      * Timestamp add
+     *
      * @var timestamp
      */
     public $date_update;
@@ -72,7 +88,5 @@ class Banners extends \Phalcon\Mvc\Model
             'notNullValidations' => true,
             'exceptionOnFailedSave' => false
         ]);
-
-        $this->belongsTo('engine_id', Engines::TABLE, 'id');
     }
 }

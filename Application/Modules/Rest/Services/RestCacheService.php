@@ -5,7 +5,7 @@ use \Phalcon\Cache\Frontend\Data;
 use \Phalcon\Cache\Backend\Memcache as Storage;
 
 /**
- * Class RestCacheService. Rest module cache service
+ * Class RestCacheService. Web Service's response cache class
  *
  * @package Application\Modules\Rest
  * @subpackage Services
@@ -87,8 +87,7 @@ class RestCacheService {
             && $cached === true) {
 
             $this->key = $key;
-
-            $this->getStorage()->save(md5($this->key), $value);
+            $this->getStorage()->save($this->key, $value);
 
         }
 
@@ -103,7 +102,7 @@ class RestCacheService {
      */
     public function exists($key) {
 
-        if($this->getStorage()->exists(md5($key)) === true) {
+        if($this->getStorage()->exists($key) === true) {
             $this->cached = true;
             return true;
         }
@@ -119,7 +118,8 @@ class RestCacheService {
     public function get($key) {
 
         $this->key = $key;
-        return $this->getStorage()->get($this->getKey());
+
+        return $this->getStorage()->get($key);
     }
 
     /**
@@ -154,7 +154,7 @@ class RestCacheService {
      */
     public function getKey() {
 
-        return (empty($this->key) === false) ? md5($this->key) : null;
+        return (empty($this->key) === false) ? $this->key : null;
     }
 
     /**

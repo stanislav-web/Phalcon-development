@@ -43,4 +43,16 @@ class Logs extends \Phalcon\Mvc\Model
      * @var string
      */
     public $content;
+
+    /**
+     * Initialize Model
+     */
+    public function initialize()
+    {
+        // its allow to keep empty data to my db
+        $this->setup([
+            'notNullValidations' => true,
+            'exceptionOnFailedSave' => false
+        ]);
+    }
 }

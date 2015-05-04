@@ -108,7 +108,7 @@ return [
                     'rel'     => [
                         'id' => 'engine_id'
                     ],
-                    //'order' => 'lft, sort'
+                    'order' => 'lft, sort'
                 ]
             ]
         ],
@@ -121,6 +121,26 @@ return [
             ],
             'methods'   =>  'GET',
             'mapper'    =>  'CurrencyMapper',
+        ],
+    ],
+    'attributes'  =>  [
+        'get'    =>  [
+            'requests'  =>  [  // limit request per seconds
+                'limit' =>  2500,
+                'time'  =>  60,
+            ],
+            'methods'   =>  'GET',
+            'mapper'    =>  'ItemAttributesMapper',
+        ],
+    ],
+    'values'  =>  [
+        'get'    =>  [
+            'requests'  =>  [  // limit request per seconds
+                'limit' =>  2500,
+                'time'  =>  60,
+            ],
+            'methods'   =>  'GET',
+            'mapper'    =>  'ItemAttributeValuesMapper',
         ],
     ],
     'items'  =>  [

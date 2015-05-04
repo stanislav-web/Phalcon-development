@@ -5,6 +5,7 @@ use Application\Aware\AbstractModelCrud;
 use Application\Models\Currency;
 use Application\Modules\Rest\DTO\CurrencyDTO;
 use Application\Modules\Rest\Exceptions\NotFoundException;
+
 /**
  * Class CurrencyMapper. Actions above application currencies
  *

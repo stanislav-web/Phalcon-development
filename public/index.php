@@ -31,14 +31,15 @@ require_once DOCUMENT_ROOT . '/../config/routes.php';
 require_once DOCUMENT_ROOT . '/../config/services.php';
 
 try {
+
     $app = new Phalcon\Mvc\Application($di);
     // Require modules
     require_once DOCUMENT_ROOT . '/../config/modules.php';
 
     if(APPLICATION_ENV === 'development') {
+
         require_once '/var/www/profiler.local/external/footer.php';
     }
-
     // Handle the request
     echo $app->handle()->getContent();
 

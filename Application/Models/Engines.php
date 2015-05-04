@@ -86,10 +86,6 @@ class Engines extends \Phalcon\Mvc\Model
             'exceptionOnFailedSave' => false
         ]);
 
-        // skip attributes before every IN >
-        $this->skipAttributesOnCreate(['date_update']);
-        $this->skipAttributesOnUpdate(['date_create', 'date_update']);
-
         $this->belongsTo('currency_id', Currency::TABLE, 'id');
 
         // local_filed, reference Model, referenced_field

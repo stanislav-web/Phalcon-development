@@ -108,6 +108,7 @@ class InputValidator {
     public function setMapper($mapper)
     {
         $this->mapper = $this->getDi()->get($mapper);
+
         return $this;
     }
 
@@ -267,5 +268,6 @@ class InputValidator {
 
         // check for supported columns
         $this->isColumnSupport();
+
     }
 }

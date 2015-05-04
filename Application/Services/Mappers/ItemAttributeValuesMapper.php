@@ -2,12 +2,12 @@
 namespace Application\Services\Mappers;
 
 use Application\Aware\AbstractModelCrud;
-use Application\Models\Banners;
-use Application\Modules\Rest\DTO\BannersDTO;
+use Application\Models\ItemAttributeValues;
+use Application\Modules\Rest\DTO\ItemAttributeValuesDTO;
 use Application\Modules\Rest\Exceptions\NotFoundException;
 
 /**
- * Class BannersMapper. Actions above application banners
+ * Class ItemAttributeValuesMapper. Actions above item's attribute values
  *
  * @package Application\Services
  * @subpackage Mappers
@@ -15,17 +15,17 @@ use Application\Modules\Rest\Exceptions\NotFoundException;
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @copyright Stanislav WEB
- * @filesource /Application/Services/Mappers/BannersMapper.php
+ * @filesource /Application/Services/Mappers/ItemAttributeValuesMapper.php
  */
-class BannersMapper extends AbstractModelCrud {
+class ItemAttributeValuesMapper extends AbstractModelCrud {
 
     /**
      * Get instance of polymorphic object
      *
-     * @return Banners
+     * @return \Application\Models\ItemAttributes
      */
     public function getInstance() {
-        return new Banners();
+        return new ItemAttributeValues();
     }
 
     /**
@@ -40,7 +40,7 @@ class BannersMapper extends AbstractModelCrud {
         $result = $this->getInstance()->find($credentials);
 
         if($result->count() > 0) {
-            return (new BannersDTO())->setBanners($result);
+            return (new ItemAttributeValuesDTO())->setValues($result);
         }
 
         throw new NotFoundException([

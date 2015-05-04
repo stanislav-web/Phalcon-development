@@ -2,16 +2,16 @@
 namespace Application\Modules\Rest\Controllers;
 
 /**
- * Class CurrenciesController
+ * Class ValuesController
  *
  * @package    Application\Modules\Rest
  * @subpackage    Controllers
  * @since PHP >=5.4
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
- * @filesource /Application/Modules/Rest/Controllers/CurrenciesController.php
+ * @filesource /Application/Modules/Rest/Controllers/ValuesController.php
  */
-class CurrenciesController extends ControllerBase {
+class ValuesController extends ControllerBase {
 
     /**
      * REST cache container
@@ -37,14 +37,13 @@ class CurrenciesController extends ControllerBase {
     }
 
     /**
-     * GET Engines action
+     * GET Values action
      */
     public function getAction() {
 
-
         $this->response = $this->cache->exists($this->key) ? $this->cache->get($this->key)
             : $this->cache->set(
-                $this->getDI()->get('CurrencyMapper')->read($this->rest->getParams()),
+                $this->getDI()->get('ItemAttributeValuesMapper')->read($this->rest->getParams()),
                 $this->key,
                 true
             );

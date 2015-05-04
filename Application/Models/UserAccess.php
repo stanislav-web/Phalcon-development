@@ -37,4 +37,16 @@ class UserAccess extends \Phalcon\Mvc\Model
      */
     public $expire_date;
 
+    /**
+     * Initialize Model
+     */
+    public function initialize()
+    {
+        // its allow to keep empty data to my db
+        $this->setup([
+            'notNullValidations' => true,
+            'exceptionOnFailedSave' => false
+        ]);
+    }
+
 }

@@ -33,7 +33,7 @@ class BannersController extends ControllerBase {
     public function initialize() {
 
         $this->cache = $this->di->get('RestCache');
-        $this->key   = ($this->request->isGet()) ? $this->request->getUri() : null;
+        $this->key   = ($this->request->isGet()) ? md5($this->request->getUri()) : null;
     }
 
     /**

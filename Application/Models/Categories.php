@@ -84,9 +84,6 @@ class Categories extends \Phalcon\Mvc\Model
             'notNullValidations' => true,
             'exceptionOnFailedSave' => false
         ]);
-
-        //Skips fields/columns on both INSERT/UPDATE operations
-        $this->skipAttributes(['date_create', 'date_update']);
     }
 
     /**
@@ -103,7 +100,7 @@ class Categories extends \Phalcon\Mvc\Model
      * Calling rebuild categories tree function
      *
      * @throws \Phalcon\Mvc\Model\Exception
-     * @return Resultset
+     * @return \Phalcon\Mvc\Model\Resultset\Simple
      */
     public function rebuildTree()
     {

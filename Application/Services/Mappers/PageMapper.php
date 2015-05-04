@@ -25,6 +25,7 @@ class PageMapper extends AbstractModelCrud {
      * @return Pages
      */
     public function getInstance() {
+
         return new Pages();
     }
 
