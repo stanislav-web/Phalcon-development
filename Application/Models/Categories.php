@@ -22,6 +22,7 @@ class Categories extends \Phalcon\Mvc\Model
 {
     /**
      * Absolute model name
+     *
      * @const
      */
     const TABLE = '\Application\Models\Categories';

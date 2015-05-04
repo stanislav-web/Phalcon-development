@@ -53,6 +53,45 @@ trait Node
     }
 
     /**
+     * Nested Tree builder
+     *
+     * @param array $elements
+     * @param int   $parentId
+     * @return array
+     */
+    public static function setNestedTree(array $elements, $parentId = null) {
+
+        $branch = [];
+
+        foreach ($elements as $element) {
+            if ($element['parent_id'] == $parentId) {
+                $children = self::setNestedTree($elements, $element['id']);
+                if ($children) {
+                    $element['childs'] = $children;
+                }
+                $branch[] = $element;
+            }
+        }
+
+        return $branch;
+    }
+
+    /**
+     * Reverse object to an array
+     *
+     * @param object $obj
+     * @return array
+     */
+    public static function asRealArray($obj) {
+        $_arr = is_object($obj) ? get_object_vars($obj) : $obj;
+        foreach ($_arr as $key => $val) {
+            $val = (is_array($val) || is_object($val)) ? self::asRealArray($val) : $val;
+            $arr[$key] = $val;
+        }
+        return $arr;
+    }
+
+    /**
      * Set key for multidimensional array
      *
      * @param array $array

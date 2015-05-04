@@ -43,7 +43,6 @@ try {
     echo $app->handle()->getContent();
 
 } catch (\Exception $e) {
-
     $exception = new Application\Modules\Rest\Services\RestExceptionHandler($di);
     $exception->handle($e)->send();
 }

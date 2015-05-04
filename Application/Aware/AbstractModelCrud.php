@@ -3,6 +3,7 @@ namespace Application\Aware;
 
 use Application\Modules\Rest\Exceptions\BadRequestException;
 use Application\Modules\Rest\Exceptions\ConflictException;
+use Application\Modules\Rest\Exceptions\NotFoundException;
 use Phalcon\DI\InjectionAwareInterface;
 
 /**
@@ -46,6 +47,17 @@ abstract class AbstractModelCrud implements InjectionAwareInterface {
     }
 
     /**
+     * Get model primary key
+     *
+     * @return array
+     */
+    public function getPrimaryKey()
+    {
+        $metaData = $this->getInstance()->getModelsMetaData();
+        return $metaData->getPrimaryKeyAttributes($this->getInstance())[0];
+    }
+
+    /**
      * Get model attributes
      *
      * @return array
@@ -60,8 +72,8 @@ abstract class AbstractModelCrud implements InjectionAwareInterface {
      * Create record row
      *
      * @param array $data
-     * @throws BadRequestException
-     * @throws ConflictException
+     * @throws \Application\Modules\Rest\Exceptions\BadRequestException
+     * @throws \Application\Modules\Rest\Exceptions\ConflictException
      *
      * @return \Phalcon\Mvc\Model
      */
@@ -116,7 +128,6 @@ abstract class AbstractModelCrud implements InjectionAwareInterface {
         return true;
     }
 
-
     /**
      * Method to set the value of field datetime
      *
@@ -131,6 +142,40 @@ abstract class AbstractModelCrud implements InjectionAwareInterface {
         $datetime->setTimezone(new \DateTimeZone(date_default_timezone_get()));
 
         return $datetime->format('Y-m-d H:i:s');
+    }
+
+
+    /**
+     * Get related records
+     *
+     * @param array $params
+     * @return \Phalcon\Mvc\Model\Resultset\Simple
+     * @throws \Application\Modules\Rest\Exceptions\NotFoundException
+     */
+    public function getRelated(array $params) {
+
+        // get relation mapper
+        $mapper = $this->getDi()->get($params['mapper']);
+
+        $conditional = implode(' AND ', array_map(function ($v, $k) {
+            return $k . '=' . $v;
+        }, $params['rel'], array_keys($params['rel'])));
+
+        // setup properties
+        $prop = [];
+        if(isset($params['order'])) $prop['order'] = $params['order'];
+        if(isset($params['limit'])) $prop['limit'] = $params['limit'];
+        if(isset($params['offset'])) $prop['offset'] = $params['offset'];
+
+        $find = $mapper->getInstance()->find(array_merge([$conditional], $prop));
+
+        if($find->count() > 0) {
+            return $find;
+        }
+
+        throw new NotFoundException([
+            'RELATED_RECORDS_NOT_FOUND'  =>  'Related records not found'
+        ]);
     }
 
     /**

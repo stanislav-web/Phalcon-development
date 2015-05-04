@@ -153,7 +153,8 @@ class RestCacheService {
      * @return string
      */
     public function getKey() {
-        return md5($this->key);
+
+        return (empty($this->key) === false) ? md5($this->key) : null;
     }
 
     /**

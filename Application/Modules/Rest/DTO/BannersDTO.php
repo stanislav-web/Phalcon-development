@@ -26,7 +26,7 @@ class BannersDTO extends AbstractDTO
      * Setup banners
      *
      * @param \Phalcon\Mvc\Model\Resultset\Simple $banners
-     * @return $this
+     * @return \Application\Modules\Rest\DTO\BannersDTO
      */
     public function setBanners(\Phalcon\Mvc\Model\Resultset\Simple $banners) {
 
@@ -36,20 +36,6 @@ class BannersDTO extends AbstractDTO
         $this->banners['offset'] = $this->offset();
 
         return $this;
-    }
-
-    /**
-     * Reverse object to an array
-     *
-     * @return array
-     */
-    public function asRealArray($obj) {
-        $_arr = is_object($obj) ? get_object_vars($obj) : $obj;
-        foreach ($_arr as $key => $val) {
-            $val = (is_array($val) || is_object($val)) ? $this->asRealArray($val) : $val;
-            $arr[$key] = $val;
-        }
-        return $arr;
     }
 
     /**

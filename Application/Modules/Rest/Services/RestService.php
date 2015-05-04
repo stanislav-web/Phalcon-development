@@ -221,18 +221,17 @@ class RestService implements RestServiceInterface {
 
         if(isset($rules->relations) === true) {
             foreach($rules->relations as $relation => $rule) {
+                // if isset rel name in rules ?
                 if(isset($this->getParams()[$relation]) === true) {
 
-                    if(is_numeric($this->getParams()[$relation])) {
-
-                        $relations[$relation] = [
-                            "id" => $this->getParams()[$relation],
+                    $rule['rel'] = (is_numeric($this->getParams()[$relation]) === true)
+                        ? [ current($rule['rel'])   => (int)array_shift($this->getParams()['bind']),
+                            key($rule['rel'])       => (int)$this->getParams()[$relation]
+                        ] :[
+                            current($rule['rel'])   => (int)array_shift($this->getParams()['bind']),
                         ];
-                    }
-                    else {
-                        $relations[$relation] = [];
-                    }
-                    $relations[$relation]['rule'] = $rule;
+
+                    $relations[$relation] = $rule;
                 }
             }
         }
@@ -308,7 +307,6 @@ class RestService implements RestServiceInterface {
 
         $this->setMessage($this->getResolver()->getResponse());
 
-        // Set rules required header
         $this->setHeader([
             'Access-Control-Allow-Methods'  =>  $this->getResolver()->getRules()->methods,
             'X-Rate-Limit'                  =>  $this->getRateLimit(),
@@ -317,13 +315,16 @@ class RestService implements RestServiceInterface {
             'Content-Length'                =>  $this->setContentLength($this->getMessage()),
             'X-Resource'                    =>  $this->getResourceUri(),
             'Cache-Control' =>  'max-age='.$this->getCacheService()->getLifetime().', must-revalidate',
-            'Expires'       =>  gmdate('D, d M Y H:i:s T', time()+$this->getCacheService()->getLifetime())
+            'Expires'       =>  gmdate('D, d M Y H:i:s T', time()+$this->getCacheService()->getLifetime()),
         ]);
 
-        $this->getResponseService()
-            ->setEtag($this->getCacheService()->getKey())
-            ->setJsonContent($this->getMessage());
+        $response = $this->getResponseService()->setJsonContent($this->getMessage());
+        $eTag = $this->getCacheService()->getKey();
 
-        return $this->getResponseService();
+        if(is_null($eTag) === false) {
+            $response->setEtag($this->getCacheService()->getKey());
+        }
+
+        return $response;
     }
 }

@@ -78,7 +78,7 @@ $di->setShared('db', function () use ($di) {
         use ($dbListener) {
 
             if($event->getType() == 'beforeQuery') {
-                $dbListener->getProfiler()->startProfile($connect->getSQLStatement());
+                $dbListener->getProfiler()->startProfile($connect->getRealSQLStatement());
             }
             if ($event->getType() == 'afterQuery') {
                 $dbListener->getProfiler()->stopProfile();
@@ -147,6 +147,9 @@ $di->setShared('UserMapper','Application\Services\Mappers\UserMapper');
 
 // Define banners mapper
 $di->setShared('BannersMapper','Application\Services\Mappers\BannersMapper');
+
+// Define items mapper
+$di->setShared('ItemsMapper','Application\Services\Mappers\ItemsMapper');
 
 // Define log mapper
 $di->setShared('LogMapper', function() use ($config, $di) {

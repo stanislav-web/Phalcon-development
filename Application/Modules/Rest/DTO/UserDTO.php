@@ -34,7 +34,7 @@ class UserDTO extends AbstractDTO
      * Setup users
      *
      * @param \Phalcon\Mvc\Model\Resultset\Simple $users
-     * @return $this
+     * @return \Application\Modules\Rest\DTO\UserDTO
      */
     public function setUsers(\Phalcon\Mvc\Model\Resultset\Simple $users) {
 
@@ -60,20 +60,6 @@ class UserDTO extends AbstractDTO
         $this->access['offset'] = $this->offset();
 
         return $this;
-    }
-
-    /**
-     * Reverse object to an array
-     *
-     * @return array
-     */
-    public function asRealArray($obj) {
-        $_arr = is_object($obj) ? get_object_vars($obj) : $obj;
-        foreach ($_arr as $key => $val) {
-            $val = (is_array($val) || is_object($val)) ? $this->asRealArray($val) : $val;
-            $arr[$key] = $val;
-        }
-        return $arr;
     }
 
     /**

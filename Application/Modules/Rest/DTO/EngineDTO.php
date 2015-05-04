@@ -2,6 +2,7 @@
 namespace Application\Modules\Rest\DTO;
 
 use Application\Aware\AbstractDTO;
+use Application\Helpers\Node;
 
 /**
  * Class EngineDTO. Data Transfer Object for engines relationships
@@ -47,7 +48,7 @@ class EngineDTO extends AbstractDTO
      * Setup engines (main)
      *
      * @param \Phalcon\Mvc\Model\Resultset\Simple $engines
-     * @return $this
+     * @return \Application\Modules\Rest\DTO\EngineDTO
      */
     public function setEngines(\Phalcon\Mvc\Model\Resultset\Simple $engines) {
 
@@ -55,7 +56,7 @@ class EngineDTO extends AbstractDTO
             $this->engines = $engines->toArray();
         }
         else {
-            $this->engines = $this->asRealArray($engines->getFirst());
+            $this->engines = Node::asRealArray($engines->getFirst());
         }
 
         $this->engines['total'] = $this->total($engines);
@@ -95,25 +96,11 @@ class EngineDTO extends AbstractDTO
      * @param \Phalcon\Mvc\Model\Resultset\Simple $categories
      * @return $this
      */
-    public function setCategories(\Application\Models\Categories $categories) {
+    public function setCategories(\Phalcon\Mvc\Model\Resultset\Simple $categories) {
 
-        $this->categories[] = $categories->toArray();
+        $this->categories[] = Node::setNestedTree($categories->toArray());
 
         return $this;
-    }
-
-    /**
-     * Reverse object to an array
-     *
-     * @return array
-     */
-    public function asRealArray($obj) {
-        $_arr = is_object($obj) ? get_object_vars($obj) : $obj;
-        foreach ($_arr as $key => $val) {
-            $val = (is_array($val) || is_object($val)) ? $this->asRealArray($val) : $val;
-            $arr[$key] = $val;
-        }
-        return $arr;
     }
 
     /**

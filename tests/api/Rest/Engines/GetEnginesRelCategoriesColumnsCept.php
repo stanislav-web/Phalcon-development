@@ -13,5 +13,6 @@ $I->seeResponseCodeIs(200);
 $I->seeHttpHeader('Access-Control-Allow-Methods', 'GET');
 $I->seeHttpHeader('Access-Control-Allow-Origin', '*');
 $I->seeResponseIsJson();
-$I->seeResponseJsonMatchesJsonPath('$.data.id');
-$I->seeResponseJsonMatchesJsonPath('$.data.host');
+$I->seeResponseJsonMatchesJsonPath('$.data.engines.id');
+$I->seeResponseJsonMatchesJsonPath('$.data.engines.host');
+$I->seeResponseJsonMatchesJsonPath('$.data.categories');

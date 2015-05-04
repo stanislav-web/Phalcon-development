@@ -40,8 +40,10 @@ class CategoryMapper extends AbstractModelCrud {
         $result = $this->getInstance()->find($credentials);
 
         if($result->count() > 0) {
-
             //@TODO Set nested tree output
+//            if($result->count() > 1) {
+//                $this->setNestedTree($result->toArray(), 'parent_id');
+//            }
             return (new CategoryDTO())->setCategories($result);
         }
 
@@ -59,7 +61,8 @@ class CategoryMapper extends AbstractModelCrud {
      */
     public function setNestedTree(array $elements, $key)
     {
-        $branch = array();
+        $branch = [];
+
         foreach($elements as $element) {
 
             if (is_null($element[$key]) === true) {
@@ -67,9 +70,13 @@ class CategoryMapper extends AbstractModelCrud {
                 $id = $element['id'];
                 continue;
             }
-            $branch[$id]['childs'][] = $element;
+            else if($element['parent_id'] !== $id) {
+                $branch[$id]['childs'][0]['childs'][] = $element;
+            }
+            else {
+                $branch[$id]['childs'][] = $element;
+            }
         }
-
         return array_values($branch);
     }
 }

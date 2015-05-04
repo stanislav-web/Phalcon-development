@@ -2,65 +2,88 @@
 namespace Application\Models;
 
 /**
- * Class Banners `banners`
+ * Class Items `items`
  *
  * @package    Application
  * @subpackage    Models
  * @since PHP >=5.4
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
- * @filesource /Application/Models/Banners.php
+ * @filesource /Application/Models/Items.php
  */
-class Banners extends \Phalcon\Mvc\Model
+class Items extends \Phalcon\Mvc\Model
 {
     /**
      * Absolute model name
      *
      * @const
      */
-    const TABLE = '\Application\Models\Banners';
+    const TABLE = '\Application\Models\Items';
 
     /**
-     *
      * @var integer
      */
     public $id;
 
     /**
-     *
-     * @var integer
-     */
-    public $engine_id;
-
-    /**
-     *
      * @var string
      */
-    public $image;
+    public $name;
 
     /**
-     *
      * @var string
      */
-    public $link;
+    public $label;
 
     /**
-     *
      * @var string
      */
     public $description;
 
     /**
-     * Datetime create
+     * @var string
+     */
+    public $images;
+
+    /**
+     * @var string
+     */
+    public $previews;
+
+    /**
+     * @var boolean
+     */
+    public $is_published;
+
+    /**
+     * @var boolean
+     */
+    public $is_moderated;
+
+    /**
+     * @var integer
+     */
+    public $in_storage;
+
+    /**
+     * @var integer
+     */
+    public $user_id;
+
+    /**
      * @var datetime
      */
     public $date_create;
 
     /**
-     * Timestamp add
      * @var timestamp
      */
     public $date_update;
+
+    /**
+     * @var datetime
+     */
+    public $date_removal;
 
     /**
      * Initialize Model
@@ -72,11 +95,5 @@ class Banners extends \Phalcon\Mvc\Model
             'notNullValidations' => true,
             'exceptionOnFailedSave' => false
         ]);
-
-        // skip attributes before every IN >
-        $this->skipAttributesOnCreate(['date_update']);
-        $this->skipAttributesOnUpdate(['date_create', 'date_update']);
-
-        $this->belongsTo('engine_id', Engines::TABLE, 'id');
     }
 }

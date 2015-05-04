@@ -20,6 +20,7 @@ class Engines extends \Phalcon\Mvc\Model
 {
     /**
      * Absolute model name
+     *
      * @const
      */
     const TABLE = '\Application\Models\Engines';
@@ -73,11 +74,6 @@ class Engines extends \Phalcon\Mvc\Model
      * @var timestamp
      */
     public $date_update;
-
-    /**
-     * @var Categories
-     */
-    public $categories;
 
     /**
      * Initialize Model

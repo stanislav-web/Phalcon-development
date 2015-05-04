@@ -26,7 +26,7 @@ class LogDTO extends AbstractDTO
      * Setup logs
      *
      * @param \Phalcon\Mvc\Model\Resultset\Simple $logs
-     * @return $this
+     * @return \Application\Modules\Rest\DTO\LogDTO
      */
     public function setLogs(\Phalcon\Mvc\Model\Resultset\Simple $logs) {
 
@@ -36,20 +36,6 @@ class LogDTO extends AbstractDTO
         $this->logs['offset'] = $this->offset();
 
         return $this;
-    }
-
-    /**
-     * Reverse object to an array
-     *
-     * @return array
-     */
-    public function asRealArray($obj) {
-        $_arr = is_object($obj) ? get_object_vars($obj) : $obj;
-        foreach ($_arr as $key => $val) {
-            $val = (is_array($val) || is_object($val)) ? $this->asRealArray($val) : $val;
-            $arr[$key] = $val;
-        }
-        return $arr;
     }
 
     /**

@@ -104,9 +104,11 @@ return [
             'mapper'    =>  'EngineMapper',
             'relations' =>  [
                 'categories' => [
-                    'CategoryMapper' => [
+                    'mapper' => 'CategoryMapper',
+                    'rel'     => [
                         'id' => 'engine_id'
-                    ]
+                    ],
+                    //'order' => 'lft, sort'
                 ]
             ]
         ],
@@ -119,6 +121,16 @@ return [
             ],
             'methods'   =>  'GET',
             'mapper'    =>  'CurrencyMapper',
+        ],
+    ],
+    'items'  =>  [
+        'get'    =>  [
+            'requests'  =>  [  // limit request per seconds
+                'limit' =>  2500,
+                'time'  =>  60,
+            ],
+            'methods'   =>  'GET',
+            'mapper'    =>  'ItemsMapper',
         ],
     ],
     'errors'  =>  [
