@@ -128,6 +128,11 @@ $di->setShared('eventsManager', function () {
 // Define helper's service
 $di->setShared('tag', '\Application\Services\Advanced\HelpersService');
 
+// Define Opcode Cache Service
+$di->setShared('OpcodeCache', function () use ($di) {
+    return new \Application\Services\Cache\OpCodeService($di->get('config'));
+});
+
 // MAPPERS
 
 // Define category mapper

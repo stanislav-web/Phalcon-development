@@ -36,8 +36,6 @@ class ControllerBase extends Controller
     {
         $this->rest =  $this->getDI()->get("RestService");
         $this->rest->getResolver()->filter($this->request)->validate();
-
-
     }
 
     /**

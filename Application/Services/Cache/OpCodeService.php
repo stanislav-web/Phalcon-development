@@ -1,24 +1,24 @@
 <?php
-namespace Application\Modules\Rest\Services;
+namespace Application\Services\Cache;
 
 use \Phalcon\Cache\Frontend\Data;
-use \Phalcon\Cache\Backend\Libmemcached as Storage;
+use \Phalcon\Cache\Backend\Apc as OpCodeStorage;
 
 /**
- * Class RestCacheService. Web Service's response cache class
+ * Class OpCodeService. Opcode cache storage
  *
- * @package Application\Modules\Rest
- * @subpackage Services
+ * @package Application\Services
+ * @subpackage Cache
  * @since PHP >=5.4
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @copyright Stanislav WEB
- * @filesource /Application/Modules/Rest/Services/RestCacheService.php
+ * @filesource /Application/Services/Cache/OpCodeService.php
  */
-class RestCacheService {
+class OpCodeService {
 
     /**
-     * Rest config
+     * Global config
      *
      * @var \Phalcon\Config $config
      */
@@ -47,8 +47,8 @@ class RestCacheService {
 
         $this->setConfig($config->cache);
 
-        if($config->cache->enable === false) {
-            $this->getStorage()->flush();
+        if($config->cache->code === false) {
+            $this->getOpStorage()->flush();
         }
     }
 
@@ -73,7 +73,7 @@ class RestCacheService {
     }
 
     /**
-     * Set cache value into cache storage
+     * Set cache value into opcode cache storage
      *
      * @param mixed $object
      * @param string $key
@@ -83,11 +83,11 @@ class RestCacheService {
     public function set($value, $key, $cached = false)
     {
         if(is_null($this->getConfig()) === false
-            && $this->getConfig()->enable === true
+            && $this->getConfig()->code === true
             && $cached === true) {
 
             $this->key = $key;
-            $this->getStorage()->save($this->key, $value);
+            $this->getOpStorage()->save($this->key, $value);
 
         }
 
@@ -95,14 +95,14 @@ class RestCacheService {
     }
 
     /**
-     * Check if key is exist in cache
+     * Check if key is exist in opcode cache
      *
      * @param string $key
      * @return bool
      */
     public function exists($key) {
 
-        if($this->getStorage()->exists($key) === true) {
+        if($this->getOpStorage()->exists($key) === true) {
             $this->cached = true;
             return true;
         }
@@ -110,7 +110,7 @@ class RestCacheService {
     }
 
     /**
-     * Get value from cache storage
+     * Get value from opcode cache storage
      *
      * @param string $key
      * @return mixed
@@ -119,27 +119,24 @@ class RestCacheService {
 
         $this->key = $key;
 
-        return $this->getStorage()->get($key);
+        return $this->getOpStorage()->get($key);
     }
 
     /**
-     * Get the cache storage
+     * Get the opcode cache storage
      *
-     * @return \Phalcon\Cache\Backend\Memcache
+     * @return \Phalcon\Cache\Backend\Apc
      */
-    public function getStorage() {
+    public function getOpStorage() {
 
-        return new Storage(new Data(["lifetime" => $this->getConfig()->lifetime]),
-            [
+        return new OpCodeStorage(new Data(["lifetime" => $this->getConfig()->lifetime]), [
                 "prefix"    =>  $this->getConfig()->prefix,
-                "host"      =>  $this->getConfig()->memcached->host,
-                "port"      =>  $this->getConfig()->memcached->port
             ]
         );
     }
 
     /**
-     * Return cache lifetime
+     * Return opcode cache lifetime
      *
      * @return int
      */
@@ -148,7 +145,7 @@ class RestCacheService {
     }
 
     /**
-     * Return cache hot key
+     * Return opcode cache hot key
      *
      * @return string
      */
@@ -158,7 +155,7 @@ class RestCacheService {
     }
 
     /**
-     * Return cache data state
+     * Return opcode cache data state
      *
      * @return boolean
      */

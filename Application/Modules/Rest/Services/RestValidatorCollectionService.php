@@ -120,8 +120,6 @@ class RestValidatorCollectionService extends RestValidatorCollectionsProvider {
     public function validate() {
         $qv = new InputValidator($this->getDi());
         $qv->validate($this->getRules(), $this->getParams());
-
-
     }
 
     /**
@@ -131,8 +129,30 @@ class RestValidatorCollectionService extends RestValidatorCollectionsProvider {
      */
     public function resolve($responseData) {
 
-        $rs = new OutputValidator($this->getDi()->get('RestConfig'));
-        $rs->validate($responseData);
-        $this->setResponse($rs->getResult());
+        if($this->getDi()->get('config')->cache->code === true) {
+
+            // caching response from validator
+            $key = md5(serialize($responseData));
+            $cache = $this->getDi()->get('OpcodeCache');
+
+            if($cache->exists($key) === true) {
+                $result = $cache->get($key);
+            }
+            else {
+
+                $rs = new OutputValidator($this->getConfig());
+                $rs->validate($responseData);
+                $result = $rs->getResult();
+
+                $cache->set($result, $key, true);
+            }
+        }
+        else {
+            $rs = new OutputValidator($this->getConfig());
+            $rs->validate($responseData);
+            $result = $rs->getResult();
+        }
+
+        $this->setResponse($result);
     }
 }

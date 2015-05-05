@@ -145,7 +145,7 @@ class OutputValidator {
      * @return array
      */
     private function getRedirects() {
-        return $this->getConfig()->api->redirects->toArray();
+        return $this->getConfig()->redirects->toArray();
     }
 
     /**
