@@ -6,8 +6,9 @@
  */
 defined('DOCUMENT_ROOT') || define('DOCUMENT_ROOT', $_SERVER["DOCUMENT_ROOT"]);
 defined('APP_PATH') || define('APP_PATH', DOCUMENT_ROOT . '/../Application');
-defined('APPLICATION_ENV') ||
-define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production'));
+//defined('APPLICATION_ENV') ||
+//define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production'));
+define('APPLICATION_ENV', 'production');
 
 if(APPLICATION_ENV === 'development') {
 

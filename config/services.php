@@ -40,7 +40,7 @@ $di->setShared('session', function () use ($config) {
 
 $di->setShared('modelsMetadata', function() use ($config) {
 
-    $metaData = new \Phalcon\Mvc\Model\MetaData\Memory([
+    $metaData = new \Phalcon\Mvc\Model\MetaData\Apc([
         'lifetime'      => $config['cache']['lifetime'], // optional (standard: 8600)
         'prefix'        => $config['cache']['prefix']   // optional (standard: false)
     ]);
