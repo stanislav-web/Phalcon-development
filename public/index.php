@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @define Document root
  * @define Application path
@@ -6,9 +7,8 @@
  */
 defined('DOCUMENT_ROOT') || define('DOCUMENT_ROOT', $_SERVER["DOCUMENT_ROOT"]);
 defined('APP_PATH') || define('APP_PATH', DOCUMENT_ROOT . '/../Application');
-//defined('APPLICATION_ENV') ||
-//define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production'));
-define('APPLICATION_ENV', 'production');
+defined('APPLICATION_ENV') ||
+define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production'));
 
 if(APPLICATION_ENV === 'development') {
 
@@ -17,7 +17,6 @@ if(APPLICATION_ENV === 'development') {
     }
     require_once '/var/www/profiler.local/external/header.php';
 }
-
 
 // Require composite libraries
 require_once DOCUMENT_ROOT . ' /../vendor/autoload.php';
@@ -34,6 +33,7 @@ require_once DOCUMENT_ROOT . '/../config/services.php';
 try {
 
     $app = new Phalcon\Mvc\Application($di);
+
     // Require modules
     require_once DOCUMENT_ROOT . '/../config/modules.php';
 

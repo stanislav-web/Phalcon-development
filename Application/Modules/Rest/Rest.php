@@ -89,21 +89,4 @@ class Rest
             }
         }
     }
-
-    /**
-     * Shutdown application while uncatchable error founded
-     *
-     * @param \Phalcon\DI\FactoryDefault $di
-     * @throws \Application\Modules\Rest\Exceptions\InternalServerErrorException
-     */
-    public function catchLimit($di) {
-
-        try {
-            throw new RequestTimeoutException();
-        }
-        catch(RequestTimeoutException $e) {
-            $exception = new RestExceptionHandler($di);
-            $exception->handle($e)->send();
-        }
-    }
 }

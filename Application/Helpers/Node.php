@@ -2,7 +2,7 @@
 namespace Application\Helpers;
 
 /**
- * Helper Node. Work with data type
+ * Node class. Work with data type
  *
  * @package Application
  * @subpackage Helpers

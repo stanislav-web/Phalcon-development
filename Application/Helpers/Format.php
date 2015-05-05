@@ -2,7 +2,7 @@
 namespace Application\Helpers;
 
 /**
- * Helper. Data formatting
+ * Format class. Data formatting
  *
  * @package Application
  * @subpackage Helpers
