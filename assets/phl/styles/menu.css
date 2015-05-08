@@ -61,19 +61,31 @@ ul#menu ul li a {
     font-size: 0.9em;
 }
 
-ul#menu ul li:first-child a {
+ul#menu ul.chunk {
+    float: left;
+    display: block;
+    width: 100%;
+    height: auto;
+    line-height: 1.3em;
+}
+
+ul#menu ul li.sub {
+    float: left;
+    line-height: 1.3em;
+    height: auto;
+    width: 50%;
+}
+
+ul#menu ul li.sub > a {
     font-size: 0.9em;
     color: #fff;
 }
 
-ul#menu ul li a:hover {
+ul#menu ul li.sub > a:hover {
     color: #fff;
     background: none;
 }
 
-ul#menu ul li:first-child a:hover {
-    color: #fff;
-}
 
 /* clearfix */
 nav ul:after {

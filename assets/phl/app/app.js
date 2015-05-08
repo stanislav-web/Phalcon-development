@@ -44,8 +44,6 @@ var app;
                 $rootScope.engines      = response.engines;
                 $rootScope.banners      = response.banners;
                 $rootScope.title        = response.engines.name;
-
-                console.log($rootScope.categories);
             });
 
             Restangular.all("currencies").getList().then(function(response) {

@@ -39,6 +39,7 @@
                     };
 
                     $scope.$watch('currentIndex', function() {
+
                         if($scope.hasOwnProperty('banners')) {
                             $scope.banners.forEach(function(image) {
                                 image.visible = false; // make every image invisible

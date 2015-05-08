@@ -5,14 +5,15 @@
                 <li ng-repeat="category in categories">
                     <a href="/category/{{category.alias}}">{{category.title}}</a>
                     <div ng-if="category.childs" class="mega megapanel">
-                        <ul ng-repeat="chunk in category.childs">
-                            <li ng-repeat="child in chunk">
+                        <ul ng-repeat="chunk in category.childs" class="chunk">
+                            <li ng-repeat="child in chunk" class="sub">
                                 <a href="/category/{{category.alias}}/{{child.alias}}">{{child.title}}</a>
-                                    <li ng-if="child.childs" ng-repeat="sub in child.childs">
+                                <ul ng-if="child.childs">
+                                    <li ng-repeat="sub in child.childs">
                                         <a href="/category/{{category.alias}}/{{child.alias}}/{{sub.alias}}">{{sub.title}}</a>
                                     </li>
+                                </ul>
                             </li>
-
                         </ul>
                     </div>
                 </li>

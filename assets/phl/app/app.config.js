@@ -16,7 +16,7 @@
                 CUSTOMER_MENU :         '/assets/phl/app/data/menu/customer.json'
             },
             SLIDER : {
-                TIMEOUT : 5000
+                TIMEOUT : 1000
             },
             LANGUAGES: {
                 ACCEPT: ['en', 'ru', 'de', 'uk'],
