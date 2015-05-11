@@ -35,10 +35,13 @@
 
                 var data = localStorage.getItem(key);
                 try {
-                    return JSON.parse(data);
+                    if(data.length) {
+                        return JSON.parse(data);
+                    }
+
                 }
                 catch(e) {
-                   return data;
+                    return data;
                 }
             },
 

@@ -49,38 +49,79 @@
             },
             ROUTES : {
                 HOME:       '/',
-                SIGN:       '/sign',
+                AUTH:       '/sign',
 
                 PAGES:      '/page/:page',
                 NOT_FOUND:  '/error/notfound',
                 SERVER_ERROR:  '/error/uncaughtexception',
                 ACCOUNT:    '/account',
-                VERIFY :    '/sign/verify',
-                LOGIN :     '/sign/login',
-                REGISTER :  '/sign/register',
-                RESTORE :   '/sign/restore',
-                LOGOUT :    '/sign/logout'
+                VERIFY :    '/sign/verify'
             }
         };
     })());
 
     // configure base rest loader
-    app.config(['RestangularProvider', 'BASE', '$logProvider', function(RestangularProvider, BASE, $logProvider) {
+    app.config(['RestangularProvider', 'BASE', '$logProvider', function(RestangularProvider,  BASE, $logProvider) {
+
+        /**
+         * The workhorse; converts an object to x-www-form-urlencoded serialization.
+         * @param {Object} obj
+         * @return {String}
+         */
+        var param = function(obj) {
+            var query = '', name, value, fullSubName, subName, subValue, innerObj, i;
+
+            for(name in obj) {
+                value = obj[name];
+
+                if(value instanceof Array) {
+                    for(i=0; i<value.length; ++i) {
+                        subValue = value[i];
+                        fullSubName = name + '[' + i + ']';
+                        innerObj = {};
+                        innerObj[fullSubName] = subValue;
+                        query += param(innerObj) + '&';
+                    }
+                }
+                else if(value instanceof Object) {
+                    for(subName in value) {
+                        subValue = value[subName];
+                        fullSubName = name + '[' + subName + ']';
+                        innerObj = {};
+                        innerObj[fullSubName] = subValue;
+                        query += param(innerObj) + '&';
+                    }
+                }
+                else if(value !== undefined && value !== null)
+                        query += encodeURIComponent(name) + '=' + encodeURIComponent(value) + '&';
+            }
+
+            return query.length ? query.substr(0, query.length - 1) : query;
+        };
 
         $logProvider.debugEnabled(BASE.LOGGER);
+
         RestangularProvider.setBaseUrl(BASE.URL);
-        RestangularProvider.setDefaultHttpFields({cache: true, timeout: BASE.REQUEST_TIMEOUT});
+        RestangularProvider.setDefaultHttpFields({
+            cache: true,
+            etag: 'Etag',
+            timeout: BASE.REQUEST_TIMEOUT,
+            transformRequest : function(data) {
+                return angular.isObject(data) && String(data) !== '[object File]' ? param(data) : data;
+            }
+        });
         RestangularProvider.setDefaultRequestParams('get', {locale: localStorage.getItem(BASE.LANGUAGES.PREFIX)});
         RestangularProvider.setDefaultHeaders(
             { "Accept": BASE.ACCEPT_ENCODING}
         );
+
 
         RestangularProvider.setErrorInterceptor(function(response, deferred, responseHandler) {
             if(BASE.CATCHED_ERRORS.indexOf(response.status) != -1) {
 
                 // set errors for transit to run watcher
                 var error = response.data.error;
-                notify.error(error.code +' ' +error.message, error.data[Object.keys(error.data)[0]]);
+                notify.error(error.code + ' ' +error.message, error.data[Object.keys(error.data)[0]]);
             }
         });
 

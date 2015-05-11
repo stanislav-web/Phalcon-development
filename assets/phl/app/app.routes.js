@@ -14,9 +14,20 @@
                 templateUrl: BASE.TEMPLATES.PAGES,
                 controller: "IndexController"
             })
-            .when(BASE.ROUTES.SIGN, {
+            .when(BASE.ROUTES.AUTH, {
                 templateUrl: BASE.TEMPLATES.SIGN,
                 controller: "SignController"
+            })
+            .when(BASE.ROUTES.ACCOUNT, {
+                templateUrl: BASE.TEMPLATES.ACCOUNT,
+                controller: "UserController",
+                caseInsensitiveMatch: true,
+                resolve: {
+                    // route under secure verifying
+                    isLoggedIn : function(Authentication) {
+                        Authentication.isLoggedIn();
+                    }
+                }
             })
             .when(BASE.ROUTES.PAGES, {
                 templateUrl: BASE.TEMPLATES.PAGES,
@@ -26,17 +37,7 @@
                 controller: "IndexController",
                 redirectTo: BASE.ROUTES.LOGOUT
             })
-            .when(BASE.ROUTES.ACCOUNT, {
-                templateUrl: BASE.TEMPLATES.ACCOUNT,
-                controller: "UserCtrl",
-                caseInsensitiveMatch: true,
-                resolve: {
-                    // route under secure verifying
-                    isAuthenticated : function(Authentication) {
-                        Authentication.requestUser(BASE.ROUTES.VERIFY);
-                    }
-                }
-            })
+
             .when('/transactions/:name', {
                 templateUrl: function(urlattr){
                     return 'assets/phl/app/transactions/templates/' + urlattr.name + '.html';

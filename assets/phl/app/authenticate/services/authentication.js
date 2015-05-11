@@ -8,176 +8,114 @@
     app.service('Authentication',  ['Restangular', 'Session',
         function(Restangular, Session) {
 
-        /**
-         * User authentication state
-         * @type {boolean}
-         */
-        var isAuthenticated = false;
-
-        /**
-         * User object
-         * @type {null}
-         */
-        var user = null;
-
-        return {
+            /**
+             * Logged user flag
+             *
+             * @type {boolean}
+             */
+            var isLoggedIn = false;
 
             /**
-             * Authenticates for user
+             * Get user auth data
              *
-             * @param array credentials
-             * @param string route
-             * @returns {*}
+             * @returns object
              */
-            login: function(route, credentials) {
-
-                return Restangular.all(route).withHttpConfig({transformRequest: angular.identity})
-                    .customGET(undefined, credentials);
-            },
+            var getAuthData = function() {
+                return Session.get('auth');
+            };
 
             /**
-             * Log in to account / Register
+             * Remove user auth data
              *
-             * @param $scope object credentials
-             * @param string route handler
-             * @returns {ng.IPromise<T>}
+             * @returns null
              */
-            sign: function (credentials, route) {
+            var removeAuthData = function() {
+                return Session.remove('auth');
+            };
 
-                var deferred = $q.defer();
+            return {
 
-                $http.post(route, credentials).success(function (response) {
+                /**
+                 * Authenticate for user
+                 *
+                 * @param array credentials
+                 * @param string route
+                 * @returns {*}
+                 */
+                login: function(route, credentials) {
 
-                    if (response.success) {
+                    return Restangular.all(route)
+                        .customGET(undefined, credentials);
+                },
 
-                        $rootScope.user = user = response.user;
-                        $rootScope.isAuthenticated = isAuthenticated = true;
+                /**
+                 * Restore account
+                 *
+                 * @param array credentials
+                 * @param string route
+                 * @returns {*}
+                 */
+                restore: function(route, credentials) {
 
-                        // set auth token
-                        Session.set('token', response.token);
+                    return Restangular.one(route)
+                        .customPUT(credentials, '', undefined, {
+                            'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+                        });
+                },
 
-                        deferred.resolve(response);
+                /**
+                 * Register account
+                 *
+                 * @param array credentials
+                 * @param string route
+                 * @returns {*}
+                 */
+                register: function(route, credentials) {
+
+                    return Restangular.one(route)
+                        .customPUT(credentials, '', undefined, {
+                            'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+                        });
+                },
+
+                /**
+                 * Is user still auth ?
+                 *
+                 * @returns {boolean}
+                 */
+                isLoggedIn: function () {
+
+                    var auth = getAuthData();
+
+                    // check for data isset
+                    if(!_.isNull(auth) && !_.isUndefined(auth)) {
+
+                        // check for data contains specific keys
+                        if(_.has(auth, ['user_id']) && _.has(auth, ['expire_date']) && _.has(auth, ['token'])) {
+
+                            // check for data is valid by date
+                            if(moment(auth.expire_date).isValid()
+                                && moment(auth.expire_date).unix() > moment().unix()) {
+
+                                isLoggedIn = true;
+                                return true;
+                            }
+                        }
                     }
-                    else {
-                        deferred.resolve(response);
-                    }
+                    removeAuthData();
+                },
 
-                }).error(function (error) {
+                /**
+                 * Logout
+                 *
+                 * @param route
+                 * @returns null
+                 */
+                logout: function (route) {
 
-                    deferred.reject(error);
-                });
-
-                return deferred.promise;
-            },
-
-            /**
-             * Get auth user's params
-             *
-             * @returns {ng.IPromise<T>}
-             */
-            requestUser: function (route) {
-
-                var deferred = $q.defer();
-
-                $http.get(route, {headers : {
-                    'X-Token':   store.get('token')
-                }}).success(function (response) {
-
-                    // Check if user is defined first
-                    if (response.success) {
-                        $rootScope.user = user = response.user;
-                        $rootScope.isAuthenticated = isAuthenticated = true;
-
-                        // update auth token
-                        Session.set('token', response.token);
-
-                    }
-                    deferred.resolve(user);
-
-                }).error(function (error) {
-                    deferred.reject(error);
-                });
-
-                return deferred.promise;
-            },
-
-            /**
-             * Get Auth user data
-             *
-             * @returns {*}
-             */
-            getUser: function () {
-                return user;
-            },
-
-            /**
-             * Is user still auth ?
-             *
-             * @returns {boolean}
-             */
-            isLoggedIn: function () {
-                return (isAuthenticated === true) ? true : false;
-            },
-
-
-
-            /**
-             * Restore account
-             *
-             * @param $scope object credentials
-             * @param string route handler
-             * @returns {ng.IPromise<T>}
-             */
-            restore: function (credentials, route) {
-
-                var deferred = $q.defer();
-
-                $http.post(route, credentials).success(function (response) {
-                    if (response.success) {
-
-                        deferred.resolve(response);
-                    }
-                    else {
-                        deferred.resolve(response);
-                    }
-
-                }).error(function (error) {
-
-                    deferred.reject(error);
-                });
-
-                return deferred.promise;
-            },
-
-            /**
-             * Logout
-             *
-             * @param route
-             * @returns {*}
-             */
-            logout: function (route) {
-
-                var deferred = $q.defer();
-
-                $http.delete(route).success(function (response) {
-                    if (response.success) {
-
-                        $rootScope.user = user = null;
-                        $rootScope.isAuthenticated = isAuthenticated = false;
-                        Session.remove('token');
-
-                        deferred.resolve(true);
-                    }
-                    else {
-                        deferred.resolve(false);
-                    }
-
-                }).error(function (error) {
-                    deferred.reject(error);
-                });
-
-                return deferred.promise;
-            }
-        };
+                    return Restangular.all(route)
+                        .customDELETE();
+                }
+            };
     }]);
 })(angular);

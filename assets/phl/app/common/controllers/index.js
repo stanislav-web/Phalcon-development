@@ -12,6 +12,7 @@
 
             // set meta title
             Meta.setTitle($scope.$parent.engines.name);
-        }]);
+        }
+    ]);
 
 })(angular);

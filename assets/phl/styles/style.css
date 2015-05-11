@@ -219,8 +219,10 @@ body{
     color:#999;
     font-size:0.85em;
 }
-.btn{
-    padding:8% 0;
+.btn {
+    padding:2% 0;
+    background-color: #000 !important;
+    border: none !important;
 }
 .btn a {
     border:1px solid #ddd;
