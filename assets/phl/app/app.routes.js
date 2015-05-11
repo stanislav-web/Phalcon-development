@@ -2,65 +2,38 @@
 
 (function(angular) {
 
-    // set routes config constants
-    app.constant('ROUTES', (function () {
+    // Configure application's routes
 
-        return {
-            HOME:       '/',
-            PAGES:      '/page/:page',
-            NOT_FOUND:  '/error/notfound',
-            SERVER_ERROR:  '/error/uncaughtexception',
-            ACCOUNT:    '/account',
-            VERIFY :    '/sign/verify',
-            LOGIN :     '/sign/login',
-            REGISTER :  '/sign/register',
-            RESTORE :   '/sign/restore',
-            LOGOUT :    '/sign/logout'
-        };
-    })());
-
-    // set routes config template paths
-    app.constant('TEMPLATE', (function () {
-
-        return {
-            MENU_TOP:           'assets/phl/app/common/templates/menu_top.html',
-            MENU_CATEGORIES:    'assets/phl/app/common/templates/menu_categories.html',
-            MENU_SIDEBAR  :    'assets/phl/app/common/templates/sidebar.html',
-            SLIDESHOW  :    'assets/phl/app/common/templates/slideshow.html',
-            PAGES:      'assets/phl/app/common/templates/index.html',
-            ERROR:      'assets/phl/app/common/templates/error.html',
-            SIGN:       'assets/phl/app/authenticate/templates/sign.html',
-            ACCOUNT:    'assets/phl/app/user/templates/account.html'
-        };
-    })());
-
-// configure application's routes
-
-    app.config(['$routeProvider', '$locationProvider', 'ROUTES', 'TEMPLATE', function($routeProvider, $locationProvider, ROUTES, TEMPLATE) {
+    app.config(['$routeProvider', '$locationProvider', 'BASE', function($routeProvider, $locationProvider, BASE) {
 
         $locationProvider.hashPrefix('!');
         $locationProvider.html5Mode(true);
 
-        $routeProvider.when(ROUTES.HOME, {
-            templateUrl: TEMPLATE.PAGES,
-            controller: "IndexController"
-        })
-            .when(ROUTES.PAGES, {
-                templateUrl: TEMPLATE.PAGES,
+        $routeProvider
+            .when(BASE.ROUTES.HOME, {
+                templateUrl: BASE.TEMPLATES.PAGES,
                 controller: "IndexController"
             })
-            .when(ROUTES.LOGOUT, {
-                controller: "IndexController",
-                redirectTo: ROUTES.LOGOUT
+            .when(BASE.ROUTES.SIGN, {
+                templateUrl: BASE.TEMPLATES.SIGN,
+                controller: "SignController"
             })
-            .when(ROUTES.ACCOUNT, {
-                templateUrl: TEMPLATE.ACCOUNT,
+            .when(BASE.ROUTES.PAGES, {
+                templateUrl: BASE.TEMPLATES.PAGES,
+                controller: "IndexController"
+            })
+            .when(BASE.ROUTES.LOGOUT, {
+                controller: "IndexController",
+                redirectTo: BASE.ROUTES.LOGOUT
+            })
+            .when(BASE.ROUTES.ACCOUNT, {
+                templateUrl: BASE.TEMPLATES.ACCOUNT,
                 controller: "UserCtrl",
                 caseInsensitiveMatch: true,
                 resolve: {
                     // route under secure verifying
                     isAuthenticated : function(Authentication) {
-                        Authentication.requestUser(ROUTES.VERIFY);
+                        Authentication.requestUser(BASE.ROUTES.VERIFY);
                     }
                 }
             })
@@ -73,12 +46,12 @@
                 resolve: {
                     // route under secure verifying
                     isAuthenticated : function(Authentication) {
-                        Authentication.requestUser(ROUTES.VERIFY);
+                        Authentication.requestUser(BASE.ROUTES.VERIFY);
                     }
                 }
             })
             .otherwise({
-                templateUrl: TEMPLATE.ERROR,
+                templateUrl: BASE.TEMPLATES.ERROR,
                 controller: 'IndexController'
             }
         );

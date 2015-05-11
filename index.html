@@ -17,10 +17,10 @@
     <link href="/assets/phl/styles/sidebar.css" media="all" rel="stylesheet" />
     <link href="/assets/plugins/isteven-angular-multiselect/isteven-multi-select.css" media="all" rel="stylesheet" />
     <link href="/assets/plugins/angular-notifications/notification.css" media="all" rel="stylesheet" />
+    <link href="/assets/plugins/font-awesome/css/font-awesome.css" media="all" rel="stylesheet" />
     <link href="/assets/phl/styles/style.css" media="all" rel="stylesheet" />
     <link href="/assets/phl/styles/currencies.css" media="all" rel="stylesheet" />
     <link href="/assets/phl/styles/menu.css" media="all" rel="stylesheet" />
-    <link href="/assets/phl/styles/splash.css" media="all" rel="stylesheet" />
     <link href="/assets/phl/styles/slider.css" media="all" rel="stylesheet" />
     <!-- /Append Stylesheet -->
 
@@ -39,7 +39,7 @@
         </div>
         <!-- /Logo -->
         <!-- Top navigation menu -->
-        <menu-top ng-controller="TopMenuController"></menu-top>
+        <menu-top></menu-top>
         <!-- /Top navigation menu -->
 
         <!-- Currency  selector -->
@@ -75,7 +75,7 @@
 
     <section class="line3 wrap">
         <!-- Banners slideshow -->
-        <banners-slideshow></banners-slideshow>
+        <banners-slideshow ng-show="bannersOn"></banners-slideshow>
         <!-- /Banners slideshow -->
 
         <!-- Sidebar -->
@@ -153,9 +153,10 @@
 
 <!-- Services -->
 <script src="/assets/phl/app/common/directives/spinner.js"></script>
-<script src="/assets/phl/app/common/services/splash.js"></script>
 <script src="/assets/phl/app/common/services/session.js"></script>
+<script src="/assets/phl/app/common/services/meta.js"></script>
 <script src="/assets/phl/app/authenticate/services/authentication.js"></script>
+<script src="/assets/phl/app/common/factories/translate-error-handler.js"></script>
 <!-- /Services -->
 
 <!-- Providers -->
@@ -168,8 +169,8 @@
 <script src="/assets/phl/app/authenticate/controllers/sign.js"></script>
 <script src="/assets/phl/app/user/controllers/user.js"></script>
 <!-- /Controllers -->
-
-<div notifications="bottom right"></div>
+{{queue}}
+<div notifications="top right"></div>
 <angular-debug-bar></angular-debug-bar>
 </body>
 </html>

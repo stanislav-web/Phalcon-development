@@ -1,15 +1,15 @@
 {
-    "HOME"          : "Zuhause",
-    "AGREEMENT"     : "Vertrag",
-    "HELP"          : "Hilfe",
-    "CONTACTS"      : "Kontakte",
-    "ABOUT"         : "Über",
-    "SIGN IN"       : "Einloggen",
-    "ACCOUNT"       : "Mein Konto",
-    "PURCHASES"     : "Meine Einkäufe",
-    "OBSERVATIONS"  : "Beobachtungen",
-    "BETS"          : "Meine Wetten",
-    "SELL"          : "Meine Verkäufe",
-    "SOLD_OUT"      : "Verkauft",
-    "LOGOUT"        : "Exit"
+    "Home"          : "Zuhause",
+    "Agreement"     : "Vertrag",
+    "Help"          : "Hilfe",
+    "Contacts"      : "Kontakte",
+    "About"         : "Über",
+    "Sign In"       : "Einloggen",
+    "Account"       : "Mein Konto",
+    "Purchases"     : "Meine Einkäufe",
+    "Observations"  : "Beobachtungen",
+    "Bets"          : "Meine Wetten",
+    "Sell"          : "Meine Verkäufe",
+    "Sold out"      : "Verkauft",
+    "Logout"        : "Exit"
 }

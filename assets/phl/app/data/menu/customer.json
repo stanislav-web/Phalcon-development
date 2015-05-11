@@ -2,32 +2,31 @@
     {
         "title": "Home",
         "url": "/",
-        "translate": "HOME"
+        "translate": "Home"
     },
     {
         "title": "Agreement",
         "url": "/page/agreement",
-        "translate": "AGREEMENT"
+        "translate": "Agreement"
     },
     {
         "title": "Help",
         "url": "/page/help",
-        "translate": "HELP"
+        "translate": "Help"
     },
     {
         "title": "Contacts",
         "url": "/page/contacts",
-        "translate": "CONTACTS"
+        "translate": "Contacts"
     },
     {
         "title": "About",
         "url": "/page/about",
-        "translate": "ABOUT"
+        "translate": "About"
     },
     {
         "title": "Sign In",
-        "url": "#",
-        "translate": "SIGN IN",
-        "onclick": "openSplash()"
+        "url": "/sign",
+        "translate": "Sign In"
     }
 ]

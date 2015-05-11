@@ -1,15 +1,15 @@
 {
-    "HOME"          : "Home",
-    "AGREEMENT"     : "Agreement",
-    "HELP"          : "Help",
-    "CONTACTS"      : "Contacts",
-    "ABOUT"         : "About",
-    "SIGN IN"       : "Sign in",
-    "ACCOUNT"       : "My Account",
-    "PURCHASES"     : "My Purchases",
-    "OBSERVATIONS"  : "My Observations",
-    "BETS"          : "My Bets",
-    "SELL"          : "My Sales",
-    "SOLD_OUT"      : "Sold out",
-    "LOGOUT"        : "Log out"
+    "Home"          : "Home",
+    "Agreement"     : "Agreement",
+    "Help"          : "Help",
+    "Contacts"      : "Contacts",
+    "About"         : "About",
+    "Sign In"       : "Sign in",
+    "Account"       : "My Account",
+    "Purchases"     : "My Purchases",
+    "Observations"  : "My Observations",
+    "Bets"          : "My Bets",
+    "Sell"          : "My Sales",
+    "Sold Out"      : "Sold out",
+    "Logout"        : "Log out"
 }

@@ -9,8 +9,16 @@
      * @dependencies $translate angular-translater
      * @dependencies $cookies angular-cookies
      */
-    app.controller('SignController', ['$scope', '$rootScope', '$location', 'Authentication', '$translatePartialLoader', '$splash', 'ROUTES',
-        function ($scope, $rootScope, $location, Authentication, $translatePartialLoader, $splash, ROUTES) {
+    app.controller('SignController', ['$scope', '$location', 'Authentication', '$translatePartialLoader', 'Meta', 'BASE', function ($scope, $location, Authentication, $translatePartialLoader, Meta, BASE) {
+
+        // add language support to this controller
+        $translatePartialLoader.addPart('sign');
+
+        // hide banners
+        $scope.$parent.bannersOn = false;
+
+            // set meta title
+            Meta.setTitle('Sign In', $scope.$parent.title);
 
             $scope.loginForm = true;
             $scope.registerForm = false;
@@ -53,12 +61,12 @@
                 };
 
                 // call auth service
-                Authentication.sign(credentials, ROUTES.LOGIN).then(function (response) {
+                Authentication.login(BASE.ROUTES.LOGIN, credentials).then(function (response) {
 
                     if(response.success) {
                         // close splash window & redirect to account
                         $splash.close();
-                        $location.path(ROUTES.ACCOUNT);
+                        $location.path(BASE.ROUTES.ACCOUNT);
                     }
                 }, function(error) {
 
@@ -82,7 +90,7 @@
                 };
 
                 // call auth service
-                Authentication.restore(credentials, ROUTES.RESTORE).then(function (response) {
+                Authentication.restore(credentials, BASE.ROUTES.RESTORE).then(function (response) {
 
                     $scope.restoreSuccess = response.message;
                     $scope.dataLoading = false;
@@ -115,11 +123,11 @@
                 };
 
                 // call auth service
-                Authentication.sign(credentials, ROUTES.REGISTER).then(function (response) {
+                Authentication.sign(credentials, BASE.ROUTES.REGISTER).then(function (response) {
 
                     // close splash window & redirect to account
                     $splash.close();
-                    $location.path(ROUTES.ACCOUNT);
+                    $location.path(BASE.ROUTES.ACCOUNT);
 
                 }, function(error) {
 
@@ -135,11 +143,11 @@
              */
             $scope.logout = function () {
 
-                Authentication.logout(ROUTES.LOGOUT).then(function (response) {
+                Authentication.logout(BASE.ROUTES.LOGOUT).then(function (response) {
 
                     if (response) {
 
-                        $location.path(ROUTES.HOME);
+                        $location.path(BASE.ROUTES.HOME);
 
                     }
                 });

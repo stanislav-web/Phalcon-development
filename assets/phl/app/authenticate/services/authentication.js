@@ -5,8 +5,8 @@
     /**
      * User Authentication service
      */
-    app.service('Authentication',  ['$rootScope', '$q', '$http', 'Session',
-        function($rootScope, $q, $http, Session) {
+    app.service('Authentication',  ['Restangular', 'Session',
+        function(Restangular, Session) {
 
         /**
          * User authentication state
@@ -21,6 +21,54 @@
         var user = null;
 
         return {
+
+            /**
+             * Authenticates for user
+             *
+             * @param array credentials
+             * @param string route
+             * @returns {*}
+             */
+            login: function(route, credentials) {
+
+                return Restangular.all(route).withHttpConfig({transformRequest: angular.identity})
+                    .customGET(undefined, credentials);
+            },
+
+            /**
+             * Log in to account / Register
+             *
+             * @param $scope object credentials
+             * @param string route handler
+             * @returns {ng.IPromise<T>}
+             */
+            sign: function (credentials, route) {
+
+                var deferred = $q.defer();
+
+                $http.post(route, credentials).success(function (response) {
+
+                    if (response.success) {
+
+                        $rootScope.user = user = response.user;
+                        $rootScope.isAuthenticated = isAuthenticated = true;
+
+                        // set auth token
+                        Session.set('token', response.token);
+
+                        deferred.resolve(response);
+                    }
+                    else {
+                        deferred.resolve(response);
+                    }
+
+                }).error(function (error) {
+
+                    deferred.reject(error);
+                });
+
+                return deferred.promise;
+            },
 
             /**
              * Get auth user's params
@@ -71,40 +119,7 @@
                 return (isAuthenticated === true) ? true : false;
             },
 
-            /**
-             * Log in to account / Register
-             *
-             * @param $scope object credentials
-             * @param string route handler
-             * @returns {ng.IPromise<T>}
-             */
-            sign: function (credentials, route) {
 
-                var deferred = $q.defer();
-
-                $http.post(route, credentials).success(function (response) {
-
-                    if (response.success) {
-
-                        $rootScope.user = user = response.user;
-                        $rootScope.isAuthenticated = isAuthenticated = true;
-
-                        // set auth token
-                        Session.set('token', response.token);
-
-                        deferred.resolve(response);
-                    }
-                    else {
-                        deferred.resolve(response);
-                    }
-
-                }).error(function (error) {
-
-                    deferred.reject(error);
-                });
-
-                return deferred.promise;
-            },
 
             /**
              * Restore account

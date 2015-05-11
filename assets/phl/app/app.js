@@ -1,6 +1,7 @@
 "use strict";
 
 var app;
+var notify = null;
 
 (function(angular) {
 
@@ -20,16 +21,16 @@ var app;
         'restangular',
         'ui.bootstrap',
         'duScroll',
-        'isteven-multi-select',
         'notifications',
+        'isteven-multi-select',
         'angularMoment',
         'ui.splash', function() {}
     ]);
 
     // setup global scope variables
 
-    app.run(['$rootScope', 'ROUTES', '$translate', 'Authentication', 'Session', 'Restangular', 'amMoment', 'BASE',
-        function ($rootScope, ROUTES, $translate, Authentication, Session, Restangular, amMoment, BASE) {
+    app.run(['$rootScope', '$translate', 'Authentication', 'Session', 'Restangular', 'amMoment', 'BASE', '$notification',
+        function ($rootScope, $translate, Authentication, Session, Restangular, amMoment, BASE, $notification) {
 
             // get engine -> categories
             Restangular.one("engines", BASE.ENGINE_ID).customGET("categories").then(function(response) {
@@ -42,10 +43,11 @@ var app;
                 });
                 $rootScope.categories   = response.categories;
                 $rootScope.engines      = response.engines;
+                $rootScope.bannersOn    = BASE.BANNERS;
                 $rootScope.banners      = response.banners;
-                $rootScope.title        = response.engines.name;
             });
 
+            // get & configure shop currencies
             Restangular.all("currencies").getList().then(function(response) {
 
                 $rootScope.currencies = [];
@@ -60,23 +62,19 @@ var app;
                 });
             });
 
-            // set global scope for routes & template
-            $rootScope.ROUTES = ROUTES;
-
             // getting store locale
             $rootScope.currentLanguage = Session.get(BASE.LANGUAGES.PREFIX) || BASE.LANGUAGES.DEFAULT;
 
             amMoment.changeLocale($rootScope.currentLanguage);
 
-            // update languages global
-            $rootScope.$on('$translatePartialLoaderStructureChanged', function () {
-                $translate.refresh();
-            });
+            // overwite global notify storage
+            notify = $notification;
 
             // Every time the route in our app changes check auth status
             $rootScope.$on("$locationChangeSuccess", function(event, next, current) {
 
-                if(!Authentication.isLoggedIn()) {}
+                $rootScope.bannersOn = true;
+                //if(!Authentication.isLoggedIn()) {}
             });
         }
     ]);

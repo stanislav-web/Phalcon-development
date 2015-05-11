@@ -3,7 +3,7 @@
 (function(angular) {
 
     app
-        .directive('bannersSlideshow', ['BASE', 'TEMPLATE', '$timeout', function (BASE, TEMPLATE, $timeout)  {
+        .directive('bannersSlideshow', ['BASE', '$timeout', function (BASE, $timeout)  {
             return {
                 restrict: "AE",
                 link: function(scope, elem, attrs) {
@@ -22,7 +22,7 @@
                         $timeout.cancel(timer); // when the scope is getting destroyed, cancel the timer
                     });
                 },
-                templateUrl: TEMPLATE.SLIDESHOW,
+                templateUrl: BASE.TEMPLATES.SLIDESHOW,
 
                 controller: function($scope) {
 

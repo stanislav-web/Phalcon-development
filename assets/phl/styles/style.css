@@ -3208,3 +3208,7 @@ blockquote.notice {
     margin: 10px 0;
     color: thistle;
 }
+p.dr-notification-text {
+    margin: 0 !important;
+    font-size: inherit !important;
+}

@@ -5,10 +5,10 @@
     /**
      * Controller "TopMenuController"
      *
-     * Controls the display of the main menu of the consumer.
+     * Controls the display of the main menu of the costomer.
      */
-    app.controller('TopMenuController', ['$scope', '$location', '$translatePartialLoader', '$translate', '$splash', '$http', '$anchorScroll', 'BASE',
-        function($scope, $location, $translatePartialLoader, $translate, $splash, $http, $anchorScroll, BASE) {
+    app.controller('TopMenuController', ['$scope', '$location', '$translatePartialLoader', '$translate', '$http', '$anchorScroll', 'BASE',
+        function($scope, $location, $translatePartialLoader, $translate, $http, $anchorScroll, BASE) {
 
             // add language support to this controller
             $translatePartialLoader.addPart('menu');
@@ -18,24 +18,15 @@
                 $scope.items = response;
             });
 
-            $scope.isActive = function (route) {
+            $scope.isActive = function (url) {
+
                 if($location.hash() != '') {
                     // scroller to hash name
                     $anchorScroll();
-                    return route === $location.url() + '#' + $location.hash();
+                    return url === $location.url() + '#' + $location.hash();
                 }
-                return route === $location.url();
+                return url === $location.url();
             }
-
-            // open splash modal
-            $scope.openSplash = function() {
-
-                // add language support to this action
-                $translatePartialLoader.addPart('sign');
-
-                $splash.open();
-            };
-
         }]);
 
 })(angular);

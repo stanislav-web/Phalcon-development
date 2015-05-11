@@ -3,24 +3,24 @@
 (function(angular) {
 
     app
-        .directive('menuTop', ['TEMPLATE', function (TEMPLATE) {
+        .directive('menuTop', ['BASE', function (BASE) {
 
             return {
                 restrict: "AE",
-                templateUrl: TEMPLATE.MENU_TOP
+                templateUrl: BASE.TEMPLATES.MENU_TOP
             }
         }])
-        .directive('menuCategories', ['TEMPLATE', function (TEMPLATE) {
+        .directive('menuCategories', ['BASE', function (BASE) {
             return {
                 restrict: "AE",
-                templateUrl: TEMPLATE.MENU_CATEGORIES
+                templateUrl: BASE.TEMPLATES.MENU_CATEGORIES
 
             }
         }])
-        .directive('sidebar', ['TEMPLATE', function (TEMPLATE) {
+        .directive('sidebar', ['BASE', function (BASE) {
             return {
                 restrict: "AE",
-                templateUrl: TEMPLATE.MENU_SIDEBAR
+                templateUrl: BASE.TEMPLATES.MENU_SIDEBAR
             }
         }]);
 })(angular);

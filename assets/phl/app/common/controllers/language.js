@@ -20,6 +20,12 @@
                 // send to storage
                 Session.set(BASE.LANGUAGES.PREFIX, langKey);
                 $scope.currentLanguage  =   langKey;
+
+                // update languages global
+                $scope.$parent.$on('$translatePartialLoaderStructureChanged', function () {
+                    $translate.refresh();
+                });
+
                 moment.locale(langKey);
             };
         }]);
