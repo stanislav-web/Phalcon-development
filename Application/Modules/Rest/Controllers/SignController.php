@@ -9,7 +9,7 @@ namespace Application\Modules\Rest\Controllers;
  * @since PHP >=5.4
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
- * @filesource /Application/Modules/Rest/Controllers/AuthController.php
+ * @filesource /Application/Modules/Rest/Controllers/SignController.php
  */
 class SignController extends ControllerBase {
 

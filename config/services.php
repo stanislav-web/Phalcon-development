@@ -26,16 +26,9 @@ $di->setShared('router', $router);
 
 // Component Session. Starting a Session
 $di->setShared('session', function () use ($config) {
-    $session = new \Phalcon\Session\Adapter\Memcache([
-        'host'          => $config['cache']['memcached']['host'],       // mandatory
-        'port'          => $config['cache']['memcached']['port'],       // optional (standard: 11211)
-        'lifetime'      => $config['cache']['lifetime'],                // optional (standard: 8600)
-        'persistent'    => $config['cache']['memcached']['persistent']  // optional (standard: false)
-    ]);
 
-    session_set_cookie_params($config['cache']['lifetime'], "/");
-    $session->start();
-    return $session;
+    $session = new \Application\Services\Security\SessionProtector();
+    return $session->init($config['session']);
 });
 
 $di->setShared('modelsMetadata', function() use ($config) {
@@ -46,17 +39,6 @@ $di->setShared('modelsMetadata', function() use ($config) {
     ]);
 
     return $metaData;
-});
-
-// Default component to crypt cookies values
-$di->set('crypt', function () use ($config) {
-
-    $crypt = new \Phalcon\Crypt();
-    $crypt->setKey($config['application']['cryptSalt']);
-    $crypt->setPadding(\Phalcon\Crypt::PADDING_PKCS7);
-
-    return $crypt;
-
 });
 
 // GLOBAL SERVICES

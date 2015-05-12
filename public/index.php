@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @define Document root
  * @define Application path
@@ -9,6 +8,8 @@ defined('DOCUMENT_ROOT') || define('DOCUMENT_ROOT', $_SERVER["DOCUMENT_ROOT"]);
 defined('APP_PATH') || define('APP_PATH', DOCUMENT_ROOT . '/../Application');
 defined('APPLICATION_ENV') ||
 define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production'));
+
+use \Application\Helpers\OriginPrelight;
 
 if(APPLICATION_ENV === 'development') {
 
@@ -40,6 +41,11 @@ try {
     if(APPLICATION_ENV === 'development') {
 
         require_once '/var/www/profiler.local/external/footer.php';
+    }
+    // Handle OPTIONS requests
+
+    if(OriginPrelight::isOptions() === true) {
+        OriginPrelight::allowRequest();
     }
     // Handle the request
     echo $app->handle()->getContent();

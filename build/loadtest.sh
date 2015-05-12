@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Define variables
-export SET URL="http://z95.ru/"
+export SET URL="http://api.phalcon.local/api/v1/items?limit=100"
 export SET LOGFILE="/var/www/phalcon.local/logs/ab.log"
 
 # Start test

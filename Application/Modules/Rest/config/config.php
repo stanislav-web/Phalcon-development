@@ -10,7 +10,7 @@ return [
         'notifyDir'         => ':engine/notifies/',
         'tokenLifetime'     =>  604800,
         'acceptContent'     => ['*/*', 'json', 'application/json'],
-        'acceptLanguage'    => ['ru', 'en', 'ua', 'de'],
+        'acceptLanguage'    => ['ru', 'en', 'ua', 'de', 'uk'],
         'acceptCharset'     => 'utf-8',
         'acceptFilters'    => [
             'columns', 'offset', 'limit', 'token', 'locale', 'login', 'password', 'order', 'name', 'format', 'code', '_profile', 'surname'
