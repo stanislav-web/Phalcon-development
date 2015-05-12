@@ -10,7 +10,7 @@
             ENGINE_ID: 1,
             BANNERS: true,
             LOGGER: true,
-            REQUEST_TIMEOUT  : 3000,
+            REQUEST_TIMEOUT  : 15000,
             DEFAULT_CURRENCY : 'UAH',
             ACCEPT_ENCODING : 'application/json; charset=utf-8',
             LOCAL: {

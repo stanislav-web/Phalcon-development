@@ -73,7 +73,7 @@
                 register: function(route, credentials) {
 
                     return Restangular.one(route)
-                        .customPUT(credentials, '', undefined, {
+                        .customPOST(credentials, '', undefined, {
                             'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
                         });
                 },

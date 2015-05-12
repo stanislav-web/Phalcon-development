@@ -68,54 +68,53 @@
             });
         };
 
-            /**
-             * Restore access password action
-             */
-            $scope.restore = function () {
+        /**
+         * Restore access password action
+         */
+        $scope.restore = function () {
 
-                $scope.loading = true;
+            $scope.loading = true;
 
-                // setup credentials
-                var credentials = {
-                    'login': $scope.login
-                };
-
-                // call auth service
-                Authentication.restore(BASE.ROUTES.AUTH, credentials).then(function (response) {
-
-                    // restore success!
-                    console.log(response);
-                    //$location.path(BASE.ROUTES.ACCOUNT);
-
-                }).finally(function () {
-                    $scope.loading = false;
-                });
+            // setup credentials
+            var credentials = {
+                'login': $scope.login
             };
 
-            /**
-             * Register account action
-             */
-            $scope.register = function () {
+            // call auth service
+            Authentication.restore(BASE.ROUTES.AUTH, credentials).then(function () {
 
-                $scope.loading = true;
+                // restore success!
+                console.log(response);
 
-                // setup credentials
-                var credentials = {
-                    'login':    $scope.login,
-                    'name':     $scope.name,
-                    'password': $scope.password
-                };
+            }).finally(function () {
+                $scope.loading = false;
+            });
+        };
 
-                // call auth service
-                Authentication.register(BASE.ROUTES.AUTH, credentials).then(function (response) {
+        /**
+         * Register account action
+         */
+        $scope.register = function () {
 
-                    // register success!
-                    console.log(response);
+            $scope.loading = true;
 
-                }).finally(function () {
-                    $scope.loading = false;
-                });
+            // setup credentials
+            var credentials = {
+                'login':    $scope.login,
+                'name':     $scope.name,
+                'password': $scope.password
             };
+
+            // call auth service
+            Authentication.register(BASE.ROUTES.AUTH, credentials).then(function (response) {
+
+                // register success!
+                console.log(response);
+
+            }).finally(function () {
+                $scope.loading = false;
+            });
+        };
 
             /**
              * Login out
