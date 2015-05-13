@@ -52,3 +52,4 @@ npm-debug.log
 node_modules/
 vendor
 assets/plugins
+plugins
