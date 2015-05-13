@@ -255,7 +255,7 @@ class RestSecurityService extends RestSecurityProvider {
         if(filter_var($user->login, FILTER_VALIDATE_EMAIL) !== false) {
 
             try {
-            $message = $this->getMailer()->createMessageFromView(strtr($this->getConfig()->notifyDir, [':engine' => $engine->code]).'restore_password_email', $params)
+                $message = $this->getMailer()->createMessageFromView(strtr($this->getConfig()->notifyDir, [':engine' => $engine->code]).'restore_password_email', $params)
                 ->to($user->login, $user->name)
                 ->subject(sprintf($this->getTranslator()->translate('PASSWORD_RECOVERY_SUBJECT'), $engine->host))
                 ->priority(1);

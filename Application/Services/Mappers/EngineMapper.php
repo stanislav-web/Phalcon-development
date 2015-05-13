@@ -46,9 +46,9 @@ class EngineMapper extends AbstractModelCrud {
         $request = $this->getDi()->get('request');
         $engine   =   $this->getInstance()->findFirst("host = '".$request->getHttpHost()."'");
 
-        if($engine === null) {
+        if($engine === false) {
             throw new NotFoundException([
-                'HOST_NOT_FOUND'  =>  'Not found used host'
+                'HOST_NOT_FOUND'  =>  'Not found used host: '.$request->getHttpHost()
             ]);
         }
 
