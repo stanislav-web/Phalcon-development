@@ -12,7 +12,6 @@
     "angular-translate-loader-partial": "~2.5.2",
     "angular-bootstrap": "~0.12.1",
     "lodash": "~3.6.0",
-    "oclazyload": "~0.6.3",
     "bootstrap": "~3.3.4",
     "restangular": "~1.5.1",
     "angular-debug-bar": "~0.4.2",

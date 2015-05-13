@@ -1,0 +1,123 @@
+@import "material_design_colors";
+@import "icons";
+
+$adb-debugBarHeight: 200px;
+$adb-box-shadow: 0px 1px 5px 0px rgba(50, 50, 50, 0.2);
+$adb-box-sizing: border-box;
+$adb-transitions: all 300ms ease-in;
+$adb-textColor: #555;
+$adb-fontSize: 16px;
+$adb-backgroundColor: #fafafa;
+$adb-buttonBorderRadius: 5px;
+
+#angular-debug-bar {
+  z-index: 9999;
+  position: fixed;
+  width: 100%;
+  left: 0;
+  bottom: -$adb-debugBarHeight;
+  height: $adb-debugBarHeight;
+  color: $adb-textColor;
+  font-size: $adb-fontSize;
+  background: $adb-backgroundColor;
+  border-top: 1px solid $lightgrey;
+
+  -webkit-box-shadow: $adb-box-shadow;
+  -moz-box-shadow: $adb-box-shadow;
+  box-shadow: $adb-box-shadow;
+
+  &, * {
+    -webkit-transition: $adb-transitions;
+    -moz-transition: $adb-transitions;
+    -o-transition: $adb-transitions;
+    transition: $adb-transitions;
+
+    -webkit-box-sizing: $adb-box-sizing;
+    -moz-box-sizing: $adb-box-sizing;
+    box-sizing: $adb-box-sizing;
+
+    &:before,
+    &:after {
+      -webkit-box-sizing: $adb-box-sizing;
+      -moz-box-sizing: $adb-box-sizing;
+      box-sizing: $adb-box-sizing;
+    }
+  }
+
+  &.show {
+    bottom: 0;
+
+    button,
+    button:hover {
+      top: -33px;
+    }
+
+    ul {
+      overflow: auto;
+      max-height: $adb-debugBarHeight;
+    }
+  }
+
+  button {
+    cursor: pointer;
+    position: absolute;
+    right: 5px;
+    top: -16px;
+    text-align: center;
+    font-size: 110%;
+    padding: 6px;
+    border: none;
+    outline: 0;
+    background: $lightblue;
+
+    -webkit-border-top-left-radius: $adb-buttonBorderRadius;
+    -webkit-border-top-right-radius: $adb-buttonBorderRadius;
+    -moz-border-radius-topleft: $adb-buttonBorderRadius;
+    -moz-border-radius-topright: $adb-buttonBorderRadius;
+    border-top-left-radius: $adb-buttonBorderRadius;
+    border-top-right-radius: $adb-buttonBorderRadius;
+
+    &:hover {
+      top: -33px;
+    }
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto;
+    display: block;
+    width: 90%;
+
+    li {
+      padding: 15px;
+      width: 20%;
+      height: 100px;
+      float: left;
+      text-align: center;
+
+      .value-wrapper {
+        [class^="icon-"]:before, [class*=" icon-"]:before {
+          font-size: 150%;
+        }
+
+        .value {
+          font-size: 1.8em;
+          font-weight: bold;
+          border-bottom: 1px dotted
+        }
+
+        .unit {
+          font-size: 1.2em;
+          margin-left: 3px;
+        }
+      }
+
+      .label {
+        font-size: 1em;
+        margin-top: 5px;
+        color: $grey;
+      }
+    }
+  }
+}
