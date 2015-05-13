@@ -7,7 +7,6 @@ var notify = null;
     // application module
     angular.module('app', [
         'app.common',
-        'app.routes',
         'app.authenticate',
         'app.user'
     ])

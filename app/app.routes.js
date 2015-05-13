@@ -2,7 +2,7 @@
 
 (function(angular) {
 
-    angular.module('app.routes', ['ngRoute'])
+    angular.module('app')
 
     // Configure application's routes
 

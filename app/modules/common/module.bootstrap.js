@@ -4,6 +4,7 @@
 
     // application module
     angular.module('app.common', [
+        'ngRoute',
         'angular-debug-bar',
         'ngAnimate',
         'ngSanitize',
