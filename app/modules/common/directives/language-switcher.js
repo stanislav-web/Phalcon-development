@@ -2,7 +2,7 @@
 
 (function(angular) {
 
-    app
+    angular.module('app')
         .directive('languageSwitcher', function () {
             return {
                 restrict: "AE",

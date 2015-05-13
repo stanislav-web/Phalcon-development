@@ -2,7 +2,7 @@
 
 (function(angular) {
 
-    angular.module('ApplicationRouter', ['ngRoute'])
+    angular.module('app.routes', ['ngRoute'])
 
     // Configure application's routes
 
@@ -39,7 +39,7 @@
 
             .when('/transactions/:name', {
                 templateUrl: function(urlattr){
-                    return 'assets/phl/app/transactions/templates/' + urlattr.name + '.html';
+                    return '/app/transactions/templates/' + urlattr.name + '.html';
                 },
                 caseInsensitiveMatch: true,
                 controller: "UserCtrl",

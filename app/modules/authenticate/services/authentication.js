@@ -5,7 +5,7 @@
     /**
      * User Authentication service
      */
-    app.service('Authentication',  ['Restangular', 'Session',
+    angular.module('app.authenticate').service('Authentication',  ['Restangular', 'Session',
         function(Restangular, Session) {
 
             /**

@@ -2,7 +2,7 @@
 
 (function(angular) {
 
-    app
+    angular.module('app')
         .directive('bannersSlideshow', ['$timeout', function ($timeout)  {
             return {
                 restrict: "AE",

@@ -5,7 +5,8 @@
     /**
      * Session service
      */
-    app.service('Session',  function() {
+    angular.module('app')
+        .service('Session',  function() {
 
         return {
 

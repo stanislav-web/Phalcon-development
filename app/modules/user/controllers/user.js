@@ -7,7 +7,7 @@
      *
      * User strict auth area
      */
-    app.controller('UserController', ['$scope', '$location', 'Meta',
+    angular.module('app.user').controller('UserController', ['$scope', '$location', 'Meta',
         function($scope, $location, Meta) {
 
             // set meta title

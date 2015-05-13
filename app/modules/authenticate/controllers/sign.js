@@ -9,7 +9,7 @@
      * @dependencies $translate angular-translater
      * @dependencies $cookies angular-cookies
      */
-    app.controller('SignController', ['$scope', '$location', 'Authentication', '$translatePartialLoader', 'Meta', 'Session',
+    angular.module('app.authenticate').controller('SignController', ['$scope', '$location', 'Authentication', '$translatePartialLoader', 'Meta', 'Session',
         function ($scope, $location, Authentication, $translatePartialLoader, Meta, Session) {
 
         // add language support to this controller

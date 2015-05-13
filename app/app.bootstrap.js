@@ -1,33 +1,19 @@
 "use strict";
 
-var app;
 var notify = null;
 
 (function(angular) {
 
-    // init custom modules
-    angular.module('ui.splash', ['ui.bootstrap']);
-
     // application module
-    app = angular.module('app', [
-        'angular-debug-bar',
-        'ngRoute',
-        'ngAnimate',
-        'ngSanitize',
-        'angularSpinner',
-        'pascalprecht.translate',
-        'ngCookies',
-        'restangular',
-        'ui.bootstrap',
-        'duScroll',
-        'notifications',
-        'isteven-multi-select',
-        'angularMoment',
-        'ui.splash', function() {}
-    ]);
+    angular.module('app', [
+        'app.common',
+        'app.routes',
+        'app.authenticate',
+        'app.user'
+    ])
 
     // setup global scope variables
-    app.run(['$rootScope', '$translate', 'Authentication', 'Session', 'Restangular', 'amMoment', '$notification',
+    .run(['$rootScope', '$translate', 'Authentication', 'Session', 'Restangular', 'amMoment', '$notification',
         function ($rootScope, $translate, Authentication, Session, Restangular, amMoment, $notification) {
 
             // get engine -> categories
@@ -75,10 +61,10 @@ var notify = null;
                 //if(!Authentication.isLoggedIn()) {}
             });
         }
-    ]);
+    ])
 
     // configure base rest loader
-    app.config(['RestangularProvider', '$logProvider', function(RestangularProvider, $logProvider) {
+    .config(['RestangularProvider', '$logProvider', function(RestangularProvider, $logProvider) {
 
         /**
          * The workhorse; converts an object to x-www-form-urlencoded serialization.
@@ -156,10 +142,10 @@ var notify = null;
             }
             return newResponse;
         });
-    }]);
+    }])
 
     // configure preload transliteration
-    app.config(['$translateProvider', '$translatePartialLoaderProvider', function ($translateProvider, $translatePartialLoader) {
+    .config(['$translateProvider', '$translatePartialLoaderProvider', function ($translateProvider, $translatePartialLoader) {
 
         // try to find out preferred language by yourself
         $translateProvider.fallbackLanguage(CONFIG.LANGUAGES.ACCEPT)

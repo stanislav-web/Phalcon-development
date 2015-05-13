@@ -7,7 +7,7 @@
      *
      * Controls the display of the main menu of the costomer.
      */
-    app.controller('TopMenuController', ['$scope', '$location', '$translatePartialLoader', '$translate', '$http', '$anchorScroll',
+    angular.module('app').controller('TopMenuController', ['$scope', '$location', '$translatePartialLoader', '$translate', '$http', '$anchorScroll',
         function($scope, $location, $translatePartialLoader, $translate, $http, $anchorScroll) {
 
             // add language support to this controller

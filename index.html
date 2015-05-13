@@ -137,33 +137,36 @@
 <script src="/app/app.config.js"></script>
 <script src="/app/app.bootstrap.js"></script>
 <script src="/app/app.routes.js"></script>
+<script src="/app/modules/common/module.bootstrap.js"></script>
+<script src="/app/modules/authenticate/module.bootstrap.js"></script>
+<script src="/app/modules/user/module.bootstrap.js"></script>
 <!-- /Application -->
 
 <!-- Directives -->
-<script src="/app/common/directives/spinner.js"></script>
-<script src="/app/common/directives/menu.js"></script>
-<script src="/app/common/directives/banners.js"></script>
-<script src="/app/common/directives/language-switcher.js"></script>
+<script src="/app/modules/common/directives/spinner.js"></script>
+<script src="/app/modules/common/directives/menu.js"></script>
+<script src="/app/modules/common/directives/banners.js"></script>
+<script src="/app/modules/common/directives/language-switcher.js"></script>
 <!-- /Directives -->
 
 <!-- Filters -->
-<script src="/app/common/filters/common.js"></script>
+<script src="/app/modules/common/filters/common.js"></script>
 <!-- /Filters -->
 
 <!-- Services -->
-<script src="/app/common/directives/spinner.js"></script>
-<script src="/app/common/services/session.js"></script>
-<script src="/app/common/services/meta.js"></script>
-<script src="/app/authenticate/services/authentication.js"></script>
-<script src="/app/common/factories/translate-error-handler.js"></script>
+<script src="/app/modules/common/directives/spinner.js"></script>
+<script src="/app/modules/common/services/session.js"></script>
+<script src="/app/modules/common/services/meta.js"></script>
+<script src="/app/modules/authenticate/services/authentication.js"></script>
+<script src="/app/modules/common/factories/translate-error-handler.js"></script>
 <!-- /Services -->
 
 <!-- Controllers -->
-<script src="/app/common/controllers/top-menu.js"></script>
-<script src="/app/common/controllers/language.js"></script>
-<script src="/app/common/controllers/index.js"></script>
-<script src="/app/authenticate/controllers/sign.js"></script>
-<script src="/app/user/controllers/user.js"></script>
+<script src="/app/modules/common/controllers/top-menu.js"></script>
+<script src="/app/modules/common/controllers/language.js"></script>
+<script src="/app/modules/common/controllers/index.js"></script>
+<script src="/app/modules/authenticate/controllers/sign.js"></script>
+<script src="/app/modules/user/controllers/user.js"></script>
 <!-- /Controllers -->
 <div notifications="top right"></div>
 <angular-debug-bar></angular-debug-bar>

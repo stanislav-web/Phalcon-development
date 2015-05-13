@@ -31,14 +31,13 @@ var CONFIG = {
     },
     CATCHED_ERRORS: [400, 401, 403, 404, 405, 406, 409, 414, 415, 422, 429, 500],
     TEMPLATES: {
-        MENU_TOP: '/app/common/templates/menu_top.html',
-        MENU_CATEGORIES: '/app/common/templates/menu_categories.html',
-        MENU_SIDEBAR: '/app/common/templates/sidebar.html',
-        SLIDESHOW: '/app/common/templates/slideshow.html',
-        PAGES: '/app/common/templates/index.html',
-        ERROR: '/app/common/templates/error.html',
-        SIGN: '/app/authenticate/templates/sign.html',
-        ACCOUNT: '/app/user/templates/account.html'
+        MENU_TOP:           '/app/modules/common/templates/menu_top.html',
+        MENU_CATEGORIES:    '/app/modules/common/templates/menu_categories.html',
+        MENU_SIDEBAR:       '/app/modules/common/templates/sidebar.html',
+        SLIDESHOW:          '/app/modules/common/templates/slideshow.html',
+        PAGES:              '/app/modules/common/templates/index.html',
+        SIGN:               '/app/modules/authenticate/templates/sign.html',
+        ACCOUNT:            '/app/modules/user/templates/account.html'
     },
     ROUTES: {
         HOME: '/',

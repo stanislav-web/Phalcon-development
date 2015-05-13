@@ -5,7 +5,8 @@
     /**
      * Session service
      */
-    app.service('Meta',  ['$translate', '$rootScope', function($translate, $rootScope) {
+    angular.module('app.common')
+        .service('Meta',  ['$translate', '$rootScope', function($translate, $rootScope) {
 
         return {
 
