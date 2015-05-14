@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html data-ng-app="app">
+<html data-ng-app="app" ng-cloack>
 <head>
     <base href="/">
     <!-- Get meta -->
@@ -155,9 +155,11 @@
 
 <!-- Services -->
 <script src="/app/modules/common/directives/spinner.js"></script>
+<script src="/app/modules/common/services/crypt.js"></script>
 <script src="/app/modules/common/services/session.js"></script>
 <script src="/app/modules/common/services/meta.js"></script>
 <script src="/app/modules/authenticate/services/authentication.js"></script>
+<script src="/app/modules/user/services/user.js"></script>
 <script src="/app/modules/common/factories/translate-error-handler.js"></script>
 <!-- /Services -->
 

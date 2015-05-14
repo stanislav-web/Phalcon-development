@@ -7,11 +7,14 @@
      *
      * User strict auth area
      */
-    angular.module('app.user').controller('UserController', ['$scope', '$location', 'Meta',
-        function($scope, $location, Meta) {
+    angular.module('app.user').controller('UserController', ['$scope', 'Meta', 'UserService',
+        function($scope, Meta, UserService) {
 
             // set meta title
             Meta.setTitle($scope.$parent.engines.name);
+
+            // get user auth data
+            console.log(UserService.getUserAuth());
         }
     ]);
 

@@ -112,11 +112,10 @@ var notify = null;
                 return angular.isObject(data) && String(data) !== '[object File]' ? param(data) : data;
             }
         });
-        RestangularProvider.setDefaultRequestParams('get', {locale: localStorage.getItem(CONFIG.LANGUAGES.PREFIX)});
+        //RestangularProvider.setDefaultRequestParams('get', {locale: localStorage.getItem(CONFIG.LANGUAGES.PREFIX)});
         RestangularProvider.setDefaultHeaders(
             { "Accept": CONFIG.ACCEPT_ENCODING}
         );
-
 
         RestangularProvider.setErrorInterceptor(function(response, deferred, responseHandler) {
             if(CONFIG.CATCHED_ERRORS.indexOf(response.status) != -1) {

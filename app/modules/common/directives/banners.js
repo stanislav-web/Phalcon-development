@@ -22,7 +22,7 @@
                         $timeout.cancel(timer); // when the scope is getting destroyed, cancel the timer
                     });
                 },
-                templateUrl: CONFIG.TEMPLATES.SLIDESHOW,
+                templateUrl: CONFIG.TEMPLATES.BANNERS,
 
                 controller: function($scope) {
 

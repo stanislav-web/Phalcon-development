@@ -9,8 +9,8 @@
      * @dependencies $translate angular-translater
      * @dependencies $cookies angular-cookies
      */
-    angular.module('app.authenticate').controller('SignController', ['$scope', '$location', 'Authentication', '$translatePartialLoader', 'Meta', 'Session',
-        function ($scope, $location, Authentication, $translatePartialLoader, Meta, Session) {
+    angular.module('app.authenticate').controller('SignController', ['$scope', '$location', 'Authentication', '$translatePartialLoader', 'Meta',
+        function ($scope, $location, Authentication, $translatePartialLoader, Meta) {
 
         // add language support to this controller
         $translatePartialLoader.addPart('sign');
@@ -56,11 +56,11 @@
                 'password': $scope.password
             };
 
-            Authentication.login(CONFIG.ROUTES.AUTH, credentials).then(function (response) {
+            Authentication.login(CONFIG.ROUTES.AUTH, credentials).then(function(response) {
 
                 // auth success! Set data to session & get redirect to home page
-                Session.set('auth', response);
-                $location.path(CONFIG.ROUTES.HOME);
+                Authentication.setAuthData(response);
+                $location.path(CONFIG.ROUTES.ACCOUNT);
 
             }).finally(function () {
                 $scope.loading = false;
@@ -100,7 +100,8 @@
             Authentication.register(CONFIG.ROUTES.AUTH, credentials).then(function (response) {
 
                 // register success! Set data to session & get redirect to account
-                Session.set('auth', response.access);
+                Authentication.setAuthData(response.access);
+
                 $location.path(CONFIG.ROUTES.ACCOUNT);
 
             }).finally(function () {

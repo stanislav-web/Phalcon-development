@@ -1,69 +1,90 @@
-'use strict';
-
 (function (angular) {
 
-    /**
-     * Session service
-     */
-    angular.module('app')
-        .service('Session',  function() {
+    "use strict";
+    angular.module("app", [])
 
-        return {
+        .service('Session',  [function() {
 
-            /**
-             * Set key to session storage
-             *
-             * @param key
-             * @param value
-             * @returns {*}
-             */
-            set: function (key, value) {
+            return {
 
-                if (typeof value === 'object') {
-                    value = JSON.stringify(value);
-                }
-                return localStorage.setItem(key, value);
-            },
+                /**
+                 * Set key to session storage
+                 *
+                 * @param key
+                 * @param value
+                 * @param secret
+                 * @returns {*}
+                 */
+                set: function (key, value, secret) {
 
-            /**
-             * Get key from session storage
-             *
-             * @uses store
-             * @param key
-             * @returns {*}
-             */
-            get: function (key) {
-
-                var data = localStorage.getItem(key);
-                try {
-                    if(data.length) {
-                        return JSON.parse(data);
+                    if (typeof value === 'object') {
+                        value = JSON.stringify(value);
                     }
 
-                }
-                catch(e) {
-                    return data;
-                }
-            },
+                    if(secret) {
+                        value = CryptoJS.AES.encrypt(value, secret);
+                    }
 
-            /**
-             * Remove key from session storage
-             *
-             * @param key
-             * @returns {*}
-             */
-            remove: function (key) {
-                return localStorage.removeItem(key);
-            },
+                    return localStorage.setItem(key, value);
+                },
 
-            /**
-             * Destroy all keys
-             *
-             * @returns {*}
-             */
-            destroy: function () {
-                return localStorage.clear();
-            }
-        };
-    });
+                /**
+                 * Get key from session storage
+                 *
+                 * @uses store
+                 * @param key
+                 * @param secret
+                 * @returns {*}
+                 */
+                get: function (key, secret) {
+
+                    var data = localStorage.getItem(key), value;
+
+                    try {
+
+                        if(secret) {
+                            data = CryptoJS.AES.decrypt(data, secret).toString(CryptoJS.enc.Utf8);
+                            //console.log(data);
+                        }
+                        value = JSON.parse(data);
+
+                    }
+                    catch(e) {
+
+                        if(secret) {
+
+                            value = CryptoJS.AES.decrypt(data, secret)
+                                .toString(CryptoJS.enc.Utf8);
+                        }
+                        else {
+                            value = data;
+                        }
+                    }
+                    finally {
+                        if(value !== null) {
+                            return value;
+                        }
+                    }
+                },
+
+                /**
+                 * Remove key from session storage
+                 *
+                 * @param key
+                 * @returns {*}
+                 */
+                remove: function (key) {
+                    return localStorage.removeItem(key);
+                },
+
+                /**
+                 * Destroy all keys
+                 *
+                 * @returns {*}
+                 */
+                destroy: function () {
+                    return localStorage.clear();
+                }
+            };
+        }]);
 })(angular);

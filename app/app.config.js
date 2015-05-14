@@ -6,6 +6,11 @@ var CONFIG = {
     REQUEST_TIMEOUT: 15000,
     DEFAULT_CURRENCY: 'UAH',
     ACCEPT_ENCODING: 'application/json; charset=utf-8',
+    KEY: "ABCDEFGHIJKLMNOP" +
+    "QRSTUVWXYZabcdef" +
+    "ghijklmnopqrstuv" +
+    "wxyz0123456789+/" +
+    "=",
     LOCAL: {
         CUSTOMER_AUTH_MENU: '/data/menu/customer-auth.json',
         CUSTOMER_MENU: '/data/menu/customer.json'
@@ -34,7 +39,7 @@ var CONFIG = {
         MENU_TOP:           '/app/modules/common/templates/menu_top.html',
         MENU_CATEGORIES:    '/app/modules/common/templates/menu_categories.html',
         MENU_SIDEBAR:       '/app/modules/common/templates/sidebar.html',
-        SLIDESHOW:          '/app/modules/common/templates/slideshow.html',
+        BANNERS:            '/app/modules/common/templates/banners.html',
         PAGES:              '/app/modules/common/templates/index.html',
         SIGN:               '/app/modules/authenticate/templates/sign.html',
         ACCOUNT:            '/app/modules/user/templates/account.html'

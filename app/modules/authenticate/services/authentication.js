@@ -9,13 +9,6 @@
         function(Restangular, Session) {
 
             /**
-             * Logged user flag
-             *
-             * @type {boolean}
-             */
-            var isLoggedIn = false;
-
-            /**
              * Get user auth data
              *
              * @returns object
@@ -78,6 +71,17 @@
                         });
                 },
 
+
+                /**
+                 * Set authorize data
+                 *
+                 * @param array data
+                 * @returns {*}
+                 */
+                setAuthData: function(data) {
+                    Session.set('auth', data);
+                },
+
                 /**
                  * Is user still auth ?
                  *
@@ -96,8 +100,6 @@
                             // check for data is valid by date
                             if(moment(auth.expire_date).isValid()
                                 && moment(auth.expire_date).unix() > moment().unix()) {
-
-                                isLoggedIn = true;
                                 return true;
                             }
                         }
