@@ -131,7 +131,7 @@
                  * @param response
                  */
                 setAuthData: function(response) {
-                    var key = randomString(5, 'PICKCHARSFROMTHISSET');
+                    var key = randomString(5, CONFIG.KEY);
 
                     Session.set('mode', key);
                     Session.set('auth', response, key);
