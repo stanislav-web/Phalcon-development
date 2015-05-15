@@ -20,7 +20,8 @@
     "angular-scroll": "~0.7.0",
     "angular-moment": "~0.10.0",
     "angular-notifications": "~0.1.1",
-    "font-awesome": "~4.3.0"
+    "font-awesome": "~4.3.0",
+    "cryptojslib": "~3.1.2"
   },
   "analytics": false
 }

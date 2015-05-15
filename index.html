@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html data-ng-app="app">
+<html data-ng-app="app" ng-cloak>
 <head>
     <base href="/">
     <!-- Get meta -->
@@ -106,6 +106,8 @@
 <!-- /Footer -->
 
 <!-- Common -->
+
+<script src="/plugins/cryptojslib/rollups/aes.js"></script>
 <script src="/plugins/lodash/lodash.js"></script>
 <script src="/plugins/moment/min/moment-with-locales.js"></script>
 <script src="/plugins/angular/angular.js"></script>
@@ -159,6 +161,8 @@
 <script src="/app/modules/common/services/meta.js"></script>
 <script src="/app/modules/authenticate/services/authentication.js"></script>
 <script src="/app/modules/common/factories/translate-error-handler.js"></script>
+<script src="/app/modules/user/services/user.js"></script>
+
 <!-- /Services -->
 
 <!-- Controllers -->

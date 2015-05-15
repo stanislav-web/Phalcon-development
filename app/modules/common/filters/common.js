@@ -2,7 +2,7 @@
 
 (function(angular) {
 
-    angular.module('app')
+    angular.module('app.common')
         .filter('stripTags', function () {
             return function(text) {
                 return String(text).replace(/<[^>]+>/gm, '');

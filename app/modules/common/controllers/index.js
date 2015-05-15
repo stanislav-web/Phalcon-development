@@ -7,11 +7,13 @@
      *
      * Control of main page.
      */
-    angular.module('app').controller('IndexController', ['$scope', '$location', 'Meta',
-        function($scope, $location, Meta) {
+    angular.module('app.common').controller('IndexController', ['Meta', '$scope',
+        function(Meta, $scope) {
 
             // set meta title
-            Meta.setTitle($scope.$parent.engines.name);
+            $scope.$parent.$watch('engines', function(engine) {
+                Meta.setTitle(engine.name);
+            });
         }
     ]);
 

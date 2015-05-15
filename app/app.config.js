@@ -43,5 +43,9 @@ var CONFIG = {
         HOME: '/',
         AUTH: '/sign',
         ACCOUNT: '/account'
+    },
+    ACL : {
+        USER:       ['/', '/sign'],
+        ADMIN:      ['/', '/sign']
     }
 };

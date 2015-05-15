@@ -23,15 +23,15 @@
 
                             <!-- Login -->
                             <div class="form-group">
-                                <input type="text" ng-minlength="3" ng-maxlength="150" class="form-control" name="login" ng-model="login" placeholder="{{ 'Login invalid' | translate }}" required autofocus>
-                                <span ng-show="formSign.login.$dirty && formSign.login.$error.required" class="help-block" translate="Login Required"></span>
+                                <input type="text" ng-minlength="3" ng-maxlength="150" class="form-control" name="login" ng-model="credentials.login" placeholder="{{ 'Login invalid' | translate }}" required autofocus>
+                                <span ng-show="formSign.credentials.login.$dirty && formSign.credentials.login.$error.required" class="help-block" translate="Login Required"></span>
                             </div>
                             <!-- /Login -->
 
                             <!-- Password -->
                             <div class="form-group">
-                                <input type="password" class="form-control" name="password" ng-model="password" placeholder="{{ 'Password Invalid' | translate }}" required>
-                                <span ng-show="formSign.password.$dirty && formSign.password.$error.required" class="help-block" translate="Password Required"></span>
+                                <input type="password" class="form-control" name="password" ng-model="credentials.password" placeholder="{{ 'Password Invalid' | translate }}" required>
+                                <span ng-show="formSign.credentials.password.$dirty && formSign.credentials.password.$error.required" class="help-block" translate="Password Required"></span>
                             </div>
                             <!-- /Password -->
 
@@ -65,22 +65,22 @@
 
                             <!-- Login -->
                             <div class="form-group">
-                                <input type="text" ng-minlength="3" ng-maxlength="150" class="form-control" name="login" ng-model="login" placeholder="{{ 'Login invalid' | translate }}" required>
-                                <span ng-show="formRegister.login.$dirty && formRegister.login.$error.required" class="help-block" translate="LOGIN_REQUIRED"></span>
+                                <input type="text" ng-minlength="3" ng-maxlength="150" class="form-control" name="login" ng-model="credentials.login" placeholder="{{ 'Login invalid' | translate }}" required>
+                                <span ng-show="formRegister.credentials.login.$dirty && formRegister.credentials.login.$error.required" class="help-block" translate="LOGIN_REQUIRED"></span>
                             </div>
                             <!-- /Login -->
 
                             <!-- Name -->
                             <div class="form-group">
-                                <input type="text" ng-minlength="2" ng-maxlength="150" class="form-control" name="name" ng-model="name" placeholder="{{ 'Your name' | translate }}" required>
-                                <span ng-show="formRegister.name.$dirty && formRegister.name.$error.required" class="help-block" translate="Your name is required"></span>
+                                <input type="text" ng-minlength="2" ng-maxlength="150" class="form-control" name="name" ng-model="credentials.name" placeholder="{{ 'Your name' | translate }}" required>
+                                <span ng-show="formRegister.credentials.name.$dirty && formRegister.credentials.name.$error.required" class="help-block" translate="Your name is required"></span>
                             </div>
                             <!-- /Name -->
 
                             <!-- Password -->
                             <div class="form-group">
-                                <input type="password" class="form-control" id="password" name="password" ng-model="password" placeholder="{{ 'Password Invalid' | translate }}" required>
-                                <span ng-show="formRegister.password.$dirty && formRegister.password.$error.required" class="help-block" translate="Password Required"></span>
+                                <input type="password" class="form-control" id="password" name="password" ng-model="credentials.password" placeholder="{{ 'Password Invalid' | translate }}" required>
+                                <span ng-show="formRegister.credentials.password.$dirty && formRegister.credentials.password.$error.required" class="help-block" translate="Password Required"></span>
                                 <blockquote class="notice" translate="Password Notice"></blockquote>
                             </div>
                             <!-- /Password -->
@@ -120,8 +120,8 @@
 
                             <!-- Login -->
                             <div class="form-group">
-                                <input type="text" ng-minlength="3" ng-maxlength="150" class="form-control" name="login" ng-model="login" placeholder="{{ 'Login invalid' | translate }}" required>
-                                <span ng-show="formRestore.login.$dirty && formRestore.login.$error.required" class="help-block" translate="LOGIN_REQUIRED"></span>
+                                <input type="text" ng-minlength="3" ng-maxlength="150" class="form-control" name="login" ng-model="credentials.login" placeholder="{{ 'Login invalid' | translate }}" required>
+                                <span ng-show="formRestore.credentials.login.$dirty && formRestore.credentials.login.$error.required" class="help-block" translate="LOGIN_REQUIRED"></span>
                             </div>
                             <!-- /Login -->
 

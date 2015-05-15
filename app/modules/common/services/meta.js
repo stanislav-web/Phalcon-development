@@ -31,17 +31,6 @@
                         }
                     });
                 });
-            },
-
-            /**
-             * Set page title
-             *
-             * @param key
-             * @returns {*}
-             */
-            setLanguageErrors: function () {
-
-                console.log('ok');
             }
         };
     }]);
