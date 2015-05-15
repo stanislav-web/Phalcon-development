@@ -6,14 +6,17 @@ var notify = null;
 
     // application module
     angular.module('app', [
+        'app.routes',
+        'app.document',
+        'app.session',
         'app.common',
         'app.authenticate',
         'app.user'
     ])
 
     // setup global scope variables
-    .run(['$rootScope', '$translate', 'Authentication', 'Session', 'Restangular', 'amMoment', '$notification',
-        function ($rootScope, $translate, Authentication, Session, Restangular, amMoment, $notification) {
+    .run(['$rootScope', 'Authentication', 'Restangular', 'amMoment', '$notification',
+        function ($rootScope, Authentication, Restangular, amMoment, $notification) {
 
             // get engine -> categories
             Restangular.one("engines", CONFIG.ENGINE_ID).customGET("categories").then(function(response) {
@@ -46,7 +49,7 @@ var notify = null;
             });
 
             // getting store locale
-            $rootScope.currentLanguage = Session.get(CONFIG.LANGUAGES.PREFIX) || CONFIG.LANGUAGES.DEFAULT;
+            $rootScope.currentLanguage = localStorage.getItem(CONFIG.LANGUAGES.PREFIX) || CONFIG.LANGUAGES.DEFAULT;
 
             amMoment.changeLocale($rootScope.currentLanguage);
 
@@ -58,6 +61,21 @@ var notify = null;
 
                 $rootScope.bannersOn = true;
                 //if(!Authentication.isLoggedIn()) {}
+            });
+
+            $rootScope.$on("$routeChangeStart", function(event, next, current) {
+
+            // Auth checkout
+
+                    var user = Authentication.isLoggedIn();
+                    if(user === true) {
+                        //@TODO Checkout ACL
+//                        if(CONFIG.ACL[user.role].indexOf(next.originalPath) == -1) {
+//                            console.log('403 Access Forbidden');
+//                            $location.path(CONFIG.routes.error403);
+//                            event.preventDefault();
+//                        }
+                    }
             });
         }
     ])
@@ -112,7 +130,7 @@ var notify = null;
                 return angular.isObject(data) && String(data) !== '[object File]' ? param(data) : data;
             }
         });
-        //RestangularProvider.setDefaultRequestParams('get', {locale: localStorage.getItem(CONFIG.LANGUAGES.PREFIX)});
+        RestangularProvider.setDefaultRequestParams('get', {locale: localStorage.getItem(CONFIG.LANGUAGES.PREFIX)});
         RestangularProvider.setDefaultHeaders(
             { "Accept": CONFIG.ACCEPT_ENCODING}
         );
@@ -153,8 +171,7 @@ var notify = null;
 
         // get all partitions of language {part} - controller
         $translateProvider.useLoader('$translatePartialLoader', {
-            urlTemplate: CONFIG.LANGUAGES.TEMPLATE,
-            loadFailureHandler : 'TranslateErrorHandler'
+            urlTemplate: CONFIG.LANGUAGES.TEMPLATE
         });
     }]);
 

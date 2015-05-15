@@ -2,7 +2,7 @@
 
 (function(angular) {
 
-    angular.module('app')
+    angular.module('app.common')
         .directive('menuTop', function () {
 
             return {

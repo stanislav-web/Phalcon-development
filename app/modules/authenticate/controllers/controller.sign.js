@@ -9,8 +9,8 @@
      * @dependencies $translate angular-translater
      * @dependencies $cookies angular-cookies
      */
-    angular.module('app.authenticate').controller('SignController', ['$scope', '$location', 'Authentication', '$translatePartialLoader', 'Meta',
-        function ($scope, $location, Authentication, $translatePartialLoader, Meta) {
+    angular.module('app.authenticate').controller('SignController', ['$scope', '$location', 'Authentication', '$translatePartialLoader', 'Document',
+        function ($scope, $location, Authentication, $translatePartialLoader, Document) {
 
         // add language support to this controller
         $translatePartialLoader.addPart('sign');
@@ -19,7 +19,7 @@
         $scope.$parent.bannersOn = false;
 
         // set meta title
-        Meta.setTitle('Sign In', $scope.$parent.title);
+        Document.prependTitle('Sign In', '-');
 
         $scope.loginForm = true;
         $scope.registerForm = false;
@@ -51,12 +51,7 @@
 
             $scope.loading = true;
 
-            var credentials = {
-                'login': $scope.login,
-                'password': $scope.password
-            };
-
-            Authentication.login(CONFIG.ROUTES.AUTH, credentials).then(function(response) {
+            Authentication.login(CONFIG.ROUTES.AUTH, this.credentials).then(function (response) {
 
                 // auth success! Set data to session & get redirect to home page
                 Authentication.setAuthData(response);
@@ -72,11 +67,7 @@
 
             $scope.loading = true;
 
-            var credentials = {
-                'login': $scope.login
-            };
-
-            Authentication.restore(CONFIG.ROUTES.AUTH, credentials).then(function () {
+            Authentication.restore(CONFIG.ROUTES.AUTH, this.credentials).then(function () {
 
                 // restore success!
                 console.log(response);
@@ -91,17 +82,10 @@
 
             $scope.loading = true;
 
-            var credentials = {
-                'login':    $scope.login,
-                'name':     $scope.name,
-                'password': $scope.password
-            };
-
-            Authentication.register(CONFIG.ROUTES.AUTH, credentials).then(function (response) {
+            Authentication.register(CONFIG.ROUTES.AUTH, this.credentials).then(function (response) {
 
                 // register success! Set data to session & get redirect to account
-                Authentication.setAuthData(response.access);
-
+                Session.set('auth', response.access);
                 $location.path(CONFIG.ROUTES.ACCOUNT);
 
             }).finally(function () {
@@ -118,7 +102,9 @@
 
         // Check password identity action
         $scope.checkPassword = function () {
-            $scope.formRegister.passwordx.$error.dontMatch = $scope.password !== $scope.passwordx;
+
+            console.log(this.credentials);
+            $scope.formRegister.passwordx.$error.dontMatch = this.credentials.password !== this.passwordx;
         };
     }]);
 

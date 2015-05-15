@@ -3,6 +3,7 @@ var CONFIG = {
     ENGINE_ID: 1,
     BANNERS: true,
     LOGGER: true,
+    KEY: 'PICKCHARSFROMTHISSET',
     REQUEST_TIMEOUT: 15000,
     DEFAULT_CURRENCY: 'UAH',
     ACCEPT_ENCODING: 'application/json; charset=utf-8',
@@ -48,5 +49,9 @@ var CONFIG = {
         HOME: '/',
         AUTH: '/sign',
         ACCOUNT: '/account'
+    },
+    ACL : {
+        USER:       ['/', '/sign', '/account'],
+        ADMIN:      ['/', '/sign', '/account']
     }
 };

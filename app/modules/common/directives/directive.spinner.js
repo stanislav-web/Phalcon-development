@@ -2,7 +2,7 @@
 
 (function(angular) {
 
-    angular.module('app')
+    angular.module('app.common')
         .directive('usSpinner', ['$http', '$rootScope' ,function ($http, $rootScope) {
         return {
             link: function (scope, elm, attrs)

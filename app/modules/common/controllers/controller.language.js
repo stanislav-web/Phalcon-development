@@ -7,8 +7,8 @@
      *
      * Control of a switching translation.
      */
-    angular.module('app').controller('LanguageController', ['$translate', '$scope', 'Session',
-        function ($translate, $scope, Session) {
+    angular.module('app.common').controller('LanguageController', ['$translate', '$scope',
+        function ($translate, $scope) {
 
             // set up language switcher
 
@@ -18,7 +18,7 @@
                 $translate.use(langKey);
 
                 // send to storage
-                Session.set(CONFIG.LANGUAGES.PREFIX, langKey);
+                localStorage.setItem(CONFIG.LANGUAGES.PREFIX, langKey);
                 $scope.currentLanguage  =   langKey;
 
                 // update languages global

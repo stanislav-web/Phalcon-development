@@ -2,7 +2,7 @@
 
 (function(angular) {
 
-    angular.module('app')
+    angular.module('app.routes', ['ngRoute'])
 
     // Configure application's routes
 
@@ -35,7 +35,6 @@
                 templateUrl: CONFIG.TEMPLATES.PAGES,
                 controller: "IndexController"
             })
-
 
             .when('/transactions/:name', {
                 templateUrl: function(urlattr){

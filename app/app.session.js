@@ -1,9 +1,10 @@
-(function (angular) {
+"use strict";
 
-    "use strict";
-    angular.module("app", [])
+(function(angular) {
 
-        .service('Session',  [function() {
+    angular.module('app.session', [])
+
+        .service('Session',  function() {
 
             return {
 
@@ -86,5 +87,6 @@
                     return localStorage.clear();
                 }
             };
-        }]);
+        });
+
 })(angular);
