@@ -40,7 +40,7 @@ class UserRoles extends \Phalcon\Mvc\Model
      *
      * @var string
      */
-    public $name;
+    public $role;
 
     /**
      * Initialize Model

@@ -11,9 +11,9 @@ $I->setHeader('Accept-Language', 'en-GB');
 $I->sendGET('api/v1/sign', ['login' => 'admin@admin.ua', 'password' => 'admin@admin.ua']);
 $auth = $I->grabDataFromJsonResponse();
 
-$I->amBearerAuthenticated($auth['data']['token']);
+$I->amBearerAuthenticated($auth['data']['access']['token']);
 
-$I->sendGET('api/v1/logs');
+$I->sendGET('api/v1/logs?limit=5');
 
 $I->seeResponseCodeIs(200);
 $I->seeHttpHeader('Access-Control-Allow-Methods', 'GET');

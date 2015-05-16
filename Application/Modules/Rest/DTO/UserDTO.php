@@ -19,16 +19,24 @@ class UserDTO extends AbstractDTO
     /**
      * Users collection
      *
-     * @var array
+     * @var array $users
      */
     public $users = [];
 
     /**
-     * Currencies collection
+     * User auth access collection
      *
-     * @var array
+     * @var array $access
      */
     public $access = [];
+
+
+    /**
+     * User roles collection
+     *
+     * @var array $roles
+     */
+    public $roles = [];
 
     /**
      * Setup users
@@ -58,6 +66,19 @@ class UserDTO extends AbstractDTO
         $this->access['total'] = $this->total($access);
         $this->access['limit'] = $this->limit($access);
         $this->access['offset'] = $this->offset();
+
+        return $this;
+    }
+
+    /**
+     * Setup roles
+     *
+     * @param \Application\Models\UserRoles $roles
+     * @return $this
+     */
+    public function setRoles(\Application\Models\UserRoles $roles) {
+
+        $this->roles = $roles->toArray();
 
         return $this;
     }

@@ -46,6 +46,7 @@ class UserMapper extends AbstractModelCrud {
      * @return UserRoles
      */
     public function getRoles() {
+
         return new UserRoles();
     }
 

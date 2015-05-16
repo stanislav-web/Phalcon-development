@@ -3,7 +3,7 @@ $scenario = (null !== $scenario) ? $scenario : new \StdClass();
 
 $I = new ApiTester($scenario);
 
-$I->wantTo('GET items list: /api/v1/items?limit=100');
+$I->wantTo('GET items list: /api/v1/items?limit=5');
 
 $I->setHeader('Accept', '*/*');
 $I->setHeader('Accept-Language', 'en-GB');
