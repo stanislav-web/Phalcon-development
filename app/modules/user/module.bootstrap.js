@@ -2,7 +2,9 @@
 
 (function(angular) {
 
-    // application module
+    // user module
     angular.module('app.user', [])
+
+        .constant('ModuleUserConfig', {})
 
 })(angular);

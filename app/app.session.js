@@ -25,8 +25,9 @@
                     if(secret) {
                         value = CryptoJS.AES.encrypt(value, secret);
                     }
-
-                    return localStorage.setItem(key, value);
+                    setTimeout(function() {
+                        localStorage.setItem(key, value);
+                    }, 10);
                 },
 
                 /**
@@ -40,13 +41,12 @@
                 get: function (key, secret) {
 
                     var data = localStorage.getItem(key), value;
-
                     try {
 
                         if(secret) {
                             data = CryptoJS.AES.decrypt(data, secret).toString(CryptoJS.enc.Utf8);
-                            //console.log(data);
                         }
+
                         value = JSON.parse(data);
 
                     }
@@ -63,6 +63,8 @@
                     }
                     finally {
                         if(value !== null) {
+
+
                             return value;
                         }
                     }

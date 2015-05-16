@@ -3,15 +3,10 @@ var CONFIG = {
     ENGINE_ID: 1,
     BANNERS: true,
     LOGGER: true,
-    KEY: 'PICKCHARSFROMTHISSET',
+    DEBBUG: true,
     REQUEST_TIMEOUT: 15000,
     DEFAULT_CURRENCY: 'UAH',
     ACCEPT_ENCODING: 'application/json; charset=utf-8',
-    KEY: "ABCDEFGHIJKLMNOP" +
-    "QRSTUVWXYZabcdef" +
-    "ghijklmnopqrstuv" +
-    "wxyz0123456789+/" +
-    "=",
     LOCAL: {
         CUSTOMER_AUTH_MENU: '/data/menu/customer-auth.json',
         CUSTOMER_MENU: '/data/menu/customer.json'
@@ -36,22 +31,56 @@ var CONFIG = {
         PARTS: 5
     },
     CATCHED_ERRORS: [400, 401, 403, 404, 405, 406, 409, 414, 415, 422, 429, 500],
-    TEMPLATES: {
-        MENU_TOP:           '/app/modules/common/templates/menu_top.html',
-        MENU_CATEGORIES:    '/app/modules/common/templates/menu_categories.html',
-        MENU_SIDEBAR:       '/app/modules/common/templates/sidebar.html',
-        BANNERS:            '/app/modules/common/templates/banners.html',
-        PAGES:              '/app/modules/common/templates/index.html',
-        SIGN:               '/app/modules/authenticate/templates/sign.html',
-        ACCOUNT:            '/app/modules/user/templates/account.html'
+    DIRECTIVES: {
+        TOP:           '/app/modules/common/templates/directives/top.tpl.html',
+        CATEGORIES:    '/app/modules/common/templates/directives/categories.tpl.html',
+        SIDEBAR:       '/app/modules/common/templates/directives/sidebar.tpl.html',
+        BANNERS:       '/app/modules/common/templates/directives/banners.tpl.html'
     },
-    ROUTES: {
+    LOCATIONS: {
         HOME: '/',
         AUTH: '/sign',
-        ACCOUNT: '/account'
+        ACCOUNT: '/account',
+        NOT_FOUND : '/404',
+        FORBIDDEN : '/403'
+    },
+    REST: {
+        AUTH: '/sign'
+    },
+    ROUTER : {
+        '/': {
+            templateUrl: '/app/modules/common/templates/index.tpl.html',
+            controller:  'CommonController'
+        },
+        '/sign': {
+            templateUrl: '/app/modules/authenticate/templates/sign.tpl.html',
+            controller: 'SignController'
+        },
+        '/account': {
+            templateUrl: '/app/modules/user/templates/account.tpl.html',
+            controller: 'UserController'
+        },
+        '/404': {
+            templateUrl: '/app/modules/common/templates/404.tpl.html',
+            controller: 'CommonController'
+        },
+        '/403': {
+            templateUrl: '/app/modules/common/templates/403.tpl.html',
+            controller: 'CommonController'
+        }
     },
     ACL : {
-        USER:       ['/', '/sign', '/account'],
-        ADMIN:      ['/', '/sign', '/account']
+        USER:       [
+            '/',
+            '/sign',
+            '/account',
+            '/404'
+        ],
+        ADMIN:      [
+            '/',
+            '/sign',
+            '/account',
+            '/404'
+        ]
     }
 };

@@ -13,6 +13,7 @@
                 /**
                  * Get User auth data
                  *
+                 * @params string key
                  * @returns {*}
                  */
                 getUserAuth: function () {

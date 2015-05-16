@@ -11,7 +11,6 @@
     <!-- /Get meta -->
 
     <!-- Append Stylesheet -->
-    <link href="/plugins/angular-debug-bar/dist/css/angular-debug-bar.css" rel="stylesheet" />
     <link href="/plugins/bootstrap/dist/css/bootstrap.css" media="all" rel="stylesheet" />
     <link href="/plugins/bootstrap-language/languages.css" media="all" rel="stylesheet" />
     <link href="/plugins/isteven-angular-multiselect/isteven-multi-select.css" media="all" rel="stylesheet" />
@@ -75,7 +74,7 @@
 
     <section class="line3 wrap">
         <!-- Banners slideshow -->
-        <banners-slideshow ng-show="bannersOn"></banners-slideshow>
+        <banners ng-show="bannersOn"></banners>
         <!-- /Banners slideshow -->
 
         <!-- Sidebar -->
@@ -124,7 +123,6 @@
 <script src="/plugins/angular-cookies/angular-cookies.js"></script>
 <script src="/plugins/angular-spinner/angular-spinner.js"></script>
 <script src="/plugins/angular-animate/angular-animate.js"></script>
-<script src="/plugins/angular-debug-bar/dist/js/angular-debug-bar.min.js"></script>
 <script src="/plugins/angular-bootstrap/ui-bootstrap-tpls.js"></script>
 <script src="/plugins/angular-moment/angular-moment.js"></script>
 <script src="/plugins/angular-notifications/notification.js"></script>
@@ -138,26 +136,21 @@
 <!-- Application -->
 <script src="/app/app.config.js"></script>
 <script src="/app/app.bootstrap.js"></script>
-<script src="/app/app.routes.js"></script>
 <script src="/app/app.session.js"></script>
 <script src="/app/app.document.js"></script>
+<script src="/app/app.directives.js"></script>
 <script src="/app/modules/common/module.bootstrap.js"></script>
 <script src="/app/modules/authenticate/module.bootstrap.js"></script>
 <script src="/app/modules/user/module.bootstrap.js"></script>
 <!-- /Application -->
 
 <!-- Directives -->
-<script src="/app/modules/common/directives/directive.spinner.js"></script>
-<script src="/app/modules/common/directives/directive.menu.js"></script>
-<script src="/app/modules/common/directives/directive.banners.js"></script>
-<script src="/app/modules/common/directives/directive.language.js"></script>
 <!-- /Directives -->
 
 <!-- Filters -->
 <!-- /Filters -->
 
 <!-- Services -->
-<script src="/app/modules/common/services/service.meta.js"></script>
 <script src="/app/modules/authenticate/services/service.authentication.js"></script>
 <script src="/app/modules/user/services/service.user.js"></script>
 
@@ -166,11 +159,10 @@
 <!-- Controllers -->
 <script src="/app/modules/common/controllers/controller.top.js"></script>
 <script src="/app/modules/common/controllers/controller.language.js"></script>
-<script src="/app/modules/common/controllers/controller.index.js"></script>
+<script src="/app/modules/common/controllers/controller.common.js"></script>
 <script src="/app/modules/authenticate/controllers/controller.sign.js"></script>
 <script src="/app/modules/user/controllers/controller.user.js"></script>
 <!-- /Controllers -->
 <div notifications="top right"></div>
-<angular-debug-bar></angular-debug-bar>
 </body>
 </html>

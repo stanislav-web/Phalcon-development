@@ -3,11 +3,11 @@
 (function(angular){
 
     /**
-     * Controller "IndexController"
+     * Controller "CommonController"
      *
      * Control of main page.
      */
-    angular.module('app.common').controller('IndexController', ['Document', '$scope',
+    angular.module('app.common').controller('CommonController', ['Document', '$scope',
         function(Document, $scope) {
 
             // set meta title

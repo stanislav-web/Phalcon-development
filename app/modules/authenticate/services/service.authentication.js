@@ -5,21 +5,10 @@
     /**
      * User Authentication service
      */
-    angular.module('app.authenticate').service('Authentication',  ['Restangular', 'Session',
-        function(Restangular, Session) {
+    angular.module('app.authenticate')
 
-            /**
-             * Get user auth data
-             *
-             * @returns object
-             */
-            var getAuthData = function(key) {
-                if(_.isUndefined(key)) {
-                    var key = getKey();
-                }
-
-                return Session.get('auth', key);
-            };
+        .service('Authentication',  ['Restangular', 'Session','ModuleAuthenticateConfig',
+        function(Restangular, Session, ModuleAuthenticateConfig) {
 
             /**
              * Get user key access
@@ -63,10 +52,10 @@
                  * @param string route
                  * @returns {*}
                  */
-                login: function(route, credentials) {
+                auth: function(route, credentials) {
 
                     return Restangular.all(route)
-                        .customGET(undefined, credentials);
+                        .customGET(undefined, _.merge(credentials, {_time : new Date().getTime()}));
                 },
 
                 /**
@@ -106,17 +95,19 @@
                  */
                 isLoggedIn: function () {
 
-                    var auth = getAuthData();
+                    var auth = this.getAuthData();
 
                     // check for data isset
                     if(!_.isNull(auth) && !_.isUndefined(auth)) {
 
                         // check for data contains specific keys
-                        if(_.has(auth, ['user_id']) && _.has(auth, ['expire_date']) && _.has(auth, ['token'])) {
+                        if(_.has(auth.access, ['user_id'])
+                            && _.has(auth.access, ['expire_date'])
+                                && _.has(auth.access, ['token'])) {
 
                             // check for data is valid by date
-                            if(moment(auth.expire_date).isValid()
-                                && moment(auth.expire_date).unix() > moment().unix()) {
+                            if(moment(auth.access.expire_date).isValid()
+                                && moment(auth.access.expire_date).unix() > moment().unix()) {
 
                                 return true;
                             }
@@ -131,7 +122,7 @@
                  * @param response
                  */
                 setAuthData: function(response) {
-                    var key = randomString(5, CONFIG.KEY);
+                    var key = randomString(ModuleAuthenticateConfig.keyLength, ModuleAuthenticateConfig.key);
 
                     Session.set('mode', key);
                     Session.set('auth', response, key);
@@ -141,7 +132,8 @@
                  * Get user auth data
                  */
                 getAuthData: function() {
-                    return getAuthData();
+                    var key = getKey();
+                    return Session.get('auth', key);
                 },
 
                 /**

@@ -6,6 +6,8 @@
 
         .service('Document',  ['$translate', '$rootScope', function($translate, $rootScope) {
 
+            var baseTitle = '';
+
             return {
 
                 /**
@@ -18,7 +20,7 @@
                 setTitle: function (newTitle, oldTitle) {
 
                     $translate(newTitle).then(function (newTitle) {
-                        $rootScope.documentTitle = newTitle;
+                        $rootScope.documentTitle = baseTitle = newTitle;
                     });
 
                     $rootScope.$on('$translateChangeSuccess', function () {
@@ -26,7 +28,7 @@
 
                             if(!_.isUndefined(oldTitle) === true) {
                                 // hack to disable reload basic title
-                                $rootScope.documentTitle = newTitle;
+                                $rootScope.documentTitle = baseTitle = newTitle;
                             }
                         });
                     });
@@ -42,11 +44,19 @@
                 prependTitle: function (title, delimiter) {
 
                     if(!delimiter) delimiter = ' ';
-                    if(!documentTitle) var documentTitle = $rootScope.documentTitle;
+
+                    if(!baseTitle.length) {
+                        if($rootScope.documentTitle) {
+                            baseTitle = $rootScope.documentTitle;
+                        }
+                        else {
+                            baseTitle = $rootScope.engines.name;
+                        }
+                    }
 
                     $rootScope.$on('$translateChangeSuccess', function () {
                         $translate(title).then(function (title) {
-                            $rootScope.documentTitle = title +' ' + delimiter + ' '+ documentTitle;
+                            $rootScope.documentTitle = title +' ' + delimiter + ' '+ baseTitle;
                         });
                     });
 
@@ -64,9 +74,18 @@
 
                     if(!delimiter) delimiter = ' ';
 
+                    if(!baseTitle.length) {
+                        if($rootScope.documentTitle) {
+                            baseTitle = $rootScope.documentTitle;
+                        }
+                        else {
+                            baseTitle = $rootScope.engines.name;
+                        }
+                    }
+
                     $rootScope.$on('$translateChangeSuccess', function () {
                         $translate(title).then(function (title) {
-                            $rootScope.documentTitle += ' '+ delimiter+ ' ' + title;
+                            $rootScope.documentTitle += ' '+ delimiter+ ' ' + baseTitle;
                         });
                     });
 

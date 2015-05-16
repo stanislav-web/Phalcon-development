@@ -22,8 +22,6 @@
         Document.prependTitle('Sign In', '-');
 
         $scope.loginForm = true;
-        $scope.registerForm = false;
-        $scope.remindForm = false;
 
         // User form switcher
         $scope.toggle = function(form) {
@@ -46,16 +44,16 @@
             }
         };
 
-        // Sign to account
-        $scope.sign = function () {
+        // Login to account
+        $scope.login = function () {
 
             $scope.loading = true;
 
-            Authentication.login(CONFIG.ROUTES.AUTH, this.credentials).then(function (response) {
+            Authentication.auth(CONFIG.REST.AUTH, this.credentials).then(function (response) {
 
                 // auth success! Set data to session & get redirect to home page
                 Authentication.setAuthData(response);
-                $location.path(CONFIG.ROUTES.ACCOUNT);
+                $location.path(CONFIG.LOCATIONS.ACCOUNT);
 
             }).finally(function () {
                 $scope.loading = false;
@@ -67,7 +65,7 @@
 
             $scope.loading = true;
 
-            Authentication.restore(CONFIG.ROUTES.AUTH, this.credentials).then(function () {
+            Authentication.restore(CONFIG.REST.AUTH, this.credentials).then(function () {
 
                 // restore success!
                 console.log(response);
@@ -82,11 +80,11 @@
 
             $scope.loading = true;
 
-            Authentication.register(CONFIG.ROUTES.AUTH, this.credentials).then(function (response) {
+            Authentication.register(CONFIG.REST.AUTH, this.credentials).then(function (response) {
 
                 // register success! Set data to session & get redirect to account
                 Session.set('auth', response.access);
-                $location.path(CONFIG.ROUTES.ACCOUNT);
+                $location.path(CONFIG.LOCATIONS.ACCOUNT);
 
             }).finally(function () {
                 $scope.loading = false;
@@ -95,15 +93,13 @@
 
         // Logout process
         $scope.logout = function () {
-            Authentication.logout(CONFIG.ROUTES.AUTH).then(function() {
-                $location.path(CONFIG.ROUTES.HOME);
+            Authentication.logout(CONFIG.REST.AUTH).then(function() {
+                $location.path(CONFIG.LOCATIONS.HOME);
             });
         };
 
         // Check password identity action
         $scope.checkPassword = function () {
-
-            console.log(this.credentials);
             $scope.formRegister.passwordx.$error.dontMatch = this.credentials.password !== this.passwordx;
         };
     }]);
