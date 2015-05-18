@@ -13,7 +13,7 @@ return [
         'acceptLanguage'    => ['ru', 'en', 'ua', 'de', 'uk'],
         'acceptCharset'     => 'utf-8',
         'acceptFilters'    => [
-            'columns', 'offset', 'limit', 'token', 'locale', 'login', 'password', 'order', 'name', 'format', 'code', '_profile', 'surname'
+            'columns', 'offset', 'limit', 'token', 'locale', 'login', 'password', 'order', 'name', 'format', 'code', '_profile', '_time','surname'
         ],
         'acceptQueryLength'    => 121,
 
@@ -27,6 +27,7 @@ return [
         // POST 304 Redirects
         'redirects' => [
             '/api/v1/sign' => '/api/v1/users',
-        ]
+        ],
+
     ]
 ];
