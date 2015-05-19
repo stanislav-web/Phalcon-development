@@ -86,7 +86,9 @@
                 var newResponse = {};
                 if(operation === 'getList') {
                     newResponse = response.data;
-                    newResponse.meta = response.meta;
+                    if(response.debug) {
+                        newResponse.meta = response.meta;
+                    }
                     if(response.debug) {
                         newResponse.debug = response.debug;
                     }

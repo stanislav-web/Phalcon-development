@@ -23,7 +23,7 @@
     <link href="/assets/styles/slider.css" media="all" rel="stylesheet" />
     <!-- /Append Stylesheet -->
 
-    <title>{{documentTitle}}</title>
+    <title ng-bind="documentTitle"></title>
 </head>
 <body>
 <!-- Checkout bar -->
@@ -147,13 +147,10 @@
 <!-- Directives -->
 <!-- /Directives -->
 
-<!-- Filters -->
-<!-- /Filters -->
-
 <!-- Services -->
 <script src="/app/modules/authenticate/services/service.authentication.js"></script>
 <script src="/app/modules/user/services/service.user.js"></script>
-
+<script src="/app/modules/common/services/service.data.js"></script>
 <!-- /Services -->
 
 <!-- Controllers -->

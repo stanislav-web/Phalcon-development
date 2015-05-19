@@ -7,26 +7,33 @@
      *
      * Controls the display of the main menu of the costomer.
      */
-    angular.module('app.common').controller('TopMenuController', ['$scope', '$location', '$translatePartialLoader', '$translate', '$http', '$anchorScroll',
-        function($scope, $location, $translatePartialLoader, $translate, $http, $anchorScroll) {
+    angular.module('app.common').controller('TopMenuController', ['$scope', '$location', '$translatePartialLoader', '$translate', 'DataService', '$anchorScroll',
+        function($scope, $location, $translatePartialLoader, $translate, DataService, $anchorScroll) {
 
             // add language support to this controller
             $translatePartialLoader.addPart('menu');
 
-            // load customer menu
-            $http.get(CONFIG.LOCAL.CUSTOMER_MENU).success(function(response) {
-                $scope.items = response;
-            });
-
             $scope.isActive = function (url) {
 
                 if($location.hash() != '') {
-                    // scroller to hash name
+                    // scroll to hash name
                     $anchorScroll();
                     return url === $location.url() + '#' + $location.hash();
                 }
                 return url === $location.url();
             }
+
+            // load customer menu
+            $scope.$parent.$watch('isLoggedIn', function(isLoggedIn) {
+                if(isLoggedIn !== undefined) {
+                    var menu = ($scope.$parent.isLoggedIn === true)
+                        ? CONFIG.LOCAL.CUSTOMER_AUTH_MENU : CONFIG.LOCAL.CUSTOMER_MENU;
+                    DataService.getData(menu, function(response) {
+                        $scope.items = response;
+                    });
+                }
+            });
+
         }]);
 
 })(angular);

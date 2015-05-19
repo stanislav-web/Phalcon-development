@@ -7,7 +7,7 @@
      */
     angular.module('app.authenticate')
 
-        .service('Authentication',  ['Restangular', 'Session','ModuleAuthenticateConfig',
+        .service('AuthenticationService',  ['Restangular', 'Session','ModuleAuthenticateConfig',
         function(Restangular, Session, ModuleAuthenticateConfig) {
 
             /**
@@ -24,7 +24,7 @@
              * @returns null
              */
             var removeAuthData = function() {
-                return Session.remove('auth');
+                return Session.remove('auth').remove('mode');
             };
 
             /**
@@ -114,6 +114,8 @@
                         }
                     }
                     removeAuthData();
+
+                    return false;
                 },
 
                 /**

@@ -58,7 +58,8 @@ var CONFIG = {
         },
         '/account': {
             templateUrl: '/app/modules/user/templates/account.tpl.html',
-            controller: 'UserController'
+            controller: 'UserController',
+            access : ['User', 'Admin']
         },
         '/404': {
             templateUrl: '/app/modules/common/templates/404.tpl.html',
@@ -68,19 +69,5 @@ var CONFIG = {
             templateUrl: '/app/modules/common/templates/403.tpl.html',
             controller: 'CommonController'
         }
-    },
-    ACL : {
-        USER:       [
-            '/',
-            '/sign',
-            '/account',
-            '/404'
-        ],
-        ADMIN:      [
-            '/',
-            '/sign',
-            '/account',
-            '/404'
-        ]
     }
 };

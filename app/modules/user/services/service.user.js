@@ -6,7 +6,7 @@
      * User service
      */
     angular.module('app.user')
-        .service('UserService',  ['Authentication', function(Authentication) {
+        .service('UserService',  ['AuthenticationService', function(AuthenticationService) {
 
             return {
 
@@ -18,7 +18,7 @@
                  */
                 getUserAuth: function () {
 
-                    return Authentication.getAuthData();
+                    return AuthenticationService.getAuthData();
                 }
             };
     }]);

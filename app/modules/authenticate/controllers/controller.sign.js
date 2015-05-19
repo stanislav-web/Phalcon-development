@@ -9,8 +9,8 @@
      * @dependencies $translate angular-translater
      * @dependencies $cookies angular-cookies
      */
-    angular.module('app.authenticate').controller('SignController', ['$scope', '$location', 'Authentication', '$translatePartialLoader', 'Document',
-        function ($scope, $location, Authentication, $translatePartialLoader, Document) {
+    angular.module('app.authenticate').controller('SignController', ['$scope', '$location', 'AuthenticationService', '$translatePartialLoader', 'Document',
+        function ($scope, $location, AuthenticationService, $translatePartialLoader, Document) {
 
         // add language support to this controller
         $translatePartialLoader.addPart('sign');
@@ -49,10 +49,10 @@
 
             $scope.loading = true;
 
-            Authentication.auth(CONFIG.REST.AUTH, this.credentials).then(function (response) {
+            AuthenticationService.auth(CONFIG.REST.AUTH, this.credentials).then(function (response) {
 
                 // auth success! Set data to session & get redirect to home page
-                Authentication.setAuthData(response);
+                AuthenticationService.setAuthData(response);
                 $location.path(CONFIG.LOCATIONS.ACCOUNT);
 
             }).finally(function () {
@@ -65,7 +65,7 @@
 
             $scope.loading = true;
 
-            Authentication.restore(CONFIG.REST.AUTH, this.credentials).then(function () {
+            AuthenticationService.restore(CONFIG.REST.AUTH, this.credentials).then(function () {
 
                 // restore success!
                 console.log(response);
@@ -80,7 +80,7 @@
 
             $scope.loading = true;
 
-            Authentication.register(CONFIG.REST.AUTH, this.credentials).then(function (response) {
+            AuthenticationService.register(CONFIG.REST.AUTH, this.credentials).then(function (response) {
 
                 // register success! Set data to session & get redirect to account
                 Session.set('auth', response.access);

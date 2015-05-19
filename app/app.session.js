@@ -74,19 +74,19 @@
                  * Remove key from session storage
                  *
                  * @param key
-                 * @returns {*}
                  */
                 remove: function (key) {
-                    return localStorage.removeItem(key);
+
+                    localStorage.removeItem(key);
+
+                    return  this;
                 },
 
                 /**
                  * Destroy all keys
-                 *
-                 * @returns {*}
                  */
                 destroy: function () {
-                    return localStorage.clear();
+                    localStorage.clear();
                 }
             };
         });

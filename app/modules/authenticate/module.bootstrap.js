@@ -9,19 +9,24 @@
             key : 'PICKCHARSFROMTHISSET',
             keyLength : 4
         })
-        .run(['$rootScope', 'Authentication', function($rootScope, Authentication) {
+        .run(['$rootScope', 'AuthenticationService', function($rootScope, AuthenticationService) {
 
-            $rootScope.$on("$locationChangeSuccess", function(event, next, current) {
+            $rootScope.$on("$routeChangeSuccess", function(event, next, current) {
 
                 // Auth checkout
-                var user = Authentication.isLoggedIn();
-                if(user === true) {
-                        //@TODO Checkout ACL
-//                        if(CONFIG.ACL[user.role].indexOf(next.originalPath) == -1) {
-//                            console.log('403 Access Forbidden');
-//                            $location.path(CONFIG.LOCATIONS.FORBIDDEN);
-//                            event.preventDefault();
-//                        }
+                $rootScope.isLoggedIn = AuthenticationService.isLoggedIn();
+
+                if($rootScope.isLoggedIn === true) {
+
+                    var user = AuthenticationService.getAuthData();
+
+                    if(next.$$route.hasOwnProperty('access')) {
+
+                        // Checkout ACL
+                        if(next.$$route.access.indexOf(user.roles.role) == -1) {
+                            window.location.assign(CONFIG.LOCATIONS.FORBIDDEN);
+                        }
+                    }
                 }
 
             });

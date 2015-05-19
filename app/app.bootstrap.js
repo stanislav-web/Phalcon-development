@@ -10,8 +10,8 @@ var notify = null;
         'app.document',
         'app.directives',
         'app.session',
-        'app.common',
         'app.authenticate',
+        'app.common',
         'app.user'
     ])
 

@@ -2,38 +2,21 @@
     {
         "title": "My Account",
         "url": "/account",
-        "translate": "ACCOUNT"
+        "translate": "My Account"
     },
     {
-        "title": "My Purchases",
-        "url": "/transactions/purchases",
-        "translate": "PURCHASES"
+        "title": "My Favorites",
+        "url": "/page/favorites",
+        "translate": "My Favorites"
     },
     {
         "title": "My Observations",
         "url": "/transactions/observations",
-        "translate": "OBSERVATIONS"
-    },
-    {
-        "title": "My Bets",
-        "url": "/transactions/bets",
-        "translate": "BETS"
-    },
-    {
-        "title": "Sell",
-        "url": "/transactions/sell",
-        "translate": "SELL"
-    },
-    {
-        "title": "Sold Out",
-        "url": "/transactions/sold",
-        "translate": "SOLD_OUT"
+        "translate": "My Observations"
     },
     {
         "title": "Logout",
-        "url": "#",
-        "translate": "LOGOUT",
-        "onclick": "logout()",
-        "controller": "SignController"
+        "url": "/logout",
+        "translate": "Logout"
     }
 ]
