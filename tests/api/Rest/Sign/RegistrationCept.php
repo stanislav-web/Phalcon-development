@@ -25,5 +25,5 @@ $I->seeResponseIsJson();
 $I->sendGET('api/v1/sign', ['login' => $login, 'password' => $password]);
 $auth = $I->grabDataFromJsonResponse();
 
-$user_id = $auth['data']['user_id'];
+$user_id = $auth['data']['access']['user_id'];
 $I->sendDELETE('api/v1/sign/'.$user_id);

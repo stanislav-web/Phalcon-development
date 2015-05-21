@@ -11,7 +11,7 @@ $I->setHeader('Accept-Language', 'en-GB');
 $I->sendGET('api/v1/sign', ['login' => 'admin@admin.ua', 'password' => 'admin@admin.ua']);
 $auth = $I->grabDataFromJsonResponse();
 
-$I->amBearerAuthenticated($auth['data']['token']);
+$I->amBearerAuthenticated($auth['data']['access']['token']);
 
 $I->sendGET('api/v1/logs/1');
 $I->seeResponseCodeIs(200);

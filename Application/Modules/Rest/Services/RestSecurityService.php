@@ -57,7 +57,11 @@ class RestSecurityService extends RestSecurityProvider {
                     'ua' => $this->getRequest()->getUserAgent(),
                 ]);
 
-                return (new UserDTO())->setAccess($accessToken);
+                $transfer = new UserDTO();
+                $transfer->setRoles($this->getUserMapper()->getRoles()->findFirst((int)$user->role));
+                $transfer->setAccess($accessToken);
+
+                return $transfer;
             }
             else {
                 throw new UnauthorizedException([
