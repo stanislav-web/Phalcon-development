@@ -98,7 +98,6 @@ abstract class AbstractModelCrud implements InjectionAwareInterface {
     }
 
     /**
-    /**
      * Edit record
      *
      * @param \Phalcon\Mvc\Model $model
@@ -106,8 +105,11 @@ abstract class AbstractModelCrud implements InjectionAwareInterface {
      * @return boolean
      * @throws BadRequestException
      */
-    public function update(\Phalcon\Mvc\Model $model, array $credentials, array $skip = []) {
+    public function update($model = null, array $credentials, array $skip = []) {
 
+        if(is_null($model) === true) {
+            $model = $this->getInstance();
+        }
         if(empty($skip) === false) {
             $model->skipAttributes($skip);
         }

@@ -77,6 +77,23 @@ return [
             ],
             'mapper'   => 'UserMapper'
         ],
+        'put'    =>  [
+            'requests'  =>  [  // limit request per seconds
+                'limit' =>  2500,
+                'time'  =>  60,
+            ],
+            'methods'   => 'GET,POST,PUT',
+            'authentication'    =>  true,   // need access token ?
+            'access'    =>   [  // access routes restrict for ACL
+                UserRoles::ADMIN =>  [
+                    'api/v1/users'
+                ],
+            ],
+            'params'     => [
+                'required' => 'id'
+            ],
+            'mapper'   => 'UserMapper'
+        ],
     ],
     'logs'  =>  [
         'get'    =>  [

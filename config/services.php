@@ -31,15 +31,17 @@ $di->setShared('session', function () use ($config) {
     return $session->init($config['session']);
 });
 
-$di->setShared('modelsMetadata', function() use ($config) {
+if($config['cache']['metadata'] === true) {
+    $di->setShared('modelsMetadata', function() use ($config) {
 
-    $metaData = new \Phalcon\Mvc\Model\MetaData\Apc([
-        'lifetime'      => $config['cache']['lifetime'], // optional (standard: 8600)
-        'prefix'        => $config['cache']['prefix']   // optional (standard: false)
-    ]);
+        $metaData = new \Phalcon\Mvc\Model\MetaData\Apc([
+            'lifetime'      => $config['cache']['lifetime'], // optional (standard: 8600)
+            'prefix'        => $config['cache']['prefix']   // optional (standard: false)
+        ]);
 
-    return $metaData;
-});
+        return $metaData;
+    });
+}
 
 // GLOBAL SERVICES
 

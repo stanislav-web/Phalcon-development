@@ -50,4 +50,14 @@ class UsersController extends ControllerBase {
                 true
             );
     }
+
+    /**
+     * PUT Update user
+     */
+    public function putAction() {
+
+        $params = $this->rest->getParams();
+        $this->response =
+            $this->getDI()->get('UserMapper')->update($params);
+    }
 }
