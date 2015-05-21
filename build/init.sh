@@ -13,7 +13,7 @@ checkTool() {
     # PHP Setup checking...
     ../vendor/bin/iniscan scan --path=$1 --context=$3 --fail-only
     ../vendor/bin/iniscan scan --path=$1 --format=html --output=$2 --context=$3
-    composer diagnose
+    composer
 }
 
 rebootUnix() {
@@ -62,8 +62,6 @@ runTests() {
     fi
     vendor/bin/codecept run --coverage --xml --html
 };
-
-prepare
 
 # Select environment
 read -p "Please type build [production or dev]: " ENV

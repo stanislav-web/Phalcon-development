@@ -88,7 +88,6 @@ class RestCacheService {
 
             $this->key = $key;
             $this->getStorage()->save($this->key, $value);
-
         }
 
         return $value;
