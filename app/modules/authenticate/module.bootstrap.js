@@ -23,7 +23,7 @@
                     if(next.$$route.hasOwnProperty('access')) {
 
                         // Checkout ACL
-                        if(next.$$route.access.indexOf(user.roles.role) == -1) {
+                        if(next.$$route.access.indexOf(user.roles.name) == -1) {
                             window.location.assign(CONFIG.LOCATIONS.FORBIDDEN);
                         }
                     }

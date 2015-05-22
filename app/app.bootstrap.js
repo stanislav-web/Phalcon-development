@@ -70,11 +70,6 @@ var notify = null;
             notify = $notification;
 
             $rootScope.location = $location;
-
-            // Every time the route in our app changes check auth status
-            $rootScope.$on("$locationChangeSuccess", function(event, next, current) {
-                $rootScope.bannersOn = true;
-            });
         }
     ])
 
