@@ -28,8 +28,8 @@ var notify = null;
     }])
 
     // setup global scope variables
-    .run(['$rootScope', 'Restangular', 'amMoment', '$notification',
-        function ($rootScope, Restangular, amMoment, $notification) {
+    .run(['$rootScope', 'Restangular', 'amMoment', '$notification', '$location',
+        function ($rootScope, Restangular, amMoment, $notification, $location) {
 
             // get engine -> categories
             Restangular.one("engines", CONFIG.ENGINE_ID).customGET("categories").then(function(response) {
@@ -68,6 +68,8 @@ var notify = null;
 
             // overwite global notify storage
             notify = $notification;
+
+            $rootScope.location = $location;
 
             // Every time the route in our app changes check auth status
             $rootScope.$on("$locationChangeSuccess", function(event, next, current) {

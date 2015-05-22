@@ -23,7 +23,7 @@
     <link href="/assets/styles/slider.css" media="all" rel="stylesheet" />
     <!-- /Append Stylesheet -->
 
-    <title ng-bind="documentTitle"></title>
+    <title ng-bind="documentTitle"> </title>
 </head>
 <body>
 <!-- Checkout bar -->
@@ -71,10 +71,9 @@
         <menu-categories></menu-categories>
         <!-- /Category menu -->
     </section>
-
     <section class="line3 wrap">
         <!-- Banners slideshow -->
-        <banners ng-show="bannersOn"></banners>
+        <banners ng-show="location.path() === '/'"></banners>
         <!-- /Banners slideshow -->
 
         <!-- Sidebar -->
