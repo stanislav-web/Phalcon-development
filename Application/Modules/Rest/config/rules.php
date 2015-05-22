@@ -85,6 +85,9 @@ return [
             'methods'   => 'GET,POST,PUT',
             'authentication'    =>  true,   // need access token ?
             'access'    =>   [  // access routes restrict for ACL
+                UserRoles::USER =>  [
+                    'api/v1/users'
+                ],
                 UserRoles::ADMIN =>  [
                     'api/v1/users'
                 ],
