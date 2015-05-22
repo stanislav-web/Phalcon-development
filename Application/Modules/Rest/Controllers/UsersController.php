@@ -57,7 +57,8 @@ class UsersController extends ControllerBase {
     public function putAction() {
 
         $params = $this->rest->getParams();
+
         $this->response =
-            $this->getDI()->get('UserMapper')->update($params);
+            $this->getDI()->get('UserMapper')->update(null, $params, ['login', 'rating', 'state', 'role', 'password']);
     }
 }

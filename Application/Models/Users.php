@@ -104,7 +104,7 @@ class Users extends \Phalcon\Mvc\Model
     {
         // its allow to keep empty data to my db
         $this->setup([
-            'notNullValidations' => true,
+            'notNullValidations' => false,
             'exceptionOnFailedSave' => false
         ]);
 
@@ -113,6 +113,42 @@ class Users extends \Phalcon\Mvc\Model
         $this->skipAttributesOnUpdate(['date_registration']);
     }
 
+    /**
+     * Method to set the value of field datetime
+     *
+     * @param string $expire_date
+     * @return string
+     */
+    public function setSqlDatetime($expire_date)
+    {
+        $datetime = new \Datetime();
+
+        $datetime->setTimestamp($expire_date);
+        $datetime->setTimezone(new \DateTimeZone(date_default_timezone_get()));
+
+        return $datetime->format('Y-m-d H:i:s');
+    }
+
+    /**
+     * Before every update of model
+     * @
+     */
+    public function beforeValidationOnUpdate() {
+
+        $this->ip = (isset($this->ip) === true) ? $this->ip
+            : ip2long($this->getDI()->getRequest()->getClientAddress());
+        $this->ua = (isset($this->ua) === true) ? $this->ua
+            : $this->getDI()->getRequest()->getUserAgent();
+
+        $this->date_lastvisit = (isset($this->date_lastvisit) === true) ? $this->date_lastvisit
+            : $this->setSqlDatetime(time());
+
+        foreach(get_object_vars($this) as $prop => $value) {
+            if(is_null($value) === true) {
+                $this->skipAttributes([$prop]);
+            }
+        }
+    }
     /**
      * Validate
      *

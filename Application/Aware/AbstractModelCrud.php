@@ -3,8 +3,10 @@ namespace Application\Aware;
 
 use Application\Modules\Rest\Exceptions\BadRequestException;
 use Application\Modules\Rest\Exceptions\ConflictException;
+use Application\Modules\Rest\Exceptions\ForbiddenException;
 use Application\Modules\Rest\Exceptions\NotFoundException;
 use Phalcon\DI\InjectionAwareInterface;
+
 
 /**
  * AbstractModelCrud. Implementing rules necessary intended for service's models
@@ -105,17 +107,33 @@ abstract class AbstractModelCrud implements InjectionAwareInterface {
      * @return boolean
      * @throws BadRequestException
      */
-    public function update($model = null, array $credentials, array $skip = []) {
+    public function update(\Phalcon\Mvc\Model $model = null, array $credentials, array $skip = []) {
+
+        $result = $this->getOne($credentials);
+
+        if($result === false) {
+            throw new NotFoundException([
+                'USER_NOT_FOUND' => 'User not found'
+            ]);
+        }
+
+        if((int)$credentials[$this->getPrimaryKey()]
+            !== (int) $result->{$this->getPrimaryKey()}) {
+
+            throw new ForbiddenException([
+                'ACCESS_DENIED' => 'Here you access denied'
+            ]);
+        }
 
         if(is_null($model) === true) {
             $model = $this->getInstance();
         }
+
         if(empty($skip) === false) {
             $model->skipAttributes($skip);
         }
 
         $result = $model->update($credentials);
-
         if($result === false) {
 
             foreach($model->getMessages() as $message) {
@@ -145,7 +163,6 @@ abstract class AbstractModelCrud implements InjectionAwareInterface {
 
         return $datetime->format('Y-m-d H:i:s');
     }
-
 
     /**
      * Get related records

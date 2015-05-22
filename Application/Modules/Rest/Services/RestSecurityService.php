@@ -131,7 +131,9 @@ class RestSecurityService extends RestSecurityProvider {
             $this->recoverySend($user, $password);
 
             // update password in Db
-            $result = $this->getUserMapper()->update($user, ['password' => $password], ['surname']);
+            $result = $this->getUserMapper()->update($user, [
+                'id' => $user->id, 'password' => $this->getSecurity()->hash($password)
+            ], ['surname', 'rating', 'state', 'role']);
 
             return $result;
         }

@@ -7,6 +7,8 @@ use Application\Models\UserRoles;
 use Application\Models\UserAccess;
 use Application\Modules\Rest\DTO\UserDTO;
 use Application\Modules\Rest\Exceptions\BadRequestException;
+use Application\Modules\Rest\Exceptions\NotFoundException;
+use Application\Modules\Rest\Exceptions\ForbiddenException;
 
 /**
  * Class UserMapper. Actions above users

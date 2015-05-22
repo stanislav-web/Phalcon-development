@@ -4,7 +4,7 @@
  * This section contains the settings of application routes
  */
 use \Phalcon\Mvc\Router;
-use \Application\Helpers\OpcodeCache;
+use Application\Helpers\OpcodeCache;
 
 if(OpcodeCache::isEnabled() === true && $config['cache']['code'] === true) {
 
