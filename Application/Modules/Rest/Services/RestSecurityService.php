@@ -218,16 +218,18 @@ class RestSecurityService extends RestSecurityProvider {
     /**
      * If user has role?
      *
-     * @param int $role
+     * @param mixed $role
      * @return boolean
      */
-    public function hasRole($role) {
+    public function hasRole($roles) {
 
         if($this->token instanceof \Application\Models\UserAccess) {
 
+            $role = (is_array($roles) === true) ? "IN(?1)" : "= ?1";
+
             $isHasRole = $this->getUserMapper()->getInstance()->findFirst([
-                    "id = ?0 AND role = ?1",
-                    "bind" => [$this->token->user_id, $role],
+                    "id = ?0 AND role ".$role,
+                    "bind" => [$this->token->user_id, (is_array($roles) === true) ? implode(',', array_reverse($roles)) : $roles],
                 ]
             );
 

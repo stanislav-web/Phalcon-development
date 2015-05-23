@@ -9,7 +9,7 @@ defined('APP_PATH') || define('APP_PATH', DOCUMENT_ROOT . '/../Application');
 defined('APPLICATION_ENV') ||
 define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production'));
 
-use \Application\Helpers\OriginPrelight;
+use \Application\Helpers\OriginPreflight;
 
 if(APPLICATION_ENV === 'development') {
 
@@ -44,8 +44,8 @@ try {
     }
     // Handle OPTIONS requests
 
-    if(OriginPrelight::isOptions() === true) {
-        OriginPrelight::allowRequest();
+    if(OriginPreflight::isOptions() === true) {
+        OriginPreflight::allowRequest();
     }
     // Handle the request
     echo $app->handle()->getContent();
