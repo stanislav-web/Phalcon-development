@@ -5,6 +5,8 @@
     // user module
     angular.module('app.user', [])
 
-        .constant('ModuleUserConfig', {})
+        .constant('ModuleUserConfig', {
+            noImage : '/assets/images/not_available_photo.png',
+        })
 
 })(angular);

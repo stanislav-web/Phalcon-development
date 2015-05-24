@@ -15,7 +15,8 @@
         'notifications',
         'isteven-multi-select',
         'angularMoment',
-        'ui.bootstrap'
+        'ui.bootstrap',
+        'ngFileUpload'
     ])
 
         // configure base rest loader

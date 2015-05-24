@@ -1,5 +1,6 @@
 var CONFIG = {
     URL: 'http://api.phalcon.local/api/v1',
+    FILES_URL: 'http://phalcon.local',
     ENGINE_ID: 1,
     BANNERS: true,
     LOGGER: true,
@@ -7,6 +8,7 @@ var CONFIG = {
     REQUEST_TIMEOUT: 15000,
     DEFAULT_CURRENCY: 'UAH',
     ACCEPT_ENCODING: 'application/json; charset=utf-8',
+    FORM_ENCODING: 'application/x-www-form-urlencoded; charset=utf-8',
     LOCAL: {
         CUSTOMER_AUTH_MENU: '/data/menu/customer-auth.json',
         CUSTOMER_MENU: '/data/menu/customer.json'
@@ -45,12 +47,24 @@ var CONFIG = {
         FORBIDDEN : '/403'
     },
     REST: {
-        AUTH: '/sign'
+        AUTH: '/sign',
+        USERS: '/users',
+        FILES: '/files'
     },
     ROUTER : {
         '/': {
             templateUrl: '/app/modules/common/templates/index.tpl.html',
             controller:  'CommonController'
+        },
+        '/logout': {
+            controller: 'SignController',
+            resolve: {
+                isLoggedIn: function (AuthenticationService) {
+                    AuthenticationService.logout(CONFIG.REST.AUTH).then(function() {
+                       window.location.assign(CONFIG.LOCATIONS.HOME);
+                    });
+                }
+            }
         },
         '/sign': {
             templateUrl: '/app/modules/authenticate/templates/sign.tpl.html',
@@ -59,7 +73,8 @@ var CONFIG = {
         '/account': {
             templateUrl: '/app/modules/user/templates/account.tpl.html',
             controller: 'UserController',
-            access : ['User', 'Admin']
+            access : ['User', 'Admin'],
+            authorization : true
         },
         '/404': {
             templateUrl: '/app/modules/common/templates/404.tpl.html',

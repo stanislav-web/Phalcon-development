@@ -146,9 +146,20 @@
                  */
                 logout: function (route) {
 
-                    removeAuthData();
-                    return Restangular.all(route)
-                        .customDELETE();
+                    var auth = this.getAuthData();
+
+                    if(auth) {
+
+                        var user_id = auth.access.user_id;
+
+                        // clear tokens
+                        removeAuthData();
+                        return Restangular.one(route, user_id).remove({},
+                            {
+                                'Authorization' : 'Bearer '+auth.access.token
+                            }
+                        );
+                    }
                 }
             };
     }]);

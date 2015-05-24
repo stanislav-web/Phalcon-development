@@ -14,9 +14,57 @@
         <ul class="tabs">
             <li>
                 <input type="radio" name="tabs" id="tab1" checked />
-                <label for="tab1">Description</label>
+                <label for="tab1">Профиль</label>
                 <div id="tab-content1" class="tab-content">
-                    <p>"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+
+                    <!-- Edit profile form -->
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="well">
+                                <form ng-submit="profile()" role="form" autocomplete="on">
+                                    <div class="form-group">
+                                        <!-- Upload photo preview -->
+                                        <div class="button"
+                                             ngf-select
+                                             ngf-change="upload($files, $event)"
+                                             ng-model="user.photo"
+                                             ngf-capture="'camera'"
+                                             ngf-allow-dir="false"
+                                             accept="image/*"
+                                             ngf-multiple="false">
+                                            <img ng-src="{{user.photo}}" ngf-accept="'.png,.jpg,.gif'">
+                                            <!-- /Upload photo preview -->
+                                        </div>
+
+                                    </div>
+                                    <!-- Name -->
+                                    <div class="form-group">
+                                        <input type="text" ng-minlength="2" ng-maxlength="45" class="form-control" ng-model="user.name" placeholder="{{ 'Your name' | translate }}" required>
+                                        <span ng-show="user.name.$dirty && user.name.$error.required" class="help-block" translate="Your name is required"></span>
+                                    </div>
+                                    <!-- /Name -->
+
+                                    <!-- Surname -->
+                                    <div class="form-group">
+                                        <input type="text" ng-minlength="2" ng-maxlength="45" class="form-control" ng-model="user.surname" placeholder="{{ 'Your surname' | translate }}">
+                                        <span ng-show="user.surname.$dirty && user.surname.$error.required" class="help-block" translate="Your name is required"></span>
+                                    </div>
+                                    <!-- /Surname -->
+
+                                    <!-- Password -->
+                                    <div class="form-group">
+                                        <input type="password" class="form-control"  ng-init="user.password = ''" placeholder="{{ 'Password Invalid' | translate }}" ng-value="" required>
+                                        <span ng-show="user.password.$dirty && user.password.$error.required" class="help-block" translate="Password Required"></span>
+                                    </div>
+                                    <!-- /Password -->
+
+                                    <button type="submit" class="btn-primary btn-block" ng-disabled="loading" translate="Update profile"></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /Edit profile form -->
+
                 </div>
             </li>
 

@@ -15,9 +15,6 @@
         // add language support to this controller
         $translatePartialLoader.addPart('sign');
 
-        // hide banners
-        $scope.$parent.bannersOn = false;
-
         // set meta title
         Document.prependTitle('Sign In', '-');
 
