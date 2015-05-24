@@ -259,7 +259,6 @@ class RestSecurityService extends RestSecurityProvider {
             'sitename'  => $engine->name
         ];
 
-
         if(filter_var($user->login, FILTER_VALIDATE_EMAIL) !== false) {
 
             try {

@@ -8,7 +8,8 @@ use Application\Models\UserAccess;
 use Application\Modules\Rest\DTO\UserDTO;
 use Application\Modules\Rest\Exceptions\BadRequestException;
 use Application\Modules\Rest\Exceptions\NotFoundException;
-use Application\Modules\Rest\Exceptions\ForbiddenException;
+use Uploader\Uploader as FileUploader;
+
 
 /**
  * Class UserMapper. Actions above users
@@ -106,7 +107,7 @@ class UserMapper extends AbstractModelCrud {
     public function refresh($user_id, array $data) {
 
         $user = $this->getOne(['id' => $user_id]);
-        $user->skipAttributes(['surname']);
+        $user->skipAttributes(['surname', 'photo']);
 
         $user->ua = $data['ua'];
         $user->ip = ip2long($data['ip']);
@@ -194,5 +195,64 @@ class UserMapper extends AbstractModelCrud {
         $userAccess = new UserAccess();
 
         return $userAccess->findFirst($credential)->delete();
+    }
+
+    /**
+     * Upload user photos
+     *
+     * @param array $params
+     * @return array
+     */
+    public function upload($params) {
+
+        $primary = $params[$this->getPrimaryKey()];
+        unset($params['mapper']);
+        if(isset($primary) === false) {
+            throw new BadRequestException([
+                'PRIMARY_KEY_NOT_EXIST' => 'Do not set a primary key'
+            ]);
+        }
+
+        $directory = strtr($this->getDi()->getConfig()->api->userDir, [':id' => $primary]);
+
+        if(file_exists(DOCUMENT_ROOT.$directory) === false) {
+            mkdir(DOCUMENT_ROOT.$directory, 0777);
+        }
+
+        // setting up uploader rules
+        $uploader = new FileUploader();
+        $uploader->setRules([
+            'directory' =>  DOCUMENT_ROOT.$directory,
+            'minsize'   =>  1000,
+            'maxsize'   =>  1000000,
+            'mimes'     =>  [       // any allowed mime types
+                'image/gif',
+                'image/jpeg',
+                'image/png',
+            ],
+            'extensions'     =>  [  // any allowed extensions
+                'gif',
+                'jpeg',
+                'jpg',
+                'png',
+            ],
+            'sanitize' => true,
+            'hash'     => 'md5'
+        ]);
+
+        if($uploader->isValid() === true) {
+
+            $uploader->move();
+
+            $this->update(null, array_merge($params, [
+                'photo' => $directory.DIRECTORY_SEPARATOR.$uploader->getInfo()[0]['filename']
+            ]), ['login', 'rating', 'state', 'role', 'password']);
+
+            return (new UserDTO())->setNull();
+        }
+        else {
+            $uploader->truncate();
+            throw new BadRequestException($uploader->getErrors());
+        }
     }
 }

@@ -25,23 +25,34 @@ $di->setShared('config', function () use ($config) {
 $di->setShared('router', $router);
 
 // Component Session. Starting a Session
-$di->setShared('session', function () use ($config) {
+$di->setShared('session', function () use ($di) {
 
     $session = new \Application\Services\Security\SessionProtector();
-    return $session->init($config['session']);
+    return $session->init($di->get('config')->session->toArray());
 });
 
-if($config['cache']['metadata'] === true) {
-    $di->setShared('modelsMetadata', function() use ($config) {
+// Set meta data
+$di->setShared('modelsMetadata', function() use ($di) {
+
+    $config = $di->get('config')->cache->toArray();
+
+    if($config['metadata'] === true) {
 
         $metaData = new \Phalcon\Mvc\Model\MetaData\Apc([
-            'lifetime'      => $config['cache']['lifetime'], // optional (standard: 8600)
-            'prefix'        => $config['cache']['prefix']   // optional (standard: false)
+            'lifetime' => $config['lifetime'], // optional (standard: 8600)
+            'prefix' => $config['prefix']   // optional (standard: false)
         ]);
-
-        return $metaData;
-    });
-}
+    }
+    else {
+        // Without cache strategy
+        $metaData = new \Phalcon\Mvc\Model\MetaData\Memory([
+            'lifetime' => 0, // optional (standard: 8600)
+            'prefix' => $config['prefix']   // optional (standard: false)
+        ]);
+        $metaData->setStrategy(new Phalcon\Mvc\Model\MetaData\Strategy\Introspection());
+    }
+    return $metaData;
+});
 
 // GLOBAL SERVICES
 
@@ -86,8 +97,11 @@ $di->setShared('DbListener', function () {
 $di->setShared('ProfilerService', '\Application\Services\Develop\ProfilerService');
 
 // Define mailer service
-$di->setShared('MailService', function () use ($config) {
-    $mailer = new Application\Services\Mail\MailSMTPService($config['mail']);
+$di->setShared('MailService', function () use ($di) {
+
+    $config = $di->get('config')->mail->toArray();
+
+    $mailer = new Application\Services\Mail\MailSMTPService($config);
     $mailer->registerPlugin(new Application\Services\Mail\MailSMTPExceptions());
     $mailer->registerPlugin(new \Swift_Plugins_ThrottlerPlugin(100, \Swift_Plugins_ThrottlerPlugin::MESSAGES_PER_MINUTE));
 
@@ -137,6 +151,9 @@ $di->setShared('EngineMapper','Application\Services\Mappers\EngineMapper');
 // Define user mapper
 $di->setShared('UserMapper','Application\Services\Mappers\UserMapper');
 
+// Define file mapper
+$di->setShared('FileMapper', new \Application\Services\Mappers\FileMapper($di));
+
 // Define banners mapper
 $di->setShared('BannersMapper','Application\Services\Mappers\BannersMapper');
 
@@ -150,10 +167,12 @@ $di->setShared('ItemAttributesMapper','Application\Services\Mappers\ItemAttribut
 $di->setShared('ItemAttributeValuesMapper','Application\Services\Mappers\ItemAttributeValuesMapper');
 
 // Define log mapper
-$di->setShared('LogMapper', function() use ($config, $di) {
+$di->setShared('LogMapper', function() use ($di) {
+
+    $config = $di->get('config')->database->toArray();
 
     return new Application\Services\Mappers\LogMapper(
-        new \Phalcon\Db\Adapter\Pdo\Mysql($config['database']), $di->get('dispatcher')
+        new \Phalcon\Db\Adapter\Pdo\Mysql($config), $di->get('dispatcher')
     );
 
 });

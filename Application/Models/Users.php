@@ -57,6 +57,12 @@ class Users extends \Phalcon\Mvc\Model
 
     /**
      *
+     * @var string
+     */
+    public $photo;
+
+    /**
+     *
      * @var int
      */
     public $role;
@@ -109,7 +115,7 @@ class Users extends \Phalcon\Mvc\Model
         ]);
 
         // skip attributes before every IN >
-        $this->skipAttributesOnCreate(['date_registration', 'date_lastvisit', 'state', 'rating', 'surname']);
+        $this->skipAttributesOnCreate(['date_registration', 'date_lastvisit', 'state', 'rating', 'surname', 'photo']);
         $this->skipAttributesOnUpdate(['date_registration']);
     }
 

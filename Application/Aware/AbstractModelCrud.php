@@ -7,7 +7,6 @@ use Application\Modules\Rest\Exceptions\ForbiddenException;
 use Application\Modules\Rest\Exceptions\NotFoundException;
 use Phalcon\DI\InjectionAwareInterface;
 
-
 /**
  * AbstractModelCrud. Implementing rules necessary intended for service's models
  *
@@ -134,6 +133,7 @@ abstract class AbstractModelCrud implements InjectionAwareInterface {
         }
 
         $result = $model->update($credentials);
+
         if($result === false) {
 
             foreach($model->getMessages() as $message) {

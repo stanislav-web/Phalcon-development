@@ -67,7 +67,7 @@ return [
             'requests'  =>  [  // limit request per seconds
                 'limit' =>  2500,
                 'time'  =>  60,
-                ],
+            ],
             'methods'   => 'GET,POST,PUT',
             'authentication'    =>  true,   // need access token ?
             'access'    =>   [  // access routes restrict for ACL
@@ -77,7 +77,9 @@ return [
             ],
             'mapper'   => 'UserMapper'
         ],
-        'put'    =>  [
+    ],
+    'files'  =>  [
+        'post'    =>  [
             'requests'  =>  [  // limit request per seconds
                 'limit' =>  2500,
                 'time'  =>  60,
@@ -92,10 +94,7 @@ return [
                     'api/v1/users'
                 ],
             ],
-            'params'     => [
-                'required' => 'id'
-            ],
-            'mapper'   => 'UserMapper'
+            'mapper'   => 'FileMapper'
         ],
     ],
     'logs'  =>  [
