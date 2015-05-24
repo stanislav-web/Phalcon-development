@@ -74,7 +74,12 @@ var CONFIG = {
             templateUrl: '/app/modules/user/templates/account.tpl.html',
             controller: 'UserController',
             access : ['User', 'Admin'],
-            authorization : true
+            authorization : true,
+            resolve: {
+                isLoggedIn: function (AuthenticationService) {
+                    return AuthenticationService.isLoggedIn();
+                }
+            }
         },
         '/404': {
             templateUrl: '/app/modules/common/templates/404.tpl.html',

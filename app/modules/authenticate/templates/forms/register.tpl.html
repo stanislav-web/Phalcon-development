@@ -1,0 +1,97 @@
+<div class="col-xs-12">
+    <div class="well">
+        <p class="lead ng-scope" translate="Sign Up"></p>
+
+        <form novalidate name="formRegister" ng-submit="register()" role="form" autocomplete="off">
+
+            <!-- Login -->
+            <div class="form-group">
+                <input type="text"
+                       ng-minlength="3"
+                       ng-maxlength="40"
+                       class="form-control"
+                       name="login"
+                       ng-model="credentials.login"
+                       placeholder="{{ 'Login invalid' | translate }}"
+                       required>
+                <span ng-show="formRegister.login.$dirty && formRegister.login.$error.required" class="help-block" translate="Login is required"></span>
+                <span ng-show="formRegister.login.$dirty && formRegister.login.$error.minlength" class="help-block" translate="Login is to small"></span>
+                <span ng-show="formRegister.login.$dirty && formRegister.login.$error.maxlength" class="help-block" translate="Login is to large"></span>
+            </div>
+            <!-- /Login -->
+
+            <!-- Name -->
+            <div class="form-group">
+                <input type="text"
+                       ng-maxlength="40"
+                       class="form-control"
+                       name="name"
+                       ng-model="credentials.name"
+                       placeholder="{{ 'Your name' | translate }}"
+                       required>
+                <span ng-show="formRegister.name.$dirty && formRegister.name.$error.required" class="help-block" translate="Your name is required"></span>
+                <span ng-show="formRegister.name.$dirty && formRegister.name.$error.maxlength" class="help-block" translate="Name is to large"></span>
+            </div>
+            <!-- /Name -->
+
+            <!-- Password -->
+            <div class="form-group">
+                <input type="password"
+                       class="form-control"
+                       id="password"
+                       name="password"
+                       ng-minlength="6"
+                       ng-maxlength="40"
+                       ng-model="credentials.password"
+                       placeholder="{{ 'Password Invalid' | translate }}"
+                       required>
+                <span ng-show="formRegister.password.$dirty && formRegister.password.$error.required" class="help-block" translate="Password Required"></span>
+                <span ng-show="formRegister.password.$dirty && formRegister.password.$error.minlength" class="help-block" translate="Password is to small"></span>
+                <span ng-show="formRegister.password.$dirty && formRegister.password.$error.maxlength" class="help-block" translate="Password is to large"></span>
+                <blockquote class="notice" translate="Password Notice"></blockquote>
+            </div>
+            <!-- /Password -->
+
+            <!-- Repeat password -->
+            <div class="form-group">
+                <input type="password"
+                       class="form-control"
+                       ng-model="passwordx"
+                       nx-equal="credentials.password"
+                       name="verifyPassword"
+                       placeholder="{{ 'Confirm password' | translate }}"
+                       required>
+                <span ng-show="formRegister.verifyPassword.$dirty && formRegister.verifyPassword.$error.nxEqual" class="help-block" translate="Passwords not match"></span>
+                <span ng-show="formRegister.passwordx.$dirty && formRegister.passwordx.$error.required" class="help-block" translate="You must confirm your password"></span>
+            </div>
+            <!-- /Repeat password -->
+
+            <!-- Agree box -->
+            <div class="checkbox">
+                <label class="notice">
+                    <input type="checkbox"
+                           ng-model="agree"
+                           ng-true-value="true"
+                           ng-true-value="false"
+                           value="false"
+                           ng-change=""
+                           required> {{ 'Agree with terms and conditions' | translate }}
+                </label>
+            </div>
+            <!-- /Agree box-->
+
+            <button type="submit"
+                    class="btn-primary btn-block"
+                    ng-disabled="formRegister.$invalid || loading || formRegister.agree === false"
+                    translate="Sign Up">
+            </button>
+            <img ng-if="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
+        </form>
+        <blockquote class="notice" translate="Register Notice"></blockquote>
+    </div>
+</div>
+<div class="col-xs-12">
+    <div class="well">
+        <a ng-click="toggle('loginForm')" translate="Sign In"></a>
+    </div>
+</div>

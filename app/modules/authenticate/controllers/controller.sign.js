@@ -94,11 +94,6 @@
                 $location.path(CONFIG.LOCATIONS.HOME);
             });
         };
-
-        // Check password identity action
-        $scope.checkPassword = function () {
-            $scope.formRegister.passwordx.$error.dontMatch = this.credentials.password !== this.passwordx;
-        };
     }]);
 
 })(angular);

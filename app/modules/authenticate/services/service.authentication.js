@@ -160,6 +160,9 @@
                             }
                         );
                     }
+                    else {
+                        return Restangular.one(route).remove();
+                    }
                 }
             };
     }]);

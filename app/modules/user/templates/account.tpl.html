@@ -1,11 +1,8 @@
-<section class="row">
+<section class="row" ng-show="isLoggedIn">
     <header class="col-md-12">
         <hr>
         <h3 class="m_3">
-            <span class="glyphicon glyphicon-book"></span> Личный кабинет</h3>
-            <div class="tabs-button">
-
-            </div>
+            <span class="glyphicon glyphicon-user"></span> Личный кабинет</h3>
         <hr>
     </header>
     <div class="clearfix"></div>
@@ -14,66 +11,25 @@
         <ul class="tabs">
             <li>
                 <input type="radio" name="tabs" id="tab1" checked />
-                <label for="tab1">Профиль</label>
-                <div id="tab-content1" class="tab-content">
+                <label for="tab1" translate="Profile"></label>
 
-                    <!-- Edit profile form -->
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="well">
-                                <form ng-submit="profile()" role="form" autocomplete="on">
-                                    <div class="form-group">
-                                        <!-- Upload photo preview -->
-                                        <div class="button"
-                                             ngf-select
-                                             ngf-change="upload($files, $event)"
-                                             ng-model="user.photo"
-                                             ngf-capture="'camera'"
-                                             ngf-allow-dir="false"
-                                             accept="image/*"
-                                             ngf-multiple="false">
-                                            <img ng-src="{{user.photo}}" ngf-accept="'.png,.jpg,.gif'">
-                                            <!-- /Upload photo preview -->
-                                        </div>
-
-                                    </div>
-                                    <!-- Name -->
-                                    <div class="form-group">
-                                        <input type="text" ng-minlength="2" ng-maxlength="45" class="form-control" ng-model="user.name" placeholder="{{ 'Your name' | translate }}" required>
-                                        <span ng-show="user.name.$dirty && user.name.$error.required" class="help-block" translate="Your name is required"></span>
-                                    </div>
-                                    <!-- /Name -->
-
-                                    <!-- Surname -->
-                                    <div class="form-group">
-                                        <input type="text" ng-minlength="2" ng-maxlength="45" class="form-control" ng-model="user.surname" placeholder="{{ 'Your surname' | translate }}">
-                                        <span ng-show="user.surname.$dirty && user.surname.$error.required" class="help-block" translate="Your name is required"></span>
-                                    </div>
-                                    <!-- /Surname -->
-
-                                    <!-- Password -->
-                                    <div class="form-group">
-                                        <input type="password" class="form-control"  ng-init="user.password = ''" placeholder="{{ 'Password Invalid' | translate }}" ng-value="" required>
-                                        <span ng-show="user.password.$dirty && user.password.$error.required" class="help-block" translate="Password Required"></span>
-                                    </div>
-                                    <!-- /Password -->
-
-                                    <button type="submit" class="btn-primary btn-block" ng-disabled="loading" translate="Update profile"></button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /Edit profile form -->
-
+                <!-- Edit profile form -->
+                <div id="tab-content1"
+                     class="tab-content"
+                     ng-include="'app/modules/user/templates/forms/profile.tpl.html'">
                 </div>
+                <!-- /Edit profile form -->
             </li>
-
             <li>
                 <input type="radio" name="tabs" id="tab2" />
-                <label for="tab2">Specification</label>
-                <div id="tab-content2" class="tab-content">
-                    <p>"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla?</p>
+                <label for="tab2" translate="Security"></label>
+
+                <!-- Edit password form -->
+                <div id="tab-content2"
+                     class="tab-content"
+                     ng-include="'app/modules/user/templates/forms/password.tpl.html'">
                 </div>
+                <!-- /Edit password form -->
             </li>
         </ul>
         <!-- Tabs -->

@@ -1,0 +1,40 @@
+<div class="col-xs-12">
+    <div class="well">
+        <blockquote class="notice" translate="Restore Notify"></blockquote>
+        <form novalidate name="formRestore" ng-submit="restore()" role="form" autocomplete="off">
+
+            <!-- Login -->
+            <div class="form-group">
+                <input type="text"
+                       class="form-control"
+                       ng-minlength="3"
+                       ng-maxlength="40"
+                       name="login"
+                       ng-model="credentials.login"
+                       placeholder="{{ 'Login invalid' | translate }}"
+                       required="">
+                <span ng-show="formRestore.login.$dirty && formRestore.login.$error.required" class="help-block" translate="Login Required"></span>
+                <span ng-show="formRestore.login.$dirty && formRestore.login.$error.minlength" class="help-block" translate="Login is to small"></span>
+                <span ng-show="formRestore.login.$dirty && formRestore.login.$error.maxlength" class="help-block" translate="Login is to large"></span>
+            </div>
+            <!-- /Login -->
+
+            <!-- Show success message -->
+            <div ng-show="restoreSuccess" class="success help-block">{{restoreSuccess}}</div>
+            <!-- /Show success message -->
+
+            <button type="submit"
+                    class="btn-primary btn-block"
+                    ng-disabled="formRestore.$invalid || loading"
+                    translate="Restore">
+            </button>
+            <img ng-if="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
+        </form>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<div class="col-xs-12">
+    <div class="well">
+        <a ng-click="toggle('loginForm')" translate="Sign In"></a>
+    </div>
+</div>

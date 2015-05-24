@@ -1,0 +1,54 @@
+<div class="col-xs-6">
+    <div class="well">
+        <p class="lead" translate="Login to account"></p>
+        <form novalidate name="formLogin" ng-submit="login()" role="form" autocomplete="off">
+
+            <!-- Login -->
+            <div class="form-group">
+                <input type="text"
+                       class="form-control"
+                       name="login"
+                       ng-model="credentials.login"
+                       placeholder="{{ 'Login invalid' | translate }}"
+                       required autofocus>
+                <span ng-show="formLogin.login.$dirty && formLogin.login.$error.required" class="help-block" translate="Login Required"></span>
+            </div>
+            <!-- /Login -->
+
+            <!-- Password -->
+            <div class="form-group">
+                <input type="password"
+                       class="form-control"
+                       name="password"
+                       ng-model="credentials.password"
+                       placeholder="{{ 'Password Invalid' | translate }}"
+                       required>
+                <span ng-show="formLogin.password.$dirty && formLogin.password.$error.required" class="help-block" translate="Password Required"></span>
+            </div>
+            <!-- /Password -->
+
+            <button type="submit"
+                    class="btn btn-primary btn-block"
+                    ng-disabled="formLogin.$invalid || loading"
+                    translate="Sign In">
+            </button>
+            <img ng-if="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
+        </form>
+    </div>
+    <div class="col-xs-12">
+        <div class="well">
+            <a ng-click="toggle('restoreForm')" translate="Restore Access"></a>
+        </div>
+    </div>
+</div>
+
+
+<div class="col-xs-6">
+    <div class="well">
+        <p class="lead" translate="Register Notify"></p>
+        <ul class="list-privilegies">
+            <li><a href="/agreement#advantages"><u translate="Read more"></u></a></li>
+        </ul>
+        <a ng-click="toggle('registerForm')" translate="Sign Up"></a>
+    </div>
+</div>

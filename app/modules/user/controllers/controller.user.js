@@ -12,7 +12,9 @@
 
             // set meta title
             $scope.$parent.$watch('engines', function(engine) {
-                Document.setTitle(engine.name);
+                if(!_.isUndefined(engine)) {
+                    Document.setTitle(engine.name);
+                }
             });
 
             var userPromise = UserService.getUser();
@@ -33,6 +35,12 @@
                     }
                 });
 
+                /**
+                 * Upload user profile image
+                 *
+                 * @param file
+                 * @param event
+                 */
                 $scope.upload = function(file, event) {
                     if(event.type === 'change') {
                         // upload a user profile photo
@@ -43,6 +51,8 @@
                             fileReader.readAsDataURL(file[0]);
                             fileReader.onload = function (e) {
                                 $scope.user.photo = e.target.result;
+                                notify.success('Your profile picture has been updated');
+
                             }
                         })
                         .error(function(data) {
@@ -51,6 +61,38 @@
                         })
                     }
                 }
+
+                /**
+                 * Update user profile data
+                 *
+                 * @param user
+                 */
+                $scope.profile = function(user) {
+
+                    $scope.loading = true;
+
+                    UserService.updateUser(user).then(function() {
+                        notify.success('Your profile has been updated');
+                        $scope.loading = false;
+
+                    });
+                },
+
+                /**
+                 * Update user profile data
+                 *
+                 * @param user
+                 */
+                    $scope.password = function(user) {
+
+                        $scope.loading = true;
+
+                        UserService.updatePassword(user).then(function() {
+                            notify.success('Your password has been chacnged');
+                            $scope.loading = false;
+                        });
+                }
+
             }
         }
     ]);

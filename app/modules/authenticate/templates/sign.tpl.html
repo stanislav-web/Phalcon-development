@@ -14,129 +14,25 @@
 
         <div class="sign-body">
 
-            <!-- Sign form -->
-            <div class="row" ng-show="loginForm === true">
-                <div class="col-xs-6">
-                    <div class="well">
-                        <p class="lead" translate="Login to account"></p>
-                        <form name="formSign" ng-submit="login()" role="form" autocomplete="off">
-
-                            <!-- Login -->
-                            <div class="form-group">
-                                <input type="text" ng-minlength="3" ng-maxlength="150" class="form-control" name="login" ng-model="credentials.login" placeholder="{{ 'Login invalid' | translate }}" required autofocus>
-                                <span ng-show="formSign.credentials.login.$dirty && formSign.credentials.login.$error.required" class="help-block" translate="Login Required"></span>
-                            </div>
-                            <!-- /Login -->
-
-                            <!-- Password -->
-                            <div class="form-group">
-                                <input type="password" class="form-control" name="password" ng-model="credentials.password" placeholder="{{ 'Password Invalid' | translate }}" required>
-                                <span ng-show="formSign.credentials.password.$dirty && formSign.credentials.password.$error.required" class="help-block" translate="Password Required"></span>
-                            </div>
-                            <!-- /Password -->
-
-                            <button type="submit" class="btn btn-primary btn-block" ng-disabled="formSign.$invalid || loading" translate="Sign In">Sign In</button>
-                            <img ng-if="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
-                        </form>
-                        <div class="clearfix"></div>
-                        <a ng-click="toggle('restoreForm')" translate="Restore Access"></a>
-                    </div>
-                </div>
-
-                <div class="col-xs-6">
-                    <div class="well">
-                        <p class="lead" translate="Register Notify"></p>
-                        <ul class="list-privilegies">
-                            <li><a href="/agreement#advantages"><u translate="Read more"></u></a></li>
-                        </ul>
-                        <a ng-click="toggle('registerForm')" translate="Sign Up"></a>
-                    </div>
-                </div>
+            <!-- Login form -->
+            <div class="row"
+                 ng-show="loginForm === true"
+                 ng-include="'app/modules/authenticate/templates/forms/login.tpl.html'">
             </div>
             <!-- /Sign form -->
 
             <!-- Register form -->
-            <div class="row" ng-show="registerForm === true">
-                <div class="col-xs-12">
-                    <div class="well">
-                        <p class="lead ng-scope" translate="Sign Up"></p>
-
-                        <form name="formRegister" ng-submit="register()" role="form" autocomplete="off">
-
-                            <!-- Login -->
-                            <div class="form-group">
-                                <input type="text" ng-minlength="3" ng-maxlength="45" class="form-control" name="login" ng-model="credentials.login" placeholder="{{ 'Login invalid' | translate }}" required>
-                                <span ng-show="formRegister.credentials.login.$dirty && formRegister.credentials.login.$error.required" class="help-block" translate="LOGIN_REQUIRED"></span>
-                            </div>
-                            <!-- /Login -->
-
-                            <!-- Name -->
-                            <div class="form-group">
-                                <input type="text" ng-minlength="2" ng-maxlength="150" class="form-control" name="name" ng-model="credentials.name" placeholder="{{ 'Your name' | translate }}" required>
-                                <span ng-show="formRegister.credentials.name.$dirty && formRegister.credentials.name.$error.required" class="help-block" translate="Your name is required"></span>
-                            </div>
-                            <!-- /Name -->
-
-                            <!-- Password -->
-                            <div class="form-group">
-                                <input type="password" class="form-control" id="password" name="password" ng-model="credentials.password" placeholder="{{ 'Password Invalid' | translate }}" required>
-                                <span ng-show="formRegister.credentials.password.$dirty && formRegister.credentials.password.$error.required" class="help-block" translate="Password Required"></span>
-                                <blockquote class="notice" translate="Password Notice"></blockquote>
-                            </div>
-                            <!-- /Password -->
-
-                            <!-- Repeat password -->
-                            <div class="form-group">
-                                <input type="password" class="form-control" name="passwordx" ng-model="passwordx" ng-change="checkPassword()" placeholder="{{ 'Confirm password' | translate }}" required>
-                                <span ng-show="formRegister.passwordx.$dirty && formRegister.passwordx.$error.dontMatch" class="help-block" translate="Passwords not match"></span>
-                                <span ng-show="formRegister.passwordx.$dirty && formRegister.passwordx.$error.required" class="help-block" translate="You must confirm your password"></span>
-                            </div>
-                            <!-- /Repeat password -->
-
-                            <!-- Agree box -->
-                            <div class="checkbox">
-                                <label class="notice">
-                                    <input type="checkbox" ng-model="agree" ng-true-value="true" ng-true-value="false" value="false" ng-change=""required> {{ 'Agree with terms and conditions' | translate }}
-                                </label>
-                            </div>
-                            <!-- /Agree box-->
-
-                            <button type="submit" class="btn-primary btn-block" ng-disabled="formRegister.$invalid || loading || formRegister.agree === false" translate="Sign Up"></button>
-                            <img ng-if="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
-                        </form>
-                        <blockquote class="notice" translate="Register Notice"></blockquote>
-                        <a ng-click="toggle('loginForm')" translate="Sign In"></a>
-                    </div>
-                </div>
+            <div class="row"
+                 ng-show="registerForm === true"
+                 ng-include="'app/modules/authenticate/templates/forms/register.tpl.html'">
             </div>
             <!-- /Register form -->
 
             <!-- Restore form -->
-            <div class="row" ng-show="restoreForm === true">
-                <div class="col-xs-12">
-                    <div class="well">
-                        <blockquote class="notice" translate="Restore Notify"></blockquote>
-                        <form name="formRestore" ng-submit="restore()" role="form" autocomplete="off">
-
-                            <!-- Login -->
-                            <div class="form-group">
-                                <input type="text" ng-minlength="3" ng-maxlength="150" class="form-control" name="login" ng-model="credentials.login" placeholder="{{ 'Login invalid' | translate }}" required>
-                                <span ng-show="formRestore.credentials.login.$dirty && formRestore.credentials.login.$error.required" class="help-block" translate="LOGIN_REQUIRED"></span>
-                            </div>
-                            <!-- /Login -->
-
-                            <!-- Show success message -->
-                            <div ng-show="restoreSuccess" class="success help-block">{{restoreSuccess}}</div>
-                            <!-- /Show success message -->
-
-                            <button type="submit" class="btn-primary btn-block" ng-disabled="formRestore.$invalid || loading" translate="Restore"></button>
-                            <img ng-if="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
-                        </form>
-                        <div class="clearfix"></div>
-                    </div>
-                </div>
+            <div class="row"
+                 ng-show="restoreForm === true"
+                 ng-include="'app/modules/authenticate/templates/forms/restore.tpl.html'">
             </div>
-            <!-- /Remind form -->
-
+            <!-- /Restore form -->
         </div>
     </div>
