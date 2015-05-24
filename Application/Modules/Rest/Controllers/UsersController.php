@@ -50,4 +50,15 @@ class UsersController extends ControllerBase {
                 true
             );
     }
+
+    /**
+     * PUT Update user by credential action
+     */
+    public function putAction() {
+
+        $params = $this->rest->getParams();
+
+        $this->response =
+            $this->getDI()->get('UserMapper')->update(null, $params, $this->rest->getResolver()->getRules()->skip);
+    }
 }

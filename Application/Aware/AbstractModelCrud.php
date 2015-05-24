@@ -73,14 +73,19 @@ abstract class AbstractModelCrud implements InjectionAwareInterface {
      * Create record row
      *
      * @param array $data
+     * @param array $skip
      * @throws \Application\Modules\Rest\Exceptions\BadRequestException
      * @throws \Application\Modules\Rest\Exceptions\ConflictException
      *
      * @return \Phalcon\Mvc\Model
      */
-    public function create(array $data) {
+    public function create(array $data, array $skip = []) {
 
         $model = $this->getInstance();
+
+        if(empty($skip) === false) {
+            $model->skipAttributes($skip);
+        }
 
         foreach($data as $field => $value) {
             $model->{$field}   =   $value;
@@ -94,7 +99,7 @@ abstract class AbstractModelCrud implements InjectionAwareInterface {
                 throw new ConflictException($message->getMessage());
             }
 
-            throw new BadRequestException($message->getMessage());
+            throw new BadRequestException([$message->getMessage()]);
         }
     }
 
@@ -131,7 +136,6 @@ abstract class AbstractModelCrud implements InjectionAwareInterface {
         if(empty($skip) === false) {
             $model->skipAttributes($skip);
         }
-
         $result = $model->update($credentials);
 
         if($result === false) {
@@ -142,6 +146,8 @@ abstract class AbstractModelCrud implements InjectionAwareInterface {
                         'FIELD_IS_REQUIRED' => $message->getMessage()
                     ]);
                 }
+
+                throw new BadRequestException($message->getMessage());
             }
         }
 

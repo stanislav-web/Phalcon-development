@@ -2,8 +2,8 @@
 $scenario = (null !== $scenario) ? $scenario : new \StdClass();
 
 $I = new ApiTester($scenario);
-$login = mt_rand().'@'.mt_rand().'.com';
-$password = mt_rand();
+$login = (int)mt_rand().'@'.(int)mt_rand().'.com';
+$password = (int)mt_rand();
 $name = 'CodeceptionTester';
 
 $I->wantTo('DELETE Logout: /api/v1/sign');
@@ -19,6 +19,7 @@ $I->sendPOST('api/v1/sign', [
 $I->sendGET('api/v1/sign', ['login' => $login, 'password' => $password]);
 $auth = $I->grabDataFromJsonResponse();
 $user_id = $auth['data']['access']['user_id'];
+$I->amBearerAuthenticated($auth['data']['access']['token']);
 
 $I->sendDELETE('api/v1/sign/'.$user_id);
 

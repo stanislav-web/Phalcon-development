@@ -38,7 +38,7 @@ class RestSecurityService extends RestSecurityProvider {
      * @throws \Application\Modules\Rest\Exceptions\NotFoundException
      * @return ResultSet
      */
-    public function authenticate(array $credentials) {
+    public function authenticate(array $credentials, array $skip) {
 
         $user = $this->getUserMapper()->getOne(['login' => $credentials['login']]);
         if($user !== false) {
@@ -55,7 +55,7 @@ class RestSecurityService extends RestSecurityProvider {
                 $this->getUserMapper()->refresh($user->id, [
                     'ip' => $this->getRequest()->getClientAddress(),
                     'ua' => $this->getRequest()->getUserAgent(),
-                ]);
+                ], $skip);
 
                 $transfer = new UserDTO();
                 $transfer->setRoles($this->getUserMapper()->getRoles()->findFirst((int)$user->role));
@@ -80,11 +80,12 @@ class RestSecurityService extends RestSecurityProvider {
      * Register new user from credentials
      *
      * @param array $credentials
+     * @param array $skip
      * @return ResultSet
      * @throws \Application\Modules\Rest\Exceptions\BadRequestException
      * @throws \Application\Modules\Rest\Exceptions\ConflictException
      */
-    public function register(array $credentials)
+    public function register(array $credentials, array $skip)
     {
         $role = $this->getUserMapper()->getRoles();
         $user = $this->getUserMapper()->create([
@@ -94,7 +95,7 @@ class RestSecurityService extends RestSecurityProvider {
             'login'     => $credentials['login'],
             'name'      => $credentials['name'],
             'password'  => (empty($credentials['password']) === false) ? $this->getSecurity()->hash($credentials['password']) : null
-        ]);
+        ], $skip);
         session_regenerate_id(true);
 
         $token = $this->getSecurity()->hash($this->getSecurity()->getToken());
@@ -115,11 +116,12 @@ class RestSecurityService extends RestSecurityProvider {
      * Restore user access by credentials
      *
      * @param array $credentials
+     * @param array $skip
      * @throws NotFoundException
      * @throws Rest\Exceptions\BadRequestException
      * @throws UnprocessableEntityException
      */
-    public function restore(array $credentials) {
+    public function restore(array $credentials, array $skip) {
 
         $user = $this->getUserMapper()->getOne(['login' => $credentials['login']]);
         if($user !== false) {
@@ -133,7 +135,7 @@ class RestSecurityService extends RestSecurityProvider {
             // update password in Db
             $result = $this->getUserMapper()->update($user, [
                 'id' => $user->id, 'password' => $this->getSecurity()->hash($password)
-            ], ['surname', 'rating', 'state', 'role']);
+            ], $skip);
 
             return $result;
         }
@@ -154,6 +156,7 @@ class RestSecurityService extends RestSecurityProvider {
     public function logout(array $credentials) {
 
         $credentials[0] = str_replace('id', 'user_id', $credentials[0]);
+
         $user = $this->getUserMapper()->getAccess()->findFirst($credentials);
         if($user !== false) {
             $user->delete();

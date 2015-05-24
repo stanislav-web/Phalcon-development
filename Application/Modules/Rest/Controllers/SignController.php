@@ -20,7 +20,8 @@ class SignController extends ControllerBase {
 
         $params = $this->rest->getParams();
         $this->response =
-            $this->getDI()->get('RestSecurityService')->authenticate($params);
+            $this->getDI()->get('RestSecurityService')->authenticate($params,
+                $this->rest->getResolver()->getRules()->skip);
     }
 
     /**
@@ -31,7 +32,8 @@ class SignController extends ControllerBase {
         $params = $this->rest->getParams();
 
         $this->response =
-            $this->getDI()->get('RestSecurityService')->register($params);
+            $this->getDI()->get('RestSecurityService')->register($params,
+                $this->rest->getResolver()->getRules()->skip);
     }
 
     /**
@@ -42,7 +44,8 @@ class SignController extends ControllerBase {
         $params = $this->rest->getParams();
 
         $this->response =
-            $this->getDI()->get('RestSecurityService')->restore($params);
+            $this->getDI()->get('RestSecurityService')->restore($params,
+                $this->rest->getResolver()->getRules()->skip);
     }
 
     /**

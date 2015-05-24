@@ -7,6 +7,7 @@ use Application\Models\UserRoles;
 use Application\Models\UserAccess;
 use Application\Modules\Rest\DTO\UserDTO;
 use Application\Modules\Rest\Exceptions\BadRequestException;
+use Application\Modules\Rest\Exceptions\InternalServerErrorException;
 use Application\Modules\Rest\Exceptions\NotFoundException;
 use Uploader\Uploader as FileUploader;
 
@@ -103,11 +104,12 @@ class UserMapper extends AbstractModelCrud {
      *
      * @param int $user_id
      * @param array $data
+     * @param array $skip
      */
-    public function refresh($user_id, array $data) {
+    public function refresh($user_id, array $data, array $skip) {
 
         $user = $this->getOne(['id' => $user_id]);
-        $user->skipAttributes(['surname', 'photo']);
+        $user->skipAttributes($skip);
 
         $user->ua = $data['ua'];
         $user->ip = ip2long($data['ip']);
@@ -118,7 +120,9 @@ class UserMapper extends AbstractModelCrud {
             return true;
         }
 
-        throw new BadRequestException($user->getMessages());
+        foreach($user->getMessages() as $message) {
+            throw new BadRequestException([$message->getMessage()]);
+        }
     }
 
     /**
@@ -203,10 +207,10 @@ class UserMapper extends AbstractModelCrud {
      * @param array $params
      * @return array
      */
-    public function upload($params) {
+    public function upload(array $params) {
 
         $primary = $params[$this->getPrimaryKey()];
-        unset($params['mapper']);
+
         if(isset($primary) === false) {
             throw new BadRequestException([
                 'PRIMARY_KEY_NOT_EXIST' => 'Do not set a primary key'
@@ -244,11 +248,20 @@ class UserMapper extends AbstractModelCrud {
 
             $uploader->move();
 
-            $this->update(null, array_merge($params, [
-                'photo' => $directory.DIRECTORY_SEPARATOR.$uploader->getInfo()[0]['filename']
-            ]), ['login', 'rating', 'state', 'role', 'password']);
+            $model = $this->getInstance();
+            $isUpdated = $model->getReadConnection()->update($model->getSource(), ['photo'], [
+                $directory.DIRECTORY_SEPARATOR.$uploader->getInfo()[0]['filename']
+            ], $this->getPrimaryKey()." = ".(int)$primary);
 
-            return (new UserDTO())->setNull();
+            if($isUpdated === true) {
+                return (new UserDTO())->setNull();
+            }
+            else {
+                $uploader->truncate();
+                throw new InternalServerErrorException([
+                    'UPDATE_PROFILE_PHOTO_FAILED' => 'Can not update profile photo'
+                ]);
+            }
         }
         else {
             $uploader->truncate();

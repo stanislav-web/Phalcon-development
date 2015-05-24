@@ -49,7 +49,6 @@ $di->setShared('modelsMetadata', function() use ($di) {
             'lifetime' => 0, // optional (standard: 8600)
             'prefix' => $config['prefix']   // optional (standard: false)
         ]);
-        $metaData->setStrategy(new Phalcon\Mvc\Model\MetaData\Strategy\Introspection());
     }
     return $metaData;
 });

@@ -52,7 +52,6 @@ class Currency extends \Phalcon\Mvc\Model
         // its allow to keep empty data to my db
         $this->setup([
             'notNullValidations' => true,
-            'exceptionOnFailedSave' => false
         ]);
 
         // local_filed, reference Model, referenced_field
