@@ -83,7 +83,6 @@ class Engines extends \Phalcon\Mvc\Model
         // its allow to keep empty data to my db
         $this->setup([
             'notNullValidations' => true,
-            'exceptionOnFailedSave' => false
         ]);
 
         $this->belongsTo('currency_id', Currency::TABLE, 'id');

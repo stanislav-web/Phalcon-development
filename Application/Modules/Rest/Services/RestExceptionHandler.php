@@ -137,9 +137,12 @@ class RestExceptionHandler {
             if(isset($exception['data']) === true) {
 
                 unset($exception['data']['message']);
-                $error = $this->getErrorMapper()->getError(key($exception['data']));
+                $code = key($exception['data']);
+                if(is_numeric($code) === false) {
+                    $error = $this->getErrorMapper()->getError($code);
+                    $this->exception['data']['developer'] = $this->getRequest()->getScheme().'://'.$this->getRequest()->getHttpHost().'/api/v1/errors/'.$error->id;
+                }
                 $this->exception['data'] = $exception['data'];
-                $this->exception['data']['developer'] = $this->getRequest()->getScheme().'://'.$this->getRequest()->getHttpHost().'/api/v1/errors/'.$error->id;
             }
         }
         else

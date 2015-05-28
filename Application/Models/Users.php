@@ -57,6 +57,12 @@ class Users extends \Phalcon\Mvc\Model
 
     /**
      *
+     * @var string
+     */
+    public $photo;
+
+    /**
+     *
      * @var int
      */
     public $role;
@@ -72,6 +78,12 @@ class Users extends \Phalcon\Mvc\Model
      * @var double
      */
     public $rating;
+
+    /**
+     *
+     * @var string
+     */
+    public $about;
 
     /**
      *
@@ -105,12 +117,7 @@ class Users extends \Phalcon\Mvc\Model
         // its allow to keep empty data to my db
         $this->setup([
             'notNullValidations' => false,
-            'exceptionOnFailedSave' => false
         ]);
-
-        // skip attributes before every IN >
-        $this->skipAttributesOnCreate(['date_registration', 'date_lastvisit', 'state', 'rating', 'surname']);
-        $this->skipAttributesOnUpdate(['date_registration']);
     }
 
     /**
@@ -144,11 +151,25 @@ class Users extends \Phalcon\Mvc\Model
             : $this->setSqlDatetime(time());
 
         foreach(get_object_vars($this) as $prop => $value) {
-            if(is_null($value) === true) {
+            if(is_null($value) === true && empty($value)  === true) {
                 $this->skipAttributes([$prop]);
             }
         }
+        $this->validate(new StringLengthValidator([
+            'field'     => 'name',
+            'max'       => 40,
+            'messageMaximum' => ['NAME_MAX_INVALID' => 'The name is too long'],
+        ]));
+
+        $this->validate(new StringLengthValidator([
+            'field'     => 'about',
+            'max'       => 500,
+            'messageMaximum' => ['ABOUT_MAX_INVALID' => 'The about is too long'],
+        ]));
+
+        return ($this->validationHasFailed() == true) ? false : true;
     }
+
     /**
      * Validate
      *
@@ -156,7 +177,6 @@ class Users extends \Phalcon\Mvc\Model
      */
     public function beforeValidationOnCreate()
     {
-
         $this->validate(new Uniqueness([
             "field"     => "login",
             "message"   => ['USER_EXIST' => 'This user is already registered']
@@ -182,8 +202,7 @@ class Users extends \Phalcon\Mvc\Model
 
         $this->validate(new StringLengthValidator([
             'field'     => 'name',
-            'max'       => 30,
-            'min'       => 2,
+            'max'       => 40,
             'messageMaximum' => ['NAME_MAX_INVALID' => 'The name is too long'],
             'messageMinimum' => ['NAME_MIN_INVALID' => 'The name is too short']
         ]));
@@ -194,7 +213,7 @@ class Users extends \Phalcon\Mvc\Model
             'message'   => ['LOGIN_FORMAT_INVALID' => 'The login should be your email or phone number']
         ]));
 
-        return $this->validationHasFailed() != true;
+        return ($this->validationHasFailed() == true) ? false : true;
     }
 
     /**

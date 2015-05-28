@@ -33,7 +33,8 @@
         "stanislav-web/phalcon-sms-factory": "1.2.3-stable",
         "stanislav-web/phalcon-translate": "1.2-stable",
         "swiftmailer/swiftmailer": "5.*",
-        "phalcon/incubator": "v1.3.4"
+        "phalcon/incubator": "v1.3.4",
+        "stanislav-web/phalcon-uploader": "~1.0@dev"
     },
     "require-dev": {
         "robmorgan/phinx": "dev-master",

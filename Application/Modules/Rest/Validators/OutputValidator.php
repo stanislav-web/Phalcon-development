@@ -131,6 +131,7 @@ class OutputValidator {
 
     /**
      * Validate response
+     *
      * @param mixed $response
      * @return OutputValidator
      */

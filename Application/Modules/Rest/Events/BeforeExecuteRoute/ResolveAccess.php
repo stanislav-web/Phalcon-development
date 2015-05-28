@@ -74,7 +74,7 @@ class ResolveAccess extends RestValidatorProvider {
 
             foreach($rules->access as $role => $urls) {
 
-                if($this->security->hasRole($role) === false
+                if($this->security->hasRole(array_keys($rules->access)) === false
                     && in_array(trim($this->request->getURI(), '/'), $urls)) {
 
                     throw new ForbiddenException([

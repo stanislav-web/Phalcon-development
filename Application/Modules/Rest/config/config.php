@@ -8,12 +8,13 @@ return [
         'tokenKey'          => 'token',
         'authHeader'        => 'AUTHORIZATION',
         'notifyDir'         => ':engine/notifies/',
+        'userDir'           => '/files/users/:id',
         'tokenLifetime'     =>  604800,
         'acceptContent'     => ['*/*', 'json', 'application/json'],
         'acceptLanguage'    => ['ru', 'en', 'ua', 'de', 'uk'],
         'acceptCharset'     => 'utf-8',
         'acceptFilters'    => [
-            'columns', 'offset', 'limit', 'token', 'locale', 'login', 'password', 'order', 'name', 'format', 'code', '_profile', '_time','surname'
+            'columns', 'offset', 'limit', 'token', 'locale', 'login', 'password', 'order', 'name', 'format', 'code', '_profile', '_time','surname', 'id', 'mapper'
         ],
         'acceptQueryLength'    => 121,
 

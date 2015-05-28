@@ -17,6 +17,14 @@ class UserDTO extends AbstractDTO
 {
 
     /**
+     * Null array
+     *
+     * @var array $null
+     */
+    public $null = [];
+
+
+    /**
      * Users collection
      *
      * @var array $users
@@ -66,6 +74,18 @@ class UserDTO extends AbstractDTO
         $this->access['total'] = $this->total($access);
         $this->access['limit'] = $this->limit($access);
         $this->access['offset'] = $this->offset();
+
+        return $this;
+    }
+
+    /**
+     * Setup null
+     *
+     * @return $this
+     */
+    public function setNull() {
+
+        $this->null = [];
 
         return $this;
     }

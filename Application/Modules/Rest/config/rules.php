@@ -29,7 +29,10 @@ return [
             'params'     => [
                 'required' => 'login,password'
             ],
-            'mapper'   => 'UserMapper'
+            'mapper'   => 'UserMapper',
+            'skip'  =>  [
+                'surname', 'photo', 'about', 'name'
+            ],
         ],
         'post' => [
             'requests'  =>  [  // limit request per time
@@ -40,7 +43,10 @@ return [
             'params'     => [
                 'required' => 'login,password,name'
             ],
-            'mapper'   => 'UserMapper'
+            'mapper'   => 'UserMapper',
+            'skip'  =>  [
+                'date_registration', 'date_lastvisit', 'state', 'rating', 'surname', 'photo', 'about'
+            ]
         ],
         'put' => [
             'requests'  =>  [  // limit request per time
@@ -51,7 +57,10 @@ return [
             'params'     => [
                 'required' => 'login'
             ],
-            'mapper'   => 'UserMapper'
+            'mapper'   => 'UserMapper',
+            'skip'  =>  [
+                'surname', 'rating', 'state', 'role', 'about', 'date_registration', 'login', 'name', 'photo'
+            ],
         ],
         'delete' => [
             'requests'  =>  [  // limit request per time
@@ -59,7 +68,17 @@ return [
                 'time'  =>  60,
             ],
             'methods'    => 'DELETE',
-            'mapper'   => 'UserMapper'
+            'mapper'   => 'UserMapper',
+            'authentication'    =>  true,   // need access token ?
+            'access'    =>   [  // access routes restrict for ACL
+                UserRoles::ADMIN =>  [
+                    'api/v1/users'
+                ],
+                UserRoles::USER =>  [
+                    'api/v1/users'
+                ]
+            ],
+
         ],
     ],
     'users'  =>  [
@@ -67,7 +86,7 @@ return [
             'requests'  =>  [  // limit request per seconds
                 'limit' =>  2500,
                 'time'  =>  60,
-                ],
+            ],
             'methods'   => 'GET,POST,PUT',
             'authentication'    =>  true,   // need access token ?
             'access'    =>   [  // access routes restrict for ACL
@@ -92,10 +111,29 @@ return [
                     'api/v1/users'
                 ],
             ],
-            'params'     => [
-                'required' => 'id'
+            'skip'  =>  [
+                'login', 'password', 'state', 'role', 'photo', 'rating', 'date_registration', 'date_lastvisit'
             ],
             'mapper'   => 'UserMapper'
+        ],
+    ],
+    'files'  =>  [
+        'post'    =>  [
+            'requests'  =>  [  // limit request per seconds
+                'limit' =>  2500,
+                'time'  =>  60,
+            ],
+            'methods'   => 'GET,POST,PUT,DELETE',
+            'authentication'    =>  true,   // need access token ?
+            'access'    =>   [  // access routes restrict for ACL
+                UserRoles::USER =>  [
+                    'api/v1/users'
+                ],
+                UserRoles::ADMIN =>  [
+                    'api/v1/users'
+                ],
+            ],
+            'mapper'   => 'FileMapper'
         ],
     ],
     'logs'  =>  [

@@ -2,7 +2,7 @@
 $scenario = (null !== $scenario) ? $scenario : new \StdClass();
 
 $I = new ApiTester($scenario);
-$login = mt_rand().'@'.mt_rand().'.com';
+$login = (int)mt_rand().'@'.(int)mt_rand().'.com';
 $password = mt_rand();
 $name = 'CodeceptionTester';
 

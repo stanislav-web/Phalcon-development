@@ -52,13 +52,13 @@ class UsersController extends ControllerBase {
     }
 
     /**
-     * PUT Update user
+     * PUT Update user by credential action
      */
     public function putAction() {
 
         $params = $this->rest->getParams();
 
         $this->response =
-            $this->getDI()->get('UserMapper')->update(null, $params, ['login', 'rating', 'state', 'role', 'password']);
+            $this->getDI()->get('UserMapper')->update(null, $params, $this->rest->getResolver()->getRules()->skip);
     }
 }

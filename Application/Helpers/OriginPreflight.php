@@ -9,10 +9,10 @@ namespace Application\Helpers;
  * @since PHP >=5.4
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
- * @copyright Stanilav WEB
+ * @copyright Stanislav WEB
  * @filesource /Application/Helpers/OriginPrelight.php
  */
-class OriginPrelight {
+class OriginPreflight {
 
     /**
      * Check is request is Options ?
@@ -39,7 +39,8 @@ class OriginPrelight {
         if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD'])
             && isset($_SERVER['HTTP_ORIGIN'])) {
 
-            header('Access-Control-Allow-Methods: POST, PUT, OPTIONS');
+            header('Access-Control-Allow-Methods: POST, PUT, DELETE, OPTIONS');
+            header('Access-Control-Allow-Headers: Accept, Authorization, X-Requested-With, Content-Type, Accept-Language, origin');
             header('Access-Control-Allow-Origin: ' . $_SERVER['HTTP_ORIGIN']);
             header('Access-Control-Max-Age: 3600');
         }
