@@ -50,7 +50,10 @@
 
                 // auth success! Set data to session & get redirect to home page
                 AuthenticationService.setAuthData(response);
-                $location.path(CONFIG.LOCATIONS.ACCOUNT);
+
+                setTimeout(function() {
+                    $location.path(CONFIG.LOCATIONS.ACCOUNT);
+                },80);
 
             }).finally(function () {
                 $scope.loading = false;
