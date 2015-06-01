@@ -39,7 +39,8 @@ var CONFIG = {
         CATEGORIES:     '/app/modules/common/templates/directives/categories.tpl.html',
         SIDEBAR:        '/app/modules/common/templates/directives/sidebar.tpl.html',
         BANNERS:        '/app/modules/common/templates/directives/banners.tpl.html',
-        SOCIAL:         '/app/modules/common/templates/directives/social.tpl.html'
+        SOCIAL:         '/app/modules/common/templates/directives/social.tpl.html',
+        SUBSCRIBE:      '/app/modules/common/templates/directives/subscribe.tpl.html'
     },
     LOCATIONS: {
         HOME: '/',
@@ -51,7 +52,8 @@ var CONFIG = {
     REST: {
         AUTH: '/sign',
         USERS: '/users',
-        FILES: '/files'
+        FILES: '/files',
+        SUBSCRIBE: '/subscribe'
     },
     ROUTER : {
         '/': {

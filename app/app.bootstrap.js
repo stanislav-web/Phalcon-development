@@ -73,6 +73,4 @@ var notify = null;
         }
     ])
 
-
-
 })(angular);

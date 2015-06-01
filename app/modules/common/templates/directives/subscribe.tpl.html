@@ -1,0 +1,25 @@
+<form novalidate name="subscribe" ng-submit="submit(this)" role="form" autocomplete="on">
+
+    <!-- Email -->
+    <div class="form-group">
+        <input type="email"
+               class="form-control"
+               ng-minlength="3"
+               ng-maxlength="40"
+               name="email"
+               ng-model="email"
+               placeholder="{{ 'Please type your email' | translate }}"
+               required="">
+        <span ng-show="subscribe.email.$dirty && subscribe.email.$error.required" class="help-block" translate="Email Required"></span>
+        <span ng-show="subscribe.email.$dirty && subscribe.email.$error.minlength" class="help-block" translate="Email is to small"></span>
+        <span ng-show="subscribe.email.$dirty && subscribe.email.$error.maxlength" class="help-block" translate="Email is to large"></span>
+    </div>
+    <!-- /Email -->
+
+    <button type="submit"
+            ng-class="{true: 'm-progress', false: ''}[loading === true]"
+            class="btn-primary btn-block"
+            ng-disabled="subscribe.$invalid || loading"
+            translate="Subscribe">
+    </button>
+</form>

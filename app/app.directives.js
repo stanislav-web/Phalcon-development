@@ -6,8 +6,8 @@
 
         .directive('usSpinner', ['$http', '$rootScope' ,function ($http, $rootScope) {
             return {
-                link: function (scope, elm, attrs)
-                {
+                link: function (scope, elm, attrs) {
+
                     $rootScope.spinnerActive = false;
                     scope.isLoading = function () {
                         return $http.pendingRequests.length > 0;

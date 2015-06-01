@@ -44,13 +44,15 @@
         <!-- /Top navigation menu -->
 
         <!-- Currency  selector -->
-        <div class="col-md-3 currencySelector" isteven-multi-select
+        <div class="col-md-3 currencySelector" ng-controller="CurrencyController" isteven-multi-select
              input-model="currencies"
              output-model="currency"
              button-label="icon name"
              item-label="icon name maker"
              tick-property="ticked"
              selection-mode="single"
+             output-properties="id ticked"
+             on-item-click="changeCurrency(data)"
              helper-elements="">
         </div>
         <!-- /Currency  selector -->
@@ -156,6 +158,7 @@
 <!-- /Application -->
 
 <!-- Directives -->
+<script src="/app/modules/common/directives/subscribe.js"></script>
 <!-- /Directives -->
 
 <!-- Services -->
@@ -163,12 +166,15 @@
 <script src="/app/modules/user/services/service.user.js"></script>
 <script src="/app/modules/common/services/service.data.js"></script>
 <script src="/app/modules/common/services/service.upload.js"></script>
+<script src="/app/modules/common/services/service.subscribe.js"></script>
 <!-- /Services -->
 
 <!-- Controllers -->
 <script src="/app/modules/common/controllers/controller.menu.js"></script>
 <script src="/app/modules/common/controllers/controller.language.js"></script>
+<script src="/app/modules/common/controllers/controller.currency.js"></script>
 <script src="/app/modules/common/controllers/controller.common.js"></script>
+<script src="/app/modules/common/controllers/controller.subscribe.js"></script>
 <script src="/app/modules/authenticate/controllers/controller.sign.js"></script>
 <script src="/app/modules/user/controllers/controller.user.js"></script>
 <!-- /Controllers -->
