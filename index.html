@@ -23,6 +23,7 @@
     <link href="/assets/styles/slider.css" media="all" rel="stylesheet" />
     <link href="/assets/styles/tabs.css" media="all" rel="stylesheet" />
     <link href="/assets/styles/social.css" media="all" rel="stylesheet" />
+    <link href="/assets/styles/progress.css" media="all" rel="stylesheet" />
     <!-- /Append Stylesheet -->
 
     <title ng-bind="documentTitle"> </title>
@@ -31,7 +32,6 @@
 <!-- Checkout bar -->
 <header class="header-top" id="header">
     <section class="line1 wrap">
-
         <!-- Logo -->
         <div class="col-md-2 logo">
             <a href="/">
@@ -96,6 +96,10 @@
 
 <!-- Footer -->
 <footer class="footer navbar" class="view-animate">
+
+    <!-- Bottom navigation menu -->
+    <menu-bottom></menu-bottom>
+    <!-- /Bottom navigation menu -->
 
     <!-- Communities -->
     <communities></communities>
@@ -162,12 +166,13 @@
 <!-- /Services -->
 
 <!-- Controllers -->
-<script src="/app/modules/common/controllers/controller.top.js"></script>
+<script src="/app/modules/common/controllers/controller.menu.js"></script>
 <script src="/app/modules/common/controllers/controller.language.js"></script>
 <script src="/app/modules/common/controllers/controller.common.js"></script>
 <script src="/app/modules/authenticate/controllers/controller.sign.js"></script>
 <script src="/app/modules/user/controllers/controller.user.js"></script>
 <!-- /Controllers -->
+
 <div notifications="top right"></div>
 </body>
 </html>

@@ -35,6 +35,7 @@ var CONFIG = {
     CATCHED_ERRORS: [400, 401, 403, 404, 405, 406, 409, 414, 415, 422, 429, 500],
     DIRECTIVES: {
         TOP:            '/app/modules/common/templates/directives/top.tpl.html',
+        BOTTOM:         '/app/modules/common/templates/directives/bottom.tpl.html',
         CATEGORIES:     '/app/modules/common/templates/directives/categories.tpl.html',
         SIDEBAR:        '/app/modules/common/templates/directives/sidebar.tpl.html',
         BANNERS:        '/app/modules/common/templates/directives/banners.tpl.html',
@@ -43,7 +44,7 @@ var CONFIG = {
     LOCATIONS: {
         HOME: '/',
         AUTH: '/sign',
-        ACCOUNT: '/account',
+        ACCOUNT: '/user/account',
         NOT_FOUND : '/404',
         FORBIDDEN : '/403'
     },
@@ -71,9 +72,12 @@ var CONFIG = {
             templateUrl: '/app/modules/authenticate/templates/sign.tpl.html',
             controller: 'SignController'
         },
-        '/account': {
-            templateUrl: '/app/modules/user/templates/account.tpl.html',
+        '/user/:name': {
+            templateUrl: function(urlattr) {
+                return '/app/modules/user/templates/' + urlattr.name + '.tpl.html';
+            },
             controller: 'UserController',
+            caseInsensitiveMatch: true,
             access : ['User', 'Admin'],
             authorization : true,
             resolve: {
@@ -81,6 +85,10 @@ var CONFIG = {
                     return AuthenticationService.isLoggedIn();
                 }
             }
+        },
+        '/page/:page' : {
+            templateUrl: '/app/modules/common/templates/pages.tpl.html',
+            controller: 'CommonController'
         },
         '/404': {
             templateUrl: '/app/modules/common/templates/404.tpl.html',

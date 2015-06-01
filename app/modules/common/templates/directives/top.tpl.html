@@ -1,4 +1,4 @@
-<nav class="cssmenu" ng-controller="TopMenuController">
+<nav class="cssmenu" ng-controller="MenuController">
     <ul class="top-menu">
         <li ng-repeat="item in items" ng-class="{ active:isActive(item.url)}">
             <a ng-href="{{item.url}}">{{ item.translate | translate : 'item.translate' }}</a>

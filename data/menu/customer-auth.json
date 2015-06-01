@@ -1,7 +1,7 @@
 [
     {
         "title": "My Account",
-        "url": "/account",
+        "url": "/user/account",
         "translate": "My Account"
     },
     {
@@ -10,9 +10,9 @@
         "translate": "My Favorites"
     },
     {
-        "title": "My Observations",
-        "url": "/transactions/observations",
-        "translate": "My Observations"
+        "title": "My trades",
+        "url": "/user/trades",
+        "translate": "My trades"
     },
     {
         "title": "Logout",

@@ -19,7 +19,7 @@
                 if($rootScope.isLoggedIn === true) {
                     var user = AuthenticationService.getAuthData();
 
-                    if(next.$$route.hasOwnProperty('access')) {
+                    if(next.$$route && next.$$route.hasOwnProperty('access')) {
 
                         // Checkout ACL
                         if(next.$$route.access.indexOf(user.roles.role) == -1) {

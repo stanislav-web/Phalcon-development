@@ -25,6 +25,13 @@
                 }
             };
         }])
+        .directive('menuBottom', function () {
+
+            return {
+                restrict: "AE",
+                templateUrl: CONFIG.DIRECTIVES.BOTTOM
+            }
+        })
         .directive('menuTop', function () {
 
             return {

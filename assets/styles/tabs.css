@@ -5,12 +5,11 @@ h1 span {
 }
 
 .tabs {
-    width: 650px;
-    float: none;
     list-style: none;
     position: relative;
     text-align: left;
     height: 300px;
+    min-height: 450px;
 }
 .tabs li {
     float: left;
@@ -47,7 +46,7 @@ h1 span {
     width: 100%;
     font-size: 17px;
     line-height: 25px;
-    padding: 25px;
+    padding: 25px 25px 0 25px;
     position: absolute;
     top: 53px;
     left: 0;

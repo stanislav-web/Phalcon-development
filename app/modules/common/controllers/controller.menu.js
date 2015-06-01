@@ -3,11 +3,11 @@
 (function(angular){
 
     /**
-     * Controller "TopMenuController"
+     * Controller "MenuController"
      *
      * Controls the display of the main menu of the costomer.
      */
-    angular.module('app.common').controller('TopMenuController', ['$scope', '$location', '$translatePartialLoader', '$translate', 'DataService', '$anchorScroll',
+    angular.module('app.common').controller('MenuController', ['$scope', '$location', '$translatePartialLoader', '$translate', 'DataService', '$anchorScroll',
         function($scope, $location, $translatePartialLoader, $translate, DataService, $anchorScroll) {
 
             // add language support to this controller

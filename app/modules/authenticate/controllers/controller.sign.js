@@ -53,7 +53,7 @@
 
                 setTimeout(function() {
                     $location.path(CONFIG.LOCATIONS.ACCOUNT);
-                },80);
+                },100);
 
             }).finally(function () {
                 $scope.loading = false;

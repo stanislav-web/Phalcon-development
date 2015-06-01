@@ -83,25 +83,26 @@
                  *
                  * @param user
                  */
-                    $scope.password = function(user) {
+                 $scope.password = function(user) {
 
-                        $scope.loading = true;
+                    $scope.loading = true;
 
-                        UserService.getFreshAuth(user).then(function(response) {
+                    UserService.getFreshAuth(user).then(function(response) {
 
+                        // Set fresh auth data to storage
+                        UserService.setAuthData(response);
 
-                            // Set fresh auth data to storage
-                            UserService.setAuthData(response);
+                        setTimeout(function() {
 
-                            setTimeout(function() {
-
-                                // update user password. Wait before storage update
-                                UserService.updatePassword(user).then(function() {
-                                    notify.success('Your password has been changed');
-                                    $scope.loading = false;
-                                });
-                            }, 200);
-                        });
+                            // update user password. Wait before storage update
+                            UserService.updatePassword(user).then(function() {
+                                notify.success('Your password has been changed');
+                                $scope.loading = false;
+                            });
+                        }, 200);
+                    }, function() {
+                        $scope.loading = false;
+                    });
                 }
             }
         }

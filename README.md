@@ -8,8 +8,8 @@ Development Board
 * Frontend
 
 #### Implemented
-* AngularJS v1.34
-* Twitter Bootstrap
+* AngularJS v1.4
+* Twitter Bootstrap 3
 * Gulp
 
 #### Documents
