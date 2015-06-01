@@ -56,6 +56,28 @@
                 '</ul>'
             }
         })
+        .directive('communities', function () {
+            return {
+                restrict: "AE",
+                template: '<ul class="communities">' +
+                '<li class="pull-left">' +
+                '<a href="'+ CONFIG.SOCIAL.VK+ '" target="_blank" class="icon type1">VK</a>' +
+                '</li>' +
+                '<li class="pull-left">' +
+                '<a href="'+ CONFIG.SOCIAL.FACEBOOK+ '" target="_blank" class="icon type2">Facebook</a>' +
+                '</li>' +
+                '<li class="pull-left">' +
+                '<a href="'+ CONFIG.SOCIAL.YOUTUBE+ '" target="_blank" class="icon type3">YouTube</a>' +
+                '</li>' +
+                '<li class="pull-left">' +
+                '<a href="'+ CONFIG.SOCIAL.TWITTER+ '" target="_blank" class="icon type5">Twitter</a>' +
+                '</li>' +
+                '<li class="pull-left">' +
+                '<a href="'+ CONFIG.SOCIAL.GOOGLE+ '" target="_blank" class="icon type6">Google+</a>' +
+                '</li>'+
+                '<div class="clear"></div>'
+            }
+        })
 
         .directive('nxEqual', function() {
             return {

@@ -1,0 +1,58 @@
+ul.communities {
+    margin: 5px auto;
+    display: table;
+}
+ul.communities li {
+    margin-left: 30px;
+}
+ul.communities li .icon {
+    background-image: url(/assets/images/communities.png);
+}
+ul.communities li a, ul.communities li a:visited {
+    text-decoration: none;
+}
+ul.communities li .icon {
+    text-indent: -1000em;
+    overflow: hidden;
+    display: inline-block;
+}
+ul.communities li .icon.type1 {
+    width: 80px;
+    height: 25px;
+    background-position: 0px 0px;
+}
+ul.communities li .icon.type2 {
+    width: 79px;
+    height: 25px;
+    background-position: 0px -25px;
+}
+ul.communities li .icon.type3 {
+    width: 60px;
+    height: 25px;
+    background-position: 0px -50px;
+}
+ul.communities li .icon.type5 {
+    width: 72px;
+    height: 25px;
+    background-position: 0px -100px;
+}
+ul.communities li .icon.type6 {
+    width: 60px;
+    height: 25px;
+    background-position: 0px -125px;
+}
+ul.communities li .icon.type6:hover {
+    background-position: -90px -125px;
+}
+ul.communities li .icon.type5:hover {
+    background-position: -90px -100px;
+}
+ul.communities li .icon.type2:hover {
+    background-position: -90px -25px;
+}
+ul.communities li .icon.type1:hover {
+    background-position: -90px 0px;
+}
+ul.communities li .icon.type3:hover {
+    background-position: -90px -50px;
+}

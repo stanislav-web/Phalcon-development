@@ -34,10 +34,11 @@ var CONFIG = {
     },
     CATCHED_ERRORS: [400, 401, 403, 404, 405, 406, 409, 414, 415, 422, 429, 500],
     DIRECTIVES: {
-        TOP:           '/app/modules/common/templates/directives/top.tpl.html',
-        CATEGORIES:    '/app/modules/common/templates/directives/categories.tpl.html',
-        SIDEBAR:       '/app/modules/common/templates/directives/sidebar.tpl.html',
-        BANNERS:       '/app/modules/common/templates/directives/banners.tpl.html'
+        TOP:            '/app/modules/common/templates/directives/top.tpl.html',
+        CATEGORIES:     '/app/modules/common/templates/directives/categories.tpl.html',
+        SIDEBAR:        '/app/modules/common/templates/directives/sidebar.tpl.html',
+        BANNERS:        '/app/modules/common/templates/directives/banners.tpl.html',
+        SOCIAL:         '/app/modules/common/templates/directives/social.tpl.html'
     },
     LOCATIONS: {
         HOME: '/',
@@ -89,5 +90,12 @@ var CONFIG = {
             templateUrl: '/app/modules/common/templates/403.tpl.html',
             controller: 'CommonController'
         }
+    },
+    SOCIAL : {
+        VK : 'http://vk.com/stanislav_web',
+        FACEBOOK : 'http://fb.com',
+        YOUTUBE : 'http://youtube.com',
+        TWITTER : 'http://twitter.com',
+        GOOGLE : 'http://google.com'
     }
 };
