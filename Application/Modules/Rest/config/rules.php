@@ -81,6 +81,20 @@ return [
 
         ],
     ],
+    'subscribe'    =>  [
+        'post' => [
+            'requests'  =>  [  // limit request per time
+                'limit' =>  1,
+                'time'  =>  60,
+            ],
+            'methods'    => 'POST',
+            'params'     => [
+                'required' => 'email'
+            ],
+            'mapper'   => 'SubscribeMapper',
+            'skip'      => ['status', 'date_create', 'date_update']
+        ]
+    ],
     'users'  =>  [
         'get'    =>  [
             'requests'  =>  [  // limit request per seconds

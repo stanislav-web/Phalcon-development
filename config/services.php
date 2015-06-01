@@ -156,6 +156,9 @@ $di->setShared('FileMapper', new \Application\Services\Mappers\FileMapper($di));
 // Define banners mapper
 $di->setShared('BannersMapper','Application\Services\Mappers\BannersMapper');
 
+// Define subscribers mapper
+$di->setShared('SubscribeMapper','Application\Services\Mappers\SubscribeMapper');
+
 // Define items mapper
 $di->setShared('ItemsMapper','Application\Services\Mappers\ItemsMapper');
 

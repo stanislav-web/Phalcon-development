@@ -63,7 +63,7 @@ class UserDTO extends AbstractDTO
     }
 
     /**
-     * Setup access
+     * Setup users
      *
      * @param \Phalcon\Mvc\Model\Resultset\Simple $access
      * @return $this

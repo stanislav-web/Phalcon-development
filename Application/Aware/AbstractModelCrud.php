@@ -90,6 +90,7 @@ abstract class AbstractModelCrud implements InjectionAwareInterface {
         foreach($data as $field => $value) {
             $model->{$field}   =   $value;
         }
+
         if($model->save() === true) {
             return $model;
         }

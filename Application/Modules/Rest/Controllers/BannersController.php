@@ -38,7 +38,7 @@ class BannersController extends ControllerBase {
     }
 
     /**
-     * GET Engines action
+     * GET Banners action
      */
     public function getAction() {
 

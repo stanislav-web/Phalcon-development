@@ -15,6 +15,19 @@ namespace Application\Helpers;
 trait Node
 {
     /**
+     * Check if array have nested tree
+     *
+     * @param $a
+     * @return bool
+     */
+    public static  function isNestedArray(array $array) {
+        foreach ($array as $v) {
+            if (is_array($v) === true) return true;
+        }
+        return false;
+    }
+
+    /**
      * Convert object to array
      *
      * @param $obj

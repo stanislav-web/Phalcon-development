@@ -130,6 +130,7 @@ class InputValidator {
      */
     public function setColumns(array $params)
     {
+
         if(isset($params['columns']) === true) {
             $this->columns = explode(',', $params['columns']);
         }
@@ -206,7 +207,7 @@ class InputValidator {
             return $this;
         }
         else {
-            throw new InternalServerErrorException();
+            throw new InternalServerErrorException('Mapper does not exist', 500);
         }
     }
 

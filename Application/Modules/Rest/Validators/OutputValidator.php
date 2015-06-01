@@ -2,6 +2,7 @@
 namespace Application\Modules\Rest\Validators;
 
 use Phalcon\Http\Request;
+use Application\Helpers\Node;
 
 /**
  * Class OutputValidator. Checking response
@@ -233,8 +234,13 @@ class OutputValidator {
 
         $data = [];
 
-        foreach($response as $entity => $params) {
-            $data[$entity] = array_shift($params);
+        if(Node::isNestedArray($response) === true) {
+            foreach($response as $entity => $params) {
+                $data[$entity] = array_shift($params);
+            }
+        }
+        else {
+            $data = $response;
         }
 
         $this->result = (array_merge($result, ['data' => $data]));
