@@ -1,0 +1,27 @@
+build_settings:
+  verbose: true
+  ignore:
+    - "api"
+    - "build"
+    - "config"
+    - "logs"
+    - "public"
+    - "tests"
+    - "vendor"
+
+setup:
+  composer:
+    action: "install"
+    prefer_dist: false
+
+test:
+  php_mess_detector:
+    allowed_warnings: 0
+  php_code_sniffer:
+    standard: "PSR2"
+    allowed_warnings: 0
+    allowed_errors: 0
+  php_loc:
+  php_unit:
+  php_docblock_checker:
+    allowed_warnings: 0

@@ -12,8 +12,7 @@ namespace Application\Helpers;
  * @copyright Stanilav WEB
  * @filesource /Application/Helpers/Node.php
  */
-trait Node
-{
+trait Node {
     /**
      * Check if array have nested tree
      *

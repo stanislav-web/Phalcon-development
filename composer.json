@@ -29,18 +29,22 @@
   "prefer-stable": true,
   "minimum-stability": "dev",
     "require": {
-        "php": ">=5.4",
-        "stanislav-web/phalcon-sms-factory": "1.2.3-stable",
+        "php": ">=5.6.0",
+        "ext-phalcon": ">=2.0",
+        "ext-apcu": ">=4.0",
+        "ext-mcrypt" : "*",
+        "stanislav-web/phalcon-sms-factory": "dev-master",
         "stanislav-web/phalcon-translate": "1.2-stable",
+        "stanislav-web/phalcon-uploader": "dev-master",
         "swiftmailer/swiftmailer": "5.*",
-        "phalcon/incubator": "v1.3.4",
-        "stanislav-web/phalcon-uploader": "~1.0@dev"
+        "phalcon/incubator": "2.*"
     },
     "require-dev": {
         "robmorgan/phinx": "dev-master",
         "codeception/codeception" :"*",
         "bruli/php-git-hooks": "~1.0@dev",
         "psecio/iniscan": "~3.6",
+        "phalcon/devtools": "dev-master",
         "flow/jsonpath": "dev-master"
     },
     "config": {

@@ -11,14 +11,6 @@ define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV')
 
 use \Application\Helpers\OriginPreflight;
 
-if(APPLICATION_ENV === 'development') {
-
-    if (!defined('XHPROF_LIB_ROOT')) {
-        define('XHPROF_LIB_ROOT', '/var/www/profiler.local/xhprof_lib/');
-    }
-    require_once '/var/www/profiler.local/external/header.php';
-}
-
 // Require composite libraries
 require_once DOCUMENT_ROOT . ' /../vendor/autoload.php';
 
@@ -38,10 +30,6 @@ try {
     // Require modules
     require_once DOCUMENT_ROOT . '/../config/modules.php';
 
-    if(APPLICATION_ENV === 'development') {
-
-        require_once '/var/www/profiler.local/external/footer.php';
-    }
     // Handle OPTIONS requests
 
     if(OriginPreflight::isOptions() === true) {

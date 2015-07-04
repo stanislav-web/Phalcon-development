@@ -15,7 +15,7 @@ $di->setShared('config', function () use ($config) {
     $configBase = new \Phalcon\Config($config);
 
     (APPLICATION_ENV === 'development') ? $configBase->merge(
-        require(APPLICATION_ENV . '.php')
+        new \Phalcon\Config(require(APPLICATION_ENV . '.php'))
     ) : '';
 
     return $configBase;
