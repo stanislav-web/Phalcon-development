@@ -9,7 +9,7 @@ use Application\Helpers\Node;
  *
  * @package Application\Modules\Rest
  * @subpackage Validators
- * @since PHP >=5.4
+ * @since PHP >=5.6
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @copyright Stanislav WEB

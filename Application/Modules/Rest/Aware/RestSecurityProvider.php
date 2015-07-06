@@ -9,7 +9,7 @@ use \Phalcon\Text as Randomize;
  *
  * @package Application\Modules\Rest
  * @subpackage Aware
- * @since      PHP >=5.4
+ * @since      PHP >=5.6
  * @version    1.0
  * @author     Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @copyright  Stanislav WEB
@@ -34,7 +34,7 @@ abstract class RestSecurityProvider implements InjectionAwareInterface {
      *
      * @param \Phalcon\DiInterface $di
      */
-    public function setDi($di)
+    public function setDi(\Phalcon\DiInterface $di)
     {
         $this->di = $di;
     }
@@ -60,9 +60,10 @@ abstract class RestSecurityProvider implements InjectionAwareInterface {
     /**
      * Get translate service
      *
-     * @return \Application\Modules\Rest\Services\TranslateService
+     * @return \Application\Services\Advanced\TranslateService
      */
     public function getTranslator() {
+
         return $this->getDI()->get('TranslateService')->assign('sign');
     }
 
@@ -142,34 +143,31 @@ abstract class RestSecurityProvider implements InjectionAwareInterface {
      * Authenticate user use credentials
      *
      * @param array $credentials
-     * @param array $skip
-     * @return ResultSet
+     * @return \Phalcon\Mvc\Model\Resultset\Simple
      */
-    abstract public function authenticate(array $credentials, array $skip);
+    abstract public function authenticate(array $credentials);
 
     /**
      * Register new user from credentials
      *
      * @param array $credentials
-     * @param array $skip
-     * @return ResultSet
+     * @return \Phalcon\Mvc\Model\Resultset\Simple
      */
-    abstract public function register(array $credentials, array $skip);
+    abstract public function register(array $credentials);
 
     /**
      * Restore user access from credentials
      *
      * @param array $credentials
-     * @param array $skip
-     * @return ResultSet
+     * @return \Phalcon\Mvc\Model\Resultset\Simple
      */
-    abstract public function restore(array $credentials, array $skip);
+    abstract public function restore(array $credentials);
 
     /**
      * Logout user (clear tokens)
      *
      * @param array $credentials
-     * @return ResultSet
+     * @return \Phalcon\Mvc\Model\Resultset\Simple
      */
     abstract public function logout(array $credentials);
 

@@ -17,7 +17,7 @@ use Uploader\Uploader as FileUploader;
  *
  * @package Application\Services
  * @subpackage Mappers
- * @since PHP >=5.4
+ * @since PHP >=5.6
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @copyright Stanislav WEB
@@ -66,6 +66,7 @@ class UserMapper extends AbstractModelCrud {
         $result = $this->getInstance()->find($credentials);
 
         if($result->count() > 0) {
+
             return (new UserDTO())->setUsers($result);
         }
 
@@ -75,28 +76,48 @@ class UserMapper extends AbstractModelCrud {
     }
 
     /**
+     * Update user by credentials
+     *
+     * @param \Phalcon\Mvc\Model $model
+     * @param array              $credentials
+     *
+     * @throws \Application\Modules\Rest\Exceptions\BadRequestException
+     * @throws \Application\Modules\Rest\Exceptions\ConflictException
+     *
+     * @return boolean
+     */
+    public function update(\Phalcon\Mvc\Model $model = null, array $credentials) {
+
+        if($model === null) {
+            $model = $this->getOne(['id' => (int)$credentials['id']]);
+        }
+        return parent::update($model, $credentials);
+    }
+
+    /**
      * Set user access token
      *
      * @param int $user_id Auth user ID
      * @param string $token Generated token
-     * @param int $expire_date Token date expiry
-     * @return UserAccess|bool
+     * @param string $expire_date Token date expiry
+     *
+     * @throws \Application\Modules\Rest\Exceptions\BadRequestException
+     *
+     * @return \Application\Models\UserAccess $userAccess
      */
-    public function setAccessToken($user_id, $token, $expire_date)
-    {
+    public function setAccessToken($user_id, $token, $expire_date) {
         $userAccess = new UserAccess();
         $userAccess->user_id        = $user_id;
         $userAccess->token          = $token;
         $userAccess->expire_date    = $this->setSqlDatetime($expire_date);
-        $userAccess->save();
 
-        if($userAccess->save() === true) {
+        if($userAccess->save() === false) {
+            foreach($userAccess->getMessages() as $message) {
+                throw new BadRequestException($message->getMessage());
+            }
+        }
 
-            return $userAccess;
-        }
-        foreach($userAccess->getMessages() as $message) {
-            throw new BadRequestException($message->getMessage());
-        }
+        return $userAccess;
     }
 
     /**
@@ -104,25 +125,16 @@ class UserMapper extends AbstractModelCrud {
      *
      * @param int $user_id
      * @param array $data
-     * @param array $skip
      */
-    public function refresh($user_id, array $data, array $skip) {
+    public function refresh($user_id, array $data) {
 
         $user = $this->getOne(['id' => $user_id]);
-        $user->skipAttributes($skip);
 
-        $user->ua = $data['ua'];
-        $user->ip = ip2long($data['ip']);
-        $user->date_lastvisit = $this->setSqlDatetime(time());
-
-        if($user->save() === true) {
-
-            return true;
-        }
-
-        foreach($user->getMessages() as $message) {
-            throw new BadRequestException([$message->getMessage()]);
-        }
+        parent::update($user, [
+            'ua' => $data['ua'],
+            'ip' => ip2long($data['ip']),
+            'date_lastvisit' => $this->setSqlDatetime(time())
+        ]);
     }
 
     /**

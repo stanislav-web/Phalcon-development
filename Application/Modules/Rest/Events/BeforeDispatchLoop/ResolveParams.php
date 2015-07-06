@@ -7,7 +7,7 @@ namespace Application\Modules\Rest\Events\BeforeDispatchLoop;
  *
  * @package Application\Modules\Rest\Services
  * @subpackage Events\BeforeDispatchLoop
- * @since PHP >=5.4
+ * @since PHP >=5.6
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @copyright Stanislav WEB

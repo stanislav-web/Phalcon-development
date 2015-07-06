@@ -23,7 +23,7 @@ $I->seeHttpHeader('Access-Control-Allow-Origin', '*');
 $I->seeResponseIsJson();
 
 $I->sendGET('api/v1/sign', ['login' => $login, 'password' => $password]);
-$auth = $I->grabDataFromJsonResponse();
-
-$user_id = $auth['data']['access']['user_id'];
+$auth = $I->grabDataFromResponseByJsonPath('$..data');
+$user_id = $auth[0]['access']['user_id'];
+$I->amBearerAuthenticated($auth[0]['access']['token']);
 $I->sendDELETE('api/v1/sign/'.$user_id);

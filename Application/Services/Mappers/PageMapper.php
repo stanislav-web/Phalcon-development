@@ -11,7 +11,7 @@ use Application\Modules\Rest\Exceptions\NotFoundException;
  *
  * @package Application\Services
  * @subpackage Mappers
- * @since PHP >=5.4
+ * @since PHP >=5.6
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @copyright Stanislav WEB
@@ -41,6 +41,7 @@ class PageMapper extends AbstractModelCrud {
         $result = $this->getInstance()->find($credentials);
 
         if($result->count() > 0) {
+
             return (new PageDTO())->setPages($result);
         }
 

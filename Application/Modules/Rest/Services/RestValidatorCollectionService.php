@@ -11,7 +11,7 @@ use Application\Modules\Rest\Validators\OutputValidator;
  *
  * @package Application\Modules\Rest
  * @subpackage Services
- * @since PHP >=5.4
+ * @since PHP >=5.6
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @copyright Stanislav WEB
@@ -119,6 +119,7 @@ class RestValidatorCollectionService extends RestValidatorCollectionsProvider {
      */
     public function validate() {
         $qv = new InputValidator($this->getDi());
+
         $qv->validate($this->getRules(), $this->getParams());
     }
 
@@ -148,6 +149,7 @@ class RestValidatorCollectionService extends RestValidatorCollectionsProvider {
             }
         }
         else {
+
             $rs = new OutputValidator($this->getConfig());
             $rs->validate($responseData);
             $result = $rs->getResult();

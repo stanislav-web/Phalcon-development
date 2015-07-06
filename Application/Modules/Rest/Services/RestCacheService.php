@@ -9,7 +9,7 @@ use \Phalcon\Cache\Backend\Libmemcached as Storage;
  *
  * @package Application\Modules\Rest
  * @subpackage Services
- * @since PHP >=5.4
+ * @since PHP >=5.6
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @copyright Stanislav WEB
@@ -46,10 +46,6 @@ class RestCacheService {
     public function __construct(\Phalcon\Config $config) {
 
         $this->setConfig($config->cache);
-
-        if($config->cache->enable === false) {
-            $this->getStorage()->flush();
-        }
     }
 
     /**

@@ -57,9 +57,10 @@ class Subscribers extends \Phalcon\Mvc\Model
     public function initialize()
     {
         // its allow to keep empty data to my db
-        $this->setup([
-            'notNullValidations' => false,
-        ]);
+        $this->setup(['notNullValidations' => false]);
+
+        //skips only when inserting
+        $this->skipAttributesOnCreate(['status', 'date_create']);
     }
 
     /**
@@ -80,29 +81,19 @@ class Subscribers extends \Phalcon\Mvc\Model
     {
         $this->validate(new PresenceOf([
             'field'     => 'email',
-            'message'   => ['EMAIL_REQUIRED' => 'The email is required']
+            'message'   => json_encode(['SUBSCRIBER_EMAIL_REQUIRED' => 'The email is required'])
         ]));
 
         $this->validate(new Email([
             "field"     => "email",
-            "message"   => ['EMAIL_INVALID' => 'Invalid email address']
+            "message"   => json_encode(['SUBSCRIBER_EMAIL_INVALID' => 'Invalid email address'])
         ]));
 
         $this->validate(new Uniqueness([
             "field"     => "email",
-            "message"   => ['EMAIL_EXIST' => 'This email is already in subscribers list']
+            "message"   => json_encode(['SUBSCRIBER_EMAIL_EXIST' => 'This email is already in subscribers list'])
         ]));
 
         return ($this->validationHasFailed() == true) ? false : true;
-    }
-
-    /**
-     * Skip attributes before update
-     *
-     * @param array $attributes
-     * @param null  $replace
-     */
-    public function skipAttributes($attributes, $replace = null) {
-        parent::skipAttributes($attributes, $replace);
     }
 }

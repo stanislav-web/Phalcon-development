@@ -11,7 +11,7 @@ use Phalcon\Mvc\Model\Validator\StringLength as StringLengthValidator;
  *
  * @package    Application
  * @subpackage    Models
- * @since PHP >=5.4
+ * @since PHP >=5.6
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @filesource /Application/Models/Users.php
@@ -115,8 +115,11 @@ class Users extends \Phalcon\Mvc\Model
     public function initialize()
     {
         // its allow to keep empty data to my db
-        $this->setup([
-            'notNullValidations' => false,
+        $this->setup(['notNullValidations' => false]);
+
+        //skips only when inserting
+        $this->skipAttributesOnCreate([
+            'surname', 'photo', 'state', 'rating', 'about', 'date_registration', 'date_lastvisit'
         ]);
     }
 
@@ -150,21 +153,27 @@ class Users extends \Phalcon\Mvc\Model
         $this->date_lastvisit = (isset($this->date_lastvisit) === true) ? $this->date_lastvisit
             : $this->setSqlDatetime(time());
 
-        foreach(get_object_vars($this) as $prop => $value) {
-            if(is_null($value) === true && empty($value)  === true) {
-                $this->skipAttributes([$prop]);
-            }
-        }
         $this->validate(new StringLengthValidator([
             'field'     => 'name',
+            'min'       => 2,
             'max'       => 40,
-            'messageMaximum' => ['NAME_MAX_INVALID' => 'The name is too long'],
+            'messageMinimum' => json_encode(['USERNAME_MIN_INVALID' => 'The user name is too short']),
+            'messageMaximum' => json_encode(['USERNAME_MAX_INVALID' => 'The user name is too long']),
+        ]));
+
+        $this->validate(new StringLengthValidator([
+            'field'     => 'surname',
+            'min'       => 2,
+            'max'       => 40,
+            'messageMinimum' => json_encode(['SURNAME_MIN_INVALID' => 'The surname is too short']),
+            'messageMaximum' => json_encode(['SURNAME_MAX_INVALID' => 'The surname name is too long']),
+            'allowEmpty' => true
         ]));
 
         $this->validate(new StringLengthValidator([
             'field'     => 'about',
             'max'       => 500,
-            'messageMaximum' => ['ABOUT_MAX_INVALID' => 'The about is too long'],
+            'messageMaximum' => json_encode(['ABOUT_MAX_INVALID' => 'The about is too long']),
         ]));
 
         return ($this->validationHasFailed() == true) ? false : true;
@@ -179,50 +188,40 @@ class Users extends \Phalcon\Mvc\Model
     {
         $this->validate(new Uniqueness([
             "field"     => "login",
-            "message"   => ['USER_EXIST' => 'This user is already registered']
+            "message"   => json_encode(['USER_EXIST' => 'This user is already registered'])
         ]));
 
         $this->validate(new PresenceOf([
             'field'     => 'login',
-            'message'   => ['LOGIN_REQUIRED' => 'The login is required']
+            'message'   => json_encode(['LOGIN_REQUIRED' => 'The login is required'])
         ]));
 
         $this->validate(new PresenceOf([
             'field'     => 'password',
-            'message'   => ['PASSWORD_REQUIRED' => 'The password is required']
+            'message'   => json_encode(['USER_PASSWORD_REQUIRED' => 'The password is required'])
         ]));
 
         $this->validate(new StringLengthValidator([
             'field'     => 'login',
             'max'       => 30,
             'min'       => 3,
-            'messageMaximum' => ['LOGIN_MAX_INVALID' => 'The login is too long'],
-            'messageMinimum' => ['LOGIN_MIX_INVALID' => 'The login is too short']
+            'messageMaximum' => json_encode(['LOGIN_MAX_INVALID' => 'The login is too long']),
+            'messageMinimum' => json_encode(['LOGIN_MIX_INVALID' => 'The login is too short'])
         ]));
 
         $this->validate(new StringLengthValidator([
             'field'     => 'name',
             'max'       => 40,
-            'messageMaximum' => ['NAME_MAX_INVALID' => 'The name is too long'],
-            'messageMinimum' => ['NAME_MIN_INVALID' => 'The name is too short']
+            'messageMaximum' => json_encode(['USERNAME_MAX_INVALID' => 'The name is too long']),
+            'messageMinimum' => json_encode(['USERNAME_MIN_INVALID' => 'The name is too short'])
         ]));
 
         $this->validate(new RegexValidator([
             'field'     => 'login',
             'pattern'   => "/^((\+)|(\d[\s-]?)?[\(\[\s-]{0,2}?\d{3}[\)\]\s-]{0,2}?\d{3}[\s-]?\d{4,5}|([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+)$/",
-            'message'   => ['LOGIN_FORMAT_INVALID' => 'The login should be your email or phone number']
+            'message'   => json_encode(['LOGIN_FORMAT_INVALID' => 'The login should be your email or phone number'])
         ]));
 
         return ($this->validationHasFailed() == true) ? false : true;
-    }
-
-    /**
-     * Skip attributes before update
-     *
-     * @param array $attributes
-     * @param null  $replace
-     */
-    public function skipAttributes($attributes, $replace = null) {
-        parent::skipAttributes($attributes, $replace);
     }
 }

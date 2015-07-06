@@ -1,12 +1,14 @@
 <?php
 namespace Application\Aware;
 
+use Phalcon\Mvc\Model\Resultset\Simple;
+
 /**
  * AbstractDTO. Data Transfer Object for Results Set
  *
  * @package Application
  * @subpackage Aware
- * @since      PHP >=5.4
+ * @since      PHP >=5.6
  * @version    1.0
  * @author     Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @copyright  Stanislav WEB
@@ -22,12 +24,12 @@ abstract class AbstractDTO {
      */
     public function total($result) {
 
-        if($result->getFirst() !== false) {
-            return (int)$result->getFirst()->count();
+        if($result instanceof \Phalcon\Mvc\ModelInterface) {
+            // always return 1 if there using only model data
+
+            return 1;
         }
-        else {
-            return (int)$result->getLast()->count();
-        }
+        return $result->count();
     }
 
     /**
@@ -37,7 +39,7 @@ abstract class AbstractDTO {
      */
     public function offset() {
         $request = new \Phalcon\Http\Request();
-        return (int)$request->get('offset');
+        return (int)$request->get('offset', null, 0);
     }
 
     /**
@@ -47,14 +49,25 @@ abstract class AbstractDTO {
      * @return int
      */
     public function limit($result) {
-        return $result->count();
+
+        $request = new \Phalcon\Http\Request();
+
+        $limit = (int)$request->get('limit', null, 0);
+
+        if($limit === 0) {
+
+            // always return all records if limit is not pulled
+            return $result->count();
+        }
+
+        return $limit;
     }
 
     /**
      * Serialize object
      *
      * @param \Phalcon\Mvc\Model\Resultset\Simple $result
-     * @return int
+     * @return string
      */
     public function serialize(\Phalcon\Mvc\Model\Resultset\Simple $result) {
         return $result->serialize();

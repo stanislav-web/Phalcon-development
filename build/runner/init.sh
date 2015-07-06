@@ -9,13 +9,6 @@ export SET USER='root';
 export SET PASSWORD='root';
 export SET INI_PATH='/etc/php5/fpm/php.ini';
 
-checkTool() {
-    # PHP Setup checking...
-    ../vendor/bin/iniscan scan --path=$1 --context=$3 --fail-only
-    ../vendor/bin/iniscan scan --path=$1 --format=html --output=$2 --context=$3
-    composer
-}
-
 rebootUnix() {
     # Reboot unix web servers
     sudo service php5-fpm restart
@@ -73,9 +66,6 @@ case "$ENV" in
     exit 1
     ;;
 esac;
-
-# Checking php configurations
-checkTool $INI_PATH $INI_SCAN_REPORT_DIR $ENV
 
 read -p "Press [Enter] key to reboot servers" REBOOT
 

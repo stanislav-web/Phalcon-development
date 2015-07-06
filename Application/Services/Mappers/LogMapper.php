@@ -12,7 +12,7 @@ use Application\Models\Logs;
  *
  * @package Application\Services
  * @subpackage Mappers
- * @since PHP >=5.4
+ * @since PHP >=5.6
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @copyright Stanislav WEB
@@ -109,6 +109,7 @@ class LogMapper {
 
         if(array_key_exists($code, $this->codes) === true) {
 
+            $message = (is_array($message) === true) ? json_encode($message) : $message;
             $this->loggerDatabase->log($message, $code);
         }
         else {

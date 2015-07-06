@@ -9,8 +9,8 @@ $I->setHeader('Accept', '*/*');
 $I->setHeader('Accept-Language', 'en-GB');
 
 $I->sendGET('api/v1/sign', ['login' => 'admin@admin.ua', 'password' => 'admin@admin.ua']);
-$auth = $I->grabDataFromJsonResponse();
-$I->amBearerAuthenticated($auth['data']['access']['token']);
+$auth = $I->grabDataFromResponseByJsonPath('$..data');
+$I->amBearerAuthenticated($auth[0]['access']['token']);
 
 $I->sendGET('api/v1/users?columns=id,login,name');
 $I->seeResponseCodeIs(200);

@@ -12,7 +12,7 @@ use Phalcon\DI\InjectionAwareInterface;
  *
  * @package Application
  * @subpackage Aware
- * @since      PHP >=5.4
+ * @since      PHP >=5.6
  * @version    1.0
  * @author     Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @copyright  Stanislav WEB
@@ -32,7 +32,7 @@ abstract class AbstractModelCrud implements InjectionAwareInterface {
      *
      * @param \Phalcon\DiInterface $di
      */
-    public function setDi($di)
+    public function setDi(\Phalcon\DiInterface $di)
     {
         $this->di = $di;
     }
@@ -73,34 +73,29 @@ abstract class AbstractModelCrud implements InjectionAwareInterface {
      * Create record row
      *
      * @param array $data
-     * @param array $skip
      * @throws \Application\Modules\Rest\Exceptions\BadRequestException
      * @throws \Application\Modules\Rest\Exceptions\ConflictException
      *
      * @return \Phalcon\Mvc\Model
      */
-    public function create(array $data, array $skip = []) {
+    public function create(array $data) {
 
         $model = $this->getInstance();
-
-        if(empty($skip) === false) {
-            $model->skipAttributes($skip);
-        }
 
         foreach($data as $field => $value) {
             $model->{$field}   =   $value;
         }
-
         if($model->save() === true) {
             return $model;
         }
 
         foreach($model->getMessages() as $message) {
+
             if($message->getType() == 'Unique') {
-                throw new ConflictException($message->getMessage());
+                throw new ConflictException(json_decode($message->getMessage(), true));
             }
 
-            throw new BadRequestException([$message->getMessage()]);
+            throw new BadRequestException(json_decode($message->getMessage(), true));
         }
     }
 
@@ -109,50 +104,23 @@ abstract class AbstractModelCrud implements InjectionAwareInterface {
      *
      * @param \Phalcon\Mvc\Model $model
      * @param array $credentials
-     * @return boolean
      * @throws BadRequestException
+     * @return boolean
      */
-    public function update(\Phalcon\Mvc\Model $model = null, array $credentials, array $skip = []) {
+    public function update(\Phalcon\Mvc\Model $model, array $credentials) {
 
-        $result = $this->getOne($credentials);
-
-        if($result === false) {
-            throw new NotFoundException([
-                'USER_NOT_FOUND' => 'User not found'
-            ]);
+        if($model->update($credentials, array_keys($credentials))) {
+            return true;
         }
 
-        if((int)$credentials[$this->getPrimaryKey()]
-            !== (int) $result->{$this->getPrimaryKey()}) {
+        foreach($model->getMessages() as $message) {
 
-            throw new ForbiddenException([
-                'ACCESS_DENIED' => 'Here you access denied'
-            ]);
-        }
-
-        if(is_null($model) === true) {
-            $model = $this->getInstance();
-        }
-
-        if(empty($skip) === false) {
-            $model->skipAttributes($skip);
-        }
-        $result = $model->update($credentials);
-
-        if($result === false) {
-
-            foreach($model->getMessages() as $message) {
-                if($message->getType() == 'PresenceOf') {
-                    throw new BadRequestException([
-                        'FIELD_IS_REQUIRED' => $message->getMessage()
-                    ]);
-                }
-
-                throw new BadRequestException($message->getMessage());
+            if($message->getType() == 'Unique') {
+                throw new ConflictException(json_decode($message->getMessage(), true));
             }
-        }
 
-        return true;
+            throw new BadRequestException(json_decode($message->getMessage(), true));
+        }
     }
 
     /**

@@ -4,12 +4,11 @@
  * @define Application path
  * @define Staging development environment
  */
-defined('DOCUMENT_ROOT') || define('DOCUMENT_ROOT', $_SERVER["DOCUMENT_ROOT"]);
-defined('APP_PATH') || define('APP_PATH', DOCUMENT_ROOT . '/../Application');
-defined('APPLICATION_ENV') ||
-define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production'));
 
 use \Application\Helpers\OriginPreflight;
+
+// Require definitions
+require_once '../config/definitions.php';
 
 // Require composite libraries
 require_once DOCUMENT_ROOT . ' /../vendor/autoload.php';
@@ -31,10 +30,10 @@ try {
     require_once DOCUMENT_ROOT . '/../config/modules.php';
 
     // Handle OPTIONS requests
-
     if(OriginPreflight::isOptions() === true) {
         OriginPreflight::allowRequest();
     }
+
     // Handle the request
     echo $app->handle()->getContent();
 

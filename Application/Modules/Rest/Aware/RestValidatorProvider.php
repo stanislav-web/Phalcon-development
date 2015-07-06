@@ -6,7 +6,7 @@ namespace Application\Modules\Rest\Aware;
  *
  * @package Application\Modules\Rest
  * @subpackage Aware
- * @since      PHP >=5.4
+ * @since      PHP >=5.6
  * @version    1.0
  * @author     Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @copyright  Stanislav WEB
@@ -24,10 +24,10 @@ abstract class RestValidatorProvider {
     /**
      * Set dependency container
      *
-     * @param \Phalcon\DI\FactoryDefault $di
+     * @param \Phalcon\DiInterface  $di
      * @return RestValidatorProvider
      */
-    public function setDi($di)
+    public function setDi(\Phalcon\DiInterface $di)
     {
         $this->di = $di;
 

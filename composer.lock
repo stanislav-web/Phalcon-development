@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ecb5322b09cad5744b17eced4204389b",
+    "hash": "2d3e6f9c87f43992fdc0216f3d8bb15a",
     "packages": [
         {
             "name": "phalcon/incubator",
@@ -56,6 +56,56 @@
                 "phalcon"
             ],
             "time": "2015-06-10 13:47:44"
+        },
+        {
+            "name": "stanislav-web/httpstatuses-json",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stanislav-web/httpstatuses-json.git",
+                "reference": "56119a0cc9bfe18dca536250ff37b07d1da37f9d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stanislav-web/httpstatuses-json/zipball/56119a0cc9bfe18dca536250ff37b07d1da37f9d",
+                "reference": "56119a0cc9bfe18dca536250ff37b07d1da37f9d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "suggest": {
+                "stanislav-web/phalcon-searcher": "Phalcon Database Searcher. This is the search service is designed to search multiple SQL tables. Convenient to use autocomplete, search documents, search the whole site.",
+                "stanislav-web/phalcon-ulogin": "Phalcon ULogin. The authorization form uLogin through social networks",
+                "stanislav-web/phalcon-uploader": "Phalcon files uploader. Handling and downloading files for Phalcon projects. Allowed multiple files download, filters etc..."
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "HttpStatuses\\": "src/HttpStatuses"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Stanislav WEB",
+                    "email": "stanisov@gmail.com",
+                    "homepage": "http://reds.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Http full status codes representation",
+            "homepage": "https://github.com/stanislav-web/httpstatuses-json",
+            "keywords": [
+                "http codes",
+                "http json",
+                "http json statuses",
+                "http statuses"
+            ],
+            "time": "2015-07-06 22:45:52"
         },
         {
             "name": "stanislav-web/phalcon-sms-factory",
@@ -1672,7 +1722,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/robmorgan/phinx/zipball/b4b7d1e045d679278d4cb9ab18fd513f15f4797e",
+                "url": "https://api.github.com/repos/robmorgan/phinx/zipball/9ff3463d2e739fb4e4e6d8cfc4b3f8c8f6bd9654",
                 "reference": "b4b7d1e045d679278d4cb9ab18fd513f15f4797e",
                 "shasum": ""
             },
@@ -2806,6 +2856,7 @@
     "stability-flags": {
         "stanislav-web/phalcon-sms-factory": 20,
         "stanislav-web/phalcon-uploader": 20,
+        "stanislav-web/httpstatuses-json": 20,
         "robmorgan/phinx": 20,
         "bruli/php-git-hooks": 20,
         "phalcon/devtools": 20,
@@ -2817,7 +2868,8 @@
         "php": ">=5.6.0",
         "ext-phalcon": ">=2.0",
         "ext-apcu": ">=4.0",
-        "ext-mcrypt": "*"
+        "ext-mcrypt": "*",
+        "ext-igbinary": "*"
     },
     "platform-dev": []
 }

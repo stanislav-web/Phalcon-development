@@ -49,6 +49,7 @@ $di->setShared('modelsMetadata', function() use ($di) {
             'lifetime' => 0, // optional (standard: 8600)
             'prefix' => $config['prefix']   // optional (standard: false)
         ]);
+        $metaData->reset();
     }
     return $metaData;
 });
@@ -60,7 +61,7 @@ $di->setShared('db', function () use ($di) {
 
     $config = $di->get('config')->database;
     $connect = new \Application\Services\Database\MySQLConnectService(
-        $config
+        $config->toArray()
     );
 
     if($config->profiling === true) {

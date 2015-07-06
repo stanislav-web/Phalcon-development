@@ -8,7 +8,7 @@ use Phalcon\DI\InjectionAwareInterface;
  *
  * @package Application\Services
  * @subpackage Develop
- * @since PHP >=5.4
+ * @since PHP >=5.6
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @copyright Stanislav WEB
@@ -28,7 +28,7 @@ class ProfilerService implements InjectionAwareInterface
      *
      * @param \Phalcon\DiInterface $di
      */
-    public function setDi($di)
+    public function setDi(\Phalcon\DiInterface $di)
     {
         $this->di = $di;
     }

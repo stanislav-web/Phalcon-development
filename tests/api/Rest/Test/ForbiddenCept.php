@@ -19,19 +19,13 @@ $I->sendPOST('api/v1/sign', [
 ]);
 
 $I->sendGET('api/v1/sign', ['login' => $login, 'password' => $password]);
-$auth = $I->grabDataFromJsonResponse();
-$user_id = $auth['data']['access']['user_id'];
-
-$I->sendGET('api/v1/sign', ['login' => $login, 'password' => $password]);
-$auth = $I->grabDataFromJsonResponse();
-
-$I->amBearerAuthenticated($auth['data']['access']['token']);
+$auth = $I->grabDataFromResponseByJsonPath('$..data');
+$I->amBearerAuthenticated($auth[0]['access']['token']);
 
 $I->sendGET('/api/v1/users');
-
 
 $I->seeResponseCodeIs(403);
 $I->seeResponseIsJson();
 $I->seeResponseJsonMatchesJsonPath('$.error');
 
-$I->sendDELETE('api/v1/sign/'.$auth['data']['access']['user_id']);
+$I->sendDELETE('api/v1/sign/'.$auth[0]['access']['user_id']);

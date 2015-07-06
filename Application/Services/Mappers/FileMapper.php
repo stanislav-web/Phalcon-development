@@ -8,7 +8,7 @@ use Application\Modules\Rest\Exceptions\BadRequestException;
  *
  * @package Application\Services
  * @subpackage Mappers
- * @since PHP >=5.4
+ * @since PHP >=5.6
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @copyright Stanislav WEB
@@ -48,7 +48,7 @@ class FileMapper {
      *
      * @param \Phalcon\Di\FactoryDefault $di
      */
-    private function setDi($di)
+    private function setDi(\Phalcon\DiInterface $di)
     {
         $this->di = $di;
         return $this;

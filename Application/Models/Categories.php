@@ -13,7 +13,7 @@ use Phalcon\Tag;
  *
  * @package    Application
  * @subpackage    Models
- * @since PHP >=5.4
+ * @since PHP >=5.6
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @filesource /Application/Models/Categories.php
@@ -80,9 +80,7 @@ class Categories extends \Phalcon\Mvc\Model
     public function initialize()
     {
         // its allow to keep empty data to my db
-        $this->setup([
-            'notNullValidations' => true,
-        ]);
+        $this->setup(['notNullValidations' => false]);
     }
 
     /**
@@ -127,25 +125,25 @@ class Categories extends \Phalcon\Mvc\Model
         //Do the validations
         $this->validate(new Uniqueness([
             "field"     => "alias",
-            "message"   => 'This alias already exist'
+            "message"   => json_encode(['CATEGORY_ALIAS_ALREADY_EXIST' => 'This alias already exist'])
         ]));
 
         $this->validate(new StringLength([
             'field'     => 'description',
             'max'       => 512,
             'min'       => 15,
-            'messageMaximum' => 'Description must have maximum 512 characters',
-            'messageMinimum' => 'Description must have minimum 15 characters'
+            'messageMaximum' => ['CATEGORY_DESCRIPTION_MAX_INVALID' => 'Description must have maximum 512 characters'],
+            'messageMinimum' => ['CATEGORY_DESCRIPTION_MIN_INVALID' => 'Description must have minimum 15 characters'],
         ]));
 
         $this->validate(new PresenceOf([
             'field'     => 'title',
-            'message'   => 'The title is required'
+            'message'   => ['CATEGORY_TITLE_REQUIRED' => 'The category title is required'],
         ]));
 
         $this->validate(new PresenceOf([
             'field'     => 'description',
-            'message'   => 'The description is required'
+            'message'   => ['CATEGORY_DESCRIPTION_REQUIRED' => 'The category description is required'],
         ]));
 
         return $this->validationHasFailed() != true;

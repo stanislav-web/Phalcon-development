@@ -33,17 +33,18 @@
         "ext-phalcon": ">=2.0",
         "ext-apcu": ">=4.0",
         "ext-mcrypt" : "*",
+        "ext-igbinary" : "*",
         "stanislav-web/phalcon-sms-factory": "dev-master",
-        "stanislav-web/phalcon-translate": "1.2-stable",
+        "stanislav-web/phalcon-translate": "1.3-stable",
         "stanislav-web/phalcon-uploader": "dev-master",
         "swiftmailer/swiftmailer": "5.*",
-        "phalcon/incubator": "2.*"
+        "phalcon/incubator": "2.*",
+        "stanislav-web/httpstatuses-json": "1.0-stable"
     },
     "require-dev": {
         "robmorgan/phinx": "dev-master",
         "codeception/codeception" :"*",
         "bruli/php-git-hooks": "~1.0@dev",
-        "psecio/iniscan": "~3.6",
         "phalcon/devtools": "dev-master",
         "flow/jsonpath": "dev-master"
     },

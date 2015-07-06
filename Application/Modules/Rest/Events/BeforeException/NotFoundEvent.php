@@ -10,7 +10,7 @@ use Application\Modules\Rest\Exceptions\NotFoundException;
  *
  * @package Application\Modules\Rest\Services
  * @subpackage Events\BeforeException
- * @since PHP >=5.4
+ * @since PHP >=5.6
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @copyright Stanislav WEB

@@ -9,7 +9,7 @@ use Phalcon\Http\Request;
  *
  * @package Application\Services
  * @subpackage Security
- * @since PHP >=5.4
+ * @since PHP >=5.6
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @copyright Stanislav WEB

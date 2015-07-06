@@ -4,14 +4,13 @@ namespace Application\Services\Mappers;
 use Application\Aware\AbstractModelCrud;
 use Application\Models\Errors;
 use Application\Modules\Rest\DTO\ErrorDTO;
-use Application\Modules\Rest\Exceptions\NotFoundException;
 
 /**
  * Class ErrorMapper. Actions above application pages
  *
  * @package Application\Services
  * @subpackage Mappers
- * @since PHP >=5.4
+ * @since PHP >=5.6
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @copyright Stanislav WEB
@@ -43,27 +42,23 @@ class ErrorMapper extends AbstractModelCrud {
             return (new ErrorDTO())->setErrors($result);
         }
 
-        throw new NotFoundException([
-            'RECORDS_NOT_FOUND'  =>  'The records not found'
-        ]);
+        return [];
     }
 
     /**
      * Get error by code
      *
      * @param array $code
-     * @throws NotFoundException
+     * @return mixed
      */
     public function getError($code) {
 
         $result = $this->getInstance()->findFirst(["code = '".$code."'"]);
 
-        if($result->count() > 0) {
+        if($result) {
             return $result;
         }
 
-        throw new NotFoundException([
-            'RECORDS_NOT_FOUND'  =>  'The records not found'
-        ]);
+        return [];
     }
 }
