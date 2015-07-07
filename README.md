@@ -15,7 +15,6 @@ Phalcon Development Boards
 * REST Full Service
 * DTO (Data Transfer Objects) for relate results
 * Codeception API Testing
-* Git Hooks
 * API Class Documentation
 
 #### Requirements 

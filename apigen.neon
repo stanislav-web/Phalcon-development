@@ -8,10 +8,10 @@ charset: [UTF-8]
 main: ApiGen
 
 # title of generated documentation
-title: Phalcon Development API
+title: Phalcon REST API
 
 # base url used for sitemap (useful for public doc)
-baseUrl: http://api.phalcon.local
+baseUrl: http://backend.local
 
 # the way elements are grouped in menu
 groups: auto # also: namespace, packages, none; auto will detect namespace first, than packages

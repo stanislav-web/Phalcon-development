@@ -3,7 +3,7 @@
 # Define variables
 export SET OSTYPE="`uname`"
 export SET ENV=""
-export SET DUMPFILE="migrations/dump.sql"
+export SET DUMPFILE="build/migrations/dump.sql"
 export SET DATABASE='backend.local';
 export SET USER='root';
 export SET PASSWORD='root';
