@@ -17,10 +17,6 @@ use Application\Modules\Rest\Exceptions\InternalServerErrorException;
  */
 class InputValidator {
 
-    const EMPTY_PARAMETER_IN_URI = 'Empty parameter in URI';
-    const INVALID_COLUMNS = 'The columns: `%s` does not provide by this filter';
-    const INVALID_REQUIRED_FIELDS = 'The fields: `%s` is required';
-
     /**
      * Dependency injection container
      *
@@ -97,6 +93,20 @@ class InputValidator {
     public function getMapper()
     {
         return $this->mapper;
+    }
+
+    /**
+     * Get Translate service
+     *
+     * @return \Translate\Translator|null
+     */
+    private function getTranslateService() {
+
+        if($this->getDi()->has('TranslateService') === true) {
+            return $this->getDi()->get('TranslateService')->assign('errors');
+        }
+
+        return null;
     }
 
     /**
@@ -222,8 +232,10 @@ class InputValidator {
             $exchange = array_diff_key($required, $this->getParams());
             if(empty($exchange) === false) {
 
+                $t = $this->getTranslateService()->assign('errors');
+
                 throw new BadRequestException([
-                    'INVALID_REQUIRED_FIELDS' => sprintf(self::INVALID_REQUIRED_FIELDS, implode(',', array_flip($exchange)))
+                    'INVALID_REQUIRED_FIELDS' => sprintf($t->translate('INVALID_REQUIRED_FIELDS'), implode(',', array_flip($exchange)))
                 ]);
             }
         }
@@ -236,8 +248,10 @@ class InputValidator {
 
         if(count(array_filter($this->getColumns())) !== count($this->getColumns())) {
 
+            $t = $this->getTranslateService()->assign('errors');
+
             throw new BadRequestException([
-                'EMPTY_PARAMETER_IN_URI' => sprintf(self::EMPTY_PARAMETER_IN_URI)
+                'EMPTY_PARAMETER_IN_URI' => $t->translate('EMPTY_PARAMETER_IN_URI')
             ]);
         }
     }
@@ -250,8 +264,10 @@ class InputValidator {
         $columns = array_diff($this->getColumns(), $this->getMapper()->getAttributes());
         if (empty($columns) === false) {
 
+            $t = $this->getTranslateService()->assign('errors');
+
             throw new BadRequestException([
-                'INVALID_COLUMNS' => sprintf(self::INVALID_COLUMNS, implode(',', $columns))
+                'INVALID_COLUMNS' => sprintf($t->translate('INVALID_COLUMNS'), implode(',', $columns))
             ]);
         }
     }

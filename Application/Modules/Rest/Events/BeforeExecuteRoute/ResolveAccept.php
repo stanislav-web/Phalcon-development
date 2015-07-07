@@ -29,22 +29,24 @@ class ResolveAccept extends RestValidatorProvider {
     public function run(\Phalcon\DI\FactoryDefault $di, \StdClass $rules) {
 
         $this->setDi($di);
+        $t = $this->getTranslator();
 
         if($this->isValidQueryParams() === false) {
+
             throw new NotAcceptableException([
-                'FILTERS_IS_NOT_SUPPORT'  =>  'This filters is not support'
+                'FILTERS_IS_NOT_SUPPORT'  =>  $t->translate('FILTERS_IS_NOT_SUPPORT'),
             ]);
         }
 
         if($this->isValidContentType() === false) {
             throw new NotAcceptableException([
-                'CONTENT_IS_NOT_SUPPORT'  =>  'This content type is not support'
+                'CONTENT_IS_NOT_SUPPORT'  => $t->translate('CONTENT_IS_NOT_SUPPORT'),
             ]);
         }
 
         if($this->isValidLanguage() === false) {
             throw new NotAcceptableException([
-                'LANGUAGE_IS_NOT_SUPPORT'  =>  'This language is not support'
+                'LANGUAGE_IS_NOT_SUPPORT'  =>  $t->translate('LANGUAGE_IS_NOT_SUPPORT'),
             ]);
         }
     }
@@ -96,5 +98,19 @@ class ResolveAccept extends RestValidatorProvider {
         }
 
         return in_array($locale, $this->getConfig()->acceptLanguage->toArray());
+    }
+
+    /**
+     * Get Translate service
+     *
+     * @return \Translate\Translator|null
+     */
+    private function getTranslator() {
+
+        if($this->getDi()->has('TranslateService') === true) {
+            return $this->getDi()->get('TranslateService')->assign('errors');
+        }
+
+        return null;
     }
 }

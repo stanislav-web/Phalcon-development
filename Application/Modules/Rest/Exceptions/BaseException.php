@@ -1,6 +1,8 @@
 <?php
 namespace Application\Modules\Rest\Exceptions;
 
+use Phalcon\DI;
+
 /**
  * Class BaseException.
  *
@@ -13,7 +15,6 @@ namespace Application\Modules\Rest\Exceptions;
  */
 abstract class BaseException extends \Exception
 {
-
     /**
      * Constructor
      *
@@ -29,4 +30,6 @@ abstract class BaseException extends \Exception
         }
         parent::__construct($message, $code);
     }
+
+
 }

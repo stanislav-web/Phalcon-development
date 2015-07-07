@@ -58,16 +58,6 @@ abstract class RestSecurityProvider implements InjectionAwareInterface {
     }
 
     /**
-     * Get translate service
-     *
-     * @return \Application\Services\Advanced\TranslateService
-     */
-    public function getTranslator() {
-
-        return $this->getDI()->get('TranslateService')->assign('sign');
-    }
-
-    /**
      * Get mailer service
      *
      * @return \Application\Services\Mail\MailSMTPService
@@ -137,6 +127,20 @@ abstract class RestSecurityProvider implements InjectionAwareInterface {
      */
     public function randomString() {
         return Randomize::random(Randomize::RANDOM_ALNUM, self::RECOVERY_PASS_LENGTH);
+    }
+
+    /**
+     * Get Translate service
+     *
+     * @return \Translate\Translator|null
+     */
+    public function getTranslator() {
+
+        if($this->getDi()->has('TranslateService') === true) {
+            return $this->getDi()->get('TranslateService')->assign('sign');
+        }
+
+        return null;
     }
 
     /**
