@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class Application\Modules\Rest\Validators\OutputValidator | Phalcon REST API</title>
+
+	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+				<li class="active">
+					<a href="namespace-Application.html">
+						Application<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Application.Aware.html">
+						Aware					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Helpers.html">
+						Helpers					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Models.html">
+						Models					</a>
+
+						</li>
+				<li class="active">
+					<a href="namespace-Application.Modules.html">
+						Modules<span></span>
+					</a>
+
+						<ul>
+				<li class="active">
+					<a href="namespace-Application.Modules.Rest.html">
+						Rest<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Application.Modules.Rest.Aware.html">
+						Aware					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Modules.Rest.Controllers.html">
+						Controllers					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Modules.Rest.DTO.html">
+						DTO					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Modules.Rest.Events.html">
+						Events<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Application.Modules.Rest.Events.BeforeDispatchLoop.html">
+						BeforeDispatchLoop					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Modules.Rest.Events.BeforeException.html">
+						BeforeException					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Modules.Rest.Events.BeforeExecuteRoute.html">
+						BeforeExecuteRoute					</a>
+
+						</li>
+							</ul></li>
+				<li>
+					<a href="namespace-Application.Modules.Rest.Exceptions.html">
+						Exceptions					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Modules.Rest.Services.html">
+						Services					</a>
+
+						</li>
+				<li class="active">
+					<a href="namespace-Application.Modules.Rest.Validators.html">
+						Validators					</a>
+
+						</li>
+							</ul></li></ul></li>
+				<li>
+					<a href="namespace-Application.Services.html">
+						Services<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Application.Services.Advanced.html">
+						Advanced					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Services.Cache.html">
+						Cache					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Services.Database.html">
+						Database					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Services.Develop.html">
+						Develop					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Services.Mail.html">
+						Mail					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Services.Mappers.html">
+						Mappers					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Services.Security.html">
+						Security					</a>
+
+						</li>
+							</ul></li></ul></li>
+				<li>
+					<a href="namespace-PHP.html">
+						PHP					</a>
+
+						</li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-Application.Modules.Rest.Validators.InputValidator.html">InputValidator</a></li>
+				<li class="active"><a href="class-Application.Modules.Rest.Validators.OutputValidator.html">OutputValidator</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-Application.Modules.Rest.Validators.html" title="Summary of Application\Modules\Rest\Validators"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+				<li>
+					<a href="annotation-group-deprecated.html" title="List of elements with deprecated annotation">
+						<span>Deprecated</span>
+					</a>
+				</li>
+				<li>
+					<a href="annotation-group-todo.html" title="List of elements with todo annotation">
+						<span>Todo</span>
+					</a>
+				</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="-API-documentation.zip" title="Download documentation as ZIP archive"><span>Download</span></a>
+			</li>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class OutputValidator</h1>
+
+
+	<div class="description">
+	<p>Class OutputValidator. Checking response</p>
+	</div>
+
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-Application.html">Application</a>\<a href="namespace-Application.Modules.html">Modules</a>\<a href="namespace-Application.Modules.Rest.html">Rest</a>\<a href="namespace-Application.Modules.Rest.Validators.html">Validators</a><br>
+		<b>Package:</b> Application\Modules\Rest\Validators<br>
+
+				<b>Copyright:</b>
+				Stanislav WEB<br>
+				<b>Author:</b>
+				Stanislav WEB | Lugansk <a href="&#109;&#x61;&#105;&#108;&#x74;&#111;&#x3a;s&#116;&#x61;&#110;&#x69;&#x73;&#111;&#x76;&#64;&#103;&#x6d;&#97;&#x69;&#x6c;&#46;&#x63;&#111;&#109;">s&#116;&#x61;&#110;&#x69;&#x73;&#111;&#x76;&#64;&#103;&#x6d;&#97;&#x69;&#x6c;&#46;&#x63;&#111;&#109;</a><br>
+				<b>Version:</b>
+				1.0<br>
+				<b>Since:</b>
+				PHP >=5.6<br>
+			<b>Located at</b> <a href="source-class-Application.Modules.Rest.Validators.OutputValidator.html#7-277" title="Go to source code">Modules/Rest/Validators/OutputValidator.php</a>
+		<br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="__construct" id="___construct">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___construct">#</a>
+		<code><a href="source-class-Application.Modules.Rest.Validators.OutputValidator.html#50-58" title="Go to source code">__construct</a>( <span><code><a href="class-Phalcon.Config.html">Phalcon\Config</a></code> <var>$config</var></span> )</code>
+
+		<div class="description short">
+			<p>Setup definition</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Setup definition</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$config</var></dt>
+					<dd></dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setConfig" id="_setConfig">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-Application.Modules.Rest.Validators.OutputValidator.html">Application\Modules\Rest\Validators\OutputValidator</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setConfig">#</a>
+		<code><a href="source-class-Application.Modules.Rest.Validators.OutputValidator.html#60-71" title="Go to source code">setConfig</a>( <span><code><a href="class-Phalcon.Config.html">Phalcon\Config</a></code> <var>$config</var></span> )</code>
+
+		<div class="description short">
+			<p>Set config container</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Set config container</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$config</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Application.Modules.Rest.Validators.OutputValidator.html">Application\Modules\Rest\Validators\OutputValidator</a></code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getConfig" id="_getConfig">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getConfig">#</a>
+		<code><a href="source-class-Application.Modules.Rest.Validators.OutputValidator.html#73-81" title="Go to source code">getConfig</a>( )</code>
+
+		<div class="description short">
+			<p>Get config container</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Get config container</p>
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getResult" id="_getResult">
+
+		<td class="attributes"><code>
+			 public 
+
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getResult">#</a>
+		<code><a href="source-class-Application.Modules.Rest.Validators.OutputValidator.html#123-131" title="Go to source code">getResult</a>( )</code>
+
+		<div class="description short">
+			<p>Get result data</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Get result data</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					array
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="validate" id="_validate">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-Application.Modules.Rest.Validators.OutputValidator.html">Application\Modules\Rest\Validators\OutputValidator</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_validate">#</a>
+		<code><a href="source-class-Application.Modules.Rest.Validators.OutputValidator.html#133-142" title="Go to source code">validate</a>( <span>mixed <var>$response</var></span> )</code>
+
+		<div class="description short">
+			<p>Validate response</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Validate response</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$response</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Application.Modules.Rest.Validators.OutputValidator.html">Application\Modules\Rest\Validators\OutputValidator</a></code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+	<table class="summary constants" id="constants">
+	<caption>Constants summary</caption>
+	<tr data-order="CODE_OK" id="CODE_OK">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-Application.Modules.Rest.Validators.OutputValidator.html#20" title="Go to source code"><b>CODE_OK</b></a>
+			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#CODE_OK" class="anchor">#</a>
+				<code><span class="php-num">200</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="CODE_CREATED" id="CODE_CREATED">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-Application.Modules.Rest.Validators.OutputValidator.html#21" title="Go to source code"><b>CODE_CREATED</b></a>
+			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#CODE_CREATED" class="anchor">#</a>
+				<code><span class="php-num">201</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="CODE_NO_CONTENT" id="CODE_NO_CONTENT">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-Application.Modules.Rest.Validators.OutputValidator.html#22" title="Go to source code"><b>CODE_NO_CONTENT</b></a>
+			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#CODE_NO_CONTENT" class="anchor">#</a>
+				<code><span class="php-num">204</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="CODE_NOT_MODIFIED" id="CODE_NOT_MODIFIED">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-Application.Modules.Rest.Validators.OutputValidator.html#23" title="Go to source code"><b>CODE_NOT_MODIFIED</b></a>
+			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#CODE_NOT_MODIFIED" class="anchor">#</a>
+				<code><span class="php-num">304</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="MESSAGE_OK" id="MESSAGE_OK">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-Application.Modules.Rest.Validators.OutputValidator.html#24" title="Go to source code"><b>MESSAGE_OK</b></a>
+			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#MESSAGE_OK" class="anchor">#</a>
+				<code><span class="php-quote">'0K'</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="MESSAGE_CREATED" id="MESSAGE_CREATED">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-Application.Modules.Rest.Validators.OutputValidator.html#25" title="Go to source code"><b>MESSAGE_CREATED</b></a>
+			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#MESSAGE_CREATED" class="anchor">#</a>
+				<code><span class="php-quote">'Created'</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="MESSAGE_NO_CONTENT" id="MESSAGE_NO_CONTENT">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-Application.Modules.Rest.Validators.OutputValidator.html#26" title="Go to source code"><b>MESSAGE_NO_CONTENT</b></a>
+			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#MESSAGE_NO_CONTENT" class="anchor">#</a>
+				<code><span class="php-quote">'No Content'</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="MESSAGE_NOT_MODIFIED" id="MESSAGE_NOT_MODIFIED">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-Application.Modules.Rest.Validators.OutputValidator.html#27" title="Go to source code"><b>MESSAGE_NOT_MODIFIED</b></a>
+			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#MESSAGE_NOT_MODIFIED" class="anchor">#</a>
+				<code><span class="php-quote">'Not Modified'</span></code>
+			</div>
+		</td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		Phalcon REST API API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>

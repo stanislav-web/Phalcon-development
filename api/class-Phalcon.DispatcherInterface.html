@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Interface Phalcon\DispatcherInterface | Phalcon REST API</title>
+
+	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+				<li>
+					<a href="namespace-Application.html">
+						Application<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Application.Aware.html">
+						Aware					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Helpers.html">
+						Helpers					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Models.html">
+						Models					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Modules.html">
+						Modules<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Application.Modules.Rest.html">
+						Rest<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Application.Modules.Rest.Aware.html">
+						Aware					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Modules.Rest.Controllers.html">
+						Controllers					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Modules.Rest.DTO.html">
+						DTO					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Modules.Rest.Events.html">
+						Events<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Application.Modules.Rest.Events.BeforeDispatchLoop.html">
+						BeforeDispatchLoop					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Modules.Rest.Events.BeforeException.html">
+						BeforeException					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Modules.Rest.Events.BeforeExecuteRoute.html">
+						BeforeExecuteRoute					</a>
+
+						</li>
+							</ul></li>
+				<li>
+					<a href="namespace-Application.Modules.Rest.Exceptions.html">
+						Exceptions					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Modules.Rest.Services.html">
+						Services					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Modules.Rest.Validators.html">
+						Validators					</a>
+
+						</li>
+							</ul></li></ul></li>
+				<li>
+					<a href="namespace-Application.Services.html">
+						Services<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Application.Services.Advanced.html">
+						Advanced					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Services.Cache.html">
+						Cache					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Services.Database.html">
+						Database					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Services.Develop.html">
+						Develop					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Services.Mail.html">
+						Mail					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Services.Mappers.html">
+						Mappers					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Services.Security.html">
+						Security					</a>
+
+						</li>
+							</ul></li></ul></li>
+				<li class="active">
+					<a href="namespace-PHP.html">
+						PHP					</a>
+
+						</li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-Phalcon.Cache.Backend.html">Backend</a></li>
+				<li><a href="class-Phalcon.Cache.Backend.Apc.html">Apc</a></li>
+				<li><a href="class-Phalcon.Session.Adapter.Memcache.html">Memcache</a></li>
+				<li><a href="class-Phalcon.Config.html">Config</a></li>
+				<li><a href="class-Phalcon.Session.Adapter.html">Adapter</a></li>
+				<li><a href="class-Phalcon.Db.Adapter.Pdo.html">Pdo</a></li>
+				<li><a href="class-Phalcon.Db.Adapter.Pdo.Mysql.html">Mysql</a></li>
+				<li><a href="class-Phalcon.Db.Profiler.html">Profiler</a></li>
+				<li><a href="class-Phalcon.Di.html">Di</a></li>
+				<li><a href="class-Phalcon.Di.FactoryDefault.html">FactoryDefault</a></li>
+				<li><a href="class-Phalcon.Di.Injectable.html">Injectable</a></li>
+				<li><a href="class-Phalcon.Mvc.Dispatcher.html">Dispatcher</a></li>
+				<li><a href="class-Phalcon.Events.Event.html">Event</a></li>
+				<li><a href="class-Phalcon.Http.Request.html">Request</a></li>
+				<li><a href="class-Phalcon.Mvc.Controller.html">Controller</a></li>
+				<li><a href="class-Phalcon.Mvc.Model.html">Model</a></li>
+				<li><a href="class-Phalcon.Mvc.Model.Resultset.html">Resultset</a></li>
+				<li><a href="class-Phalcon.Mvc.Model.Resultset.Simple.html">Simple</a></li>
+				<li><a href="class-Phalcon.Mvc.Router.Group.html">Group</a></li>
+				<li><a href="class-Phalcon.Mvc.View.html">View</a></li>
+				<li><a href="class-Phalcon.Security.html">Security</a></li>
+				<li><a href="class-Phalcon.Tag.html">Tag</a></li>
+			</ul>
+
+			<h3>Interfaces</h3>
+			<ul>
+				<li><a href="class-ArrayAccess.html">ArrayAccess</a></li>
+				<li><a href="class-Countable.html">Countable</a></li>
+				<li><a href="class-Iterator.html">Iterator</a></li>
+				<li><a href="class-Phalcon.Cache.BackendInterface.html">BackendInterface</a></li>
+				<li><a href="class-Phalcon.Session.AdapterInterface.html">AdapterInterface</a></li>
+				<li><a href="class-Phalcon.Di.InjectionAwareInterface.html">InjectionAwareInterface</a></li>
+				<li><a href="class-Phalcon.DiInterface.html">DiInterface</a></li>
+				<li><a href="class-Phalcon.Mvc.DispatcherInterface.html">DispatcherInterface</a></li>
+				<li><a href="class-Phalcon.Events.EventsAwareInterface.html">EventsAwareInterface</a></li>
+				<li><a href="class-Phalcon.Http.RequestInterface.html">RequestInterface</a></li>
+				<li><a href="class-Phalcon.Http.ResponseInterface.html">ResponseInterface</a></li>
+				<li><a href="class-Phalcon.Mvc.Model.ResultInterface.html">ResultInterface</a></li>
+				<li><a href="class-Phalcon.Mvc.Model.ResultsetInterface.html">ResultsetInterface</a></li>
+				<li><a href="class-Phalcon.Mvc.ModelInterface.html">ModelInterface</a></li>
+				<li><a href="class-Phalcon.Mvc.Router.GroupInterface.html">GroupInterface</a></li>
+				<li><a href="class-Phalcon.Mvc.ViewBaseInterface.html">ViewBaseInterface</a></li>
+				<li><a href="class-Phalcon.Mvc.ViewInterface.html">ViewInterface</a></li>
+				<li><a href="class-SeekableIterator.html">SeekableIterator</a></li>
+				<li><a href="class-Serializable.html">Serializable</a></li>
+				<li><a href="class-Traversable.html">Traversable</a></li>
+			</ul>
+
+
+			<h3>Exceptions</h3>
+			<ul>
+				<li><a href="class-Phalcon.Mvc.Model.Exception.html">Exception</a></li>
+				<li><a href="class-RuntimeException.html">RuntimeException</a></li>
+			</ul>
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-PHP.html" title="Summary of PHP"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+				<li>
+					<a href="annotation-group-deprecated.html" title="List of elements with deprecated annotation">
+						<span>Deprecated</span>
+					</a>
+				</li>
+				<li>
+					<a href="annotation-group-todo.html" title="List of elements with todo annotation">
+						<span>Todo</span>
+					</a>
+				</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="-API-documentation.zip" title="Download documentation as ZIP archive"><span>Download</span></a>
+			</li>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Interface DispatcherInterface</h1>
+
+
+
+
+
+
+
+	<div>
+		<h4>Direct known implementers</h4>
+			<a href="class-Phalcon.Dispatcher.html">Phalcon\Dispatcher</a>, 
+			<a href="class-Phalcon.Mvc.DispatcherInterface.html">Phalcon\Mvc\DispatcherInterface</a>
+	</div>
+
+	<div>
+		<h4>Indirect known implementers</h4>
+			<a href="class-Phalcon.Mvc.Dispatcher.html">Phalcon\Mvc\Dispatcher</a>
+	</div>
+
+
+
+	<div class="info">
+		
+		<b>PHP Extension:</b> <a href="http://php.net/manual/en/book.phalcon.php" title="Go to PHP documentation">Phalcon</a><br>
+		<b>Namespace:</b> <a href="namespace-Phalcon.html">Phalcon</a><br>
+		
+
+			<b>Documented at</b> <a href="http://php.net/manual/en/class.phalcon\dispatcherinterface.php" title="Go to PHP documentation">php.net</a>
+		<br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="setActionSuffix" id="_setActionSuffix">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setActionSuffix">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\dispatcherinterface.setactionsuffix.php" title="Go to PHP documentation">setActionSuffix</a>( <span> <var>$actionSuffix</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setDefaultNamespace" id="_setDefaultNamespace">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setDefaultNamespace">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\dispatcherinterface.setdefaultnamespace.php" title="Go to PHP documentation">setDefaultNamespace</a>( <span> <var>$defaultNamespace</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setDefaultAction" id="_setDefaultAction">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setDefaultAction">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\dispatcherinterface.setdefaultaction.php" title="Go to PHP documentation">setDefaultAction</a>( <span> <var>$actionName</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setNamespaceName" id="_setNamespaceName">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setNamespaceName">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\dispatcherinterface.setnamespacename.php" title="Go to PHP documentation">setNamespaceName</a>( <span> <var>$namespaceName</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setModuleName" id="_setModuleName">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setModuleName">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\dispatcherinterface.setmodulename.php" title="Go to PHP documentation">setModuleName</a>( <span> <var>$moduleName</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setActionName" id="_setActionName">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setActionName">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\dispatcherinterface.setactionname.php" title="Go to PHP documentation">setActionName</a>( <span> <var>$actionName</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getActionName" id="_getActionName">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getActionName">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\dispatcherinterface.getactionname.php" title="Go to PHP documentation">getActionName</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setParams" id="_setParams">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setParams">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\dispatcherinterface.setparams.php" title="Go to PHP documentation">setParams</a>( <span> <var>$params</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getParams" id="_getParams">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getParams">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\dispatcherinterface.getparams.php" title="Go to PHP documentation">getParams</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setParam" id="_setParam">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setParam">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\dispatcherinterface.setparam.php" title="Go to PHP documentation">setParam</a>( <span> <var>$param</var></span>, <span> <var>$value</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getParam" id="_getParam">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getParam">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\dispatcherinterface.getparam.php" title="Go to PHP documentation">getParam</a>( <span> <var>$param</var></span>, <span> <var>$filters</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="isFinished" id="_isFinished">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_isFinished">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\dispatcherinterface.isfinished.php" title="Go to PHP documentation">isFinished</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getReturnedValue" id="_getReturnedValue">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getReturnedValue">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\dispatcherinterface.getreturnedvalue.php" title="Go to PHP documentation">getReturnedValue</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="dispatch" id="_dispatch">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_dispatch">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\dispatcherinterface.dispatch.php" title="Go to PHP documentation">dispatch</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="forward" id="_forward">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_forward">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\dispatcherinterface.forward.php" title="Go to PHP documentation">forward</a>( <span> <var>$forward</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		Phalcon REST API API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>

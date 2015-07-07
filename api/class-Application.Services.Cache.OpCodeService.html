@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class Application\Services\Cache\OpCodeService | Phalcon REST API</title>
+
+	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+				<li class="active">
+					<a href="namespace-Application.html">
+						Application<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Application.Aware.html">
+						Aware					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Helpers.html">
+						Helpers					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Models.html">
+						Models					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Modules.html">
+						Modules<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Application.Modules.Rest.html">
+						Rest<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Application.Modules.Rest.Aware.html">
+						Aware					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Modules.Rest.Controllers.html">
+						Controllers					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Modules.Rest.DTO.html">
+						DTO					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Modules.Rest.Events.html">
+						Events<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Application.Modules.Rest.Events.BeforeDispatchLoop.html">
+						BeforeDispatchLoop					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Modules.Rest.Events.BeforeException.html">
+						BeforeException					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Modules.Rest.Events.BeforeExecuteRoute.html">
+						BeforeExecuteRoute					</a>
+
+						</li>
+							</ul></li>
+				<li>
+					<a href="namespace-Application.Modules.Rest.Exceptions.html">
+						Exceptions					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Modules.Rest.Services.html">
+						Services					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Modules.Rest.Validators.html">
+						Validators					</a>
+
+						</li>
+							</ul></li></ul></li>
+				<li class="active">
+					<a href="namespace-Application.Services.html">
+						Services<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Application.Services.Advanced.html">
+						Advanced					</a>
+
+						</li>
+				<li class="active">
+					<a href="namespace-Application.Services.Cache.html">
+						Cache					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Services.Database.html">
+						Database					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Services.Develop.html">
+						Develop					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Services.Mail.html">
+						Mail					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Services.Mappers.html">
+						Mappers					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Services.Security.html">
+						Security					</a>
+
+						</li>
+							</ul></li></ul></li>
+				<li>
+					<a href="namespace-PHP.html">
+						PHP					</a>
+
+						</li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li class="active"><a href="class-Application.Services.Cache.OpCodeService.html">OpCodeService</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-Application.Services.Cache.html" title="Summary of Application\Services\Cache"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+				<li>
+					<a href="annotation-group-deprecated.html" title="List of elements with deprecated annotation">
+						<span>Deprecated</span>
+					</a>
+				</li>
+				<li>
+					<a href="annotation-group-todo.html" title="List of elements with todo annotation">
+						<span>Todo</span>
+					</a>
+				</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="-API-documentation.zip" title="Download documentation as ZIP archive"><span>Download</span></a>
+			</li>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class OpCodeService</h1>
+
+
+	<div class="description">
+	<p>Class OpCodeService. Opcode cache storage</p>
+	</div>
+
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-Application.html">Application</a>\<a href="namespace-Application.Services.html">Services</a>\<a href="namespace-Application.Services.Cache.html">Cache</a><br>
+		<b>Package:</b> Application\Services\Cache<br>
+
+				<b>Copyright:</b>
+				Stanislav WEB<br>
+				<b>Author:</b>
+				Stanislav WEB | Lugansk <a href="&#109;&#x61;&#105;&#108;&#x74;&#111;&#x3a;s&#116;&#x61;&#110;&#x69;&#x73;&#111;&#x76;&#64;&#103;&#x6d;&#97;&#x69;&#x6c;&#46;&#x63;&#111;&#109;">s&#116;&#x61;&#110;&#x69;&#x73;&#111;&#x76;&#64;&#103;&#x6d;&#97;&#x69;&#x6c;&#46;&#x63;&#111;&#109;</a><br>
+				<b>Version:</b>
+				1.0<br>
+				<b>Since:</b>
+				PHP >=5.6<br>
+			<b>Located at</b> <a href="source-class-Application.Services.Cache.OpCodeService.html#7-165" title="Go to source code">Services/Cache/OpCodeService.php</a>
+		<br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="__construct" id="___construct">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___construct">#</a>
+		<code><a href="source-class-Application.Services.Cache.OpCodeService.html#41-53" title="Go to source code">__construct</a>( <span><code><a href="class-Phalcon.Config.html">Phalcon\Config</a></code> <var>$config</var></span> )</code>
+
+		<div class="description short">
+			<p>Init configurations</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Init configurations</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$config</var></dt>
+					<dd></dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getConfig" id="_getConfig">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-Phalcon.Config.html">Phalcon\Config</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getConfig">#</a>
+		<code><a href="source-class-Application.Services.Cache.OpCodeService.html#55-63" title="Go to source code">getConfig</a>( )</code>
+
+		<div class="description short">
+			<p>Get cache configuration</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Get cache configuration</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Phalcon.Config.html">Phalcon\Config</a></code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="set" id="_set">
+
+		<td class="attributes"><code>
+			 public 
+
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_set">#</a>
+		<code><a href="source-class-Application.Services.Cache.OpCodeService.html#75-95" title="Go to source code">set</a>( <span>mixed <var>$value</var></span>, <span>string <var>$key</var></span>, <span>boolean <var>$cached</var> = <span class="php-keyword1">false</span></span> )</code>
+
+		<div class="description short">
+			<p>Set cache value into opcode cache storage</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Set cache value into opcode cache storage</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$value</var></dt>
+					<dd>$object</dd>
+					<dt><var>$key</var></dt>
+					<dd></dd>
+					<dt><var>$cached</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					mixed<br>cached object
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="exists" id="_exists">
+
+		<td class="attributes"><code>
+			 public 
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_exists">#</a>
+		<code><a href="source-class-Application.Services.Cache.OpCodeService.html#97-110" title="Go to source code">exists</a>( <span>string <var>$key</var></span> )</code>
+
+		<div class="description short">
+			<p>Check if key is exist in opcode cache</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Check if key is exist in opcode cache</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$key</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					boolean
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="get" id="_get">
+
+		<td class="attributes"><code>
+			 public 
+
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_get">#</a>
+		<code><a href="source-class-Application.Services.Cache.OpCodeService.html#112-123" title="Go to source code">get</a>( <span>string <var>$key</var></span> )</code>
+
+		<div class="description short">
+			<p>Get value from opcode cache storage</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Get value from opcode cache storage</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$key</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					mixed
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getOpStorage" id="_getOpStorage">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-Phalcon.Cache.Backend.Apc.html">Phalcon\Cache\Backend\Apc</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getOpStorage">#</a>
+		<code><a href="source-class-Application.Services.Cache.OpCodeService.html#125-136" title="Go to source code">getOpStorage</a>( )</code>
+
+		<div class="description short">
+			<p>Get the opcode cache storage</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Get the opcode cache storage</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Phalcon.Cache.Backend.Apc.html">Phalcon\Cache\Backend\Apc</a></code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getLifetime" id="_getLifetime">
+
+		<td class="attributes"><code>
+			 public 
+
+			integer
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getLifetime">#</a>
+		<code><a href="source-class-Application.Services.Cache.OpCodeService.html#138-145" title="Go to source code">getLifetime</a>( )</code>
+
+		<div class="description short">
+			<p>Return opcode cache lifetime</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Return opcode cache lifetime</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					integer
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getKey" id="_getKey">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getKey">#</a>
+		<code><a href="source-class-Application.Services.Cache.OpCodeService.html#147-155" title="Go to source code">getKey</a>( )</code>
+
+		<div class="description short">
+			<p>Return opcode cache hot key</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Return opcode cache hot key</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					string
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="isCached" id="_isCached">
+
+		<td class="attributes"><code>
+			 public 
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_isCached">#</a>
+		<code><a href="source-class-Application.Services.Cache.OpCodeService.html#157-164" title="Go to source code">isCached</a>( )</code>
+
+		<div class="description short">
+			<p>Return opcode cache data state</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Return opcode cache data state</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					boolean
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		Phalcon REST API API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>
