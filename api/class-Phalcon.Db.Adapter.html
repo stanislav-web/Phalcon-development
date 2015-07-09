@@ -1,0 +1,2297 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class Phalcon\Db\Adapter | Phalcon REST API</title>
+
+	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+				<li>
+					<a href="namespace-Application.html">
+						Application<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Application.Aware.html">
+						Aware					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Helpers.html">
+						Helpers					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Models.html">
+						Models					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Modules.html">
+						Modules<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Application.Modules.Rest.html">
+						Rest<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Application.Modules.Rest.Aware.html">
+						Aware					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Modules.Rest.Controllers.html">
+						Controllers					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Modules.Rest.DTO.html">
+						DTO					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Modules.Rest.Events.html">
+						Events<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Application.Modules.Rest.Events.BeforeDispatchLoop.html">
+						BeforeDispatchLoop					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Modules.Rest.Events.BeforeException.html">
+						BeforeException					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Modules.Rest.Events.BeforeExecuteRoute.html">
+						BeforeExecuteRoute					</a>
+
+						</li>
+							</ul></li>
+				<li>
+					<a href="namespace-Application.Modules.Rest.Exceptions.html">
+						Exceptions					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Modules.Rest.Services.html">
+						Services					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Modules.Rest.Validators.html">
+						Validators					</a>
+
+						</li>
+							</ul></li></ul></li>
+				<li>
+					<a href="namespace-Application.Services.html">
+						Services<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Application.Services.Advanced.html">
+						Advanced					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Services.Cache.html">
+						Cache					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Services.Database.html">
+						Database					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Services.Develop.html">
+						Develop					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Services.Mail.html">
+						Mail					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Services.Mappers.html">
+						Mappers					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Services.Security.html">
+						Security					</a>
+
+						</li>
+							</ul></li></ul></li>
+				<li class="active">
+					<a href="namespace-PHP.html">
+						PHP					</a>
+
+						</li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-Phalcon.Cache.Backend.html">Backend</a></li>
+				<li><a href="class-Phalcon.Cache.Backend.Apc.html">Apc</a></li>
+				<li><a href="class-Phalcon.Session.Adapter.Memcache.html">Memcache</a></li>
+				<li><a href="class-Phalcon.Config.html">Config</a></li>
+				<li><a href="class-Phalcon.Session.Adapter.html">Adapter</a></li>
+				<li><a href="class-Phalcon.Db.Adapter.Pdo.html">Pdo</a></li>
+				<li><a href="class-Phalcon.Db.Adapter.Pdo.Mysql.html">Mysql</a></li>
+				<li><a href="class-Phalcon.Db.Profiler.html">Profiler</a></li>
+				<li><a href="class-Phalcon.Di.html">Di</a></li>
+				<li><a href="class-Phalcon.Di.FactoryDefault.html">FactoryDefault</a></li>
+				<li><a href="class-Phalcon.Di.Injectable.html">Injectable</a></li>
+				<li><a href="class-Phalcon.Mvc.Dispatcher.html">Dispatcher</a></li>
+				<li><a href="class-Phalcon.Events.Event.html">Event</a></li>
+				<li><a href="class-Phalcon.Http.Request.html">Request</a></li>
+				<li><a href="class-Phalcon.Mvc.Controller.html">Controller</a></li>
+				<li><a href="class-Phalcon.Mvc.Model.html">Model</a></li>
+				<li><a href="class-Phalcon.Mvc.Model.Resultset.html">Resultset</a></li>
+				<li><a href="class-Phalcon.Mvc.Model.Resultset.Simple.html">Simple</a></li>
+				<li><a href="class-Phalcon.Mvc.Router.Group.html">Group</a></li>
+				<li><a href="class-Phalcon.Mvc.View.html">View</a></li>
+				<li><a href="class-Phalcon.Security.html">Security</a></li>
+				<li><a href="class-Phalcon.Tag.html">Tag</a></li>
+			</ul>
+
+			<h3>Interfaces</h3>
+			<ul>
+				<li><a href="class-ArrayAccess.html">ArrayAccess</a></li>
+				<li><a href="class-Countable.html">Countable</a></li>
+				<li><a href="class-Iterator.html">Iterator</a></li>
+				<li><a href="class-Phalcon.Cache.BackendInterface.html">BackendInterface</a></li>
+				<li><a href="class-Phalcon.Session.AdapterInterface.html">AdapterInterface</a></li>
+				<li><a href="class-Phalcon.Di.InjectionAwareInterface.html">InjectionAwareInterface</a></li>
+				<li><a href="class-Phalcon.DiInterface.html">DiInterface</a></li>
+				<li><a href="class-Phalcon.Mvc.DispatcherInterface.html">DispatcherInterface</a></li>
+				<li><a href="class-Phalcon.Events.EventsAwareInterface.html">EventsAwareInterface</a></li>
+				<li><a href="class-Phalcon.Http.RequestInterface.html">RequestInterface</a></li>
+				<li><a href="class-Phalcon.Http.ResponseInterface.html">ResponseInterface</a></li>
+				<li><a href="class-Phalcon.Mvc.Model.ResultInterface.html">ResultInterface</a></li>
+				<li><a href="class-Phalcon.Mvc.Model.ResultsetInterface.html">ResultsetInterface</a></li>
+				<li><a href="class-Phalcon.Mvc.ModelInterface.html">ModelInterface</a></li>
+				<li><a href="class-Phalcon.Mvc.Router.GroupInterface.html">GroupInterface</a></li>
+				<li><a href="class-Phalcon.Mvc.ViewBaseInterface.html">ViewBaseInterface</a></li>
+				<li><a href="class-Phalcon.Mvc.ViewInterface.html">ViewInterface</a></li>
+				<li><a href="class-SeekableIterator.html">SeekableIterator</a></li>
+				<li><a href="class-Serializable.html">Serializable</a></li>
+				<li><a href="class-Traversable.html">Traversable</a></li>
+			</ul>
+
+
+			<h3>Exceptions</h3>
+			<ul>
+				<li><a href="class-Phalcon.Mvc.Model.Exception.html">Exception</a></li>
+				<li><a href="class-RuntimeException.html">RuntimeException</a></li>
+			</ul>
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-PHP.html" title="Summary of PHP"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+				<li>
+					<a href="annotation-group-deprecated.html" title="List of elements with deprecated annotation">
+						<span>Deprecated</span>
+					</a>
+				</li>
+				<li>
+					<a href="annotation-group-todo.html" title="List of elements with todo annotation">
+						<span>Todo</span>
+					</a>
+				</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="-API-documentation.zip" title="Download documentation as ZIP archive"><span>Download</span></a>
+			</li>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class Adapter</h1>
+
+
+
+	<dl class="tree">
+		<dd style="padding-left:0px">
+<b><span>Phalcon\Db\Adapter</span></b>			
+			 implements 
+				<a href="class-Phalcon.Events.EventsAwareInterface.html"><span>Phalcon\Events\EventsAwareInterface</span></a>
+			
+			
+		</dd>
+	</dl>
+
+
+	<div>
+		<h4>Direct known subclasses</h4>
+			<a href="class-Phalcon.Db.Adapter.Pdo.html">Phalcon\Db\Adapter\Pdo</a>
+	</div>
+
+	<div>
+		<h4>Indirect known subclasses</h4>
+			<a href="class-Application.Services.Database.MySQLConnectService.html">Application\Services\Database\MySQLConnectService</a>, 
+			<a href="class-Phalcon.Db.Adapter.Pdo.Mysql.html">Phalcon\Db\Adapter\Pdo\Mysql</a>
+	</div>
+
+
+
+
+
+	<div class="info">
+		<b>Abstract</b><br>
+		<b>PHP Extension:</b> <a href="http://php.net/manual/en/book.phalcon.php" title="Go to PHP documentation">Phalcon</a><br>
+		<b>Namespace:</b> <a href="namespace-Phalcon.html">Phalcon</a>\<a href="namespace-Phalcon.Db.html">Db</a><br>
+		
+
+			<b>Documented at</b> <a href="http://php.net/manual/en/class.phalcon\db\adapter.php" title="Go to PHP documentation">php.net</a>
+		<br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="getDialectType" id="_getDialectType">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getDialectType">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\db\adapter.getdialecttype.php" title="Go to PHP documentation">getDialectType</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getType" id="_getType">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getType">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\db\adapter.gettype.php" title="Go to PHP documentation">getType</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getSqlVariables" id="_getSqlVariables">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getSqlVariables">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\db\adapter.getsqlvariables.php" title="Go to PHP documentation">getSqlVariables</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="__construct" id="___construct">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___construct">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\db\adapter.construct.php" title="Go to PHP documentation">__construct</a>( <span>array <var>$descriptor</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setEventsManager" id="_setEventsManager">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setEventsManager">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\db\adapter.seteventsmanager.php" title="Go to PHP documentation">setEventsManager</a>( <span>Phalcon\Events\ManagerInterface <var>$eventsManager</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Phalcon.Events.EventsAwareInterface.html#_setEventsManager">Phalcon\Events\EventsAwareInterface::setEventsManager()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getEventsManager" id="_getEventsManager">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getEventsManager">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\db\adapter.geteventsmanager.php" title="Go to PHP documentation">getEventsManager</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Phalcon.Events.EventsAwareInterface.html#_getEventsManager">Phalcon\Events\EventsAwareInterface::getEventsManager()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setDialect" id="_setDialect">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setDialect">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\db\adapter.setdialect.php" title="Go to PHP documentation">setDialect</a>( <span>Phalcon\Db\DialectInterface <var>$dialect</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getDialect" id="_getDialect">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getDialect">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\db\adapter.getdialect.php" title="Go to PHP documentation">getDialect</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="fetchOne" id="_fetchOne">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_fetchOne">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\db\adapter.fetchone.php" title="Go to PHP documentation">fetchOne</a>( <span> <var>$sqlQuery</var></span>, <span> <var>$fetchMode</var></span>, <span> <var>$bindParams</var></span>, <span> <var>$bindTypes</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="fetchAll" id="_fetchAll">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_fetchAll">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\db\adapter.fetchall.php" title="Go to PHP documentation">fetchAll</a>( <span> <var>$sqlQuery</var></span>, <span> <var>$fetchMode</var></span>, <span> <var>$bindParams</var></span>, <span> <var>$bindTypes</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="fetchColumn" id="_fetchColumn">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_fetchColumn">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\db\adapter.fetchcolumn.php" title="Go to PHP documentation">fetchColumn</a>( <span> <var>$sqlQuery</var></span>, <span> <var>$placeholders</var></span>, <span> <var>$column</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="insert" id="_insert">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_insert">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\db\adapter.insert.php" title="Go to PHP documentation">insert</a>( <span> <var>$table</var></span>, <span>array <var>$values</var></span>, <span> <var>$fields</var></span>, <span> <var>$dataTypes</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="insertAsDict" id="_insertAsDict">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_insertAsDict">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\db\adapter.insertasdict.php" title="Go to PHP documentation">insertAsDict</a>( <span> <var>$table</var></span>, <span> <var>$data</var></span>, <span> <var>$dataTypes</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="update" id="_update">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_update">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\db\adapter.update.php" title="Go to PHP documentation">update</a>( <span> <var>$table</var></span>, <span> <var>$fields</var></span>, <span> <var>$values</var></span>, <span> <var>$whereCondition</var></span>, <span> <var>$dataTypes</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="updateAsDict" id="_updateAsDict">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_updateAsDict">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\db\adapter.updateasdict.php" title="Go to PHP documentation">updateAsDict</a>( <span> <var>$table</var></span>, <span> <var>$data</var></span>, <span> <var>$whereCondition</var></span>, <span> <var>$dataTypes</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="delete" id="_delete">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_delete">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\db\adapter.delete.php" title="Go to PHP documentation">delete</a>( <span> <var>$table</var></span>, <span> <var>$whereCondition</var></span>, <span> <var>$placeholders</var></span>, <span> <var>$dataTypes</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getColumnList" id="_getColumnList">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getColumnList">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\db\adapter.getcolumnlist.php" title="Go to PHP documentation">getColumnList</a>( <span> <var>$columnList</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="limit" id="_limit">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_limit">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\db\adapter.limit.php" title="Go to PHP documentation">limit</a>( <span> <var>$sqlQuery</var></span>, <span> <var>$number</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="tableExists" id="_tableExists">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_tableExists">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\db\adapter.tableexists.php" title="Go to PHP documentation">tableExists</a>( <span> <var>$tableName</var></span>, <span> <var>$schemaName</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="viewExists" id="_viewExists">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_viewExists">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\db\adapter.viewexists.php" title="Go to PHP documentation">viewExists</a>( <span> <var>$viewName</var></span>, <span> <var>$schemaName</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="forUpdate" id="_forUpdate">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_forUpdate">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\db\adapter.forupdate.php" title="Go to PHP documentation">forUpdate</a>( <span> <var>$sqlQuery</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="sharedLock" id="_sharedLock">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_sharedLock">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\db\adapter.sharedlock.php" title="Go to PHP documentation">sharedLock</a>( <span> <var>$sqlQuery</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="createTable" id="_createTable">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_createTable">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\db\adapter.createtable.php" title="Go to PHP documentation">createTable</a>( <span> <var>$tableName</var></span>, <span> <var>$schemaName</var></span>, <span>array <var>$definition</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="dropTable" id="_dropTable">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_dropTable">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\db\adapter.droptable.php" title="Go to PHP documentation">dropTable</a>( <span> <var>$tableName</var></span>, <span> <var>$schemaName</var></span>, <span> <var>$ifExists</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="createView" id="_createView">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_createView">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\db\adapter.createview.php" title="Go to PHP documentation">createView</a>( <span> <var>$viewName</var></span>, <span>array <var>$definition</var></span>, <span> <var>$schemaName</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="dropView" id="_dropView">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_dropView">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\db\adapter.dropview.php" title="Go to PHP documentation">dropView</a>( <span> <var>$viewName</var></span>, <span> <var>$schemaName</var></span>, <span> <var>$ifExists</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="addColumn" id="_addColumn">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_addColumn">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\db\adapter.addcolumn.php" title="Go to PHP documentation">addColumn</a>( <span> <var>$tableName</var></span>, <span> <var>$schemaName</var></span>, <span>Phalcon\Db\ColumnInterface <var>$column</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="modifyColumn" id="_modifyColumn">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_modifyColumn">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\db\adapter.modifycolumn.php" title="Go to PHP documentation">modifyColumn</a>( <span> <var>$tableName</var></span>, <span> <var>$schemaName</var></span>, <span>Phalcon\Db\ColumnInterface <var>$column</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="dropColumn" id="_dropColumn">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_dropColumn">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\db\adapter.dropcolumn.php" title="Go to PHP documentation">dropColumn</a>( <span> <var>$tableName</var></span>, <span> <var>$schemaName</var></span>, <span> <var>$columnName</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="addIndex" id="_addIndex">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_addIndex">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\db\adapter.addindex.php" title="Go to PHP documentation">addIndex</a>( <span> <var>$tableName</var></span>, <span> <var>$schemaName</var></span>, <span>Phalcon\Db\IndexInterface <var>$index</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="dropIndex" id="_dropIndex">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_dropIndex">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\db\adapter.dropindex.php" title="Go to PHP documentation">dropIndex</a>( <span> <var>$tableName</var></span>, <span> <var>$schemaName</var></span>, <span> <var>$indexName</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="addPrimaryKey" id="_addPrimaryKey">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_addPrimaryKey">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\db\adapter.addprimarykey.php" title="Go to PHP documentation">addPrimaryKey</a>( <span> <var>$tableName</var></span>, <span> <var>$schemaName</var></span>, <span>Phalcon\Db\IndexInterface <var>$index</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="dropPrimaryKey" id="_dropPrimaryKey">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_dropPrimaryKey">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\db\adapter.dropprimarykey.php" title="Go to PHP documentation">dropPrimaryKey</a>( <span> <var>$tableName</var></span>, <span> <var>$schemaName</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="addForeignKey" id="_addForeignKey">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_addForeignKey">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\db\adapter.addforeignkey.php" title="Go to PHP documentation">addForeignKey</a>( <span> <var>$tableName</var></span>, <span> <var>$schemaName</var></span>, <span>Phalcon\Db\ReferenceInterface <var>$reference</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="dropForeignKey" id="_dropForeignKey">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_dropForeignKey">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\db\adapter.dropforeignkey.php" title="Go to PHP documentation">dropForeignKey</a>( <span> <var>$tableName</var></span>, <span> <var>$schemaName</var></span>, <span> <var>$referenceName</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getColumnDefinition" id="_getColumnDefinition">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getColumnDefinition">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\db\adapter.getcolumndefinition.php" title="Go to PHP documentation">getColumnDefinition</a>( <span>Phalcon\Db\ColumnInterface <var>$column</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="listTables" id="_listTables">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_listTables">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\db\adapter.listtables.php" title="Go to PHP documentation">listTables</a>( <span> <var>$schemaName</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="listViews" id="_listViews">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_listViews">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\db\adapter.listviews.php" title="Go to PHP documentation">listViews</a>( <span> <var>$schemaName</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="describeIndexes" id="_describeIndexes">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_describeIndexes">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\db\adapter.describeindexes.php" title="Go to PHP documentation">describeIndexes</a>( <span> <var>$table</var></span>, <span> <var>$schema</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="describeReferences" id="_describeReferences">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_describeReferences">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\db\adapter.describereferences.php" title="Go to PHP documentation">describeReferences</a>( <span> <var>$table</var></span>, <span> <var>$schema</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="tableOptions" id="_tableOptions">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_tableOptions">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\db\adapter.tableoptions.php" title="Go to PHP documentation">tableOptions</a>( <span> <var>$tableName</var></span>, <span> <var>$schemaName</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="createSavepoint" id="_createSavepoint">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_createSavepoint">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\db\adapter.createsavepoint.php" title="Go to PHP documentation">createSavepoint</a>( <span> <var>$name</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="releaseSavepoint" id="_releaseSavepoint">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_releaseSavepoint">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\db\adapter.releasesavepoint.php" title="Go to PHP documentation">releaseSavepoint</a>( <span> <var>$name</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="rollbackSavepoint" id="_rollbackSavepoint">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_rollbackSavepoint">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\db\adapter.rollbacksavepoint.php" title="Go to PHP documentation">rollbackSavepoint</a>( <span> <var>$name</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setNestedTransactionsWithSavepoints" id="_setNestedTransactionsWithSavepoints">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setNestedTransactionsWithSavepoints">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\db\adapter.setnestedtransactionswithsavepoints.php" title="Go to PHP documentation">setNestedTransactionsWithSavepoints</a>( <span> <var>$nestedTransactionsWithSavepoints</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="isNestedTransactionsWithSavepoints" id="_isNestedTransactionsWithSavepoints">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_isNestedTransactionsWithSavepoints">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\db\adapter.isnestedtransactionswithsavepoints.php" title="Go to PHP documentation">isNestedTransactionsWithSavepoints</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getNestedTransactionSavepointName" id="_getNestedTransactionSavepointName">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getNestedTransactionSavepointName">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\db\adapter.getnestedtransactionsavepointname.php" title="Go to PHP documentation">getNestedTransactionSavepointName</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getDefaultIdValue" id="_getDefaultIdValue">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getDefaultIdValue">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\db\adapter.getdefaultidvalue.php" title="Go to PHP documentation">getDefaultIdValue</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="supportSequences" id="_supportSequences">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_supportSequences">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\db\adapter.supportsequences.php" title="Go to PHP documentation">supportSequences</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="useExplicitIdValue" id="_useExplicitIdValue">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_useExplicitIdValue">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\db\adapter.useexplicitidvalue.php" title="Go to PHP documentation">useExplicitIdValue</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getDescriptor" id="_getDescriptor">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getDescriptor">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\db\adapter.getdescriptor.php" title="Go to PHP documentation">getDescriptor</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getConnectionId" id="_getConnectionId">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getConnectionId">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\db\adapter.getconnectionid.php" title="Go to PHP documentation">getConnectionId</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getSQLStatement" id="_getSQLStatement">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getSQLStatement">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\db\adapter.getsqlstatement.php" title="Go to PHP documentation">getSQLStatement</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getRealSQLStatement" id="_getRealSQLStatement">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getRealSQLStatement">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\db\adapter.getrealsqlstatement.php" title="Go to PHP documentation">getRealSQLStatement</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getSQLBindTypes" id="_getSQLBindTypes">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getSQLBindTypes">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\db\adapter.getsqlbindtypes.php" title="Go to PHP documentation">getSQLBindTypes</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+	<table class="summary properties" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="_eventsManager" id="$_eventsManager">
+		<td class="attributes"><code>
+			protected  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="http://php.net/manual/en/class.phalcon\db\adapter.php#phalcon\db\adapter.props.eventsmanager" title="Go to PHP documentation"><var>$_eventsManager</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$_eventsManager" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="_descriptor" id="$_descriptor">
+		<td class="attributes"><code>
+			protected  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="http://php.net/manual/en/class.phalcon\db\adapter.php#phalcon\db\adapter.props.descriptor" title="Go to PHP documentation"><var>$_descriptor</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$_descriptor" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="_dialectType" id="$_dialectType">
+		<td class="attributes"><code>
+			protected  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="http://php.net/manual/en/class.phalcon\db\adapter.php#phalcon\db\adapter.props.dialecttype" title="Go to PHP documentation"><var>$_dialectType</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$_dialectType" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="_type" id="$_type">
+		<td class="attributes"><code>
+			protected  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="http://php.net/manual/en/class.phalcon\db\adapter.php#phalcon\db\adapter.props.type" title="Go to PHP documentation"><var>$_type</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$_type" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="_dialect" id="$_dialect">
+		<td class="attributes"><code>
+			protected  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="http://php.net/manual/en/class.phalcon\db\adapter.php#phalcon\db\adapter.props.dialect" title="Go to PHP documentation"><var>$_dialect</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$_dialect" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="_connectionId" id="$_connectionId">
+		<td class="attributes"><code>
+			protected  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="http://php.net/manual/en/class.phalcon\db\adapter.php#phalcon\db\adapter.props.connectionid" title="Go to PHP documentation"><var>$_connectionId</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$_connectionId" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="_sqlStatement" id="$_sqlStatement">
+		<td class="attributes"><code>
+			protected  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="http://php.net/manual/en/class.phalcon\db\adapter.php#phalcon\db\adapter.props.sqlstatement" title="Go to PHP documentation"><var>$_sqlStatement</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$_sqlStatement" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="_sqlVariables" id="$_sqlVariables">
+		<td class="attributes"><code>
+			protected  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="http://php.net/manual/en/class.phalcon\db\adapter.php#phalcon\db\adapter.props.sqlvariables" title="Go to PHP documentation"><var>$_sqlVariables</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$_sqlVariables" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="_sqlBindTypes" id="$_sqlBindTypes">
+		<td class="attributes"><code>
+			protected  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="http://php.net/manual/en/class.phalcon\db\adapter.php#phalcon\db\adapter.props.sqlbindtypes" title="Go to PHP documentation"><var>$_sqlBindTypes</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$_sqlBindTypes" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="_transactionLevel" id="$_transactionLevel">
+		<td class="attributes"><code>
+			protected  
+			integer
+		</code></td>
+
+		<td class="name">
+				<a href="http://php.net/manual/en/class.phalcon\db\adapter.php#phalcon\db\adapter.props.transactionlevel" title="Go to PHP documentation"><var>$_transactionLevel</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$_transactionLevel" class="anchor">#</a>
+				<code><span class="php-num">0</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="_transactionsWithSavepoints" id="$_transactionsWithSavepoints">
+		<td class="attributes"><code>
+			protected  
+			boolean
+		</code></td>
+
+		<td class="name">
+				<a href="http://php.net/manual/en/class.phalcon\db\adapter.php#phalcon\db\adapter.props.transactionswithsavepoints" title="Go to PHP documentation"><var>$_transactionsWithSavepoints</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$_transactionsWithSavepoints" class="anchor">#</a>
+				<code><span class="php-keyword1">false</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="_connectionConsecutive" id="$_connectionConsecutive">
+		<td class="attributes"><code>
+			protected static 
+			integer
+		</code></td>
+
+		<td class="name">
+				<a href="http://php.net/manual/en/class.phalcon\db\adapter.php#phalcon\db\adapter.props.connectionconsecutive" title="Go to PHP documentation"><var>$_connectionConsecutive</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$_connectionConsecutive" class="anchor">#</a>
+				<code><span class="php-num">0</span></code>
+			</div>
+		</td>
+	</tr>
+	</table>
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		Phalcon REST API API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>

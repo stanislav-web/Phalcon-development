@@ -6,7 +6,7 @@ namespace Application\Models;
  *
  * @package    Application
  * @subpackage    Models
- * @since PHP >=5.4
+ * @since PHP >=5.6
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @filesource /Application/Models/Prices.php
@@ -91,8 +91,6 @@ class Prices extends \Phalcon\Mvc\Model
     public function initialize()
     {
         // its allow to keep empty data to my db
-        $this->setup([
-            'notNullValidations' => true,
-        ]);
+        $this->setup(['notNullValidations' => false]);
     }
 }

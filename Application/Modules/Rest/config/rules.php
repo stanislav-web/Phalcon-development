@@ -30,9 +30,6 @@ return [
                 'required' => 'login,password'
             ],
             'mapper'   => 'UserMapper',
-            'skip'  =>  [
-                'surname', 'photo', 'about', 'name'
-            ],
         ],
         'post' => [
             'requests'  =>  [  // limit request per time
@@ -44,9 +41,6 @@ return [
                 'required' => 'login,password,name'
             ],
             'mapper'   => 'UserMapper',
-            'skip'  =>  [
-                'date_registration', 'date_lastvisit', 'state', 'rating', 'surname', 'photo', 'about'
-            ]
         ],
         'put' => [
             'requests'  =>  [  // limit request per time
@@ -57,10 +51,7 @@ return [
             'params'     => [
                 'required' => 'login'
             ],
-            'mapper'   => 'UserMapper',
-            'skip'  =>  [
-                'surname', 'rating', 'state', 'role', 'about', 'date_registration', 'login', 'name', 'photo'
-            ],
+            'mapper'   => 'UserMapper'
         ],
         'delete' => [
             'requests'  =>  [  // limit request per time
@@ -80,6 +71,19 @@ return [
             ],
 
         ],
+    ],
+    'subscribe'    =>  [
+        'post' => [
+            'requests'  =>  [  // limit request per time
+                'limit' =>  1,
+                'time'  =>  60,
+            ],
+            'methods'    => 'POST',
+            'params'     => [
+                'required' => 'email'
+            ],
+            'mapper'   => 'SubscribeMapper'
+        ]
     ],
     'users'  =>  [
         'get'    =>  [
@@ -111,8 +115,8 @@ return [
                     'api/v1/users'
                 ],
             ],
-            'skip'  =>  [
-                'login', 'password', 'state', 'role', 'photo', 'rating', 'date_registration', 'date_lastvisit'
+            'params'     => [
+                'required' => 'id'
             ],
             'mapper'   => 'UserMapper'
         ],

@@ -15,7 +15,7 @@ $di->setShared('config', function () use ($config) {
     $configBase = new \Phalcon\Config($config);
 
     (APPLICATION_ENV === 'development') ? $configBase->merge(
-        require(APPLICATION_ENV . '.php')
+        new \Phalcon\Config(require(APPLICATION_ENV . '.php'))
     ) : '';
 
     return $configBase;
@@ -49,6 +49,7 @@ $di->setShared('modelsMetadata', function() use ($di) {
             'lifetime' => 0, // optional (standard: 8600)
             'prefix' => $config['prefix']   // optional (standard: false)
         ]);
+        $metaData->reset();
     }
     return $metaData;
 });
@@ -60,7 +61,7 @@ $di->setShared('db', function () use ($di) {
 
     $config = $di->get('config')->database;
     $connect = new \Application\Services\Database\MySQLConnectService(
-        $config
+        $config->toArray()
     );
 
     if($config->profiling === true) {
@@ -155,6 +156,9 @@ $di->setShared('FileMapper', new \Application\Services\Mappers\FileMapper($di));
 
 // Define banners mapper
 $di->setShared('BannersMapper','Application\Services\Mappers\BannersMapper');
+
+// Define subscribers mapper
+$di->setShared('SubscribeMapper','Application\Services\Mappers\SubscribeMapper');
 
 // Define items mapper
 $di->setShared('ItemsMapper','Application\Services\Mappers\ItemsMapper');

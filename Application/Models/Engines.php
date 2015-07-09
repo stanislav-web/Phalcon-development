@@ -11,7 +11,7 @@ use Phalcon\Mvc\Model\Validator\StringLength;
  *
  * @package    Application
  * @subpackage    Models
- * @since PHP >=5.4
+ * @since PHP >=5.6
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @filesource /Application/Models/Engines.php
@@ -81,9 +81,7 @@ class Engines extends \Phalcon\Mvc\Model
     public function initialize()
     {
         // its allow to keep empty data to my db
-        $this->setup([
-            'notNullValidations' => true,
-        ]);
+        $this->setup(['notNullValidations' => false]);
 
         $this->belongsTo('currency_id', Currency::TABLE, 'id');
 
@@ -126,35 +124,35 @@ class Engines extends \Phalcon\Mvc\Model
         //Do the validations
         $this->validate(new Uniqueness([
             "field"     => "host",
-            "message"   => 'This host already exist in list'
+            "message"   => json_encode(['HOST_EXIST' => 'This host already exist in list'])
         ]));
 
         $this->validate(new Uniqueness([
             "field"     => "code",
-            "message"   => 'This code already exist in list'
+            "message"   => json_encode(['CODE_EXIST' => 'This code already exist in list'])
         ]));
 
         $this->validate(new PresenceOf([
             'field'     => 'name',
-            'message'   => 'The engine name is required'
+            'message'   => json_encode(['ENGINE_NAME_REQUIRED' => 'The engine name is required'])
         ]));
 
         $this->validate(new PresenceOf([
             'field'     => 'host',
-            'message'   => 'The engine host is required'
+            'message'   => json_encode(['ENGINE_HOST_REQUIRED' => 'The engine host is required'])
         ]));
 
         $this->validate(new PresenceOf([
             'field'     => 'code',
-            'message'   => 'The engine code is required'
+            'message'   => json_encode(['ENGINE_CODE_REQUIRED' => 'The engine code is required'])
         ]));
 
         $this->validate(new StringLength([
             'field'     => 'description',
             'max'       => 512,
             'min'       => 15,
-            'messageMaximum' => 'Description must have maximum 512 characters',
-            'messageMinimum' => 'Description must have minimum 15 characters'
+            'messageMaximum' => json_encode(['DESCRIPTION_MAX_LONG' => 'Description must have maximum 512 characters']),
+            'messageMinimum' => json_encode(['DESCRIPTION_MIN_SHORT' => 'Description must have minimum 15 characters'])
         ]));
 
         return $this->validationHasFailed() != true;
@@ -169,25 +167,25 @@ class Engines extends \Phalcon\Mvc\Model
 
         $this->validate(new PresenceOf([
             'field'     => 'name',
-            'message'   => 'The engine name is required'
+            'message'   => json_encode(['ENGINE_NAME_REQUIRED' => 'The engine name is required'])
         ]));
 
         $this->validate(new PresenceOf([
             'field'     => 'host',
-            'message'   => 'The engine host is required'
+            'message'   => json_encode(['ENGINE_HOST_REQUIRED' => 'The engine host is required'])
         ]));
 
         $this->validate(new PresenceOf([
             'field'     => 'code',
-            'message'   => 'The engine code is required'
+            'message'   => json_encode(['ENGINE_CODE_REQUIRED' => 'The engine code is required'])
         ]));
 
         $this->validate(new StringLength([
             'field'     => 'description',
             'max'       => 512,
             'min'       => 15,
-            'messageMaximum' => 'Description must have maximum 512 characters',
-            'messageMinimum' => 'Description must have minimum 15 characters'
+            'messageMaximum' => json_encode(['DESCRIPTION_MAX_LONG' => 'Description must have maximum 512 characters']),
+            'messageMinimum' => json_encode(['DESCRIPTION_MIN_SHORT' => 'Description must have minimum 15 characters']),
         ]));
 
         return $this->validationHasFailed() != true;

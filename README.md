@@ -15,21 +15,20 @@ Phalcon Development Boards
 * REST Full Service
 * DTO (Data Transfer Objects) for relate results
 * Codeception API Testing
-* Git Hooks
 * API Class Documentation
 
 #### Requirements 
-* Requires PHP 5.4
-* Phalcon 1.3.3
+* Requires PHP 5.6.x
+* Phalcon 2.0.x
 * Memcache
 * APC (APCu)
 * PHP mcrypt library
 * PHP PDO MySQL driver
 
 #### Testing 
-* PHP 5.5.9 (with FPM)
-* MySQL 5.7.15
-* libmemcached 1.0.8
+* PHP 5.6.x (with FPM)
+* MySQL 5.7.x
+* libmemcached 1.x
 
 #### Documents
 + [Документация Phalcon 1.3.0](http://docs.phalconphp.com/ru/latest/index.html)

@@ -2,13 +2,14 @@
 namespace Application\Modules\Rest\Services;
 
 use \Phalcon\Logger;
+use HttpStatuses\HttpStatuses;
 
 /**
  * Class RestService. Http Rest handler
  *
  * @package Application\Modules\Rest
  * @subpackage Services
- * @since PHP >=5.4
+ * @since PHP >=5.6
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @copyright Stanislav WEB
@@ -55,7 +56,7 @@ class RestExceptionHandler {
      * @param \Phalcon\Di\FactoryDefault $di
      * @return RestExceptionHandler
      */
-    private function setDi($di)
+    private function setDi(\Phalcon\DiInterface $di)
     {
         $this->di = $di;
         return $this;
@@ -67,6 +68,7 @@ class RestExceptionHandler {
      * @param \Exception $data
      */
     public function handle(\Exception $exception) {
+
         $this->setException($exception);
 
         return $this;
@@ -112,8 +114,7 @@ class RestExceptionHandler {
      * Get exception data
      * @return array
      */
-    private function getException()
-    {
+    private function getException() {
         return $this->exception;
     }
 
@@ -122,27 +123,31 @@ class RestExceptionHandler {
      *
      * @param \Exception $exception
      */
-    private function setException(\Exception $exception)
-    {
+    private function setException(\Exception $exception) {
+
         // set exception code
         $this->exception['code'] = $exception->getCode();
 
         // set resource
-        $this->exception['resource'] = $this->getRequest()->getScheme().'://'.$this->getRequest()->getHttpHost().$this->getRequest()->getURI();
+        $this->exception['resource'] = $this->getResource();
 
         if($this->isJson($exception->getMessage())) {
 
             $exception = json_decode($exception->getMessage(), true);
             $this->exception['message'] = $exception['data']['message'];
+
             if(isset($exception['data']) === true) {
 
                 unset($exception['data']['message']);
                 $code = key($exception['data']);
+
+                $this->exception['data'] = $exception['data'];
+
                 if(is_numeric($code) === false) {
                     $error = $this->getErrorMapper()->getError($code);
-                    $this->exception['data']['developer'] = $this->getRequest()->getScheme().'://'.$this->getRequest()->getHttpHost().'/api/v1/errors/'.$error->id;
+                    $this->exception['data']['developer'] = $this->getDeveloperLink($error);
+                    $this->exception['info'] =  $this->getErrorInfo($this->exception['code']);
                 }
-                $this->exception['data'] = $exception['data'];
             }
         }
         else
@@ -165,6 +170,43 @@ class RestExceptionHandler {
                 is_array(json_decode($string))))) ? true : false;
     }
 
+    /**
+     * Get current URI
+     *
+     * @return string
+     */
+    private function getResource() {
+        return $this->getRequest()->getScheme().'://'.$this->getRequest()->getHttpHost().$this->getRequest()->getURI();
+    }
+
+    /**
+     * Get developer info link
+     *
+     * @param $error
+     * @return string|null
+     */
+    private function getDeveloperLink($error) {
+
+        if(!empty($error)) {
+            return $this->getRequest()->getScheme().'://'.$this->getRequest()->getHttpHost().'/api/v1/errors/'.$error->id;
+        }
+
+        return null;
+    }
+
+    /**
+     * Get http status additional info
+     *
+     * @param int $code
+     *
+     * @return array
+     */
+    private function getErrorInfo($code) {
+
+        $http = new HttpStatuses();
+        return $http->getStatus($code);
+
+    }
 
     /**
      * Send response with error message
@@ -185,12 +227,18 @@ class RestExceptionHandler {
 
         if($this->getException()['code'] != 500) {
 
-            $this->getLogMapper()->save($this->getException()['message'].'
-              IP: '.$this->getRequest()->getClientAddress().'
-              Refer: '.$this->getRequest()->getHTTPReferer().'
-              Method: '.$this->getRequest()->getMethod().'
-              URI: '.$this->getException()['resource'],
-              Logger::ALERT);
+            $message = [
+                'exception' => $this->getException()['message']. ' : ' .$this->getException()['code'],
+                'ip' => $this->getRequest()->getClientAddress(),
+                'refer' => $this->getRequest()->getHTTPReferer(),
+                'method' => $this->getRequest()->getMethod(),
+                'uri' => $this->getException()['resource'],
+            ];
+
+            if(isset($this->getException()['data']) === true) {
+                  $message['message'] = urldecode(http_build_query($this->getException()['data']));
+            }
+            $this->getLogMapper()->save($message, Logger::ALERT);
         }
     }
 }

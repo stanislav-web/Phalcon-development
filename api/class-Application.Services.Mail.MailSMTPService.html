@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class Application\Services\Mail\MailSMTPService | Phalcon REST API</title>
+
+	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+				<li class="active">
+					<a href="namespace-Application.html">
+						Application<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Application.Aware.html">
+						Aware					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Helpers.html">
+						Helpers					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Models.html">
+						Models					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Modules.html">
+						Modules<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Application.Modules.Rest.html">
+						Rest<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Application.Modules.Rest.Aware.html">
+						Aware					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Modules.Rest.Controllers.html">
+						Controllers					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Modules.Rest.DTO.html">
+						DTO					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Modules.Rest.Events.html">
+						Events<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Application.Modules.Rest.Events.BeforeDispatchLoop.html">
+						BeforeDispatchLoop					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Modules.Rest.Events.BeforeException.html">
+						BeforeException					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Modules.Rest.Events.BeforeExecuteRoute.html">
+						BeforeExecuteRoute					</a>
+
+						</li>
+							</ul></li>
+				<li>
+					<a href="namespace-Application.Modules.Rest.Exceptions.html">
+						Exceptions					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Modules.Rest.Services.html">
+						Services					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Modules.Rest.Validators.html">
+						Validators					</a>
+
+						</li>
+							</ul></li></ul></li>
+				<li class="active">
+					<a href="namespace-Application.Services.html">
+						Services<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Application.Services.Advanced.html">
+						Advanced					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Services.Cache.html">
+						Cache					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Services.Database.html">
+						Database					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Services.Develop.html">
+						Develop					</a>
+
+						</li>
+				<li class="active">
+					<a href="namespace-Application.Services.Mail.html">
+						Mail					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Services.Mappers.html">
+						Mappers					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Services.Security.html">
+						Security					</a>
+
+						</li>
+							</ul></li></ul></li>
+				<li>
+					<a href="namespace-PHP.html">
+						PHP					</a>
+
+						</li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-Application.Services.Mail.MailSMTPExceptions.html">MailSMTPExceptions</a></li>
+				<li class="active"><a href="class-Application.Services.Mail.MailSMTPService.html">MailSMTPService</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-Application.Services.Mail.html" title="Summary of Application\Services\Mail"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+				<li>
+					<a href="annotation-group-deprecated.html" title="List of elements with deprecated annotation">
+						<span>Deprecated</span>
+					</a>
+				</li>
+				<li>
+					<a href="annotation-group-todo.html" title="List of elements with todo annotation">
+						<span>Todo</span>
+					</a>
+				</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="-API-documentation.zip" title="Download documentation as ZIP archive"><span>Download</span></a>
+			</li>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class MailSMTPService</h1>
+
+
+	<div class="description">
+	<p>Class MailSMTPService. SMTP Mailer service under the Swift</p>
+	</div>
+
+	<dl class="tree">
+		<dd style="padding-left:0px">
+<b><span>Application\Services\Mail\MailSMTPService</span></b>			
+			 implements 
+<span>Phalcon\DI\InjectionAwareInterface</span>
+			
+			
+		</dd>
+	</dl>
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-Application.html">Application</a>\<a href="namespace-Application.Services.html">Services</a>\<a href="namespace-Application.Services.Mail.html">Mail</a><br>
+		<b>Package:</b> Application\Services\Mail<br>
+
+				<b>Copyright:</b>
+				Stanislav WEB<br>
+				<b>Author:</b>
+				Stanislav WEB | Lugansk <a href="&#109;&#x61;&#105;&#108;&#x74;&#111;&#x3a;s&#116;&#x61;&#110;&#x69;&#x73;&#111;&#x76;&#64;&#103;&#x6d;&#97;&#x69;&#x6c;&#46;&#x63;&#111;&#109;">s&#116;&#x61;&#110;&#x69;&#x73;&#111;&#x76;&#64;&#103;&#x6d;&#97;&#x69;&#x6c;&#46;&#x63;&#111;&#109;</a><br>
+				<b>Version:</b>
+				1.0<br>
+				<b>Since:</b>
+				PHP >=5.6<br>
+			<b>Located at</b> <a href="source-class-Application.Services.Mail.MailSMTPService.html#8-121" title="Go to source code">Services/Mail/MailSMTPService.php</a>
+		<br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="setDi" id="_setDi">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setDi">#</a>
+		<code><a href="source-class-Application.Services.Mail.MailSMTPService.html#49-57" title="Go to source code">setDi</a>( <span><code><a href="class-Phalcon.DiInterface.html">Phalcon\DiInterface</a></code> <var>$di</var></span> )</code>
+
+		<div class="description short">
+			<p>Set dependency container</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Set dependency container</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$di</var></dt>
+					<dd></dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getDi" id="_getDi">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-Phalcon.DiInterface.html">Phalcon\DiInterface</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getDi">#</a>
+		<code><a href="source-class-Application.Services.Mail.MailSMTPService.html#59-67" title="Go to source code">getDi</a>( )</code>
+
+		<div class="description short">
+			<p>Get dependency container</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Get dependency container</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Phalcon.DiInterface.html">Phalcon\DiInterface</a></code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="__construct" id="___construct">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___construct">#</a>
+		<code><a href="source-class-Application.Services.Mail.MailSMTPService.html#69-77" title="Go to source code">__construct</a>( <span>array <var>$config</var></span> )</code>
+
+		<div class="description short">
+			<p>Initialize mailer</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Initialize mailer</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$config</var></dt>
+					<dd></dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="createMessageFromView" id="_createMessageFromView">
+
+		<td class="attributes"><code>
+			 public 
+
+			Phalcon\Mailer\Message
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_createMessageFromView">#</a>
+		<code><a href="source-class-Application.Services.Mail.MailSMTPService.html#79-102" title="Go to source code">createMessageFromView</a>( <span> <var>$template</var></span>, <span>array <var>$params</var> = []</span> )</code>
+
+		<div class="description short">
+			<p>Email html template. Overload parent</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Email html template. Overload parent</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$template</var></dt>
+					<dd></dd>
+					<dt><var>$params</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					Phalcon\Mailer\Message
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><a href="class-Application.Modules.Rest.Exceptions.InternalServerErrorException.html">Application\Modules\Rest\Exceptions\InternalServerErrorException</a></code>
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getSwift" id="_getSwift">
+
+		<td class="attributes"><code>
+			 public 
+
+			Swift_Mailer
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getSwift">#</a>
+		<code><a href="source-class-Application.Services.Mail.MailSMTPService.html#104-111" title="Go to source code">getSwift</a>( )</code>
+
+		<div class="description short">
+			<p>Get Swift Mailer instance</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Get Swift Mailer instance</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					Swift_Mailer
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="registerPlugin" id="_registerPlugin">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_registerPlugin">#</a>
+		<code><a href="source-class-Application.Services.Mail.MailSMTPService.html#113-120" title="Go to source code">registerPlugin</a>( <span>mixed <var>$plugin</var></span> )</code>
+
+		<div class="description short">
+			<p>Register SWIFT plugins</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Register SWIFT plugins</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$plugin</var></dt>
+					<dd></dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+	<table class="summary properties" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="di" id="$di">
+		<td class="attributes"><code>
+			protected  
+			<code><a href="class-Phalcon.DiInterface.html">Phalcon\DiInterface</a></code>
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Application.Services.Mail.MailSMTPService.html#21-26" title="Go to source code"><var>$di</var></a>
+
+			<div class="description short">
+				<p>Dependency injection container</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Dependency injection container</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$di" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="configInstance" id="$configInstance">
+		<td class="attributes"><code>
+			protected  
+			Phalcon\Mailer\Manager
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Application.Services.Mail.MailSMTPService.html#28-33" title="Go to source code"><var>$configInstance</var></a>
+
+			<div class="description short">
+				<p>Dependency injection container</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Dependency injection container</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$configInstance" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="mailer" id="$mailer">
+		<td class="attributes"><code>
+			protected  
+			Phalcon\Mailer\Manager
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Application.Services.Mail.MailSMTPService.html#35-40" title="Go to source code"><var>$mailer</var></a>
+
+			<div class="description short">
+				<p>Dependency injection container</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Dependency injection container</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$mailer" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="view" id="$view">
+		<td class="attributes"><code>
+			protected  
+			<code><a href="class-Phalcon.Mvc.View.html">Phalcon\Mvc\View</a></code>
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Application.Services.Mail.MailSMTPService.html#42-47" title="Go to source code"><var>$view</var></a>
+
+			<div class="description short">
+				<p>View service</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>View service</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$view" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	</table>
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		Phalcon REST API API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>

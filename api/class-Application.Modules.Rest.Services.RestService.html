@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class Application\Modules\Rest\Services\RestService | Phalcon REST API</title>
+
+	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+				<li class="active">
+					<a href="namespace-Application.html">
+						Application<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Application.Aware.html">
+						Aware					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Helpers.html">
+						Helpers					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Models.html">
+						Models					</a>
+
+						</li>
+				<li class="active">
+					<a href="namespace-Application.Modules.html">
+						Modules<span></span>
+					</a>
+
+						<ul>
+				<li class="active">
+					<a href="namespace-Application.Modules.Rest.html">
+						Rest<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Application.Modules.Rest.Aware.html">
+						Aware					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Modules.Rest.Controllers.html">
+						Controllers					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Modules.Rest.DTO.html">
+						DTO					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Modules.Rest.Events.html">
+						Events<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Application.Modules.Rest.Events.BeforeDispatchLoop.html">
+						BeforeDispatchLoop					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Modules.Rest.Events.BeforeException.html">
+						BeforeException					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Modules.Rest.Events.BeforeExecuteRoute.html">
+						BeforeExecuteRoute					</a>
+
+						</li>
+							</ul></li>
+				<li>
+					<a href="namespace-Application.Modules.Rest.Exceptions.html">
+						Exceptions					</a>
+
+						</li>
+				<li class="active">
+					<a href="namespace-Application.Modules.Rest.Services.html">
+						Services					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Modules.Rest.Validators.html">
+						Validators					</a>
+
+						</li>
+							</ul></li></ul></li>
+				<li>
+					<a href="namespace-Application.Services.html">
+						Services<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Application.Services.Advanced.html">
+						Advanced					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Services.Cache.html">
+						Cache					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Services.Database.html">
+						Database					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Services.Develop.html">
+						Develop					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Services.Mail.html">
+						Mail					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Services.Mappers.html">
+						Mappers					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Services.Security.html">
+						Security					</a>
+
+						</li>
+							</ul></li></ul></li>
+				<li>
+					<a href="namespace-PHP.html">
+						PHP					</a>
+
+						</li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-Application.Modules.Rest.Services.RestCacheService.html">RestCacheService</a></li>
+				<li><a href="class-Application.Modules.Rest.Services.RestExceptionHandler.html">RestExceptionHandler</a></li>
+				<li><a href="class-Application.Modules.Rest.Services.RestSecurityService.html">RestSecurityService</a></li>
+				<li class="active"><a href="class-Application.Modules.Rest.Services.RestService.html">RestService</a></li>
+				<li><a href="class-Application.Modules.Rest.Services.RestValidatorCollectionService.html">RestValidatorCollectionService</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-Application.Modules.Rest.Services.html" title="Summary of Application\Modules\Rest\Services"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+				<li>
+					<a href="annotation-group-deprecated.html" title="List of elements with deprecated annotation">
+						<span>Deprecated</span>
+					</a>
+				</li>
+				<li>
+					<a href="annotation-group-todo.html" title="List of elements with todo annotation">
+						<span>Todo</span>
+					</a>
+				</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="-API-documentation.zip" title="Download documentation as ZIP archive"><span>Download</span></a>
+			</li>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class RestService</h1>
+
+
+	<div class="description">
+	<p>Class RestService. Http Rest handler</p>
+	</div>
+
+	<dl class="tree">
+		<dd style="padding-left:0px">
+<b><span>Application\Modules\Rest\Services\RestService</span></b>			
+			 implements 
+				<a href="class-Application.Modules.Rest.Aware.RestServiceInterface.html"><span>Application\Modules\Rest\Aware\RestServiceInterface</span></a>
+			
+			
+		</dd>
+	</dl>
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-Application.html">Application</a>\<a href="namespace-Application.Modules.html">Modules</a>\<a href="namespace-Application.Modules.Rest.html">Rest</a>\<a href="namespace-Application.Modules.Rest.Services.html">Services</a><br>
+		<b>Package:</b> Application\Modules\Rest\Services<br>
+
+				<b>Copyright:</b>
+				Stanislav WEB<br>
+				<b>Author:</b>
+				Stanislav WEB | Lugansk <a href="&#109;&#x61;&#105;&#108;&#x74;&#111;&#x3a;s&#116;&#x61;&#110;&#x69;&#x73;&#111;&#x76;&#64;&#103;&#x6d;&#97;&#x69;&#x6c;&#46;&#x63;&#111;&#109;">s&#116;&#x61;&#110;&#x69;&#x73;&#111;&#x76;&#64;&#103;&#x6d;&#97;&#x69;&#x6c;&#46;&#x63;&#111;&#109;</a><br>
+				<b>Version:</b>
+				1.0<br>
+				<b>Since:</b>
+				PHP >=5.6<br>
+			<b>Located at</b> <a href="source-class-Application.Modules.Rest.Services.RestService.html#6-332" title="Go to source code">Modules/Rest/Services/RestService.php</a>
+		<br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="__construct" id="___construct">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___construct">#</a>
+		<code><a href="source-class-Application.Modules.Rest.Services.RestService.html#59-68" title="Go to source code">__construct</a>( <span><code><a href="class-Application.Modules.Rest.Services.RestValidatorCollectionService.html">Application\Modules\Rest\Services\RestValidatorCollectionService</a></code> <var>$validator</var></span> )</code>
+
+		<div class="description short">
+			<p>Init default HTTP headers
+Attach validator collections</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Init default HTTP headers
+Attach validator collections</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$validator</var></dt>
+					<dd></dd>
+				</dl></div>
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Application.Modules.Rest.Aware.RestServiceInterface.html#___construct">Application\Modules\Rest\Aware\RestServiceInterface::__construct()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getResolver" id="_getResolver">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-Application.Modules.Rest.Services.RestValidatorCollectionService.html">Application\Modules\Rest\Services\RestValidatorCollectionService</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getResolver">#</a>
+		<code><a href="source-class-Application.Modules.Rest.Services.RestService.html#82-90" title="Go to source code">getResolver</a>( )</code>
+
+		<div class="description short">
+			<p>Get validator</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Get validator</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Application.Modules.Rest.Services.RestValidatorCollectionService.html">Application\Modules\Rest\Services\RestValidatorCollectionService</a></code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getProfilerService" id="_getProfilerService">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-Application.Services.Develop.ProfilerService.html">Application\Services\Develop\ProfilerService</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getProfilerService">#</a>
+		<code><a href="source-class-Application.Modules.Rest.Services.RestService.html#92-100" title="Go to source code">getProfilerService</a>( )</code>
+
+		<div class="description short">
+			<p>Get profiler</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Get profiler</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Application.Services.Develop.ProfilerService.html">Application\Services\Develop\ProfilerService</a></code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setHeader" id="_setHeader">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setHeader">#</a>
+		<code><a href="source-class-Application.Modules.Rest.Services.RestService.html#102-113" title="Go to source code">setHeader</a>( <span>array <var>$params</var></span> )</code>
+
+		<div class="description short">
+			<p>Set response header</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Set response header</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$params</var></dt>
+					<dd></dd>
+				</dl></div>
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Application.Modules.Rest.Aware.RestServiceInterface.html#_setHeader">Application\Modules\Rest\Aware\RestServiceInterface::setHeader()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setResourceUri" id="_setResourceUri">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-Application.Modules.Rest.Services.RestService.html">Application\Modules\Rest\Services\RestService</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setResourceUri">#</a>
+		<code><a href="source-class-Application.Modules.Rest.Services.RestService.html#134-149" title="Go to source code">setResourceUri</a>( <span>array <var>$response</var></span> )</code>
+
+		<div class="description short">
+			<p>Set current  / created resource uri</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Set current  / created resource uri</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$response</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Application.Modules.Rest.Services.RestService.html">Application\Modules\Rest\Services\RestService</a></code>
+				</div>
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Application.Modules.Rest.Aware.RestServiceInterface.html#_setResourceUri">Application\Modules\Rest\Aware\RestServiceInterface::setResourceUri()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setContentLength" id="_setContentLength">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-Application.Modules.Rest.Services.RestService.html">Application\Modules\Rest\Services\RestService</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setContentLength">#</a>
+		<code><a href="source-class-Application.Modules.Rest.Services.RestService.html#151-159" title="Go to source code">setContentLength</a>( <span>string <var>$content</var></span> )</code>
+
+		<div class="description short">
+			<p>Set response content length</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Set response content length</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$content</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Application.Modules.Rest.Services.RestService.html">Application\Modules\Rest\Services\RestService</a></code>
+				</div>
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Application.Modules.Rest.Aware.RestServiceInterface.html#_setContentLength">Application\Modules\Rest\Aware\RestServiceInterface::setContentLength()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getResourceUri" id="_getResourceUri">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getResourceUri">#</a>
+		<code><a href="source-class-Application.Modules.Rest.Services.RestService.html#161-168" title="Go to source code">getResourceUri</a>( )</code>
+
+		<div class="description short">
+			<p>Get resource uri</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Get resource uri</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					string
+				</div>
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Application.Modules.Rest.Aware.RestServiceInterface.html#_getResourceUri">Application\Modules\Rest\Aware\RestServiceInterface::getResourceUri()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setMessage" id="_setMessage">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-Application.Modules.Rest.Services.RestService.html">Application\Modules\Rest\Services\RestService</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setMessage">#</a>
+		<code><a href="source-class-Application.Modules.Rest.Services.RestService.html#170-185" title="Go to source code">setMessage</a>( <span>string|array <var>$message</var></span> )</code>
+
+		<div class="description short">
+			<p>Set user app messages content.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Set user app messages content.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$message</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Application.Modules.Rest.Services.RestService.html">Application\Modules\Rest\Services\RestService</a></code>
+				</div>
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Application.Modules.Rest.Aware.RestServiceInterface.html#_setMessage">Application\Modules\Rest\Aware\RestServiceInterface::setMessage()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getMessage" id="_getMessage">
+
+		<td class="attributes"><code>
+			 public 
+
+			StdClass
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getMessage">#</a>
+		<code><a href="source-class-Application.Modules.Rest.Services.RestService.html#187-194" title="Go to source code">getMessage</a>( )</code>
+
+		<div class="description short">
+			<p>Get user app messages content.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Get user app messages content.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					StdClass
+				</div>
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Application.Modules.Rest.Aware.RestServiceInterface.html#_getMessage">Application\Modules\Rest\Aware\RestServiceInterface::getMessage()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getLocale" id="_getLocale">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getLocale">#</a>
+		<code><a href="source-class-Application.Modules.Rest.Services.RestService.html#196-210" title="Go to source code">getLocale</a>( )</code>
+
+		<div class="description short">
+			<p>Set get user preferred / selected locale</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Set get user preferred / selected locale</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					string<br>$locale
+				</div>
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Application.Modules.Rest.Aware.RestServiceInterface.html#_getLocale">Application\Modules\Rest\Aware\RestServiceInterface::getLocale()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getRelations" id="_getRelations">
+
+		<td class="attributes"><code>
+			 public 
+
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getRelations">#</a>
+		<code><a href="source-class-Application.Modules.Rest.Services.RestService.html#212-240" title="Go to source code">getRelations</a>( )</code>
+
+		<div class="description short">
+			<p>Get related mappers</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Get related mappers</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					array
+				</div>
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Application.Modules.Rest.Aware.RestServiceInterface.html#_getRelations">Application\Modules\Rest\Aware\RestServiceInterface::getRelations()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getParams" id="_getParams">
+
+		<td class="attributes"><code>
+			 public 
+
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getParams">#</a>
+		<code><a href="source-class-Application.Modules.Rest.Services.RestService.html#242-249" title="Go to source code">getParams</a>( )</code>
+
+		<div class="description short">
+			<p>Get request params</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Get request params</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					array
+				</div>
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Application.Modules.Rest.Aware.RestServiceInterface.html#_getParams">Application\Modules\Rest\Aware\RestServiceInterface::getParams()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="response" id="_response">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-Phalcon.Http.ResponseInterface.html">Phalcon\Http\ResponseInterface</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_response">#</a>
+		<code><a href="source-class-Application.Modules.Rest.Services.RestService.html#300-331" title="Go to source code">response</a>( <span>boolean <var>$modified</var>,…</span> )</code>
+
+		<div class="description short">
+			<p>Send response to client</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Send response to client</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$modified</var>,…</dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Phalcon.Http.ResponseInterface.html">Phalcon\Http\ResponseInterface</a></code>
+				</div>
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Application.Modules.Rest.Aware.RestServiceInterface.html#_response">Application\Modules\Rest\Aware\RestServiceInterface::response()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+	<table class="summary inherited">
+	<caption>Constants inherited from <a href="class-Application.Modules.Rest.Aware.RestServiceInterface.html#constants">Application\Modules\Rest\Aware\RestServiceInterface</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-Application.Modules.Rest.Aware.RestServiceInterface.html#CODE_NOT_MODIFIED"><b>CODE_NOT_MODIFIED</b></a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		Phalcon REST API API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>

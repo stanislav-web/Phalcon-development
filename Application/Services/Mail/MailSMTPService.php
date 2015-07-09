@@ -1,6 +1,7 @@
 <?php
 namespace Application\Services\Mail;
 
+use Application\Modules\Rest\Exceptions\InternalServerErrorException;
 use \Phalcon\DI\InjectionAwareInterface;
 use \Phalcon\Mailer\Manager;
 
@@ -9,7 +10,7 @@ use \Phalcon\Mailer\Manager;
  *
  * @package Application\Services
  * @subpackage Mail
- * @since PHP >=5.4
+ * @since PHP >=5.6
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @copyright Stanislav WEB
@@ -50,7 +51,7 @@ class MailSMTPService implements InjectionAwareInterface {
      *
      * @param \Phalcon\DiInterface $di
      */
-    public function setDi($di)
+    public function setDi(\Phalcon\DiInterface $di)
     {
         $this->di = $di;
     }
@@ -80,17 +81,24 @@ class MailSMTPService implements InjectionAwareInterface {
      *
      * @param $template
      * @param array $params
+     * @throws \Application\Modules\Rest\Exceptions\InternalServerErrorException
      * @return \Phalcon\Mailer\Message
      */
     public function createMessageFromView($template, array $params = []) {
 
         // get available views directory
         if($this->getDi()->has('view') === true) {
-            $this->view = $this->getDi()->getShared('view');
-        }
-        $this->mailer = $this->configInstance->createMessageFromView($this->view->getViewsDir().$template, $params);
 
-        return $this->mailer;
+            $this->view = $this->getDi()->getShared('view');
+
+            $this->mailer = $this->configInstance->createMessageFromView($this->view->getViewsDir().$template, $params);
+
+            return $this->mailer;
+        }
+
+        throw new InternalServerErrorException([
+            'VIEW_SERVICE_NOT_DEFINED' => 'The `view` service is not defined'
+        ]);
     }
 
     /**

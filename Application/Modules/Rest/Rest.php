@@ -14,7 +14,7 @@ use Application\Modules\Rest\Exceptions\InternalServerErrorException;
  *
  * @package Application
  * @subpackage Modules
- * @since PHP >=5.4
+ * @since PHP >=5.6
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @copyright Stanilav WEB

@@ -6,7 +6,7 @@ namespace Application\Modules\Rest\Controllers;
  *
  * @package    Application\Modules\Rest
  * @subpackage    Controllers
- * @since PHP >=5.4
+ * @since PHP >=5.6
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @filesource /Application/Modules/Rest/Controllers/SignController.php
@@ -20,8 +20,7 @@ class SignController extends ControllerBase {
 
         $params = $this->rest->getParams();
         $this->response =
-            $this->getDI()->get('RestSecurityService')->authenticate($params,
-                $this->rest->getResolver()->getRules()->skip);
+            $this->getDI()->get('RestSecurityService')->authenticate($params);
     }
 
     /**
@@ -32,8 +31,7 @@ class SignController extends ControllerBase {
         $params = $this->rest->getParams();
 
         $this->response =
-            $this->getDI()->get('RestSecurityService')->register($params,
-                $this->rest->getResolver()->getRules()->skip);
+            $this->getDI()->get('RestSecurityService')->register($params);
     }
 
     /**
@@ -44,8 +42,7 @@ class SignController extends ControllerBase {
         $params = $this->rest->getParams();
 
         $this->response =
-            $this->getDI()->get('RestSecurityService')->restore($params,
-                $this->rest->getResolver()->getRules()->skip);
+            $this->getDI()->get('RestSecurityService')->restore($params);
     }
 
     /**

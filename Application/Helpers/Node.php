@@ -6,14 +6,26 @@ namespace Application\Helpers;
  *
  * @package Application
  * @subpackage Helpers
- * @since PHP >=5.4
+ * @since PHP >=5.6
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @copyright Stanilav WEB
  * @filesource /Application/Helpers/Node.php
  */
-trait Node
-{
+trait Node {
+    /**
+     * Check if array have nested tree
+     *
+     * @param $a
+     * @return bool
+     */
+    public static  function isNestedArray(array $array) {
+        foreach ($array as $v) {
+            if (is_array($v) === true) return true;
+        }
+        return false;
+    }
+
     /**
      * Convert object to array
      *
@@ -24,7 +36,7 @@ trait Node
     {
         if (is_object($obj)) $obj = (array)$obj;
         if (is_array($obj)) {
-            $new = array();
+            $new = [];
             foreach ($obj as $key => $val) {
                 $new[$key] = self::objectToArray($val);
             }
@@ -200,5 +212,26 @@ trait Node
             $result = $array;
 
         return (is_numeric(array_search('__construct', $result))) ? true : false;
+    }
+
+    /**
+     * Get object properties
+     *
+     * @param     $object
+     * @param int $flag
+     *
+     * @return array
+     */
+    public static function getObjectProperties($object, $flag = \ReflectionProperty::IS_PUBLIC) {
+
+        $data = [];
+        $reflectionClass = new \ReflectionClass($object);
+        $properties   = $reflectionClass->getProperties($flag);
+
+        foreach($properties as $property) {
+            $data[$property->getName()] = $reflectionClass->getProperty($property->getName())->getValue($object);
+        }
+
+        return $data;
     }
 }

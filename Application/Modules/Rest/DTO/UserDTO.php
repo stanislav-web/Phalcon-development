@@ -8,7 +8,7 @@ use Application\Aware\AbstractDTO;
  *
  * @package Application\Modules\Rest
  * @subpackage DTO
- * @since PHP >=5.4
+ * @since PHP >=5.6
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @filesource /Application/Modules/Rest/UserDTO.php
@@ -63,12 +63,12 @@ class UserDTO extends AbstractDTO
     }
 
     /**
-     * Setup access
+     * Setup user access
      *
-     * @param \Phalcon\Mvc\Model\Resultset\Simple $access
-     * @return $this
+     * @param \Application\Models\UserAccess $access
+     * @return \Application\Modules\Rest\DTO\UserDTO
      */
-    public function setAccess(\Phalcon\Mvc\Model\Resultset\Simple $access) {
+    public function setAccess($access) {
 
         $this->access = $access->toArray();
         $this->access['total'] = $this->total($access);
@@ -81,7 +81,7 @@ class UserDTO extends AbstractDTO
     /**
      * Setup null
      *
-     * @return $this
+     * @return \Application\Modules\Rest\DTO\UserDTO
      */
     public function setNull() {
 
@@ -94,7 +94,7 @@ class UserDTO extends AbstractDTO
      * Setup roles
      *
      * @param \Application\Models\UserRoles $roles
-     * @return $this
+     * @return \Application\Modules\Rest\DTO\UserDTO
      */
     public function setRoles(\Application\Models\UserRoles $roles) {
 

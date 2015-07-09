@@ -9,17 +9,13 @@ use Application\Modules\Rest\Exceptions\InternalServerErrorException;
  *
  * @package Application\Modules\Rest
  * @subpackage Validators
- * @since PHP >=5.4
+ * @since PHP >=5.6
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @copyright Stanislav WEB
  * @filesource /Application/Modules/Rest/Validators/InputValidator.php
  */
 class InputValidator {
-
-    const EMPTY_PARAMETER_IN_URI = 'Empty parameter in URI';
-    const INVALID_COLUMNS = 'The columns: `%s` does not provide by this filter';
-    const INVALID_REQUIRED_FIELDS = 'The fields: `%s` is required';
 
     /**
      * Dependency injection container
@@ -72,7 +68,7 @@ class InputValidator {
      * @param \Phalcon\DiInterface $di
      * @return InputValidator
      */
-    public function setDi($di)
+    public function setDi(\Phalcon\DiInterface $di)
     {
         $this->di = $di;
 
@@ -97,6 +93,20 @@ class InputValidator {
     public function getMapper()
     {
         return $this->mapper;
+    }
+
+    /**
+     * Get Translate service
+     *
+     * @return \Translate\Translator|null
+     */
+    private function getTranslateService() {
+
+        if($this->getDi()->has('TranslateService') === true) {
+            return $this->getDi()->get('TranslateService')->assign('errors');
+        }
+
+        return null;
     }
 
     /**
@@ -130,6 +140,7 @@ class InputValidator {
      */
     public function setColumns(array $params)
     {
+
         if(isset($params['columns']) === true) {
             $this->columns = explode(',', $params['columns']);
         }
@@ -206,7 +217,7 @@ class InputValidator {
             return $this;
         }
         else {
-            throw new InternalServerErrorException();
+            throw new InternalServerErrorException('Mapper does not exist', 500);
         }
     }
 
@@ -221,8 +232,10 @@ class InputValidator {
             $exchange = array_diff_key($required, $this->getParams());
             if(empty($exchange) === false) {
 
+                $t = $this->getTranslateService()->assign('errors');
+
                 throw new BadRequestException([
-                    'INVALID_REQUIRED_FIELDS' => sprintf(self::INVALID_REQUIRED_FIELDS, implode(',', array_flip($exchange)))
+                    'INVALID_REQUIRED_FIELDS' => sprintf($t->translate('INVALID_REQUIRED_FIELDS'), implode(',', array_flip($exchange)))
                 ]);
             }
         }
@@ -235,8 +248,10 @@ class InputValidator {
 
         if(count(array_filter($this->getColumns())) !== count($this->getColumns())) {
 
+            $t = $this->getTranslateService()->assign('errors');
+
             throw new BadRequestException([
-                'EMPTY_PARAMETER_IN_URI' => sprintf(self::EMPTY_PARAMETER_IN_URI)
+                'EMPTY_PARAMETER_IN_URI' => $t->translate('EMPTY_PARAMETER_IN_URI')
             ]);
         }
     }
@@ -249,8 +264,10 @@ class InputValidator {
         $columns = array_diff($this->getColumns(), $this->getMapper()->getAttributes());
         if (empty($columns) === false) {
 
+            $t = $this->getTranslateService()->assign('errors');
+
             throw new BadRequestException([
-                'INVALID_COLUMNS' => sprintf(self::INVALID_COLUMNS, implode(',', $columns))
+                'INVALID_COLUMNS' => sprintf($t->translate('INVALID_COLUMNS'), implode(',', $columns))
             ]);
         }
     }
@@ -268,6 +285,5 @@ class InputValidator {
 
         // check for supported columns
         $this->isColumnSupport();
-
     }
 }

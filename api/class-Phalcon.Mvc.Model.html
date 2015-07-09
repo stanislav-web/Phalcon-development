@@ -1,0 +1,3584 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class Phalcon\Mvc\Model | Phalcon REST API</title>
+
+	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+				<li>
+					<a href="namespace-Application.html">
+						Application<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Application.Aware.html">
+						Aware					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Helpers.html">
+						Helpers					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Models.html">
+						Models					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Modules.html">
+						Modules<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Application.Modules.Rest.html">
+						Rest<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Application.Modules.Rest.Aware.html">
+						Aware					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Modules.Rest.Controllers.html">
+						Controllers					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Modules.Rest.DTO.html">
+						DTO					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Modules.Rest.Events.html">
+						Events<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Application.Modules.Rest.Events.BeforeDispatchLoop.html">
+						BeforeDispatchLoop					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Modules.Rest.Events.BeforeException.html">
+						BeforeException					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Modules.Rest.Events.BeforeExecuteRoute.html">
+						BeforeExecuteRoute					</a>
+
+						</li>
+							</ul></li>
+				<li>
+					<a href="namespace-Application.Modules.Rest.Exceptions.html">
+						Exceptions					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Modules.Rest.Services.html">
+						Services					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Modules.Rest.Validators.html">
+						Validators					</a>
+
+						</li>
+							</ul></li></ul></li>
+				<li>
+					<a href="namespace-Application.Services.html">
+						Services<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Application.Services.Advanced.html">
+						Advanced					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Services.Cache.html">
+						Cache					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Services.Database.html">
+						Database					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Services.Develop.html">
+						Develop					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Services.Mail.html">
+						Mail					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Services.Mappers.html">
+						Mappers					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Services.Security.html">
+						Security					</a>
+
+						</li>
+							</ul></li></ul></li>
+				<li class="active">
+					<a href="namespace-PHP.html">
+						PHP					</a>
+
+						</li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-Phalcon.Cache.Backend.html">Backend</a></li>
+				<li><a href="class-Phalcon.Cache.Backend.Apc.html">Apc</a></li>
+				<li><a href="class-Phalcon.Session.Adapter.Memcache.html">Memcache</a></li>
+				<li><a href="class-Phalcon.Config.html">Config</a></li>
+				<li><a href="class-Phalcon.Session.Adapter.html">Adapter</a></li>
+				<li><a href="class-Phalcon.Db.Adapter.Pdo.html">Pdo</a></li>
+				<li><a href="class-Phalcon.Db.Adapter.Pdo.Mysql.html">Mysql</a></li>
+				<li><a href="class-Phalcon.Db.Profiler.html">Profiler</a></li>
+				<li><a href="class-Phalcon.Di.html">Di</a></li>
+				<li><a href="class-Phalcon.Di.FactoryDefault.html">FactoryDefault</a></li>
+				<li><a href="class-Phalcon.Di.Injectable.html">Injectable</a></li>
+				<li><a href="class-Phalcon.Mvc.Dispatcher.html">Dispatcher</a></li>
+				<li><a href="class-Phalcon.Events.Event.html">Event</a></li>
+				<li><a href="class-Phalcon.Http.Request.html">Request</a></li>
+				<li><a href="class-Phalcon.Mvc.Controller.html">Controller</a></li>
+				<li class="active"><a href="class-Phalcon.Mvc.Model.html">Model</a></li>
+				<li><a href="class-Phalcon.Mvc.Model.Resultset.html">Resultset</a></li>
+				<li><a href="class-Phalcon.Mvc.Model.Resultset.Simple.html">Simple</a></li>
+				<li><a href="class-Phalcon.Mvc.Router.Group.html">Group</a></li>
+				<li><a href="class-Phalcon.Mvc.View.html">View</a></li>
+				<li><a href="class-Phalcon.Security.html">Security</a></li>
+				<li><a href="class-Phalcon.Tag.html">Tag</a></li>
+			</ul>
+
+			<h3>Interfaces</h3>
+			<ul>
+				<li><a href="class-ArrayAccess.html">ArrayAccess</a></li>
+				<li><a href="class-Countable.html">Countable</a></li>
+				<li><a href="class-Iterator.html">Iterator</a></li>
+				<li><a href="class-Phalcon.Cache.BackendInterface.html">BackendInterface</a></li>
+				<li><a href="class-Phalcon.Session.AdapterInterface.html">AdapterInterface</a></li>
+				<li><a href="class-Phalcon.Di.InjectionAwareInterface.html">InjectionAwareInterface</a></li>
+				<li><a href="class-Phalcon.DiInterface.html">DiInterface</a></li>
+				<li><a href="class-Phalcon.Mvc.DispatcherInterface.html">DispatcherInterface</a></li>
+				<li><a href="class-Phalcon.Events.EventsAwareInterface.html">EventsAwareInterface</a></li>
+				<li><a href="class-Phalcon.Http.RequestInterface.html">RequestInterface</a></li>
+				<li><a href="class-Phalcon.Http.ResponseInterface.html">ResponseInterface</a></li>
+				<li><a href="class-Phalcon.Mvc.Model.ResultInterface.html">ResultInterface</a></li>
+				<li><a href="class-Phalcon.Mvc.Model.ResultsetInterface.html">ResultsetInterface</a></li>
+				<li><a href="class-Phalcon.Mvc.ModelInterface.html">ModelInterface</a></li>
+				<li><a href="class-Phalcon.Mvc.Router.GroupInterface.html">GroupInterface</a></li>
+				<li><a href="class-Phalcon.Mvc.ViewBaseInterface.html">ViewBaseInterface</a></li>
+				<li><a href="class-Phalcon.Mvc.ViewInterface.html">ViewInterface</a></li>
+				<li><a href="class-SeekableIterator.html">SeekableIterator</a></li>
+				<li><a href="class-Serializable.html">Serializable</a></li>
+				<li><a href="class-Traversable.html">Traversable</a></li>
+			</ul>
+
+
+			<h3>Exceptions</h3>
+			<ul>
+				<li><a href="class-Phalcon.Mvc.Model.Exception.html">Exception</a></li>
+				<li><a href="class-RuntimeException.html">RuntimeException</a></li>
+			</ul>
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-PHP.html" title="Summary of PHP"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+				<li>
+					<a href="annotation-group-deprecated.html" title="List of elements with deprecated annotation">
+						<span>Deprecated</span>
+					</a>
+				</li>
+				<li>
+					<a href="annotation-group-todo.html" title="List of elements with todo annotation">
+						<span>Todo</span>
+					</a>
+				</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="-API-documentation.zip" title="Download documentation as ZIP archive"><span>Download</span></a>
+			</li>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class Model</h1>
+
+
+
+	<dl class="tree">
+		<dd style="padding-left:0px">
+<b><span>Phalcon\Mvc\Model</span></b>			
+			 implements 
+				<a href="class-Phalcon.Mvc.ModelInterface.html"><span>Phalcon\Mvc\ModelInterface</span></a>, 
+			
+				<a href="class-Phalcon.Mvc.Model.ResultInterface.html"><span>Phalcon\Mvc\Model\ResultInterface</span></a>, 
+			
+				<a href="class-Phalcon.Di.InjectionAwareInterface.html"><span>Phalcon\Di\InjectionAwareInterface</span></a>, 
+			
+				<a href="class-Serializable.html"><span>Serializable</span></a>
+			
+			
+		</dd>
+	</dl>
+
+
+	<div>
+		<h4>Direct known subclasses</h4>
+			<a href="class-Application.Models.Banners.html">Application\Models\Banners</a>, 
+			<a href="class-Application.Models.Categories.html">Application\Models\Categories</a>, 
+			<a href="class-Application.Models.Prices.html">Application\Models\Prices</a>, 
+			<a href="class-Application.Models.Subscribers.html">Application\Models\Subscribers</a>, 
+			<a href="class-Application.Models.UserAccess.html">Application\Models\UserAccess</a>, 
+			<a href="class-Application.Models.UserRoles.html">Application\Models\UserRoles</a>, 
+			<a href="class-Application.Models.Users.html">Application\Models\Users</a>, 
+			<a href="class-Application.Models.Currency.html">Application\Models\Currency</a>, 
+			<a href="class-Application.Models.Engines.html">Application\Models\Engines</a>, 
+			<a href="class-Application.Models.Errors.html">Application\Models\Errors</a>, 
+			<a href="class-Application.Models.ItemAttributes.html">Application\Models\ItemAttributes</a>, 
+			<a href="class-Application.Models.ItemAttributeValues.html">Application\Models\ItemAttributeValues</a>, 
+			<a href="class-Application.Models.Items.html">Application\Models\Items</a>, 
+			<a href="class-Application.Models.Logs.html">Application\Models\Logs</a>, 
+			<a href="class-Application.Models.Pages.html">Application\Models\Pages</a>
+	</div>
+
+
+
+
+
+
+	<div class="info">
+		<b>Abstract</b><br>
+		<b>PHP Extension:</b> <a href="http://php.net/manual/en/book.phalcon.php" title="Go to PHP documentation">Phalcon</a><br>
+		<b>Namespace:</b> <a href="namespace-Phalcon.html">Phalcon</a>\<a href="namespace-Phalcon.Mvc.html">Mvc</a><br>
+		
+
+			<b>Documented at</b> <a href="http://php.net/manual/en/class.phalcon\mvc\model.php" title="Go to PHP documentation">php.net</a>
+		<br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="__construct" id="___construct">
+
+		<td class="attributes"><code>
+			final public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___construct">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.construct.php" title="Go to PHP documentation">__construct</a>( <span><code><a href="class-Phalcon.DiInterface.html">Phalcon\DiInterface</a></code> <var>$dependencyInjector</var></span>, <span>Phalcon\Mvc\Model\ManagerInterface <var>$modelsManager</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setDI" id="_setDI">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setDI">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.setdi.php" title="Go to PHP documentation">setDI</a>( <span><code><a href="class-Phalcon.DiInterface.html">Phalcon\DiInterface</a></code> <var>$dependencyInjector</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Phalcon.Di.InjectionAwareInterface.html#_setDI">Phalcon\Di\InjectionAwareInterface::setDI()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getDI" id="_getDI">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getDI">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.getdi.php" title="Go to PHP documentation">getDI</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Phalcon.Di.InjectionAwareInterface.html#_getDI">Phalcon\Di\InjectionAwareInterface::getDI()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setEventsManager" id="_setEventsManager">
+
+		<td class="attributes"><code>
+			 protected 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setEventsManager">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.seteventsmanager.php" title="Go to PHP documentation">setEventsManager</a>( <span>Phalcon\Events\ManagerInterface <var>$eventsManager</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getEventsManager" id="_getEventsManager">
+
+		<td class="attributes"><code>
+			 protected 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getEventsManager">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.geteventsmanager.php" title="Go to PHP documentation">getEventsManager</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getModelsMetaData" id="_getModelsMetaData">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getModelsMetaData">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.getmodelsmetadata.php" title="Go to PHP documentation">getModelsMetaData</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getModelsManager" id="_getModelsManager">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getModelsManager">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.getmodelsmanager.php" title="Go to PHP documentation">getModelsManager</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setTransaction" id="_setTransaction">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setTransaction">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.settransaction.php" title="Go to PHP documentation">setTransaction</a>( <span>Phalcon\Mvc\Model\TransactionInterface <var>$transaction</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Phalcon.Mvc.ModelInterface.html#_setTransaction">Phalcon\Mvc\ModelInterface::setTransaction()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setSource" id="_setSource">
+
+		<td class="attributes"><code>
+			 protected 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setSource">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.setsource.php" title="Go to PHP documentation">setSource</a>( <span> <var>$source</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getSource" id="_getSource">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getSource">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.getsource.php" title="Go to PHP documentation">getSource</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Phalcon.Mvc.ModelInterface.html#_getSource">Phalcon\Mvc\ModelInterface::getSource()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setSchema" id="_setSchema">
+
+		<td class="attributes"><code>
+			 protected 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setSchema">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.setschema.php" title="Go to PHP documentation">setSchema</a>( <span> <var>$schema</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getSchema" id="_getSchema">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getSchema">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.getschema.php" title="Go to PHP documentation">getSchema</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Phalcon.Mvc.ModelInterface.html#_getSchema">Phalcon\Mvc\ModelInterface::getSchema()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setConnectionService" id="_setConnectionService">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setConnectionService">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.setconnectionservice.php" title="Go to PHP documentation">setConnectionService</a>( <span> <var>$connectionService</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Phalcon.Mvc.ModelInterface.html#_setConnectionService">Phalcon\Mvc\ModelInterface::setConnectionService()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setReadConnectionService" id="_setReadConnectionService">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setReadConnectionService">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.setreadconnectionservice.php" title="Go to PHP documentation">setReadConnectionService</a>( <span> <var>$connectionService</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Phalcon.Mvc.ModelInterface.html#_setReadConnectionService">Phalcon\Mvc\ModelInterface::setReadConnectionService()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setWriteConnectionService" id="_setWriteConnectionService">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setWriteConnectionService">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.setwriteconnectionservice.php" title="Go to PHP documentation">setWriteConnectionService</a>( <span> <var>$connectionService</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Phalcon.Mvc.ModelInterface.html#_setWriteConnectionService">Phalcon\Mvc\ModelInterface::setWriteConnectionService()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getReadConnectionService" id="_getReadConnectionService">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getReadConnectionService">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.getreadconnectionservice.php" title="Go to PHP documentation">getReadConnectionService</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Phalcon.Mvc.ModelInterface.html#_getReadConnectionService">Phalcon\Mvc\ModelInterface::getReadConnectionService()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getWriteConnectionService" id="_getWriteConnectionService">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getWriteConnectionService">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.getwriteconnectionservice.php" title="Go to PHP documentation">getWriteConnectionService</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Phalcon.Mvc.ModelInterface.html#_getWriteConnectionService">Phalcon\Mvc\ModelInterface::getWriteConnectionService()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setDirtyState" id="_setDirtyState">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setDirtyState">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.setdirtystate.php" title="Go to PHP documentation">setDirtyState</a>( <span> <var>$dirtyState</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Phalcon.Mvc.ModelInterface.html#_setDirtyState">Phalcon\Mvc\ModelInterface::setDirtyState()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getDirtyState" id="_getDirtyState">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getDirtyState">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.getdirtystate.php" title="Go to PHP documentation">getDirtyState</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Phalcon.Mvc.ModelInterface.html#_getDirtyState">Phalcon\Mvc\ModelInterface::getDirtyState()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getReadConnection" id="_getReadConnection">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getReadConnection">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.getreadconnection.php" title="Go to PHP documentation">getReadConnection</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Phalcon.Mvc.ModelInterface.html#_getReadConnection">Phalcon\Mvc\ModelInterface::getReadConnection()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getWriteConnection" id="_getWriteConnection">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getWriteConnection">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.getwriteconnection.php" title="Go to PHP documentation">getWriteConnection</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Phalcon.Mvc.ModelInterface.html#_getWriteConnection">Phalcon\Mvc\ModelInterface::getWriteConnection()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="assign" id="_assign">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_assign">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.assign.php" title="Go to PHP documentation">assign</a>( <span>array <var>$data</var></span>, <span> <var>$dataColumnMap</var></span>, <span> <var>$whiteList</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Phalcon.Mvc.ModelInterface.html#_assign">Phalcon\Mvc\ModelInterface::assign()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="cloneResultMap" id="_cloneResultMap">
+
+		<td class="attributes"><code>
+			 public static
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_cloneResultMap">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.cloneresultmap.php" title="Go to PHP documentation">cloneResultMap</a>( <span> <var>$base</var></span>, <span>array <var>$data</var></span>, <span> <var>$columnMap</var></span>, <span> <var>$dirtyState</var></span>, <span> <var>$keepSnapshots</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Phalcon.Mvc.ModelInterface.html#_cloneResultMap">Phalcon\Mvc\ModelInterface::cloneResultMap()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="cloneResultMapHydrate" id="_cloneResultMapHydrate">
+
+		<td class="attributes"><code>
+			 public static
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_cloneResultMapHydrate">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.cloneresultmaphydrate.php" title="Go to PHP documentation">cloneResultMapHydrate</a>( <span>array <var>$data</var></span>, <span> <var>$columnMap</var></span>, <span> <var>$hydrationMode</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Phalcon.Mvc.ModelInterface.html#_cloneResultMapHydrate">Phalcon\Mvc\ModelInterface::cloneResultMapHydrate()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="cloneResult" id="_cloneResult">
+
+		<td class="attributes"><code>
+			 public static
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_cloneResult">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.cloneresult.php" title="Go to PHP documentation">cloneResult</a>( <span><code><a href="class-Phalcon.Mvc.ModelInterface.html">Phalcon\Mvc\ModelInterface</a></code> <var>$base</var></span>, <span>array <var>$data</var></span>, <span> <var>$dirtyState</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Phalcon.Mvc.ModelInterface.html#_cloneResult">Phalcon\Mvc\ModelInterface::cloneResult()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="find" id="_find">
+
+		<td class="attributes"><code>
+			 public static
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_find">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.find.php" title="Go to PHP documentation">find</a>( <span> <var>$parameters</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Phalcon.Mvc.ModelInterface.html#_find">Phalcon\Mvc\ModelInterface::find()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="findFirst" id="_findFirst">
+
+		<td class="attributes"><code>
+			 public static
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_findFirst">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.findfirst.php" title="Go to PHP documentation">findFirst</a>( <span> <var>$parameters</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Phalcon.Mvc.ModelInterface.html#_findFirst">Phalcon\Mvc\ModelInterface::findFirst()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="query" id="_query">
+
+		<td class="attributes"><code>
+			 public static
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_query">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.query.php" title="Go to PHP documentation">query</a>( <span><code><a href="class-Phalcon.DiInterface.html">Phalcon\DiInterface</a></code> <var>$dependencyInjector</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Phalcon.Mvc.ModelInterface.html#_query">Phalcon\Mvc\ModelInterface::query()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_exists" id="__exists">
+
+		<td class="attributes"><code>
+			 protected 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__exists">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.exists.php" title="Go to PHP documentation">_exists</a>( <span>Phalcon\Mvc\Model\MetaDataInterface <var>$metaData</var></span>, <span><code><a href="class-Phalcon.Db.AdapterInterface.html">Phalcon\Db\AdapterInterface</a></code> <var>$connection</var></span>, <span> <var>$table</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_groupResult" id="__groupResult">
+
+		<td class="attributes"><code>
+			 protected static
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__groupResult">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.groupresult.php" title="Go to PHP documentation">_groupResult</a>( <span> <var>$functionName</var></span>, <span> <var>$alias</var></span>, <span> <var>$parameters</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="count" id="_count">
+
+		<td class="attributes"><code>
+			 public static
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_count">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.count.php" title="Go to PHP documentation">count</a>( <span> <var>$parameters</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Phalcon.Mvc.ModelInterface.html#_count">Phalcon\Mvc\ModelInterface::count()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="sum" id="_sum">
+
+		<td class="attributes"><code>
+			 public static
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_sum">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.sum.php" title="Go to PHP documentation">sum</a>( <span> <var>$parameters</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Phalcon.Mvc.ModelInterface.html#_sum">Phalcon\Mvc\ModelInterface::sum()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="maximum" id="_maximum">
+
+		<td class="attributes"><code>
+			 public static
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_maximum">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.maximum.php" title="Go to PHP documentation">maximum</a>( <span> <var>$parameters</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Phalcon.Mvc.ModelInterface.html#_maximum">Phalcon\Mvc\ModelInterface::maximum()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="minimum" id="_minimum">
+
+		<td class="attributes"><code>
+			 public static
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_minimum">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.minimum.php" title="Go to PHP documentation">minimum</a>( <span> <var>$parameters</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Phalcon.Mvc.ModelInterface.html#_minimum">Phalcon\Mvc\ModelInterface::minimum()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="average" id="_average">
+
+		<td class="attributes"><code>
+			 public static
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_average">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.average.php" title="Go to PHP documentation">average</a>( <span> <var>$parameters</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Phalcon.Mvc.ModelInterface.html#_average">Phalcon\Mvc\ModelInterface::average()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="fireEvent" id="_fireEvent">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_fireEvent">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.fireevent.php" title="Go to PHP documentation">fireEvent</a>( <span> <var>$eventName</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Phalcon.Mvc.ModelInterface.html#_fireEvent">Phalcon\Mvc\ModelInterface::fireEvent()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="fireEventCancel" id="_fireEventCancel">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_fireEventCancel">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.fireeventcancel.php" title="Go to PHP documentation">fireEventCancel</a>( <span> <var>$eventName</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Phalcon.Mvc.ModelInterface.html#_fireEventCancel">Phalcon\Mvc\ModelInterface::fireEventCancel()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_cancelOperation" id="__cancelOperation">
+
+		<td class="attributes"><code>
+			 protected 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__cancelOperation">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.canceloperation.php" title="Go to PHP documentation">_cancelOperation</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="appendMessage" id="_appendMessage">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_appendMessage">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.appendmessage.php" title="Go to PHP documentation">appendMessage</a>( <span>Phalcon\Mvc\Model\MessageInterface <var>$message</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Phalcon.Mvc.ModelInterface.html#_appendMessage">Phalcon\Mvc\ModelInterface::appendMessage()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="validate" id="_validate">
+
+		<td class="attributes"><code>
+			 protected 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_validate">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.validate.php" title="Go to PHP documentation">validate</a>( <span>Phalcon\Mvc\Model\ValidatorInterface <var>$validator</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="validationHasFailed" id="_validationHasFailed">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_validationHasFailed">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.validationhasfailed.php" title="Go to PHP documentation">validationHasFailed</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Phalcon.Mvc.ModelInterface.html#_validationHasFailed">Phalcon\Mvc\ModelInterface::validationHasFailed()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getMessages" id="_getMessages">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getMessages">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.getmessages.php" title="Go to PHP documentation">getMessages</a>( <span> <var>$filter</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Phalcon.Mvc.ModelInterface.html#_getMessages">Phalcon\Mvc\ModelInterface::getMessages()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_checkForeignKeysRestrict" id="__checkForeignKeysRestrict">
+
+		<td class="attributes"><code>
+			 protected 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__checkForeignKeysRestrict">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.checkforeignkeysrestrict.php" title="Go to PHP documentation">_checkForeignKeysRestrict</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_checkForeignKeysReverseCascade" id="__checkForeignKeysReverseCascade">
+
+		<td class="attributes"><code>
+			 protected 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__checkForeignKeysReverseCascade">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.checkforeignkeysreversecascade.php" title="Go to PHP documentation">_checkForeignKeysReverseCascade</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_checkForeignKeysReverseRestrict" id="__checkForeignKeysReverseRestrict">
+
+		<td class="attributes"><code>
+			 protected 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__checkForeignKeysReverseRestrict">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.checkforeignkeysreverserestrict.php" title="Go to PHP documentation">_checkForeignKeysReverseRestrict</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_preSave" id="__preSave">
+
+		<td class="attributes"><code>
+			 protected 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__preSave">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.presave.php" title="Go to PHP documentation">_preSave</a>( <span>Phalcon\Mvc\Model\MetaDataInterface <var>$metaData</var></span>, <span> <var>$exists</var></span>, <span> <var>$identityField</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_postSave" id="__postSave">
+
+		<td class="attributes"><code>
+			 protected 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__postSave">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.postsave.php" title="Go to PHP documentation">_postSave</a>( <span> <var>$success</var></span>, <span> <var>$exists</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_doLowInsert" id="__doLowInsert">
+
+		<td class="attributes"><code>
+			 protected 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__doLowInsert">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.dolowinsert.php" title="Go to PHP documentation">_doLowInsert</a>( <span>Phalcon\Mvc\Model\MetaDataInterface <var>$metaData</var></span>, <span><code><a href="class-Phalcon.Db.AdapterInterface.html">Phalcon\Db\AdapterInterface</a></code> <var>$connection</var></span>, <span> <var>$table</var></span>, <span> <var>$identityField</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_doLowUpdate" id="__doLowUpdate">
+
+		<td class="attributes"><code>
+			 protected 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__doLowUpdate">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.dolowupdate.php" title="Go to PHP documentation">_doLowUpdate</a>( <span>Phalcon\Mvc\Model\MetaDataInterface <var>$metaData</var></span>, <span><code><a href="class-Phalcon.Db.AdapterInterface.html">Phalcon\Db\AdapterInterface</a></code> <var>$connection</var></span>, <span> <var>$table</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_preSaveRelatedRecords" id="__preSaveRelatedRecords">
+
+		<td class="attributes"><code>
+			 protected 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__preSaveRelatedRecords">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.presaverelatedrecords.php" title="Go to PHP documentation">_preSaveRelatedRecords</a>( <span><code><a href="class-Phalcon.Db.AdapterInterface.html">Phalcon\Db\AdapterInterface</a></code> <var>$connection</var></span>, <span> <var>$related</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_postSaveRelatedRecords" id="__postSaveRelatedRecords">
+
+		<td class="attributes"><code>
+			 protected 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__postSaveRelatedRecords">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.postsaverelatedrecords.php" title="Go to PHP documentation">_postSaveRelatedRecords</a>( <span><code><a href="class-Phalcon.Db.AdapterInterface.html">Phalcon\Db\AdapterInterface</a></code> <var>$connection</var></span>, <span> <var>$related</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="save" id="_save">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_save">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.save.php" title="Go to PHP documentation">save</a>( <span> <var>$data</var></span>, <span> <var>$whiteList</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Phalcon.Mvc.ModelInterface.html#_save">Phalcon\Mvc\ModelInterface::save()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="create" id="_create">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_create">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.create.php" title="Go to PHP documentation">create</a>( <span> <var>$data</var></span>, <span> <var>$whiteList</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Phalcon.Mvc.ModelInterface.html#_create">Phalcon\Mvc\ModelInterface::create()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="update" id="_update">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_update">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.update.php" title="Go to PHP documentation">update</a>( <span> <var>$data</var></span>, <span> <var>$whiteList</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Phalcon.Mvc.ModelInterface.html#_update">Phalcon\Mvc\ModelInterface::update()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="delete" id="_delete">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_delete">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.delete.php" title="Go to PHP documentation">delete</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Phalcon.Mvc.ModelInterface.html#_delete">Phalcon\Mvc\ModelInterface::delete()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getOperationMade" id="_getOperationMade">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getOperationMade">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.getoperationmade.php" title="Go to PHP documentation">getOperationMade</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Phalcon.Mvc.ModelInterface.html#_getOperationMade">Phalcon\Mvc\ModelInterface::getOperationMade()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="refresh" id="_refresh">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_refresh">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.refresh.php" title="Go to PHP documentation">refresh</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Phalcon.Mvc.ModelInterface.html#_refresh">Phalcon\Mvc\ModelInterface::refresh()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="skipOperation" id="_skipOperation">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_skipOperation">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.skipoperation.php" title="Go to PHP documentation">skipOperation</a>( <span> <var>$skip</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Phalcon.Mvc.ModelInterface.html#_skipOperation">Phalcon\Mvc\ModelInterface::skipOperation()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="readAttribute" id="_readAttribute">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_readAttribute">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.readattribute.php" title="Go to PHP documentation">readAttribute</a>( <span> <var>$attribute</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Phalcon.Mvc.ModelInterface.html#_readAttribute">Phalcon\Mvc\ModelInterface::readAttribute()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="writeAttribute" id="_writeAttribute">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_writeAttribute">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.writeattribute.php" title="Go to PHP documentation">writeAttribute</a>( <span> <var>$attribute</var></span>, <span> <var>$value</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Phalcon.Mvc.ModelInterface.html#_writeAttribute">Phalcon\Mvc\ModelInterface::writeAttribute()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="skipAttributes" id="_skipAttributes">
+
+		<td class="attributes"><code>
+			 protected 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_skipAttributes">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.skipattributes.php" title="Go to PHP documentation">skipAttributes</a>( <span>array <var>$attributes</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="skipAttributesOnCreate" id="_skipAttributesOnCreate">
+
+		<td class="attributes"><code>
+			 protected 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_skipAttributesOnCreate">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.skipattributesoncreate.php" title="Go to PHP documentation">skipAttributesOnCreate</a>( <span>array <var>$attributes</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="skipAttributesOnUpdate" id="_skipAttributesOnUpdate">
+
+		<td class="attributes"><code>
+			 protected 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_skipAttributesOnUpdate">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.skipattributesonupdate.php" title="Go to PHP documentation">skipAttributesOnUpdate</a>( <span>array <var>$attributes</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="hasOne" id="_hasOne">
+
+		<td class="attributes"><code>
+			 protected 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_hasOne">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.hasone.php" title="Go to PHP documentation">hasOne</a>( <span> <var>$fields</var></span>, <span> <var>$referenceModel</var></span>, <span> <var>$referencedFields</var></span>, <span> <var>$options</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="belongsTo" id="_belongsTo">
+
+		<td class="attributes"><code>
+			 protected 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_belongsTo">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.belongsto.php" title="Go to PHP documentation">belongsTo</a>( <span> <var>$fields</var></span>, <span> <var>$referenceModel</var></span>, <span> <var>$referencedFields</var></span>, <span> <var>$options</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="hasMany" id="_hasMany">
+
+		<td class="attributes"><code>
+			 protected 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_hasMany">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.hasmany.php" title="Go to PHP documentation">hasMany</a>( <span> <var>$fields</var></span>, <span> <var>$referenceModel</var></span>, <span> <var>$referencedFields</var></span>, <span> <var>$options</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="hasManyToMany" id="_hasManyToMany">
+
+		<td class="attributes"><code>
+			 protected 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_hasManyToMany">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.hasmanytomany.php" title="Go to PHP documentation">hasManyToMany</a>( <span> <var>$fields</var></span>, <span> <var>$intermediateModel</var></span>, <span> <var>$intermediateFields</var></span>, <span> <var>$intermediateReferencedFields</var></span>, <span> <var>$referenceModel</var></span>, <span> <var>$referencedFields</var></span>, <span> <var>$options</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="addBehavior" id="_addBehavior">
+
+		<td class="attributes"><code>
+			 protected 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_addBehavior">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.addbehavior.php" title="Go to PHP documentation">addBehavior</a>( <span>Phalcon\Mvc\Model\BehaviorInterface <var>$behavior</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="keepSnapshots" id="_keepSnapshots">
+
+		<td class="attributes"><code>
+			 protected 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_keepSnapshots">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.keepsnapshots.php" title="Go to PHP documentation">keepSnapshots</a>( <span> <var>$keepSnapshot</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setSnapshotData" id="_setSnapshotData">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setSnapshotData">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.setsnapshotdata.php" title="Go to PHP documentation">setSnapshotData</a>( <span>array <var>$data</var></span>, <span> <var>$columnMap</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Phalcon.Mvc.ModelInterface.html#_setSnapshotData">Phalcon\Mvc\ModelInterface::setSnapshotData()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="hasSnapshotData" id="_hasSnapshotData">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_hasSnapshotData">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.hassnapshotdata.php" title="Go to PHP documentation">hasSnapshotData</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getSnapshotData" id="_getSnapshotData">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getSnapshotData">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.getsnapshotdata.php" title="Go to PHP documentation">getSnapshotData</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="hasChanged" id="_hasChanged">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_hasChanged">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.haschanged.php" title="Go to PHP documentation">hasChanged</a>( <span> <var>$fieldName</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getChangedFields" id="_getChangedFields">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getChangedFields">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.getchangedfields.php" title="Go to PHP documentation">getChangedFields</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="useDynamicUpdate" id="_useDynamicUpdate">
+
+		<td class="attributes"><code>
+			 protected 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_useDynamicUpdate">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.usedynamicupdate.php" title="Go to PHP documentation">useDynamicUpdate</a>( <span> <var>$dynamicUpdate</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getRelated" id="_getRelated">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getRelated">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.getrelated.php" title="Go to PHP documentation">getRelated</a>( <span> <var>$alias</var></span>, <span> <var>$arguments</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Phalcon.Mvc.ModelInterface.html#_getRelated">Phalcon\Mvc\ModelInterface::getRelated()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_getRelatedRecords" id="__getRelatedRecords">
+
+		<td class="attributes"><code>
+			 protected 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__getRelatedRecords">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.getrelatedrecords.php" title="Go to PHP documentation">_getRelatedRecords</a>( <span> <var>$modelName</var></span>, <span> <var>$method</var></span>, <span> <var>$arguments</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="__call" id="___call">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___call">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.call.php" title="Go to PHP documentation">__call</a>( <span> <var>$method</var></span>, <span> <var>$arguments</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="__callStatic" id="___callStatic">
+
+		<td class="attributes"><code>
+			 public static
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___callStatic">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.callstatic.php" title="Go to PHP documentation">__callStatic</a>( <span> <var>$method</var></span>, <span> <var>$arguments</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="__set" id="___set">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___set">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.set.php" title="Go to PHP documentation">__set</a>( <span> <var>$property</var></span>, <span> <var>$value</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="__get" id="___get">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___get">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.get.php" title="Go to PHP documentation">__get</a>( <span> <var>$property</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="__isset" id="___isset">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___isset">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.isset.php" title="Go to PHP documentation">__isset</a>( <span> <var>$property</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="serialize" id="_serialize">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_serialize">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.serialize.php" title="Go to PHP documentation">serialize</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Serializable.html#_serialize">Serializable::serialize()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="unserialize" id="_unserialize">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_unserialize">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.unserialize.php" title="Go to PHP documentation">unserialize</a>( <span> <var>$data</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Serializable.html#_unserialize">Serializable::unserialize()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="dump" id="_dump">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_dump">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.dump.php" title="Go to PHP documentation">dump</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="toArray" id="_toArray">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_toArray">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.toarray.php" title="Go to PHP documentation">toArray</a>( <span> <var>$columns</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setup" id="_setup">
+
+		<td class="attributes"><code>
+			 public static
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setup">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.setup.php" title="Go to PHP documentation">setup</a>( <span>array <var>$options</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="reset" id="_reset">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_reset">#</a>
+		<code><a href="http://php.net/manual/en/phalcon\mvc\model.reset.php" title="Go to PHP documentation">reset</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Phalcon.Mvc.ModelInterface.html#_reset">Phalcon\Mvc\ModelInterface::reset()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+	<table class="summary constants" id="constants">
+	<caption>Constants summary</caption>
+	<tr data-order="OP_NONE" id="OP_NONE">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="http://php.net/manual/en/class.phalcon\mvc\model.php#phalcon\mvc\model.constants.op-none" title="Go to PHP documentation"><b>OP_NONE</b></a>
+			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#OP_NONE" class="anchor">#</a>
+				<code><span class="php-num">0</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="OP_CREATE" id="OP_CREATE">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="http://php.net/manual/en/class.phalcon\mvc\model.php#phalcon\mvc\model.constants.op-create" title="Go to PHP documentation"><b>OP_CREATE</b></a>
+			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#OP_CREATE" class="anchor">#</a>
+				<code><span class="php-num">1</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="OP_UPDATE" id="OP_UPDATE">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="http://php.net/manual/en/class.phalcon\mvc\model.php#phalcon\mvc\model.constants.op-update" title="Go to PHP documentation"><b>OP_UPDATE</b></a>
+			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#OP_UPDATE" class="anchor">#</a>
+				<code><span class="php-num">2</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="OP_DELETE" id="OP_DELETE">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="http://php.net/manual/en/class.phalcon\mvc\model.php#phalcon\mvc\model.constants.op-delete" title="Go to PHP documentation"><b>OP_DELETE</b></a>
+			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#OP_DELETE" class="anchor">#</a>
+				<code><span class="php-num">3</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="DIRTY_STATE_PERSISTENT" id="DIRTY_STATE_PERSISTENT">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="http://php.net/manual/en/class.phalcon\mvc\model.php#phalcon\mvc\model.constants.dirty-state-persistent" title="Go to PHP documentation"><b>DIRTY_STATE_PERSISTENT</b></a>
+			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#DIRTY_STATE_PERSISTENT" class="anchor">#</a>
+				<code><span class="php-num">0</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="DIRTY_STATE_TRANSIENT" id="DIRTY_STATE_TRANSIENT">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="http://php.net/manual/en/class.phalcon\mvc\model.php#phalcon\mvc\model.constants.dirty-state-transient" title="Go to PHP documentation"><b>DIRTY_STATE_TRANSIENT</b></a>
+			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#DIRTY_STATE_TRANSIENT" class="anchor">#</a>
+				<code><span class="php-num">1</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="DIRTY_STATE_DETACHED" id="DIRTY_STATE_DETACHED">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="http://php.net/manual/en/class.phalcon\mvc\model.php#phalcon\mvc\model.constants.dirty-state-detached" title="Go to PHP documentation"><b>DIRTY_STATE_DETACHED</b></a>
+			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#DIRTY_STATE_DETACHED" class="anchor">#</a>
+				<code><span class="php-num">2</span></code>
+			</div>
+		</td>
+	</tr>
+	</table>
+
+
+
+
+	<table class="summary properties" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="_dependencyInjector" id="$_dependencyInjector">
+		<td class="attributes"><code>
+			protected  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="http://php.net/manual/en/class.phalcon\mvc\model.php#phalcon\mvc\model.props.dependencyinjector" title="Go to PHP documentation"><var>$_dependencyInjector</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$_dependencyInjector" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="_modelsManager" id="$_modelsManager">
+		<td class="attributes"><code>
+			protected  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="http://php.net/manual/en/class.phalcon\mvc\model.php#phalcon\mvc\model.props.modelsmanager" title="Go to PHP documentation"><var>$_modelsManager</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$_modelsManager" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="_modelsMetaData" id="$_modelsMetaData">
+		<td class="attributes"><code>
+			protected  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="http://php.net/manual/en/class.phalcon\mvc\model.php#phalcon\mvc\model.props.modelsmetadata" title="Go to PHP documentation"><var>$_modelsMetaData</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$_modelsMetaData" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="_errorMessages" id="$_errorMessages">
+		<td class="attributes"><code>
+			protected  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="http://php.net/manual/en/class.phalcon\mvc\model.php#phalcon\mvc\model.props.errormessages" title="Go to PHP documentation"><var>$_errorMessages</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$_errorMessages" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="_operationMade" id="$_operationMade">
+		<td class="attributes"><code>
+			protected  
+			integer
+		</code></td>
+
+		<td class="name">
+				<a href="http://php.net/manual/en/class.phalcon\mvc\model.php#phalcon\mvc\model.props.operationmade" title="Go to PHP documentation"><var>$_operationMade</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$_operationMade" class="anchor">#</a>
+				<code><span class="php-num">0</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="_dirtyState" id="$_dirtyState">
+		<td class="attributes"><code>
+			protected  
+			integer
+		</code></td>
+
+		<td class="name">
+				<a href="http://php.net/manual/en/class.phalcon\mvc\model.php#phalcon\mvc\model.props.dirtystate" title="Go to PHP documentation"><var>$_dirtyState</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$_dirtyState" class="anchor">#</a>
+				<code><span class="php-num">1</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="_transaction" id="$_transaction">
+		<td class="attributes"><code>
+			protected  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="http://php.net/manual/en/class.phalcon\mvc\model.php#phalcon\mvc\model.props.transaction" title="Go to PHP documentation"><var>$_transaction</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$_transaction" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="_uniqueKey" id="$_uniqueKey">
+		<td class="attributes"><code>
+			protected  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="http://php.net/manual/en/class.phalcon\mvc\model.php#phalcon\mvc\model.props.uniquekey" title="Go to PHP documentation"><var>$_uniqueKey</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$_uniqueKey" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="_uniqueParams" id="$_uniqueParams">
+		<td class="attributes"><code>
+			protected  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="http://php.net/manual/en/class.phalcon\mvc\model.php#phalcon\mvc\model.props.uniqueparams" title="Go to PHP documentation"><var>$_uniqueParams</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$_uniqueParams" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="_uniqueTypes" id="$_uniqueTypes">
+		<td class="attributes"><code>
+			protected  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="http://php.net/manual/en/class.phalcon\mvc\model.php#phalcon\mvc\model.props.uniquetypes" title="Go to PHP documentation"><var>$_uniqueTypes</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$_uniqueTypes" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="_skipped" id="$_skipped">
+		<td class="attributes"><code>
+			protected  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="http://php.net/manual/en/class.phalcon\mvc\model.php#phalcon\mvc\model.props.skipped" title="Go to PHP documentation"><var>$_skipped</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$_skipped" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="_related" id="$_related">
+		<td class="attributes"><code>
+			protected  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="http://php.net/manual/en/class.phalcon\mvc\model.php#phalcon\mvc\model.props.related" title="Go to PHP documentation"><var>$_related</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$_related" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="_snapshot" id="$_snapshot">
+		<td class="attributes"><code>
+			protected  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="http://php.net/manual/en/class.phalcon\mvc\model.php#phalcon\mvc\model.props.snapshot" title="Go to PHP documentation"><var>$_snapshot</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$_snapshot" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	</table>
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		Phalcon REST API API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>

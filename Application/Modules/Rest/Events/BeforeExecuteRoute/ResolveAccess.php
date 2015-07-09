@@ -11,7 +11,7 @@ use Application\Modules\Rest\Aware\RestValidatorProvider;
  *
  * @package Application\Modules\Rest\Services
  * @subpackage Events\BeforeExecuteRoute
- * @since PHP >=5.4
+ * @since PHP >=5.6
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @copyright Stanislav WEB

@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class Application\Aware\AbstractModelCrud | Phalcon REST API</title>
+
+	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+				<li class="active">
+					<a href="namespace-Application.html">
+						Application<span></span>
+					</a>
+
+						<ul>
+				<li class="active">
+					<a href="namespace-Application.Aware.html">
+						Aware					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Helpers.html">
+						Helpers					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Models.html">
+						Models					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Modules.html">
+						Modules<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Application.Modules.Rest.html">
+						Rest<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Application.Modules.Rest.Aware.html">
+						Aware					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Modules.Rest.Controllers.html">
+						Controllers					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Modules.Rest.DTO.html">
+						DTO					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Modules.Rest.Events.html">
+						Events<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Application.Modules.Rest.Events.BeforeDispatchLoop.html">
+						BeforeDispatchLoop					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Modules.Rest.Events.BeforeException.html">
+						BeforeException					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Modules.Rest.Events.BeforeExecuteRoute.html">
+						BeforeExecuteRoute					</a>
+
+						</li>
+							</ul></li>
+				<li>
+					<a href="namespace-Application.Modules.Rest.Exceptions.html">
+						Exceptions					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Modules.Rest.Services.html">
+						Services					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Modules.Rest.Validators.html">
+						Validators					</a>
+
+						</li>
+							</ul></li></ul></li>
+				<li>
+					<a href="namespace-Application.Services.html">
+						Services<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Application.Services.Advanced.html">
+						Advanced					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Services.Cache.html">
+						Cache					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Services.Database.html">
+						Database					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Services.Develop.html">
+						Develop					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Services.Mail.html">
+						Mail					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Services.Mappers.html">
+						Mappers					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Application.Services.Security.html">
+						Security					</a>
+
+						</li>
+							</ul></li></ul></li>
+				<li>
+					<a href="namespace-PHP.html">
+						PHP					</a>
+
+						</li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-Application.Aware.AbstractDTO.html">AbstractDTO</a></li>
+				<li class="active"><a href="class-Application.Aware.AbstractModelCrud.html">AbstractModelCrud</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-Application.Aware.html" title="Summary of Application\Aware"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+				<li>
+					<a href="annotation-group-deprecated.html" title="List of elements with deprecated annotation">
+						<span>Deprecated</span>
+					</a>
+				</li>
+				<li>
+					<a href="annotation-group-todo.html" title="List of elements with todo annotation">
+						<span>Todo</span>
+					</a>
+				</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="-API-documentation.zip" title="Download documentation as ZIP archive"><span>Download</span></a>
+			</li>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class AbstractModelCrud</h1>
+
+
+	<div class="description">
+	<p>AbstractModelCrud. Implementing rules necessary intended for service's models</p>
+	</div>
+
+	<dl class="tree">
+		<dd style="padding-left:0px">
+<b><span>Application\Aware\AbstractModelCrud</span></b>			
+			 implements 
+<span>Phalcon\DI\InjectionAwareInterface</span>
+			
+			
+		</dd>
+	</dl>
+
+
+	<div>
+		<h4>Direct known subclasses</h4>
+			<a href="class-Application.Services.Mappers.BannersMapper.html">Application\Services\Mappers\BannersMapper</a>, 
+			<a href="class-Application.Services.Mappers.CategoryMapper.html">Application\Services\Mappers\CategoryMapper</a>, 
+			<a href="class-Application.Services.Mappers.UserMapper.html">Application\Services\Mappers\UserMapper</a>, 
+			<a href="class-Application.Services.Mappers.CurrencyMapper.html">Application\Services\Mappers\CurrencyMapper</a>, 
+			<a href="class-Application.Services.Mappers.EngineMapper.html">Application\Services\Mappers\EngineMapper</a>, 
+			<a href="class-Application.Services.Mappers.ErrorMapper.html">Application\Services\Mappers\ErrorMapper</a>, 
+			<a href="class-Application.Services.Mappers.ItemAttributesMapper.html">Application\Services\Mappers\ItemAttributesMapper</a>, 
+			<a href="class-Application.Services.Mappers.ItemAttributeValuesMapper.html">Application\Services\Mappers\ItemAttributeValuesMapper</a>, 
+			<a href="class-Application.Services.Mappers.ItemsMapper.html">Application\Services\Mappers\ItemsMapper</a>, 
+			<a href="class-Application.Services.Mappers.PageMapper.html">Application\Services\Mappers\PageMapper</a>, 
+			<a href="class-Application.Services.Mappers.SubscribeMapper.html">Application\Services\Mappers\SubscribeMapper</a>
+	</div>
+
+
+
+
+
+
+	<div class="info">
+		<b>Abstract</b><br>
+		
+		<b>Namespace:</b> <a href="namespace-Application.html">Application</a>\<a href="namespace-Application.Aware.html">Aware</a><br>
+		<b>Package:</b> Application\Aware<br>
+
+				<b>Copyright:</b>
+				Stanislav WEB<br>
+				<b>Author:</b>
+				Stanislav WEB | Lugansk <a href="&#109;&#x61;&#105;&#108;&#x74;&#111;&#x3a;s&#116;&#x61;&#110;&#x69;&#x73;&#111;&#x76;&#64;&#103;&#x6d;&#97;&#x69;&#x6c;&#46;&#x63;&#111;&#109;">s&#116;&#x61;&#110;&#x69;&#x73;&#111;&#x76;&#64;&#103;&#x6d;&#97;&#x69;&#x6c;&#46;&#x63;&#111;&#109;</a><br>
+				<b>Version:</b>
+				1.0<br>
+				<b>Since:</b>
+				PHP >=5.6<br>
+			<b>Located at</b> <a href="source-class-Application.Aware.AbstractModelCrud.html#10-190" title="Go to source code">Aware/AbstractModelCrud.php</a>
+		<br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="setDi" id="_setDi">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setDi">#</a>
+		<code><a href="source-class-Application.Aware.AbstractModelCrud.html#30-38" title="Go to source code">setDi</a>( <span><code><a href="class-Phalcon.DiInterface.html">Phalcon\DiInterface</a></code> <var>$di</var></span> )</code>
+
+		<div class="description short">
+			<p>Set dependency container</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Set dependency container</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$di</var></dt>
+					<dd></dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getDi" id="_getDi">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-Phalcon.DiInterface.html">Phalcon\DiInterface</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getDi">#</a>
+		<code><a href="source-class-Application.Aware.AbstractModelCrud.html#40-48" title="Go to source code">getDi</a>( )</code>
+
+		<div class="description short">
+			<p>Get dependency container</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Get dependency container</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Phalcon.DiInterface.html">Phalcon\DiInterface</a></code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getPrimaryKey" id="_getPrimaryKey">
+
+		<td class="attributes"><code>
+			 public 
+
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getPrimaryKey">#</a>
+		<code><a href="source-class-Application.Aware.AbstractModelCrud.html#50-59" title="Go to source code">getPrimaryKey</a>( )</code>
+
+		<div class="description short">
+			<p>Get model primary key</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Get model primary key</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					array
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getAttributes" id="_getAttributes">
+
+		<td class="attributes"><code>
+			 public 
+
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getAttributes">#</a>
+		<code><a href="source-class-Application.Aware.AbstractModelCrud.html#61-70" title="Go to source code">getAttributes</a>( )</code>
+
+		<div class="description short">
+			<p>Get model attributes</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Get model attributes</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					array
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="create" id="_create">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-Phalcon.Mvc.Model.html">Phalcon\Mvc\Model</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_create">#</a>
+		<code><a href="source-class-Application.Aware.AbstractModelCrud.html#72-100" title="Go to source code">create</a>( <span>array <var>$data</var></span> )</code>
+
+		<div class="description short">
+			<p>Create record row</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Create record row</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$data</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Phalcon.Mvc.Model.html">Phalcon\Mvc\Model</a></code>
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><a href="class-Application.Modules.Rest.Exceptions.BadRequestException.html">Application\Modules\Rest\Exceptions\BadRequestException</a></code><br>
+					<code><a href="class-Application.Modules.Rest.Exceptions.ConflictException.html">Application\Modules\Rest\Exceptions\ConflictException</a></code>
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="update" id="_update">
+
+		<td class="attributes"><code>
+			 public 
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_update">#</a>
+		<code><a href="source-class-Application.Aware.AbstractModelCrud.html#102-124" title="Go to source code">update</a>( <span><code><a href="class-Phalcon.Mvc.Model.html">Phalcon\Mvc\Model</a></code> <var>$model</var></span>, <span>array <var>$credentials</var></span> )</code>
+
+		<div class="description short">
+			<p>Edit record</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Edit record</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$model</var></dt>
+					<dd></dd>
+					<dt><var>$credentials</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					boolean
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><a href="class-Application.Modules.Rest.Exceptions.BadRequestException.html">Application\Modules\Rest\Exceptions\BadRequestException</a></code>
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setSqlDatetime" id="_setSqlDatetime">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setSqlDatetime">#</a>
+		<code><a href="source-class-Application.Aware.AbstractModelCrud.html#126-140" title="Go to source code">setSqlDatetime</a>( <span>string <var>$expire_date</var></span> )</code>
+
+		<div class="description short">
+			<p>Method to set the value of field datetime</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Method to set the value of field datetime</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$expire_date</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					string
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getRelated" id="_getRelated">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-Phalcon.Mvc.Model.Resultset.Simple.html">Phalcon\Mvc\Model\Resultset\Simple</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getRelated">#</a>
+		<code><a href="source-class-Application.Aware.AbstractModelCrud.html#142-173" title="Go to source code">getRelated</a>( <span>array <var>$params</var></span> )</code>
+
+		<div class="description short">
+			<p>Get related records</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Get related records</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$params</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Phalcon.Mvc.Model.Resultset.Simple.html">Phalcon\Mvc\Model\Resultset\Simple</a></code>
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><a href="class-Application.Modules.Rest.Exceptions.NotFoundException.html">Application\Modules\Rest\Exceptions\NotFoundException</a></code>
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getInstance" id="_getInstance">
+
+		<td class="attributes"><code>
+			abstract public 
+
+			<code><a href="class-Phalcon.Mvc.Model.html">Phalcon\Mvc\Model</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getInstance">#</a>
+		<code><a href="source-class-Application.Aware.AbstractModelCrud.html#175-180" title="Go to source code">getInstance</a>( )</code>
+
+		<div class="description short">
+			<p>Get instance of polymorphic Model</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Get instance of polymorphic Model</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Phalcon.Mvc.Model.html">Phalcon\Mvc\Model</a></code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="read" id="_read">
+
+		<td class="attributes"><code>
+			abstract public 
+
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_read">#</a>
+		<code><a href="source-class-Application.Aware.AbstractModelCrud.html#182-189" title="Go to source code">read</a>( <span>array <var>$credentials</var>,…</span>, <span>array <var>$relations</var>,…</span> )</code>
+
+		<div class="description short">
+			<p>Read records</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Read records</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$credentials</var>,…</dt>
+					<dd>credentials</dd>
+					<dt><var>$relations</var>,…</dt>
+					<dd>related models</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					mixed
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		Phalcon REST API API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>

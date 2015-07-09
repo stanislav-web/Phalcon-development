@@ -8,7 +8,7 @@ use Phalcon\DI\InjectionAwareInterface;
  *
  * @package Application\Modules\Rest
  * @subpackage Aware
- * @since      PHP >=5.4
+ * @since      PHP >=5.6
  * @version    1.0
  * @author     Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @copyright  Stanislav WEB
@@ -70,7 +70,7 @@ abstract class RestValidatorCollectionsProvider
      * @param \Phalcon\DiInterface $di
      * @return RestValidatorCollectionsProvider
      */
-    public function setDi($di)
+    public function setDi(\Phalcon\DiInterface $di)
     {
         $this->di = $di;
 

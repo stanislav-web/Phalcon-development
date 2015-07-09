@@ -2,13 +2,14 @@
 namespace Application\Modules\Rest\Validators;
 
 use Phalcon\Http\Request;
+use Application\Helpers\Node;
 
 /**
  * Class OutputValidator. Checking response
  *
  * @package Application\Modules\Rest
  * @subpackage Validators
- * @since PHP >=5.4
+ * @since PHP >=5.6
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @copyright Stanislav WEB
@@ -233,8 +234,13 @@ class OutputValidator {
 
         $data = [];
 
-        foreach($response as $entity => $params) {
-            $data[$entity] = array_shift($params);
+        if(Node::isNestedArray($response) === true) {
+            foreach($response as $entity => $params) {
+                $data[$entity] = array_shift($params);
+            }
+        }
+        else {
+            $data = $response;
         }
 
         $this->result = (array_merge($result, ['data' => $data]));

@@ -49,3 +49,5 @@ logs
 vendor/
 config/application.php
 config/development.php
+tests/_output/*
+composer.lock

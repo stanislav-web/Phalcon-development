@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url>
+	<loc>http://backend.local/index.html</loc>
+</url>
+<url>
+	<loc>http://backend.local/namespace-Application.html</loc>
+</url>
+<url>
+	<loc>http://backend.local/namespace-Application.Aware.html</loc>
+</url>
+<url>
+	<loc>http://backend.local/namespace-Application.Helpers.html</loc>
+</url>
+<url>
+	<loc>http://backend.local/namespace-Application.Models.html</loc>
+</url>
+<url>
+	<loc>http://backend.local/namespace-Application.Modules.html</loc>
+</url>
+<url>
+	<loc>http://backend.local/namespace-Application.Modules.Rest.html</loc>
+</url>
+<url>
+	<loc>http://backend.local/namespace-Application.Modules.Rest.Aware.html</loc>
+</url>
+<url>
+	<loc>http://backend.local/namespace-Application.Modules.Rest.Controllers.html</loc>
+</url>
+<url>
+	<loc>http://backend.local/namespace-Application.Modules.Rest.DTO.html</loc>
+</url>
+<url>
+	<loc>http://backend.local/namespace-Application.Modules.Rest.Events.html</loc>
+</url>
+<url>
+	<loc>http://backend.local/namespace-Application.Modules.Rest.Events.BeforeDispatchLoop.html</loc>
+</url>
+<url>
+	<loc>http://backend.local/namespace-Application.Modules.Rest.Events.BeforeException.html</loc>
+</url>
+<url>
+	<loc>http://backend.local/namespace-Application.Modules.Rest.Events.BeforeExecuteRoute.html</loc>
+</url>
+<url>
+	<loc>http://backend.local/namespace-Application.Modules.Rest.Exceptions.html</loc>
+</url>
+<url>
+	<loc>http://backend.local/namespace-Application.Modules.Rest.Services.html</loc>
+</url>
+<url>
+	<loc>http://backend.local/namespace-Application.Modules.Rest.Validators.html</loc>
+</url>
+<url>
+	<loc>http://backend.local/namespace-Application.Services.html</loc>
+</url>
+<url>
+	<loc>http://backend.local/namespace-Application.Services.Advanced.html</loc>
+</url>
+<url>
+	<loc>http://backend.local/namespace-Application.Services.Cache.html</loc>
+</url>
+<url>
+	<loc>http://backend.local/namespace-Application.Services.Database.html</loc>
+</url>
+<url>
+	<loc>http://backend.local/namespace-Application.Services.Develop.html</loc>
+</url>
+<url>
+	<loc>http://backend.local/namespace-Application.Services.Mail.html</loc>
+</url>
+<url>
+	<loc>http://backend.local/namespace-Application.Services.Mappers.html</loc>
+</url>
+<url>
+	<loc>http://backend.local/namespace-Application.Services.Security.html</loc>
+</url>
+<url>
+	<loc>http://backend.local/namespace-PHP.html</loc>
+</url>
+
+
+</urlset>

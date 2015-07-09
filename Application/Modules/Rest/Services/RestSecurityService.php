@@ -15,7 +15,7 @@ use Phalcon\Logger;
  *
  * @package Application\Modules\Rest
  * @subpackage Services
- * @since PHP >=5.4
+ * @since PHP >=5.6
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @copyright Stanislav WEB
@@ -38,28 +38,30 @@ class RestSecurityService extends RestSecurityProvider {
      * @throws \Application\Modules\Rest\Exceptions\NotFoundException
      * @return ResultSet
      */
-    public function authenticate(array $credentials, array $skip) {
+    public function authenticate(array $credentials) {
 
+        // checkout user data from credentials
         $user = $this->getUserMapper()->getOne(['login' => $credentials['login']]);
+
         if($user !== false) {
+
             if($this->getSecurity()->checkHash($credentials['password'], $user->password)) {
 
+                // generate new access token
                 $token = $this->getSecurity()->hash($this->getSecurity()->getToken());
 
-                $accessToken = $this->setToken(
-                    $user->id,
-                    $token,
-                    (time() + $this->getConfig()->tokenLifetime)
-                );
+                // set token to database
+                $this->setToken($user->id, $token, (time() + $this->getConfig()->tokenLifetime));
 
+                // update user data
                 $this->getUserMapper()->refresh($user->id, [
                     'ip' => $this->getRequest()->getClientAddress(),
                     'ua' => $this->getRequest()->getUserAgent(),
-                ], $skip);
+                ]);
 
                 $transfer = new UserDTO();
                 $transfer->setRoles($this->getUserMapper()->getRoles()->findFirst((int)$user->role));
-                $transfer->setAccess($accessToken);
+                $transfer->setAccess($this->token);
 
                 return $transfer;
             }
@@ -80,14 +82,14 @@ class RestSecurityService extends RestSecurityProvider {
      * Register new user from credentials
      *
      * @param array $credentials
-     * @param array $skip
      * @return ResultSet
      * @throws \Application\Modules\Rest\Exceptions\BadRequestException
      * @throws \Application\Modules\Rest\Exceptions\ConflictException
      */
-    public function register(array $credentials, array $skip)
-    {
+    public function register(array $credentials) {
+
         $role = $this->getUserMapper()->getRoles();
+
         $user = $this->getUserMapper()->create([
             'role'      => $role::USER,
             'ip'        => ip2long($this->getDi()->get('request')->getClientAddress()),
@@ -95,17 +97,17 @@ class RestSecurityService extends RestSecurityProvider {
             'login'     => $credentials['login'],
             'name'      => $credentials['name'],
             'password'  => (empty($credentials['password']) === false) ? $this->getSecurity()->hash($credentials['password']) : null
-        ], $skip);
+        ]);
+
         session_regenerate_id(true);
 
+        // generate new access token
         $token = $this->getSecurity()->hash($this->getSecurity()->getToken());
 
-        $accessToken = $this->setToken(
-            $user->id,
-            $token,
-            (time() + $this->getConfig()->tokenLifetime)
-        );
-        return (new UserDTO())->setAccess($accessToken)
+        // set token to database
+        $this->setToken($user->id, $token, (time() + $this->getConfig()->tokenLifetime));
+
+        return (new UserDTO())->setAccess($this->token)
             ->setUsers($this->getUserMapper()->getList([
                 "id = ?0",
                 "bind" => [$user->id],
@@ -116,14 +118,15 @@ class RestSecurityService extends RestSecurityProvider {
      * Restore user access by credentials
      *
      * @param array $credentials
-     * @param array $skip
-     * @throws NotFoundException
-     * @throws Rest\Exceptions\BadRequestException
-     * @throws UnprocessableEntityException
+     * @throws \Application\Modules\Rest\Exceptions\NotFoundException
+     * @throws \Application\Modules\Rest\Exceptions\BadRequestException
+     * @throws \Application\Modules\Rest\Exceptions\UnprocessableEntityException
      */
-    public function restore(array $credentials, array $skip) {
+    public function restore(array $credentials) {
 
+        // checkout user data from credentials
         $user = $this->getUserMapper()->getOne(['login' => $credentials['login']]);
+
         if($user !== false) {
 
             // user founded restore access by login, generate password
@@ -135,7 +138,7 @@ class RestSecurityService extends RestSecurityProvider {
             // update password in Db
             $result = $this->getUserMapper()->update($user, [
                 'id' => $user->id, 'password' => $this->getSecurity()->hash($password)
-            ], $skip);
+            ]);
 
             return $result;
         }
@@ -150,8 +153,8 @@ class RestSecurityService extends RestSecurityProvider {
      * Logout user (clear token)
      *
      * @param array $credentials
-     * @return Rest\Aware\ResultSet|void
-     * @throws NotFoundException
+     *
+     * @throws \Application\Modules\Rest\Exceptions\NotFoundException
      */
     public function logout(array $credentials) {
 
@@ -188,16 +191,13 @@ class RestSecurityService extends RestSecurityProvider {
      *
      * @param int $user_id Auth user ID
      * @param string $token Generated token
-     * @param int $expire_date Token date expiry
-     * @return ResultSet
+     * @param string $expire_date Token date expiry
      */
     protected function setToken($user_id, $token, $expire_date) {
 
-        $model = $this->getUserMapper()->setAccessToken(
+        $this->token = $this->getUserMapper()->setAccessToken(
             $user_id, $token, $expire_date
         );
-
-        return $model->find(['user_id ='. $user_id]);
     }
 
     /**
@@ -252,6 +252,7 @@ class RestSecurityService extends RestSecurityProvider {
     private function recoverySend(\Application\Models\Users $user, $password) {
 
         $engine = $this->getDi()->get('EngineMapper')->define();
+
         $this->getView()->setViewsDir(APP_PATH.'/Modules/Rest/views');
 
         $params = [
@@ -265,9 +266,10 @@ class RestSecurityService extends RestSecurityProvider {
         if(filter_var($user->login, FILTER_VALIDATE_EMAIL) !== false) {
 
             try {
+                $subject = sprintf($this->getTranslator()->translate('PASSWORD_RECOVERY_SUBJECT'), $engine->host);
                 $message = $this->getMailer()->createMessageFromView(strtr($this->getConfig()->notifyDir, [':engine' => $engine->code]).'restore_password_email', $params)
                 ->to($user->login, $user->name)
-                ->subject(sprintf($this->getTranslator()->translate('PASSWORD_RECOVERY_SUBJECT'), $engine->host))
+                ->subject($subject)
                 ->priority(1);
 
                 $message->send();

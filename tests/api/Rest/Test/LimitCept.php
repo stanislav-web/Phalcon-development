@@ -8,12 +8,12 @@ $I->setHeader('Accept', '*/*');
 $I->setHeader('Accept-Language', 'en-GB');
 
 $I->sendGET('api/v1/sign', ['login' => 'admin@admin.ua', 'password' => 'admin@admin.ua']);
-$auth = $I->grabDataFromJsonResponse();
 
-$I->amBearerAuthenticated($auth['data']['access']['token']);
+$auth = $I->grabDataFromResponseByJsonPath('$..data');
+$I->amBearerAuthenticated($auth[0]['access']['token']);
 
 $I->sendGET('/api/v1/logs?limit=5');
 
 $I->seeResponseCodeIs(200);
 $I->seeResponseIsJson();
-$I->seeResponseContainsJson(array('limit' => 5));
+$I->seeResponseContainsJson(['limit' => 5]);

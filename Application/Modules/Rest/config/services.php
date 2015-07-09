@@ -7,7 +7,7 @@ $di->set('RestConfig', function () use ($di) {
     $configBase = $di->get('config');
 
     $configBase->merge(
-        require('config.php')
+        new \Phalcon\Config(require('config.php'))
     );
 
     return $configBase;
