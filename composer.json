@@ -33,7 +33,6 @@
         "ext-phalcon": ">=2.0",
         "ext-apcu": ">=4.0",
         "ext-mcrypt" : "*",
-        "ext-igbinary" : "*",
         "stanislav-web/phalcon-sms-factory": "dev-master",
         "stanislav-web/phalcon-translate": "1.3-stable",
         "stanislav-web/phalcon-uploader": "dev-master",
