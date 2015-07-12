@@ -5,5 +5,7 @@ return [
     'EMPTY_PARAMETER_IN_URI'        =>  'Empty parameter in URI',
     'FILTERS_IS_NOT_SUPPORT'        =>  'This filters is not support',
     'CONTENT_IS_NOT_SUPPORT'        =>  'This content type is not support',
-    'LANGUAGE_IS_NOT_SUPPORT'       =>  'This language is not support'
+    'LANGUAGE_IS_NOT_SUPPORT'       =>  'This language is not support',
+    'LOG_CODE_NOT_FOUND'            =>  'Logger code: `%s` not found',
+    'RECORDS_NOT_FOUND'             =>  'The records not found',
 ];

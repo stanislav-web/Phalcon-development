@@ -21,6 +21,13 @@ class Logs extends \Phalcon\Mvc\Model
     const TABLE = '\Application\Models\Logs';
 
     /**
+     * Content assign definition rules
+     *
+     * @const
+     */
+    const CONTENT_DEFINITION_PARAMS = ['exception', 'ip', 'refer', 'method', 'uri', 'message'];
+
+    /**
      *
      * @var integer
      */

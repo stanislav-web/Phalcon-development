@@ -1,11 +1,13 @@
 <?php
 namespace Application\Services\Mappers;
 
-use Application\Modules\Rest\DTO\LogDTO;
-use Application\Modules\Rest\Exceptions\NotFoundException;
 use Phalcon\Logger;
+use Phalcon\Http\Request;
+use Phalcon\Di;
 use Phalcon\Logger\Adapter\Database as LoggerDatabase;
 use Application\Models\Logs;
+use Application\Modules\Rest\DTO\LogDTO;
+use Application\Modules\Rest\Exceptions\NotFoundException;
 
 /**
  * Class LogsMapper. Actions above logs
@@ -61,6 +63,29 @@ class LogMapper {
     }
 
     /**
+     * Get Dependency injection container
+     *
+     * @return \Phalcon\Di
+     */
+    public function getDi() {
+        return (new Di())->getDefault();
+    }
+
+    /**
+     * Get Translate service
+     *
+     * @return \Translate\Translator|null
+     */
+    private function getTranslator() {
+
+        if($this->getDi()->has('TranslateService') === true) {
+            return $this->getDi()->get('TranslateService')->assign('errors');
+        }
+
+        return null;
+    }
+
+    /**
      * Get instance of polymorphic object
      *
      * @return Logs
@@ -84,7 +109,7 @@ class LogMapper {
         }
 
         throw new NotFoundException([
-            'RECORDS_NOT_FOUND'  =>  'The records not found'
+            'RECORDS_NOT_FOUND'  =>  $this->getTranslator()->translate('RECORDS_NOT_FOUND')
         ]);
     }
 
@@ -97,6 +122,31 @@ class LogMapper {
     {
         $metaData = $this->getInstance()->getModelsMetaData();
         return $metaData->getAttributes($this->getInstance());
+    }
+
+    /**
+     * Create record
+     *
+     * @param array $params
+     *
+     * @throws \Application\Modules\Rest\Exceptions\NotFoundException
+     */
+    public function create(array $params) {
+
+        $model = $this->getInstance();
+        $request = new Request();
+        $params['ip'] = $request->getClientAddress();
+        $params['refer'] = (isset($params['refer'])) ? $params['refer'] : $request->getHTTPReferer();
+        $params['method'] = $request->getMethod();
+
+        $data = [];
+        foreach(array_flip(array_diff($model::CONTENT_DEFINITION_PARAMS, $params)) as $k => $v) {
+            if(isset($params[$k]) === true) {
+                $data[$k] = $params[$k];
+            }
+        }
+
+        $this->save($data, (int)$params['code']);
     }
 
     /**
@@ -113,8 +163,9 @@ class LogMapper {
             $this->loggerDatabase->log($message, $code);
         }
         else {
+
             throw new NotFoundException([
-                'LOG_CODE_NOT_FOUND' => 'Logger code not found'
+                'LOG_CODE_NOT_FOUND' => sprintf($this->getTranslator()->translate('LOG_CODE_NOT_FOUND'), $code)
             ]);
         }
     }

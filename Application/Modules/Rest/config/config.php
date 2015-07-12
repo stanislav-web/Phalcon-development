@@ -14,7 +14,7 @@ return [
         'acceptLanguage'    => ['ru', 'en', 'ua', 'de', 'uk'],
         'acceptCharset'     => 'utf-8',
         'acceptFilters'    => [
-            'columns', 'offset', 'limit', 'token', 'locale', 'login', 'password', 'order', 'name', 'format', 'code', '_profile', '_time','surname', 'id', 'mapper', 'email'
+            'columns', 'offset', 'limit', 'token', 'locale', 'login', 'password', 'order', 'name', 'format', 'code', '_profile', '_time','surname', 'id', 'mapper', 'email', 'code', 'exception', 'message'
         ],
         'acceptQueryLength'    => 121,
 

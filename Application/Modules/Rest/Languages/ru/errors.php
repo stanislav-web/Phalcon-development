@@ -5,5 +5,7 @@ return [
     'EMPTY_PARAMETER_IN_URI'        =>  'Пустой параметр в URL',
     'FILTERS_IS_NOT_SUPPORT'        =>  'Фильтр не поддерживается системой',
     'CONTENT_IS_NOT_SUPPORT'        =>  'Контент не поддерживается системой',
-    'LANGUAGE_IS_NOT_SUPPORT'       =>  'Язык не поддерживается системой'
+    'LANGUAGE_IS_NOT_SUPPORT'       =>  'Язык не поддерживается системой',
+    'LOG_CODE_NOT_FOUND'            =>  'Код лигирования `%s` не опознан',
+    'RECORDS_NOT_FOUND'             =>  'Запись не найдена',
 ];
