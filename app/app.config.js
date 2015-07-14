@@ -97,6 +97,13 @@ var CONFIG = {};
                     }
                 }
             },
+            '/category/:main*': {
+                templateUrl: '/app/modules/catalogue/templates/items.tpl.html',
+                controller: 'ItemsController',
+                resolve: {
+
+                }
+            },
             '/page/:page' : {
                 templateUrl: '/app/modules/common/templates/pages.tpl.html',
                 controller: 'CommonController'
