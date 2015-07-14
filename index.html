@@ -117,7 +117,7 @@
 <!-- /Footer -->
 
 <!-- Common -->
-
+<script src="/plugins/stacktrace-js/dist/stacktrace.js"></script>
 <script src="/plugins/cryptojslib/rollups/aes.js"></script>
 <script src="/plugins/lodash/lodash.js"></script>
 <script src="/plugins/moment/min/moment-with-locales.js"></script>
@@ -148,6 +148,8 @@
 
 <!-- Application -->
 <script src="/app/app.config.js"></script>
+<script src="/app/app.config.dev.js"></script>
+<script src="/app/app.logger.js"></script>
 <script src="/app/app.bootstrap.js"></script>
 <script src="/app/app.session.js"></script>
 <script src="/app/app.document.js"></script>
@@ -155,6 +157,7 @@
 <script src="/app/modules/common/module.bootstrap.js"></script>
 <script src="/app/modules/authenticate/module.bootstrap.js"></script>
 <script src="/app/modules/user/module.bootstrap.js"></script>
+<script src="/app/modules/catalogue/module.bootstrap.js"></script>
 <!-- /Application -->
 
 <!-- Directives -->
@@ -167,6 +170,7 @@
 <script src="/app/modules/common/services/service.data.js"></script>
 <script src="/app/modules/common/services/service.upload.js"></script>
 <script src="/app/modules/common/services/service.subscribe.js"></script>
+<script src="/app/modules/catalogue/services/service.item.js"></script>
 <!-- /Services -->
 
 <!-- Controllers -->
@@ -177,6 +181,7 @@
 <script src="/app/modules/common/controllers/controller.subscribe.js"></script>
 <script src="/app/modules/authenticate/controllers/controller.sign.js"></script>
 <script src="/app/modules/user/controllers/controller.user.js"></script>
+<script src="/app/modules/catalogue/controllers/controller.items.js"></script>
 <!-- /Controllers -->
 
 <div notifications="top right"></div>

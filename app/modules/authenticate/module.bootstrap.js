@@ -28,6 +28,7 @@
                     }
                 }
                 else if(next.$$route.hasOwnProperty('authorization')) {
+
                     // Unauthorized users remove to home page
                     $location.path(CONFIG.LOCATIONS.HOME);
                 }

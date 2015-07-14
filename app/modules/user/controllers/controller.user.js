@@ -10,13 +10,6 @@
     angular.module('app.user').controller('UserController', ['$scope', 'Document', 'UserService', 'UploadService', 'ModuleUserConfig',
         function($scope, Document, UserService, UploadService, ModuleUserConfig) {
 
-            // set meta title
-            $scope.$parent.$watch('engines', function(engine) {
-                if(!_.isUndefined(engine)) {
-                    Document.setTitle(engine.name);
-                }
-            });
-
             var userPromise = UserService.getUser();
 
             if(userPromise) {
@@ -24,6 +17,9 @@
 
                     $scope.user = response;
                     $scope.auth = UserService.getUserAuth();
+
+                    // set meta title
+                    Document.prependTitle($scope.user.name, '-');
 
                     if($scope.user.photo.length > 0) {
                         // resolve full uri photo path

@@ -19,10 +19,12 @@
                 set: function (key, value, secret) {
 
                     if (typeof value === 'object') {
+                        //noinspection AssignmentToFunctionParameterJS
                         value = JSON.stringify(value);
                     }
 
                     if(secret) {
+                        //noinspection AssignmentToFunctionParameterJS
                         value = CryptoJS.AES.encrypt(value, secret);
                     }
                     setTimeout(function() {

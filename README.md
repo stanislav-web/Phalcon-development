@@ -11,6 +11,7 @@ Development Board
 * AngularJS v1.4
 * Twitter Bootstrap 3
 * Gulp
+* Karma environment
 
 #### Documents
 + [Creating a useful AngularJS project structure and toolchain] (http://manuel.kiessling.net/2014/06/09/creating-a-useful-angularjs-project-structure-and-toolchain/)

@@ -6,7 +6,14 @@
 
         .service('Document',  ['$translate', '$rootScope', function($translate, $rootScope) {
 
-            var baseTitle = '';
+            /**
+             * Base title definition
+             *
+             * @returns {*}
+             */
+            var baseTitle = function() {
+                return $rootScope.documentTitle || $rootScope.engines.name;
+            };
 
             return {
 
@@ -43,21 +50,8 @@
                  */
                 prependTitle: function (title, delimiter) {
 
-                    if(!delimiter) delimiter = ' ';
-
-                    if(!baseTitle.length) {
-                        if($rootScope.documentTitle) {
-                            baseTitle = $rootScope.documentTitle;
-                        }
-                        else {
-                            baseTitle = $rootScope.engines.name;
-                        }
-                    }
-
-                    $rootScope.$on('$translateChangeSuccess', function () {
-                        $translate(title).then(function (title) {
-                            $rootScope.documentTitle = title +' ' + delimiter + ' '+ baseTitle;
-                        });
+                    $translate(title).then(function (title) {
+                        $rootScope.documentTitle = title +' ' + delimiter + ' '+ baseTitle();
                     });
 
                     return this;
@@ -72,21 +66,8 @@
                  */
                 appendTitle: function (title, delimiter) {
 
-                    if(!delimiter) delimiter = ' ';
-
-                    if(!baseTitle.length) {
-                        if($rootScope.documentTitle) {
-                            baseTitle = $rootScope.documentTitle;
-                        }
-                        else {
-                            baseTitle = $rootScope.engines.name;
-                        }
-                    }
-
-                    $rootScope.$on('$translateChangeSuccess', function () {
-                        $translate(title).then(function (title) {
-                            $rootScope.documentTitle += ' '+ delimiter+ ' ' + baseTitle;
-                        });
+                    $translate(title).then(function (title) {
+                        $rootScope.documentTitle += baseTitle() + title + delimiter;
                     });
 
                     return this;

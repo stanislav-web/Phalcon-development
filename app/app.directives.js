@@ -1,6 +1,6 @@
-"use strict";
-
 (function(angular) {
+
+    "use strict";
 
     angular.module('app.directives', [])
 
@@ -58,7 +58,6 @@
                 template: '<ul ng-controller="LanguageController" ng-init="changeLanguage(currentLanguage)">' +
                 '<li ng-class="{\'active\':currentLanguage === \'en\'}"><span ng-click="changeLanguage(\'en\')" class="lang-sm lang-lbl" lang="en"></span>&nbsp;</li>' +
                 '<li ng-class="{\'active\':currentLanguage === \'ru\'}"><span ng-click="changeLanguage(\'ru\')" class="lang-sm lang-lbl" lang="ru"></span>&nbsp;</li>' +
-                '<li ng-class="{\'active\':currentLanguage === \'de\'}"><span ng-click="changeLanguage(\'de\')" class="lang-sm lang-lbl" lang="de"></span>&nbsp;</li>' +
                 '<li ng-class="{\'active\':currentLanguage === \'uk\'}"><span ng-click="changeLanguage(\'uk\')" class="lang-sm lang-lbl" lang="uk"></span>&nbsp;</li>' +
                 '</ul>'
             }
@@ -104,6 +103,18 @@
                     });
                 }
             };
+        })
+
+        .directive('errSrc', function ()  {
+            return {
+                link : function (scope, element, attrs) {
+                    element.bind('error', function () {
+                        if (attrs.src != attrs.errSrc) {
+                            attrs.$set('src', CONFIG.DEFAULT_IMAGES[attrs.errSrc]);
+                        }
+                    });
+                }
+            }
         })
 
         .directive('banners', ['$timeout', function ($timeout)  {

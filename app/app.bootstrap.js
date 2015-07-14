@@ -1,22 +1,24 @@
-"use strict";
-
 var notify = null;
 
 (function(angular) {
 
+    "use strict";
+
     // application module
     angular.module('app', [
         'ngRoute',
+        'app.logger',
         'app.document',
         'app.directives',
         'app.session',
         'app.authenticate',
         'app.common',
-        'app.user'
+        'app.user',
+        'app.catalogue'
     ])
 
     // configure application's routes
-    .config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
+    .config(['$routeProvider', '$locationProvider',function($routeProvider, $locationProvider) {
 
         $locationProvider.hashPrefix('!');
         $locationProvider.html5Mode(true);

@@ -46,4 +46,10 @@ crashlytics.properties
 crashlytics-build.properties
 
 # My ignored directives
-plugins
+plugins/
+node_modules/
+configs/
+logs/
+build/src/
+build/spec/
+build/reports/
