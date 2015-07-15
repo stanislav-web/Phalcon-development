@@ -5,6 +5,7 @@ use Application\Aware\AbstractModelCrud;
 use Application\Models\Categories;
 use Application\Modules\Rest\DTO\CategoryDTO;
 use Application\Modules\Rest\Exceptions\NotFoundException;
+use Phalcon\Mvc\ModelInterface;
 
 /**
  * Class CategoryMapper. Actions above application categories
@@ -37,46 +38,29 @@ class CategoryMapper extends AbstractModelCrud {
      */
     public function read(array $credentials = [], array $relations = []) {
 
-        $result = $this->getInstance()->find($credentials);
+        // find records by credentials
+        $result = (isset($credentials['bind']) === true)
+            ? $this->getInstance()->findFirst($credentials['bind'][0])
+            : $this->getInstance()->find($credentials);
 
-        if($result->count() > 0) {
-            //@TODO Set nested tree output
-//            if($result->count() > 1) {
-//                $this->setNestedTree($result->toArray(), 'parent_id');
-//            }
-            return (new CategoryDTO())->setCategories($result);
+        // get count data
+        $count = (
+            ($result != false) ? $result->count() :
+            ($result instanceof ModelInterface) ? 1 : null
+        );
+
+        // resolve model response
+        $result = (
+            ($count == 1) ? (new CategoryDTO())->setCategoryItems($result->getItems($this->filterParams($credentials))) :
+            (($count > 0) ? (new CategoryDTO())->setCategories($result) : null)
+        );
+
+        if(null != $result) {
+            return $result;
         }
 
         throw new NotFoundException([
             'RECORDS_NOT_FOUND'  =>  'The records not found'
         ]);
-    }
-
-    /**
-     * Nested Tree builder
-     *
-     * @param array $array
-     * @param int   $key
-     * @return array
-     */
-    public function setNestedTree(array $elements, $key)
-    {
-        $branch = [];
-
-        foreach($elements as $element) {
-
-            if (is_null($element[$key]) === true) {
-                $branch[$element['id']] = $element;
-                $id = $element['id'];
-                continue;
-            }
-            else if($element['parent_id'] !== $id) {
-                $branch[$id]['childs'][0]['childs'][] = $element;
-            }
-            else {
-                $branch[$id]['childs'][] = $element;
-            }
-        }
-        return array_values($branch);
     }
 }

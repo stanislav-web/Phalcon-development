@@ -40,6 +40,26 @@ class CategoryDTO extends AbstractDTO
     }
 
     /**
+     * Setup category items
+     *
+     * @param \Phalcon\Mvc\Model\Resultset\Simple $categoryItems
+     * @return $this
+     */
+    public function setCategoryItems(\Phalcon\Mvc\Model\Resultset\Simple $categoryItems) {
+
+        //@TODO resolve $categoryItems
+
+        $this->categories = Node::setNestedTree($categoryItems->toArray());
+        $this->categories['total'] = $this->total($categoryItems);
+        $this->categories['limit'] = $this->limit($categoryItems);
+        $this->categories['offset'] = $this->offset();
+
+        return $this;
+    }
+
+
+
+    /**
      * Reverse object to real array for all public properties
      *
      * @param object $object

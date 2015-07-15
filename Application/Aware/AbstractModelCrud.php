@@ -21,6 +21,13 @@ use Phalcon\DI\InjectionAwareInterface;
 abstract class AbstractModelCrud implements InjectionAwareInterface {
 
     /**
+     * Allowed additional params
+     *
+     * @const BASE_PARAMS
+     */
+    const BASE_PARAMS = ['offset', 'limit'];
+
+    /**
      * Dependency injection container
      *
      * @var \Phalcon\DiInterface $di;
@@ -70,6 +77,17 @@ abstract class AbstractModelCrud implements InjectionAwareInterface {
     }
 
     /**
+     * Filter request models params by allowed
+     *
+     * @param $params
+     *
+     * @return array
+     */
+    protected function filterParams($params) {
+        return array_intersect_key($params, array_flip(self::BASE_PARAMS));
+    }
+
+    /**
      * Create record row
      *
      * @param array $data
@@ -78,7 +96,7 @@ abstract class AbstractModelCrud implements InjectionAwareInterface {
      *
      * @return \Phalcon\Mvc\Model
      */
-    public function create(array $data) {
+    protected function create(array $data) {
 
         $model = $this->getInstance();
 
@@ -107,7 +125,7 @@ abstract class AbstractModelCrud implements InjectionAwareInterface {
      * @throws BadRequestException
      * @return boolean
      */
-    public function update(\Phalcon\Mvc\Model $model, array $credentials) {
+    protected function update(\Phalcon\Mvc\Model $model, array $credentials) {
 
         if($model->update($credentials, array_keys($credentials))) {
             return true;
@@ -146,7 +164,7 @@ abstract class AbstractModelCrud implements InjectionAwareInterface {
      * @return \Phalcon\Mvc\Model\Resultset\Simple
      * @throws \Application\Modules\Rest\Exceptions\NotFoundException
      */
-    public function getRelated(array $params) {
+    protected function getRelated(array $params) {
 
         // get relation mapper
         $mapper = $this->getDi()->get($params['mapper']);
