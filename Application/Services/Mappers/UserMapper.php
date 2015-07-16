@@ -71,7 +71,7 @@ class UserMapper extends AbstractModelCrud {
         }
 
         throw new NotFoundException([
-            'RECORDS_NOT_FOUND'  =>  'The records not found'
+            'RECORDS_NOT_FOUND'  =>  $this->getTranslator()->translate('RECORDS_NOT_FOUND')
         ]);
     }
 

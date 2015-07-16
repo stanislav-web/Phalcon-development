@@ -76,6 +76,7 @@ trait Node {
         $branch = [];
 
         foreach ($elements as $element) {
+
             if ($element['parent_id'] == $parentId) {
                 $children = self::setNestedTree($elements, $element['id']);
                 if ($children) {
@@ -84,7 +85,6 @@ trait Node {
                 $branch[] = $element;
             }
         }
-
         return $branch;
     }
 

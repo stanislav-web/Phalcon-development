@@ -65,10 +65,10 @@ class UserDTO extends AbstractDTO
     /**
      * Setup user access
      *
-     * @param \Application\Models\UserAccess $access
+     * @param \Phalcon\Mvc\ModelInterface $access
      * @return \Application\Modules\Rest\DTO\UserDTO
      */
-    public function setAccess($access) {
+    public function setAccess(\Phalcon\Mvc\ModelInterface $access) {
 
         $this->access = $access->toArray();
         $this->access['total'] = $this->total($access);
@@ -93,10 +93,10 @@ class UserDTO extends AbstractDTO
     /**
      * Setup roles
      *
-     * @param \Application\Models\UserRoles $roles
+     * @param \Phalcon\Mvc\ModelInterface $roles
      * @return \Application\Modules\Rest\DTO\UserDTO
      */
-    public function setRoles(\Application\Models\UserRoles $roles) {
+    public function setRoles(\Phalcon\Mvc\ModelInterface $roles) {
 
         $this->roles = $roles->toArray();
 

@@ -50,8 +50,9 @@ class CategoryMapper extends AbstractModelCrud {
         );
 
         // resolve model response
+
         $result = (
-            ($count == 1) ? (new CategoryDTO())->setCategoryItems($result->getItems($this->filterParams($credentials))) :
+            ($count == 1 && $result instanceof ModelInterface) ? (new CategoryDTO())->setCategoryItems($result, $result->getItems($this->filterParams($credentials))) :
             (($count > 0) ? (new CategoryDTO())->setCategories($result) : null)
         );
 
@@ -60,7 +61,7 @@ class CategoryMapper extends AbstractModelCrud {
         }
 
         throw new NotFoundException([
-            'RECORDS_NOT_FOUND'  =>  'The records not found'
+            'RECORDS_NOT_FOUND'  =>  $this->getTranslator()->translate('RECORDS_NOT_FOUND')
         ]);
     }
 }

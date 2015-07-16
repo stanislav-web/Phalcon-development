@@ -88,6 +88,20 @@ abstract class AbstractModelCrud implements InjectionAwareInterface {
     }
 
     /**
+     * Get Translate service
+     *
+     * @return \Translate\Translator|null
+     */
+    protected function getTranslator() {
+
+        if($this->getDi()->has('TranslateService') === true) {
+            return $this->getDi()->get('TranslateService')->assign('errors');
+        }
+
+        return null;
+    }
+
+    /**
      * Create record row
      *
      * @param array $data
@@ -96,7 +110,7 @@ abstract class AbstractModelCrud implements InjectionAwareInterface {
      *
      * @return \Phalcon\Mvc\Model
      */
-    protected function create(array $data) {
+    public function create(array $data) {
 
         $model = $this->getInstance();
 

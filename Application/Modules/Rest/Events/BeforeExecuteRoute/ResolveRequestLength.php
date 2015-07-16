@@ -32,7 +32,7 @@ class ResolveRequestLength extends RestValidatorProvider {
 
         if($this->isValidQuery() === false) {
             throw new LongRequestException([
-                'LONG_REQUEST'  =>  'Too many parameters in the query string'
+                'LONG_REQUEST'  =>  $this->getTranslator()->translate('LONG_REQUEST')
             ]);
         }
     }
