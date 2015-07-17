@@ -30,42 +30,27 @@ var notify = null;
     }])
 
     // setup global scope variables
-    .run(['$rootScope', 'Restangular', 'amMoment', '$notification', '$location',
-        function ($rootScope, Restangular, amMoment, $notification, $location) {
+    .run(['$rootScope', 'amMoment', '$notification', '$location', 'LanguageService', 'CategoriesService', 'CurrenciesService',
+        function ($rootScope, amMoment, $notification, $location, LanguageService, CategoriesService, CurrenciesService) {
 
-            // get engine -> categories
-            Restangular.one("engines", CONFIG.ENGINE_ID).customGET("categories").then(function(response) {
-
-                response.categories.map(function(category) {
-                    if(category.hasOwnProperty('childs')) {
-                        // partition array by fixed chunk
-                        category.childs = _.chunk(category.childs, CONFIG.LIST.PARTS);
-                    }
-                });
+            //  load engine's categories
+            CategoriesService.load(function(response) {
                 $rootScope.categories   = response.categories;
                 $rootScope.engines      = response.engines;
                 $rootScope.bannersOn    = CONFIG.BANNERS;
                 $rootScope.banners      = response.banners;
             });
 
-            // get & configure shop currencies
-            Restangular.all("currencies").getList().then(function(response) {
-
-                $rootScope.currencies = [];
-
-                response.forEach(function(value) {
-                    $rootScope.currencies.push({
-                        icon : '<img class="lang-sm lang-lbl" lang="' +value.code.toLowerCase()+ '">',
-                        name : value.name,
-                        maker : value.symbol,
-                        ticked : (value.code === CONFIG.DEFAULT_CURRENCY) ? true : false
-                    });
-                });
+            // load & configure shop currencies
+            CurrenciesService.load(function(response) {
+                $rootScope.currencies = response;
             });
 
             // getting store locale
-            $rootScope.currentLanguage = localStorage.getItem(CONFIG.LANGUAGES.PREFIX) || CONFIG.LANGUAGES.DEFAULT;
+            LanguageService.get();
+            $rootScope.currentLanguage = LanguageService.get();
 
+            // set date localization
             amMoment.changeLocale($rootScope.currentLanguage);
 
             // overwite global notify storage
