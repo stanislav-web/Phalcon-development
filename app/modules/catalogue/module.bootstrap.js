@@ -6,6 +6,7 @@
     angular.module('app.catalogue', [])
 
         .constant('ModuleCatalogueConfig', {
+
         });
 
 })(angular);

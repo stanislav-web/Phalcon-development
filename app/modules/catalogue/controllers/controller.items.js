@@ -7,11 +7,16 @@
      *
      * Control item's representation.
      */
-    angular.module('app.catalogue').controller('ItemsController', ['Document', '$scope',
-        function(Document, $scope) {
+    angular.module('app.catalogue').controller('ItemsController', ['Document', '$scope', 'CategoriesService',
+        function(Document, $scope, CategoriesService) {
 
-            // set meta title
-            //Document.setTitle(engine.name);
+            // load current category
+            CategoriesService.getCurrentCategory(function(category) {
+
+                // set meta title
+                Document.setTitle(category.title);
+                $scope.category = category;
+            });
         }
     ]);
 
