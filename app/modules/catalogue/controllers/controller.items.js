@@ -13,9 +13,11 @@
             // load current category
             CategoriesService.getCurrentCategory(function(category) {
 
-                // set meta title
-                Document.setTitle(category.title);
-                $scope.category = category;
+                if(category) {
+                    // set meta title
+                    Document.setTitle(category.title);
+                    $scope.category = category;
+                }
             });
         }
     ]);

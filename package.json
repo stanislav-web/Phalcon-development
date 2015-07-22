@@ -34,6 +34,7 @@
     "gulp-notify": "^2.2.0",
     "gulp-rename": "^1.2.2",
     "gulp-uglifyjs": "^0.6.1",
+    "gulp-if": "^1.2.5",
     "jasmine-core": "~2.2.0",
     "jshint": "latest",
     "karma": "^0.12.37",
@@ -47,7 +48,7 @@
   },
   "scripts": {
     "clean": "rm -r ./build/*",
-    "build": "gulp default",
+    "build": "NODE_ENV=production gulp default",
     "check": "jshint ./build/src/*.js",
     "test": "NODE_ENV=dev karma start karma.conf.js",
     "deploy": "node ./deploy.js",

@@ -1,10 +1,22 @@
+/**
+ * Gulp modules
+ */
 var gulp        = require('gulp'),
     concat      = require('gulp-concat-css'),
     minify      = require('gulp-minify-css'),
     rename      = require('gulp-rename'),
     uglify      = require('gulp-uglifyjs'),
-    jscpd       = require('gulp-jscpd');
+    jscpd       = require('gulp-jscpd'),
+    gulpif      = require('gulp-if');
 
+/**
+ * Build environment
+ */
+var env = process.env.NODE_ENV;
+
+/**
+ * Build params
+ */
 var build = {
     destination : {
         sources : './build/src/',
@@ -53,9 +65,9 @@ gulp.task('app', function() {
                   'min-lines': 10,
                   verbose    : true
               }))
-        .pipe(uglify(build.min.app, {
+        .pipe(gulpif(env === 'production', uglify(build.min.app, {
                   outSourceMap: true
-              }))
+              })))
         .pipe(gulp.dest(build.destination.sources));
 });
 
@@ -67,9 +79,9 @@ gulp.task('tests', function() {
                   'min-lines': 10,
                   verbose    : true
               }))
-        .pipe(uglify(build.min.tests, {
+        .pipe(gulpif(env === 'production', uglify(build.min.tests, {
                   outSourceMap: true
-              }))
+              })))
         .pipe(gulp.dest(build.destination.spec));
 });
 
@@ -77,9 +89,9 @@ gulp.task('tests', function() {
 gulp.task('plugins', function() {
 
     return gulp.src(build.tpl.plugins)
-        .pipe(uglify(build.min.plugins, {
+        .pipe(gulpif(env === 'production', uglify(build.min.plugins, {
                   outSourceMap: true
-              }))
+              })))
         .pipe(gulp.dest(build.destination.sources));
 });
 
