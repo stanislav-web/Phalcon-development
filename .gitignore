@@ -47,6 +47,6 @@ crashlytics-build.properties
 # My ignored directives
 logs
 vendor/
+tests/_output/*
 config/application.php
 config/development.php
-tests/_output/*
