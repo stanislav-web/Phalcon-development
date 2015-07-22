@@ -64,8 +64,6 @@ class CategoryDTO extends AbstractDTO
         return $this;
     }
 
-
-
     /**
      * Reverse object to real array for all public properties
      *

@@ -122,7 +122,7 @@ abstract class RestSecurityProvider implements InjectionAwareInterface {
 
     /**
      * Generate random string
-     *
+     * @uses \Phalcon\Text
      * @return string
      */
     public function randomString() {
