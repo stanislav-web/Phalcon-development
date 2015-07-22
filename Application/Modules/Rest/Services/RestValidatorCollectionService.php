@@ -36,7 +36,6 @@ class RestValidatorCollectionService extends RestValidatorCollectionsProvider {
      */
     public function filter(\Phalcon\Http\Request $request) {
 
-
         $collection = $this->getCollection();
         $this->setParams($request)->setRequest($request);
 
@@ -58,10 +57,14 @@ class RestValidatorCollectionService extends RestValidatorCollectionsProvider {
         // find primary
         $primary= [];
         $dispatchParams = $this->getDispatcher()->getParams();
+
         if(array_key_exists('id', $dispatchParams)) {
+
             $primary = [
-                "id = ?0",
-                "bind" => [$dispatchParams['id']],
+                (strpos($dispatchParams['id'], ',') != false) ? "id IN ({id:array})" : "id = ?0",
+                "bind" => (strpos($dispatchParams['id'], ',') != false) ? [
+                    'id' => explode(',', $dispatchParams['id'])
+                ] : [(Int)$dispatchParams['id']],
             ];
 
             unset($dispatchParams['id']);
@@ -96,6 +99,7 @@ class RestValidatorCollectionService extends RestValidatorCollectionsProvider {
      */
     public function filterParams(array $params, array $filters)
     {
+
         $filter = new Filter();
 
         if(isset($params['_url'])) {
@@ -105,7 +109,10 @@ class RestValidatorCollectionService extends RestValidatorCollectionsProvider {
         return array_map(function ($value) use ($filter, $filters) {
 
             foreach ($filters as $func) {
-                $value = $filter->sanitize($value, $func);
+
+                if(is_array($value) == false) {
+                    $value = $filter->sanitize($value, $func);
+                }
             }
 
             return $value;

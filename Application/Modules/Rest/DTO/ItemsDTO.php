@@ -23,6 +23,13 @@ class ItemsDTO extends AbstractDTO
     public $items = [];
 
     /**
+     * Items attributes collection
+     *
+     * @var array
+     */
+    public $attributes = [];
+
+    /**
      * Setup banners
      *
      * @param \Phalcon\Mvc\Model\Resultset\Simple $items
@@ -34,6 +41,20 @@ class ItemsDTO extends AbstractDTO
         $this->items['total'] = $this->total($items);
         $this->items['limit'] = $this->limit($items);
         $this->items['offset'] = $this->offset();
+
+        return $this;
+    }
+
+    /**
+     * Setup item's attributes
+     *
+     * @param \Phalcon\Mvc\Model\Resultset\Simple $attributes
+     * @todo resolve nested attributes into items
+     * @return $this
+     */
+    public function setAttributes(\Phalcon\Mvc\Model\Resultset\Simple $attributes) {
+
+        $this->attributes[] = $attributes->toArray();
 
         return $this;
     }

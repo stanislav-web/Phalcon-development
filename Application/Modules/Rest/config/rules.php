@@ -225,6 +225,14 @@ return [
             ],
             'methods'   =>  'GET',
             'mapper'    =>  'ItemsMapper',
+            'relations' =>  [
+                'attributes' => [
+                    'mapper' => 'ItemAttributeValuesMapper',
+                    'rel'     => [
+                        'id' => 'item_id'
+                    ]
+                ]
+            ]
         ],
     ],
     'errors'  =>  [
