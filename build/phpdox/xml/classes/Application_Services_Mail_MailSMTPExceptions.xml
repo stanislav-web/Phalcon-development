@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Application\Services\Mail\MailSMTPExceptions" namespace="Application\Services\Mail" name="MailSMTPExceptions" abstract="false" final="false" start="17" end="40">
+  <file path="/var/www/backend.local/Application/Services/Mail" file="MailSMTPExceptions.php" realpath="/var/www/backend.local/Application/Services/Mail/MailSMTPExceptions.php" size="1041" time="2015-07-22T21:33:28+00:00" unixtime="1437600808" sha1="94ada72c72bffb2584ca40b114eb6404741c630d" relative="Services/Mail/MailSMTPExceptions.php"/>
+  <docblock>
+    <description compact="Class MailSMTPExceptions. SMTP Mailer exception handler"/>
+    <package value="Application\Services"/>
+    <subpackage value="Mail"/>
+    <since value="PHP &gt;=5.6"/>
+    <version value="1.0"/>
+    <author value="Stanislav WEB | Lugansk &lt;stanisov@gmail.com&gt;"/>
+    <copyright value="Stanislav WEB"/>
+    <filesource value="/Application/Services/Mail/MailSMTPExceptions.php"/>
+  </docblock>
+  <implements full="Swift_Events_TransportExceptionListener" namespace="" name="Swift_Events_TransportExceptionListener" unresolved="true"/>
+  <method name="exceptionThrown" start="26" end="39" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Invoked as a TransportException is thrown in the Transport system."/>
+      <param type="object" variable="$evt">
+        <type full="\Swift_Events_TransportExceptionEvent" namespace="" name="Swift_Events_TransportExceptionEvent"/>
+      </param>
+      <throws type="object">
+        <type full="\Swift_TransportException" namespace="" name="Swift_TransportException"/>
+      </throws>
+    </docblock>
+    <parameter name="evt" byreference="false" type="object">
+      <type full="Swift_Events_TransportExceptionEvent" namespace="" name="Swift_Events_TransportExceptionEvent"/>
+    </parameter>
+  </method>
+</class>

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Application\Modules\Rest\Services\RestCacheService" namespace="Application\Modules\Rest\Services" name="RestCacheService" abstract="false" final="false" start="18" end="163">
+  <file path="/var/www/backend.local/Application/Modules/Rest/Services" file="RestCacheService.php" realpath="/var/www/backend.local/Application/Modules/Rest/Services/RestCacheService.php" size="3280" time="2015-07-22T21:33:28+00:00" unixtime="1437600808" sha1="a84baed37867f7a9042e567f1be104e4389a7ad1" relative="Modules/Rest/Services/RestCacheService.php"/>
+  <docblock>
+    <description compact="Class RestCacheService. Web Service's response cache class"/>
+    <package value="Application\Modules\Rest"/>
+    <subpackage value="Services"/>
+    <since value="PHP &gt;=5.6"/>
+    <version value="1.0"/>
+    <author value="Stanislav WEB | Lugansk &lt;stanisov@gmail.com&gt;"/>
+    <copyright value="Stanislav WEB"/>
+    <filesource value="/Application/Modules/Rest/Services/RestCacheService.php"/>
+  </docblock>
+  <member name="config" visibility="private" line="25">
+    <docblock>
+      <description compact="Rest config"/>
+      <var description="$config" type="object">
+        <type full="\Phalcon\Config" namespace="\Phalcon" name="Config"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="cached" type="boolean" default="false" visibility="private" line="32">
+    <docblock>
+      <description compact="Cache data state"/>
+      <var type="object">
+        <type full="Application\Modules\Rest\Services\bool" namespace="Application\Modules\Rest\Services" name="bool"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="key" type="string" default="''" visibility="private" line="39">
+    <docblock>
+      <description compact="Cache data key"/>
+      <var type="string"/>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="46" end="49" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Init configurations"/>
+      <param type="object" variable="$config">
+        <type full="\Phalcon\Config" namespace="\Phalcon" name="Config"/>
+      </param>
+    </docblock>
+    <parameter name="config" byreference="false" type="object">
+      <type full="Phalcon\Config" namespace="Phalcon" name="Config"/>
+    </parameter>
+  </constructor>
+  <method name="getConfig" start="56" end="59" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Get cache configuration"/>
+      <return type="object">
+        <type full="\Phalcon\Config" namespace="\Phalcon" name="Config"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="setConfig" start="66" end="69" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Set cache configuration"/>
+      <param type="object" variable="$config">
+        <type full="\Phalcon\Config" namespace="\Phalcon" name="Config"/>
+      </param>
+    </docblock>
+    <parameter name="config" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="set" start="79" end="90" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Set cache value into cache storage"/>
+      <param type="mixed" variable="$object"/>
+      <param type="string" variable="$key"/>
+      <param type="object" variable="$cached">
+        <type full="Application\Modules\Rest\Services\bool" namespace="Application\Modules\Rest\Services" name="bool"/>
+      </param>
+      <return description="cached object" type="mixed"/>
+    </docblock>
+    <parameter name="value" byreference="false" type="{unknown}"/>
+    <parameter name="key" byreference="false" type="{unknown}"/>
+    <parameter name="cached" byreference="false" type="boolean" default="false"/>
+  </method>
+  <method name="exists" start="98" end="105" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Check if key is exist in cache"/>
+      <param type="string" variable="$key"/>
+      <return type="object">
+        <type full="Application\Modules\Rest\Services\bool" namespace="Application\Modules\Rest\Services" name="bool"/>
+      </return>
+    </docblock>
+    <parameter name="key" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="get" start="113" end="118" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Get value from cache storage"/>
+      <param type="string" variable="$key"/>
+      <return type="mixed"/>
+    </docblock>
+    <parameter name="key" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getStorage" start="125" end="134" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Get the cache storage"/>
+      <return type="object">
+        <type full="\Phalcon\Cache\Backend\Memcache" namespace="\Phalcon\Cache\Backend" name="Memcache"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="getLifetime" start="141" end="143" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Return cache lifetime"/>
+      <return type="int"/>
+    </docblock>
+  </method>
+  <method name="getKey" start="150" end="153" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Return cache hot key"/>
+      <return type="string"/>
+    </docblock>
+  </method>
+  <method name="isCached" start="160" end="162" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Return cache data state"/>
+      <return type="boolean"/>
+    </docblock>
+  </method>
+</class>

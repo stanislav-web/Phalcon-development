@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Application\Models\Engines" namespace="Application\Models" name="Engines" abstract="false" final="false" start="19" end="193">
+  <file path="/var/www/backend.local/Application/Models" file="Engines.php" realpath="/var/www/backend.local/Application/Models/Engines.php" size="4887" time="2015-07-22T21:33:28+00:00" unixtime="1437600808" sha1="eedf6848acbc9bbae6ea59844b00c7f31bbd904b" relative="Models/Engines.php"/>
+  <docblock>
+    <description compact="Class Engines `engines`"/>
+    <package value="Application"/>
+    <subpackage value="Models"/>
+    <since value="PHP &gt;=5.6"/>
+    <version value="1.0"/>
+    <author value="Stanislav WEB | Lugansk &lt;stanisov@gmail.com&gt;"/>
+    <filesource value="/Application/Models/Engines.php"/>
+  </docblock>
+  <extends full="Phalcon\Mvc\Model" namespace="Phalcon\Mvc" name="Model" unresolved="true"/>
+  <constant type="string" name="TABLE" value="'\Application\Models\Engines'">
+    <docblock>
+      <description compact="Absolute model name"/>
+      <const/>
+    </docblock>
+  </constant>
+  <member name="id" visibility="public" line="32">
+    <docblock>
+      <description/>
+      <var type="integer"/>
+    </docblock>
+  </member>
+  <member name="host" visibility="public" line="37">
+    <docblock>
+      <description/>
+      <var type="string"/>
+    </docblock>
+  </member>
+  <member name="name" visibility="public" line="42">
+    <docblock>
+      <description/>
+      <var type="string"/>
+    </docblock>
+  </member>
+  <member name="description" visibility="public" line="47">
+    <docblock>
+      <description/>
+      <var type="string"/>
+    </docblock>
+  </member>
+  <member name="code" visibility="public" line="52">
+    <docblock>
+      <description/>
+      <var type="string"/>
+    </docblock>
+  </member>
+  <member name="logo" visibility="public" line="57">
+    <docblock>
+      <description/>
+      <var type="string"/>
+    </docblock>
+  </member>
+  <member name="currency_id" visibility="public" line="62">
+    <docblock>
+      <description/>
+      <var type="integer"/>
+    </docblock>
+  </member>
+  <member name="date_create" visibility="public" line="69">
+    <docblock>
+      <description compact="Datetime create"/>
+      <var type="object">
+        <type full="Application\Models\datetime" namespace="Application\Models" name="datetime"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="date_update" visibility="public" line="76">
+    <docblock>
+      <description compact="Timestamp add"/>
+      <var type="object">
+        <type full="Application\Models\timestamp" namespace="Application\Models" name="timestamp"/>
+      </var>
+    </docblock>
+  </member>
+  <method name="initialize" start="81" end="97" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Initialize Model"/>
+    </docblock>
+    <inline>
+      <comment value="its allow to keep empty data to my db" line="83"/>
+      <comment value="local_filed, reference Model, referenced_field" line="88"/>
+    </inline>
+  </method>
+  <method name="getCurrency" start="104" end="107" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Get currency related records"/>
+      <return type="object">
+        <type full="\Application\Models\Currency" namespace="\Application\Models" name="Currency"/>
+      </return>
+    </docblock>
+    <parameter name="parameters" byreference="false" type="{unknown}" default="" constant="null"/>
+  </method>
+  <method name="getBanners" start="114" end="117" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Get banners related records"/>
+      <return type="object">
+        <type full="\Application\Models\Banners" namespace="\Application\Models" name="Banners"/>
+      </return>
+    </docblock>
+    <parameter name="parameters" byreference="false" type="{unknown}" default="" constant="null"/>
+  </method>
+  <method name="beforeValidationOnCreate" start="122" end="159" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <return type="object">
+        <type full="Application\Models\bool" namespace="Application\Models" name="bool"/>
+      </return>
+    </docblock>
+    <inline>
+      <comment value="Do the validations" line="124"/>
+    </inline>
+  </method>
+  <method name="beforeValidationOnUpdate" start="164" end="192" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description/>
+      <return type="object">
+        <type full="Application\Models\bool" namespace="Application\Models" name="bool"/>
+      </return>
+    </docblock>
+    <inline>
+      <comment value="Do the validations" line="166"/>
+    </inline>
+  </method>
+</class>

@@ -52,7 +52,8 @@ class CategoryMapper extends AbstractModelCrud {
         // resolve model response
 
         $result = (
-            ($count == 1 && $result instanceof ModelInterface) ? (new CategoryDTO())->setCategoryItems($result, $result->getItems($this->filterParams($credentials))) :
+            ($count == 1 && $result instanceof ModelInterface)
+                ? (new CategoryDTO())->setCategoryItems($result, $result->getItems($this->filterParams($credentials))) :
             (($count > 0) ? (new CategoryDTO())->setCategories($result) : null)
         );
 

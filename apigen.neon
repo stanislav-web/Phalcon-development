@@ -42,4 +42,4 @@ source:
     - Application
 
 # The ultimate directory (you can see the result, the relative path from the directory run apigen)
-destination: ./api
+destination: ./build/api

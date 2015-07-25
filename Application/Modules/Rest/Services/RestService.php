@@ -211,6 +211,7 @@ class RestService implements RestServiceInterface {
 
     /**
      * Get related mappers
+     * Hard code resolver :(
      *
      * @return array
      */
@@ -224,12 +225,35 @@ class RestService implements RestServiceInterface {
                 // if isset rel name in rules ?
                 if(isset($this->getParams()[$relation]) === true) {
 
-                    $rule['rel'] = (is_numeric($this->getParams()[$relation]) === true)
-                        ? [ current($rule['rel'])   => (int)array_shift($this->getParams()['bind']),
-                            key($rule['rel'])       => (int)$this->getParams()[$relation]
-                        ] :[
-                            current($rule['rel'])   => (int)array_shift($this->getParams()['bind']),
+                    if(is_numeric($this->getParams()[$relation]) === true) {
+
+                        $rule['rel'] = [
+                            current($rule['rel']) => (int)array_shift($this->getParams()['bind']),
+                            key($rule['rel'])     => (int)$this->getParams()[$relation]
                         ];
+                    }
+                    else {
+
+                        $bind = array_shift($this->getParams()['bind']);
+
+                        if(is_numeric($bind) === false) {
+                            $rule['rel'] = [
+                                current($rule['rel'])   => $bind,
+                            ];
+                        }
+                        else {
+                            $rule['rel'] = [
+                                current($rule['rel'])   => (int)$this->getParams()['bind'],
+                            ];
+                        }
+                    }
+
+//                    $rule['rel'] = (is_numeric($this->getParams()[$relation]) === true)
+//                        ? [ current($rule['rel'])   => (int)array_shift($this->getParams()['bind']),
+//                            key($rule['rel'])       => (int)$this->getParams()[$relation]
+//                        ] :[
+//                            current($rule['rel'])   => (int)array_shift($this->getParams()['bind']),
+//                        ];
 
                     $relations[$relation] = $rule;
                 }

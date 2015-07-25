@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Application\Modules\Rest\Controllers\ControllerBase" namespace="Application\Modules\Rest\Controllers" name="ControllerBase" abstract="false" final="false" start="16" end="58">
+  <file path="/var/www/backend.local/Application/Modules/Rest/Controllers" file="ControllerBase.php" realpath="/var/www/backend.local/Application/Modules/Rest/Controllers/ControllerBase.php" size="1266" time="2015-07-22T21:33:28+00:00" unixtime="1437600808" sha1="4be4d7a50294b9f0bb4010abbf65d378be42291b" relative="Modules/Rest/Controllers/ControllerBase.php"/>
+  <docblock>
+    <description compact="Class ControllerBase"/>
+    <package value="Application\Modules\Rest"/>
+    <subpackage value="Controllers"/>
+    <since value="PHP &gt;=5.6"/>
+    <version value="1.0"/>
+    <author value="Stanislav WEB | Lugansk &lt;stanisov@gmail.com&gt;"/>
+    <filesource value="/Application/Modules/Rest/Controllers/ControllerBase.php"/>
+  </docblock>
+  <extends full="Phalcon\Mvc\Controller" namespace="Phalcon\Mvc" name="Controller" unresolved="true"/>
+  <member name="rest" visibility="protected" line="23">
+    <docblock>
+      <description compact="Rest service"/>
+      <var description="$rest" type="object">
+        <type full="\Application\Modules\Rest\Services\RestService" namespace="\Application\Modules\Rest\Services" name="RestService"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="response" type="array" default="" visibility="protected" line="30">
+    <docblock>
+      <description compact="Response data (override)"/>
+      <var description="$response" type="array"/>
+    </docblock>
+  </member>
+  <method name="beforeExecuteRoute" start="35" end="39" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Event before routes execute"/>
+    </docblock>
+  </method>
+  <method name="afterExecuteRoute" start="46" end="50" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Send response collection put from controllers"/>
+      <return type="object">
+        <type full="\Phalcon\Http\ResponseInterface" namespace="\Phalcon\Http" name="ResponseInterface"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="afterDispatch" start="55" end="57" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Garbage clean"/>
+    </docblock>
+  </method>
+  <extenders>
+    <extender full="Application\Modules\Rest\Controllers\SubscribeController" namespace="Application\Modules\Rest\Controllers" name="SubscribeController"/>
+    <extender full="Application\Modules\Rest\Controllers\UsersController" namespace="Application\Modules\Rest\Controllers" name="UsersController"/>
+    <extender full="Application\Modules\Rest\Controllers\SignController" namespace="Application\Modules\Rest\Controllers" name="SignController"/>
+    <extender full="Application\Modules\Rest\Controllers\PagesController" namespace="Application\Modules\Rest\Controllers" name="PagesController"/>
+    <extender full="Application\Modules\Rest\Controllers\CurrenciesController" namespace="Application\Modules\Rest\Controllers" name="CurrenciesController"/>
+    <extender full="Application\Modules\Rest\Controllers\FilesController" namespace="Application\Modules\Rest\Controllers" name="FilesController"/>
+    <extender full="Application\Modules\Rest\Controllers\ItemsController" namespace="Application\Modules\Rest\Controllers" name="ItemsController"/>
+    <extender full="Application\Modules\Rest\Controllers\LogsController" namespace="Application\Modules\Rest\Controllers" name="LogsController"/>
+    <extender full="Application\Modules\Rest\Controllers\ValuesController" namespace="Application\Modules\Rest\Controllers" name="ValuesController"/>
+    <extender full="Application\Modules\Rest\Controllers\EnginesController" namespace="Application\Modules\Rest\Controllers" name="EnginesController"/>
+    <extender full="Application\Modules\Rest\Controllers\TestController" namespace="Application\Modules\Rest\Controllers" name="TestController"/>
+    <extender full="Application\Modules\Rest\Controllers\CategoriesController" namespace="Application\Modules\Rest\Controllers" name="CategoriesController"/>
+    <extender full="Application\Modules\Rest\Controllers\BannersController" namespace="Application\Modules\Rest\Controllers" name="BannersController"/>
+    <extender full="Application\Modules\Rest\Controllers\AttributesController" namespace="Application\Modules\Rest\Controllers" name="AttributesController"/>
+    <extender full="Application\Modules\Rest\Controllers\ErrorsController" namespace="Application\Modules\Rest\Controllers" name="ErrorsController"/>
+  </extenders>
+</class>

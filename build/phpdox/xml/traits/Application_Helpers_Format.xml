@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<trait xmlns="http://xml.phpdox.net/src" full="Application\Helpers\Format" namespace="Application\Helpers" name="Format" abstract="false" final="false" start="15" end="47">
+  <file path="/var/www/backend.local/Application/Helpers" file="Format.php" realpath="/var/www/backend.local/Application/Helpers/Format.php" size="1238" time="2015-07-22T21:33:28+00:00" unixtime="1437600808" sha1="c81a6ad29afdd1c1c7f5125cec1cc56b2988f6c2" relative="Helpers/Format.php"/>
+  <docblock>
+    <description compact="Format class. Data formatting"/>
+    <package value="Application"/>
+    <subpackage value="Helpers"/>
+    <since value="PHP &gt;=5.6"/>
+    <version value="1.0"/>
+    <author value="Stanislav WEB | Lugansk &lt;stanisov@gmail.com&gt;"/>
+    <copyright value="Stanilav WEB"/>
+    <filesource value="/Application/Helpers/Format.php"/>
+  </docblock>
+  <method name="formatBytes" start="24" end="28" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Format byte code to human understand"/>
+      <param description="number of bytes" type="int" variable="$bytes"/>
+      <param description="after comma numbers" type="int" variable="$precision"/>
+      <return type="string"/>
+    </docblock>
+    <parameter name="bytes" byreference="false" type="{unknown}"/>
+    <parameter name="precision" byreference="false" type="integer" default="2"/>
+  </method>
+  <method name="callStack" start="35" end="46" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Format call stack trace"/>
+      <param type="array" variable="$stacktrace"/>
+    </docblock>
+    <parameter name="stacktrace" byreference="false" type="{unknown}"/>
+  </method>
+  <users>
+    <class full="Application\Services\Advanced\HelpersService" namespace="Application\Services\Advanced" name="HelpersService"/>
+  </users>
+</trait>

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Application\Models\Items" namespace="Application\Models" name="Items" abstract="false" final="false" start="14" end="109">
+  <file path="/var/www/backend.local/Application/Models" file="Items.php" realpath="/var/www/backend.local/Application/Models/Items.php" size="1765" time="2015-07-22T21:33:28+00:00" unixtime="1437600808" sha1="475fa89f2824376ba810ecd9f5c5f2802d9878b3" relative="Models/Items.php"/>
+  <docblock>
+    <description compact="Class Items `items`"/>
+    <package value="Application"/>
+    <subpackage value="Models"/>
+    <since value="PHP &gt;=5.6"/>
+    <version value="1.0"/>
+    <author value="Stanislav WEB | Lugansk &lt;stanisov@gmail.com&gt;"/>
+    <filesource value="/Application/Models/Items.php"/>
+  </docblock>
+  <extends full="Phalcon\Mvc\Model" namespace="Phalcon\Mvc" name="Model" unresolved="true"/>
+  <constant type="string" name="TABLE" value="'\Application\Models\Items'">
+    <docblock>
+      <description compact="Absolute model name"/>
+      <const/>
+    </docblock>
+  </constant>
+  <member name="id" visibility="public" line="26">
+    <docblock>
+      <description/>
+      <var type="integer"/>
+    </docblock>
+  </member>
+  <member name="name" visibility="public" line="31">
+    <docblock>
+      <description/>
+      <var type="string"/>
+    </docblock>
+  </member>
+  <member name="label" visibility="public" line="36">
+    <docblock>
+      <description/>
+      <var type="string"/>
+    </docblock>
+  </member>
+  <member name="description" visibility="public" line="41">
+    <docblock>
+      <description/>
+      <var type="string"/>
+    </docblock>
+  </member>
+  <member name="images" visibility="public" line="46">
+    <docblock>
+      <description/>
+      <var type="string"/>
+    </docblock>
+  </member>
+  <member name="previews" visibility="public" line="51">
+    <docblock>
+      <description/>
+      <var type="string"/>
+    </docblock>
+  </member>
+  <member name="is_published" visibility="public" line="56">
+    <docblock>
+      <description/>
+      <var type="boolean"/>
+    </docblock>
+  </member>
+  <member name="is_moderated" visibility="public" line="61">
+    <docblock>
+      <description/>
+      <var type="boolean"/>
+    </docblock>
+  </member>
+  <member name="in_storage" visibility="public" line="66">
+    <docblock>
+      <description/>
+      <var type="integer"/>
+    </docblock>
+  </member>
+  <member name="user_id" visibility="public" line="71">
+    <docblock>
+      <description/>
+      <var type="integer"/>
+    </docblock>
+  </member>
+  <member name="date_create" visibility="public" line="76">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="Application\Models\datetime" namespace="Application\Models" name="datetime"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="date_update" visibility="public" line="81">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="Application\Models\timestamp" namespace="Application\Models" name="timestamp"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="date_removal" visibility="public" line="86">
+    <docblock>
+      <description/>
+      <var type="object">
+        <type full="Application\Models\datetime" namespace="Application\Models" name="datetime"/>
+      </var>
+    </docblock>
+  </member>
+  <method name="initialize" start="91" end="98" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Initialize Model"/>
+    </docblock>
+    <inline>
+      <comment value="its allow to keep empty data to my db" line="93"/>
+      <comment value="keep relations with `category_items`" line="96"/>
+    </inline>
+  </method>
+  <method name="getCategories" start="105" end="108" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Get related categories"/>
+      <return type="object">
+        <type full="\Application\Models\Categories" namespace="\Application\Models" name="Categories"/>
+      </return>
+    </docblock>
+    <parameter name="parameters" byreference="false" type="{unknown}" default="" constant="null"/>
+  </method>
+</class>

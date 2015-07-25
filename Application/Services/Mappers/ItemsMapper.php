@@ -42,14 +42,16 @@ class ItemsMapper extends AbstractModelCrud {
         if($result->count() > 0) {
 
             $transfer = new ItemsDTO();
+            $transfer->setItems($result);
 
             if(empty($relations) === false) {
                 foreach($relations as $rel => $params) {
+
                     $transfer->{'set' . ucfirst($rel)}($this->getRelated($params));
                 }
             }
 
-            return $transfer->setItems($result);
+            return $transfer;
         }
 
         throw new NotFoundException([

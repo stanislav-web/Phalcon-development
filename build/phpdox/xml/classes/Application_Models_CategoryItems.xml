@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Application\Models\CategoryItems" namespace="Application\Models" name="CategoryItems" abstract="false" final="false" start="14" end="47">
+  <file path="/var/www/backend.local/Application/Models" file="CategoryItems.php" realpath="/var/www/backend.local/Application/Models/CategoryItems.php" size="956" time="2015-07-22T21:33:28+00:00" unixtime="1437600808" sha1="b4c72d2d5f4df97b9818953e4679c3704a76940c" relative="Models/CategoryItems.php"/>
+  <docblock>
+    <description compact="Class CategoryItems `category_items`"/>
+    <package value="Application"/>
+    <subpackage value="Models"/>
+    <since value="PHP &gt;=5.6"/>
+    <version value="1.0"/>
+    <author value="Stanislav WEB | Lugansk &lt;stanisov@gmail.com&gt;"/>
+    <filesource value="/Application/Models/CategoryItems.php"/>
+  </docblock>
+  <extends full="Phalcon\Mvc\Model" namespace="Phalcon\Mvc" name="Model" unresolved="true"/>
+  <constant type="string" name="TABLE" value="'\Application\Models\CategoryItems'">
+    <docblock>
+      <description compact="Absolute model name"/>
+      <const/>
+    </docblock>
+  </constant>
+  <member name="category_id" visibility="public" line="27">
+    <docblock>
+      <description/>
+      <var type="integer"/>
+    </docblock>
+  </member>
+  <member name="item_id" visibility="public" line="33">
+    <docblock>
+      <description/>
+      <var type="integer"/>
+    </docblock>
+  </member>
+  <method name="initialize" start="38" end="46" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Initialize Model"/>
+    </docblock>
+    <inline>
+      <comment value="its allow to keep empty data to my db" line="40"/>
+      <comment value="keep relations with `categories` &amp; `items`" line="43"/>
+    </inline>
+  </method>
+</class>

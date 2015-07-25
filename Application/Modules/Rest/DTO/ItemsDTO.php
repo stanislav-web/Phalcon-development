@@ -2,6 +2,7 @@
 namespace Application\Modules\Rest\DTO;
 
 use Application\Aware\AbstractDTO;
+use Application\Helpers\Node;
 
 /**
  * Class ItemsDTO. Data Transfer Object for items relationships
@@ -49,12 +50,25 @@ class ItemsDTO extends AbstractDTO
      * Setup item's attributes
      *
      * @param \Phalcon\Mvc\Model\Resultset\Simple $attributes
-     * @todo resolve nested attributes into items
-     * @return $this
+     * @return \Application\Modules\Rest\DTO\ItemsDTO
      */
     public function setAttributes(\Phalcon\Mvc\Model\Resultset\Simple $attributes) {
 
-        $this->attributes[] = $attributes->toArray();
+        $attributes = $attributes->toArray();
+
+        if(empty($this->items) === false) {
+
+            foreach($this->items as &$item) {
+                $attribute = Node::searchInArray($attributes, 'item_id', $item['id']);
+
+                if(empty($attribute) === false) {
+                    $item['attributes'] = $attribute;
+                }
+            }
+        }
+        else {
+            $this->attributes[] = $attributes;
+        }
 
         return $this;
     }

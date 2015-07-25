@@ -117,7 +117,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stanislav-web/express-mailer/zipball/0dfe19200f0525763f32125b0869eb9aff323d62",
+                "url": "https://api.github.com/repos/stanislav-web/express-mailer/zipball/aeba3f885b6129301fae0428180d7be85e116504",
                 "reference": "0dfe19200f0525763f32125b0869eb9aff323d62",
                 "shasum": ""
             },
@@ -455,7 +455,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/a3f42f68c9988f56317c3950f7eff6036d8fbe72",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/b6371185795e1819c2900a2cfce61620a02371d1",
                 "reference": "a3f42f68c9988f56317c3950f7eff6036d8fbe72",
                 "shasum": ""
             },

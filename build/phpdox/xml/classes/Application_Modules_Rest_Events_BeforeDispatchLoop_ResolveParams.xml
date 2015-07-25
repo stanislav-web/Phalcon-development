@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Application\Modules\Rest\Events\BeforeDispatchLoop\ResolveParams" namespace="Application\Modules\Rest\Events\BeforeDispatchLoop" name="ResolveParams" abstract="false" final="false" start="16" end="50">
+  <file path="/var/www/backend.local/Application/Modules/Rest/Events/BeforeDispatchLoop" file="ResolveParams.php" realpath="/var/www/backend.local/Application/Modules/Rest/Events/BeforeDispatchLoop/ResolveParams.php" size="1476" time="2015-07-22T21:33:28+00:00" unixtime="1437600808" sha1="64f651fa600105a5c1703ca533573e45db7ce0f7" relative="Modules/Rest/Events/BeforeDispatchLoop/ResolveParams.php"/>
+  <docblock>
+    <description compact="ResolveParams Resolve dispatcher params to key =&gt; value"/>
+    <package value="Application\Modules\Rest\Services"/>
+    <subpackage value="Events\BeforeDispatchLoop"/>
+    <since value="PHP &gt;=5.6"/>
+    <version value="1.0"/>
+    <author value="Stanislav WEB | Lugansk &lt;stanisov@gmail.com&gt;"/>
+    <copyright value="Stanislav WEB"/>
+    <filesource value="/Application/Modules/Rest/Events/BeforeDispatchLoop/ResolveParams.php"/>
+  </docblock>
+  <method name="beforeDispatchLoop" start="24" end="49" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="This action track routes before execute any action in the application."/>
+      <param type="object" variable="$event">
+        <type full="\Phalcon\Events\Event" namespace="\Phalcon\Events" name="Event"/>
+      </param>
+      <param type="object" variable="$dispatcher">
+        <type full="\Phalcon\Mvc\Dispatcher" namespace="\Phalcon\Mvc" name="Dispatcher"/>
+      </param>
+    </docblock>
+    <parameter name="event" byreference="false" type="{unknown}" default="" constant="null">
+      <type full="Phalcon\Events\Event" namespace="Phalcon\Events" name="Event"/>
+    </parameter>
+    <parameter name="dispatcher" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="Override parameters" line="47"/>
+    </inline>
+  </method>
+</class>

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Application\Modules\Rest\Events\BeforeExecuteRoute\ResolveAccept" namespace="Application\Modules\Rest\Events\BeforeExecuteRoute" name="ResolveAccept" abstract="false" final="false" start="19" end="101">
+  <file path="/var/www/backend.local/Application/Modules/Rest/Events/BeforeExecuteRoute" file="ResolveAccept.php" realpath="/var/www/backend.local/Application/Modules/Rest/Events/BeforeExecuteRoute/ResolveAccept.php" size="2990" time="2015-07-22T21:33:28+00:00" unixtime="1437600808" sha1="60d4b5b8794e748dd10cefc718821b2a3a34f234" relative="Modules/Rest/Events/BeforeExecuteRoute/ResolveAccept.php"/>
+  <docblock>
+    <description compact="ResolveAccept. Watch allowed parameters"/>
+    <package value="Application\Modules\Rest\Services"/>
+    <subpackage value="Events\BeforeExecuteRoute"/>
+    <since value="PHP &gt;=5.6"/>
+    <version value="1.0"/>
+    <author value="Stanislav WEB | Lugansk &lt;stanisov@gmail.com&gt;"/>
+    <copyright value="Stanislav WEB"/>
+    <filesource value="/Application/Modules/Rest/Events/BeforeExecuteRoute/ResolveAccept.php"/>
+  </docblock>
+  <extends full="Application\Modules\Rest\Aware\RestValidatorProvider" namespace="Application\Modules\Rest\Aware" name="RestValidatorProvider"/>
+  <method name="run" start="29" end="51" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="This action track input events before rest execute"/>
+      <param type="object" variable="$di">
+        <type full="\Phalcon\DI\FactoryDefault" namespace="\Phalcon\DI" name="FactoryDefault"/>
+      </param>
+      <param type="object" variable="$rules">
+        <type full="\StdClass" namespace="" name="StdClass"/>
+      </param>
+      <return type="object">
+        <type full="Application\Modules\Rest\Events\BeforeExecuteRoute\bool|void" namespace="Application\Modules\Rest\Events\BeforeExecuteRoute" name="bool|void"/>
+      </return>
+      <throws type="object">
+        <type full="\Exception" namespace="" name="Exception"/>
+      </throws>
+    </docblock>
+    <parameter name="di" byreference="false" type="object">
+      <type full="Phalcon\DI\FactoryDefault" namespace="Phalcon\DI" name="FactoryDefault"/>
+    </parameter>
+    <parameter name="rules" byreference="false" type="object">
+      <type full="StdClass" namespace="" name="StdClass"/>
+    </parameter>
+  </method>
+  <method name="isValidQueryParams" start="58" end="68" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Check query string by wrong parameters"/>
+      <return type="object">
+        <type full="Application\Modules\Rest\Events\BeforeExecuteRoute\bool" namespace="Application\Modules\Rest\Events\BeforeExecuteRoute" name="bool"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="isValidContentType" start="75" end="83" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Check if requested content-type is acceptable by api"/>
+      <return type="object">
+        <type full="Application\Modules\Rest\Events\BeforeExecuteRoute\bool" namespace="Application\Modules\Rest\Events\BeforeExecuteRoute" name="bool"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="isValidLanguage" start="90" end="100" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Check if requested locale (language) is acceptable by api"/>
+      <return type="object">
+        <type full="Application\Modules\Rest\Events\BeforeExecuteRoute\bool" namespace="Application\Modules\Rest\Events\BeforeExecuteRoute" name="bool"/>
+      </return>
+    </docblock>
+  </method>
+  <parent full="Application\Modules\Rest\Aware\RestValidatorProvider" namespace="Application\Modules\Rest\Aware" name="RestValidatorProvider">
+    <method name="setDi" start="30" end="35" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Set dependency container"/>
+        <param type="object" variable="$di">
+          <type full="\Phalcon\DiInterface" namespace="\Phalcon" name="DiInterface"/>
+        </param>
+        <return type="object">
+          <type full="Application\Modules\Rest\Aware\RestValidatorProvider" namespace="Application\Modules\Rest\Aware" name="RestValidatorProvider"/>
+        </return>
+      </docblock>
+      <parameter name="di" byreference="false" type="object">
+        <type full="Phalcon\DiInterface" namespace="Phalcon" name="DiInterface"/>
+      </parameter>
+    </method>
+    <method name="getDi" start="42" end="45" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Get dependency container"/>
+        <return type="object">
+          <type full="\Phalcon\DiInterface" namespace="\Phalcon" name="DiInterface"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="getConfig" start="52" end="54" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Get api config"/>
+        <return type="object">
+          <type full="\Phalcon\Config" namespace="\Phalcon" name="Config"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="getSession" start="61" end="63" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Get session"/>
+        <return type="object">
+          <type full="\Phalcon\Session\Adapter\Memcache" namespace="\Phalcon\Session\Adapter" name="Memcache"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="getRequest" start="70" end="72" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Get request plugin"/>
+        <return type="object">
+          <type full="\Phalcon\Http\Request" namespace="\Phalcon\Http" name="Request"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="getDispatcher" start="79" end="81" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Get shared dispatcher"/>
+        <return type="object">
+          <type full="\Phalcon\Mvc\Dispatcher" namespace="\Phalcon\Mvc" name="Dispatcher"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="getTranslator" start="88" end="95" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Get Translate service"/>
+        <return type="object">
+          <type full="\Translate\Translator|null" namespace="\Translate" name="Translator|null"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="run" start="104" end="104" abstract="true" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Run validator"/>
+        <param type="object" variable="$di">
+          <type full="\Phalcon\DI\FactoryDefault" namespace="\Phalcon\DI" name="FactoryDefault"/>
+        </param>
+        <param description="Validation rules" type="object" variable="$rules">
+          <type full="\StdClass" namespace="" name="StdClass"/>
+        </param>
+        <return type="boolean"/>
+      </docblock>
+      <parameter name="di" byreference="false" type="object">
+        <type full="Phalcon\DI\FactoryDefault" namespace="Phalcon\DI" name="FactoryDefault"/>
+      </parameter>
+      <parameter name="rules" byreference="false" type="object">
+        <type full="StdClass" namespace="" name="StdClass"/>
+      </parameter>
+    </method>
+  </parent>
+</class>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Application\Services\Database\MySQLConnectService" namespace="Application\Services\Database" name="MySQLConnectService" abstract="false" final="false" start="17" end="167">
+  <file path="/var/www/backend.local/Application/Services/Database" file="MySQLConnectService.php" realpath="/var/www/backend.local/Application/Services/Database/MySQLConnectService.php" size="4360" time="2015-07-22T21:33:28+00:00" unixtime="1437600808" sha1="8881ae501a4437da0cbcc874f4bc9a67a9533c5f" relative="Services/Database/MySQLConnectService.php"/>
+  <docblock>
+    <description compact="Class MySQLConnectService. Connection to Database service"/>
+    <package value="Application\Services"/>
+    <subpackage value="Database"/>
+    <since value="PHP &gt;=5.6"/>
+    <version value="1.0"/>
+    <author value="Stanislav WEB | Lugansk &lt;stanisov@gmail.com&gt;"/>
+    <copyright value="Stanislav WEB"/>
+    <filesource value="/Application/Services/Database/MySQLConnectService.php"/>
+  </docblock>
+  <extends full="Phalcon\Db\Adapter\Pdo\Mysql" namespace="Phalcon\Db\Adapter\Pdo" name="Mysql" unresolved="true"/>
+  <constructor name="__construct" start="24" end="47" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Init MySQL Connect"/>
+      <param type="array" variable="$dbConfig"/>
+    </docblock>
+    <parameter name="dbConfig" byreference="false" type="array"/>
+  </constructor>
+</class>

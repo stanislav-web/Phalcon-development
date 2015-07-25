@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html SYSTEM "about:legacy-compat">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <title>phpDox - Application\Modules\Rest\Services\RestService</title>
+    <link rel="stylesheet" type="text/css" href="../css/style.css" media="screen"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+  </head>
+  <body>
+    <nav class="topnav">
+      <ul>
+        <li>
+          <div class="logo"><span>/**</span>phpDox</div>
+        </li>
+        <li class="separator">
+          <a href="../index.xhtml">Overview</a>
+        </li>
+        <li class="separator">
+          <a href="../namespaces.xhtml">Namespaces</a>
+        </li>
+        <li>
+          <a href="../interfaces.xhtml">Interfaces</a>
+        </li>
+        <li>
+          <a href="../classes.xhtml">Classes</a>
+        </li>
+        <li>
+          <a href="../traits.xhtml">Traits</a>
+        </li>
+        <li class="separator">
+          <a href="../source/index.xhtml">Source</a>
+        </li>
+      </ul>
+    </nav>
+    <div id="mainstage">
+      <div class="box">
+        <ul class="breadcrumb">
+          <li>
+            <a href="../index.xhtml">Overview</a>
+          </li>
+          <li class="separator">
+            <a href="../classes.xhtml">Classes</a>
+          </li>
+          <li class="separator">
+            <a href="../classes.xhtml#Application_Modules_Rest_Services">Application\Modules\Rest\Services</a>
+          </li>
+          <li class="separator">RestService</li>
+        </ul>
+      </div>
+      <nav class="box">
+        <ul>
+          <li>
+            <a href="#introduction">Introduction</a>
+          </li>
+          <li>
+            <a href="#synopsis">Synopsis</a>
+          </li>
+          <li>
+            <a href="#hierarchy">Hierarchy</a>
+          </li>
+          <li>
+            <a href="#constants">Constants</a>
+          </li>
+          <li>
+            <a href="#members">Members</a>
+          </li>
+          <li>
+            <a href="#methods">Methods</a>
+          </li>
+          <li>
+            <a href="../source/Modules/Rest/Services/RestService.php.xhtml#line17">Source</a>
+          </li>
+        </ul>
+      </nav>
+      <section>
+        <h1 id="introduction"><small>Application\Modules\Rest\Services\</small>RestService</h1>
+        <h4>Class RestService. Http Rest handler</h4>
+        <p/>
+        <ul>
+          <li>Author: Stanislav WEB | Lugansk &lt;stanisov@gmail.com&gt;</li>
+          <li>Copyright: Stanislav WEB</li>
+        </ul>
+        <h2 id="synopsis">Synopsis</h2>
+        <div class="synopsis">class RestService
+                implements
+                <a title="Application\Modules\Rest\Aware\RestServiceInterface" href="../interfaces/Application_Modules_Rest_Aware_RestServiceInterface.xhtml">RestServiceInterface</a>
+            {<br/><ul class="none"><li>// members</li><li>private <span title="\Application\Modules\Rest\Services\RestValidatorCollectionService">RestValidatorCollectionService</span> <a href="#members">$resolver</a>;
+                    </li><li>private array <a href="#members">$headers</a> =
+                        ;
+                    </li><li>private array <a href="#members">$message</a> =
+                        ;
+                    </li><li>private  <a href="#members">$locale</a>;
+                    </li><li>private  <a href="#members">$resourceUri</a>;
+                    </li></ul><ul class="none"><li>// methods</li><li>public void <a title="Application\Modules\Rest\Services\RestService" href="../classes/Application_Modules_Rest_Services_RestService/__construct.xhtml">__construct</a>()
+                    </li><li>private void <a title="Application\Modules\Rest\Services\RestService" href="../classes/Application_Modules_Rest_Services_RestService/setResolver.xhtml">setResolver</a>()
+                    </li><li>public RestValidatorCollectionService <a title="Application\Modules\Rest\Services\RestService" href="../classes/Application_Modules_Rest_Services_RestService/getResolver.xhtml">getResolver</a>()
+                    </li><li>public ProfilerService <a title="Application\Modules\Rest\Services\RestService" href="../classes/Application_Modules_Rest_Services_RestService/getProfilerService.xhtml">getProfilerService</a>()
+                    </li><li>public void <a title="Application\Modules\Rest\Services\RestService" href="../classes/Application_Modules_Rest_Services_RestService/setHeader.xhtml">setHeader</a>()
+                    </li><li>private Response <a title="Application\Modules\Rest\Services\RestService" href="../classes/Application_Modules_Rest_Services_RestService/getResponseService.xhtml">getResponseService</a>()
+                    </li><li>private RestCacheService <a title="Application\Modules\Rest\Services\RestService" href="../classes/Application_Modules_Rest_Services_RestService/getCacheService.xhtml">getCacheService</a>()
+                    </li><li>public RestService <a title="Application\Modules\Rest\Services\RestService" href="../classes/Application_Modules_Rest_Services_RestService/setResourceUri.xhtml">setResourceUri</a>()
+                    </li><li>public RestService <a title="Application\Modules\Rest\Services\RestService" href="../classes/Application_Modules_Rest_Services_RestService/setContentLength.xhtml">setContentLength</a>()
+                    </li><li>public string <a title="Application\Modules\Rest\Services\RestService" href="../classes/Application_Modules_Rest_Services_RestService/getResourceUri.xhtml">getResourceUri</a>()
+                    </li><li>public RestService <a title="Application\Modules\Rest\Services\RestService" href="../classes/Application_Modules_Rest_Services_RestService/setMessage.xhtml">setMessage</a>()
+                    </li><li>public StdClass <a title="Application\Modules\Rest\Services\RestService" href="../classes/Application_Modules_Rest_Services_RestService/getMessage.xhtml">getMessage</a>()
+                    </li><li>public string <a title="Application\Modules\Rest\Services\RestService" href="../classes/Application_Modules_Rest_Services_RestService/getLocale.xhtml">getLocale</a>()
+                    </li><li>public array <a title="Application\Modules\Rest\Services\RestService" href="../classes/Application_Modules_Rest_Services_RestService/getRelations.xhtml">getRelations</a>()
+                    </li><li>public array <a title="Application\Modules\Rest\Services\RestService" href="../classes/Application_Modules_Rest_Services_RestService/getParams.xhtml">getParams</a>()
+                    </li><li>private string|int <a title="Application\Modules\Rest\Services\RestService" href="../classes/Application_Modules_Rest_Services_RestService/getRateLimit.xhtml">getRateLimit</a>()
+                    </li><li>private string|int <a title="Application\Modules\Rest\Services\RestService" href="../classes/Application_Modules_Rest_Services_RestService/getRateRemaining.xhtml">getRateRemaining</a>()
+                    </li><li>private array <a title="Application\Modules\Rest\Services\RestService" href="../classes/Application_Modules_Rest_Services_RestService/debug.xhtml">debug</a>()
+                    </li><li>public ResponseInterface <a title="Application\Modules\Rest\Services\RestService" href="../classes/Application_Modules_Rest_Services_RestService/response.xhtml">response</a>()
+                    </li></ul>
+
+            }<br/></div>
+        <h2 id="hierarchy">Hierarchy</h2>
+        <div class="styled">
+          <h4>Implements</h4>
+          <ul>
+            <li>
+              <a title="Application\Modules\Rest\Aware\RestServiceInterface" href="../interfaces/Application_Modules_Rest_Aware_RestServiceInterface.xhtml">Application\Modules\Rest\Aware\RestServiceInterface</a>
+            </li>
+          </ul>
+        </div>
+        <h2 id="constants">Constants</h2>
+        <table class="styled">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td id="CODE_NOT_MODIFIED">CODE_NOT_MODIFIED</td>
+              <td>304</td>
+            </tr>
+          </tbody>
+        </table>
+        <h2 id="members">Members</h2>
+        <div class="styled members">
+          <h4>private</h4>
+          <ul class="members">
+            <li id="headers"><strong>$headers</strong>
+                —
+                array<br/><span class="indent">Default response headers send required</span></li>
+            <li id="locale"><strong>$locale</strong>
+                —
+                string<br/><span class="indent">User preferred locale</span></li>
+            <li id="message"><strong>$message</strong>
+                —
+                array<br/><span class="indent">User app message container</span></li>
+            <li id="resolver"><strong>$resolver</strong>
+                —
+                <a title="\Application\Modules\Rest\Services\RestValidatorCollectionService" href="../classes/_Application_Modules_Rest_Services_RestValidatorCollectionService.xhtml">\Application\Modules\Rest\Services\RestValidatorCollectionService</a><br/><span class="indent">Validator service</span></li>
+            <li id="resourceUri"><strong>$resourceUri</strong>
+                —
+                string<br/><span class="indent">Current /created resource uri</span></li>
+          </ul>
+        </div>
+        <h2 id="methods">Methods</h2>
+        <div class="styled">
+          <h4>private</h4>
+          <ul>
+            <li id="debug"><a title="Application\Modules\Rest\Services\RestService" href="../classes/Application_Modules_Rest_Services_RestService/debug.xhtml">debug()</a>
+                — Get developers info</li>
+            <li id="getCacheService"><a title="Application\Modules\Rest\Services\RestService" href="../classes/Application_Modules_Rest_Services_RestService/getCacheService.xhtml">getCacheService()</a>
+                — Get REST Cache Service</li>
+            <li id="getRateLimit"><a title="Application\Modules\Rest\Services\RestService" href="../classes/Application_Modules_Rest_Services_RestService/getRateLimit.xhtml">getRateLimit()</a>
+                — Get limit request for used action</li>
+            <li id="getRateRemaining"><a title="Application\Modules\Rest\Services\RestService" href="../classes/Application_Modules_Rest_Services_RestService/getRateRemaining.xhtml">getRateRemaining()</a>
+                — Get remaining from limited request</li>
+            <li id="getResponseService"><a title="Application\Modules\Rest\Services\RestService" href="../classes/Application_Modules_Rest_Services_RestService/getResponseService.xhtml">getResponseService()</a>
+                — Get basic response service</li>
+            <li id="setResolver"><a title="Application\Modules\Rest\Services\RestService" href="../classes/Application_Modules_Rest_Services_RestService/setResolver.xhtml">setResolver()</a>
+                — Set validator</li>
+          </ul>
+          <h4>public</h4>
+          <ul>
+            <li id="__construct"><a title="Application\Modules\Rest\Services\RestService" href="../classes/Application_Modules_Rest_Services_RestService/__construct.xhtml">__construct()</a>
+                — Init default HTTP headers Attach validator collections</li>
+            <li id="getLocale"><a title="Application\Modules\Rest\Services\RestService" href="../classes/Application_Modules_Rest_Services_RestService/getLocale.xhtml">getLocale()</a>
+                — Set get user preferred / selected locale</li>
+            <li id="getMessage"><a title="Application\Modules\Rest\Services\RestService" href="../classes/Application_Modules_Rest_Services_RestService/getMessage.xhtml">getMessage()</a>
+                — Get user app messages content.</li>
+            <li id="getParams"><a title="Application\Modules\Rest\Services\RestService" href="../classes/Application_Modules_Rest_Services_RestService/getParams.xhtml">getParams()</a>
+                — Get request params</li>
+            <li id="getProfilerService"><a title="Application\Modules\Rest\Services\RestService" href="../classes/Application_Modules_Rest_Services_RestService/getProfilerService.xhtml">getProfilerService()</a>
+                — Get profiler</li>
+            <li id="getRelations"><a title="Application\Modules\Rest\Services\RestService" href="../classes/Application_Modules_Rest_Services_RestService/getRelations.xhtml">getRelations()</a>
+                — Get related mappers</li>
+            <li id="getResolver"><a title="Application\Modules\Rest\Services\RestService" href="../classes/Application_Modules_Rest_Services_RestService/getResolver.xhtml">getResolver()</a>
+                — Get validator</li>
+            <li id="getResourceUri"><a title="Application\Modules\Rest\Services\RestService" href="../classes/Application_Modules_Rest_Services_RestService/getResourceUri.xhtml">getResourceUri()</a>
+                — Get resource uri</li>
+            <li id="response"><a title="Application\Modules\Rest\Services\RestService" href="../classes/Application_Modules_Rest_Services_RestService/response.xhtml">response()</a>
+                — Send response to client</li>
+            <li id="setContentLength"><a title="Application\Modules\Rest\Services\RestService" href="../classes/Application_Modules_Rest_Services_RestService/setContentLength.xhtml">setContentLength()</a>
+                — Set response content length</li>
+            <li id="setHeader"><a title="Application\Modules\Rest\Services\RestService" href="../classes/Application_Modules_Rest_Services_RestService/setHeader.xhtml">setHeader()</a>
+                — Set response header</li>
+            <li id="setMessage"><a title="Application\Modules\Rest\Services\RestService" href="../classes/Application_Modules_Rest_Services_RestService/setMessage.xhtml">setMessage()</a>
+                — Set user app messages content.</li>
+            <li id="setResourceUri"><a title="Application\Modules\Rest\Services\RestService" href="../classes/Application_Modules_Rest_Services_RestService/setResourceUri.xhtml">setResourceUri()</a>
+                — Set current  / created resource uri</li>
+          </ul>
+        </div>
+      </section>
+    </div>
+    <footer>
+      <span>Generated using phpDox 0.8.0 - Copyright (C) 2010 - 2015 by Arne Blankerts</span>
+    </footer>
+  </body>
+</html>

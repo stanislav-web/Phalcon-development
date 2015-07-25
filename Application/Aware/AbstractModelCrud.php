@@ -184,7 +184,7 @@ abstract class AbstractModelCrud implements InjectionAwareInterface {
         $mapper = $this->getDi()->get($params['mapper']);
 
         $conditional = implode(' AND ', array_map(function ($v, $k) {
-            return $k . '=' . $v;
+            return (is_array($v) === false) ? $k . '=' . $v : $k.' IN ('.implode(',', $v).')';
         }, $params['rel'], array_keys($params['rel'])));
 
         // setup properties
@@ -200,7 +200,7 @@ abstract class AbstractModelCrud implements InjectionAwareInterface {
         }
 
         throw new NotFoundException([
-            'RELATED_RECORDS_NOT_FOUND'  =>  'Related records not found'
+            'RELATED_RECORDS_NOT_FOUND'  =>  $this->getTranslator()->translate('RELATED_RECORDS_NOT_FOUND')
         ]);
     }
 

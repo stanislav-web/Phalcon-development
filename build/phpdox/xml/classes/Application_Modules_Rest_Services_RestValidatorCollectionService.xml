@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Application\Modules\Rest\Services\RestValidatorCollectionService" namespace="Application\Modules\Rest\Services" name="RestValidatorCollectionService" abstract="false" final="false" start="20" end="167">
+  <file path="/var/www/backend.local/Application/Modules/Rest/Services" file="RestValidatorCollectionService.php" realpath="/var/www/backend.local/Application/Modules/Rest/Services/RestValidatorCollectionService.php" size="4436" time="2015-07-24T17:08:41+00:00" unixtime="1437757721" sha1="219a03703cd539178aa045a79d2e0d1676ddd498" relative="Modules/Rest/Services/RestValidatorCollectionService.php"/>
+  <docblock>
+    <description compact="Class RestValidatorCollectionService. Rest validator's collections"/>
+    <package value="Application\Modules\Rest"/>
+    <subpackage value="Services"/>
+    <since value="PHP &gt;=5.6"/>
+    <version value="1.0"/>
+    <author value="Stanislav WEB | Lugansk &lt;stanisov@gmail.com&gt;"/>
+    <copyright value="Stanislav WEB"/>
+    <filesource value="/Application/Modules/Rest/Services/RestValidatorCollectionService.php"/>
+  </docblock>
+  <extends full="Application\Modules\Rest\Aware\RestValidatorCollectionsProvider" namespace="Application\Modules\Rest\Aware" name="RestValidatorCollectionsProvider"/>
+  <member name="params" type="array" default="" visibility="private" line="27">
+    <docblock>
+      <description compact="Request rules"/>
+      <var description="$params;" type="array"/>
+    </docblock>
+  </member>
+  <method name="filter" start="37" end="47" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Initialize filter Setup request input parameters Valid all level request by collections"/>
+      <param type="object" variable="$request">
+        <type full="\Phalcon\Http\Request" namespace="\Phalcon\Http" name="Request"/>
+      </param>
+      <return type="object">
+        <type full="Application\Modules\Rest\Services\RestValidatorCollectionService" namespace="Application\Modules\Rest\Services" name="RestValidatorCollectionService"/>
+      </return>
+    </docblock>
+    <parameter name="request" byreference="false" type="object">
+      <type full="Phalcon\Http\Request" namespace="Phalcon\Http" name="Request"/>
+    </parameter>
+  </method>
+  <method name="setParams" start="55" end="79" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Set possible request params"/>
+      <param type="object" variable="$request">
+        <type full="\Phalcon\Http\Request" namespace="\Phalcon\Http" name="Request"/>
+      </param>
+      <return type="object">
+        <type full="Application\Modules\Rest\Services\RestValidatorCollectionService" namespace="Application\Modules\Rest\Services" name="RestValidatorCollectionService"/>
+      </return>
+    </docblock>
+    <parameter name="request" byreference="false" type="object">
+      <type full="Phalcon\Http\Request" namespace="Phalcon\Http" name="Request"/>
+    </parameter>
+    <inline>
+      <comment value="find primary" line="57"/>
+    </inline>
+  </method>
+  <method name="getParams" start="86" end="89" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Get request params"/>
+      <return description="$params" type="array"/>
+    </docblock>
+  </method>
+  <method name="filterParams" start="100" end="120" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Filter request params"/>
+      <param type="array" variable="$params"/>
+      <param type="string" variable="$function"/>
+      <example value="&lt;code&gt;">&lt;?php $this-&gt;filterParams($params, ['trim']); ?&gt;
+         &lt;/code&gt;</example>
+    </docblock>
+    <parameter name="params" byreference="false" type="array"/>
+    <parameter name="filters" byreference="false" type="array"/>
+  </method>
+  <method name="validate" start="127" end="131" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Request validator"/>
+      <throws type="object">
+        <type full="\Application\Modules\Rest\Exceptions\InternalServerErrorException" namespace="\Application\Modules\Rest\Exceptions" name="InternalServerErrorException"/>
+      </throws>
+    </docblock>
+  </method>
+  <method name="resolve" start="138" end="166" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Response resolver"/>
+      <param type="mixed" variable="$responseData"/>
+    </docblock>
+    <parameter name="responseData" byreference="false" type="{unknown}"/>
+  </method>
+  <parent full="Application\Modules\Rest\Aware\RestValidatorCollectionsProvider" namespace="Application\Modules\Rest\Aware" name="RestValidatorCollectionsProvider">
+    <implements full="Phalcon\DI\InjectionAwareInterface" namespace="Phalcon\DI" name="InjectionAwareInterface" unresolved="true"/>
+    <member name="di" visibility="protected" line="25">
+      <docblock>
+        <description compact="Dependency injection container"/>
+        <var description="$di" type="object">
+          <type full="\Phalcon\DiInterface" namespace="\Phalcon" name="DiInterface"/>
+        </var>
+      </docblock>
+    </member>
+    <member name="collection" type="array" default="" visibility="protected" line="32">
+      <docblock>
+        <description compact="Validators collections"/>
+        <var description="$collection" type="array"/>
+      </docblock>
+    </member>
+    <member name="rules" visibility="protected" line="39">
+      <docblock>
+        <description compact="Rules collections"/>
+        <var description="$rules" type="object">
+          <type full="\StdClass" namespace="" name="StdClass"/>
+        </var>
+      </docblock>
+    </member>
+    <member name="request" visibility="protected" line="46">
+      <docblock>
+        <description compact="Request service"/>
+        <var description="$request" type="object">
+          <type full="\Phalcon\Http\Request" namespace="\Phalcon\Http" name="Request"/>
+        </var>
+      </docblock>
+    </member>
+    <member name="response" visibility="protected" line="53">
+      <docblock>
+        <description compact="Response data"/>
+        <var description="$response" type="array"/>
+      </docblock>
+    </member>
+    <constructor name="__construct" start="60" end="65" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Setup validators"/>
+        <param type="object" variable="$di">
+          <type full="\Phalcon\DI\FactoryDefault" namespace="\Phalcon\DI" name="FactoryDefault"/>
+        </param>
+      </docblock>
+      <parameter name="di" byreference="false" type="object">
+        <type full="Phalcon\DI\FactoryDefault" namespace="Phalcon\DI" name="FactoryDefault"/>
+      </parameter>
+    </constructor>
+    <method name="setDi" start="73" end="78" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Set dependency container"/>
+        <param type="object" variable="$di">
+          <type full="\Phalcon\DiInterface" namespace="\Phalcon" name="DiInterface"/>
+        </param>
+        <return type="object">
+          <type full="Application\Modules\Rest\Aware\RestValidatorCollectionsProvider" namespace="Application\Modules\Rest\Aware" name="RestValidatorCollectionsProvider"/>
+        </return>
+      </docblock>
+      <parameter name="di" byreference="false" type="object">
+        <type full="Phalcon\DiInterface" namespace="Phalcon" name="DiInterface"/>
+      </parameter>
+    </method>
+    <method name="getDi" start="85" end="88" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Get dependency container"/>
+        <return type="object">
+          <type full="\Phalcon\DiInterface" namespace="\Phalcon" name="DiInterface"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="getDispatcher" start="95" end="98" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Get dispatcher instance"/>
+        <return type="object">
+          <type full="\Phalcon\Mvc\Dispatcher" namespace="\Phalcon\Mvc" name="Dispatcher"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="getRequest" start="105" end="108" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Get request instance"/>
+        <return type="object">
+          <type full="\Phalcon\Http\Request" namespace="\Phalcon\Http" name="Request"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="getResponse" start="115" end="118" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Get response"/>
+        <return type="array"/>
+      </docblock>
+    </method>
+    <method name="setResponse" start="125" end="128" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Set response data"/>
+        <return description="$response" type="array"/>
+      </docblock>
+      <parameter name="response" byreference="false" type="array"/>
+    </method>
+    <method name="setRequest" start="135" end="138" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Set request instance"/>
+        <return type="object">
+          <type full="\Phalcon\Http\Request" namespace="\Phalcon\Http" name="Request"/>
+        </return>
+      </docblock>
+      <parameter name="request" byreference="false" type="object">
+        <type full="Phalcon\Http\Request" namespace="Phalcon\Http" name="Request"/>
+      </parameter>
+    </method>
+    <method name="getConfig" start="145" end="148" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Get api config"/>
+        <return type="object">
+          <type full="\Phalcon\Config" namespace="\Phalcon" name="Config"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="getRules" start="155" end="158" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Get api rules"/>
+        <return type="object">
+          <type full="\Phalcon\Config" namespace="\Phalcon" name="Config"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="setRules" start="166" end="175" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Set validation rules for dispatched route"/>
+        <param type="array" variable="$rules"/>
+        <return type="object">
+          <type full="Application\Modules\Rest\Aware\RestValidatorCollectionsProvider" namespace="Application\Modules\Rest\Aware" name="RestValidatorCollectionsProvider"/>
+        </return>
+      </docblock>
+      <parameter name="rules" byreference="false" type="array"/>
+    </method>
+    <method name="setCollection" start="183" end="188" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Set collection of validate rules"/>
+        <param type="array" variable="$collection"/>
+        <return type="object">
+          <type full="Application\Modules\Rest\Aware\RestValidatorCollectionsProvider" namespace="Application\Modules\Rest\Aware" name="RestValidatorCollectionsProvider"/>
+        </return>
+      </docblock>
+      <parameter name="collection" byreference="false" type="array"/>
+    </method>
+    <method name="getCollection" start="195" end="198" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Get collection of validate rules"/>
+        <return type="array"/>
+      </docblock>
+    </method>
+    <method name="filterParams" start="207" end="207" abstract="true" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Filter requested params"/>
+        <param type="array" variable="$params"/>
+        <param type="array" variable="$filters"/>
+        <return type="mixed"/>
+      </docblock>
+      <parameter name="params" byreference="false" type="array"/>
+      <parameter name="filters" byreference="false" type="array"/>
+    </method>
+    <method name="setParams" start="214" end="214" abstract="true" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Set requested params"/>
+        <param type="object" variable="$request">
+          <type full="\Phalcon\Http\Request" namespace="\Phalcon\Http" name="Request"/>
+        </param>
+      </docblock>
+      <parameter name="request" byreference="false" type="object">
+        <type full="Phalcon\Http\Request" namespace="Phalcon\Http" name="Request"/>
+      </parameter>
+    </method>
+    <method name="getParams" start="221" end="221" abstract="true" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Get filtered params"/>
+        <return type="array"/>
+      </docblock>
+    </method>
+    <method name="validate" start="226" end="226" abstract="true" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Request validator"/>
+      </docblock>
+    </method>
+    <method name="resolve" start="233" end="233" abstract="true" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Response resolver (validator)"/>
+        <param type="mixed" variable="$responseData"/>
+      </docblock>
+      <parameter name="responseData" byreference="false" type="{unknown}"/>
+    </method>
+  </parent>
+</class>

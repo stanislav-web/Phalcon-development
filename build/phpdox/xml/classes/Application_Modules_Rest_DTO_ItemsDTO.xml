@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Application\Modules\Rest\DTO\ItemsDTO" namespace="Application\Modules\Rest\DTO" name="ItemsDTO" abstract="false" final="false" start="17" end="85">
+  <file path="/var/www/backend.local/Application/Modules/Rest/DTO" file="ItemsDTO.php" realpath="/var/www/backend.local/Application/Modules/Rest/DTO/ItemsDTO.php" size="2032" time="2015-07-24T17:12:41+00:00" unixtime="1437757961" sha1="7f7b9b5fc2dff6e883c5f3d38565eead256a9a0e" relative="Modules/Rest/DTO/ItemsDTO.php"/>
+  <docblock>
+    <description compact="Class ItemsDTO. Data Transfer Object for items relationships"/>
+    <package value="Application\Modules\Rest"/>
+    <subpackage value="DTO"/>
+    <since value="PHP &gt;=5.6"/>
+    <version value="1.0"/>
+    <author value="Stanislav WEB | Lugansk &lt;stanisov@gmail.com&gt;"/>
+    <filesource value="/Application/Modules/Rest/ItemsDTO.php"/>
+  </docblock>
+  <extends full="Application\Aware\AbstractDTO" namespace="Application\Aware" name="AbstractDTO"/>
+  <member name="items" type="array" default="" visibility="public" line="24">
+    <docblock>
+      <description compact="Items collection"/>
+      <var type="array"/>
+    </docblock>
+  </member>
+  <member name="attributes" type="array" default="" visibility="public" line="31">
+    <docblock>
+      <description compact="Items attributes collection"/>
+      <var type="array"/>
+    </docblock>
+  </member>
+  <method name="setItems" start="39" end="47" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Setup banners"/>
+      <param type="object" variable="$items">
+        <type full="\Phalcon\Mvc\Model\Resultset\Simple" namespace="\Phalcon\Mvc\Model\Resultset" name="Simple"/>
+      </param>
+      <return type="object">
+        <type full="\Application\Modules\Rest\DTO\ItemsDTO" namespace="\Application\Modules\Rest\DTO" name="ItemsDTO"/>
+      </return>
+    </docblock>
+    <parameter name="items" byreference="false" type="object">
+      <type full="Phalcon\Mvc\Model\Resultset\Simple" namespace="Phalcon\Mvc\Model\Resultset" name="Simple"/>
+    </parameter>
+  </method>
+  <method name="setAttributes" start="55" end="73" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Setup item's attributes"/>
+      <param type="object" variable="$attributes">
+        <type full="\Phalcon\Mvc\Model\Resultset\Simple" namespace="\Phalcon\Mvc\Model\Resultset" name="Simple"/>
+      </param>
+      <return type="object">
+        <type full="\Application\Modules\Rest\DTO\ItemsDTO" namespace="\Application\Modules\Rest\DTO" name="ItemsDTO"/>
+      </return>
+    </docblock>
+    <parameter name="attributes" byreference="false" type="object">
+      <type full="Phalcon\Mvc\Model\Resultset\Simple" namespace="Phalcon\Mvc\Model\Resultset" name="Simple"/>
+    </parameter>
+  </method>
+  <method name="toArray" start="81" end="83" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Reverse object to real array for all public properties"/>
+      <param type="object" variable="$object"/>
+      <return type="mixed"/>
+    </docblock>
+  </method>
+  <parent full="Application\Aware\AbstractDTO" namespace="Application\Aware" name="AbstractDTO">
+    <method name="total" start="25" end="33" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Setup total records"/>
+        <param type="mixed" variable="$result"/>
+        <return type="int"/>
+      </docblock>
+      <parameter name="result" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="offset" start="40" end="43" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Setup offset records"/>
+        <return type="int"/>
+      </docblock>
+    </method>
+    <method name="limit" start="51" end="64" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Setup limit records"/>
+        <param type="mixed" variable="$result"/>
+        <return type="int"/>
+      </docblock>
+      <parameter name="result" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="serialize" start="72" end="74" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Serialize object"/>
+        <param type="object" variable="$result">
+          <type full="\Phalcon\Mvc\Model\Resultset\Simple" namespace="\Phalcon\Mvc\Model\Resultset" name="Simple"/>
+        </param>
+        <return type="string"/>
+      </docblock>
+      <parameter name="result" byreference="false" type="object">
+        <type full="Phalcon\Mvc\Model\Resultset\Simple" namespace="Phalcon\Mvc\Model\Resultset" name="Simple"/>
+      </parameter>
+    </method>
+    <method name="getPrimary" start="81" end="93" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Get primary identifier"/>
+        <return type="int"/>
+      </docblock>
+    </method>
+    <method name="toArray" start="100" end="100" abstract="true" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Reverse object to an array"/>
+        <return type="array"/>
+      </docblock>
+    </method>
+  </parent>
+</class>
