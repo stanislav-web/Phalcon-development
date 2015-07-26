@@ -12,6 +12,7 @@ var CONFIG = {};
         LOGGER: true,
         DEBBUG: false,
         REQUEST_TIMEOUT: 3000,
+        UPLOAD_FILE_METHOD: 'POST',
         DEFAULT_CURRENCY: 'UAH',
         ACCEPT_ENCODING: 'application/json; charset=utf-8',
         FORM_ENCODING: 'application/x-www-form-urlencoded; charset=utf-8',
@@ -20,7 +21,7 @@ var CONFIG = {};
             CUSTOMER_MENU: '/assets/data/menu/customer.json'
         },
         SLIDER: {
-            TIMEOUT: 1000
+            INTERVAL: 1000
         },
         DEFAULT_IMAGES : {
             BANNERS : '/assets/images/default_banner.png'
@@ -62,7 +63,10 @@ var CONFIG = {};
             USERS: '/users',
             FILES: '/files',
             SUBSCRIBE: '/subscribe',
-            LOG      : '/logger'
+            LOG      : '/logger',
+            CATEGORY : '/categories',
+            ITEM_ATTRIBUTES : '/items/:ids/attributes'
+
         },
         ROUTER : {
             '/': {

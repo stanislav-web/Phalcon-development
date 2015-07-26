@@ -7,8 +7,8 @@
      *
      * User strict auth area
      */
-    angular.module('app.user').controller('UserController', ['$scope', 'Document', 'UserService', 'UploadService', 'ModuleUserConfig',
-        function($scope, Document, UserService, UploadService, ModuleUserConfig) {
+    angular.module('app.user').controller('UserController', ['$scope', 'Document', 'UserService', 'UploadService',
+        function($scope, Document, UserService) {
 
             var userPromise = UserService.getUser();
 
@@ -21,14 +21,9 @@
                     // set meta title
                     Document.prependTitle($scope.user.name, '-');
 
-                    if($scope.user.photo.length > 0) {
-                        // resolve full uri photo path
-                        $scope.user.photo = CONFIG.FILES_URL + $scope.user.photo;
-                    }
-                    else {
-                        // set default image as empty
-                        $scope.user.photo = ModuleUserConfig.noImage;
-                    }
+                    // set user profile photo
+                    $scope.user.photo = UserService.setUserPhoto(response.photo);
+
                 });
 
                 /**
@@ -38,18 +33,12 @@
                  * @param event
                  */
                 $scope.upload = function(file, event) {
-                    if(event.type === 'change') {
-                        // upload a user profile photo
-                        UploadService.uploadUserPhoto($scope.auth.access, file[0]).success(function() {
 
-                            // change preview
-                            var fileReader = new FileReader();
-                            fileReader.readAsDataURL(file[0]);
-                            fileReader.onload = function (e) {
-                                $scope.user.photo = e.target.result;
-                                notify.success('Your profile picture has been updated');
-
-                            }
+                    // upload a user profile photo
+                    var upload = UserService.uploadProfilePicture($scope.auth.access, file[0], $scope, event);
+                    if(upload != undefined) {
+                        upload.success(function() {
+                            notify.success('Your profile picture has been updated');
                         })
                         .error(function(data) {
                             notify.error(data);
@@ -70,12 +59,11 @@
                     UserService.updateUser(user).then(function() {
                         notify.success('Your profile has been updated');
                         $scope.loading = false;
-
                     });
                 },
 
                 /**
-                 * Update user profile data
+                 * Update user profile password
                  *
                  * @param user
                  */

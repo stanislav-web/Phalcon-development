@@ -9,26 +9,22 @@
 
         .service('UploadService', ['Upload', function(Upload) {
 
-            var config = {
-                method : 'POST'
-            };
-
             return {
 
-                uploadUserPhoto : function(auth, photo) {
+                /**
+                 * Read picture local
+                 *
+                 * @param callable callback
+                 */
+                readPicture : function(file, callback) {
 
-                    return this.upload({
-                        url: CONFIG.URL+''+CONFIG.REST.FILES,
-                        file: photo,
-                        fields: {
-                            id: auth.user_id,
-                            mapper: 'UserMapper'
-                        },
-                        headers : {
-                            'Content-Type': CONFIG.FORM_ENCODING,
-                            'Authorization' : 'Bearer '+auth.token
-                        }
-                    });
+                    var fileReader = new FileReader();
+                    fileReader.readAsDataURL(file);
+                    fileReader.onload = function (event) {
+
+                        (CONFIG.DEBBUG === true) ? debug('Read uploading event', event) : null;
+                        callback(event);
+                    }
                 },
 
                 /**
@@ -45,7 +41,7 @@
                         return false;
                     }
                     if(!creadentials.hasOwnProperty('method')) {
-                        creadentials.method = config.method;
+                        creadentials.method = CONFIG.UPLOAD_FILE_METHOD;
                     }
 
                     return Upload.upload(creadentials);

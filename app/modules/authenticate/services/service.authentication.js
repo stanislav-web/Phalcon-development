@@ -50,12 +50,11 @@
                  * Authenticate for user
                  *
                  * @param array credentials
-                 * @param string route
                  * @returns {*}
                  */
-                auth: function(route, credentials) {
+                auth: function(credentials) {
 
-                    return Restangular.all(route)
+                    return Restangular.all(CONFIG.REST.AUTH)
                         .customGET(undefined, _.merge(credentials, {_time : new Date().getTime()}));
                 },
 
@@ -63,12 +62,11 @@
                  * Restore account
                  *
                  * @param array credentials
-                 * @param string route
                  * @returns {*}
                  */
-                restore: function(route, credentials) {
+                restore: function(credentials) {
 
-                    return Restangular.one(route)
+                    return Restangular.one(CONFIG.REST.AUTH)
                         .customPUT(credentials, '', undefined, {
                             'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
                         });
@@ -78,12 +76,11 @@
                  * Register account
                  *
                  * @param array credentials
-                 * @param string route
                  * @returns {*}
                  */
-                register: function(route, credentials) {
+                register: function(credentials) {
 
-                    return Restangular.one(route)
+                    return Restangular.one(CONFIG.REST.AUTH)
                         .customPOST(credentials, '', undefined, {
                             'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
                         });
@@ -142,10 +139,9 @@
                 /**
                  * Logout
                  *
-                 * @param route
                  * @returns null
                  */
-                logout: function (route) {
+                logout: function () {
 
                     var auth = this.getAuthData();
 
@@ -155,14 +151,13 @@
 
                         // clear tokens
                         removeAuthData();
-                        return Restangular.one(route, user_id).remove({},
-                            {
+                        return Restangular.one(CONFIG.REST.AUTH, user_id).remove({}, {
                                 'Authorization' : 'Bearer '+auth.access.token
                             }
                         );
                     }
                     else {
-                        return Restangular.one(route).remove();
+                        return Restangular.one(CONFIG.REST.AUTH).remove();
                     }
                 }
             };

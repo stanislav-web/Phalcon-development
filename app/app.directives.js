@@ -126,8 +126,8 @@
                     var sliderFunc = function() {
                         timer = $timeout(function() {
                             scope.next();
-                            timer = $timeout(sliderFunc, CONFIG.SLIDER.TIMEOUT);
-                        }, CONFIG.SLIDER.TIMEOUT);
+                            timer = $timeout(sliderFunc, CONFIG.SLIDER.INTERVAL);
+                        }, CONFIG.SLIDER.INTERVAL);
                     };
 
                     sliderFunc();

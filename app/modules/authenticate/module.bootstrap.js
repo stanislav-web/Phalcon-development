@@ -9,7 +9,7 @@
             key : 'PICKCHARSFROMTHISSET',
             keyLength : 4
         })
-        .run(['$rootScope', 'AuthenticationService', '$location', function($rootScope, AuthenticationService, $location) {
+        .run(['$rootScope', 'AuthenticationService', 'Document', function($rootScope, AuthenticationService, Document) {
 
             $rootScope.$on("$routeChangeSuccess", function(event, next, current) {
 
@@ -30,7 +30,7 @@
                 else if(next.$$route.hasOwnProperty('authorization')) {
 
                     // Unauthorized users remove to home page
-                    $location.path(CONFIG.LOCATIONS.HOME);
+                    Document.redirect(CONFIG.LOCATIONS.HOME);
                 }
             });
         }])

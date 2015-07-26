@@ -1,8 +1,11 @@
-<div class="slider">
+<div class="slider" data-ng-if="bannersOn">
     <div class="slide" ng-repeat="banner in banners" ng-show="banner.visible">
         <a ng-href="{{banner.link}}">
             <img ng-src="{{banner.image}}"
                  err-src="BANNERS"/>
+            <div class="carousel-caption">
+                <p>{{banner.description}}</p>
+            </div>
         </a>
     </div>
     <div class="arrows">

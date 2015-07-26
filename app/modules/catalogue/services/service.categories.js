@@ -7,31 +7,13 @@
      */
     angular.module('app.catalogue')
 
-        .service('CategoriesService', ['Restangular', function(Restangular) {
+        .service('CategoriesService', ['Restangular', 'DataService', function(Restangular, DataService) {
 
             /**
              * Flatten categories list
              * @type {Array}
              */
             var categoriesList = [];
-
-            /**
-             * Chunk categories by parts
-             *
-             * @param array categories
-             * @returns {*}
-             */
-            var chunkCategories = function(categories) {
-
-                categories.map(function(category) {
-                    if(category.hasOwnProperty('childs')) {
-                        // partition array by fixed chunk
-                        category.childs = _.chunk(category.childs, CONFIG.LIST.PARTS);
-                    }
-                });
-
-                return categories;
-            };
 
             /**
              * Nested to flat categories tree
@@ -73,7 +55,7 @@
                         flatCategories(response.categories);
 
                         // chunk categories by parts
-                        response.categories = chunkCategories(response.categories);
+                        response.categories = DataService.chunk(response.categories, 'childs', CONFIG.LIST.PARTS);
                         callback(response);
                     });
                 },
@@ -88,22 +70,31 @@
                 },
 
                 /**
-                 * Get the current category with params
+                 * Get the current category data
                  *
-                 * @param callback
                  * @returns {function(*)}
                  */
-                getCurrentCategory : function(callback) {
+                getCurrentCategory : function() {
 
                     var current =  _.remove(window.location.pathname.split('/'), function(el) {
                         return el.length > 0;
                     }).slice(-1).pop();
 
-                    callback(
-                        _.find(this.loadFlatten(), { 'alias': current})
-                    )
+                    return _.find(this.loadFlatten(), { 'alias': current })
+                },
 
-                }
+                /**
+                 * Get the current category items
+                 *
+                 * @param int category_id
+                 * @param array params
+                 * @returns {Promise(*)}
+                 */
+                getCategoryItems : function(category_id, params) {
+
+                    return Restangular.one(CONFIG.REST.CATEGORY+'/'+parseInt(category_id))
+                            .customGET(params);
+                },
             };
     }]);
 })(angular);

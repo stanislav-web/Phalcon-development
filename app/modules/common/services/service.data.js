@@ -8,6 +8,7 @@
     angular.module('app.common')
 
         .provider("Serialize", function () {
+
             var data = [];
 
             return {
@@ -61,19 +62,19 @@
                  */
                 separateResponse : function(response, operation) {
 
-                    var newResponse = {};
-                    if(operation === 'getList') {
-                        newResponse = response.data;
-                        if(response.debug) {
-                            newResponse.meta = response.meta;
-                        }
-                        if(response.debug) {
-                            newResponse.debug = response.debug;
-                        }
+                    // watching response
+                    (CONFIG.DEBBUG === true) ? debug('Clear response', operation, response) : null;
+
+                    var newResponse = response.data || {};
+
+                    if (angular.isArray(response)) {
+                        angular.forEach(newResponse, function(value, key) {
+                            newResponse[key].original = angular.copy(value);
+                        });
+                    } else {
+                        newResponse.original = angular.copy(response) || null;
                     }
-                    else {
-                        newResponse = response.data
-                    }
+
                     return newResponse;
                 },
 
@@ -86,6 +87,41 @@
         .service('DataService', [function() {
 
             return {
+
+                /**
+                 * Chunk items by parts
+                 *
+                 * @param array array
+                 * @param string property
+                 * @param int parts
+                 * @returns array
+                 */
+                chunk : function(array, property, parts) {
+
+                    array.map(function(item) {
+                        if(item.hasOwnProperty(property)) {
+                            // partition array by fixed chunk
+                            item[property] = _.chunk(item[property], parts);
+                        }
+                    });
+
+                    return array;
+                },
+
+                /**
+                 * Get property array
+                 *
+                 * @param items
+                 * @param key
+                 * @returns {*}
+                 */
+                getPropertyArray : function(array, key) {
+
+                    return _(array)
+                        .filter(function(obj) { return obj[key]; })
+                        .pluck(key)
+                        .value();
+                },
 
                 /**
                  * Get nested json data
@@ -105,7 +141,7 @@
                         }
                     };
                     xobj.send(null);
-                }
+                },
             };
     }]);
 })(angular);

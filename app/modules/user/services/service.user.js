@@ -5,9 +5,56 @@
      * User service
      */
     angular.module('app.user')
-        .service('UserService',  ['Restangular', 'AuthenticationService', function(Restangular, AuthenticationService) {
+        .service('UserService',  ['Restangular', 'AuthenticationService', 'UploadService', function(Restangular, AuthenticationService, UploadService) {
 
             return {
+
+                setUserPhoto : function(photo) {
+
+                    if(photo.length > 0) {
+                        // resolve full uri photo path
+                        return CONFIG.FILES_URL + photo;
+                    }
+                    else {
+                        // set default image as empty
+                       return ModuleUserConfig.noImage;
+                    }
+                },
+
+                /**
+                 * Upload user profile picture
+                 * 
+                 * @param auth
+                 * @param photo
+                 * @param scope
+                 * @param event
+                 * @returns {*}
+                 */
+                uploadProfilePicture : function(auth, photo, scope, event) {
+
+                    if(event.type === 'change') {
+
+                        // resolve picture data
+                        UploadService.readPicture(photo, function(event) {
+                            scope.user.photo = event.target.result;
+                        });
+
+                        // upload picture
+                        return UploadService.upload({
+                            url: CONFIG.URL+''+CONFIG.REST.FILES,
+                            file: photo,
+                            fields: {
+                                id: auth.user_id,
+                                mapper: 'UserMapper'
+                            },
+                            headers : {
+                                'Content-Type': CONFIG.FORM_ENCODING,
+                                'Authorization' : 'Bearer '+auth.token
+                            }
+                        });
+                    }
+
+                },
 
                 /**
                  * Get User info

@@ -19,6 +19,7 @@
                     $scope.currentLanguage  =   langKey;
                 });
             };
+
         }]);
 
 })(angular);

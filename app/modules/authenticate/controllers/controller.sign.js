@@ -9,8 +9,8 @@
      * @dependencies $translate angular-translater
      * @dependencies $cookies angular-cookies
      */
-    angular.module('app.authenticate').controller('SignController', ['$scope', '$location', 'AuthenticationService', '$translatePartialLoader', 'Document',
-        function ($scope, $location, AuthenticationService, $translatePartialLoader, Document) {
+    angular.module('app.authenticate').controller('SignController', ['$scope', 'AuthenticationService', '$translatePartialLoader', 'Document',
+        function ($scope, AuthenticationService, $translatePartialLoader, Document) {
 
         // add language support to this controller
         $translatePartialLoader.addPart('sign');
@@ -46,13 +46,13 @@
 
             $scope.loading = true;
 
-            AuthenticationService.auth(CONFIG.REST.AUTH, this.credentials).then(function (response) {
+            AuthenticationService.auth(this.credentials).then(function (response) {
 
                 // auth success! Set data to session & get redirect to home page
                 AuthenticationService.setAuthData(response);
 
                 setTimeout(function() {
-                    $location.path(CONFIG.LOCATIONS.ACCOUNT);
+                    Document.redirect(CONFIG.LOCATIONS.ACCOUNT);
                 },100);
 
             }).finally(function () {
@@ -65,7 +65,7 @@
 
             $scope.loading = true;
 
-            AuthenticationService.restore(CONFIG.REST.AUTH, this.credentials).then(function () {
+            AuthenticationService.restore(this.credentials).then(function () {
 
                 // restore success!
                 console.log(response);
@@ -80,11 +80,11 @@
 
             $scope.loading = true;
 
-            AuthenticationService.register(CONFIG.REST.AUTH, this.credentials).then(function (response) {
+            AuthenticationService.register(this.credentials).then(function (response) {
 
                 // register success! Set data to session & get redirect to account
                 Session.set('auth', response.access);
-                $location.path(CONFIG.LOCATIONS.ACCOUNT);
+                Document.redirect(CONFIG.LOCATIONS.ACCOUNT);
 
             }).finally(function () {
                 $scope.loading = false;
@@ -93,8 +93,8 @@
 
         // Logout process
         $scope.logout = function () {
-            Authentication.logout(CONFIG.REST.AUTH).then(function() {
-                $location.path(CONFIG.LOCATIONS.HOME);
+            Authentication.logout().then(function() {
+                Document.redirect(CONFIG.LOCATIONS.HOME);
             });
         };
     }]);

@@ -7,19 +7,33 @@
      *
      * Control item's representation.
      */
-    angular.module('app.catalogue').controller('ItemsController', ['Document', '$scope', 'CategoriesService',
-        function(Document, $scope, CategoriesService) {
+    angular.module('app.catalogue')
 
-            // load current category
-            CategoriesService.getCurrentCategory(function(category) {
+        .controller('ItemsController', ['Document', '$scope', 'CategoriesService', 'ItemsService',
+            function(Document, $scope, CategoriesService, ItemsService) {
 
-                if(category) {
+                // get current category id
+                var category = CategoriesService.getCurrentCategory() || null;
+
+                //  load categories items
+                CategoriesService.getCategoryItems(category.id).then(function(response) {
+
                     // set meta title
-                    Document.setTitle(category.title);
-                    $scope.category = category;
-                }
-            });
-        }
+                    Document.setTitle(response.categories.title);
+
+                    // setup view scopes
+                    $scope.category = response.categories;
+
+                    // load category items with properties
+
+                    ItemsService.load(response.items, {}, function(response) {
+                        $scope.items = response.data;
+
+                        console.log($scope.items);
+                    });
+                });
+
+            }
     ]);
 
 })(angular);

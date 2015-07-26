@@ -6,14 +6,17 @@
             <span class="glyphicon glyphicon-book"></span> {{category.title}}
         </h3>
         <hr>
-        <article class="m_desc justify" ng-bind-html="">{{category.description}}</article>
+        <article class="m_desc justify" ng-bind-html="category.description"></article>
     </article>
 
     <article>
         <!-- @TODO Table with category items filter -->
+        <div ng-if="!items">There none</div>
 
         <!-- /@TODO Table with category items filter -->
     </article>
     <!-- /Category items page -->
 </section>
+<div>
 
+</div>

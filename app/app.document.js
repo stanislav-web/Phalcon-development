@@ -4,7 +4,7 @@
 
     angular.module('app.document', [])
 
-        .service('Document',  ['$translate', '$rootScope', function($translate, $rootScope) {
+        .service('Document',  ['$translate', '$location', '$rootScope', function($translate, $location, $rootScope) {
 
             /**
              * Base title definition
@@ -16,6 +16,15 @@
             };
 
             return {
+
+                /**
+                 * Redirect
+                 *
+                 * @param route
+                 */
+                redirect : function(route) {
+                    $location.path(route);
+                },
 
                 /**
                  * Set page title
@@ -51,7 +60,7 @@
                 prependTitle: function (title, delimiter) {
 
                     $translate(title).then(function (title) {
-                        $rootScope.documentTitle = title +' ' + delimiter + ' '+ baseTitle();
+                        $rootScope.documentTitle = title +' ' + delimiter + ' '+ baseTitle;
                     });
 
                     return this;

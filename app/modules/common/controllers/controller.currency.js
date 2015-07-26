@@ -12,7 +12,8 @@
 
             $scope.changeCurrency = function(currency) {
                 console.log('Selected currency', currency);
-            }
+            };
+
         }]);
 
 })(angular);
