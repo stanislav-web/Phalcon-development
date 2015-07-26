@@ -38,7 +38,6 @@ class ItemAttributeValues extends \Phalcon\Mvc\Model
      */
     public $item_id;
 
-
     /**
      *
      * @var integer
@@ -66,5 +65,9 @@ class ItemAttributeValues extends \Phalcon\Mvc\Model
     {
         // its allow to keep empty data to my db
         $this->setup(['notNullValidations' => false]);
+
+        $this->belongsTo('item_attribute_id', ItemAttributes::TABLE, 'id', [
+            'alias' => 'attributeNames'
+        ]);
     }
 }

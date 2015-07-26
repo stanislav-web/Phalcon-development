@@ -54,15 +54,23 @@ class ItemsDTO extends AbstractDTO
      */
     public function setAttributes(\Phalcon\Mvc\Model\Resultset\Simple $attributes) {
 
+        $attributeNames = [];
+
+        // find attributes name
+        foreach($attributes as $attr) {
+            $attributeNames[] = $attr->getRelated('attributeNames')->toArray();
+        }
+
         $attributes = $attributes->toArray();
 
+        // parse items and join attributes to them
         if(empty($this->items) === false) {
 
             foreach($this->items as &$item) {
-                $attribute = Node::searchInArray($attributes, 'item_id', $item['id']);
+                $attributeValues = Node::searchInArray($attributes, 'item_id', $item['id']);
 
-                if(empty($attribute) === false) {
-                    $item['attributes'] = $attribute;
+                if(empty($attributeValues) === false) {
+                    $item['attributes'] = $this->assignAttributes($attributeNames, $attributeValues);
                 }
             }
         }
@@ -81,6 +89,27 @@ class ItemsDTO extends AbstractDTO
      */
     public function toArray() {
         return  get_object_vars($this);
+    }
+
+    /**
+     * Assign attributes names & values to item
+     *
+     * @param $names
+     * @param $values
+     *
+     * @return array
+     */
+    private function assignAttributes($names, $values) {
+
+        $attr = [];
+        foreach($names as $attribute) {
+            $attributeValues = Node::searchInArray($values, 'item_attribute_id', $attribute['id']);
+
+            if(empty($attributeValues) === false) {
+                $attr[] = array_merge($attribute, $attributeValues[0]);
+            }
+        }
+        return $attr;
     }
 
 }

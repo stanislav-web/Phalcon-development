@@ -236,24 +236,9 @@ class RestService implements RestServiceInterface {
 
                         $bind = array_shift($this->getParams()['bind']);
 
-                        if(is_numeric($bind) === false) {
-                            $rule['rel'] = [
-                                current($rule['rel'])   => $bind,
-                            ];
-                        }
-                        else {
-                            $rule['rel'] = [
-                                current($rule['rel'])   => (int)$this->getParams()['bind'],
-                            ];
-                        }
+                        $rule['rel'] = (is_numeric($bind) === false)
+                            ? [current($rule['rel'])   => $bind] :[current($rule['rel'])   => (int)$this->getParams()['bind']];
                     }
-
-//                    $rule['rel'] = (is_numeric($this->getParams()[$relation]) === true)
-//                        ? [ current($rule['rel'])   => (int)array_shift($this->getParams()['bind']),
-//                            key($rule['rel'])       => (int)$this->getParams()[$relation]
-//                        ] :[
-//                            current($rule['rel'])   => (int)array_shift($this->getParams()['bind']),
-//                        ];
 
                     $relations[$relation] = $rule;
                 }
