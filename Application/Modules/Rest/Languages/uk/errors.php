@@ -13,5 +13,9 @@ return [
     'METHOD_NOT_ALLOWED'            =>  'Метод запиту обмежений',
     'LONG_REQUEST'                  =>  'Занадто багато параметрів в рядку запиту',
     'TO_MANY_REQUESTS'              =>  'Занадто багато запитів для цієї дії',
-    'RELATED_RECORDS_NOT_FOUND'     =>  'Зв\'язуючі записи не знадені'
+    'RELATED_RECORDS_NOT_FOUND'     =>  'Зв\'язуючі записи не знадені',
+    'MAPPER_NOT_EXIST'              =>  'Не найден обробник для цього запиту',
+    'UNSUPPORTED_MEDIA_CONTENT'     =>  'Непідтримуваний тип контенту',
+    'UPLOAD_FILE_ERROR'             =>  'Немає повних даних для завантаження',
+    'USER_KEY_IS_NOT_EXIST'         =>  'Ключ користувача не знайдений'
 ];

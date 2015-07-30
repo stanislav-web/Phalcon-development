@@ -13,5 +13,9 @@ return [
     'METHOD_NOT_ALLOWED'            =>  'Request method not allowed for this action',
     'LONG_REQUEST'                  =>  'Too many parameters in the query string',
     'TO_MANY_REQUESTS'              =>  'Too many requests for this action',
-    'RELATED_RECORDS_NOT_FOUND'     =>  'Related records not found'
+    'RELATED_RECORDS_NOT_FOUND'     =>  'Related records not found',
+    'MAPPER_NOT_EXIST'              =>  'Mapper does not exist',
+    'UNSUPPORTED_MEDIA_CONTENT'     =>  'Unsupported content type',
+    'UPLOAD_FILE_ERROR'             =>  'No comprehensive data for download',
+    'USER_KEY_IS_NOT_EXIST'         =>  'The user key not exist'
 ];

@@ -9,7 +9,7 @@ namespace Application\Helpers;
  * @since PHP >=5.6
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
- * @copyright Stanilav WEB
+ * @copyright Stanislav WEB
  * @filesource /Application/Helpers/Format.php
  */
 trait Format {

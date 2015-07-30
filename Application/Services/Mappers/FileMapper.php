@@ -2,6 +2,7 @@
 namespace Application\Services\Mappers;
 
 use Application\Modules\Rest\Exceptions\BadRequestException;
+use Uploader\Uploader as FileUploader;
 
 /**
  * Class FileMapper. Actions above application files
@@ -24,6 +25,13 @@ class FileMapper {
     private $di;
 
     /**
+     * Upload file config
+     *
+     * @var array $config
+     */
+    private $config = [];
+
+    /**
      * Init DI
      *
      * @param \Phalcon\Di\FactoryDefault $di
@@ -32,6 +40,19 @@ class FileMapper {
         $this->setDi($di);
     }
 
+    /**
+     * Get Translate service
+     *
+     * @return \Translate\Translator|null
+     */
+    protected function getTranslator() {
+
+        if($this->getDi()->has('TranslateService') === true) {
+            return $this->getDi()->get('TranslateService')->assign('errors');
+        }
+
+        return null;
+    }
 
     /**
      * Get Dependency container
@@ -47,6 +68,7 @@ class FileMapper {
      * Set dependency container
      *
      * @param \Phalcon\Di\FactoryDefault $di
+     * @return \Application\Services\Mappers\FileMapper
      */
     private function setDi(\Phalcon\DiInterface $di)
     {
@@ -62,6 +84,55 @@ class FileMapper {
     public function getAttributes()
     {
         return [];
+    }
+
+    /**
+     * Create configuration params for upload file
+     *
+     * @param string     $option config option type
+     * @param null $directoryId if exist , it mean ID primary for dynamic create directories
+     *
+     * @return \Application\Services\Mappers\FileMapper
+     */
+    public function configure($option, $directoryId = null) {
+
+        // get settings from api config
+        $this->config = $this->getDi()->getConfig()->api->files[$option]->toArray();
+
+        // configure directory
+
+        if(isset($this->config['directory'])) {
+            $this->config['directory'] = (is_null($directoryId) === false)
+                ? DOCUMENT_ROOT.strtr($this->config['directory'], [':directoryId' => $directoryId])
+                : DOCUMENT_ROOT.$this->config['directory'];
+        }
+
+        return $this;
+    }
+
+    /**
+     * Upload file
+     *
+     * @return \Uploader\Uploader
+     * @throws \Application\Modules\Rest\Exceptions\BadRequestException
+     */
+    public function upload() {
+
+        $uploader = new FileUploader();
+        $uploader->setRules($this->config);
+        if($uploader->isValid() === true) {
+
+            // move uploaded file
+            $uploader->move();
+        }
+        else {
+
+            // truncate if has an error
+            $uploader->truncate();
+            throw new BadRequestException($uploader->getErrors());
+        }
+
+        return $uploader;
     }
 
     /**
@@ -81,7 +152,6 @@ class FileMapper {
         return $mapper->upload($params);
     }
 
-
     /**
      * Examine data for uploader
      *
@@ -92,8 +162,9 @@ class FileMapper {
     private function prepare(array $files, array $params) {
 
         if(empty($files) === true || isset($params['mapper']) === false) {
+
             throw new BadRequestException([
-                'UPLOAD_FILE_ERROR' => 'No comprehensive data for download'
+                'UPLOAD_FILE_ERROR' => $this->getTranslator()->translate('UPLOAD_FILE_ERROR')
             ]);
         }
 
@@ -111,5 +182,4 @@ class FileMapper {
             ]);
         }
     }
-
 }

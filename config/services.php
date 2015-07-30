@@ -93,6 +93,28 @@ $di->setShared('DbListener', function () {
     return new \Application\Services\Develop\MySQLDbListener();
 });
 
+// Define Image processor
+$di->set('ImageService', function ($image) use ($di) {
+
+    $images = $di->get('config')->images;
+
+    try {
+        $adapter = new \Application\Services\Advanced\ImageService(
+            new $images['adapter']($image), $images->config
+        );
+
+        return $adapter;
+    }
+    catch(\Exception $e) {
+
+        $t = $di->get('TranslateService')->assign('errors');
+
+        throw new \Application\Modules\Rest\Exceptions\UnsupportedContentException([
+            'UNSUPPORTED_MEDIA_CONTENT' =>  $t->translate('UNSUPPORTED_MEDIA_CONTENT')
+        ]);
+    }
+});
+
 // Define Profiler
 $di->setShared('ProfilerService', '\Application\Services\Develop\ProfilerService');
 

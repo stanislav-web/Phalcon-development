@@ -12,7 +12,7 @@ use \Translate\Translator;
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
  * @copyright Stanislav WEB
- * @filesource /Application/Services/Adcanced/TranslateService.php
+ * @filesource /Application/Services/Advanced/TranslateService.php
  */
 class TranslateService {
 
