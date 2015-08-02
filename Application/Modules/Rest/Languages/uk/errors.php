@@ -17,5 +17,6 @@ return [
     'MAPPER_NOT_EXIST'              =>  'Не найден обробник для цього запиту',
     'UNSUPPORTED_MEDIA_CONTENT'     =>  'Непідтримуваний тип контенту',
     'UPLOAD_FILE_ERROR'             =>  'Немає повних даних для завантаження',
-    'USER_KEY_IS_NOT_EXIST'         =>  'Ключ користувача не знайдений'
+    'USER_KEY_IS_NOT_EXIST'         =>  'Ключ користувача не знайдений',
+    'UPDATE_PROFILE_PHOTO_FAILED'   =>  'Неможливо оновити фото профілю'
 ];

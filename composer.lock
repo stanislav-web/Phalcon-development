@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2c8f2ab66701efae07137cbc5eb086d3",
+    "hash": "056b08489029e315b72b2ad7fb4bc252",
     "packages": [
         {
             "name": "pda/pheanstalk",
@@ -348,7 +348,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stanislav-web/phalcon-uploader/zipball/bae33286cce4105bb99b386456045e4069bc3111",
+                "url": "https://api.github.com/repos/stanislav-web/phalcon-uploader/zipball/7ffda982b605f9959d0e0c04e9c34dd32524bada",
                 "reference": "bae33286cce4105bb99b386456045e4069bc3111",
                 "shasum": ""
             },
@@ -455,7 +455,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/b6371185795e1819c2900a2cfce61620a02371d1",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/def79553a00d871a93422f86b6391d80b1b7bdf1",
                 "reference": "a3f42f68c9988f56317c3950f7eff6036d8fbe72",
                 "shasum": ""
             },
@@ -1375,7 +1375,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phalcon/phalcon-devtools/zipball/a53851790798ae9ba6b4f4f2e815db642ba64b57",
+                "url": "https://api.github.com/repos/phalcon/phalcon-devtools/zipball/6f456e4fbec0a69dbc17d4cdd5fb1082451e7f8d",
                 "reference": "a53851790798ae9ba6b4f4f2e815db642ba64b57",
                 "shasum": ""
             },
@@ -2082,6 +2082,59 @@
             "time": "2015-06-04 20:11:48"
         },
         {
+            "name": "symfony/http-foundation",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/HttpFoundation.git",
+                "reference": "9c1c2089e2a339e7949917e19d5ced24c4177810"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/9c1c2089e2a339e7949917e19d5ced24c4177810",
+                "reference": "9c1c2089e2a339e7949917e19d5ced24c4177810",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.9"
+            },
+            "require-dev": {
+                "symfony/expression-language": "~2.8|~3.0",
+                "symfony/phpunit-bridge": "~2.8|~3.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\HttpFoundation\\": ""
+                },
+                "classmap": [
+                    "Resources/stubs"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony HttpFoundation Component",
+            "homepage": "https://symfony.com",
+            "time": "2015-08-01 07:26:17"
+        },
+        {
             "name": "symfony/process",
             "version": "v2.7.1",
             "source": {
@@ -2241,7 +2294,8 @@
         "stanislav-web/phalcon-uploader": 20,
         "stanislav-web/express-mailer": 20,
         "phalcon/devtools": 20,
-        "flow/jsonpath": 20
+        "flow/jsonpath": 20,
+        "symfony/http-foundation": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

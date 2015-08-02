@@ -33,7 +33,7 @@ return [
         // uploaded files params
         'files' =>  [
             'profile'  =>  [
-                'directory' => '/files/users/:directoryId',
+                'dynamic' => '/files/users/:directoryId',
                 'minsize'   =>  1000,
                 'maxsize'   =>  1000000,
                 'mimes'     =>  [       // any allowed mime types

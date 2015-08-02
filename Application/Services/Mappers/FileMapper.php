@@ -101,10 +101,10 @@ class FileMapper {
 
         // configure directory
 
-        if(isset($this->config['directory'])) {
-            $this->config['directory'] = (is_null($directoryId) === false)
-                ? DOCUMENT_ROOT.strtr($this->config['directory'], [':directoryId' => $directoryId])
-                : DOCUMENT_ROOT.$this->config['directory'];
+        if(isset($this->config['dynamic'])) {
+            $this->config['dynamic'] = (is_null($directoryId) === false)
+                ? DOCUMENT_ROOT.strtr($this->config['dynamic'], [':directoryId' => $directoryId])
+                : DOCUMENT_ROOT.$this->config['dynamic'];
         }
 
         return $this;

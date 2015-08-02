@@ -29,13 +29,6 @@ class ImageService {
     protected $config = [];
 
     /**
-     * New image path
-     *
-     * @var string  $imagePath
-     */
-    protected $imagePath;
-
-    /**
      * Initialize image adapter
      *
      * @param \Phalcon\Image\AdapterInterface $adapter
@@ -53,7 +46,7 @@ class ImageService {
      * @param null $width
      * @param null $height
      *
-     * @return bool
+     * @return bool|string
      */
     public function resizeSmall($width = null, $height = null) {
 
@@ -69,7 +62,7 @@ class ImageService {
 
         // save image
         return ($image->save($process->full, $this->config->resize['small'][3]) != false)
-            ? true : false;
+            ? (array)$process : false;
     }
 
 
@@ -86,12 +79,13 @@ class ImageService {
         $spl = new \SplFileInfo($image->getRealpath());
 
         $process = new \StdClass();
-        $process->path      = $image->getRealpath();
-        $process->file      = $spl->getFilename();
-        $process->name      = $spl->getBasename('.'.$spl->getExtension()).$name;
-        $process->extension = $spl->getExtension();
-        $process->full      = $this->imagePath =
-            $spl->getPath().DIRECTORY_SEPARATOR.$process->name.'.'.$process->extension;
+
+        $process->name          = $spl->getBasename('.'.$spl->getExtension()).$name.'.'.$spl->getExtension();
+        $process->path          = str_ireplace($spl->getBasename(), $process->name, str_ireplace(DOCUMENT_ROOT, '',$image->getRealpath()));
+        $process->directory     = dirname($image->getRealpath());
+        $process->extension     = $spl->getExtension();
+        $process->size          = $spl->getSize();
+            //$spl->getPath().DIRECTORY_SEPARATOR.$process->name.'.'.$process->extension;
 
         return $process;
     }

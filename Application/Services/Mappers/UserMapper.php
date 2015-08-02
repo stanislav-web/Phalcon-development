@@ -254,33 +254,40 @@ class UserMapper extends AbstractModelCrud {
 
         // configure uploaded file params & upload file
         $uploader = $this->getFileMapper()->configure('profile', $userId)->upload();
+        $file = $this->resolveFilePaths($uploader);
+        // update user picture
+        $model = $this->getInstance();
+        $isUpdated = $model->getReadConnection()->update($model->getSource(), ['photo'], [
+            json_encode(['original' => $file['path'], 'small' => $file['small']['path']])
+        ], $this->getPrimaryKey()." = ".(int)$userId);
 
-        var_dump($uploader->getInfo()); exit;
+        if($isUpdated === true) {
+            return (new UserDTO())->setFiles($file);
+        }
+        else {
+            $uploader->truncate();
+            throw new InternalServerErrorException([
+                'UPDATE_PROFILE_PHOTO_FAILED' => $this->getTranslator()->translate('UPDATE_PROFILE_PHOTO_FAILED')
+            ]);
+        }
+    }
 
-//        if($uploader->isValid() === true) {
-//
-//            // move uploaded image
-//            $uploader->move();
-//            $filePath = $directory.DIRECTORY_SEPARATOR.$uploader->getInfo()[0]['filename'];
-//            // resize uploaded image
-//            $this->getImageService($filePath)->resizeSmall();
-//
-//            $model = $this->getInstance();
-//            $isUpdated = $model->getReadConnection()->update($model->getSource(), ['photo'], [
-//                $filePath
-//            ], $this->getPrimaryKey()." = ".(int)$primary);
-//
-//            if($isUpdated === true) {
-//
-//                return (new UserDTO())->setNull();
-//            }
-//            else {
-//                $uploader->truncate();
-//                throw new InternalServerErrorException([
-//                    'UPDATE_PROFILE_PHOTO_FAILED' => 'Can not update profile photo'
-//                ]);
-//            }
-//        }
+    /**
+     * Resolve uploaded file paths
+     *
+     * @param \Uploader\Uploader $uploader
+     * @throws \Application\Modules\Rest\Exceptions\BadRequestException
+     * @return array
+     */
+    private function resolveFilePaths(\Uploader\Uploader $uploader) {
 
+        // get uploaded file name
+        $file = $uploader->getInfo()[0];
+
+        // resize uploaded image
+        $file['small']  = $this->getImageService($file['path'])->resizeSmall();
+        $file['path']   = str_ireplace(DOCUMENT_ROOT, '',$file['path']);
+
+        return $file;
     }
 }

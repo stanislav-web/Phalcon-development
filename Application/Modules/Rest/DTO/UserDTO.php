@@ -23,6 +23,12 @@ class UserDTO extends AbstractDTO
      */
     public $null = [];
 
+    /**
+     * Files collection
+     *
+     * @var array $files
+     */
+    public $files = [];
 
     /**
      * Users collection
@@ -86,6 +92,18 @@ class UserDTO extends AbstractDTO
     public function setNull() {
 
         $this->null = [];
+
+        return $this;
+    }
+
+    /**
+     * Setup files
+     *
+     * @return \Application\Modules\Rest\DTO\UserDTO
+     */
+    public function setFiles(array $files) {
+
+        $this->files[] = $files;
 
         return $this;
     }

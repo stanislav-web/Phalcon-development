@@ -17,5 +17,6 @@ return [
     'MAPPER_NOT_EXIST'              =>  'Mapper does not exist',
     'UNSUPPORTED_MEDIA_CONTENT'     =>  'Unsupported content type',
     'UPLOAD_FILE_ERROR'             =>  'No comprehensive data for download',
-    'USER_KEY_IS_NOT_EXIST'         =>  'The user key not exist'
+    'USER_KEY_IS_NOT_EXIST'         =>  'The user key not exist',
+    'UPDATE_PROFILE_PHOTO_FAILED'   =>  'Can not update profile photo'
 ];
