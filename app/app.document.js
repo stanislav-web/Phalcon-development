@@ -12,6 +12,7 @@
              * @returns {*}
              */
             var baseTitle = function() {
+                $rootScope.documentTitle = $rootScope.documentTitle || CONFIG.TITLE;
                 return $rootScope.documentTitle || $rootScope.engines.name;
             };
 

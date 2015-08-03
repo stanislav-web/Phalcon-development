@@ -5,6 +5,7 @@ var CONFIG = {};
     "use strict";
 
     CONFIG = {
+        TITLE : 'Phalcon Shop',
         URL: 'http://backend.local/api/v1',
         FILES_URL: 'http://backend.local',
         ENGINE_ID: 1,
