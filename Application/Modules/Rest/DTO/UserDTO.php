@@ -61,6 +61,11 @@ class UserDTO extends AbstractDTO
     public function setUsers(\Phalcon\Mvc\Model\Resultset\Simple $users) {
 
         $this->users = $users->toArray();
+
+        foreach($this->users as &$user) {
+            $user['photo'] = (empty($user['photo']) === false) ? json_decode($user['photo'], true) : "";
+        }
+
         $this->users['total'] = $this->total($users);
         $this->users['limit'] = $this->limit($users);
         $this->users['offset'] = $this->offset();
