@@ -30,8 +30,8 @@ var notify = null;
     }])
 
     // setup global scope variables
-    .run(['$rootScope', 'amMoment', '$notification', '$location', 'LanguageService', 'CategoriesService', 'CurrenciesService',
-        function ($rootScope, amMoment, $notification, $location, LanguageService, CategoriesService, CurrenciesService) {
+    .run(['$rootScope', 'amMoment', '$notification', '$location', 'LanguageService', 'CategoriesService', 'CurrenciesService', 'Document',
+        function ($rootScope, amMoment, $notification, $location, LanguageService, CategoriesService, CurrenciesService, Document) {
 
             //  load engine's categories
             CategoriesService.load(function(response) {
@@ -39,6 +39,7 @@ var notify = null;
                 $rootScope.engines      = response.engines;
                 $rootScope.bannersOn    = CONFIG.BANNERS;
                 $rootScope.banners      = response.banners;
+                Document.setDescription(response.engines.description);
             });
 
             // load & configure shop currencies

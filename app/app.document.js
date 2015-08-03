@@ -93,7 +93,7 @@
                  */
                 setDescription: function (description) {
                     var desc =  String(description).replace(/<[^>]+>/gm, '');
-                    $rootScope.engines.description = desc;
+                    $rootScope.documentDesc = desc;
                 }
             };
         }]);

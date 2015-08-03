@@ -5,20 +5,22 @@
      * User service
      */
     angular.module('app.user')
-        .service('UserService',  ['Restangular', 'AuthenticationService', 'UploadService', function(Restangular, AuthenticationService, UploadService) {
+        .service('UserService',  ['Restangular', 'AuthenticationService', 'UploadService', 'ModuleUserConfig',
+            function(Restangular, AuthenticationService, UploadService, ModuleUserConfig) {
 
             return {
 
                 setUserPhoto : function(photo) {
 
-                    if(photo.length > 0) {
-                        // resolve full uri photo path
-                        return CONFIG.FILES_URL + photo;
+                    if(photo.hasOwnProperty('small')) {
+                        if(photo.small.length > 0) {
+                            // resolve full uri photo path
+                            return CONFIG.FILES_URL + photo.small;
+                        }
                     }
-                    else {
-                        // set default image as empty
-                       return ModuleUserConfig.noImage;
-                    }
+
+                    // set default image as empty
+                    return ModuleUserConfig.noImage;
                 },
 
                 /**

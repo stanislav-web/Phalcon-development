@@ -22,7 +22,7 @@
                     Document.prependTitle($scope.user.name, '-');
 
                     // set user profile photo
-                    $scope.user.photo = UserService.setUserPhoto(response.photo.small);
+                    $scope.user.photo = UserService.setUserPhoto(response.photo);
 
                 });
 
