@@ -77,9 +77,13 @@ var CONFIG = {};
                 controller: 'SignController',
                 resolve: {
                     isLoggedIn: function (AuthenticationService) {
-                        AuthenticationService.logout(CONFIG.REST.AUTH).then(function() {
-                            window.location.assign(CONFIG.LOCATIONS.HOME);
-                        });
+                        var logged = AuthenticationService.logout(CONFIG.REST.AUTH);
+                        if(logged) {
+                            logged.then(function() {
+                                window.location.assign(CONFIG.LOCATIONS.HOME);
+                            });
+                        }
+                        window.location.assign(CONFIG.LOCATIONS.HOME);
                     }
                 }
             },

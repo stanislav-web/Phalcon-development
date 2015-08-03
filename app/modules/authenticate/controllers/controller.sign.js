@@ -66,10 +66,7 @@
             $scope.loading = true;
 
             AuthenticationService.restore(this.credentials).then(function () {
-
                 // restore success!
-                console.log(response);
-
             }).finally(function () {
                 $scope.loading = false;
             });

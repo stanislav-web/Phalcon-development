@@ -60,7 +60,9 @@
                 prependTitle: function (title, delimiter) {
 
                     $translate(title).then(function (title) {
-                        $rootScope.documentTitle = title +' ' + delimiter + ' '+ baseTitle;
+
+                        var addTitle = (typeof baseTitle === 'string') ? baseTitle : baseTitle();
+                        $rootScope.documentTitle = title +' ' + delimiter + ' '+ addTitle;
                     });
 
                     return this;

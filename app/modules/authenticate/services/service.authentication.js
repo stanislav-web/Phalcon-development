@@ -156,9 +156,7 @@
                             }
                         );
                     }
-                    else {
-                        return Restangular.one(CONFIG.REST.AUTH).remove();
-                    }
+                    return false;
                 }
             };
     }]);
