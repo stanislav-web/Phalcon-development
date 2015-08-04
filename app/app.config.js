@@ -25,7 +25,9 @@ var CONFIG = {};
             INTERVAL: 1000
         },
         DEFAULT_IMAGES : {
-            BANNERS : '/assets/images/default_banner.png'
+            BANNERS : '/assets/images/default_banner.png',
+            ITEM    : '/assets/images/no_product_photo.png',
+            PROFILE : '/assets/images/not_available_photo.png'
         },
         LANGUAGES: {
             ACCEPT: ['en', 'ru', 'uk'],

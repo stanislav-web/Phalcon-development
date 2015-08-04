@@ -6,7 +6,7 @@
     angular.module('app.user', [])
 
         .constant('ModuleUserConfig', {
-            noImage : '/assets/images/not_available_photo.png'
+            noImage : CONFIG.DEFAULT_IMAGES.PROFILE
         });
 
 })(angular);

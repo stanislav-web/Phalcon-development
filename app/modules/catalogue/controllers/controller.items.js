@@ -21,15 +21,17 @@
                     // set meta title
                     Document.setTitle(response.categories.title);
 
+                    // set meta description
+                    Document.setDescription(response.categories.description);
+
                     // setup view scopes
                     $scope.category = response.categories;
 
                     // load category items with properties
 
                     ItemsService.load(response.items, {}, function(response) {
-                        $scope.items = response.data;
 
-                        console.log($scope.items);
+                        $scope.items = response.data;
                     });
                 });
 

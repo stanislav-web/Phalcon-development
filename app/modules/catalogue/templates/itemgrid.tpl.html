@@ -1,0 +1,18 @@
+<div id="cbp-vm" class="cbp-vm-switcher cbp-vm-view-grid">
+    <div class="cbp-vm-options">
+        <a href="#" class="cbp-vm-icon cbp-vm-grid cbp-vm-selected" data-view="cbp-vm-view-grid">Grid View</a>
+        <a href="#" class="cbp-vm-icon cbp-vm-list" data-view="cbp-vm-view-list">List View</a>
+    </div>
+    <ul>
+        <li ng-repeat="(key, item) in items">
+            <a class="cbp-vm-image" href="#">
+                <img ng-src="item.images" err-src="ITEM">
+            </a>
+            <h3 class="cbp-vm-title" data-ng-bind="item.name"></h3>
+            <div class="cbp-vm-price">$19.90</div>
+            <div class="cbp-vm-details" data-ng-bind="item.description">
+            </div>
+            <a class="cbp-vm-icon cbp-vm-add" href="#">Add to cart</a>
+        </li>
+    </ul>
+</div>
