@@ -31,6 +31,17 @@ class TranslateService {
     protected $translate;
 
     /**
+     * Accepted locales
+     *
+     * @var array $localeCodes
+     */
+    protected $localeCodes = [
+        'ru'    =>  'ru_RU.utf8',
+        'en'    =>  'en_GB.utf8',
+        'uk'    =>  'ru_UA.utf8',
+    ];
+
+    /**
      * Set chased language
      *
      * @param string $definedLanguage
@@ -40,6 +51,9 @@ class TranslateService {
 
         $this->translate = (new Translator())->setLanguage($definedLanguage);
         $this->defaultLanguage  =   $defaultLanguage;
+
+        // set localization
+        setlocale(LC_ALL, $this->localeCodes[$this->defaultLanguage]);
     }
 
     /**

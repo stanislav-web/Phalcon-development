@@ -22,6 +22,7 @@ Phalcon Development Boards
 * Phalcon 2.0.x
 * Memcache
 * APC (APCu)
+* Intl
 * PHP mcrypt library
 * PHP PDO MySQL driver
 
