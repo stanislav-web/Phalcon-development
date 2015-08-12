@@ -28,12 +28,12 @@ trait SQL {
 
         $sql = "
             (
-                SELECT table_name AS 'name', ROUND(((data_length + index_length) / 1024 / 1024), 2) 'size'
+                SELECT table_name AS 'name', TABLE_ROWS AS 'rows', ROUND(((data_length + index_length) / 1024 / 1024), 2) 'size'
 		            FROM information_schema.TABLES
 			            WHERE table_schema = ?
             )
             UNION ALL (
-	            SELECT table_schema 'name', ROUND(SUM( data_length + index_length ) / 1024 / 1024, 3) 'size'
+	            SELECT table_schema 'name', SUM(TABLE_ROWS) AS 'rows', ROUND(SUM( data_length + index_length ) / 1024 / 1024, 3) 'size'
 	                FROM information_schema.TABLES
 		                WHERE table_schema = ?
             )

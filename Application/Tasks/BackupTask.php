@@ -227,17 +227,13 @@ class BackupTask extends \Phalcon\CLI\Task implements CliAwareInterface
 
         // output database information
         foreach ($dbStatus as $info) {
-            if ($info['name'] == $this->getDb()->getDescriptor()['dbname']) {
-                echo $this->styleHelper()->head(
-                    "[" . date('Y.m.d H:i:s', time()) . "] " . $info['name'] . " " . $info['size'] . " Mb\n"
-                );
+            if ($info['name'] != $this->getDb()->getDescriptor()['dbname']) {
+                    $this->tables[] = $info['name'];
             }
-            else {
-                $this->tables[] = $info['name'];
-                echo $this->styleHelper()->head(
-                    "[" . date('Y.m.d H:i:s', time()) . "] " . $info['name'] . " " . $info['size'] . " Mb\n"
-                );
-            }
+
+            echo $this->styleHelper()->head(
+                "[" . date('Y.m.d H:i:s', time()) . "] " . $info['name'] . " " . $info['rows'] . " row(s) / " . $info['size'] . " Mb\n"
+            );
         }
         // count all tables
         $this->counter = count($this->tables);
