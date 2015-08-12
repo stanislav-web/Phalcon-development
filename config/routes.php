@@ -5,7 +5,6 @@
  */
 use \Phalcon\Mvc\Router;
 use Application\Helpers\OpcodeCache;
-
 if(isset($config) === false) die('Config file is not initialized! Check your ./config/application.php');
 
 if(OpcodeCache::isEnabled() === true && $config['cache']['code'] === true) {

@@ -5,7 +5,7 @@
  */
 
 // Create factory container
-$di = new Phalcon\DI\FactoryDefault();
+$di = new  \Phalcon\DI\FactoryDefault\CLI();
 
 // BASE SERVICES
 
@@ -19,16 +19,6 @@ $di->setShared('config', function () use ($config) {
     ) : '';
 
     return $configBase;
-});
-
-// Set routes
-$di->setShared('router', $router);
-
-// Component Session. Starting a Session
-$di->setShared('session', function () use ($di) {
-
-    $session = new \Application\Services\Security\SessionProtector();
-    return $session->init($di->get('config')->session->toArray());
 });
 
 // Set meta data
@@ -60,6 +50,7 @@ $di->setShared('modelsMetadata', function() use ($di) {
 $di->setShared('db', function () use ($di) {
 
     $config = $di->get('config')->database;
+
     $connect = new \Application\Services\Database\MySQLConnectService(
         $config->toArray()
     );
@@ -93,30 +84,6 @@ $di->setShared('DbListener', function () {
     return new \Application\Services\Develop\MySQLDbListener();
 });
 
-// Define Image processor
-$di->set('ImageService', function ($image) use ($di) {
-
-    $images = $di->get('config')->images;
-
-    try {
-        $adapter = new \Application\Services\Advanced\ImageService(
-            new $images['adapter']($image), $images->config
-        );
-
-        return $adapter;
-    }
-    catch(\Exception $e) {
-
-        $t = $di->get('TranslateService')->assign('errors');
-
-        throw new \Application\Modules\Rest\Exceptions\UnsupportedContentException([
-            'UNSUPPORTED_MEDIA_CONTENT' =>  $t->translate('UNSUPPORTED_MEDIA_CONTENT')
-        ]);
-    }
-});
-
-// Define Profiler
-$di->setShared('ProfilerService', '\Application\Services\Develop\ProfilerService');
 
 // Define mailer service
 $di->setShared('MailService', function () use ($di) {
@@ -130,28 +97,8 @@ $di->setShared('MailService', function () use ($di) {
     return $mailer;
 });
 
-// Define SMS sender service
-$di->set('SmsService', function () use ($di) {
-    return new SMSFactory\Sender($di);
-});
-
-// Define mailer service
-$di->setShared('eventsManager', function () {
-
-    $eventsManager = new \Phalcon\Events\Manager();
-    $eventsManager->attach('dispatch:beforeException',      new \Application\Modules\Rest\Events\BeforeException\NotFoundEvent(), 150);
-    $eventsManager->attach("dispatch:beforeDispatchLoop",   new \Application\Modules\Rest\Events\BeforeDispatchLoop\ResolveParams(), 140);
-
-    return $eventsManager;
-});
-
 // Define helper's service
 $di->setShared('tag', '\Application\Services\Advanced\HelpersService');
-
-// Define Opcode Cache Service
-$di->setShared('OpcodeCache', function () use ($di) {
-    return new \Application\Services\Cache\OpCodeService($di->get('config'));
-});
 
 // Define console tasks loader
 $di->setShared('ConsoleTasks', function() {
@@ -163,6 +110,9 @@ $di->setShared('ConsoleTasks', function() {
 
     return $loader;
 });
+
+// Define console color manager
+$di->setShared('color', '\Phalcon\Script\Color');
 
 // MAPPERS
 

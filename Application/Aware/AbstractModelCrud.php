@@ -8,7 +8,7 @@ use Application\Modules\Rest\Exceptions\NotFoundException;
 use Phalcon\DI\InjectionAwareInterface;
 
 /**
- * AbstractModelCrud. Implementing rules necessary intended for service's models
+ * AbstractModelCrud class. Implementing rules necessary intended for service's models
  *
  * @package Application
  * @subpackage Aware
