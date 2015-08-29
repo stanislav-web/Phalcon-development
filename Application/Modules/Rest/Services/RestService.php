@@ -103,13 +103,26 @@ class RestService implements RestServiceInterface {
      * Set response header
      *
      * @param array $params
+     * @return \Application\Modules\Rest\Services\RestService
      */
     public function setHeader(array $params) {
 
         $response = $this->getResponseService();
+
         foreach($params as $header => $content) {
             $response->setHeader($header,$content);
         }
+
+        $eTag = $this->getCacheService()->getKey();
+
+        if(is_null($eTag) === false) {
+
+            // set http cache
+            $response->setEtag($eTag);
+            $response->setCache((int)$this->getCacheService()->getLifetime() / 60);
+        }
+
+        return $this;
     }
 
     /**
@@ -264,7 +277,7 @@ class RestService implements RestServiceInterface {
      */
     private function getRateLimit() {
 
-        return (isset($this->getResolver()->getRules()->requests) === true)
+        return (isset($this->getResolver()->getRules()->requests['limit']) === true)
             ? $this->getResolver()->getRules()->requests['limit'] : 'infinity';
     }
 
@@ -323,18 +336,9 @@ class RestService implements RestServiceInterface {
             'Content-Language'              =>  $this->getLocale(),
             'Content-Length'                =>  $this->setContentLength($this->getMessage()),
             'X-Resource'                    =>  $this->getResourceUri(),
-            'Cache-Control' =>  'max-age='.$this->getCacheService()->getLifetime().', must-revalidate',
-            'Expires'       =>  gmdate('D, d M Y H:i:s T', time()+$this->getCacheService()->getLifetime()),
         ]);
 
-
-        $response = $this->getResponseService();
-        $eTag = $this->getCacheService()->getKey();
-
-        if(is_null($eTag) === false) {
-            $response->setEtag($eTag);
-        }
-        $response->setJsonContent($this->getMessage());
+        $response = $this->getResponseService()->setJsonContent($this->getMessage());
 
         return $response;
     }

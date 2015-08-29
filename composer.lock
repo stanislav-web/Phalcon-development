@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "056b08489029e315b72b2ad7fb4bc252",
+    "hash": "3eddb14290990f721e44c9dded46181b",
     "packages": [
         {
             "name": "pda/pheanstalk",
@@ -16,7 +16,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pda/pheanstalk/zipball/e677fe978ab568801de42a599f19b398b6d7a31b",
+                "url": "https://api.github.com/repos/pda/pheanstalk/zipball/430e77c551479aad0c6ada0450ee844cf656a18b",
                 "reference": "e677fe978ab568801de42a599f19b398b6d7a31b",
                 "shasum": ""
             },
@@ -55,6 +55,57 @@
                 "beanstalkd"
             ],
             "time": "2015-06-26 01:03:20"
+        },
+        {
+            "name": "phalcon/devtools",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phalcon/phalcon-devtools.git",
+                "reference": "66b628cde63a00ec30c75b2f4ace0c0ca38edbcd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phalcon/phalcon-devtools/zipball/66b628cde63a00ec30c75b2f4ace0c0ca38edbcd",
+                "reference": "66b628cde63a00ec30c75b2f4ace0c0ca38edbcd",
+                "shasum": ""
+            },
+            "require": {
+                "ext-phalcon": "~2.0",
+                "php": ">=5.3.9"
+            },
+            "require-dev": {
+                "kherge/box": ">=2.5.2"
+            },
+            "bin": [
+                "phalcon.php"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Phalcon": "scripts/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Phalcon Team",
+                    "email": "team@phalconphp.com"
+                }
+            ],
+            "description": "This tools provide you useful scripts to generate code helping to develop faster and easy applications that use with Phalcon framework.",
+            "homepage": "http://phalconphp.com",
+            "keywords": [
+                "Devtools",
+                "framework",
+                "phalcon",
+                "phar",
+                "webtools"
+            ],
+            "time": "2015-08-18 05:22:39"
         },
         {
             "name": "phalcon/incubator",
@@ -117,7 +168,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stanislav-web/express-mailer/zipball/aeba3f885b6129301fae0428180d7be85e116504",
+                "url": "https://api.github.com/repos/stanislav-web/express-mailer/zipball/bab3056d4070dc5f9253177d7bf38186791f4b3b",
                 "reference": "0dfe19200f0525763f32125b0869eb9aff323d62",
                 "shasum": ""
             },
@@ -455,7 +506,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/def79553a00d871a93422f86b6391d80b1b7bdf1",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/0a597a6de1122566a7638a0bdc10f1b06d930ab2",
                 "reference": "a3f42f68c9988f56317c3950f7eff6036d8fbe72",
                 "shasum": ""
             },
@@ -1366,53 +1417,6 @@
             "time": "2015-07-12 13:54:09"
         },
         {
-            "name": "phalcon/devtools",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/phalcon/phalcon-devtools.git",
-                "reference": "a53851790798ae9ba6b4f4f2e815db642ba64b57"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/phalcon/phalcon-devtools/zipball/6f456e4fbec0a69dbc17d4cdd5fb1082451e7f8d",
-                "reference": "a53851790798ae9ba6b4f4f2e815db642ba64b57",
-                "shasum": ""
-            },
-            "require": {
-                "ext-phalcon": "~2.0",
-                "php": ">=5.3.9"
-            },
-            "bin": [
-                "phalcon.php"
-            ],
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Phalcon": "scripts/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3"
-            ],
-            "authors": [
-                {
-                    "name": "Phalcon Team",
-                    "email": "team@phalconphp.com"
-                }
-            ],
-            "description": "This tools provide you useful scripts to generate code helping to develop faster and easy applications that use with Phalcon framework.",
-            "homepage": "http://phalconphp.com",
-            "keywords": [
-                "Devtools",
-                "framework",
-                "phalcon",
-                "webtools"
-            ],
-            "time": "2015-06-03 12:30:17"
-        },
-        {
             "name": "phpunit/php-code-coverage",
             "version": "1.2.18",
             "source": {
@@ -2091,7 +2095,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/9c1c2089e2a339e7949917e19d5ced24c4177810",
+                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/204a95964f62940ccb537f8ec4772154acc5b1a2",
                 "reference": "9c1c2089e2a339e7949917e19d5ced24c4177810",
                 "shasum": ""
             },
@@ -2294,8 +2298,7 @@
         "stanislav-web/phalcon-uploader": 20,
         "stanislav-web/express-mailer": 20,
         "phalcon/devtools": 20,
-        "flow/jsonpath": 20,
-        "symfony/http-foundation": 20
+        "flow/jsonpath": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

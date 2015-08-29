@@ -39,11 +39,11 @@
         "swiftmailer/swiftmailer": "5.*",
         "stanislav-web/express-mailer" : "dev-master",
         "phalcon/incubator": "2.*",
-        "stanislav-web/httpstatuses-json": "1.0-stable"
+        "stanislav-web/httpstatuses-json": "1.0-stable",
+        "phalcon/devtools": "dev-master"
     },
     "require-dev": {
         "codeception/codeception" :"*",
-        "phalcon/devtools": "dev-master",
         "flow/jsonpath": "dev-master"
     },
     "config": {
