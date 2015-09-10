@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Application\Aware\AbstractDTO" namespace="Application\Aware" name="AbstractDTO" abstract="true" final="false" start="17" end="101">
+  <file path="/var/www/backend.local/Application/Aware" file="AbstractDTO.php" realpath="/var/www/backend.local/Application/Aware/AbstractDTO.php" size="2158" time="2015-07-22T21:33:28+00:00" unixtime="1437600808" sha1="2ec0c847890f80c700207118c15131dd79a8f6ee" relative="Aware/AbstractDTO.php"/>
+  <docblock>
+    <description compact="AbstractDTO. Data Transfer Object for Results Set"/>
+    <package value="Application"/>
+    <subpackage value="Aware"/>
+    <since value="PHP &gt;=5.6"/>
+    <version value="1.0"/>
+    <author value="Stanislav WEB | Lugansk &lt;stanisov@gmail.com&gt;"/>
+    <copyright value="Stanislav WEB"/>
+    <filesource value="/Application/Aware/AbstractDTO.php"/>
+  </docblock>
+  <method name="total" start="25" end="33" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Setup total records"/>
+      <param type="mixed" variable="$result"/>
+      <return type="int"/>
+    </docblock>
+    <parameter name="result" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="offset" start="40" end="43" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Setup offset records"/>
+      <return type="int"/>
+    </docblock>
+  </method>
+  <method name="limit" start="51" end="64" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Setup limit records"/>
+      <param type="mixed" variable="$result"/>
+      <return type="int"/>
+    </docblock>
+    <parameter name="result" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="serialize" start="72" end="74" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Serialize object"/>
+      <param type="object" variable="$result">
+        <type full="\Phalcon\Mvc\Model\Resultset\Simple" namespace="\Phalcon\Mvc\Model\Resultset" name="Simple"/>
+      </param>
+      <return type="string"/>
+    </docblock>
+    <parameter name="result" byreference="false" type="object">
+      <type full="Phalcon\Mvc\Model\Resultset\Simple" namespace="Phalcon\Mvc\Model\Resultset" name="Simple"/>
+    </parameter>
+  </method>
+  <method name="getPrimary" start="81" end="93" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Get primary identifier"/>
+      <return type="int"/>
+    </docblock>
+  </method>
+  <method name="toArray" start="100" end="100" abstract="true" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Reverse object to an array"/>
+      <return type="array"/>
+    </docblock>
+  </method>
+  <extenders>
+    <extender full="Application\Modules\Rest\DTO\ItemAttributesDTO" namespace="Application\Modules\Rest\DTO" name="ItemAttributesDTO"/>
+    <extender full="Application\Modules\Rest\DTO\ItemAttributeValuesDTO" namespace="Application\Modules\Rest\DTO" name="ItemAttributeValuesDTO"/>
+    <extender full="Application\Modules\Rest\DTO\ItemsDTO" namespace="Application\Modules\Rest\DTO" name="ItemsDTO"/>
+    <extender full="Application\Modules\Rest\DTO\UserDTO" namespace="Application\Modules\Rest\DTO" name="UserDTO"/>
+    <extender full="Application\Modules\Rest\DTO\ErrorDTO" namespace="Application\Modules\Rest\DTO" name="ErrorDTO"/>
+    <extender full="Application\Modules\Rest\DTO\SubscribersDTO" namespace="Application\Modules\Rest\DTO" name="SubscribersDTO"/>
+    <extender full="Application\Modules\Rest\DTO\LogDTO" namespace="Application\Modules\Rest\DTO" name="LogDTO"/>
+    <extender full="Application\Modules\Rest\DTO\BannersDTO" namespace="Application\Modules\Rest\DTO" name="BannersDTO"/>
+    <extender full="Application\Modules\Rest\DTO\CategoryDTO" namespace="Application\Modules\Rest\DTO" name="CategoryDTO"/>
+    <extender full="Application\Modules\Rest\DTO\EngineDTO" namespace="Application\Modules\Rest\DTO" name="EngineDTO"/>
+    <extender full="Application\Modules\Rest\DTO\CurrencyDTO" namespace="Application\Modules\Rest\DTO" name="CurrencyDTO"/>
+    <extender full="Application\Modules\Rest\DTO\PageDTO" namespace="Application\Modules\Rest\DTO" name="PageDTO"/>
+  </extenders>
+</class>

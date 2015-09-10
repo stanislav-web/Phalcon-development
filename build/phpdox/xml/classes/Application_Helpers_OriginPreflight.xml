@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Application\Helpers\OriginPreflight" namespace="Application\Helpers" name="OriginPreflight" abstract="false" final="false" start="15" end="50">
+  <file path="/var/www/backend.local/Application/Helpers" file="OriginPreflight.php" realpath="/var/www/backend.local/Application/Helpers/OriginPreflight.php" size="1392" time="2015-07-22T21:33:28+00:00" unixtime="1437600808" sha1="808e4507b799fc8d7e2de89229c1d0a3167ff081" relative="Helpers/OriginPreflight.php"/>
+  <docblock>
+    <description compact="OriginPrelight class. Prelight OPTIONS Requests"/>
+    <package value="Application"/>
+    <subpackage value="Helpers"/>
+    <since value="PHP &gt;=5.6"/>
+    <version value="1.0"/>
+    <author value="Stanislav WEB | Lugansk &lt;stanisov@gmail.com&gt;"/>
+    <copyright value="Stanislav WEB"/>
+    <filesource value="/Application/Helpers/OriginPrelight.php"/>
+  </docblock>
+  <method name="isOptions" start="22" end="28" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Check is request is Options ?"/>
+      <return type="object">
+        <type full="Application\Helpers\bool" namespace="Application\Helpers" name="bool"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="allowRequest" start="35" end="49" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Allow Origin Requests"/>
+      <return type="object">
+        <type full="Application\Helpers\null" namespace="Application\Helpers" name="null"/>
+      </return>
+    </docblock>
+    <inline>
+      <comment value="return only the headers and not the content" line="37"/>
+      <comment value="only allow CORS if we're doing a GET - i.e. no saving for now." line="38"/>
+    </inline>
+  </method>
+</class>

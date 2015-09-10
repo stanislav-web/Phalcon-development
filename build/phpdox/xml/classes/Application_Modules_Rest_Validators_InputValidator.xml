@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Application\Modules\Rest\Validators\InputValidator" namespace="Application\Modules\Rest\Validators" name="InputValidator" abstract="false" final="false" start="18" end="289">
+  <file path="/var/www/backend.local/Application/Modules/Rest/Validators" file="InputValidator.php" realpath="/var/www/backend.local/Application/Modules/Rest/Validators/InputValidator.php" size="6192" time="2015-07-22T21:33:28+00:00" unixtime="1437600808" sha1="8f5c84dc24b79edd12380e125b225b09abd29a45" relative="Modules/Rest/Validators/InputValidator.php"/>
+  <docblock>
+    <description compact="Class InputValidator. Check query string"/>
+    <package value="Application\Modules\Rest"/>
+    <subpackage value="Validators"/>
+    <since value="PHP &gt;=5.6"/>
+    <version value="1.0"/>
+    <author value="Stanislav WEB | Lugansk &lt;stanisov@gmail.com&gt;"/>
+    <copyright value="Stanislav WEB"/>
+    <filesource value="/Application/Modules/Rest/Validators/InputValidator.php"/>
+  </docblock>
+  <member name="di" visibility="private" line="25">
+    <docblock>
+      <description compact="Dependency injection container"/>
+      <var description="$di;" type="object">
+        <type full="\Phalcon\DiInterface" namespace="\Phalcon" name="DiInterface"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="mapper" visibility="private" line="32">
+    <docblock>
+      <description compact="Request handler"/>
+      <var description="$mapper" type="object">
+        <type full="Application\Modules\Rest\Validators\void" namespace="Application\Modules\Rest\Validators" name="void"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="columns" type="array" default="" visibility="private" line="39">
+    <docblock>
+      <description compact="Requested columns"/>
+      <var description="$columns" type="array"/>
+    </docblock>
+  </member>
+  <member name="params" type="array" default="" visibility="private" line="46">
+    <docblock>
+      <description compact="Requested params"/>
+      <var description="$params" type="array"/>
+    </docblock>
+  </member>
+  <member name="rules" type="array" default="" visibility="private" line="53">
+    <docblock>
+      <description compact="Rules by this action"/>
+      <var description="$rules" type="array"/>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="60" end="63" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Setup definition"/>
+      <param type="object" variable="$di">
+        <type full="\Phalcon\Di\FactoryDefault" namespace="\Phalcon\Di" name="FactoryDefault"/>
+      </param>
+    </docblock>
+    <parameter name="di" byreference="false" type="object">
+      <type full="Phalcon\Di\FactoryDefault" namespace="Phalcon\Di" name="FactoryDefault"/>
+    </parameter>
+  </constructor>
+  <method name="setDi" start="71" end="76" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Set dependency container"/>
+      <param type="object" variable="$di">
+        <type full="\Phalcon\DiInterface" namespace="\Phalcon" name="DiInterface"/>
+      </param>
+      <return type="object">
+        <type full="Application\Modules\Rest\Validators\InputValidator" namespace="Application\Modules\Rest\Validators" name="InputValidator"/>
+      </return>
+    </docblock>
+    <parameter name="di" byreference="false" type="object">
+      <type full="Phalcon\DiInterface" namespace="Phalcon" name="DiInterface"/>
+    </parameter>
+  </method>
+  <method name="getDi" start="83" end="86" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Get dependency container"/>
+      <return type="object">
+        <type full="\Phalcon\DiInterface" namespace="\Phalcon" name="DiInterface"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="getMapper" start="93" end="96" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Handle mapper"/>
+      <return type="object"/>
+    </docblock>
+  </method>
+  <method name="getTranslator" start="103" end="110" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Get Translate service"/>
+      <return type="object">
+        <type full="\Translate\Translator|null" namespace="\Translate" name="Translator|null"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="setMapper" start="118" end="123" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Set handle mapper"/>
+      <param type="string" variable="$mapper"/>
+      <return type="object">
+        <type full="Application\Modules\Rest\Validators\InputValidator" namespace="Application\Modules\Rest\Validators" name="InputValidator"/>
+      </return>
+    </docblock>
+    <parameter name="mapper" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getColumns" start="130" end="133" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Get parsed requested columns"/>
+      <return type="array"/>
+    </docblock>
+  </method>
+  <method name="setColumns" start="141" end="148" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Set requested columns"/>
+      <param type="array" variable="$params"/>
+      <return type="object">
+        <type full="Application\Modules\Rest\Validators\InputValidator" namespace="Application\Modules\Rest\Validators" name="InputValidator"/>
+      </return>
+    </docblock>
+    <parameter name="params" byreference="false" type="array"/>
+  </method>
+  <method name="getParams" start="155" end="158" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Get params for this action"/>
+      <return type="array"/>
+    </docblock>
+  </method>
+  <method name="setParams" start="166" end="171" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Set params for this action"/>
+      <param type="array" variable="$params"/>
+      <return type="object">
+        <type full="Application\Modules\Rest\Validators\InputValidator" namespace="Application\Modules\Rest\Validators" name="InputValidator"/>
+      </return>
+    </docblock>
+    <parameter name="params" byreference="false" type="array" default=""/>
+  </method>
+  <method name="getRules" start="178" end="181" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Get rules for this action"/>
+      <return type="object">
+        <type full="\StdClass" namespace="" name="StdClass"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="setRules" start="189" end="198" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Set rules for this action"/>
+      <param type="object" variable="$rules">
+        <type full="\StdClass" namespace="" name="StdClass"/>
+      </param>
+      <return type="object">
+        <type full="Application\Modules\Rest\Validators\InputValidator" namespace="Application\Modules\Rest\Validators" name="InputValidator"/>
+      </return>
+    </docblock>
+    <parameter name="rules" byreference="false" type="object">
+      <type full="StdClass" namespace="" name="StdClass"/>
+    </parameter>
+  </method>
+  <method name="validate" start="208" end="222" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Validate query string"/>
+      <param type="object" variable="$rules">
+        <type full="\StdClass" namespace="" name="StdClass"/>
+      </param>
+      <param type="array" variable="$params"/>
+      <return type="object">
+        <type full="Application\Modules\Rest\Validators\InputValidator" namespace="Application\Modules\Rest\Validators" name="InputValidator"/>
+      </return>
+      <throws type="object">
+        <type full="Application\Modules\Rest\Exceptions\InternalServerErrorException" namespace="Application\Modules\Rest\Exceptions" name="InternalServerErrorException"/>
+      </throws>
+    </docblock>
+    <parameter name="rules" byreference="false" type="object">
+      <type full="StdClass" namespace="" name="StdClass"/>
+    </parameter>
+    <parameter name="params" byreference="false" type="array"/>
+  </method>
+  <method name="isRequiredParam" start="227" end="242" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Check if rules required param equal by query string"/>
+    </docblock>
+  </method>
+  <method name="isEmptyParam" start="247" end="257" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Check if mapper columns are not empty"/>
+    </docblock>
+  </method>
+  <method name="isColumnSupport" start="262" end="273" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Check if mapper columns are support by query"/>
+    </docblock>
+  </method>
+  <method name="resolve" start="278" end="288" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Resolve request"/>
+    </docblock>
+    <inline>
+      <comment value="check required params" line="280"/>
+      <comment value="check for empty params" line="283"/>
+      <comment value="check for supported columns" line="286"/>
+    </inline>
+  </method>
+</class>

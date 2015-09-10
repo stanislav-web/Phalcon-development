@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Application\Services\Security\SessionProtector" namespace="Application\Services\Security" name="SessionProtector" abstract="false" final="false" start="18" end="97">
+  <file path="/var/www/backend.local/Application/Services/Security" file="SessionProtector.php" realpath="/var/www/backend.local/Application/Services/Security/SessionProtector.php" size="2904" time="2015-07-22T21:33:28+00:00" unixtime="1437600808" sha1="f38b35e1b9600c72f095179fccee1cfde8ec03a4" relative="Services/Security/SessionProtector.php"/>
+  <docblock>
+    <description compact="Class SessionProtector. Protect session form hijack stealer's It has been suggested by Ellie White on PHP UK 2014."/>
+    <package value="Application\Services"/>
+    <subpackage value="Security"/>
+    <since value="PHP &gt;=5.6"/>
+    <version value="1.0"/>
+    <author value="Stanislav WEB | Lugansk &lt;stanisov@gmail.com&gt;"/>
+    <copyright value="Stanislav WEB"/>
+    <filesource value="/Application/Services/Security/SessionProtector.php"/>
+  </docblock>
+  <member name="config" type="array" default="" visibility="private" line="25">
+    <docblock>
+      <description compact="Configurations"/>
+      <var description="$config" type="array"/>
+    </docblock>
+  </member>
+  <member name="session" visibility="private" line="32">
+    <docblock>
+      <description compact="Session adapter"/>
+      <var description="$session" type="object">
+        <type full="\Phalcon\Session\Adapter" namespace="\Phalcon\Session" name="Adapter"/>
+      </var>
+    </docblock>
+  </member>
+  <method name="init" start="39" end="81" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Init Session configurations"/>
+      <param type="array" variable="$sessionConfig"/>
+    </docblock>
+    <parameter name="sessionConfig" byreference="false" type="array"/>
+  </method>
+  <method name="token" start="88" end="94" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Generate protected token"/>
+      <return type="string"/>
+    </docblock>
+  </method>
+</class>

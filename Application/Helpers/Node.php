@@ -2,14 +2,14 @@
 namespace Application\Helpers;
 
 /**
- * Node class. Work with data type
+ * Node trait. Work with data type
  *
  * @package Application
  * @subpackage Helpers
  * @since PHP >=5.6
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
- * @copyright Stanilav WEB
+ * @copyright Stanislav WEB
  * @filesource /Application/Helpers/Node.php
  */
 trait Node {
@@ -19,11 +19,37 @@ trait Node {
      * @param $a
      * @return bool
      */
-    public static  function isNestedArray(array $array) {
+    public static function isNestedArray(array $array) {
         foreach ($array as $v) {
             if (is_array($v) === true) return true;
         }
         return false;
+    }
+
+    /**
+     * Search in array by pair key => value
+     *
+     * @param array|string $array
+     * @param string $key
+     * @param string $value
+     *
+     * @return array
+     */
+    public static function searchInArray($array, $key, $value) {
+
+        $results = [];
+
+        if (is_array($array)) {
+            if (isset($array[$key]) === true && $array[$key] == $value) {
+                $results[] = $array;
+            }
+
+            foreach ($array as $subArray) {
+                $results = array_merge($results, self::searchInArray($subArray, $key, $value));
+            }
+        }
+
+        return $results;
     }
 
     /**
@@ -76,6 +102,7 @@ trait Node {
         $branch = [];
 
         foreach ($elements as $element) {
+
             if ($element['parent_id'] == $parentId) {
                 $children = self::setNestedTree($elements, $element['id']);
                 if ($children) {
@@ -84,7 +111,6 @@ trait Node {
                 $branch[] = $element;
             }
         }
-
         return $branch;
     }
 

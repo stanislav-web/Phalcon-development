@@ -103,13 +103,26 @@ class RestService implements RestServiceInterface {
      * Set response header
      *
      * @param array $params
+     * @return \Application\Modules\Rest\Services\RestService
      */
     public function setHeader(array $params) {
 
         $response = $this->getResponseService();
+
         foreach($params as $header => $content) {
             $response->setHeader($header,$content);
         }
+
+        $eTag = $this->getCacheService()->getKey();
+
+        if(is_null($eTag) === false) {
+
+            // set http cache
+            $response->setEtag($eTag);
+            $response->setCache((int)$this->getCacheService()->getLifetime() / 60);
+        }
+
+        return $this;
     }
 
     /**
@@ -211,6 +224,7 @@ class RestService implements RestServiceInterface {
 
     /**
      * Get related mappers
+     * Hard code resolver :(
      *
      * @return array
      */
@@ -224,12 +238,20 @@ class RestService implements RestServiceInterface {
                 // if isset rel name in rules ?
                 if(isset($this->getParams()[$relation]) === true) {
 
-                    $rule['rel'] = (is_numeric($this->getParams()[$relation]) === true)
-                        ? [ current($rule['rel'])   => (int)array_shift($this->getParams()['bind']),
-                            key($rule['rel'])       => (int)$this->getParams()[$relation]
-                        ] :[
-                            current($rule['rel'])   => (int)array_shift($this->getParams()['bind']),
+                    if(is_numeric($this->getParams()[$relation]) === true) {
+
+                        $rule['rel'] = [
+                            current($rule['rel']) => (int)array_shift($this->getParams()['bind']),
+                            key($rule['rel'])     => (int)$this->getParams()[$relation]
                         ];
+                    }
+                    else {
+
+                        $bind = array_shift($this->getParams()['bind']);
+
+                        $rule['rel'] = (is_numeric($bind) === false)
+                            ? [current($rule['rel'])   => $bind] :[current($rule['rel'])   => (int)$this->getParams()['bind']];
+                    }
 
                     $relations[$relation] = $rule;
                 }
@@ -255,7 +277,7 @@ class RestService implements RestServiceInterface {
      */
     private function getRateLimit() {
 
-        return (isset($this->getResolver()->getRules()->requests) === true)
+        return (isset($this->getResolver()->getRules()->requests['limit']) === true)
             ? $this->getResolver()->getRules()->requests['limit'] : 'infinity';
     }
 
@@ -314,18 +336,9 @@ class RestService implements RestServiceInterface {
             'Content-Language'              =>  $this->getLocale(),
             'Content-Length'                =>  $this->setContentLength($this->getMessage()),
             'X-Resource'                    =>  $this->getResourceUri(),
-            'Cache-Control' =>  'max-age='.$this->getCacheService()->getLifetime().', must-revalidate',
-            'Expires'       =>  gmdate('D, d M Y H:i:s T', time()+$this->getCacheService()->getLifetime()),
         ]);
 
-
-        $response = $this->getResponseService();
-        $eTag = $this->getCacheService()->getKey();
-
-        if(is_null($eTag) === false) {
-            $response->setEtag($eTag);
-        }
-        $response->setJsonContent($this->getMessage());
+        $response = $this->getResponseService()->setJsonContent($this->getMessage());
 
         return $response;
     }

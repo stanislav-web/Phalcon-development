@@ -4,7 +4,7 @@ namespace Application\Aware;
 use Phalcon\Mvc\Model\Resultset\Simple;
 
 /**
- * AbstractDTO. Data Transfer Object for Results Set
+ * AbstractDTO class. Data Transfer Object for Results Set
  *
  * @package Application
  * @subpackage Aware

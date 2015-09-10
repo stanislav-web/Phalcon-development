@@ -81,10 +81,10 @@ class EngineDTO extends AbstractDTO
     /**
      * Setup currencies
      *
-     * @param \Application\Models\Currency  $currencies
+     * @param \Phalcon\Mvc\ModelInterface  $currencies
      * @return $this
      */
-    public function setCurrencies(\Application\Models\Currency $currencies) {
+    public function setCurrencies(\Phalcon\Mvc\ModelInterface $currencies) {
 
         $this->currency[] = $currencies->toArray();
         return $this;

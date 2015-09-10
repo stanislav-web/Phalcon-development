@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html SYSTEM "about:legacy-compat">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <title>phpDox - Application\Modules\Rest\Services\RestSecurityService</title>
+    <link rel="stylesheet" type="text/css" href="../css/style.css" media="screen"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+  </head>
+  <body>
+    <nav class="topnav">
+      <ul>
+        <li>
+          <div class="logo"><span>/**</span>phpDox</div>
+        </li>
+        <li class="separator">
+          <a href="../index.xhtml">Overview</a>
+        </li>
+        <li class="separator">
+          <a href="../namespaces.xhtml">Namespaces</a>
+        </li>
+        <li>
+          <a href="../interfaces.xhtml">Interfaces</a>
+        </li>
+        <li>
+          <a href="../classes.xhtml">Classes</a>
+        </li>
+        <li>
+          <a href="../traits.xhtml">Traits</a>
+        </li>
+        <li class="separator">
+          <a href="../source/index.xhtml">Source</a>
+        </li>
+      </ul>
+    </nav>
+    <div id="mainstage">
+      <div class="box">
+        <ul class="breadcrumb">
+          <li>
+            <a href="../index.xhtml">Overview</a>
+          </li>
+          <li class="separator">
+            <a href="../classes.xhtml">Classes</a>
+          </li>
+          <li class="separator">
+            <a href="../classes.xhtml#Application_Modules_Rest_Services">Application\Modules\Rest\Services</a>
+          </li>
+          <li class="separator">RestSecurityService</li>
+        </ul>
+      </div>
+      <nav class="box">
+        <ul>
+          <li>
+            <a href="#introduction">Introduction</a>
+          </li>
+          <li>
+            <a href="#synopsis">Synopsis</a>
+          </li>
+          <li>
+            <a href="#hierarchy">Hierarchy</a>
+          </li>
+          <li>
+            <a href="#constants">Constants</a>
+          </li>
+          <li>
+            <a href="#members">Members</a>
+          </li>
+          <li>
+            <a href="#methods">Methods</a>
+          </li>
+          <li>
+            <a href="../source/Modules/Rest/Services/RestSecurityService.php.xhtml#line24">Source</a>
+          </li>
+        </ul>
+      </nav>
+      <section>
+        <h1 id="introduction"><small>Application\Modules\Rest\Services\</small>RestSecurityService</h1>
+        <h4>Class RestSecurityService. Rest security provider</h4>
+        <p/>
+        <ul>
+          <li>Author: Stanislav WEB | Lugansk &lt;stanisov@gmail.com&gt;</li>
+          <li>Copyright: Stanislav WEB</li>
+        </ul>
+        <h2 id="synopsis">Synopsis</h2>
+        <div class="synopsis">class RestSecurityService
+                extends <a title="Application\Modules\Rest\Aware\RestSecurityProvider" href="../classes/Application_Modules_Rest_Aware_RestSecurityProvider.xhtml">RestSecurityProvider</a>
+            {<br/><ul class="none"><li>// Inherited constants from <a title="Application\Modules\Rest\Aware\RestSecurityProvider" href="../classes/Application_Modules_Rest_Aware_RestSecurityProvider.xhtml">RestSecurityProvider</a></li><li>const <a href="#RECOVERY_PASS_LENGTH">RECOVERY_PASS_LENGTH</a> = 10;</li></ul><ul class="none"><li>// members</li><li>private <span title="\Application\Models\UserAccess">UserAccess</span> <a href="#members">$token</a>;
+                    </li></ul><ul class="none"><li>// methods</li><li>public Simple <a title="Application\Modules\Rest\Services\RestSecurityService" href="../classes/Application_Modules_Rest_Services_RestSecurityService/authenticate.xhtml">authenticate</a>()
+                    </li><li>public Simple <a title="Application\Modules\Rest\Services\RestSecurityService" href="../classes/Application_Modules_Rest_Services_RestSecurityService/register.xhtml">register</a>()
+                    </li><li>public void <a title="Application\Modules\Rest\Services\RestSecurityService" href="../classes/Application_Modules_Rest_Services_RestSecurityService/restore.xhtml">restore</a>()
+                    </li><li>public void <a title="Application\Modules\Rest\Services\RestSecurityService" href="../classes/Application_Modules_Rest_Services_RestSecurityService/logout.xhtml">logout</a>()
+                    </li><li>protected string <a title="Application\Modules\Rest\Services\RestSecurityService" href="../classes/Application_Modules_Rest_Services_RestSecurityService/getToken.xhtml">getToken</a>()
+                    </li><li>protected void <a title="Application\Modules\Rest\Services\RestSecurityService" href="../classes/Application_Modules_Rest_Services_RestSecurityService/setToken.xhtml">setToken</a>()
+                    </li><li>public boolean <a title="Application\Modules\Rest\Services\RestSecurityService" href="../classes/Application_Modules_Rest_Services_RestSecurityService/isAuthenticated.xhtml">isAuthenticated</a>()
+                    </li><li>public boolean <a title="Application\Modules\Rest\Services\RestSecurityService" href="../classes/Application_Modules_Rest_Services_RestSecurityService/hasRole.xhtml">hasRole</a>()
+                    </li><li>private void <a title="Application\Modules\Rest\Services\RestSecurityService" href="../classes/Application_Modules_Rest_Services_RestSecurityService/recoverySend.xhtml">recoverySend</a>()
+                    </li></ul><ul class="none"><li>// Inherited methods from <span title="Application\Modules\Rest\Aware\RestSecurityProvider">RestSecurityProvider</span></li><li>public void <a title="Application\Modules\Rest\Aware\RestSecurityProvider" href="../classes/Application_Modules_Rest_Aware_RestSecurityProvider/setDi.xhtml">setDi</a>()
+                        </li><li>public Config <a title="Application\Modules\Rest\Aware\RestSecurityProvider" href="../classes/Application_Modules_Rest_Aware_RestSecurityProvider/getConfig.xhtml">getConfig</a>()
+                        </li><li>public Request <a title="Application\Modules\Rest\Aware\RestSecurityProvider" href="../classes/Application_Modules_Rest_Aware_RestSecurityProvider/getRequest.xhtml">getRequest</a>()
+                        </li><li>public MailSMTPService <a title="Application\Modules\Rest\Aware\RestSecurityProvider" href="../classes/Application_Modules_Rest_Aware_RestSecurityProvider/getMailer.xhtml">getMailer</a>()
+                        </li><li>public Sender <a title="Application\Modules\Rest\Aware\RestSecurityProvider" href="../classes/Application_Modules_Rest_Aware_RestSecurityProvider/getSmsService.xhtml">getSmsService</a>()
+                        </li><li>public UserMapper <a title="Application\Modules\Rest\Aware\RestSecurityProvider" href="../classes/Application_Modules_Rest_Aware_RestSecurityProvider/getUserMapper.xhtml">getUserMapper</a>()
+                        </li><li>public Security <a title="Application\Modules\Rest\Aware\RestSecurityProvider" href="../classes/Application_Modules_Rest_Aware_RestSecurityProvider/getSecurity.xhtml">getSecurity</a>()
+                        </li><li>public LogMapper <a title="Application\Modules\Rest\Aware\RestSecurityProvider" href="../classes/Application_Modules_Rest_Aware_RestSecurityProvider/getLogger.xhtml">getLogger</a>()
+                        </li><li>public View <a title="Application\Modules\Rest\Aware\RestSecurityProvider" href="../classes/Application_Modules_Rest_Aware_RestSecurityProvider/getView.xhtml">getView</a>()
+                        </li><li>public DiInterface <a title="Application\Modules\Rest\Aware\RestSecurityProvider" href="../classes/Application_Modules_Rest_Aware_RestSecurityProvider/getDi.xhtml">getDi</a>()
+                        </li><li>public string <a title="Application\Modules\Rest\Aware\RestSecurityProvider" href="../classes/Application_Modules_Rest_Aware_RestSecurityProvider/randomString.xhtml">randomString</a>()
+                        </li><li>public Translator|null <a title="Application\Modules\Rest\Aware\RestSecurityProvider" href="../classes/Application_Modules_Rest_Aware_RestSecurityProvider/getTranslator.xhtml">getTranslator</a>()
+                        </li><li>public abstract Simple <a title="Application\Modules\Rest\Aware\RestSecurityProvider" href="../classes/Application_Modules_Rest_Aware_RestSecurityProvider/authenticate.xhtml">authenticate</a>()
+                        </li><li>public abstract Simple <a title="Application\Modules\Rest\Aware\RestSecurityProvider" href="../classes/Application_Modules_Rest_Aware_RestSecurityProvider/register.xhtml">register</a>()
+                        </li><li>public abstract Simple <a title="Application\Modules\Rest\Aware\RestSecurityProvider" href="../classes/Application_Modules_Rest_Aware_RestSecurityProvider/restore.xhtml">restore</a>()
+                        </li><li>public abstract Simple <a title="Application\Modules\Rest\Aware\RestSecurityProvider" href="../classes/Application_Modules_Rest_Aware_RestSecurityProvider/logout.xhtml">logout</a>()
+                        </li><li>protected abstract string <a title="Application\Modules\Rest\Aware\RestSecurityProvider" href="../classes/Application_Modules_Rest_Aware_RestSecurityProvider/getToken.xhtml">getToken</a>()
+                        </li><li>protected abstract boolean <a title="Application\Modules\Rest\Aware\RestSecurityProvider" href="../classes/Application_Modules_Rest_Aware_RestSecurityProvider/setToken.xhtml">setToken</a>()
+                        </li><li>protected abstract boolean <a title="Application\Modules\Rest\Aware\RestSecurityProvider" href="../classes/Application_Modules_Rest_Aware_RestSecurityProvider/isAuthenticated.xhtml">isAuthenticated</a>()
+                        </li><li>protected abstract boolean <a title="Application\Modules\Rest\Aware\RestSecurityProvider" href="../classes/Application_Modules_Rest_Aware_RestSecurityProvider/hasRole.xhtml">hasRole</a>()
+                        </li></ul>
+
+            }<br/></div>
+        <h2 id="hierarchy">Hierarchy</h2>
+        <div class="styled">
+          <h4>Extends</h4>
+          <ul>
+            <li>
+              <a title="Application\Modules\Rest\Aware\RestSecurityProvider" href="../classes/Application_Modules_Rest_Aware_RestSecurityProvider.xhtml">Application\Modules\Rest\Aware\RestSecurityProvider</a>
+            </li>
+          </ul>
+        </div>
+        <h2 id="constants">Constants</h2>
+        <table class="styled">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td id="RECOVERY_PASS_LENGTH">RECOVERY_PASS_LENGTH</td>
+              <td>10</td>
+            </tr>
+          </tbody>
+        </table>
+        <h2 id="members">Members</h2>
+        <div class="styled members">
+          <h4>private</h4>
+          <ul class="members">
+            <li id="token"><strong>$token</strong>
+                —
+                <a title="\Application\Models\UserAccess" href="../classes/_Application_Models_UserAccess.xhtml">\Application\Models\UserAccess</a><br/><span class="indent">User token info</span></li>
+          </ul>
+        </div>
+        <h2 id="methods">Methods</h2>
+        <div class="styled">
+          <h4>private</h4>
+          <ul>
+            <li id="recoverySend"><a title="Application\Modules\Rest\Services\RestSecurityService" href="../classes/Application_Modules_Rest_Services_RestSecurityService/recoverySend.xhtml">recoverySend()</a>
+                — Send recovery message</li>
+          </ul>
+          <h4>protected</h4>
+          <ul>
+            <li id="getToken"><a title="Application\Modules\Rest\Services\RestSecurityService" href="../classes/Application_Modules_Rest_Services_RestSecurityService/getToken.xhtml">getToken()</a>
+                — Get user access token from header or query</li>
+            <li id="setToken"><a title="Application\Modules\Rest\Services\RestSecurityService" href="../classes/Application_Modules_Rest_Services_RestSecurityService/setToken.xhtml">setToken()</a>
+                — Set user access token</li>
+          </ul>
+          <h4>public</h4>
+          <ul>
+            <li id="authenticate"><a title="Application\Modules\Rest\Services\RestSecurityService" href="../classes/Application_Modules_Rest_Services_RestSecurityService/authenticate.xhtml">authenticate()</a>
+                — Authenticate user use credentials</li>
+            <li id="hasRole"><a title="Application\Modules\Rest\Services\RestSecurityService" href="../classes/Application_Modules_Rest_Services_RestSecurityService/hasRole.xhtml">hasRole()</a>
+                — If user has role?</li>
+            <li id="isAuthenticated"><a title="Application\Modules\Rest\Services\RestSecurityService" href="../classes/Application_Modules_Rest_Services_RestSecurityService/isAuthenticated.xhtml">isAuthenticated()</a>
+                — If user is authenticated?</li>
+            <li id="logout"><a title="Application\Modules\Rest\Services\RestSecurityService" href="../classes/Application_Modules_Rest_Services_RestSecurityService/logout.xhtml">logout()</a>
+                — Logout user (clear token)</li>
+            <li id="register"><a title="Application\Modules\Rest\Services\RestSecurityService" href="../classes/Application_Modules_Rest_Services_RestSecurityService/register.xhtml">register()</a>
+                — Register new user from credentials</li>
+            <li id="restore"><a title="Application\Modules\Rest\Services\RestSecurityService" href="../classes/Application_Modules_Rest_Services_RestSecurityService/restore.xhtml">restore()</a>
+                — Restore user access by credentials</li>
+          </ul>
+          <h3>Inherited from <a title="Application\Modules\Rest\Aware\RestSecurityProvider" href="../classes/Application_Modules_Rest_Aware_RestSecurityProvider.xhtml">Application\Modules\Rest\Aware\RestSecurityProvider</a></h3>
+          <h4>protected</h4>
+          <ul>
+            <li id="getToken"><a title="Application\Modules\Rest\Aware\RestSecurityProvider" href="../classes/Application_Modules_Rest_Aware_RestSecurityProvider/getToken.xhtml">getToken()</a>
+                — Get user access token from header or request</li>
+            <li id="hasRole"><a title="Application\Modules\Rest\Aware\RestSecurityProvider" href="../classes/Application_Modules_Rest_Aware_RestSecurityProvider/hasRole.xhtml">hasRole()</a>
+                — If user has role?</li>
+            <li id="isAuthenticated"><a title="Application\Modules\Rest\Aware\RestSecurityProvider" href="../classes/Application_Modules_Rest_Aware_RestSecurityProvider/isAuthenticated.xhtml">isAuthenticated()</a>
+                — If user is authenticated?</li>
+            <li id="setToken"><a title="Application\Modules\Rest\Aware\RestSecurityProvider" href="../classes/Application_Modules_Rest_Aware_RestSecurityProvider/setToken.xhtml">setToken()</a>
+                — Set user access token</li>
+          </ul>
+          <h4>public</h4>
+          <ul>
+            <li id="authenticate"><a title="Application\Modules\Rest\Aware\RestSecurityProvider" href="../classes/Application_Modules_Rest_Aware_RestSecurityProvider/authenticate.xhtml">authenticate()</a>
+                — Authenticate user use credentials</li>
+            <li id="getConfig"><a title="Application\Modules\Rest\Aware\RestSecurityProvider" href="../classes/Application_Modules_Rest_Aware_RestSecurityProvider/getConfig.xhtml">getConfig()</a>
+                — Get api config</li>
+            <li id="getDi"><a title="Application\Modules\Rest\Aware\RestSecurityProvider" href="../classes/Application_Modules_Rest_Aware_RestSecurityProvider/getDi.xhtml">getDi()</a>
+                — Get dependency container</li>
+            <li id="getLogger"><a title="Application\Modules\Rest\Aware\RestSecurityProvider" href="../classes/Application_Modules_Rest_Aware_RestSecurityProvider/getLogger.xhtml">getLogger()</a>
+                — Get logger plugin</li>
+            <li id="getMailer"><a title="Application\Modules\Rest\Aware\RestSecurityProvider" href="../classes/Application_Modules_Rest_Aware_RestSecurityProvider/getMailer.xhtml">getMailer()</a>
+                — Get mailer service</li>
+            <li id="getRequest"><a title="Application\Modules\Rest\Aware\RestSecurityProvider" href="../classes/Application_Modules_Rest_Aware_RestSecurityProvider/getRequest.xhtml">getRequest()</a>
+                — Get request plugin</li>
+            <li id="getSecurity"><a title="Application\Modules\Rest\Aware\RestSecurityProvider" href="../classes/Application_Modules_Rest_Aware_RestSecurityProvider/getSecurity.xhtml">getSecurity()</a>
+                — Get security plugin</li>
+            <li id="getSmsService"><a title="Application\Modules\Rest\Aware\RestSecurityProvider" href="../classes/Application_Modules_Rest_Aware_RestSecurityProvider/getSmsService.xhtml">getSmsService()</a>
+                — Get sms service</li>
+            <li id="getTranslator"><a title="Application\Modules\Rest\Aware\RestSecurityProvider" href="../classes/Application_Modules_Rest_Aware_RestSecurityProvider/getTranslator.xhtml">getTranslator()</a>
+                — Get Translate service</li>
+            <li id="getUserMapper"><a title="Application\Modules\Rest\Aware\RestSecurityProvider" href="../classes/Application_Modules_Rest_Aware_RestSecurityProvider/getUserMapper.xhtml">getUserMapper()</a>
+                — User Mapper</li>
+            <li id="getView"><a title="Application\Modules\Rest\Aware\RestSecurityProvider" href="../classes/Application_Modules_Rest_Aware_RestSecurityProvider/getView.xhtml">getView()</a>
+                — Get view plugin</li>
+            <li id="logout"><a title="Application\Modules\Rest\Aware\RestSecurityProvider" href="../classes/Application_Modules_Rest_Aware_RestSecurityProvider/logout.xhtml">logout()</a>
+                — Logout user (clear tokens)</li>
+            <li id="randomString"><a title="Application\Modules\Rest\Aware\RestSecurityProvider" href="../classes/Application_Modules_Rest_Aware_RestSecurityProvider/randomString.xhtml">randomString()</a>
+                — Generate random string</li>
+            <li id="register"><a title="Application\Modules\Rest\Aware\RestSecurityProvider" href="../classes/Application_Modules_Rest_Aware_RestSecurityProvider/register.xhtml">register()</a>
+                — Register new user from credentials</li>
+            <li id="restore"><a title="Application\Modules\Rest\Aware\RestSecurityProvider" href="../classes/Application_Modules_Rest_Aware_RestSecurityProvider/restore.xhtml">restore()</a>
+                — Restore user access from credentials</li>
+            <li id="setDi"><a title="Application\Modules\Rest\Aware\RestSecurityProvider" href="../classes/Application_Modules_Rest_Aware_RestSecurityProvider/setDi.xhtml">setDi()</a>
+                — Set dependency container</li>
+          </ul>
+        </div>
+      </section>
+    </div>
+    <footer>
+      <span>Generated using phpDox 0.8.0 - Copyright (C) 2010 - 2015 by Arne Blankerts</span>
+    </footer>
+  </body>
+</html>

@@ -1,9 +1,4 @@
 <?php
-/**
- * @define Document root
- * @define Application path
- * @define Staging development environment
- */
 
 use \Application\Helpers\OriginPreflight;
 

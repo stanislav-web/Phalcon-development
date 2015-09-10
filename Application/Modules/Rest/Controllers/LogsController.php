@@ -49,4 +49,14 @@ class LogsController extends ControllerBase {
                 true
             );
     }
+
+    /**
+     * POST Subscribe action
+     */
+    public function postAction() {
+
+        $params = $this->rest->getParams();
+        $this->response =
+            $this->getDI()->get('LogMapper')->create($params);
+    }
 }

@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html SYSTEM "about:legacy-compat">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <title>phpDox - Application\Modules\Rest\Validators\OutputValidator</title>
+    <link rel="stylesheet" type="text/css" href="../css/style.css" media="screen"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+  </head>
+  <body>
+    <nav class="topnav">
+      <ul>
+        <li>
+          <div class="logo"><span>/**</span>phpDox</div>
+        </li>
+        <li class="separator">
+          <a href="../index.xhtml">Overview</a>
+        </li>
+        <li class="separator">
+          <a href="../namespaces.xhtml">Namespaces</a>
+        </li>
+        <li>
+          <a href="../interfaces.xhtml">Interfaces</a>
+        </li>
+        <li>
+          <a href="../classes.xhtml">Classes</a>
+        </li>
+        <li>
+          <a href="../traits.xhtml">Traits</a>
+        </li>
+        <li class="separator">
+          <a href="../source/index.xhtml">Source</a>
+        </li>
+      </ul>
+    </nav>
+    <div id="mainstage">
+      <div class="box">
+        <ul class="breadcrumb">
+          <li>
+            <a href="../index.xhtml">Overview</a>
+          </li>
+          <li class="separator">
+            <a href="../classes.xhtml">Classes</a>
+          </li>
+          <li class="separator">
+            <a href="../classes.xhtml#Application_Modules_Rest_Validators">Application\Modules\Rest\Validators</a>
+          </li>
+          <li class="separator">OutputValidator</li>
+        </ul>
+      </div>
+      <nav class="box">
+        <ul>
+          <li>
+            <a href="#introduction">Introduction</a>
+          </li>
+          <li>
+            <a href="#synopsis">Synopsis</a>
+          </li>
+          <li>
+            <a href="#constants">Constants</a>
+          </li>
+          <li>
+            <a href="#members">Members</a>
+          </li>
+          <li>
+            <a href="#methods">Methods</a>
+          </li>
+          <li>
+            <a href="../source/Modules/Rest/Validators/OutputValidator.php.xhtml#line18">Source</a>
+          </li>
+        </ul>
+      </nav>
+      <section>
+        <h1 id="introduction"><small>Application\Modules\Rest\Validators\</small>OutputValidator</h1>
+        <h4>Class OutputValidator. Checking response</h4>
+        <p/>
+        <ul>
+          <li>Author: Stanislav WEB | Lugansk &lt;stanisov@gmail.com&gt;</li>
+          <li>Copyright: Stanislav WEB</li>
+        </ul>
+        <h2 id="synopsis">Synopsis</h2>
+        <div class="synopsis">class OutputValidator
+            {<br/><ul class="none"><li>// constants</li><li>const CODE_OK = 200;</li><li>const CODE_CREATED = 201;</li><li>const CODE_NO_CONTENT = 204;</li><li>const CODE_NOT_MODIFIED = 304;</li><li>const MESSAGE_OK = '0K';</li><li>const MESSAGE_CREATED = 'Created';</li><li>const MESSAGE_NO_CONTENT = 'No Content';</li><li>const MESSAGE_NOT_MODIFIED = 'Not Modified';</li></ul><ul class="none"><li>// members</li><li>private <span title="\Phalcon\Config">Config</span> <a href="#members">$config</a>;
+                    </li><li>private <span title="\Application\Aware\AbstractDTO|null">AbstractDTO|null</span> <a href="#members">$response</a>;
+                    </li><li>private array <a href="#members">$result</a> =
+                        ;
+                    </li></ul><ul class="none"><li>// methods</li><li>public void <a title="Application\Modules\Rest\Validators\OutputValidator" href="../classes/Application_Modules_Rest_Validators_OutputValidator/__construct.xhtml">__construct</a>()
+                    </li><li>public OutputValidator <a title="Application\Modules\Rest\Validators\OutputValidator" href="../classes/Application_Modules_Rest_Validators_OutputValidator/setConfig.xhtml">setConfig</a>()
+                    </li><li>public void <a title="Application\Modules\Rest\Validators\OutputValidator" href="../classes/Application_Modules_Rest_Validators_OutputValidator/getConfig.xhtml">getConfig</a>()
+                    </li><li>private OutputValidator <a title="Application\Modules\Rest\Validators\OutputValidator" href="../classes/Application_Modules_Rest_Validators_OutputValidator/setResponse.xhtml">setResponse</a>()
+                    </li><li>private AbstractDTO <a title="Application\Modules\Rest\Validators\OutputValidator" href="../classes/Application_Modules_Rest_Validators_OutputValidator/getResponse.xhtml">getResponse</a>()
+                    </li><li>private OutputValidator <a title="Application\Modules\Rest\Validators\OutputValidator" href="../classes/Application_Modules_Rest_Validators_OutputValidator/setResult.xhtml">setResult</a>()
+                    </li><li>public array <a title="Application\Modules\Rest\Validators\OutputValidator" href="../classes/Application_Modules_Rest_Validators_OutputValidator/getResult.xhtml">getResult</a>()
+                    </li><li>public OutputValidator <a title="Application\Modules\Rest\Validators\OutputValidator" href="../classes/Application_Modules_Rest_Validators_OutputValidator/validate.xhtml">validate</a>()
+                    </li><li>private array <a title="Application\Modules\Rest\Validators\OutputValidator" href="../classes/Application_Modules_Rest_Validators_OutputValidator/getRedirects.xhtml">getRedirects</a>()
+                    </li><li>private Request <a title="Application\Modules\Rest\Validators\OutputValidator" href="../classes/Application_Modules_Rest_Validators_OutputValidator/getRequest.xhtml">getRequest</a>()
+                    </li><li>private void <a title="Application\Modules\Rest\Validators\OutputValidator" href="../classes/Application_Modules_Rest_Validators_OutputValidator/getResolver.xhtml">getResolver</a>()
+                    </li><li>private void <a title="Application\Modules\Rest\Validators\OutputValidator" href="../classes/Application_Modules_Rest_Validators_OutputValidator/postResolver.xhtml">postResolver</a>()
+                    </li><li>private void <a title="Application\Modules\Rest\Validators\OutputValidator" href="../classes/Application_Modules_Rest_Validators_OutputValidator/putResolver.xhtml">putResolver</a>()
+                    </li><li>private void <a title="Application\Modules\Rest\Validators\OutputValidator" href="../classes/Application_Modules_Rest_Validators_OutputValidator/deleteResolver.xhtml">deleteResolver</a>()
+                    </li></ul>
+
+            }<br/></div>
+        <h2 id="constants">Constants</h2>
+        <table class="styled">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td id="CODE_OK">CODE_OK</td>
+              <td>200</td>
+            </tr>
+            <tr>
+              <td id="CODE_CREATED">CODE_CREATED</td>
+              <td>201</td>
+            </tr>
+            <tr>
+              <td id="CODE_NO_CONTENT">CODE_NO_CONTENT</td>
+              <td>204</td>
+            </tr>
+            <tr>
+              <td id="CODE_NOT_MODIFIED">CODE_NOT_MODIFIED</td>
+              <td>304</td>
+            </tr>
+            <tr>
+              <td id="MESSAGE_OK">MESSAGE_OK</td>
+              <td>'0K'</td>
+            </tr>
+            <tr>
+              <td id="MESSAGE_CREATED">MESSAGE_CREATED</td>
+              <td>'Created'</td>
+            </tr>
+            <tr>
+              <td id="MESSAGE_NO_CONTENT">MESSAGE_NO_CONTENT</td>
+              <td>'No Content'</td>
+            </tr>
+            <tr>
+              <td id="MESSAGE_NOT_MODIFIED">MESSAGE_NOT_MODIFIED</td>
+              <td>'Not Modified'</td>
+            </tr>
+          </tbody>
+        </table>
+        <h2 id="members">Members</h2>
+        <div class="styled members">
+          <h4>private</h4>
+          <ul class="members">
+            <li id="config"><strong>$config</strong>
+                —
+                <a title="\Phalcon\Config" href="../classes/_Phalcon_Config.xhtml">\Phalcon\Config</a><br/><span class="indent">Rest config container</span></li>
+            <li id="response"><strong>$response</strong>
+                —
+                <a title="\Application\Aware\AbstractDTO|null" href="../classes/_Application_Aware_AbstractDTO|null.xhtml">\Application\Aware\AbstractDTO|null</a><br/><span class="indent">Resultset response definition</span></li>
+            <li id="result"><strong>$result</strong>
+                —
+                array<br/><span class="indent">Result definition</span></li>
+          </ul>
+        </div>
+        <h2 id="methods">Methods</h2>
+        <div class="styled">
+          <h4>private</h4>
+          <ul>
+            <li id="deleteResolver"><a title="Application\Modules\Rest\Validators\OutputValidator" href="../classes/Application_Modules_Rest_Validators_OutputValidator/deleteResolver.xhtml">deleteResolver()</a>
+                — Resolve &amp; parse DELETE Response</li>
+            <li id="getRedirects"><a title="Application\Modules\Rest\Validators\OutputValidator" href="../classes/Application_Modules_Rest_Validators_OutputValidator/getRedirects.xhtml">getRedirects()</a>
+                — Get redirects params</li>
+            <li id="getRequest"><a title="Application\Modules\Rest\Validators\OutputValidator" href="../classes/Application_Modules_Rest_Validators_OutputValidator/getRequest.xhtml">getRequest()</a>
+                — Get Request object</li>
+            <li id="getResolver"><a title="Application\Modules\Rest\Validators\OutputValidator" href="../classes/Application_Modules_Rest_Validators_OutputValidator/getResolver.xhtml">getResolver()</a>
+                — Resolve &amp; parse GET Response</li>
+            <li id="getResponse"><a title="Application\Modules\Rest\Validators\OutputValidator" href="../classes/Application_Modules_Rest_Validators_OutputValidator/getResponse.xhtml">getResponse()</a>
+                — Get hydrated response object</li>
+            <li id="postResolver"><a title="Application\Modules\Rest\Validators\OutputValidator" href="../classes/Application_Modules_Rest_Validators_OutputValidator/postResolver.xhtml">postResolver()</a>
+                — Resolve &amp; parse POST Response</li>
+            <li id="putResolver"><a title="Application\Modules\Rest\Validators\OutputValidator" href="../classes/Application_Modules_Rest_Validators_OutputValidator/putResolver.xhtml">putResolver()</a>
+                — Resolve &amp; parse PUT Response</li>
+            <li id="setResponse"><a title="Application\Modules\Rest\Validators\OutputValidator" href="../classes/Application_Modules_Rest_Validators_OutputValidator/setResponse.xhtml">setResponse()</a>
+                — Set response set</li>
+            <li id="setResult"><a title="Application\Modules\Rest\Validators\OutputValidator" href="../classes/Application_Modules_Rest_Validators_OutputValidator/setResult.xhtml">setResult()</a>
+                — Set result set</li>
+          </ul>
+          <h4>public</h4>
+          <ul>
+            <li id="__construct"><a title="Application\Modules\Rest\Validators\OutputValidator" href="../classes/Application_Modules_Rest_Validators_OutputValidator/__construct.xhtml">__construct()</a>
+                — Setup definition</li>
+            <li id="getConfig"><a title="Application\Modules\Rest\Validators\OutputValidator" href="../classes/Application_Modules_Rest_Validators_OutputValidator/getConfig.xhtml">getConfig()</a>
+                — Get config container</li>
+            <li id="getResult"><a title="Application\Modules\Rest\Validators\OutputValidator" href="../classes/Application_Modules_Rest_Validators_OutputValidator/getResult.xhtml">getResult()</a>
+                — Get result data</li>
+            <li id="setConfig"><a title="Application\Modules\Rest\Validators\OutputValidator" href="../classes/Application_Modules_Rest_Validators_OutputValidator/setConfig.xhtml">setConfig()</a>
+                — Set config container</li>
+            <li id="validate"><a title="Application\Modules\Rest\Validators\OutputValidator" href="../classes/Application_Modules_Rest_Validators_OutputValidator/validate.xhtml">validate()</a>
+                — Validate response</li>
+          </ul>
+        </div>
+      </section>
+    </div>
+    <footer>
+      <span>Generated using phpDox 0.8.0 - Copyright (C) 2010 - 2015 by Arne Blankerts</span>
+    </footer>
+  </body>
+</html>

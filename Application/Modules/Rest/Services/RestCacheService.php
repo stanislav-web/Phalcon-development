@@ -153,6 +153,15 @@ class RestCacheService {
     }
 
     /**
+     * Truncate opcode cache data
+     *
+     * @return boolean
+     */
+    public function flush() {
+        return $this->getStorage()->flush();
+    }
+
+    /**
      * Return cache data state
      *
      * @return boolean

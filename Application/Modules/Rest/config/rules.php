@@ -155,6 +155,18 @@ return [
             ],
             'mapper'   => 'LogMapper'
         ],
+        'post' => [
+            'requests'  =>  [  // limit request per time
+                'limit' =>  2500,
+                'time'  =>  60,
+            ],
+            'methods'    => 'POST',
+            'params'     => [
+                'required' => 'exception,message,code'
+            ],
+            'mapper'   => 'LogMapper'
+        ]
+
     ],
     'engines'  =>  [
         'get'    =>  [
@@ -213,6 +225,14 @@ return [
             ],
             'methods'   =>  'GET',
             'mapper'    =>  'ItemsMapper',
+            'relations' =>  [
+                'attributes' => [
+                    'mapper' => 'ItemAttributeValuesMapper',
+                    'rel'     => [
+                        'id' => 'item_id'
+                    ]
+                ]
+            ]
         ],
     ],
     'errors'  =>  [

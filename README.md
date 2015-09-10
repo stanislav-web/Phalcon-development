@@ -19,9 +19,10 @@ Phalcon Development Boards
 
 #### Requirements 
 * Requires PHP 5.6.x
-* Phalcon 2.0.x
+* Phalcon 2.0.7 >
 * Memcache
 * APC (APCu)
+* Intl
 * PHP mcrypt library
 * PHP PDO MySQL driver
 

@@ -81,6 +81,20 @@ abstract class RestValidatorProvider {
     }
 
     /**
+     * Get Translate service
+     *
+     * @return \Translate\Translator|null
+     */
+    protected function getTranslator() {
+
+        if($this->getDi()->has('TranslateService') === true) {
+            return $this->getDi()->get('TranslateService')->assign('errors');
+        }
+
+        return null;
+    }
+
+    /**
      * Run validator
      *
      * @param \Phalcon\DI\FactoryDefault $di

@@ -100,7 +100,7 @@ class InputValidator {
      *
      * @return \Translate\Translator|null
      */
-    private function getTranslateService() {
+    private function getTranslator() {
 
         if($this->getDi()->has('TranslateService') === true) {
             return $this->getDi()->get('TranslateService')->assign('errors');
@@ -217,7 +217,9 @@ class InputValidator {
             return $this;
         }
         else {
-            throw new InternalServerErrorException('Mapper does not exist', 500);
+            $t = $this->getTranslator()->assign('errors');
+
+            throw new InternalServerErrorException($t->translate('MAPPER_NOT_EXIST'), 500);
         }
     }
 
@@ -232,7 +234,7 @@ class InputValidator {
             $exchange = array_diff_key($required, $this->getParams());
             if(empty($exchange) === false) {
 
-                $t = $this->getTranslateService()->assign('errors');
+                $t = $this->getTranslator()->assign('errors');
 
                 throw new BadRequestException([
                     'INVALID_REQUIRED_FIELDS' => sprintf($t->translate('INVALID_REQUIRED_FIELDS'), implode(',', array_flip($exchange)))
@@ -248,7 +250,7 @@ class InputValidator {
 
         if(count(array_filter($this->getColumns())) !== count($this->getColumns())) {
 
-            $t = $this->getTranslateService()->assign('errors');
+            $t = $this->getTranslator()->assign('errors');
 
             throw new BadRequestException([
                 'EMPTY_PARAMETER_IN_URI' => $t->translate('EMPTY_PARAMETER_IN_URI')
@@ -264,7 +266,7 @@ class InputValidator {
         $columns = array_diff($this->getColumns(), $this->getMapper()->getAttributes());
         if (empty($columns) === false) {
 
-            $t = $this->getTranslateService()->assign('errors');
+            $t = $this->getTranslator()->assign('errors');
 
             throw new BadRequestException([
                 'INVALID_COLUMNS' => sprintf($t->translate('INVALID_COLUMNS'), implode(',', $columns))

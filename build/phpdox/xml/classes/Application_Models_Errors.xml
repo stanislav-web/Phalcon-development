@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Application\Models\Errors" namespace="Application\Models" name="Errors" abstract="false" final="false" start="14" end="49">
+  <file path="/var/www/backend.local/Application/Models" file="Errors.php" realpath="/var/www/backend.local/Application/Models/Errors.php" size="798" time="2015-07-22T21:33:28+00:00" unixtime="1437600808" sha1="6565a25d3a18dbf62b670493df47025a94b09001" relative="Models/Errors.php"/>
+  <docblock>
+    <description compact="Class Errors `errors`"/>
+    <package value="Application"/>
+    <subpackage value="Models"/>
+    <since value="PHP &gt;=5.6"/>
+    <version value="1.0"/>
+    <author value="Stanislav WEB | Lugansk &lt;stanisov@gmail.com&gt;"/>
+    <filesource value="/Application/Models/Errors.php"/>
+  </docblock>
+  <extends full="Phalcon\Mvc\Model" namespace="Phalcon\Mvc" name="Model" unresolved="true"/>
+  <constant type="string" name="TABLE" value="'\Application\Models\Errors'">
+    <docblock>
+      <description compact="Absolute model name"/>
+      <const/>
+    </docblock>
+  </constant>
+  <member name="id" visibility="public" line="27">
+    <docblock>
+      <description/>
+      <var type="integer"/>
+    </docblock>
+  </member>
+  <member name="code" visibility="public" line="33">
+    <docblock>
+      <description/>
+      <var type="string"/>
+    </docblock>
+  </member>
+  <member name="description" visibility="public" line="39">
+    <docblock>
+      <description/>
+      <var type="string"/>
+    </docblock>
+  </member>
+  <method name="initialize" start="44" end="48" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Initialize Model"/>
+    </docblock>
+    <inline>
+      <comment value="its allow to keep empty data to my db" line="46"/>
+    </inline>
+  </method>
+</class>

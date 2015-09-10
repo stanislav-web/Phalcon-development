@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Application\Helpers\OpcodeCache" namespace="Application\Helpers" name="OpcodeCache" abstract="false" final="false" start="15" end="136">
+  <file path="/var/www/backend.local/Application/Helpers" file="OpcodeCache.php" realpath="/var/www/backend.local/Application/Helpers/OpcodeCache.php" size="4117" time="2015-07-22T21:33:28+00:00" unixtime="1437600808" sha1="59f30681bd75400fabe4c576da93e4f6282be415" relative="Helpers/OpcodeCache.php"/>
+  <docblock>
+    <description compact="OpcodeCache class. PHP object cache"/>
+    <package value="Application"/>
+    <subpackage value="Helpers"/>
+    <since value="PHP &gt;=5.6"/>
+    <version value="1.0"/>
+    <author value="Stanislav WEB | Lugansk &lt;stanisov@gmail.com&gt;"/>
+    <copyright value="Stanilav WEB"/>
+    <filesource value="/Application/Helpers/OpcodeCache.php"/>
+  </docblock>
+  <method name="isEnabled" start="21" end="24" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Check if APC is available"/>
+      <return type="object">
+        <type full="Application\Helpers\bool" namespace="Application\Helpers" name="bool"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="info" start="36" end="43" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Retrieves cached information from APC's data store."/>
+      <param description="- If $type is &quot;user&quot;, information about the user cache will be returned." type="string" variable="$type"/>
+      <param description="- If $limited is true, the return value will exclude the individual" type="boolean" variable="$limited">list of cache entries. This is useful when trying to optimize calls
+                          for statistics gathering.</param>
+      <return description="of cached data (and meta-data) or false on failure." type="array"/>
+    </docblock>
+    <parameter name="type" byreference="false" type="string" default="''"/>
+    <parameter name="limited" byreference="false" type="boolean" default="false"/>
+  </method>
+  <method name="exists" start="54" end="61" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Checks if APC key exists."/>
+      <param description="- A string, or an array of strings, that contain keys." type="mixed" variable="$key"/>
+      <return description="- Returns true if the key exists, otherwise false or if an" type="mixed">array was passed to keys, then an array is returned that
+                contains all existing keys, or an empty array if none exist.</return>
+    </docblock>
+    <parameter name="key" byreference="false" type="string" default="''"/>
+  </method>
+  <method name="store" start="72" end="83" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Cache a variable in the data store."/>
+      <param description="- Store the variable using this name." type="string" variable="$key"/>
+      <param description="- The variable to store." type="string" variable="$data"/>
+      <param description="- Time To Live; store var in the cache for ttl seconds." type="string" variable="$ttl"/>
+      <return description="- Returns true on success or false on failure." type="boolean"/>
+    </docblock>
+    <parameter name="key" byreference="false" type="{unknown}"/>
+    <parameter name="data" byreference="false" type="{unknown}"/>
+    <parameter name="ttl" byreference="false" type="integer" default="0"/>
+    <parameter name="overwrite" byreference="false" type="boolean" default="false"/>
+  </method>
+  <method name="fetch" start="92" end="103" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Fetch stored value in APC from key."/>
+      <param description="- The key used to store the value." type="string" variable="$key"/>
+      <return description="- The stored variable or array of variables on success; false on failure." type="boolean"/>
+    </docblock>
+    <parameter name="key" byreference="false" type="string" default="''"/>
+  </method>
+  <method name="delete" start="112" end="119" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Removes a stored variable from the cache."/>
+      <param description="- The key used to store the value (with apc_store())." type="string" variable="$key"/>
+      <return description="- Returns true on success or false on failure." type="boolean"/>
+    </docblock>
+    <parameter name="key" byreference="false" type="string" default="''"/>
+  </method>
+  <method name="clear" start="129" end="135" abstract="false" final="false" static="true" visibility="public">
+    <docblock>
+      <description compact="Clears the APC cache."/>
+      <param description="- If $type is &quot;user&quot;, the user cache will be cleared; otherwise," type="string" variable="$type">the system cache (cached files) will be cleared.</param>
+      <return description="- Returns true on success or false on failure." type="boolean"/>
+    </docblock>
+    <parameter name="type" byreference="false" type="string" default="''"/>
+  </method>
+</class>

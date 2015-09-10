@@ -8,7 +8,7 @@ use Application\Modules\Rest\Exceptions\NotFoundException;
 use Phalcon\DI\InjectionAwareInterface;
 
 /**
- * AbstractModelCrud. Implementing rules necessary intended for service's models
+ * AbstractModelCrud class. Implementing rules necessary intended for service's models
  *
  * @package Application
  * @subpackage Aware
@@ -19,6 +19,13 @@ use Phalcon\DI\InjectionAwareInterface;
  * @filesource /Application/Aware/AbstractModelCrud.php
  */
 abstract class AbstractModelCrud implements InjectionAwareInterface {
+
+    /**
+     * Allowed additional params
+     *
+     * @const BASE_PARAMS
+     */
+    const BASE_PARAMS = ['offset', 'limit'];
 
     /**
      * Dependency injection container
@@ -70,6 +77,31 @@ abstract class AbstractModelCrud implements InjectionAwareInterface {
     }
 
     /**
+     * Filter request models params by allowed
+     *
+     * @param $params
+     *
+     * @return array
+     */
+    protected function filterParams($params) {
+        return array_intersect_key($params, array_flip(self::BASE_PARAMS));
+    }
+
+    /**
+     * Get Translate service
+     *
+     * @return \Translate\Translator|null
+     */
+    protected function getTranslator() {
+
+        if($this->getDi()->has('TranslateService') === true) {
+            return $this->getDi()->get('TranslateService')->assign('errors');
+        }
+
+        return null;
+    }
+
+    /**
      * Create record row
      *
      * @param array $data
@@ -107,7 +139,7 @@ abstract class AbstractModelCrud implements InjectionAwareInterface {
      * @throws BadRequestException
      * @return boolean
      */
-    public function update(\Phalcon\Mvc\Model $model, array $credentials) {
+    protected function update(\Phalcon\Mvc\Model $model, array $credentials) {
 
         if($model->update($credentials, array_keys($credentials))) {
             return true;
@@ -146,13 +178,13 @@ abstract class AbstractModelCrud implements InjectionAwareInterface {
      * @return \Phalcon\Mvc\Model\Resultset\Simple
      * @throws \Application\Modules\Rest\Exceptions\NotFoundException
      */
-    public function getRelated(array $params) {
+    protected function getRelated(array $params) {
 
         // get relation mapper
         $mapper = $this->getDi()->get($params['mapper']);
 
         $conditional = implode(' AND ', array_map(function ($v, $k) {
-            return $k . '=' . $v;
+            return (is_array($v) === false) ? $k . '=' . $v : $k.' IN ('.implode(',', $v).')';
         }, $params['rel'], array_keys($params['rel'])));
 
         // setup properties
@@ -168,7 +200,7 @@ abstract class AbstractModelCrud implements InjectionAwareInterface {
         }
 
         throw new NotFoundException([
-            'RELATED_RECORDS_NOT_FOUND'  =>  'Related records not found'
+            'RELATED_RECORDS_NOT_FOUND'  =>  $this->getTranslator()->translate('RELATED_RECORDS_NOT_FOUND')
         ]);
     }
 

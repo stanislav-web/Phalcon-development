@@ -17,7 +17,7 @@ use Application\Modules\Rest\Exceptions\InternalServerErrorException;
  * @since PHP >=5.6
  * @version 1.0
  * @author Stanislav WEB | Lugansk <stanisov@gmail.com>
- * @copyright Stanilav WEB
+ * @copyright Stanislav WEB
  * @filesource /Application/Modules/Rest.php
  */
 class Rest

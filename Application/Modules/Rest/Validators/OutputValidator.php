@@ -226,11 +226,13 @@ class OutputValidator {
                 $request->getHttpHost().$this->getRedirects()[$request->getURI()].DIRECTORY_SEPARATOR.$this->getResponse()->getPrimary();
         }
         else {
-            $result['meta']['resource'] = $request->getScheme().'://'.$request->getHttpHost().
-                $request->getURI().DIRECTORY_SEPARATOR.$this->getResponse()->getPrimary();
+            if($this->getResponse() != null) {
+                $result['meta']['resource'] = $request->getScheme().'://'.$request->getHttpHost().
+                    $request->getURI().DIRECTORY_SEPARATOR.$this->getResponse()->getPrimary();
+            }
         }
 
-        $response = array_filter($this->getResponse()->toArray());
+        $response = ($this->getResponse() != null) ? array_filter($this->getResponse()->toArray()) : [];
 
         $data = [];
 

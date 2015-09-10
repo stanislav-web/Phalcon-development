@@ -30,6 +30,7 @@ interface RestServiceInterface {
      * Set response header
      *
      * @param array $params
+     * @return \Application\Modules\Rest\Services\RestService
      */
     public function setHeader(array $params);
 

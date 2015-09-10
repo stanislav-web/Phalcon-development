@@ -24,6 +24,13 @@ class CategoryDTO extends AbstractDTO
     public $categories = [];
 
     /**
+     * Items collection
+     *
+     * @var array
+     */
+    public $items = [];
+
+    /**
      * Setup categories
      *
      * @param \Phalcon\Mvc\Model\Resultset\Simple $categories
@@ -35,6 +42,24 @@ class CategoryDTO extends AbstractDTO
         $this->categories['total'] = $this->total($categories);
         $this->categories['limit'] = $this->limit($categories);
         $this->categories['offset'] = $this->offset();
+
+        return $this;
+    }
+
+    /**
+     * Setup category items
+     *
+     * @param \Phalcon\Mvc\Model\Resultset\Simple $categoryItems
+     * @return $this
+     */
+    public function setCategoryItems(\Phalcon\Mvc\ModelInterface $categories,
+        \Phalcon\Mvc\Model\Resultset\Simple $categoryItems) {
+
+        $this->categories = $categories->toArray();
+        $this->items = $categoryItems->toArray();
+        $this->items['total'] = $this->total($categoryItems);
+        $this->items['limit'] = $this->limit($categoryItems);
+        $this->items['offset'] = $this->offset();
 
         return $this;
     }

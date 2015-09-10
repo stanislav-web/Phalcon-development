@@ -92,5 +92,18 @@ class Items extends \Phalcon\Mvc\Model
     {
         // its allow to keep empty data to my db
         $this->setup(['notNullValidations' => false]);
+
+        // keep relations with `category_items`
+        $this->hasManyToMany('id', CategoryItems::TABLE, 'item_id', 'category_id', Categories::TABLE, 'id');
+    }
+
+    /**
+     * Get related categories
+     *
+     * @return \Application\Models\Categories
+     */
+    public function getCategories($parameters=null)
+    {
+        return $this->getRelated(Categories::TABLE, $parameters);
     }
 }

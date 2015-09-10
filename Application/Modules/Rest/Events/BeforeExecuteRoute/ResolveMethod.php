@@ -37,7 +37,7 @@ class ResolveMethod extends RestValidatorProvider {
             if(in_array($this->getRequest()->getMethod(), $methods) === false) {
 
                 throw new MethodNotAllowedException([
-                    'METHOD_NOT_ALLOWED'  =>  'Request method not allowed for this action'
+                    'METHOD_NOT_ALLOWED'  =>  $this->getTranslator()->translate('METHOD_NOT_ALLOWED')
                 ]);
             }
         }

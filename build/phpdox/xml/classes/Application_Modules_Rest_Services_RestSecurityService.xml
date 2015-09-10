@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Application\Modules\Rest\Services\RestSecurityService" namespace="Application\Modules\Rest\Services" name="RestSecurityService" abstract="false" final="false" start="24" end="293">
+  <file path="/var/www/backend.local/Application/Modules/Rest/Services" file="RestSecurityService.php" realpath="/var/www/backend.local/Application/Modules/Rest/Services/RestSecurityService.php" size="9321" time="2015-07-22T21:33:28+00:00" unixtime="1437600808" sha1="7e3309c22d762ec41d261aa8c0c69be2ba1c1daa" relative="Modules/Rest/Services/RestSecurityService.php"/>
+  <docblock>
+    <description compact="Class RestSecurityService. Rest security provider"/>
+    <package value="Application\Modules\Rest"/>
+    <subpackage value="Services"/>
+    <since value="PHP &gt;=5.6"/>
+    <version value="1.0"/>
+    <author value="Stanislav WEB | Lugansk &lt;stanisov@gmail.com&gt;"/>
+    <copyright value="Stanislav WEB"/>
+    <filesource value="/Application/Modules/Rest/Services/RestSecurityService.php"/>
+  </docblock>
+  <extends full="Application\Modules\Rest\Aware\RestSecurityProvider" namespace="Application\Modules\Rest\Aware" name="RestSecurityProvider"/>
+  <member name="token" visibility="private" line="31">
+    <docblock>
+      <description compact="User token info"/>
+      <var description="$token" type="object">
+        <type full="\Application\Models\UserAccess" namespace="\Application\Models" name="UserAccess"/>
+      </var>
+    </docblock>
+  </member>
+  <method name="authenticate" start="41" end="79" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Authenticate user use credentials"/>
+      <param type="array" variable="$credentials"/>
+      <throws type="object">
+        <type full="\Application\Modules\Rest\Exceptions\UnauthorizedException" namespace="\Application\Modules\Rest\Exceptions" name="UnauthorizedException"/>
+      </throws>
+      <throws type="object">
+        <type full="\Application\Modules\Rest\Exceptions\NotFoundException" namespace="\Application\Modules\Rest\Exceptions" name="NotFoundException"/>
+      </throws>
+      <return type="object">
+        <type full="Phalcon\Mvc\Model\Resultset\Simple" namespace="Phalcon\Mvc\Model\Resultset" name="Simple"/>
+      </return>
+    </docblock>
+    <parameter name="credentials" byreference="false" type="array"/>
+    <inline>
+      <comment value="checkout user data from credentials" line="43"/>
+    </inline>
+  </method>
+  <method name="register" start="89" end="115" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Register new user from credentials"/>
+      <param type="array" variable="$credentials"/>
+      <return type="object">
+        <type full="Phalcon\Mvc\Model\Resultset\Simple" namespace="Phalcon\Mvc\Model\Resultset" name="Simple"/>
+      </return>
+      <throws type="object">
+        <type full="\Application\Modules\Rest\Exceptions\BadRequestException" namespace="\Application\Modules\Rest\Exceptions" name="BadRequestException"/>
+      </throws>
+      <throws type="object">
+        <type full="\Application\Modules\Rest\Exceptions\ConflictException" namespace="\Application\Modules\Rest\Exceptions" name="ConflictException"/>
+      </throws>
+    </docblock>
+    <parameter name="credentials" byreference="false" type="array"/>
+    <inline>
+      <comment value="generate new access token" line="104"/>
+      <comment value="set token to database" line="107"/>
+    </inline>
+  </method>
+  <method name="restore" start="125" end="150" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Restore user access by credentials"/>
+      <param type="array" variable="$credentials"/>
+      <throws type="object">
+        <type full="\Application\Modules\Rest\Exceptions\NotFoundException" namespace="\Application\Modules\Rest\Exceptions" name="NotFoundException"/>
+      </throws>
+      <throws type="object">
+        <type full="\Application\Modules\Rest\Exceptions\BadRequestException" namespace="\Application\Modules\Rest\Exceptions" name="BadRequestException"/>
+      </throws>
+      <throws type="object">
+        <type full="\Application\Modules\Rest\Exceptions\UnprocessableEntityException" namespace="\Application\Modules\Rest\Exceptions" name="UnprocessableEntityException"/>
+      </throws>
+    </docblock>
+    <parameter name="credentials" byreference="false" type="array"/>
+    <inline>
+      <comment value="checkout user data from credentials" line="127"/>
+    </inline>
+  </method>
+  <method name="logout" start="159" end="172" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Logout user (clear token)"/>
+      <param type="array" variable="$credentials"/>
+      <throws type="object">
+        <type full="\Application\Modules\Rest\Exceptions\NotFoundException" namespace="\Application\Modules\Rest\Exceptions" name="NotFoundException"/>
+      </throws>
+    </docblock>
+    <parameter name="credentials" byreference="false" type="array"/>
+  </method>
+  <method name="getToken" start="179" end="187" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Get user access token from header or query"/>
+      <return description="$token" type="string"/>
+    </docblock>
+  </method>
+  <method name="setToken" start="196" end="201" abstract="false" final="false" static="false" visibility="protected">
+    <docblock>
+      <description compact="Set user access token"/>
+      <param description="Auth user ID" type="int" variable="$user_id"/>
+      <param description="Generated token" type="string" variable="$token"/>
+      <param description="Token date expiry" type="string" variable="$expire_date"/>
+    </docblock>
+    <parameter name="user_id" byreference="false" type="{unknown}"/>
+    <parameter name="token" byreference="false" type="{unknown}"/>
+    <parameter name="expire_date" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="isAuthenticated" start="208" end="219" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="If user is authenticated?"/>
+      <return type="boolean"/>
+    </docblock>
+  </method>
+  <method name="hasRole" start="227" end="243" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="If user has role?"/>
+      <param type="mixed" variable="$role"/>
+      <return type="boolean"/>
+    </docblock>
+    <parameter name="roles" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="recoverySend" start="252" end="292" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Send recovery message"/>
+      <param type="object" variable="$user">
+        <type full="\Application\Models\Users" namespace="\Application\Models" name="Users"/>
+      </param>
+      <param variable="$password"/>
+      <throws type="object">
+        <type full="Application\Modules\Rest\Exceptions\UnprocessableEntityException" namespace="Application\Modules\Rest\Exceptions" name="UnprocessableEntityException"/>
+      </throws>
+    </docblock>
+    <parameter name="user" byreference="false" type="object">
+      <type full="Application\Models\Users" namespace="Application\Models" name="Users"/>
+    </parameter>
+    <parameter name="password" byreference="false" type="{unknown}"/>
+  </method>
+  <parent full="Application\Modules\Rest\Aware\RestSecurityProvider" namespace="Application\Modules\Rest\Aware" name="RestSecurityProvider">
+    <implements full="Phalcon\DI\InjectionAwareInterface" namespace="Phalcon\DI" name="InjectionAwareInterface" unresolved="true"/>
+    <constant type="{unknown}" name="RECOVERY_PASS_LENGTH" value="10">
+      <docblock>
+        <description/>
+        <const value="Max pass length while recovery"/>
+      </docblock>
+    </constant>
+    <method name="setDi" start="37" end="40" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Set dependency container"/>
+        <param type="object" variable="$di">
+          <type full="\Phalcon\DiInterface" namespace="\Phalcon" name="DiInterface"/>
+        </param>
+      </docblock>
+      <parameter name="di" byreference="false" type="object">
+        <type full="Phalcon\DiInterface" namespace="Phalcon" name="DiInterface"/>
+      </parameter>
+    </method>
+    <method name="getConfig" start="47" end="49" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Get api config"/>
+        <return type="object">
+          <type full="\Phalcon\Config" namespace="\Phalcon" name="Config"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="getRequest" start="56" end="58" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Get request plugin"/>
+        <return type="object">
+          <type full="\Phalcon\Http\Request" namespace="\Phalcon\Http" name="Request"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="getMailer" start="65" end="67" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Get mailer service"/>
+        <return type="object">
+          <type full="\Application\Services\Mail\MailSMTPService" namespace="\Application\Services\Mail" name="MailSMTPService"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="getSmsService" start="74" end="76" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Get sms service"/>
+        <return type="object">
+          <type full="\SMSFactory\Sender" namespace="\SMSFactory" name="Sender"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="getUserMapper" start="83" end="85" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="User Mapper"/>
+        <return type="object">
+          <type full="\Application\Services\Mappers\UserMapper" namespace="\Application\Services\Mappers" name="UserMapper"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="getSecurity" start="92" end="94" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Get security plugin"/>
+        <return type="object">
+          <type full="\Phalcon\Security" namespace="\Phalcon" name="Security"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="getLogger" start="101" end="103" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Get logger plugin"/>
+        <return type="object">
+          <type full="\Application\Services\Mappers\LogMapper" namespace="\Application\Services\Mappers" name="LogMapper"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="getView" start="110" end="112" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Get view plugin"/>
+        <return type="object">
+          <type full="\Phalcon\Mvc\View" namespace="\Phalcon\Mvc" name="View"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="getDi" start="119" end="121" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Get dependency container"/>
+        <return type="object">
+          <type full="\Phalcon\DiInterface" namespace="\Phalcon" name="DiInterface"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="randomString" start="128" end="130" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Generate random string"/>
+        <uses value="\Phalcon\Text"/>
+        <return type="string"/>
+      </docblock>
+    </method>
+    <method name="getTranslator" start="137" end="144" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Get Translate service"/>
+        <return type="object">
+          <type full="\Translate\Translator|null" namespace="\Translate" name="Translator|null"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="authenticate" start="152" end="152" abstract="true" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Authenticate user use credentials"/>
+        <param type="array" variable="$credentials"/>
+        <return type="object">
+          <type full="\Phalcon\Mvc\Model\Resultset\Simple" namespace="\Phalcon\Mvc\Model\Resultset" name="Simple"/>
+        </return>
+      </docblock>
+      <parameter name="credentials" byreference="false" type="array"/>
+    </method>
+    <method name="register" start="160" end="160" abstract="true" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Register new user from credentials"/>
+        <param type="array" variable="$credentials"/>
+        <return type="object">
+          <type full="\Phalcon\Mvc\Model\Resultset\Simple" namespace="\Phalcon\Mvc\Model\Resultset" name="Simple"/>
+        </return>
+      </docblock>
+      <parameter name="credentials" byreference="false" type="array"/>
+    </method>
+    <method name="restore" start="168" end="168" abstract="true" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Restore user access from credentials"/>
+        <param type="array" variable="$credentials"/>
+        <return type="object">
+          <type full="\Phalcon\Mvc\Model\Resultset\Simple" namespace="\Phalcon\Mvc\Model\Resultset" name="Simple"/>
+        </return>
+      </docblock>
+      <parameter name="credentials" byreference="false" type="array"/>
+    </method>
+    <method name="logout" start="176" end="176" abstract="true" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Logout user (clear tokens)"/>
+        <param type="array" variable="$credentials"/>
+        <return type="object">
+          <type full="\Phalcon\Mvc\Model\Resultset\Simple" namespace="\Phalcon\Mvc\Model\Resultset" name="Simple"/>
+        </return>
+      </docblock>
+      <parameter name="credentials" byreference="false" type="array"/>
+    </method>
+    <method name="getToken" start="183" end="183" abstract="true" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Get user access token from header or request"/>
+        <return description="$token" type="string"/>
+      </docblock>
+    </method>
+    <method name="setToken" start="193" end="193" abstract="true" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Set user access token"/>
+        <param description="Auth user ID" type="int" variable="$user_id"/>
+        <param description="Generated token" type="string" variable="$token"/>
+        <param description="Token date expiry" type="int" variable="$expire_date"/>
+        <return type="boolean"/>
+      </docblock>
+      <parameter name="user_id" byreference="false" type="{unknown}"/>
+      <parameter name="token" byreference="false" type="{unknown}"/>
+      <parameter name="expire_date" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="isAuthenticated" start="200" end="200" abstract="true" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="If user is authenticated?"/>
+        <return type="boolean"/>
+      </docblock>
+    </method>
+    <method name="hasRole" start="208" end="208" abstract="true" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="If user has role?"/>
+        <param type="int" variable="$role"/>
+        <return type="boolean"/>
+      </docblock>
+      <parameter name="role" byreference="false" type="{unknown}"/>
+    </method>
+  </parent>
+</class>

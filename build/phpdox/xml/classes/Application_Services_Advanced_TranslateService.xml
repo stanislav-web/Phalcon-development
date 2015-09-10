@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Application\Services\Advanced\TranslateService" namespace="Application\Services\Advanced" name="TranslateService" abstract="false" final="false" start="17" end="57">
+  <file path="/var/www/backend.local/Application/Services/Advanced" file="TranslateService.php" realpath="/var/www/backend.local/Application/Services/Advanced/TranslateService.php" size="1225" time="2015-07-22T21:33:28+00:00" unixtime="1437600808" sha1="a0e1c585ed849f0b7a7f76d6090d36e7396257fd" relative="Services/Advanced/TranslateService.php"/>
+  <docblock>
+    <description compact="Class TranslateService. Locale translate services"/>
+    <package value="Application\Services"/>
+    <subpackage value="Advanced"/>
+    <since value="PHP &gt;=5.6"/>
+    <version value="1.0"/>
+    <author value="Stanislav WEB | Lugansk &lt;stanisov@gmail.com&gt;"/>
+    <copyright value="Stanislav WEB"/>
+    <filesource value="/Application/Services/Adcanced/TranslateService.php"/>
+  </docblock>
+  <member name="defaultLanguage" visibility="protected" line="24">
+    <docblock>
+      <description compact="Default language"/>
+      <var description="$defaultLanguage;" type="string"/>
+    </docblock>
+  </member>
+  <member name="translate" visibility="protected" line="31">
+    <docblock>
+      <description compact="Translator"/>
+      <var description="$translate;" type="object">
+        <type full="\Translate\Translator" namespace="\Translate" name="Translator"/>
+      </var>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="39" end="43" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Set chased language"/>
+      <param type="string" variable="$definedLanguage"/>
+      <param type="string" variable="$defaultLanguage"/>
+    </docblock>
+    <parameter name="definedLanguage" byreference="false" type="{unknown}"/>
+    <parameter name="defaultLanguage" byreference="false" type="{unknown}"/>
+  </constructor>
+  <method name="path" start="50" end="56" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Define translate path"/>
+      <return type="object">
+        <type full="Application\Services\Advanced\null" namespace="Application\Services\Advanced" name="null"/>
+      </return>
+    </docblock>
+    <parameter name="path" byreference="false" type="{unknown}"/>
+  </method>
+</class>

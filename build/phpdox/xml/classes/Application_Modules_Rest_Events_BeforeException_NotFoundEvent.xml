@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Application\Modules\Rest\Events\BeforeException\NotFoundEvent" namespace="Application\Modules\Rest\Events\BeforeException" name="NotFoundEvent" abstract="false" final="false" start="19" end="35">
+  <file path="/var/www/backend.local/Application/Modules/Rest/Events/BeforeException" file="NotFoundEvent.php" realpath="/var/www/backend.local/Application/Modules/Rest/Events/BeforeException/NotFoundEvent.php" size="1045" time="2015-07-22T21:33:28+00:00" unixtime="1437600808" sha1="fe21bb751be21f69932f015bd9494f49a6806676" relative="Modules/Rest/Events/BeforeException/NotFoundEvent.php"/>
+  <docblock>
+    <description compact="NotFoundEvent Handles not-found controller/actions"/>
+    <package value="Application\Modules\Rest\Services"/>
+    <subpackage value="Events\BeforeException"/>
+    <since value="PHP &gt;=5.6"/>
+    <version value="1.0"/>
+    <author value="Stanislav WEB | Lugansk &lt;stanisov@gmail.com&gt;"/>
+    <copyright value="Stanislav WEB"/>
+    <filesource value="/Application/Modules/Rest/Events/BeforeException/BeforeException.php"/>
+  </docblock>
+  <method name="beforeException" start="29" end="34" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="This action track routes before execute any action in the application."/>
+      <param type="object" variable="$event">
+        <type full="\Phalcon\Events\Event" namespace="\Phalcon\Events" name="Event"/>
+      </param>
+      <param type="object" variable="$dispatcher">
+        <type full="\Phalcon\Mvc\Dispatcher" namespace="\Phalcon\Mvc" name="Dispatcher"/>
+      </param>
+      <param variable="$exception"/>
+      <throws type="object">
+        <type full="\Exception" namespace="" name="Exception"/>
+      </throws>
+    </docblock>
+    <parameter name="event" byreference="false" type="object">
+      <type full="Phalcon\Events\Event" namespace="Phalcon\Events" name="Event"/>
+    </parameter>
+    <parameter name="dispatcher" byreference="false" type="object">
+      <type full="Phalcon\Mvc\Dispatcher" namespace="Phalcon\Mvc" name="Dispatcher"/>
+    </parameter>
+    <parameter name="exception" byreference="false" type="{unknown}"/>
+  </method>
+</class>

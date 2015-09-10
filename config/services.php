@@ -93,6 +93,28 @@ $di->setShared('DbListener', function () {
     return new \Application\Services\Develop\MySQLDbListener();
 });
 
+// Define Image processor
+$di->set('ImageService', function ($image) use ($di) {
+
+    $images = $di->get('config')->images;
+
+    try {
+        $adapter = new \Application\Services\Advanced\ImageService(
+            new $images['adapter']($image), $images->config
+        );
+
+        return $adapter;
+    }
+    catch(\Exception $e) {
+
+        $t = $di->get('TranslateService')->assign('errors');
+
+        throw new \Application\Modules\Rest\Exceptions\UnsupportedContentException([
+            'UNSUPPORTED_MEDIA_CONTENT' =>  $t->translate('UNSUPPORTED_MEDIA_CONTENT')
+        ]);
+    }
+});
+
 // Define Profiler
 $di->setShared('ProfilerService', '\Application\Services\Develop\ProfilerService');
 
@@ -129,6 +151,17 @@ $di->setShared('tag', '\Application\Services\Advanced\HelpersService');
 // Define Opcode Cache Service
 $di->setShared('OpcodeCache', function () use ($di) {
     return new \Application\Services\Cache\OpCodeService($di->get('config'));
+});
+
+// Define console tasks loader
+$di->setShared('ConsoleTasks', function() {
+
+    $loader = new \Phalcon\Loader();
+    $loader->registerDirs([
+        APP_PATH.DIRECTORY_SEPARATOR.'Tasks'
+    ]);
+
+    return $loader;
 });
 
 // MAPPERS
@@ -174,8 +207,13 @@ $di->setShared('LogMapper', function() use ($di) {
 
     $config = $di->get('config')->database->toArray();
 
-    return new Application\Services\Mappers\LogMapper(
-        new \Phalcon\Db\Adapter\Pdo\Mysql($config), $di->get('dispatcher')
-    );
+    try {
+        return new Application\Services\Mappers\LogMapper(
+            new \Phalcon\Db\Adapter\Pdo\Mysql($config), $di->get('dispatcher')
+        );
+    }
+    catch(\PDOException $e) {
+        die(json_encode(['error' => 'Could not connect to server: '.$e->getMessage()]));
+    }
 
 });

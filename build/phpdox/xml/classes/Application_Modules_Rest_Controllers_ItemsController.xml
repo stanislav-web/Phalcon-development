@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Application\Modules\Rest\Controllers\ItemsController" namespace="Application\Modules\Rest\Controllers" name="ItemsController" abstract="false" final="false" start="14" end="52">
+  <file path="/var/www/backend.local/Application/Modules/Rest/Controllers" file="ItemsController.php" realpath="/var/www/backend.local/Application/Modules/Rest/Controllers/ItemsController.php" size="1274" time="2015-07-22T22:50:53+00:00" unixtime="1437605453" sha1="6f5fbfe3ce7bbdf23221a31346c58e2ce816fd1d" relative="Modules/Rest/Controllers/ItemsController.php"/>
+  <docblock>
+    <description compact="Class ItemsController"/>
+    <package value="Application\Modules\Rest"/>
+    <subpackage value="Controllers"/>
+    <since value="PHP &gt;=5.6"/>
+    <version value="1.0"/>
+    <author value="Stanislav WEB | Lugansk &lt;stanisov@gmail.com&gt;"/>
+    <filesource value="/Application/Modules/Rest/Controllers/ItemsController.php"/>
+  </docblock>
+  <extends full="Application\Modules\Rest\Controllers\ControllerBase" namespace="Application\Modules\Rest\Controllers" name="ControllerBase"/>
+  <member name="cache" visibility="protected" line="21">
+    <docblock>
+      <description compact="REST cache container"/>
+      <var description="$cache" type="object">
+        <type full="\Application\Modules\Rest\Services\RestCacheService" namespace="\Application\Modules\Rest\Services" name="RestCacheService"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="key" visibility="protected" line="28">
+    <docblock>
+      <description compact="Cache key"/>
+      <var description="$key" type="string"/>
+    </docblock>
+  </member>
+  <method name="initialize" start="33" end="38" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Initialize cache service"/>
+    </docblock>
+  </method>
+  <method name="getAction" start="43" end="51" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="GET Engines action"/>
+    </docblock>
+  </method>
+  <parent full="Application\Modules\Rest\Controllers\ControllerBase" namespace="Application\Modules\Rest\Controllers" name="ControllerBase">
+    <extends full="Phalcon\Mvc\Controller" namespace="Phalcon\Mvc" name="Controller" unresolved="true"/>
+    <member name="rest" visibility="protected" line="23">
+      <docblock>
+        <description compact="Rest service"/>
+        <var description="$rest" type="object">
+          <type full="\Application\Modules\Rest\Services\RestService" namespace="\Application\Modules\Rest\Services" name="RestService"/>
+        </var>
+      </docblock>
+    </member>
+    <member name="response" type="array" default="" visibility="protected" line="30">
+      <docblock>
+        <description compact="Response data (override)"/>
+        <var description="$response" type="array"/>
+      </docblock>
+    </member>
+    <method name="beforeExecuteRoute" start="35" end="39" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Event before routes execute"/>
+      </docblock>
+    </method>
+    <method name="afterExecuteRoute" start="46" end="50" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Send response collection put from controllers"/>
+        <return type="object">
+          <type full="\Phalcon\Http\ResponseInterface" namespace="\Phalcon\Http" name="ResponseInterface"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="afterDispatch" start="55" end="57" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Garbage clean"/>
+      </docblock>
+    </method>
+  </parent>
+</class>

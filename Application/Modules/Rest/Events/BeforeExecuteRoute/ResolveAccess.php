@@ -56,7 +56,7 @@ class ResolveAccess extends RestValidatorProvider {
             }
             else {
                 throw new UnauthorizedException([
-                    'AUTH_ACCESS_REQUIRED' => 'Only for authenticated users'
+                    'AUTH_ACCESS_REQUIRED' => $this->getTranslator()->translate('AUTH_ACCESS_REQUIRED')
                 ]);
             }
         }
@@ -78,7 +78,7 @@ class ResolveAccess extends RestValidatorProvider {
                     && in_array(trim($this->request->getURI(), '/'), $urls)) {
 
                     throw new ForbiddenException([
-                        'ACCESS_DENIED' => 'Here you access denied'
+                        'ACCESS_DENIED' => $this->getTranslator()->translate('ACCESS_DENIED')
                     ]);
                 }
             }

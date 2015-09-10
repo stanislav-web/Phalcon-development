@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Application\Modules\Rest\Validators\OutputValidator" namespace="Application\Modules\Rest\Validators" name="OutputValidator" abstract="false" final="false" start="18" end="279">
+  <file path="/var/www/backend.local/Application/Modules/Rest/Validators" file="OutputValidator.php" realpath="/var/www/backend.local/Application/Modules/Rest/Validators/OutputValidator.php" size="7156" time="2015-07-22T21:33:28+00:00" unixtime="1437600808" sha1="557a4e600e0df1eef9d68580c95f92001d326ef0" relative="Modules/Rest/Validators/OutputValidator.php"/>
+  <docblock>
+    <description compact="Class OutputValidator. Checking response"/>
+    <package value="Application\Modules\Rest"/>
+    <subpackage value="Validators"/>
+    <since value="PHP &gt;=5.6"/>
+    <version value="1.0"/>
+    <author value="Stanislav WEB | Lugansk &lt;stanisov@gmail.com&gt;"/>
+    <copyright value="Stanislav WEB"/>
+    <filesource value="/Application/Modules/Rest/Validators/OutputValidator.php"/>
+  </docblock>
+  <constant type="integer" name="CODE_OK" value="200"/>
+  <constant type="integer" name="CODE_CREATED" value="201"/>
+  <constant type="integer" name="CODE_NO_CONTENT" value="204"/>
+  <constant type="integer" name="CODE_NOT_MODIFIED" value="304"/>
+  <constant type="string" name="MESSAGE_OK" value="'0K'"/>
+  <constant type="string" name="MESSAGE_CREATED" value="'Created'"/>
+  <constant type="string" name="MESSAGE_NO_CONTENT" value="'No Content'"/>
+  <constant type="string" name="MESSAGE_NOT_MODIFIED" value="'Not Modified'"/>
+  <member name="config" visibility="private" line="34">
+    <docblock>
+      <description compact="Rest config container"/>
+      <var description="$config;" type="object">
+        <type full="\Phalcon\Config" namespace="\Phalcon" name="Config"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="response" visibility="private" line="41">
+    <docblock>
+      <description compact="Resultset response definition"/>
+      <var description="$response" type="object">
+        <type full="\Application\Aware\AbstractDTO|null" namespace="\Application\Aware" name="AbstractDTO|null"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="result" type="array" default="" visibility="private" line="48">
+    <docblock>
+      <description compact="Result definition"/>
+      <var description="$result" type="array"/>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="55" end="58" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Setup definition"/>
+      <param type="object" variable="$config">
+        <type full="\Phalcon\Config" namespace="\Phalcon" name="Config"/>
+      </param>
+    </docblock>
+    <parameter name="config" byreference="false" type="object">
+      <type full="Phalcon\Config" namespace="Phalcon" name="Config"/>
+    </parameter>
+  </constructor>
+  <method name="setConfig" start="66" end="71" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Set config container"/>
+      <param type="object" variable="$config">
+        <type full="\Phalcon\Config" namespace="\Phalcon" name="Config"/>
+      </param>
+      <return type="object">
+        <type full="Application\Modules\Rest\Validators\OutputValidator" namespace="Application\Modules\Rest\Validators" name="OutputValidator"/>
+      </return>
+    </docblock>
+    <parameter name="config" byreference="false" type="object">
+      <type full="Phalcon\Config" namespace="Phalcon" name="Config"/>
+    </parameter>
+  </method>
+  <method name="getConfig" start="78" end="81" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Get config container"/>
+      <param type="object">
+        <type full="\Phalcon\Config" namespace="\Phalcon" name="Config"/>
+      </param>
+    </docblock>
+  </method>
+  <method name="setResponse" start="89" end="94" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Set response set"/>
+      <param type="object" variable="$response">
+        <type full="\Application\Aware\AbstractDTO|null" namespace="\Application\Aware" name="AbstractDTO|null"/>
+      </param>
+      <return type="object">
+        <type full="Application\Modules\Rest\Validators\OutputValidator" namespace="Application\Modules\Rest\Validators" name="OutputValidator"/>
+      </return>
+    </docblock>
+    <parameter name="response" byreference="false" type="{unknown}" default="" constant="null"/>
+  </method>
+  <method name="getResponse" start="101" end="104" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Get hydrated response object"/>
+      <return type="object">
+        <type full="\Application\Aware\AbstractDTO" namespace="\Application\Aware" name="AbstractDTO"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="setResult" start="111" end="121" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Set result set"/>
+      <return type="object">
+        <type full="Application\Modules\Rest\Validators\OutputValidator" namespace="Application\Modules\Rest\Validators" name="OutputValidator"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="getResult" start="128" end="131" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Get result data"/>
+      <return type="array"/>
+    </docblock>
+  </method>
+  <method name="validate" start="139" end="142" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Validate response"/>
+      <param type="mixed" variable="$response"/>
+      <return type="object">
+        <type full="Application\Modules\Rest\Validators\OutputValidator" namespace="Application\Modules\Rest\Validators" name="OutputValidator"/>
+      </return>
+    </docblock>
+    <parameter name="response" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getRedirects" start="149" end="151" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Get redirects params"/>
+      <return type="array"/>
+    </docblock>
+  </method>
+  <method name="getRequest" start="158" end="160" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Get Request object"/>
+      <return type="object">
+        <type full="\Phalcon\Http\Request" namespace="\Phalcon\Http" name="Request"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="getResolver" start="167" end="207" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Resolve &amp; parse GET Response"/>
+      <param type="object" variable="$request">
+        <type full="\Phalcon\Http\Request" namespace="\Phalcon\Http" name="Request"/>
+      </param>
+    </docblock>
+  </method>
+  <method name="postResolver" start="214" end="249" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Resolve &amp; parse POST Response"/>
+      <param type="object" variable="$request">
+        <type full="\Phalcon\Http\Request" namespace="\Phalcon\Http" name="Request"/>
+      </param>
+    </docblock>
+    <parameter name="request" byreference="false" type="object">
+      <type full="Phalcon\Http\Request" namespace="Phalcon\Http" name="Request"/>
+    </parameter>
+    <inline>
+      <comment value="make replace url form config redirects" line="221"/>
+    </inline>
+  </method>
+  <method name="putResolver" start="254" end="268" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Resolve &amp; parse PUT Response"/>
+    </docblock>
+  </method>
+  <method name="deleteResolver" start="273" end="278" abstract="false" final="false" static="false" visibility="private">
+    <docblock>
+      <description compact="Resolve &amp; parse DELETE Response"/>
+    </docblock>
+  </method>
+</class>

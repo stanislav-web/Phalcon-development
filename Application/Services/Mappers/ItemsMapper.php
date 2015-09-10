@@ -40,11 +40,22 @@ class ItemsMapper extends AbstractModelCrud {
         $result = $this->getInstance()->find($credentials);
 
         if($result->count() > 0) {
-            return (new ItemsDTO())->setItems($result);
+
+            $transfer = new ItemsDTO();
+            $transfer->setItems($result);
+
+            if(empty($relations) === false) {
+                foreach($relations as $rel => $params) {
+
+                    $transfer->{'set' . ucfirst($rel)}($this->getRelated($params));
+                }
+            }
+
+            return $transfer;
         }
 
         throw new NotFoundException([
-            'RECORDS_NOT_FOUND'  =>  'The records not found'
+            'RECORDS_NOT_FOUND'  =>  $this->getTranslator()->translate('RECORDS_NOT_FOUND')
         ]);
     }
 }

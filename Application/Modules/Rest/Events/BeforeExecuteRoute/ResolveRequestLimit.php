@@ -60,7 +60,6 @@ class ResolveRequestLimit extends RestValidatorProvider  {
 
         $dispatcher = $this->getDispatcher();
 
-
         if(isset($rules->requests) === true) {
 
             $this->session  = $this->getDi()->getShared('session');
@@ -73,7 +72,7 @@ class ResolveRequestLimit extends RestValidatorProvider  {
 
                     // disallow access, because to many requests per  $rules->requests['time']
                     throw new ToManyRequestsException([
-                        'TO_MANY_REQUESTS'  =>  'Too many requests for this action'
+                        'TO_MANY_REQUESTS'  =>  $this->getTranslator()->translate('TO_MANY_REQUESTS')
                     ]);
                 }
                 else {

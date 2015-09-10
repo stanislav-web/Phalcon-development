@@ -31,7 +31,7 @@ tree: true
 # generate documentation for deprecated elements
 deprecated: true
 
-# generate list of tasks with @todo annotation
+# generate list of tasks with tоdo annotation
 todo: true
 
 # add link to ZIP archive of documentation
@@ -42,4 +42,4 @@ source:
     - Application
 
 # The ultimate directory (you can see the result, the relative path from the directory run apigen)
-destination: ./api
+destination: ./build/api

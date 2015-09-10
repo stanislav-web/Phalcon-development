@@ -44,7 +44,7 @@ class ItemsController extends ControllerBase {
 
         $this->response = $this->cache->exists($this->key) ? $this->cache->get($this->key)
             : $this->cache->set(
-                $this->getDI()->get('ItemsMapper')->read($this->rest->getParams()),
+                $this->getDI()->get('ItemsMapper')->read($this->rest->getParams(), $this->rest->getRelations()),
                 $this->key,
                 true
             );

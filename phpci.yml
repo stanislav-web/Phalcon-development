@@ -11,11 +11,6 @@ setup:
     composer:
         action: "install"
 test:
-    php_unit:
-        config:
-            - "phpunit.xml"
-        coverage: "logs/tests_coverage"
-        args:     "--stderr"
     php_mess_detector:
         allow_failures: true
     php_cpd:

@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Application\Services\Mappers\UserMapper" namespace="Application\Services\Mappers" name="UserMapper" abstract="false" final="false" start="26" end="283">
+  <file path="/var/www/backend.local/Application/Services/Mappers" file="UserMapper.php" realpath="/var/www/backend.local/Application/Services/Mappers/UserMapper.php" size="7383" time="2015-07-22T21:33:28+00:00" unixtime="1437600808" sha1="75fd2092a42313c9d32ce0eeafe7a91105606cf3" relative="Services/Mappers/UserMapper.php"/>
+  <docblock>
+    <description compact="Class UserMapper. Actions above users"/>
+    <package value="Application\Services"/>
+    <subpackage value="Mappers"/>
+    <since value="PHP &gt;=5.6"/>
+    <version value="1.0"/>
+    <author value="Stanislav WEB | Lugansk &lt;stanisov@gmail.com&gt;"/>
+    <copyright value="Stanislav WEB"/>
+    <filesource value="/Application/Services/Mappers/UserMapper.php"/>
+  </docblock>
+  <extends full="Application\Aware\AbstractModelCrud" namespace="Application\Aware" name="AbstractModelCrud"/>
+  <method name="getInstance" start="33" end="35" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Get instance of polymorphic object"/>
+      <return type="object">
+        <type full="Application\Models\Users" namespace="Application\Models" name="Users"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="getAccess" start="42" end="44" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Get access model"/>
+      <return type="object">
+        <type full="Application\Models\UserAccess" namespace="Application\Models" name="UserAccess"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="getRoles" start="52" end="55" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Get roles model"/>
+      <return type="object">
+        <type full="Application\Models\UserRoles" namespace="Application\Models" name="UserRoles"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="read" start="64" end="76" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Read records"/>
+      <param description="credentials" type="array" variable="$credentials"/>
+      <param description="related models" type="array" variable="$relations"/>
+      <return type="mixed"/>
+    </docblock>
+    <parameter name="credentials" byreference="false" type="array" default=""/>
+    <parameter name="relations" byreference="false" type="array" default=""/>
+  </method>
+  <method name="update" start="89" end="95" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Update user by credentials"/>
+      <param type="object" variable="$model">
+        <type full="\Phalcon\Mvc\Model" namespace="\Phalcon\Mvc" name="Model"/>
+      </param>
+      <param type="array" variable="$credentials"/>
+      <throws type="object">
+        <type full="\Application\Modules\Rest\Exceptions\BadRequestException" namespace="\Application\Modules\Rest\Exceptions" name="BadRequestException"/>
+      </throws>
+      <throws type="object">
+        <type full="\Application\Modules\Rest\Exceptions\ConflictException" namespace="\Application\Modules\Rest\Exceptions" name="ConflictException"/>
+      </throws>
+      <return type="boolean"/>
+    </docblock>
+    <parameter name="model" byreference="false" type="{unknown}" default="" constant="null">
+      <type full="Phalcon\Mvc\Model" namespace="Phalcon\Mvc" name="Model"/>
+    </parameter>
+    <parameter name="credentials" byreference="false" type="array"/>
+  </method>
+  <method name="setAccessToken" start="108" end="121" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Set user access token"/>
+      <param description="Auth user ID" type="int" variable="$user_id"/>
+      <param description="Generated token" type="string" variable="$token"/>
+      <param description="Token date expiry" type="string" variable="$expire_date"/>
+      <throws type="object">
+        <type full="\Application\Modules\Rest\Exceptions\BadRequestException" namespace="\Application\Modules\Rest\Exceptions" name="BadRequestException"/>
+      </throws>
+      <return description="$userAccess" type="object">
+        <type full="\Application\Models\UserAccess" namespace="\Application\Models" name="UserAccess"/>
+      </return>
+    </docblock>
+    <parameter name="user_id" byreference="false" type="{unknown}"/>
+    <parameter name="token" byreference="false" type="{unknown}"/>
+    <parameter name="expire_date" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="refresh" start="129" end="138" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Refresh coming user"/>
+      <param type="int" variable="$user_id"/>
+      <param type="array" variable="$data"/>
+    </docblock>
+    <parameter name="user_id" byreference="false" type="{unknown}"/>
+    <parameter name="data" byreference="false" type="array"/>
+  </method>
+  <method name="delete" start="146" end="152" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Delete user"/>
+      <param type="int" variable="$id"/>
+      <return type="boolean"/>
+    </docblock>
+    <parameter name="id" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="getOne" start="160" end="172" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Get user by credential"/>
+      <param description="key=&gt;value $credential" type="array"/>
+      <return description="$user" type="object">
+        <type full="\Application\Models\Users" namespace="\Application\Models" name="Users"/>
+      </return>
+    </docblock>
+    <parameter name="credential" byreference="false" type="array"/>
+  </method>
+  <method name="getList" start="180" end="183" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Get users by condition"/>
+      <param type="array" variable="$params"/>
+      <return type="object">
+        <type full="\Phalcon\Mvc\Model" namespace="\Phalcon\Mvc" name="Model"/>
+      </return>
+    </docblock>
+    <parameter name="params" byreference="false" type="array" default=""/>
+  </method>
+  <method name="getAccessTokenByCredential" start="192" end="200" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Get access token by credential"/>
+      <param description="key =&gt; value" type="array" variable="$credential"/>
+      <return type="object">
+        <type full="\Phalcon\Mvc\Model" namespace="\Phalcon\Mvc" name="Model"/>
+      </return>
+    </docblock>
+    <parameter name="credential" byreference="false" type="array"/>
+  </method>
+  <method name="deleteToken" start="209" end="214" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Delete access token by credential"/>
+      <param description="key =&gt; value" type="array" variable="$credential"/>
+      <return type="object">
+        <type full="\Phalcon\Mvc\Model" namespace="\Phalcon\Mvc" name="Model"/>
+      </return>
+    </docblock>
+    <parameter name="credential" byreference="false" type="array"/>
+  </method>
+  <method name="upload" start="222" end="282" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Upload user photos"/>
+      <param type="array" variable="$params"/>
+      <return type="array"/>
+    </docblock>
+    <parameter name="params" byreference="false" type="array"/>
+    <inline>
+      <comment value="setting up uploader rules" line="238"/>
+    </inline>
+  </method>
+  <parent full="Application\Aware\AbstractModelCrud" namespace="Application\Aware" name="AbstractModelCrud">
+    <implements full="Phalcon\DI\InjectionAwareInterface" namespace="Phalcon\DI" name="InjectionAwareInterface" unresolved="true"/>
+    <constant type="{unknown}" name="BASE_PARAMS" value="">
+      <docblock>
+        <description compact="Allowed additional params"/>
+        <const value="BASE_PARAMS"/>
+      </docblock>
+    </constant>
+    <method name="setDi" start="42" end="45" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Set dependency container"/>
+        <param type="object" variable="$di">
+          <type full="\Phalcon\DiInterface" namespace="\Phalcon" name="DiInterface"/>
+        </param>
+      </docblock>
+      <parameter name="di" byreference="false" type="object">
+        <type full="Phalcon\DiInterface" namespace="Phalcon" name="DiInterface"/>
+      </parameter>
+    </method>
+    <method name="getDi" start="52" end="55" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Get dependency container"/>
+        <return type="object">
+          <type full="\Phalcon\DiInterface" namespace="\Phalcon" name="DiInterface"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="getPrimaryKey" start="62" end="66" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Get model primary key"/>
+        <return type="array"/>
+      </docblock>
+    </method>
+    <method name="getAttributes" start="73" end="77" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Get model attributes"/>
+        <return type="array"/>
+      </docblock>
+    </method>
+    <method name="filterParams" start="86" end="88" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Filter request models params by allowed"/>
+        <param variable="$params"/>
+        <return type="array"/>
+      </docblock>
+      <parameter name="params" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="getTranslator" start="95" end="102" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Get Translate service"/>
+        <return type="object">
+          <type full="\Translate\Translator|null" namespace="\Translate" name="Translator|null"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="create" start="113" end="132" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Create record row"/>
+        <param type="array" variable="$data"/>
+        <throws type="object">
+          <type full="\Application\Modules\Rest\Exceptions\BadRequestException" namespace="\Application\Modules\Rest\Exceptions" name="BadRequestException"/>
+        </throws>
+        <throws type="object">
+          <type full="\Application\Modules\Rest\Exceptions\ConflictException" namespace="\Application\Modules\Rest\Exceptions" name="ConflictException"/>
+        </throws>
+        <return type="object">
+          <type full="\Phalcon\Mvc\Model" namespace="\Phalcon\Mvc" name="Model"/>
+        </return>
+      </docblock>
+      <parameter name="data" byreference="false" type="array"/>
+    </method>
+    <method name="update" start="142" end="156" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Edit record"/>
+        <param type="object" variable="$model">
+          <type full="\Phalcon\Mvc\Model" namespace="\Phalcon\Mvc" name="Model"/>
+        </param>
+        <param type="array" variable="$credentials"/>
+        <throws type="object">
+          <type full="Application\Modules\Rest\Exceptions\BadRequestException" namespace="Application\Modules\Rest\Exceptions" name="BadRequestException"/>
+        </throws>
+        <return type="boolean"/>
+      </docblock>
+      <parameter name="model" byreference="false" type="object">
+        <type full="Phalcon\Mvc\Model" namespace="Phalcon\Mvc" name="Model"/>
+      </parameter>
+      <parameter name="credentials" byreference="false" type="array"/>
+    </method>
+    <method name="setSqlDatetime" start="164" end="172" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Method to set the value of field datetime"/>
+        <param type="string" variable="$expire_date"/>
+        <return type="string"/>
+      </docblock>
+      <parameter name="expire_date" byreference="false" type="{unknown}"/>
+    </method>
+    <method name="getRelated" start="181" end="205" abstract="false" final="false" static="false" visibility="protected">
+      <docblock>
+        <description compact="Get related records"/>
+        <param type="array" variable="$params"/>
+        <return type="object">
+          <type full="\Phalcon\Mvc\Model\Resultset\Simple" namespace="\Phalcon\Mvc\Model\Resultset" name="Simple"/>
+        </return>
+        <throws type="object">
+          <type full="\Application\Modules\Rest\Exceptions\NotFoundException" namespace="\Application\Modules\Rest\Exceptions" name="NotFoundException"/>
+        </throws>
+      </docblock>
+      <parameter name="params" byreference="false" type="array"/>
+      <inline>
+        <comment value="get relation mapper" line="183"/>
+        <comment value="setup properties" line="190"/>
+      </inline>
+    </method>
+    <method name="getInstance" start="212" end="212" abstract="true" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Get instance of polymorphic Model"/>
+        <return type="object">
+          <type full="\Phalcon\Mvc\Model" namespace="\Phalcon\Mvc" name="Model"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="read" start="221" end="221" abstract="true" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Read records"/>
+        <param description="credentials" type="array" variable="$credentials"/>
+        <param description="related models" type="array" variable="$relations"/>
+        <return type="mixed"/>
+      </docblock>
+    </method>
+  </parent>
+</class>

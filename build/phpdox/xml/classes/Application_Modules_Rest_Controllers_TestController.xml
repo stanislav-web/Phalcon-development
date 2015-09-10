@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Application\Modules\Rest\Controllers\TestController" namespace="Application\Modules\Rest\Controllers" name="TestController" abstract="false" final="false" start="14" end="23">
+  <file path="/var/www/backend.local/Application/Modules/Rest/Controllers" file="TestController.php" realpath="/var/www/backend.local/Application/Modules/Rest/Controllers/TestController.php" size="492" time="2015-07-22T21:33:28+00:00" unixtime="1437600808" sha1="94252d871410d9f5982a69e4f224e38d7b48c37d" relative="Modules/Rest/Controllers/TestController.php"/>
+  <docblock>
+    <description compact="Class TestController"/>
+    <package value="Application\Modules\Rest"/>
+    <subpackage value="Controllers"/>
+    <since value="PHP &gt;=5.6"/>
+    <version value="1.0"/>
+    <author value="Stanislav WEB | Lugansk &lt;stanisov@gmail.com&gt;"/>
+    <filesource value="/Application/Modules/Rest/Controllers/TestController.php"/>
+  </docblock>
+  <extends full="Application\Modules\Rest\Controllers\ControllerBase" namespace="Application\Modules\Rest\Controllers" name="ControllerBase"/>
+  <method name="getAction" start="19" end="22" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Pages action"/>
+    </docblock>
+  </method>
+  <parent full="Application\Modules\Rest\Controllers\ControllerBase" namespace="Application\Modules\Rest\Controllers" name="ControllerBase">
+    <extends full="Phalcon\Mvc\Controller" namespace="Phalcon\Mvc" name="Controller" unresolved="true"/>
+    <member name="rest" visibility="protected" line="23">
+      <docblock>
+        <description compact="Rest service"/>
+        <var description="$rest" type="object">
+          <type full="\Application\Modules\Rest\Services\RestService" namespace="\Application\Modules\Rest\Services" name="RestService"/>
+        </var>
+      </docblock>
+    </member>
+    <member name="response" type="array" default="" visibility="protected" line="30">
+      <docblock>
+        <description compact="Response data (override)"/>
+        <var description="$response" type="array"/>
+      </docblock>
+    </member>
+    <method name="beforeExecuteRoute" start="35" end="39" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Event before routes execute"/>
+      </docblock>
+    </method>
+    <method name="afterExecuteRoute" start="46" end="50" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Send response collection put from controllers"/>
+        <return type="object">
+          <type full="\Phalcon\Http\ResponseInterface" namespace="\Phalcon\Http" name="ResponseInterface"/>
+        </return>
+      </docblock>
+    </method>
+    <method name="afterDispatch" start="55" end="57" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Garbage clean"/>
+      </docblock>
+    </method>
+  </parent>
+</class>

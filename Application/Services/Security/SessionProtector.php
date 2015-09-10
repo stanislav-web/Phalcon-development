@@ -2,6 +2,7 @@
 namespace Application\Services\Security;
 use Application\Modules\Rest\Exceptions\InternalServerErrorException;
 use Phalcon\Http\Request;
+use Phalcon\Session\Exception;
 
 /**
  * Class SessionProtector. Protect session form hijack stealer's
@@ -75,7 +76,7 @@ class SessionProtector {
 
             return $this->session;
         }
-        catch(InternalServerErrorException $e) {
+        catch(Exception $e) {
             throw new InternalServerErrorException();
         }
     }

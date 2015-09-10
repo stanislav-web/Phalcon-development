@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Application\Modules\Rest\Exceptions\LongRequestException" namespace="Application\Modules\Rest\Exceptions" name="LongRequestException" abstract="false" final="false" start="16" end="45">
+  <file path="/var/www/backend.local/Application/Modules/Rest/Exceptions" file="LongRequestException.php" realpath="/var/www/backend.local/Application/Modules/Rest/Exceptions/LongRequestException.php" size="1315" time="2015-07-22T21:33:28+00:00" unixtime="1437600808" sha1="993041762ef1c206d5c57b75bb57b915ba99bf74" relative="Modules/Rest/Exceptions/LongRequestException.php"/>
+  <docblock>
+    <description compact="Class LongRequestException. Represents an HTTP 414 error.">The Web server (running the Web site) thinks that the HTTP data stream sent by the client
+(e.g. your Web browser or our CheckUpDown robot) contains a URL that is simply too large i.e. too many bytes.</description>
+    <package value="Application\Modules\Rest"/>
+    <subpackage value="Exceptions"/>
+    <since value="PHP &gt;=5.6"/>
+    <version value="1.0"/>
+    <author value="Stanislav WEB | Lugansk &lt;stanisov@gmail.com&gt;"/>
+    <filesource value="/Application/Modules/Rest/Exceptions/LongRequestException.php"/>
+  </docblock>
+  <extends full="Application\Modules\Rest\Exceptions\BaseException" namespace="Application\Modules\Rest\Exceptions" name="BaseException"/>
+  <constant type="string" name="MESSAGE" value="'Request URI Too Long'">
+    <docblock>
+      <description/>
+      <const value="HTTP response message"/>
+    </docblock>
+  </constant>
+  <constant type="integer" name="CODE" value="414">
+    <docblock>
+      <description/>
+      <const value="HTTP response code"/>
+    </docblock>
+  </constant>
+  <constructor name="__construct" start="35" end="44" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Constructor"/>
+      <param description="additional info" type="array" variable="$data"/>
+      <param description="If no message is given 'Request URI Too Long' will be the message" type="string" variable="$message"/>
+      <param description="Status code, defaults to 414" type="int" variable="$code"/>
+    </docblock>
+    <parameter name="data" byreference="false" type="array" default=""/>
+    <parameter name="message" byreference="false" type="{unknown}" default="" constant="null"/>
+    <parameter name="code" byreference="false" type="{unknown}" default="" constant="null"/>
+  </constructor>
+  <parent full="Application\Modules\Rest\Exceptions\BaseException" namespace="Application\Modules\Rest\Exceptions" name="BaseException">
+    <extends full="Exception" namespace="" name="Exception"/>
+    <constructor name="__construct" start="23" end="30" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Constructor"/>
+        <param description="If no message is given default from child" type="string" variable="$message"/>
+        <param description="Status code, default from child" type="int" variable="$code"/>
+        <param description="Additional data to be represent by exception throw" type="array" variable="$data"/>
+      </docblock>
+      <parameter name="message" byreference="false" type="{unknown}" default="" constant="null"/>
+      <parameter name="code" byreference="false" type="{unknown}" default="" constant="null"/>
+      <parameter name="data" byreference="false" type="array"/>
+    </constructor>
+  </parent>
+  <parent full="Exception" namespace="" name="Exception">
+    <member name="message" static="false" visibility="protected">
+    <default>null</default>
+    <docblock>
+      <description compact="The exception message"/>
+      <var type="string"/>
+    </docblock>
+  </member>
+    <member name="code" static="false" visibility="protected">
+    <default>null</default>
+    <docblock>
+      <description compact="The exception code"/>
+      <var type="int"/>
+    </docblock>
+  </member>
+    <member name="file" static="false" visibility="protected">
+    <default>null</default>
+    <docblock>
+      <description compact="The filename where the exception was created"/>
+      <var type="string"/>
+    </docblock>
+  </member>
+    <member name="line" static="false" visibility="protected">
+    <default>null</default>
+    <docblock>
+      <description compact="The line where the exception was created"/>
+      <var type="int"/>
+    </docblock>
+  </member>
+    <constructor name="__construct" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="Construct the exception"/>
+      <return type="void"/>
+    </docblock>
+    <parameter name="message" optional="true" byreference="false" type="string"/>
+    <parameter name="code" optional="true" byreference="false" type="int"/>
+    <parameter name="previous" optional="true" byreference="false" type="object" class="Exception"/>
+  </constructor>
+    <method name="getMessage" abstract="false" static="false" visibility="public" final="true">
+    <docblock>
+      <description compact="Gets the Exception message"/>
+      <return type="string"/>
+    </docblock>
+  </method>
+    <method name="getPrevious" abstract="false" static="false" visibility="public" final="true">
+    <docblock>
+      <description compact="Returns previous Exception"/>
+      <return type="Exception"/>
+    </docblock>
+  </method>
+    <method name="getCode" abstract="false" static="false" visibility="public" final="true">
+    <docblock>
+      <description compact="Gets the Exception code"/>
+      <return type="mixed"/>
+    </docblock>
+  </method>
+    <method name="getFile" abstract="false" static="false" visibility="public" final="true">
+    <docblock>
+      <description compact="Gets the file in which the exception occurred"/>
+      <return type="string"/>
+    </docblock>
+  </method>
+    <method name="getLine" abstract="false" static="false" visibility="public" final="true">
+    <docblock>
+      <description compact="Gets the line in which the exception occurred"/>
+      <return type="int"/>
+    </docblock>
+  </method>
+    <method name="getTrace" abstract="false" static="false" visibility="public" final="true">
+    <docblock>
+      <description compact="Gets the stack trace"/>
+      <return type="array"/>
+    </docblock>
+  </method>
+    <method name="getTraceAsString" abstract="false" static="false" visibility="public" final="true">
+    <docblock>
+      <description compact="Gets the stack trace as a string"/>
+      <return type="string"/>
+    </docblock>
+  </method>
+    <method name="__toString" abstract="false" static="false" visibility="public" final="false">
+    <docblock>
+      <description compact="String representation of the exception"/>
+      <return type="string"/>
+    </docblock>
+  </method>
+  </parent>
+</class>

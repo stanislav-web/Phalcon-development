@@ -9,11 +9,11 @@ use Application\Modules\Rest\DTO\UserDTO;
 use Application\Modules\Rest\Exceptions\BadRequestException;
 use Application\Modules\Rest\Exceptions\InternalServerErrorException;
 use Application\Modules\Rest\Exceptions\NotFoundException;
-use Uploader\Uploader as FileUploader;
-
 
 /**
  * Class UserMapper. Actions above users
+ *
+ * @TODO Need to be refactored
  *
  * @package Application\Services
  * @subpackage Mappers
@@ -43,15 +43,37 @@ class UserMapper extends AbstractModelCrud {
         return new UserAccess();
     }
 
-
     /**
      * Get roles model
      *
      * @return UserRoles
      */
     public function getRoles() {
-
         return new UserRoles();
+    }
+
+    /**
+     * Get File mapper
+     *
+     * @return \Application\Services\Mappers\FileMapper
+     */
+    protected function getFileMapper() {
+
+        if($this->getDi()->has('FileMapper') === true) {
+            return $this->getDi()->get('FileMapper');
+        }
+
+        return null;
+    }
+
+    /**
+     * Get ImageService
+     *
+     * @param string imagepath
+     * @return \Application\Services\Advanced\ImageService
+     */
+    public function getImageService($imagepath) {
+        return $this->getDI()->get('ImageService', [$imagepath]);
     }
 
     /**
@@ -71,7 +93,7 @@ class UserMapper extends AbstractModelCrud {
         }
 
         throw new NotFoundException([
-            'RECORDS_NOT_FOUND'  =>  'The records not found'
+            'RECORDS_NOT_FOUND'  =>  $this->getTranslator()->translate('RECORDS_NOT_FOUND')
         ]);
     }
 
@@ -221,63 +243,51 @@ class UserMapper extends AbstractModelCrud {
      */
     public function upload(array $params) {
 
-        $primary = $params[$this->getPrimaryKey()];
+        // get user id
+        $userId = (isset($params[$this->getPrimaryKey()])) ? $params[$this->getPrimaryKey()] : null;
 
-        if(isset($primary) === false) {
+        if(isset($userId) === false) {
             throw new BadRequestException([
-                'PRIMARY_KEY_NOT_EXIST' => 'Do not set a primary key'
+                'USER_KEY_IS_NOT_EXIST'  =>  $this->getTranslator()->translate('USER_KEY_IS_NOT_EXIST')
             ]);
         }
 
-        $directory = strtr($this->getDi()->getConfig()->api->userDir, [':id' => $primary]);
+        // configure uploaded file params & upload file
+        $uploader = $this->getFileMapper()->configure('profile', $userId)->upload();
+        $file = $this->resolveFilePaths($uploader);
+        // update user picture
+        $model = $this->getInstance();
+        $isUpdated = $model->getReadConnection()->update($model->getSource(), ['photo'], [
+            json_encode(['original' => $file['path'], 'small' => $file['small']['path']])
+        ], $this->getPrimaryKey()." = ".(int)$userId);
 
-        if(file_exists(DOCUMENT_ROOT.$directory) === false) {
-            mkdir(DOCUMENT_ROOT.$directory, 0777);
-        }
-
-        // setting up uploader rules
-        $uploader = new FileUploader();
-        $uploader->setRules([
-            'directory' =>  DOCUMENT_ROOT.$directory,
-            'minsize'   =>  1000,
-            'maxsize'   =>  1000000,
-            'mimes'     =>  [       // any allowed mime types
-                'image/gif',
-                'image/jpeg',
-                'image/png',
-            ],
-            'extensions'     =>  [  // any allowed extensions
-                'gif',
-                'jpeg',
-                'jpg',
-                'png',
-            ],
-            'sanitize' => true,
-            'hash'     => 'md5'
-        ]);
-
-        if($uploader->isValid() === true) {
-
-            $uploader->move();
-
-            $model = $this->getInstance();
-            $isUpdated = $model->getReadConnection()->update($model->getSource(), ['photo'], [
-                $directory.DIRECTORY_SEPARATOR.$uploader->getInfo()[0]['filename']
-            ], $this->getPrimaryKey()." = ".(int)$primary);
-
-            if($isUpdated === true) {
-                return (new UserDTO())->setNull();
-            }
-            else {
-                $uploader->truncate();
-                throw new InternalServerErrorException([
-                    'UPDATE_PROFILE_PHOTO_FAILED' => 'Can not update profile photo'
-                ]);
-            }
+        if($isUpdated === true) {
+            return (new UserDTO())->setFiles($file);
         }
         else {
             $uploader->truncate();
-            throw new BadRequestException($uploader->getErrors());
+            throw new InternalServerErrorException([
+                'UPDATE_PROFILE_PHOTO_FAILED' => $this->getTranslator()->translate('UPDATE_PROFILE_PHOTO_FAILED')
+            ]);
         }
+    }
+
+    /**
+     * Resolve uploaded file paths
+     *
+     * @param \Uploader\Uploader $uploader
+     * @throws \Application\Modules\Rest\Exceptions\BadRequestException
+     * @return array
+     */
+    private function resolveFilePaths(\Uploader\Uploader $uploader) {
+
+        // get uploaded file name
+        $file = $uploader->getInfo()[0];
+
+        // resize uploaded image
+        $file['small']  = $this->getImageService($file['path'])->resizeSmall();
+        $file['path']   = str_ireplace(DOCUMENT_ROOT, '',$file['path']);
+
+        return $file;
     }
 }

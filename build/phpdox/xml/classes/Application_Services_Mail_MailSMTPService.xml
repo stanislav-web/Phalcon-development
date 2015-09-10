@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Application\Services\Mail\MailSMTPService" namespace="Application\Services\Mail" name="MailSMTPService" abstract="false" final="false" start="19" end="121">
+  <file path="/var/www/backend.local/Application/Services/Mail" file="MailSMTPService.php" realpath="/var/www/backend.local/Application/Services/Mail/MailSMTPService.php" size="2744" time="2015-07-22T21:33:28+00:00" unixtime="1437600808" sha1="2b6c97ed1115e77289a69ee0112cd14ec4b3ecf3" relative="Services/Mail/MailSMTPService.php"/>
+  <docblock>
+    <description compact="Class MailSMTPService. SMTP Mailer service under the Swift"/>
+    <package value="Application\Services"/>
+    <subpackage value="Mail"/>
+    <since value="PHP &gt;=5.6"/>
+    <version value="1.0"/>
+    <author value="Stanislav WEB | Lugansk &lt;stanisov@gmail.com&gt;"/>
+    <copyright value="Stanislav WEB"/>
+    <filesource value="/Application/Services/Mail/MailSMTPService.php"/>
+  </docblock>
+  <implements full="Phalcon\DI\InjectionAwareInterface" namespace="Phalcon\DI" name="InjectionAwareInterface" unresolved="true"/>
+  <member name="di" visibility="protected" line="26">
+    <docblock>
+      <description compact="Dependency injection container"/>
+      <var description="$di;" type="object">
+        <type full="\Phalcon\DiInterface" namespace="\Phalcon" name="DiInterface"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="configInstance" visibility="protected" line="33">
+    <docblock>
+      <description compact="Dependency injection container"/>
+      <var description="$configInstance;" type="object">
+        <type full="\Phalcon\Mailer\Manager" namespace="\Phalcon\Mailer" name="Manager"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="mailer" visibility="protected" line="40">
+    <docblock>
+      <description compact="Dependency injection container"/>
+      <var description="$mailer;" type="object">
+        <type full="\Phalcon\Mailer\Manager" namespace="\Phalcon\Mailer" name="Manager"/>
+      </var>
+    </docblock>
+  </member>
+  <member name="view" visibility="protected" line="47">
+    <docblock>
+      <description compact="View service"/>
+      <var description="$view;" type="object">
+        <type full="\Phalcon\Mvc\View" namespace="\Phalcon\Mvc" name="View"/>
+      </var>
+    </docblock>
+  </member>
+  <method name="setDi" start="54" end="57" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Set dependency container"/>
+      <param type="object" variable="$di">
+        <type full="\Phalcon\DiInterface" namespace="\Phalcon" name="DiInterface"/>
+      </param>
+    </docblock>
+    <parameter name="di" byreference="false" type="object">
+      <type full="Phalcon\DiInterface" namespace="Phalcon" name="DiInterface"/>
+    </parameter>
+  </method>
+  <method name="getDi" start="64" end="67" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Get dependency container"/>
+      <return type="object">
+        <type full="\Phalcon\DiInterface" namespace="\Phalcon" name="DiInterface"/>
+      </return>
+    </docblock>
+  </method>
+  <constructor name="__construct" start="74" end="77" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Initialize mailer"/>
+      <param type="array" variable="$config"/>
+    </docblock>
+    <parameter name="config" byreference="false" type="array"/>
+  </constructor>
+  <method name="createMessageFromView" start="87" end="102" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Email html template. Overload parent"/>
+      <param variable="$template"/>
+      <param type="array" variable="$params"/>
+      <throws type="object">
+        <type full="\Application\Modules\Rest\Exceptions\InternalServerErrorException" namespace="\Application\Modules\Rest\Exceptions" name="InternalServerErrorException"/>
+      </throws>
+      <return type="object">
+        <type full="\Phalcon\Mailer\Message" namespace="\Phalcon\Mailer" name="Message"/>
+      </return>
+    </docblock>
+    <parameter name="template" byreference="false" type="{unknown}"/>
+    <parameter name="params" byreference="false" type="array" default=""/>
+    <inline>
+      <comment value="get available views directory" line="89"/>
+    </inline>
+  </method>
+  <method name="getSwift" start="109" end="111" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Get Swift Mailer instance"/>
+      <return type="object">
+        <type full="\Swift_Mailer" namespace="" name="Swift_Mailer"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="registerPlugin" start="118" end="120" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Register SWIFT plugins"/>
+      <param type="mixed" variable="$plugin"/>
+    </docblock>
+    <parameter name="plugin" byreference="false" type="{unknown}"/>
+  </method>
+</class>

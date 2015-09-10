@@ -155,6 +155,15 @@ class OpCodeService {
     }
 
     /**
+     * Truncate opcode cache data
+     *
+     * @return boolean
+     */
+    public function flush() {
+        return $this->getOpStorage()->flush();
+    }
+
+    /**
      * Return opcode cache data state
      *
      * @return boolean

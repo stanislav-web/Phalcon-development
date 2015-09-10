@@ -23,6 +23,12 @@ class UserDTO extends AbstractDTO
      */
     public $null = [];
 
+    /**
+     * Files collection
+     *
+     * @var array $files
+     */
+    public $files = [];
 
     /**
      * Users collection
@@ -55,6 +61,11 @@ class UserDTO extends AbstractDTO
     public function setUsers(\Phalcon\Mvc\Model\Resultset\Simple $users) {
 
         $this->users = $users->toArray();
+
+        foreach($this->users as &$user) {
+            $user['photo'] = (empty($user['photo']) === false) ? json_decode($user['photo'], true) : "";
+        }
+
         $this->users['total'] = $this->total($users);
         $this->users['limit'] = $this->limit($users);
         $this->users['offset'] = $this->offset();
@@ -65,10 +76,10 @@ class UserDTO extends AbstractDTO
     /**
      * Setup user access
      *
-     * @param \Application\Models\UserAccess $access
+     * @param \Phalcon\Mvc\ModelInterface $access
      * @return \Application\Modules\Rest\DTO\UserDTO
      */
-    public function setAccess($access) {
+    public function setAccess(\Phalcon\Mvc\ModelInterface $access) {
 
         $this->access = $access->toArray();
         $this->access['total'] = $this->total($access);
@@ -91,12 +102,24 @@ class UserDTO extends AbstractDTO
     }
 
     /**
-     * Setup roles
+     * Setup files
      *
-     * @param \Application\Models\UserRoles $roles
      * @return \Application\Modules\Rest\DTO\UserDTO
      */
-    public function setRoles(\Application\Models\UserRoles $roles) {
+    public function setFiles(array $files) {
+
+        $this->files[] = $files;
+
+        return $this;
+    }
+
+    /**
+     * Setup roles
+     *
+     * @param \Phalcon\Mvc\ModelInterface $roles
+     * @return \Application\Modules\Rest\DTO\UserDTO
+     */
+    public function setRoles(\Phalcon\Mvc\ModelInterface $roles) {
 
         $this->roles = $roles->toArray();
 

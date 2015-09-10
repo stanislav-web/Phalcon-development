@@ -141,7 +141,6 @@ class Users extends \Phalcon\Mvc\Model
 
     /**
      * Before every update of model
-     * @
      */
     public function beforeValidationOnUpdate() {
 
