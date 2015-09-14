@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Define variables
-export SET URL="http://api.phalcon.local/api/v1/items?limit=100"
-export SET LOGFILE="/var/www/phalcon.local/logs/ab.log"
+export SET URL="http://backend.local/api/v1/items?limit=100"
+export SET LOGFILE="/var/www/backend.local/logs/ab.log"
 
 # Start test
 
@@ -13,6 +13,6 @@ start() {
 # Request wishes
 read -p "Type please how much requests do you wish?: " REQUESTS
 read -p "How many users can perform simultaneous downloads?: " CONCURENCY
-read -p "Press [Enter] to start load testing" START
+read -p "Press [Enter] to start load testing: " START
 
 start $REQUESTS $CONCURENCY $URL $LOGFILE

@@ -2,6 +2,7 @@
 
 use \Application\Aware\CliAwareInterface;
 use Phalcon\Logger\Adapter\File as FileAdapter;
+use Phalcon\CLI\Task;
 use \Application\Helpers\SQL;
 
 /**
@@ -15,7 +16,7 @@ use \Application\Helpers\SQL;
  * @copyright Stanislav WEB
  * @filesource /Application/Tasks/BackupTask.php
 */
-class BackupTask extends \Phalcon\CLI\Task implements CliAwareInterface
+class BackupTask extends Task implements CliAwareInterface
 {
 
     /**
@@ -64,6 +65,7 @@ class BackupTask extends \Phalcon\CLI\Task implements CliAwareInterface
     public function setConfig(\Phalcon\Config $config)  {
 
         $this->config = $config['cli'][CURRENT_TASK];
+
 
         return $this;
     }
@@ -152,12 +154,12 @@ class BackupTask extends \Phalcon\CLI\Task implements CliAwareInterface
         exec($command, $output, $return_var);
 
         if(!$return_var) {
-            echo $this->styleHelper()->head("[" . date('Y.m.d H:i:s', time()) . "] `".$table.".sql` dump created\n");
+            echo $this->styleHelper()->head("[" . date('Y.m.d H:i:s', time()) . "] `".$table.".sql` dump created".PHP_EOL);
             $this->logger->log('Created dump of `'.$table.'`', \Phalcon\Logger::NOTICE);
         }
         else {
             $message = 'Create dump of `'.$table.'` rise an error: '.json_encode($output);
-            echo $this->styleHelper()->error("[" . date('Y.m.d H:i:s', time()) . "] ".$message."\n");
+            echo $this->styleHelper()->error("[" . date('Y.m.d H:i:s', time()) . "] ".$message.PHP_EOL);
             $this->logger->log($message, \Phalcon\Logger::CRITICAL);
         }
 
@@ -188,14 +190,14 @@ class BackupTask extends \Phalcon\CLI\Task implements CliAwareInterface
 
             if ($this->getDb()) {
 
-                echo $this->styleHelper()->head("[" . date('Y.m.d H:i:s', time()) . "] MySQL connected\n");
+                echo $this->styleHelper()->head("[" . date('Y.m.d H:i:s', time()) . "] MySQL connected".PHP_EOL);
 
                 if(file_exists($this->getConfig()->directory) == false) {
                     // create backup directory if not exist
                     mkdir($this->config->directory, 0777);
-                    echo $this->styleHelper()->head("[" . date('Y.m.d H:i:s', time()) . "] Backup directory created\n");
+                    echo $this->styleHelper()->head("[" . date('Y.m.d H:i:s', time()) . "] Backup directory created".PHP_EOL);
                 }
-                echo "----------------------\n";
+                echo "----------------------".PHP_EOL;
 
                 // get next step
                 $this->console->handle([
@@ -232,14 +234,14 @@ class BackupTask extends \Phalcon\CLI\Task implements CliAwareInterface
             }
 
             echo $this->styleHelper()->head(
-                "[" . date('Y.m.d H:i:s', time()) . "] " . $info['name'] . " " . $info['rows'] . " row(s) / " . $info['size'] . " Mb\n"
+                "[" . date('Y.m.d H:i:s', time()) . "] " . $info['name'] . " " . $info['rows'] . " row(s) / " . $info['size'] . " Mb".PHP_EOL
             );
         }
         // count all tables
         $this->counter = count($this->tables);
-        echo "----------------------\n";
+        echo "----------------------".PHP_EOL;
         echo $this->styleHelper()->head(
-            "[" . date('Y.m.d H:i:s', time()) . "] Prepare to dump ...\n"
+            "[" . date('Y.m.d H:i:s', time()) . "] Prepare to dump ...".PHP_EOL
         );
 
         sleep(2);
@@ -292,14 +294,14 @@ class BackupTask extends \Phalcon\CLI\Task implements CliAwareInterface
     }
 
     /**
-     * Finish action. Show query execution time with request response*
+     * Finish action. Show query execution time with request response
      */
     public function finishAction()
     {
         // fixed end queries time
         $time = explode(" ", microtime());
 
-        echo "----------------------\n";
+        echo "----------------------".PHP_EOL;
         echo $this->styleHelper()->head(
             sprintf("[" . date('Y.m.d H:i:s', time()) . "] Use memory: ".(memory_get_usage()/1024)." kb. Time elapsed: %f sec.\n",    (($time[1] + $time[0])-$this->time)));
     }
