@@ -1,6 +1,7 @@
 <?php
 namespace Application\Modules\Rest\Controllers;
-
+ini_set('display_errors', 'On');
+error_reporting(7);
 /**
  * Class ReceiverController
  *

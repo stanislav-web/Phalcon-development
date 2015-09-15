@@ -54,12 +54,3 @@ $di->set('RestService', function () use ($di) {
 
     return $restService;
 });
-
-// Define External grabber service
-$di->set('Octopussy', function () use ($di) {
-
-    $config = $di->get('config');
-    return new \Octopussy\Services\AppService($config->octopussy);
-});
-
-

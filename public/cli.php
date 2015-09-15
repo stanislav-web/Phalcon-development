@@ -10,7 +10,7 @@ use Phalcon\CLI\Console as Console;
 // Require definitions
 defined('DOCUMENT_ROOT') || define('DOCUMENT_ROOT', __DIR__.'/../');
 defined('APP_PATH') || define('APP_PATH', DOCUMENT_ROOT . 'Application');
-defined('APPLICATION_ENV') || define('APPLICATION_ENV','development');
+defined('APPLICATION_ENV') || define('APPLICATION_ENV','production');
 
 // Require composite libraries
 require_once DOCUMENT_ROOT . 'vendor/autoload.php';

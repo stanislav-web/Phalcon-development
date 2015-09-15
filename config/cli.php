@@ -167,3 +167,8 @@ $di->setShared('LogMapper', function() use ($di) {
     }
 
 });
+
+// Define External grabber service
+$di->set('Octopussy', function (\Phalcon\Config $config) {
+    return new \Octopussy\Services\AppService($config);
+});
