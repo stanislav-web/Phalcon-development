@@ -85,6 +85,13 @@ return [
             'mapper'   => 'SubscribeMapper'
         ]
     ],
+
+    'receiver'    =>  [
+        'post' => [
+            'methods'    => 'POST',
+        ]
+    ],
+
     'users'  =>  [
         'get'    =>  [
             'requests'  =>  [  // limit request per seconds

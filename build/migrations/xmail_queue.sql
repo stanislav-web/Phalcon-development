@@ -41,7 +41,7 @@ CREATE TABLE `xmail_queue` (
 
 LOCK TABLES `xmail_queue` WRITE;
 /*!40000 ALTER TABLE `xmail_queue` DISABLE KEYS */;
-INSERT INTO `xmail_queue` VALUES (84493,'MySQL','Native','GMail',0,'2015-08-10 22:42:15');
+INSERT INTO `xmail_queue` VALUES (84493,'MySQL','Native','GMail',0,'2015-08-10 22:42:15'),(9115,'MySQL','Native','GMail',0,'2015-08-13 19:24:57'),(24202,'MySQL','Native','GMail',0,'2015-08-13 20:45:55'),(1930,'MySQL','Native','GMail',0,'2015-08-13 20:47:55'),(72380,'MySQL','Native','GMail',0,'2015-08-13 20:48:17'),(52991,'MySQL','Native','GMail',0,'2015-08-13 20:54:43'),(37228,'MySQL','Native','GMail',0,'2015-08-15 23:44:53'),(19258,'MySQL','Native','GMail',0,'2015-08-16 15:13:55'),(1,'MySQL','Beanstalk','GMail',0,'2015-09-07 09:03:01');
 /*!40000 ALTER TABLE `xmail_queue` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -54,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-08-13  2:22:34
+-- Dump completed on 2015-09-15  1:47:10

@@ -217,9 +217,11 @@ class InputValidator {
             return $this;
         }
         else {
-            $t = $this->getTranslator()->assign('errors');
 
-            throw new InternalServerErrorException($t->translate('MAPPER_NOT_EXIST'), 500);
+            if(isset($rules->mapper)) {
+                $t = $this->getTranslator()->assign('errors');
+                throw new InternalServerErrorException($t->translate('MAPPER_NOT_EXIST'), 500);
+            }
         }
     }
 

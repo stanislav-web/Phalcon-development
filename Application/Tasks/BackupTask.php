@@ -2,9 +2,9 @@
 
 use \Application\Aware\CliAwareInterface;
 use Phalcon\Logger\Adapter\File as FileAdapter;
+use Phalcon\Script\Color;
 use Phalcon\CLI\Task;
 use \Application\Helpers\SQL;
-
 /**
  * Class BackupTask. Do the MySQL backup tables
  *
@@ -64,8 +64,7 @@ class BackupTask extends Task implements CliAwareInterface
      */
     public function setConfig(\Phalcon\Config $config)  {
 
-        $this->config = $config['cli'][CURRENT_TASK];
-
+        $this->config = $config->cli->{CURRENT_TASK};
 
         return $this;
     }
@@ -190,12 +189,12 @@ class BackupTask extends Task implements CliAwareInterface
 
             if ($this->getDb()) {
 
-                echo $this->styleHelper()->head("[" . date('Y.m.d H:i:s', time()) . "] MySQL connected".PHP_EOL);
+                echo $this->styleHelper()->colorize("[" . date('Y.m.d H:i:s', time()) . "] MySQL connected".PHP_EOL, Color::FG_GREEN, Color::AT_BOLD);
 
                 if(file_exists($this->getConfig()->directory) == false) {
                     // create backup directory if not exist
                     mkdir($this->config->directory, 0777);
-                    echo $this->styleHelper()->head("[" . date('Y.m.d H:i:s', time()) . "] Backup directory created".PHP_EOL);
+                    echo $this->styleHelper()->colorize("[" . date('Y.m.d H:i:s', time()) . "] Backup directory created".PHP_EOL, Color::FG_GREEN, Color::AT_BOLD);
                 }
                 echo "----------------------".PHP_EOL;
 
@@ -240,9 +239,9 @@ class BackupTask extends Task implements CliAwareInterface
         // count all tables
         $this->counter = count($this->tables);
         echo "----------------------".PHP_EOL;
-        echo $this->styleHelper()->head(
-            "[" . date('Y.m.d H:i:s', time()) . "] Prepare to dump ...".PHP_EOL
-        );
+        echo $this->styleHelper()->colorize(
+            "[" . date('Y.m.d H:i:s', time()) . "] Prepare to dump ...".PHP_EOL,
+        Color::FG_GREEN, Color::AT_BOLD);
 
         sleep(2);
 
@@ -302,8 +301,8 @@ class BackupTask extends Task implements CliAwareInterface
         $time = explode(" ", microtime());
 
         echo "----------------------".PHP_EOL;
-        echo $this->styleHelper()->head(
-            sprintf("[" . date('Y.m.d H:i:s', time()) . "] Use memory: ".(memory_get_usage()/1024)." kb. Time elapsed: %f sec.\n",    (($time[1] + $time[0])-$this->time)));
+        echo $this->styleHelper()->colorize(
+            sprintf("[" . date('Y.m.d H:i:s', time()) . "] Use memory: ".(memory_get_usage()/1024)." kb. Time elapsed: %f sec.\n",    (($time[1] + $time[0])-$this->time)), Color::FG_GREEN, Color::AT_BOLD);
     }
 
 }
