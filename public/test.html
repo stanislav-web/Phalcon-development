@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<button onclick="conn.send(navigator.userAgent)";>Send</button>
+<script>
+    var conn = new WebSocket('ws://127.0.0.1:9001');
+    conn.onopen = function(e) {
+        console.log("Connection established!");
+    };
+    conn.onmessage = function(e) {
+        console.log(e.data);
+    };
+</script>
+</body>
+</html>

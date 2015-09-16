@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "dd3291d199a61da2ae80002edf9b0502",
+    "hash": "f27797c13346fe60c98856bf29f0e3b1",
     "packages": [
         {
             "name": "cboden/ratchet",
@@ -592,17 +592,19 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/stanislav-web/Octopussy.git",
-                "reference": "7aa4ec7c25d0ce4b18efbcc83bd0931bcd9c0769"
+                "reference": "6ad41d9bbfa0f67e68e769c8f39ee242cd6c8ada"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stanislav-web/Octopussy/zipball/7aa4ec7c25d0ce4b18efbcc83bd0931bcd9c0769",
-                "reference": "7aa4ec7c25d0ce4b18efbcc83bd0931bcd9c0769",
+                "url": "https://api.github.com/repos/stanislav-web/Octopussy/zipball/6ad41d9bbfa0f67e68e769c8f39ee242cd6c8ada",
+                "reference": "6ad41d9bbfa0f67e68e769c8f39ee242cd6c8ada",
                 "shasum": ""
             },
             "require": {
                 "cboden/ratchet": "dev-master",
-                "php": ">=5.6.0"
+                "ext-mongo": "*",
+                "phalcon/devtools": ">=2.0.1",
+                "php": ">=5.5.0"
             },
             "suggest": {
                 "stanislav-web/phalcon-searcher": "Phalcon Database Searcher. This is the search service is designed to search multiple SQL tables. Convenient to use autocomplete, search documents, search the whole site.",
@@ -638,7 +640,7 @@
                 "site visitor grabber",
                 "users monitor"
             ],
-            "time": "2015-09-15 00:56:45"
+            "time": "2015-09-15 22:39:20"
         },
         {
             "name": "stanislav-web/phalcon-sms-factory",
@@ -1738,16 +1740,16 @@
         },
         {
             "name": "phpunit/php-token-stream",
-            "version": "1.4.6",
+            "version": "1.4.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-token-stream.git",
-                "reference": "3ab72c62e550370a6cd5dc873e1a04ab57562f5b"
+                "reference": "3144ae21711fb6cac0b1ab4cbe63b75ce3d4e8da"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/3ab72c62e550370a6cd5dc873e1a04ab57562f5b",
-                "reference": "3ab72c62e550370a6cd5dc873e1a04ab57562f5b",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/3144ae21711fb6cac0b1ab4cbe63b75ce3d4e8da",
+                "reference": "3144ae21711fb6cac0b1ab4cbe63b75ce3d4e8da",
                 "shasum": ""
             },
             "require": {
@@ -1783,7 +1785,7 @@
             "keywords": [
                 "tokenizer"
             ],
-            "time": "2015-08-16 08:51:00"
+            "time": "2015-09-15 10:49:45"
         },
         {
             "name": "phpunit/phpunit",
@@ -2655,14 +2657,14 @@
     "stability-flags": {
         "stanislav-web/phalcon-sms-factory": 20,
         "stanislav-web/phalcon-uploader": 20,
-        "phalcon/devtools": 20,
         "stanislav-web/octopussy": 20,
+        "phalcon/devtools": 20,
         "flow/jsonpath": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=5.6.0",
+        "php": ">=5.4.0",
         "ext-phalcon": ">=2.0",
         "ext-apcu": ">=4.0",
         "ext-mcrypt": "*"

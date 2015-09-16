@@ -20,12 +20,4 @@ class TestController extends ControllerBase {
 
         $this->rest->getUndefinedMethod();
     }
-
-    /**
-     * Test upload
-     */
-    public function postAction() {
-
-        var_dump($this->getDI()); exit;
-    }
 }

@@ -29,7 +29,7 @@
   "prefer-stable": true,
   "minimum-stability": "dev",
     "require": {
-        "php": ">=5.6.0",
+        "php": ">=5.4.0",
         "ext-phalcon": ">=2.0",
         "ext-apcu": ">=4.0",
         "ext-mcrypt" : "*",
@@ -37,10 +37,10 @@
         "stanislav-web/phalcon-translate": "1.*",
         "stanislav-web/phalcon-uploader": "dev-master",
         "swiftmailer/swiftmailer": "5.*",
+        "stanislav-web/octopussy" : "dev-master",
         "phalcon/incubator": "2.*",
         "stanislav-web/httpstatuses-json": "1.0-stable",
-        "phalcon/devtools": "dev-master",
-        "stanislav-web/octopussy": "dev-master"
+        "phalcon/devtools": "dev-master"
     },
     "require-dev": {
         "codeception/codeception" :"*",
