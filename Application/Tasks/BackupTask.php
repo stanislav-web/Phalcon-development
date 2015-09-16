@@ -128,7 +128,6 @@ class BackupTask extends Task implements CliAwareInterface
         return $this->getDI()->get('color');
     }
 
-
     /**
      * Backup table
      *
