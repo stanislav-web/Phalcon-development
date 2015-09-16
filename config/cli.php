@@ -105,7 +105,8 @@ $di->setShared('ConsoleTasks', function() {
 
     $loader = new \Phalcon\Loader();
     $loader->registerDirs([
-        APP_PATH.DIRECTORY_SEPARATOR.'Tasks'
+        APP_PATH.DIRECTORY_SEPARATOR.'Tasks',
+        DOCUMENT_ROOT.'vendor/stanislav-web/octopussy/src/Octopussy/System/Tasks'
     ]);
 
     return $loader;
@@ -166,9 +167,4 @@ $di->setShared('LogMapper', function() use ($di) {
         die(json_encode(['error' => 'Could not connect to server: '.$e->getMessage()]));
     }
 
-});
-
-// Define External grabber service
-$di->set('Octopussy', function (\Phalcon\Config $config) {
-    return new \Octopussy\Services\AppService($config);
 });

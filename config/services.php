@@ -153,17 +153,6 @@ $di->setShared('OpcodeCache', function () use ($di) {
     return new \Application\Services\Cache\OpCodeService($di->get('config'));
 });
 
-// Define console tasks loader
-$di->setShared('ConsoleTasks', function() {
-
-    $loader = new \Phalcon\Loader();
-    $loader->registerDirs([
-        APP_PATH.DIRECTORY_SEPARATOR.'Tasks'
-    ]);
-
-    return $loader;
-});
-
 // MAPPERS
 
 // Define category mapper

@@ -29,7 +29,7 @@
   "prefer-stable": true,
   "minimum-stability": "dev",
     "require": {
-        "php": ">=5.4.0",
+        "php": ">=5.5.0",
         "ext-phalcon": ">=2.0",
         "ext-apcu": ">=4.0",
         "ext-mcrypt" : "*",
@@ -40,7 +40,8 @@
         "stanislav-web/octopussy" : "dev-master",
         "phalcon/incubator": "2.*",
         "stanislav-web/httpstatuses-json": "1.0-stable",
-        "phalcon/devtools": "dev-master"
+        "phalcon/devtools": ">=2.0.1",
+        "donatj/phpuseragentparser": "dev-master"
     },
     "require-dev": {
         "codeception/codeception" :"*",

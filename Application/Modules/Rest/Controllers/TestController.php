@@ -14,18 +14,10 @@ namespace Application\Modules\Rest\Controllers;
 class TestController extends ControllerBase {
 
     /**
-     * Test undefined method 500
+     * Pages action
      */
     public function getAction() {
 
         $this->rest->getUndefinedMethod();
-    }
-
-    /**
-     * Test upload
-     */
-    public function postAction() {
-
-        var_dump($this->getDI()); exit;
     }
 }

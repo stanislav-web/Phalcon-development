@@ -7,7 +7,7 @@
 <body>
 <button onclick="conn.send('Хуй')";>Send</button>
 <script>
-    var conn = new WebSocket('ws://127.0.0.1:9001');
+    var conn = new WebSocket('ws://127.0.0.1:9001?page='+document.URL);
     conn.onopen = function(e) {
         console.log("Connection established!");
     };
