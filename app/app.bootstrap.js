@@ -60,8 +60,11 @@ var notify = null;
 
             $rootScope.location = $location;
 
-            // detect user step & write by socket
-            Socket.setVisitor($location.path());
+            $rootScope.$on("$locationChangeStart",function(event, next, current) {
+
+                // detect user step & write by socket
+                Socket.setVisitor($rootScope.location.path());
+            });
         }
     ])
 

@@ -35,6 +35,7 @@
                         setVisitor : function(route) {
 
                             if(connection === null) {
+                                // create connection instance
                                 connection = new WebSocket(CONFIG.SOCKET + '?page=' + route)
                             }
 
