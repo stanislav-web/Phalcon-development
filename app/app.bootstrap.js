@@ -11,6 +11,7 @@ var notify = null;
         'app.document',
         'app.directives',
         'app.session',
+        'app.socket',
         'app.authenticate',
         'app.common',
         'app.user',
@@ -30,8 +31,8 @@ var notify = null;
     }])
 
     // setup global scope variables
-    .run(['$rootScope', 'amMoment', '$notification', '$location', 'LanguageService', 'CategoriesService', 'CurrenciesService', 'Document',
-        function ($rootScope, amMoment, $notification, $location, LanguageService, CategoriesService, CurrenciesService, Document) {
+    .run(['$rootScope', 'amMoment', '$notification', '$location', 'LanguageService', 'CategoriesService', 'CurrenciesService', 'Document', 'Socket',
+        function ($rootScope, amMoment, $notification, $location, LanguageService, CategoriesService, CurrenciesService, Document, Socket) {
 
             //  load engine's categories
             CategoriesService.load(function(response) {
@@ -58,6 +59,9 @@ var notify = null;
             notify = $notification;
 
             $rootScope.location = $location;
+
+            // detect user step & write by socket
+            Socket.setVisitor($location.path());
         }
     ])
 

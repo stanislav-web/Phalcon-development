@@ -17,6 +17,7 @@ var CONFIG = {};
         DEFAULT_CURRENCY: 'UAH',
         ACCEPT_ENCODING: 'application/json; charset=utf-8',
         FORM_ENCODING: 'application/x-www-form-urlencoded; charset=utf-8',
+        SOCKET : 'ws://127.0.0.1:9001',
         LOCAL: {
             CUSTOMER_AUTH_MENU: '/assets/data/menu/customer-auth.json',
             CUSTOMER_MENU: '/assets/data/menu/customer.json'
@@ -52,7 +53,8 @@ var CONFIG = {};
             SIDEBAR:        '/app/modules/common/templates/directives/sidebar.tpl.html',
             BANNERS:        '/app/modules/common/templates/directives/banners.tpl.html',
             SOCIAL:         '/app/modules/common/templates/directives/social.tpl.html',
-            SUBSCRIBE:      '/app/modules/common/templates/directives/subscribe.tpl.html'
+            SUBSCRIBE:      '/app/modules/common/templates/directives/subscribe.tpl.html',
+            GRIDVIEW:       '/app/modules/catalogue/templates/directives/gridview.tpl.html'
         },
         LOCATIONS: {
             HOME: '/',
