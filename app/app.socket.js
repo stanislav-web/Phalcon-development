@@ -4,54 +4,75 @@
 
     angular.module('app.socket', []);
 
-        /**
-         * Is WebSockets support
-         *
-         * @type {boolean}
-         */
-        var isSupported = (("WebSocket" in window && window.WebSocket != undefined) ||
-                       ("MozWebSocket" in window)),
+            /**
+             * Is WebSockets support
+             *
+             * @type {boolean}
+             */
+            var isSupported = ("WebSocket" in window && window.WebSocket != undefined);
 
             /**
              * WebSockets connection
              *
              * @type {WebSocket}
              */
-            connection = null;
+            var socket = null;
+
+            /**
+             * Current page
+             *
+             * @type {string}
+             */
+            var page = null;
 
 
-        if(isSupported) {
+            if(isSupported) {
 
-            angular.module('app.socket')
-                .service('Socket', [function() {
+                angular.module('app.socket')
+                    .service('Socket', [function() {
 
-                    return {
+                        return {
 
-                        /**
-                         * Set visitor
-                         *
-                         * @param string route
-                         */
-                        setVisitor : function(route) {
+                            /**
+                             * Create socket connection instance
+                             *
+                             * @param string route initialize route
+                             */
+                            create : function(route) {
 
-                            if(connection === null) {
-                                // create connection instance
-                                connection = new WebSocket(CONFIG.SOCKET + '?page=' + route)
-                            }
+                                page = route;
 
-                            // open connection to socket
-                            connection.onopen = function(e) {
-                                (CONFIG.DEBBUG === true) ? debug('Connection established', CONFIG.SOCKET, route) : null;
-                            };
+                                if(!(socket instanceof WebSocket)) {
+                                    socket = new WebSocket(CONFIG.SOCKET)
 
-                            // close connection to socket
-                            connection.onclose = function(e) {
-                                (CONFIG.DEBBUG === true) ? debug('Connection close', CONFIG.SOCKET) : null;
-                            };
-                        },
-                    };
-                }
-             ]);
+                                    // open connection to socket
+                                    socket.onopen = function() {
+                                        socket.send(JSON.stringify({'page' : page}));
+                                        (CONFIG.DEBBUG === true) ? debug('Connection established', CONFIG.SOCKET) : null;
+                                    };
+
+                                    // socket message handler
+                                    socket.onmessage = function(event) {
+                                        (CONFIG.DEBBUG === true) ? debug('Send :', event.data) : null;
+                                    };
+
+                                    // close connection to socket
+                                    socket.onclose = function() {
+                                        (CONFIG.DEBBUG === true) ? debug('Connection close', CONFIG.SOCKET) : null;
+                                    };
+                                }
+                            },
+
+                            /**
+                             * Send message to server (current page)
+                             */
+                            message : function() {
+                                socket.send(JSON.stringify({'page' : page}));
+                            },
+                        };
+                    }
+                ]
+            );
         }
 
 })(angular);

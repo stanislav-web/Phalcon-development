@@ -62,8 +62,14 @@ var notify = null;
 
             $rootScope.$on("$locationChangeStart",function(event, next, current) {
 
+                (CONFIG.DEBBUG === true) ? debug('Current page:', next) : null;
+
                 // detect user step & write by socket
-                Socket.setVisitor($rootScope.location.path());
+                Socket.create($rootScope.location.path());
+
+                if(current != next) {
+                    Socket.message();
+                }
             });
         }
     ])
