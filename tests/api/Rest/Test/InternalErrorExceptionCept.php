@@ -10,5 +10,4 @@ $I->setHeader('Accept-Language', 'en-GB');
 
 $I->sendGET('/api/v1/test');
 $I->seeResponseCodeIs(500);
-$I->seeResponseIsJson();
 $I->seeResponseJsonMatchesJsonPath('$.error');

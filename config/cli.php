@@ -106,7 +106,7 @@ $di->setShared('ConsoleTasks', function() {
     $loader = new \Phalcon\Loader();
     $loader->registerDirs([
         APP_PATH.DIRECTORY_SEPARATOR.'Tasks',
-        DOCUMENT_ROOT.'vendor/stanislav-web/octopussy/src/Octopussy/System/Tasks'
+        DOCUMENT_ROOT.'vendor/stanislav-web/sonar/src/Sonar/System/Tasks'
     ]);
 
     return $loader;

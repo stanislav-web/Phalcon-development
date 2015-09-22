@@ -30,6 +30,7 @@ class MySQLConnectService extends AdapterGateway {
                 "username"      => $dbConfig['username'],
                 "password"      => $dbConfig['password'],
                 "dbname"        => $dbConfig['dbname'],
+                "port"          => $dbConfig['port'],
                 "persistent"    => $dbConfig['persistent'],
                 "options" => [
                     \PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES '".$dbConfig['charset']."'",

@@ -37,11 +37,10 @@
         "stanislav-web/phalcon-translate": "1.*",
         "stanislav-web/phalcon-uploader": "dev-master",
         "swiftmailer/swiftmailer": "5.*",
-        "stanislav-web/octopussy" : "dev-master",
+        "stanislav-web/sonar" : "dev-master",
         "phalcon/incubator": "2.*",
         "stanislav-web/httpstatuses-json": "1.0-stable",
-        "phalcon/devtools": ">=2.0.1",
-        "donatj/phpuseragentparser": "dev-master"
+        "phalcon/devtools": ">=2.0.1"
     },
     "require-dev": {
         "codeception/codeception" :"*",

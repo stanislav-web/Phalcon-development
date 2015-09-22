@@ -20,8 +20,7 @@ require_once DOCUMENT_ROOT . 'config/application.php';
 
 // Require cli services
 require_once DOCUMENT_ROOT . 'config/cli.php';
-error_reporting(7);
-ini_set('display_errors', 'On');
+
 // Register console tasks
 $di->get('ConsoleTasks')->register();
 
