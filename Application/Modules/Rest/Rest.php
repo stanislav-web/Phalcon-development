@@ -75,6 +75,7 @@ class Rest
 
         if((is_null($error = error_get_last()) === false)) {
             try {
+
                 (APPLICATION_ENV === 'development') ? var_dump($error) : '';
                 $di->get('LogMapper')
                     ->save($error['message'].' File: '.$error['file'].' Line:'.$error['line'], 1);

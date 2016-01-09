@@ -267,6 +267,7 @@ class RestSecurityService extends RestSecurityProvider {
 
             try {
                 $subject = sprintf($this->getTranslator()->translate('PASSWORD_RECOVERY_SUBJECT'), $engine->host);
+
                 $message = $this->getMailer()->createMessageFromView(strtr($this->getConfig()->notifyDir, [':engine' => $engine->code]).'restore_password_email', $params)
                 ->to($user->login, $user->name)
                 ->subject($subject)

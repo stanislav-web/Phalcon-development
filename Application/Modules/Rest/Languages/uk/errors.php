@@ -18,5 +18,6 @@ return [
     'UNSUPPORTED_MEDIA_CONTENT'     =>  'Непідтримуваний тип контенту',
     'UPLOAD_FILE_ERROR'             =>  'Немає повних даних для завантаження',
     'USER_KEY_IS_NOT_EXIST'         =>  'Ключ користувача не знайдений',
-    'UPDATE_PROFILE_PHOTO_FAILED'   =>  'Неможливо оновити фото профілю'
+    'UPDATE_PROFILE_PHOTO_FAILED'   =>  'Неможливо оновити фото профілю',
+    'IMAGE_ADAPTER_FAILED'          =>  'Трапилася помилка пов\'язана з адаптером для роботи із зображеннями',
 ];

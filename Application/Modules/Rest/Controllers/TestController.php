@@ -18,6 +18,7 @@ class TestController extends ControllerBase {
      */
     public function getAction() {
 
+        error_reporting(0);
         $this->rest->getUndefinedMethod();
     }
 }

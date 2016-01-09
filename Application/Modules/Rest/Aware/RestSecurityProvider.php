@@ -2,7 +2,6 @@
 namespace Application\Modules\Rest\Aware;
 
 use Phalcon\DI\InjectionAwareInterface;
-use Phalcon\Security\Random;
 
 /**
  * RestSecurityProvider. Rest API Security rules provider
@@ -123,11 +122,11 @@ abstract class RestSecurityProvider implements InjectionAwareInterface {
     /**
      * Generate random string
      *
-     * @uses \Phalcon\Security\Random
      * @return int
      */
     public function randomString() {
-        return (new Random())->number(self::RECOVERY_PASS_LENGTH);
+        $stringService = $this->getDi()->get('string');
+        return $stringService->random($stringService::RANDOM_NUMERIC, self::RECOVERY_PASS_LENGTH);
     }
 
     /**

@@ -18,5 +18,6 @@ return [
     'UNSUPPORTED_MEDIA_CONTENT'     =>  'Unsupported content type',
     'UPLOAD_FILE_ERROR'             =>  'No comprehensive data for download',
     'USER_KEY_IS_NOT_EXIST'         =>  'The user key not exist',
-    'UPDATE_PROFILE_PHOTO_FAILED'   =>  'Can not update profile photo'
+    'UPDATE_PROFILE_PHOTO_FAILED'   =>  'Can not update profile photo',
+    'IMAGE_ADAPTER_FAILED'          =>  'There was an error associated with the adapter to work with images',
 ];

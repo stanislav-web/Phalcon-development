@@ -9,6 +9,7 @@ use Application\Modules\Rest\DTO\UserDTO;
 use Application\Modules\Rest\Exceptions\BadRequestException;
 use Application\Modules\Rest\Exceptions\InternalServerErrorException;
 use Application\Modules\Rest\Exceptions\NotFoundException;
+use Application\Modules\Rest\Exceptions\UnprocessableEntityException;
 
 /**
  * Class UserMapper. Actions above users
@@ -276,7 +277,7 @@ class UserMapper extends AbstractModelCrud {
      * Resolve uploaded file paths
      *
      * @param \Uploader\Uploader $uploader
-     * @throws \Application\Modules\Rest\Exceptions\BadRequestException
+     * @throws \Application\Modules\Rest\Exceptions\UnprocessableEntityException
      * @return array
      */
     private function resolveFilePaths(\Uploader\Uploader $uploader) {
@@ -284,10 +285,20 @@ class UserMapper extends AbstractModelCrud {
         // get uploaded file name
         $file = $uploader->getInfo()[0];
 
-        // resize uploaded image
-        $file['small']  = $this->getImageService($file['path'])->resizeSmall();
-        $file['path']   = str_ireplace(DOCUMENT_ROOT, '',$file['path']);
+        try {
+            // resize uploaded image
+            $file['small']  = $this->getImageService($file['path'])->resizeSmall();
+            $file['path']   = str_ireplace(DOCUMENT_ROOT, '',$file['path']);
 
-        return $file;
+            return $file;
+        }
+        catch(\Exception $e) {
+
+            $uploader->truncate();
+            throw new UnprocessableEntityException([
+                'IMAGE_ADAPTER_FAILED' => $this->getTranslator()->translate('IMAGE_ADAPTER_FAILED'),
+                'error' => $e->getMessage()
+            ]);
+        }
     }
 }

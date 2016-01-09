@@ -31,6 +31,7 @@
         'id'        =>  $auth['user_id']
     ], [codecept_data_dir($filename)]
     );
+
     $I->seeResponseCodeIs(201);
     $I->seeHttpHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE');
     $I->seeHttpHeader('Access-Control-Allow-Origin', '*');

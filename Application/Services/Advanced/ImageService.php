@@ -15,6 +15,16 @@ namespace Application\Services\Advanced;
 class ImageService {
 
     /**
+     * @const Imagick adapter
+     */
+    const Imagick = 'Phalcon\Image\Adapter\Imagick';
+
+    /**
+     * @const Gd adpater
+     */
+    const GD = 'Phalcon\Image\Adapter\GD';
+
+    /**
      * Image library adapter
      *
      * @var \Phalcon\Image\AdapterInterface  $image
@@ -45,6 +55,8 @@ class ImageService {
      *
      * @param null $width
      * @param null $height
+     * @throws \ImagickException
+     * @throws \Exception
      *
      * @return bool|string
      */
@@ -54,15 +66,26 @@ class ImageService {
         $width = ($width === null) ? $this->config->resize['small'][0] : $width;
         $height = ($height === null) ? $this->config->resize['small'][1] : $height;
 
-        // resize image
-        $image = $this->image->resize($width, $height);
+        try {
+            // resize image
+            $image = $this->image->resize($width, $height);
 
-        // process image
-        $process = $this->process($image, $this->config->resize['small'][2]);
+            // process image
+            $process = $this->process($image, $this->config->resize['small'][2]);
 
-        // save image
-        return ($image->save($process->full, $this->config->resize['small'][3]) != false)
-            ? (array)$process : false;
+            // save image
+            return ($image->save($process->smallpath, $this->config->resize['small'][3]) != false)
+                ? (array)$process : false;
+        }
+        catch(\Exception $e) {
+            if(get_class($this->image) == self::Imagick) {
+                throw new \ImagickException($e->getMessage(), $e->getCode());
+            }
+            else {
+                throw new \Exception($e->getMessage(), $e->getCode());
+
+            }
+        }
     }
 
 
@@ -85,16 +108,8 @@ class ImageService {
         $process->directory     = dirname($image->getRealpath());
         $process->extension     = $spl->getExtension();
         $process->size          = $spl->getSize();
-            //$spl->getPath().DIRECTORY_SEPARATOR.$process->name.'.'.$process->extension;
+        $process->smallpath         = $spl->getPath().DIRECTORY_SEPARATOR.$process->name;
 
         return $process;
-    }
-
-    /**
-     * Get new image path
-     * @return string
-     */
-    public function getImagePath() {
-        return $this->imagePath;
     }
 }
