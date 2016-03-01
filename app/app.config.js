@@ -17,7 +17,10 @@ var CONFIG = {};
         DEFAULT_CURRENCY: 'UAH',
         ACCEPT_ENCODING: 'application/json; charset=utf-8',
         FORM_ENCODING: 'application/x-www-form-urlencoded; charset=utf-8',
-        SOCKET : 'ws://127.0.0.1:9001',
+        SOCKET : {
+            ENABLED : false,
+            SERVER : 'ws://127.0.0.1:9001'
+        },
         LOCAL: {
             CUSTOMER_AUTH_MENU: '/assets/data/menu/customer-auth.json',
             CUSTOMER_MENU: '/assets/data/menu/customer.json'

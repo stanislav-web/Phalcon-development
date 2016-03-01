@@ -64,11 +64,13 @@ var notify = null;
 
                 (CONFIG.DEBBUG === true) ? debug('Current page:', next) : null;
 
-                // detect user step & write by socket
-                Socket.create($rootScope.location.path());
+                if(CONFIG.SOCKET.ENABLED === true) {
+                    // detect user step & write by socket
+                    Socket.create($rootScope.location.path());
 
-                if(current != next) {
-                    Socket.message();
+                    if(current != next) {
+                        Socket.message();
+                    }
                 }
             });
         }

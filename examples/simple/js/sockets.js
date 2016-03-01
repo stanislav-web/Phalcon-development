@@ -23,6 +23,14 @@ var Socket = {
     },
 
     /**
+     * Url to connect
+     */
+    url : function() {
+        return this.config.protocol + this.config.host +':'+this.config.port+''+this.config.route;
+    },
+
+
+    /**
      * Create socket connect
      *
      * @param {string} page
@@ -30,39 +38,72 @@ var Socket = {
      */
     create : function() {
 
-        if(!this.isSupported)
-            throw Error('Websockets dooes not supported');
-
-        console.info('[CONFIG]', this.config);
+        if(!this.isSupported) {
+            this.notify('error', 'Websockets dooes not supported');
+        }
 
         /**
-         * @type {WebSocket}
+         * Connect identifier
+         *
+         * @param {string} url
+         * @param {...string} protocols
+         * @constructor
          */
-        var connect = new WebSocket(this.config.protocol + this.config.host +':'+this.config.port+''+this.config.route);
+        var connect = window['MozWebSocket'] ? new MozWebSocket(this.url()) : new WebSocket(this.url());
 
-        // socket connect event
-        connect.onopen = function connectionOpened() {
-            console.info('[SOCKET] Open connect');
+        /**
+         * Socket message open
+         *
+         * @param {Event} event
+         */
+        connect.onopen = function (event) {
+            if(connect.readyState === connect.OPEN) {
+                Socket.notify(event.type, 'Connected to '+ Socket.url());
+            }
         };
 
-        // socket message event
-        connect.onmessage = function messageReceived(message) {
-            console.info('[SOCKET] Send', message.data);
+        /**
+         * Socket message received event
+         *
+         * @param {String|ArrayBuffer|ArrayBufferView|Blob} message
+         */
+        connect.onmessage = function (message) {
+
+            Socket.notify('received', message.data);
         };
 
-        // socket close event
-        connect.onclose = function(event, reason) {
-            console.info('[SOCKET] Close');
+        /**
+         * Socket close event
+         *
+         * @param {Event} event
+         */
+        connect.onclose = function(event) {
+            Socket.notify(event.type, 'Socket closed');
         };
 
-        // socket error event
+        /**
+         * Socket close event
+         *
+         * @param {Event} event
+         */
         connect.onerror = function(event) {
-            console.info('[SOCKET] Error: '+event.data);
+            Socket.notify(event.type, 'Sorry, the web socket at '+ Socket.url() +' is unavailable');
         };
 
         this.connect = connect;
 
         return this;
+    },
+
+    /**
+     * Notifier
+     *
+     * @param type
+     * @param message
+     */
+    notify : function(type, message) {
+        document.getElementById(type).innerHTML = message;
+        console.info('[' + type.toUpperCase()+ '] ', message);
     },
 
     /**
@@ -90,8 +131,6 @@ var Socket = {
      * @param {string} url
      */
     send : function(url) {
-
-        console.info('[SEND]', url);
 
         var then = this;
         this.wait(this.connect, function() {

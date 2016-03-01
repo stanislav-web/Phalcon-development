@@ -9,7 +9,7 @@
              *
              * @type {boolean}
              */
-            var isSupported = ("WebSocket" in window && window.WebSocket != undefined);
+            var isSupported = (window.hasOwnProperty('WebSocket') && window.WebSocket != undefined);
 
             /**
              * WebSockets connection
@@ -43,12 +43,12 @@
                                 page = route;
 
                                 if(!(socket instanceof WebSocket)) {
-                                    socket = new WebSocket(CONFIG.SOCKET)
+                                    socket = new WebSocket(CONFIG.SOCKET.SERVER)
 
                                     // open connection to socket
                                     socket.onopen = function() {
                                         socket.send(JSON.stringify({'page' : page}));
-                                        (CONFIG.DEBBUG === true) ? debug('Connection established', CONFIG.SOCKET) : null;
+                                        (CONFIG.DEBBUG === true) ? debug('Connection established', CONFIG.SOCKET.SERVER) : null;
                                     };
 
                                     // socket message handler
@@ -58,7 +58,7 @@
 
                                     // close connection to socket
                                     socket.onclose = function() {
-                                        (CONFIG.DEBBUG === true) ? debug('Connection close', CONFIG.SOCKET) : null;
+                                        (CONFIG.DEBBUG === true) ? debug('Connection close', CONFIG.SOCKET.SERVER) : null;
                                     };
                                 }
                             },

@@ -5,7 +5,10 @@
     CONFIG = angular.extend({}, CONFIG, {
         LOGGER: false,
         DEBBUG: true,
-        SOCKET : 'ws://127.0.0.1:9001',
+        SOCKET : {
+            ENABLED : false,
+            SERVER : 'ws://127.0.0.1:9001',
+        }
     });
 
     /**
